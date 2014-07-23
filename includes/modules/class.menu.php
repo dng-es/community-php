@@ -18,8 +18,8 @@ class menu{
 							<li><a class="menu-item" href="?page=home">'.strTranslate("Home").'</a></li>
 							<li><a class="menu-item" href="?page=videos">'.strTranslate("Videos").'</a></li>
 							<li><a class="menu-item" href="?page=fotos">'.strTranslate("Photos").'</a></li>';
-			echo '			<li><a class="menu-item" href="?page=user-infotopdf-all">Comunicaciones impresas</a></li>';
-			echo '			<li class="dropdown"><a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false">Comunicaciones email <b class="caret"></b></a>
+			echo '			<li><a class="menu-item" href="?page=user-infotopdf-all">Impresos PDF</a></li>';
+			echo '			<li class="dropdown"><a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false">Envío emails <b class="caret"></b></a>
 					          <ul class="dropdown-menu">
 					            <li><a href="?page=user-templates">Ver todas las comunicaciones</a></li>
 					            <li><a href="?page=user-lists">Mis listas de envío</a></li>
@@ -49,8 +49,7 @@ class menu{
 			echo '<div class="row header-info">
 						<a href="?page=home"><img src="images/logo.png" id="header-info-logo" class="img-responsive" /></a>
 						<div id="user-info">
-						<a id="menu-toggle" href="#"><i class="fa fa-bars"></i></a>
-							<div class="pull-right" style="width:50%">';
+							<div class="pull-right" style="width:75%">';
 			echo '				<img class="comment-mini-img" src="images/usuarios/'.$user_foto.'" style="width:50px !important;height:55px !important;float:right;margin-left:10px" />';
 			echo '					<p><i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
 			if ($_SESSION['user_perfil']=='admin'){ echo '<a href="?page=admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}

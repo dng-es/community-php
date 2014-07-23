@@ -93,7 +93,7 @@ label{font-weight:normal; color:$color1}
 
 #wrapper {
 	transition: all 0.4s ease 0s;
-	width:80%;
+	width:100%;
 	margin: auto;
 	@media screen and (max-width: $break-medium) {
 	    width: 100%;
@@ -115,7 +115,10 @@ label{font-weight:normal; color:$color1}
 	background: -ms-linear-gradient(top,  #050202 0%,#777777 0%,#050000 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #050202 0%,#777777 0%,#050000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#050202', endColorstr='#050000',GradientType=0 ); /* IE6-8 */
-
+	text-align:center;
+	@media screen and (max-width: $break-medium) {
+	    height: auto;
+	}
 }
 
 #page-content-wrapper {
@@ -132,7 +135,7 @@ label{font-weight:normal; color:$color1}
 .sidebar-nav li {
 	line-height: 40px;
 	text-indent: 0px;
-	float:left;
+	display:inline-block;
 	margin: 0 15px 0 0;
 }
 
@@ -234,11 +237,18 @@ label{font-weight:normal; color:$color1}
 	position:relative;
 	height: 90px;
 	padding:20px 0 0 0;
+	@media screen and (max-width: $break-medium) {
+		padding: 0px;
+		height:auto;
+	}
 }
 #header-info-logo{
-		position:absolute; 
-		top:5px; 
-		left:15px;
+	position:absolute; 
+	top:5px; 
+	left:15px;
+	@media screen and (max-width: $break-medium) {
+		height: 50px;
+	}
 }
 .menu-item{
 	margin: 0 0 0 50px;
