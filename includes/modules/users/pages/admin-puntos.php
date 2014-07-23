@@ -1,0 +1,72 @@
+<?php
+define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
+define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
+$menu_admin=1;
+function ini_page_header ($ini_conf) {?>
+		<script type="text/javascript" src="<?php echo getAsset("users");?>js/admin-puntos.js"></script>
+<?php
+}
+function ini_page_body ($ini_conf){
+  //CONTROL NIVEL DE ACCESO
+  $session = new session();
+  $perfiles_autorizados = array("admin");
+  $session->AccessLevel($perfiles_autorizados);
+  	
+  ShowData();
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+// PAGE FUNCTIONS
+///////////////////////////////////////////////////////////////////////////////////
+function ShowData()
+{
+
+?>
+<div id="page-info">Asignación de puntos</div>
+<div class="row inset row-top">
+<div class="col-md-8">
+
+<p>Puedes asignar puntos a los usuarios, tambien puedes restarles puntos introducciendo un valor negativo. 
+Para sumar o restar puntos intruduce el usuario (no nick), el número de puntos y el motivo de la asignación.</p><br />
+
+<form id="formData" name="formData" method="post" action="" role="form">
+<table cellspacing="0" cellpadding="2px">
+    <tr><td valign="top"><label for="id_usuario">Usuario:</label></td>
+    <td>
+      <input type="text" name="id_usuario" id="id_usuario" class="form-control" />
+      <span id="id-usuario-alert" class="alert-message alert alert-danger"></span>
+    </td></tr>
+    <tr>
+	<td valign="top"><label for="num_huellas">Puntos:</label></td>
+    <td>
+      <input size="6" type="text" name="num_huellas" id="num_huellas" class="form-control" />
+      <span id="num-huellas-alert" class="alert-message alert alert-danger"></span>
+    </td></tr>
+    <tr><td valign="top"><label for="motivo_huellas">Motivo:</label></td>
+    <td>
+      <input type="text" name="motivo_huellas" id="motivo_huellas" class="form-control" />
+      <span id="motivo-huellas-alert" class="alert-message alert alert-danger"></span>
+    </td></tr>    
+  <tr><td colspan="2">
+    <br />
+    <button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary">Asignar puntos</button></td></tr>
+</table>
+</form>
+<div id="resultado-huellas"></div>
+</div>
+
+<div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">Gestión de usuarios</div>
+    <div class="panel-body">
+      <a href="?page=users">Ir al listado de usuarios</a><br />
+      <a href="?page=user&act=new">Nuevo usuario</a><br />
+      <a href="?page=cargas-users">Carga de usuarios</a>
+    </div>
+  </div>
+</div>
+
+</div>
+<?php 
+}
+?>

@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+
+.pageslist { margin: 0px 5px 3px 5px; vertical-align: middle; color: #F1FAF1; font-size: 12px; height: 20px; display: block;}
+.pageslist a:active { left:1px; position:relative; top:1px;}
+.pageslist a.selected, .pageslist span.selected, .pageslist a:active {
+	background-color:#CDD9E9;
+	background-position:left bottom;
+	background-repeat:repeat-x;
+	border-color: #666;
+	color: #666;
+}
+.pageslist .disabled {color:#666;background-color:#fff;}
+.pageslist .messages {border: 0px; background-color: #fff; color: #333; font-size: 11px}
+.pageslist a, .pageslist span {
+	background-color:#EBEBEB;
+	border:1px solid #666;
+	color:#666;
+	display:block;
+	float:left;
+	font-size:10px;
+	font-weight:bold;
+	margin:0 5px 5px 0;
+	padding:2px 5px 2px 5px;
+	text-decoration:none;
+}
+.selected-foro {
+	background-color:#686D00 !important;
+	background-position:left bottom;
+	background-repeat:repeat-x;
+	border-color: #666;
+	color: #fff !important;
+}
+.selected-galeria {
+	background-color:#54D2E4 !important;
+	background-position:left bottom;
+	background-repeat:repeat-x;
+	border-color: #666;
+	color: #000858 !important;
+}
+.selected-muro {
+	background-color:#FF7101 !important;
+	background-position:left bottom;
+	background-repeat:repeat-x;
+	border-color: #666;
+	color: #fff !important;
+}

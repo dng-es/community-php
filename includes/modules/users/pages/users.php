@@ -1,0 +1,77 @@
+<?php
+
+//CONTROL NIVEL DE ACCESO
+$perfiles_autorizados = array("admin");
+session::AccessLevel($perfiles_autorizados);
+
+//EXPORT USERS
+usersController::exportListAction();
+
+//EXPORT STATISTICS
+usersController::exportStatisticsAction();
+
+define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
+define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
+$menu_admin=1;
+function ini_page_header ($ini_conf) {?>
+
+<?php }
+function ini_page_body ($ini_conf){
+	session::getFlashMessage( 'actions_message' ); 
+	usersController::deleteAction();
+	$elements = usersController::getListAction(35);
+	?>
+
+	<div class="row inset row-top">
+		<div class="col-md-12">
+			<h2>Alta y modificación de usuarios</h2>
+
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">       
+						<li><a href="?page=user&act=new"><?php echo strTranslate("New_user");?></a></li>
+						<li><a href="?page=<?php echo $_REQUEST['page'].'&export=true';?>"><?php echo strTranslate("Export");?> CSV</a></li>
+						<li><a href="?page=<?php echo $_REQUEST['page'].'&export_s=true';?>">Exportar estadísticas CSV</a></li>
+					</ul>
+					<div class="pull-right">
+						<?php echo SearchForm($elements['reg'],"?page=users","searchForm","buscar usuario","Buscar","","navbar-form navbar-left");?>	
+					</div>
+				</div>
+			</nav>
+
+			<p><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strTranslate("Items");?></p>
+			<table class="table" >
+				<tr>
+				<th width="40px"></th>
+				<th><?php echo strTranslate("Username");?></th>
+				<th><?php echo strTranslate("Nick");?></th>
+				<th><?php echo strTranslate("Group_user");?></th>  
+				<th>Email</th>
+				<th>Conf.</th>
+				<th>Desh.</th>
+				</tr>	
+				<?php foreach($elements['items'] as $element):?>
+					<tr>
+					<td nowrap="nowrap">
+						<span class="fa fa-edit icon-table" title="<?php echo strTranslate("Edit");?>" onClick="location.href='?page=user&act=edit&id=<?php echo $element['username'];?>'">
+						</span>
+						
+						<span class="fa fa-ban icon-table" title="Eliminar"
+							onClick="Confirma('¿Seguro que desea deshabilitar al usuario?', '?page=users&pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['username'];?>')">
+						</span>
+					</td>					
+					<td><?php echo $element['username'];?></td>
+					<td><?php echo $element['nick'];?></td>
+					<td><?php echo $element['nombre_tienda'];?></td>
+					<td><?php echo $element['email'];?></td>
+					<td><span class="label<?php echo ($element['confirmed']==0 ? " label-danger" : " label-success");?>"><?php echo $element['confirmed'];?></span></td>
+					<td><span class="label<?php echo ($element['disabled']==1 ? " label-danger" : " label-success");?>"><?php echo $element['disabled'];?></span></td>
+					</tr>  
+				<?php endforeach; ?>
+			</table>
+			<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		</div>
+	</div>
+<?php 
+}
+?>
