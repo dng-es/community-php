@@ -45,14 +45,10 @@ function ini_page_body ($ini_conf){
 	foroController::votarAction();
 	
 	//OBTENCION DE LOS DATOS DEL FORO
-	$id_tema_parent = 1;
-	$canal = CANAL1;
-
 	if (isset($_REQUEST['id'])){$id_tema=$_REQUEST['id'];}
 	if (isset($_REQUEST['f'])){$id_tema=$_REQUEST['f'];}
-
 	if (isset($id_tema) and $id_tema!=""){
-		$find_reg=$id_tema;
+		$find_reg = $id_tema;
 		$filtro_tema = " AND id_tema=".$id_tema." AND activo=1 ";
 		
 		if ($_SESSION['user_perfil']!="admin" and $_SESSION['user_perfil']!="formador" and $_SESSION['user_perfil']!="foros") {
