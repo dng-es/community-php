@@ -10,7 +10,7 @@ class menu{
 			global $menu_sel;
 		
 			//SELECCION DEL FORO
-			$id_foro = ($_SESSION['user_canal']== CANAL2) ? 3 : 1;
+			$id_foro = ($_SESSION['user_canal']== CANAL2) ? 2 : 1;
 
 			echo '<!-- Sidebar -->
 					<div id="sidebar-wrapper">

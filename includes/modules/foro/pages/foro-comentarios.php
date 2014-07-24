@@ -82,7 +82,7 @@ function ini_page_body ($ini_conf){
 			$num_visitas = $foro->countReg("foro_visitas"," AND id_tema=".$id_tema." ");
 
 			echo '<h2>'.$tema[0]['nombre'].'</h2>
-				<p class="legend"><span class="fa fa-comment"></span> '.$total_reg_resp.' comentarios <span class="fa fa-eye"></span> '.$num_visitas.' visitas <i class="fa fa-mail-reply"></i> <a href="?page='.$volver.'" title="volver">volver atrás</a></p>
+				<p class="legend"><span class="fa fa-comment"></span> '.$total_reg_resp.' '.strTranslate("Comments").' <span class="fa fa-eye"></span> '.$num_visitas.' '.strTranslate("Visits").' <i class="fa fa-mail-reply"></i> <a href="?page='.$volver.'" title="'.strTranslate("Go_back").'">'.strTranslate("Go_back").'</a></p>
 				<p>'.$tema[0]['descripcion'].'</p>';
 
 			echo '<div class="panel-container-foro">';

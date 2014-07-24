@@ -23,7 +23,7 @@ function addForoComment($id_tema){
 		<input type="hidden" name="id_tema" id="id_tema" value="<?php echo $id_tema;?>"/>
 		<textarea cols="45" id="texto-comentario" name="texto-comentario" class="jtextareaComentar form-control"></textarea>
 		<div class="alert-message alert alert-danger" id="alertas-foro"></div>
-		<button class="btn btn-primary btn-block" type="submit" id="coment-submit" name="coment-submit">Envía</button>	
+		<button class="btn btn-primary btn-block" type="submit" id="coment-submit" name="coment-submit"><?php echo strTranslate("Send");?></button>	
 	</form>
 	<?php
 }
