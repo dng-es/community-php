@@ -64,6 +64,7 @@ function ini_page_body ($ini_conf){
 			<?php endforeach; ?>
 		</div>
 	</div>
+
 	<div class="row" style="border-top: 10px solid #f0f0f0;">
 		<div class="col-md-8" style="background-color: #e5e5e5">
 			<div style="margin:0 2%; width:96%">
@@ -95,56 +96,56 @@ function ini_page_body ($ini_conf){
 				<span class="fa fa-search"></span> ver todas las comunicaciones</a>
 			</div>
 		</div>
+
 		<div class="col-md-4" style="background-color: #c8d6ec; color: #1d7493">
 			<div style="text-align:center">
-			<h2><a href="?page=user-templates" style="color:#1d7493">Comunicaciones email</a></h2>
-			<p>Envía comunicaciones por email a tus contactos.</p><br />
-			<div class="row">
-			<div class="col-md-6">
-				<div class="inset" style="text-align:center;">
-					<a href="?page=user-templates&f=1" style="font-size:130px; margin-top:10px; line-height:100px; color: #1d7493">
-						<i class="fa fa-briefcase"></i>
-					</a>
-					<h4><a href="?page=user-templates&f=1" style="color: #1d7493">Emails de Productos</a></h4>
+				<h2><a href="?page=user-templates" style="color:#1d7493">Comunicaciones email</a></h2>
+				<p>Envía comunicaciones por email a tus contactos.</p><br />
+				<div class="row">
+					<div class="col-md-6">
+						<div class="inset" style="text-align:center;">
+							<a href="?page=user-templates&f=1" style="font-size:130px; margin-top:10px; line-height:100px; color: #1d7493">
+								<i class="fa fa-briefcase"></i>
+							</a>
+							<h4><a href="?page=user-templates&f=1" style="color: #1d7493">Emails de Productos</a></h4>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="inset" style="text-align:center">
+							<a href="?page=user-templates&f=2" style="font-size:130px; margin-top:10px; line-height:100px; color: #1d7493">
+								<i class="fa fa-flask"></i>
+							</a>
+							<h4><a href="?page=user-templates&f=2" style="color: #1d7493">Emails de Servicios</a></h4>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
-				<div class="inset" style="text-align:center">
-					<a href="?page=user-templates&f=2" style="font-size:130px; margin-top:10px; line-height:100px; color: #1d7493">
-						<i class="fa fa-flask"></i>
-					</a>
-					<h4><a href="?page=user-templates&f=2" style="color: #1d7493">Emails de Servicios</a></h4>
-				</div>
-			</div>
-			</div>
-			</div>
-		</div>
-		
+		</div>	
 	</div>
 
 	<div class="row" style="background-color:#c0c0c0;color:#555;border-top: 10px solid #f0f0f0">
 		<h2 style="margin-left:40px">Documentos de apoyo</h2>
 		<p style="margin-left:40px">Toda la cocumentación que necesitas de cada campaña. <a href="?page=user-info-all">Ver todos los documentos</a></p>
-		<div class="row inset">
-			<?php foreach($ficheros['items'] as $element): 
-			$img_sec = "file";
-			if ($element['tipo']=='Fichero'){$img_sec = "file";}
-			if ($element['tipo']=='SMS'){$img_sec = "mobile";}
-			if ($element['tipo']=='Video'){$img_sec = "video-camera";}
-			if ($element['tipo']=='Audio'){$img_sec = "volume-up";}
-			?>
-			<div class="col-md-3" style="text-align:center;background-color:#ccc;">
-				<div class="inset">
-					<span class="fa fa-<?php echo $img_sec;?>" style="font-size:80px; color:#999"></span>
-					<h3><a href="?page=user-info&id=<?php echo $element['id_info'];?>"><?php echo $element['titulo_info'];?></a></h3>
-					<p class="legend">Categoría: <b><?php echo $element['tipo'];?></b> - 
-					Campaña: <b><?php echo $element['campana'];?></b></p>
-				</div>
-			</div>
-			<?php endforeach; ?>
-		</div>
 	</div>
 
+	<div class="row">
+		<?php foreach($ficheros['items'] as $element): 
+		$img_sec = "file";
+		if ($element['tipo']=='Fichero'){$img_sec = "file";}
+		if ($element['tipo']=='SMS'){$img_sec = "mobile";}
+		if ($element['tipo']=='Video'){$img_sec = "video-camera";}
+		if ($element['tipo']=='Audio'){$img_sec = "volume-up";}
+		?>
+		<div class="col-md-3" style="text-align:center;background-color:#ccc;">
+			<div class="inset">
+				<span class="fa fa-<?php echo $img_sec;?>" style="font-size:80px; color:#999"></span>
+				<h3><a href="?page=user-info&id=<?php echo $element['id_info'];?>"><?php echo $element['titulo_info'];?></a></h3>
+				<p class="legend">Categoría: <b><?php echo $element['tipo'];?></b> - 
+				Campaña: <b><?php echo $element['campana'];?></b></p>
+			</div>
+		</div>
+		<?php endforeach; ?>
+	</div>
 <?php 
 }
 ?>
