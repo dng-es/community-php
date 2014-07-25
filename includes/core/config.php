@@ -21,6 +21,9 @@ pass = "AdminImagar"
 ;BBDD
 db = "comunidad"
 
+;Sql connector. Posibles valores: mysql, mysqli
+sql_connector = "mysql"
+
 ;DEFAULT LANGUAGE
 language = "es"
 
