@@ -1,13 +1,2 @@
-docs/audio/*.*
-docs/cargas/*.*
-docs/cursos/*.*
-docs/export/*.*
-docs/fotos/*.*
-docs/info/*.*
-docs/tareas/*.*
-docs/videos/*.*
-images/foro/*.*
-images/usuarios/*.*
-images/mailing/*.*
-images/banners/*.*
+
 /.project
