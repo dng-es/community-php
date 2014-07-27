@@ -21,14 +21,6 @@ Requisitos y dependencias
 - Emplea Bootstrap v3.0.3 para la maquetación
 
 
-Herramienta console
-================================
-- Descripción: Aplicación de consola para crear módulos. 
-- Uso: "php bin/console parameters". Opciones de parameters:
-	- createmodule: crea nuevo módulo con su estructura de directorios y ficheros básicos
-	- showmodules: muestra todos los modulos con su información
-	- findpage: encuentra una pagina. Muestra en que módulo se encuentra
-
 Librerias de terceros
 ================================
 - jQuery: (js/jquery.php) Javascript.
@@ -43,6 +35,15 @@ Librerias de terceros
 - SwiftMailer: (includes/core/Swift-5.1.0) php. Envío de emials
 - Zipfile: (includes/core/class.zipfile.php) php. Clase para generación de ficheros ZIP
 - resizeImage: (includes/core/class.resizeimage.php) php. Clase para generar miniaturas de imágenes
+
+Herramienta console
+================================
+- Descripción: Aplicación de consola para crear módulos. 
+- Uso: "php bin/console parameters". Opciones de parameters:
+	- createmodule: crea nuevo módulo con su estructura de directorios y ficheros básicos
+	- showmodules: muestra todos los modulos con su información
+	- findpage: encuentra una pagina. Muestra en que módulo se encuentra
+
 
 Idiomas
 ================================
