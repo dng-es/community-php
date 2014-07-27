@@ -60,7 +60,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = 'http://localhost/alain/images/mailing/';
+$baseUrl = 'http://localhost/community-php/images/mailing/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -80,7 +80,7 @@ Examples:
 ATTENTION: The trailing slash is required.
 */
 //$baseDir = resolveUrl($baseUrl);
-$baseDir = "/var/www/alain/images/mailing/";
+$baseDir = "/var/www/community-php/images/mailing/";
 
 /*
  * ### Advanced Settings

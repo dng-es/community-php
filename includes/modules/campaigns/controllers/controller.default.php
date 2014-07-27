@@ -1,6 +1,6 @@
 <?php
 class campaignsController{
-	public static function getListAction($reg = 0, $filter){
+	public static function getListAction($reg = 0, $filter = ""){
 		$campaigns = new campaigns();
 		$filtro = $filter." AND active=1 ORDER BY name_campaign ASC ";
 
@@ -21,20 +21,9 @@ class campaignsController{
 		if ($id_campaign!=0){
 			$campaigns = new campaigns();
 			$plantilla = $campaigns->getCampaigns(" AND active=1 AND id_campaign=".$id_campaign);	
-			$name_campaign = $plantilla[0]['name_campaign'];
-			$desc_campaign = $plantilla[0]['desc_campaign'];
-			$id_campaign_type = $plantilla[0]['id_campaign_type'];
-			$imagen_mini = $plantilla[0]['imagen_mini'];
-			$imagen_big = $plantilla[0]['imagen_big'];
-			$novedad = $plantilla[0]['novedad'];
+			return  $plantilla[0];
 		}
-		return array('id_campaign' => $id_campaign,
-					 'name_campaign' => $name_campaign,
-					 'desc_campaign' => $desc_campaign,
-					 'id_campaign_type' => $id_campaign_type,
-					 'imagen_mini' => $imagen_mini,
-					 'imagen_big' => $imagen_big,
-					 'novedad' => $novedad);		
+		
 	}	
 
 	public static function exportListAction(){

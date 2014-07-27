@@ -19,23 +19,17 @@ function ini_page_body ($ini_conf){
 	session::AccessLevel($perfiles_autorizados);
 
 	$accion=$_GET['act'];
+	$id ='';
 	if ($accion=='edit'){ $id=$_GET['id'];}
-	if ($accion=='edit' and $_GET['accion2']=='ok'){ UpdateData($id);}
-	if ($accion=='new' and $_GET['accion2']=='ok'){ $id=InsertData();$accion="edit";}  
+	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData($id);}
+	if ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}  
 
-	ShowData($id,$accion);
-}
 
-///////////////////////////////////////////////////////////////////////////////////
-// PAGE FUNCTIONS
-///////////////////////////////////////////////////////////////////////////////////
-function ShowData($id,$accion)
-{
   $info = new infotopdf();
   $campaigns = new campaigns();
-  if ($id!=''){  
-	$elements=$info->getInfo(" AND id_info=".$id);
-  }  
+ 
+	$elements=infotopdfController::getItem();;
+ 
 ?>
   <div id="page-info">Gestión de documentos</div>
   <div class="row inset row-top">
@@ -83,7 +77,7 @@ function ShowData($id,$accion)
 							$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
 							$nombre_sinext=substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
 							$nombre_miniatura = "mini".$nombre_sinext.".jpeg";
-						  	echo '<img style="width:100%;border:0" src="docs/info/'.$nombre_miniatura.'" alt="banner" />';
+						  	echo '<img style="width:100%;border:0;height:auto" src="docs/info/'.$nombre_miniatura.'" alt="banner" />';
 						}
 
 						?>

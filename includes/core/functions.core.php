@@ -1,8 +1,6 @@
 <?php
-//error_reporting(0);
-set_error_handler('errorHandler');
-
 include_once ("includes/core/functions.php");
+
 
 /**
 * Redirect to $url
@@ -160,56 +158,5 @@ function getTranlationStr($path,$str){
 		$str = isset($language_strings[$str]) ? $language_strings[$str] : $str;
 	}
 	return $str;
-}
-
-function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext)
-{
-	global $ini_conf;
-	if($ini_conf['debug_app']==1){
-		if (!(error_reporting() & $errno)) {
-	        // Este código de error no está incluido en error_reporting
-	        return;
-	    }
-
-	    switch ($errno) {
-	    case E_USER_ERROR:
-	    	echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-	        echo "<b>ERROR</b> [$errno] $errstr<br />\n";
-	        echo "  Error fatal en la línea $errline en el archivo $errfile";
-	        echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
-	        echo "Abortando...<br />\n";
-	        echo '</div>';
-	        exit(1);
-	        break;
-
-	    case E_USER_WARNING:
-	        echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-	        echo "<b>WARNING</b> [$errno] $errstr<br />\n";
-	        echo '</div>';
-	        break;
-
-	    case E_USER_NOTICE:
-	    	echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-	        echo "<b>NOTICE</b> [$errno] $errstr<br />\n";
-	        echo '</div>';
-	        break;
-
-	    default:
-			echo '<div style="font-family:Arial;width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-			echo "<h3 style='font-family:Arial;color:#000;font-size:16px;margin:0'>". print_r( $errfile, true)."</h3>
-			<h2 style='font-family:Arial;color:#000;font-size:20px;margin:0px !important'>Error (". print_r( $errno, true).") in line: ". print_r( $errline, true)."</h2>
-			<em>". print_r( $errstr, true).
-			"</em>
-			<h3 style='font-family:Arial;color:#000;font-size:16px'>Error Context:</h3>
-			<pre>".print_r( $errcontext, true)."</pre>
-			<h3 style='font-family:Arial;color:#000;font-size:16px'>Backtrace of errorHandler():</h3>
-			<pre>".print_r( debug_backtrace(), true)."</pre>
-			</div>";
-	        break;
-	    }
-
-	    /* No ejecutar el gestor de errores interno de PHP */
-	    return true;
-	}
 }
 ?>

@@ -64,7 +64,6 @@ function ini_page_body ($ini_conf){
 
 				<div class="form-group">
 					<label for="template_body">Contenido de la plantilla:</label>
-					<p>El contenido de la plantilla tiene que incluir la etiqueta [CONTENT].</p>
 					<textarea cols="40" rows="5" id="template_body" name="template_body"><?php echo $plantilla['template_body'];?></textarea>
 					<script type="text/javascript">
 						var editor=CKEDITOR.replace('template_body',{customConfig : 'config-page.js'});

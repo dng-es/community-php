@@ -44,18 +44,15 @@ class mailingTemplatesController{
 			$template_img = uploadFileToFolder($_FILES['nombre-fichero'], "images/mailing/");
 			$id_type = $_POST['template_tipo'];
 			$id_campaign = $_POST['template_campana'];
-			if (strpos($template_body,'[CONTENT]') == false) {
-				session::setFlashMessage( 'actions_message', "El cuerpo del mensaje no incluye la etiqueta [CONTENT].", "alert alert-danger");
+
+			if ($mailing->insertTemplate($template_name,$template_body, $template_img, $id_type, $id_campaign)) {
+				session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
+				$id_template = $mailing->SelectMaxReg("id_template","mailing_templates","");
 			}
 			else{
-				if ($mailing->insertTemplate($template_name,$template_body, $template_img, $id_type, $id_campaign)) {
-					session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
-					$id_template = $mailing->SelectMaxReg("id_template","mailing_templates","");
-				}
-				else{
-					session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
-				}
+				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
 			}
+
 			redirectURL("?page=admin-template&id=".$id_template);
 		}		
 	}
@@ -69,16 +66,12 @@ class mailingTemplatesController{
 			$template_img = uploadFileToFolder($_FILES['nombre-fichero'], "images/mailing/");
 			$id_type = $_POST['template_tipo'];
 			$id_campaign = $_POST['template_campana'];
-			if (strpos($template_body,'[CONTENT]') == false) {
-				session::setFlashMessage( 'actions_message', "El cuerpo del mensaje no incluye la etiqueta [CONTENT].", "alert alert-danger");
+
+			if ($mailing->updateTemplate($id_template, $template_name, $template_body, $template_img, $id_type, $id_campaign)) {
+				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
 			}
 			else{
-				if ($mailing->updateTemplate($id_template, $template_name, $template_body, $template_img, $id_type, $id_campaign)) {
-					session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
-				}
-				else{
-					session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
-				}
+				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
 			
 			redirectURL("?page=admin-template&id=".$id_template);

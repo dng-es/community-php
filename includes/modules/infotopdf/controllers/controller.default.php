@@ -2,6 +2,13 @@
 include_once(__DIR__ . "/../../mailing/templates/emailfooter.php");
 
 class infotopdfController{
+	public static function getItem(){
+		if (isset($_GET['id'])){
+			$info = new infotopdf();
+			return $elements=self::getItemAction($_GET['id']);
+		}
+	}
+
 	public static function getListAction($reg = 0, $filter = ""){
 		$info = new infotopdf();
 		$filtro = $filter." ORDER BY titulo_info";

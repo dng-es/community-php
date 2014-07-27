@@ -24,13 +24,14 @@ function ini_page_body ($ini_conf){
 	$session->AccessLevel($perfiles_autorizados);
 	
 	$videos = new videos();  
+	$find_reg = "";
 	$filtro = " AND estado=1 ORDER BY id_file DESC";
 	if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $videos->cambiarEstado($_REQUEST['id'],2);}
 
 	//SHOW PAGINATOR
 	$reg = 35;
 	if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
-	if (!$pag) { $inicio = 0; $pag = 1;}
+	if (!isset($pag)) { $inicio = 0; $pag = 1;}
 	else { $inicio = ($pag - 1) * $reg;}
 	$total_reg = $videos->countReg("galeria_videos",$filtro);
 
