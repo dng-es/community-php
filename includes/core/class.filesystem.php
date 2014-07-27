@@ -18,7 +18,7 @@
 		* @param 	string 			$dirname 			Folder to show folders
 		* @return 	boolean/array	returns false is $dirname is not a folder, otherwise returns an array of folder items
 		*/	
-		function showDirFolders($dirname) {
+		public static function showDirFolders($dirname) {
 			$i = 0;
 			$arrayFolders = array();
 		   	if (is_dir($dirname)) {    //Operate on dirs only

@@ -1,6 +1,13 @@
 <?php
 class usersController{
 
+	public static function getItemAction(){
+		if (isset($_GET['act']) and $_GET['act']=='edit'){ 
+			$users = new users();
+	  		return $users->getUsers(" AND username='".$_GET['id']."'");
+  		}
+	}
+
 	public static function getListAction($reg = 0){
 		$users = new users();
 		$filtro = "";
@@ -96,7 +103,13 @@ class usersController{
 			}
 			redirectURL("?page=user-perfil");	
 		}
-	}			
+	}	
+
+	public static function getUserStatistics(){
+		if (isset($_GET['act']) and $_GET['act']=='edit'){ 
+			return self::userStatistics($_GET['id']);
+		}
+	}		
 
 	/**
 	 * Estadisticas de uso de la comunidad de un usuario. Utilizada en ficha de usuario y exportar (exportStatisticsAction())

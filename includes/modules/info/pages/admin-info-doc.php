@@ -19,23 +19,16 @@ function ini_page_body ($ini_conf){
 	session::AccessLevel($perfiles_autorizados);
 
 	$accion=$_GET['act'];
-	if ($accion=='edit'){ $id=$_GET['id'];}
-	if ($accion=='edit' and $_GET['accion2']=='ok'){ UpdateData($id);}
-	if ($accion=='new' and $_GET['accion2']=='ok'){ $id=InsertData();$accion="edit";}  
+	$id = (isset($_GET['id']) ? $_GET['id'] : '');
+	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData($id);}
+	if ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}  
 
-	ShowData($id,$accion);
-}
-
-///////////////////////////////////////////////////////////////////////////////////
-// PAGE FUNCTIONS
-///////////////////////////////////////////////////////////////////////////////////
-function ShowData($id,$accion)
-{
-  $info = new info();
-  $campaigns = new campaigns();
-  if ($id!=''){  
-	$elements=$info->getInfo(" AND id_info=".$id);
-  }  
+	$info = new info();
+	$campaigns = new campaigns();
+	$elements = array();
+	if ($id!=''){  
+		$elements=$info->getInfo(" AND id_info=".$id);
+	}  
 ?>
   <div id="page-info">Gestión de documentos</div>
   <div class="row inset row-top">

@@ -35,7 +35,7 @@ function ini_page_body ($ini_conf){
 			Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		</div>
 		<div class="col-md-3 lateral">
-			<?php SearchForm($reg,"?page=videos","searchForm", strTranslate("Search_video_by_title"), strTranslate("Search"));?>
+			<?php SearchForm($elements['reg'],"?page=videos","searchForm", strTranslate("Search_video_by_title"), strTranslate("Search"));?>
 			<?php PanelSubirVideo(0);?>
 		</div>
 	</div>

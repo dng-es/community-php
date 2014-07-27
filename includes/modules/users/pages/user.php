@@ -24,15 +24,15 @@ function ini_page_body ($ini_conf){
   $accion1 = isset($_GET['act1']) ? $_GET['act1'] : "";
   $accion2 = isset($_GET['accion2']) ? $_GET['accion2'] : "";
   
-  if ($accion=='edit'){ $id=$_GET['id'];}
+  $id = (isset($_GET['id']) ? $_GET['id'] : "");
+  $elements = usersController::getItemAction();
+  $estadisticas = usersController::getUserStatistics();
+
   if ($accion=='edit' and $accion2=='ok' and $accion1!="del"){ UpdateData();}
   elseif ($accion1=="del"){ DeleteFoto();}
   elseif ($accion=='new' and $accion2=='ok'){ $id=InsertData();$accion="edit";}
 
-  $users = new users();
-  $elements=$users->getUsers(" AND username='".$id."'");
 
-  $estadisticas = usersController::userStatistics($id);
 
   //foto del usuario
   if ($elements[0]['foto']==""){$user_foto=PATH_USERS_FOTO."user.jpg";}
@@ -155,9 +155,11 @@ function ini_page_body ($ini_conf){
 					<br />
 					<p>Estadísticas de uso de la comunidad por el usuario <b><?php echo $id;?></b></p>
 					<table class="table">
-					<?php foreach(array_keys($estadisticas) as $final): ?>
-						<tr><td><label><?php echo $final;?></label></td><td><?php echo $estadisticas[$final];?></td></tr>
-					<?php endforeach;?>
+					<?php if (count($estadisticas)>0): ?>
+						<?php foreach(array_keys($estadisticas) as $final): ?>
+							<tr><td><label><?php echo $final;?></label></td><td><?php echo $estadisticas[$final];?></td></tr>
+						<?php endforeach;?>
+					<?php endif;?>
 					</table>
 				</div>	
 				</div>			

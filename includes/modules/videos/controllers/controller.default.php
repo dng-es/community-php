@@ -22,7 +22,7 @@ class videosController{
 		
 		$total_reg = $videos->countReg("galeria_videos v",$filter); 
 		return array('items' => $videos->getVideos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
-					'pag' 		=> $paginator_items['pagv'],
+					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);

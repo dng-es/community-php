@@ -39,8 +39,9 @@ function showVideoGaleria($file_galeria,$rating=true,$id_promocion=0){
 
 	//SOLO SI SE PERMITEN VOTACIONES SE MUESTRA EL LINK PARA VOTAR
 	global $page;
+	$num_pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1);
 	if ($page=='reto'){$page='reto&id='.$file_galeria['id_promocion'];}
-	else {$page=$page.'&pag='.$_REQUEST['pag'];}
+	else {$page=$page.'&pag='.$num_pag;}
 
 	$destination = "";
 	if (isset($_POST['find_reg']) and $_REQUEST['find_reg']!="") {$destination .= "&f=".$_POST['find_reg'];} 
@@ -49,7 +50,7 @@ function showVideoGaleria($file_galeria,$rating=true,$id_promocion=0){
 	?>
 
 	<div class="thumbnail">	
-		<?php playVideo("VideoGaleria".$file_galeria['id_file'],$path_movil.PATH_VIDEOS.$file_galeria['name_file'],240,180);?>
+		<?php playVideo("VideoGaleria".$file_galeria['id_file'],PATH_VIDEOS.$file_galeria['name_file'],240,180);?>
 		<div class="caption">
 			<div><?php echo $title;?></div>
 			<div>

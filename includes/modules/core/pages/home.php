@@ -5,11 +5,11 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 $menu_admin=0;
 $menu_sel = 1;
 function ini_page_header ($ini_conf) {?>
-          <script>
-          jQuery(document).ready(function(){
-          	$('.carousel').carousel()
-          });
-          </script>
+	<script>
+	jQuery(document).ready(function(){
+		$('.carousel').carousel()
+	});
+	</script>
 <?php }
 function ini_page_body ($ini_conf){ 
 	$plantillas = mailingTemplatesController::getListAction(4, "activos");

@@ -37,8 +37,9 @@ function showFotoGaleria($file_galeria, $rating=true, $movil=0, $reto=0){
 			
 	//SOLO SI SE PERMITEN VOTACIONES SE MUESTRA EL LINK PARA VOTAR
 	global $page;
-	if ($pagina=='reto'){$pagina='reto&id='.$file_galeria['id_promocion'];}
-	else {$pagina=$page.'&pag='.$_REQUEST['pag'];}
+	$page_num = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1);
+	if ($reto>0){$pagina='reto&id='.$file_galeria['id_promocion'];}
+	else {$pagina=$page.'&pag='.$page_num;}
 	if ($rating){$me_gusta=' <a href="?page='.$pagina.'&id='.$reto.'&idvf='.$file_galeria['id_file'].'"  title="votar foto" class="fa fa-heart"></a> '.$file_galeria['fotos_puntos'];}
 	else {$me_gusta=' <span class="fa fa-heart"></span> '.$file_galeria['fotos_puntos'];}
 	echo $me_gusta;

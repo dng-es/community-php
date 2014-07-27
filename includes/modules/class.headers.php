@@ -54,7 +54,7 @@ class headers{
 	* @param 	string 		$page 			Current page
 	* @param 	int 		$menu_admin 	Current selected menu
 	*/
-	public function PageBody($ini_conf,$page = "",$menu_admin = 0){
+	public static function PageBody($ini_conf,$page = "",$menu_admin = 0){
 		global $paginas_free; ?>
 		</head>
 			<body id="page-<?php echo $page;?>">
