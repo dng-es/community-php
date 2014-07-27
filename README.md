@@ -51,4 +51,5 @@ Soporte para idiomas implementado. Establecer idioma en includes/core/config.php
 Debug mode
 ================================
 Se puede activar desde includes/core/config.php con la variable debug_app. Si se activa se mostraran errores  de Php y Sql.
-IMPORTANTE!: desactivar el debug mode en servidores de producción (debug_app = 0)
+
+IMPORTANTE: desactivar el debug mode en servidores de producción (debug_app = 0)
