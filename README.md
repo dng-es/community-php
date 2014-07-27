@@ -47,3 +47,8 @@ Librerias de terceros
 Idiomas
 ================================
 Soporte para idiomas implementado. Establecer idioma en includes/core/config.php. Los ficheros de traducciones se encuentran en includes/languages. Cada módulo cuenta con sus propios ficheros de traducciones en includes/modules/module_name/resources/languages
+
+Debug mode
+================================
+Se puede activar desde includes/core/config.php con la variable debug_app. Si se activa se mostraran errores  de Php y Sql.
+IMPORTANTE!: desactivar el debug mode en servidores de producción (debug_app = 0)
