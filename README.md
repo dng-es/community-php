@@ -4,7 +4,7 @@ Comunidad de usuarios php5 y mysql. Ver módulos en includes/modules (módulos c
 
 Instalación
 ================================
-- Establecer configuración principal en el fichero: includes/core/config.php (IMPORTANTE: desactivar debug mode en servidores de producción (debug_app = 0))
+- Establecer configuración principal en el fichero: includes/core/config.php (IMPORTANTE: desactivar debug mode en servidores de producción)
 - Eliminar carpeta ./bin en servidores de produccción
 - Eliminar carpeta ./documentacion en servidores de produccción
 - Eliminar archivo README.md
@@ -52,4 +52,4 @@ Debug mode
 ================================
 Se puede activar desde includes/core/config.php con la variable debug_app. Si se activa se mostraran errores  de Php y Sql.
 
-IMPORTANTE: desactivar debug mode en servidores de producción (debug_app = 0)
+<b>IMPORTANTE</b>: desactivar debug mode en servidores de producción (debug_app = 0)
