@@ -66,8 +66,8 @@ La estructura de archivos y directorios básica será:
 <b>documentacion/</b> documentación sobre la comunidad<br />
 <b>images/</b> imagenes generales de la comunidad<br />
 <b>includes/</b> archivos y directorios principales de la comunidad<br />
-	<b>core/</b><br />
-	<b>languages/</b><br />
+    <b>core/</b><br />
+    <b>languages/</b><br />
 	<b>modules/</b><br />
 		<b>my_module/</b><br />
 			<b>controllers/</b><br />
