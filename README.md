@@ -58,7 +58,7 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Si se
 
 Estructura de archivos y directorios
 ================================
-La estructura de archivos y directorios básica será:
+La estructura de archivos y directorios básica es la siguiente:
 
 - <b>bin/</b> directorio donde se encuentra la herramienta de consola<br />
 - <b>css/</b> archivos de estilos generales de la comunidad<br />
@@ -66,16 +66,16 @@ La estructura de archivos y directorios básica será:
 - <b>documentacion/</b> documentación sobre la comunidad<br />
 - <b>images/</b> imagenes generales de la comunidad<br />
 - <b>includes/</b> archivos y directorios principales de la comunidad<br />
-	- <b>core/</b><br />
-	- <b>languages/</b><br />
-	- <b>modules/</b><br />
-		- <b>my_module/</b><br />
-			- <b>controllers/</b><br />
-			- <b>pages/</b><br />
-			- <b>resources/</b><br />
-				- <b>images</b>
-				- <b>js</b>
-				- <b>languages</b>
+	- <b>core/</b><br /> archivos que componen el núcleo del sistema
+	- <b>languages/</b><br /> archivos generales de traducciones 
+	- <b>modules/</b><br /> directorio que contiene todos los módulos
+		- <b>my_module/</b><br /> 
+			- <b>controllers/</b><br /> controladores del módulo
+			- <b>pages/</b><br /> páginas del módulo
+			- <b>resources/</b><br /> recursos del módulo (imagenes, javascript y traducciones específicas)
+				- <b>images/</b>
+				- <b>js/</b>
+				- <b>languages/</b>
 			- <b>templates/</b><br />
 			- <b>class.my_module.php</b><br />
 - <b>js/</b> archivos javascript generales de la comunidad
