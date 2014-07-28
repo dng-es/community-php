@@ -1,7 +1,7 @@
 <?php
 class mailingTemplatesController{
 
-	public static function getListAction($reg = 0, $activo="todos", $filter=""){
+	public static function getListAction($reg = 0, $activo="todos", $filter= ""){
 		$mailing = new mailing();
 		$filtro = $filter." ORDER BY template_name DESC ";
 		if (isset($_GET['f']) and $_GET['f']!="") { $filtro = " AND t.id_campaign=".$_GET['f']." ".$filtro;}
@@ -45,6 +45,7 @@ class mailingTemplatesController{
 			$id_type = $_POST['template_tipo'];
 			$id_campaign = $_POST['template_campana'];
 
+
 			if ($mailing->insertTemplate($template_name,$template_body, $template_img, $id_type, $id_campaign)) {
 				session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
 				$id_template = $mailing->SelectMaxReg("id_template","mailing_templates","");
@@ -52,7 +53,7 @@ class mailingTemplatesController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
 			}
-
+	
 			redirectURL("?page=admin-template&id=".$id_template);
 		}		
 	}
@@ -73,6 +74,7 @@ class mailingTemplatesController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
+
 			
 			redirectURL("?page=admin-template&id=".$id_template);
 		}

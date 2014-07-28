@@ -37,7 +37,6 @@ function ini_page_body ($ini_conf){
 					<div><b>Remitente:</b> <?php echo $elements[0]['message_from_email'];?> <?php echo $elements[0]['message_from_name'];?></div>
 					<div><b>Lista:</b> <?php echo $elements[0]['message_lista'];?></div>
 					<div><b>Total mensajes:</b> <?php echo $elements[0]['total_messages'];?></div>
-					<div><b>Mensaje:</b> <?php echo $elements[0]['message_body'];?></div>
 					<br />
 					<div><b>Estado:</b> <span class="label <?php echo $elements[0]['message_status']=='pending' ? 'label-warning' : 'label-success';?>"><?php echo $elements[0]['message_status'];?></span></div>
 					<hr />

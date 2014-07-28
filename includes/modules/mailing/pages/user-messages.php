@@ -19,7 +19,7 @@ function ini_page_body ($ini_conf){
 	?>
 	<div class="row inset row-top">
 	  	<div class="col-md-12"> 
-	  		<h2>Comunicaciones enviadas</h2>
+	  		<div class="textuppercase blue more-marginbottom"><h1 class="font-title">Comunicaciones enviadas</h1></div>
   			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		            <ul class="nav navbar-nav">
@@ -28,7 +28,7 @@ function ini_page_body ($ini_conf){
   				</div>
         	</nav>
         	<p>Total <b><?php echo $elements['total_reg'];?></b> registros</p>
-			<table class="table">
+			<table class="table table-striped">
 				<tr>
 					<th width="40px">&nbsp;</th>
 					<th>Asunto</th>

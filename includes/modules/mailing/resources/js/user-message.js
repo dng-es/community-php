@@ -11,7 +11,7 @@ jQuery(document).ready(function(){
 	// 	$("#nombre-fichero").closest(".file-input-wrapper").addClass("disabled");
 	// });
 	
-	$("#datetimepicker1").datetimepicker({
+	$("#datetimepicker1, #datetimepicker2").datetimepicker({
       language: "es-ES"
     });
 
@@ -49,10 +49,12 @@ jQuery(document).ready(function(){
 			 resultado_ok=false;
 		}	
 						
-		if (jQuery.trim($("#texto_message").val())=="") 
-		{
-			 $("#texto-alert").html("Debes insertar algo de texto.").fadeIn().css("display","block");
-			 resultado_ok=false;
+		if ($('#texto_message').length){
+			if (jQuery.trim($("#texto_message").val())=="") 
+			{
+				 $("#texto-alert").html("Debes insertar algo de texto.").fadeIn().css("display","block");
+				 resultado_ok=false;
+			}
 		}
 
 		if ($('#texto2_message').length){

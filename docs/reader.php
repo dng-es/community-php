@@ -1061,13 +1061,16 @@ class Spreadsheet_Excel_Reader
         return $result;
     }
 
-    function _GetInt4d($data, $pos)
-    {
-        $value = ord($data[$pos]) | (ord($data[$pos+1]) << 8) | (ord($data[$pos+2]) << 16) | (ord($data[$pos+3]) << 24);
-        if ($value>=4294967294)
-        {
-            $value=-2;
+    function _GetInt4d($data, $pos) {
+        $value = ord($data[$pos]) | (ord($data[$pos+1]) << 8) | (ord($data[$pos+2]) <<
+    16) | (ord($data[$pos+3]) << 24);
+        if ($value>=4294967294) {
+          $value=-2;
         }
+        if ($value >= 4000000000 && $value < 4294967294) // Add these lines
+        {
+          $value = -2 - 4294967294 + $value;
+        } // End add lines
         return $value;
     }
 
