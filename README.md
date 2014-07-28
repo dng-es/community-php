@@ -60,8 +60,7 @@ Estructura de archivos y directorios
 ================================
 La estructura de archivos y directorios básica será:
 
-<b>bin/</b> directorio donde se encuentra la herramienta ed consola
-
+<b>bin/</b> directorio donde se encuentra la herramienta de consola
 <b>css/</b> archivos de estilos generales de la comunidad
 
 <b>docs/</b> directorio de almacenamiento de documentos para los módulos
@@ -71,9 +70,7 @@ La estructura de archivos y directorios básica será:
 <b>images/</b> imagenes generales de la comunidad
 
 <b>includes/</b> archivos y directorios principales de la comunidad
-
 	<b>core/</b>
-
 	<b>languages/</b>
 
 	<b>modules/</b>
@@ -87,7 +84,7 @@ La estructura de archivos y directorios básica será:
 			<b>resources/</b>
 
 			<b>templates/</b>
-			
+
 			<b>class.my_module.php</b>
 
 <b>js/</b> archivos javascript generales de la comunidad
