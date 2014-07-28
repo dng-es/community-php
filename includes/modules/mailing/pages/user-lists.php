@@ -19,9 +19,9 @@ function ini_page_body ($ini_conf){
 	$elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 
 	?>
-	<div class="row less-width row-top">
+	<div class="row inset row-top">
 	  	<div class="col-md-12"> 
-	  		<div class="textuppercase blue more-marginbottom"><h1 class="font-title">Mis listas de envío</h1></div>
+	  		<h2>Mis listas de envío</h2>
   			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		            <ul class="nav navbar-nav">

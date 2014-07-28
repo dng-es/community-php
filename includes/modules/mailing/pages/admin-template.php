@@ -64,7 +64,7 @@ function ini_page_body ($ini_conf){
 
 				<div class="form-group">
 					<label for="template_body">Contenido de la plantilla:</label>
-					<p>El contenido de la plantilla puede incluir las etiquetas [USER_LOGO], [USER_EMPRESA], [USER_DIRECCION], [USER_REDES], [USER_OPTICAS], [DATE_PROMOCION], [CLAIM_PROMOCION], [DESCUENTO_PROMOCION].</p>
+					<p>El contenido de la plantilla puede incluir las etiquetas [USER_LOGO], [USER_EMPRESA], [USER_DIRECCION], [DATE_PROMOCION], [CLAIM_PROMOCION], [DESCUENTO_PROMOCION].</p>
 					<textarea cols="40" rows="5" id="template_body" name="template_body"><?php echo $plantilla['template_body'];?></textarea>
 					<script type="text/javascript">
 						var editor=CKEDITOR.replace('template_body',{customConfig : 'config-page.js'});

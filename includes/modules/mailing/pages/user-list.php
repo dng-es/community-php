@@ -11,9 +11,9 @@ function ini_page_header ($ini_conf) {
 <script language="JavaScript" src="<?php echo getAsset("mailing");?>js/user-list.js"></script>
 <?php }
 function ini_page_body ($ini_conf){
-	echo '<div class="row less-width row-top">';
+	echo '<div id="page-info">Listas de envío</div>';
+	echo '<div class="row inset row-top">';
 	echo '  <div class="col-md-9">';  
-	echo '		<div class="textuppercase blue more-marginbottom"><h1 class="font-title">Listas de envío</h1></div>';
 
 	session::getFlashMessage( 'actions_message' );
 	mailingListsController::createAction();

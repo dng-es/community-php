@@ -31,38 +31,19 @@ jQuery(document).ready(function(){
 		var resultado_ok=true;
 
 
-		if (jQuery.trim($("#asunto_message").val())=="") 
-		{
+		if (jQuery.trim($("#asunto_message").val())=="") {
 			 $("#asunto-alert").html("Debes insertar algo de texto.").fadeIn().css("display","block");
 			 resultado_ok=false;
 		}	
 
-		if (jQuery.trim($("#nombre_message").val())=="") 
-		{
+		if (jQuery.trim($("#nombre_message").val())=="") {
 			 $("#nombre-alert").html("Debes insertar algo de texto.").fadeIn().css("display","block");
 			 resultado_ok=false;
 		}	
 
-		if (validateEmail($("#email_message").val())==false) 
-		{
+		if (validateEmail($("#email_message").val())==false) {
 			 $("#email-alert").html("Debes insertar un email válido.").fadeIn().css("display","block");
 			 resultado_ok=false;
-		}	
-						
-		if ($('#texto_message').length){
-			if (jQuery.trim($("#texto_message").val())=="") 
-			{
-				 $("#texto-alert").html("Debes insertar algo de texto.").fadeIn().css("display","block");
-				 resultado_ok=false;
-			}
-		}
-
-		if ($('#texto2_message').length){
-			if (jQuery.trim($("#texto2_message").val())=="") 
-			{
-				 $("#texto2-alert").html("Debes insertar algo de texto.").fadeIn().css("display","block");
-				 resultado_ok=false;
-			}
 		}
 
 		if ($("#tipo-lista-lista:checked").length > 0){
@@ -83,8 +64,7 @@ jQuery(document).ready(function(){
 
 		if (tipo=="agenda"){
 			var fecha = jQuery.trim($("#user-date").val());
-			if (fecha == "") 
-			{
+			if (fecha == "") {
 				 $("#user-date-alert").html("Debes insertar una fecha.").fadeIn().css("display","block");
 				 resultado_ok=false;
 			}

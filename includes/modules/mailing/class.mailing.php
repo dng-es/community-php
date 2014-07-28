@@ -1,7 +1,7 @@
 <?php
 /**
 * @Modulo para mailing masivo
-* @author Grass Roots Spain
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0
 * 
 */	

@@ -1,16 +1,68 @@
 <?php
 if($ini_conf['debug_app']==1){
-	iniErrorHandler();
+	$errors_log = array();
 	set_error_handler('errorHandler');
+	register_shutdown_function("shutdownHandler");
 }
 else{
 	error_reporting(0);
 }
 
+function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
+	if (!(error_reporting() & $errno)) {
+        // Este código de error no está incluido en error_reporting
+        return;
+    }
 
-function iniErrorHandler(){
-	?>
-	<style type="text/css">
+    switch ($errno) {
+    case E_USER_ERROR:
+    	echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
+        echo "<b>ERROR</b> [$errno] $errstr<br />\n";
+        echo "  Error fatal en la línea $errline en el archivo $errfile";
+        echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
+        echo "Abortando...<br />\n";
+        echo '</div>';
+        exit(1);
+        break;
+
+    case E_USER_WARNING:
+        echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
+        echo "<b>WARNING</b> [$errno] $errstr<br />\n";
+        echo '</div>';
+        break;
+
+    case E_USER_NOTICE:
+    	echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
+        echo "<b>NOTICE</b> [$errno] $errstr<br />\n";
+        echo '</div>';
+        break;
+
+    default:
+    	addError($errno, $errstr, $errfile, $errline, $errcontext, debug_backtrace());
+        break;
+    }
+
+    /* No ejecutar el gestor de errores interno de PHP */
+    return true;
+}
+
+function addError($errno, $errstr, $errfile, $errline, $errcontext, $errbacktrace){
+	global $errors_log;
+	$error = array('errfile' => $errfile,
+						'errno' => $errno,
+						'errline' => $errline,
+						'errstr' => $errstr,
+						'errcontext' => $errcontext,
+						'errbacktrace' => $errbacktrace );
+
+	array_push($errors_log, $error);
+}
+
+function shutdownHandler (){
+	global $errors_log;
+	if (count($errors_log)>0):?>
+		?>
+		<style type="text/css">
 		#debugger-content{
 			display: none;
 			font-family:Arial;
@@ -45,60 +97,31 @@ function iniErrorHandler(){
 		.debugger-content2{
 			font-size: 11px;
 		}
-	</style>
-	<div id="debugger-content"></div><?php
-}
+		</style>
+		<script type="text/javascript">
+		var debugger_container =  document.createElement("div");
+		debugger_container.id = "debugger-content";
+		document.body.appendChild(debugger_container);
+		var mensaje, mensaje2, mensaje3, mensaje4;
+		var destino = document.getElementById("debugger-content");
+		
+		destino.style.display = "block";
+		<?php
+		foreach($errors_log as $error_log):
+			$msg_file = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errfile']);
+			$msg_number = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errno']);
+			$msg_line = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errline']);
+			$msg_text = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errstr']);
 
-function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
-	if (!(error_reporting() & $errno)) {
-        // Este código de error no está incluido en error_reporting
-        return;
-    }
+			$msg_context = print_r($error_log['errcontext'], true);
+			$msg_context = str_replace(array("\r\n", "\r", "\n"), '\n', $msg_context);
 
-    switch ($errno) {
-    case E_USER_ERROR:
-    	echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-        echo "<b>ERROR</b> [$errno] $errstr<br />\n";
-        echo "  Error fatal en la línea $errline en el archivo $errfile";
-        echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
-        echo "Abortando...<br />\n";
-        echo '</div>';
-        exit(1);
-        break;
+			$msg_backtrace = print_r($error_log['errbacktrace'], true);
+			$msg_backtrace = str_replace(array("\r\n", "\r", "\n"), '\n', $msg_backtrace);
+			?>
 
-    case E_USER_WARNING:
-        echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-        echo "<b>WARNING</b> [$errno] $errstr<br />\n";
-        echo '</div>';
-        break;
-
-    case E_USER_NOTICE:
-    	echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-        echo "<b>NOTICE</b> [$errno] $errstr<br />\n";
-        echo '</div>';
-        break;
-
-    default:
-
-    	$msg_file = str_replace(array("\r\n", "\r", "\n"), '\n', $errfile);
-    	$msg_number = str_replace(array("\r\n", "\r", "\n"), '\n', $errno);
-    	$msg_line = str_replace(array("\r\n", "\r", "\n"), '\n', $errline);
-    	$msg_text = str_replace(array("\r\n", "\r", "\n"), '\n', $errstr);
-
-    	$msg_context = print_r($errcontext, true);
-    	$msg_context = str_replace(array("\r\n", "\r", "\n"), '\n', $msg_context);
-
-    	$msg_backtrace = print_r(debug_backtrace(), true);
-    	$msg_backtrace = str_replace(array("\r\n", "\r", "\n"), '\n', $msg_backtrace);
-		?>
-			<script type="text/javascript">
-			var mensaje, mensaje2, mensaje3, mensaje4;
-			var destino = document.getElementById("debugger-content");
 			var err_containner = document.createElement("div");
 			err_containner.className = "debugger-container";
-			destino.style.display = "block";
-
-
 			var err_info = document.createElement("div");
 			err_info.className = "debugger-content1";  
 			mensaje = '<?php echo $msg_file;?>';
@@ -111,22 +134,23 @@ function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
 			var err_context = document.createElement("div");
 			err_context.className="debugger-content2";  
 			mensaje = '<?php echo $msg_context;?>';
-			err_context.innerHTML = '<h3>Error context</h3><pre>' + mensaje + '</pre>';
+			err_context.innerHTML = '<h3>Error Context</h3><pre>' + mensaje + '</pre>';
 			err_containner.appendChild(err_context);
 
 			var err_backtrace = document.createElement("div");
 			err_backtrace.className="debugger-content2";  
 			mensaje = '<?php echo $msg_backtrace;?>';
-			err_backtrace.innerHTML = '<h3>Backtrace of errorHandler()</h3><pre>' + mensaje + '</pre>';
+			err_backtrace.innerHTML = '<h3>Error Backtrace</h3><pre>' + mensaje + '</pre>';
 			err_containner.appendChild(err_backtrace);
 
 			destino.appendChild(err_containner);
-			</script>
-		<?php
-        break;
-    }
 
-    /* No ejecutar el gestor de errores interno de PHP */
-    return true;
+			<?php
+		endforeach;
+		?>
+		</script>
+		<?php
+	endif;
 }
+
 ?>

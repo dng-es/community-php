@@ -34,6 +34,14 @@ function pasadaProccess($id_message, $action, $pasada){
 	$message_from = array($elements[0]['message_from_email'] => $elements[0]['message_from_name']);
 	$message_attachment = ($elements[0]['message_attachment'] != "" ? $ini_conf['SiteUrl']."/".PATH_MAILING.'attachments/'.$elements[0]['message_attachment'] : "");
 
+	//obteber datos del template
+	$template = $mailing->getTemplates(" AND id_template=".$elements[0]['id_template']." ");
+	$cuerpo = $template[0]['template_body'];
+	$cuerpo = str_replace('[CONTENT]', $message_body, $cuerpo);
+	$cuerpo = str_replace('[CONTENT2]', $message_body2, $cuerpo);
+	$cuerpo = str_replace('[FOOTER]', $message_footer, $cuerpo);
+	$message_body = $cuerpo;
+
 	//obtener usuarios a los que hay que enviar el mensaje
 	$usuarios = $mailing->getMessagesUsers(" AND id_message=".$id_message." 
 											 AND (message_status='".$action."' OR message_status='pending') 
