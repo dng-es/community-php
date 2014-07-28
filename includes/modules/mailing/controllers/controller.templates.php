@@ -1,7 +1,7 @@
 <?php
 class mailingTemplatesController{
 
-	public static function getListAction($reg = 0, $activo="todos", $filter=""){
+	public static function getListAction($reg = 0, $activo="todos", $filter){
 		$mailing = new mailing();
 		$filtro = $filter." ORDER BY template_name DESC ";
 		if (isset($_GET['f']) and $_GET['f']!="") { $filtro = " AND t.id_campaign=".$_GET['f']." ".$filtro;}

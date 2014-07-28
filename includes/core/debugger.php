@@ -10,37 +10,11 @@ else{
 
 function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
 	if (!(error_reporting() & $errno)) {
-        // Este código de error no está incluido en error_reporting
-        return;
-    }
+		// Este código de error no está incluido en error_reporting
+		return;
+	}
 
-    switch ($errno) {
-    case E_USER_ERROR:
-    	echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-        echo "<b>ERROR</b> [$errno] $errstr<br />\n";
-        echo "  Error fatal en la línea $errline en el archivo $errfile";
-        echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
-        echo "Abortando...<br />\n";
-        echo '</div>';
-        exit(1);
-        break;
-
-    case E_USER_WARNING:
-        echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-        echo "<b>WARNING</b> [$errno] $errstr<br />\n";
-        echo '</div>';
-        break;
-
-    case E_USER_NOTICE:
-    	echo '<div style="width:80%;margin:20px 10% 0 10%;background-color:#f0f0f0;padding: 40px 20px;text-align:left;color:#000">';
-        echo "<b>NOTICE</b> [$errno] $errstr<br />\n";
-        echo '</div>';
-        break;
-
-    default:
-    	addError($errno, $errstr, $errfile, $errline, $errcontext, debug_backtrace());
-        break;
-    }
+	addError($errno, $errstr, $errfile, $errline, $errcontext, debug_backtrace());
 
     /* No ejecutar el gestor de errores interno de PHP */
     return true;
@@ -48,12 +22,12 @@ function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
 
 function addError($errno, $errstr, $errfile, $errline, $errcontext, $errbacktrace){
 	global $errors_log;
-	$error = array('errfile' => $errfile,
-						'errno' => $errno,
-						'errline' => $errline,
-						'errstr' => $errstr,
-						'errcontext' => $errcontext,
-						'errbacktrace' => $errbacktrace );
+	$error = array( 'errfile' => $errfile,
+					'errno' => $errno,
+					'errline' => $errline,
+					'errstr' => $errstr,
+					'errcontext' => $errcontext,
+					'errbacktrace' => $errbacktrace );
 
 	array_push($errors_log, $error);
 }
@@ -70,27 +44,31 @@ function shutdownHandler (){
 			margin:0 0 0 0;
 			background-color:#000;
 			text-align:left;
-			color:#666;
-			padding: 20px 0 0 0;
+			color:#fff;
+			padding: 20px 5%;
 			position: absolute;
 			top:0;
 			left: 0;
 			z-index: 999999999;
 		}
-		#debugger-content h3{
-			font-family:Arial;color:#000;font-size:16px
+		#debugger-content h1{
+			font-family:Arial;color:#fff;font-size:22px; margin: 15px 0 0 0;
 		}
 		#debugger-content h2{
 			font-family:Arial;color:#000;font-size:20px;margin:0px !important
+		}
+		#debugger-content h3{
+			font-family:Arial;color:#000;font-size:16px
 		}
 		#debugger-content pre{
 			font-size: 11px;
 		}
 		.debugger-container{
 			background-color: #ccc;
-			margin: 5px 5% 30px;
+			color:#666;
+			margin: 5px 0 30px;
 			padding: 10px;
-		}
+		}		
 		.debugger-content1{
 			font-size: 14px;
 		}
@@ -104,6 +82,8 @@ function shutdownHandler (){
 		document.body.appendChild(debugger_container);
 		var mensaje, mensaje2, mensaje3, mensaje4;
 		var destino = document.getElementById("debugger-content");
+
+		destino.innerHTML = "<h1><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ")</h1><p>Num Errors: <b>".count($errors_log)."</b></p>";?>";
 		
 		destino.style.display = "block";
 		<?php
@@ -144,7 +124,6 @@ function shutdownHandler (){
 			err_containner.appendChild(err_backtrace);
 
 			destino.appendChild(err_containner);
-
 			<?php
 		endforeach;
 		?>
