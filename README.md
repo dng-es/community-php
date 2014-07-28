@@ -69,13 +69,13 @@ La estructura de archivos y directorios básica es la siguiente:
 	- <b>core/</b> archivos que componen el núcleo del sistema<br />
 	- <b>languages/</b> archivos generales de traducciones <br />
 	- <b>modules/</b> directorio que contiene todos los módulos<br />
-		- <b>my_module/</b> 
+		- <b>my_module/</b> modulo de usuario
 			- <b>controllers/</b> controladores del módulo<br />
 			- <b>pages/</b> páginas del módulo<br />
 			- <b>resources/</b> recursos del módulo (imagenes, javascript y traducciones específicas)<br />
 				- <b>images/</b>
 				- <b>js/</b>
 				- <b>languages/</b>
-			- <b>templates/</b><br />
-			- <b>class.my_module.php</b><br />
+			- <b>templates/</b> plantillas del módulo<br />
+			- <b>class.my_module.php</b> acceso a la base de datos desde el módulo<br /> 
 - <b>js/</b> archivos javascript generales de la comunidad
