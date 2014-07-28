@@ -66,13 +66,13 @@ La estructura de archivos y directorios básica es la siguiente:
 - <b>documentacion/</b> documentación sobre la comunidad<br />
 - <b>images/</b> imagenes generales de la comunidad<br />
 - <b>includes/</b> archivos y directorios principales de la comunidad<br />
-	- <b>core/</b><br /> archivos que componen el núcleo del sistema
-	- <b>languages/</b><br /> archivos generales de traducciones 
-	- <b>modules/</b><br /> directorio que contiene todos los módulos
-		- <b>my_module/</b><br /> 
-			- <b>controllers/</b><br /> controladores del módulo
-			- <b>pages/</b><br /> páginas del módulo
-			- <b>resources/</b><br /> recursos del módulo (imagenes, javascript y traducciones específicas)
+	- <b>core/</b> archivos que componen el núcleo del sistema<br />
+	- <b>languages/</b> archivos generales de traducciones <br />
+	- <b>modules/</b> directorio que contiene todos los módulos<br />
+		- <b>my_module/</b> 
+			- <b>controllers/</b> controladores del módulo<br />
+			- <b>pages/</b> páginas del módulo<br />
+			- <b>resources/</b> recursos del módulo (imagenes, javascript y traducciones específicas)<br />
 				- <b>images/</b>
 				- <b>js/</b>
 				- <b>languages/</b>
