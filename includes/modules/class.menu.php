@@ -43,25 +43,24 @@ class menu{
 		if ($_SESSION['user_logged']==true){
 			$users = new users();
 			$huellas_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
-			//foto del usuario
-			$user_foto = ($_SESSION['user_foto']=="") ? "user.jpg" : $_SESSION['user_foto'];
-			
-			echo '<div class="row header-info">
-						<a href="?page=home"><img src="images/logo.png" id="header-info-logo" class="img-responsive" /></a>
-						<div id="user-info">
-							<div class="pull-right" style="width:75%">';
-			echo '				<img class="comment-mini-img" src="images/usuarios/'.$user_foto.'" style="width:50px !important;height:55px !important;float:right;margin-left:10px" />';
-			echo '					<p><i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
-			if ($_SESSION['user_perfil']=='admin'){ echo '<a href="?page=admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
-			echo '				<a href="?page=user-perfil" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';	
-			echo '				<a href="?page=logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a></p>';	
-			//echo '				<p><span>Horas de vuelo</span> <span style="font-size:32px;font-weight:bolder;color:#fff">'.$huellas_user[0]['horas_vuelo'].'</span></p>';
-			//echo '				<span>Puntos</span> '.$huellas_user[0]['puntos'].' </p>';
-			
-			echo '			</div>';
-			
-			echo '	</div>
-				</div>';
+			?>
+			<div class="row header-info">
+				<a href="?page=home"><img src="images/logo.png" id="header-info-logo" class="img-responsive" /></a>
+				<div id="user-info">
+					<div class="pull-right" style="width:75%">
+					<?php 
+					echo '<img class="comment-mini-img" src="images/usuarios/'.$_SESSION['user_foto'].'" style="width:50px !important;height:55px !important;float:right;margin-left:10px" />';
+					echo '<p><i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
+					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="?page=admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
+					echo '<a href="?page=user-perfil" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';	
+					echo '<a href="?page=logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a></p>';	
+					//echo '<p><span>Horas de vuelo</span> <span style="font-size:32px;font-weight:bolder;color:#fff">'.$huellas_user[0]['horas_vuelo'].'</span></p>';
+					//echo '<span>Puntos</span> '.$huellas_user[0]['puntos'].' </p>';
+					?>
+					</div>		
+				</div>
+			</div>
+			<?php
 		}
 	}	
 }?>

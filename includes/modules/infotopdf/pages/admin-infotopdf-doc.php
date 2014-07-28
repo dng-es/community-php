@@ -10,6 +10,8 @@ define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 $menu_select=5;
 function ini_page_header ($ini_conf) {?>
+<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>
 <script language="JavaScript" src="js/bootstrap.file-input.js"></script>
 <script type="text/javascript" src="<?php echo getAsset("infotopdf");?>js/admin-infotopdf-doc.js"></script>
 <?php }
@@ -25,8 +27,8 @@ function ini_page_body ($ini_conf){
 	if ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}  
 
 
-  $info = new infotopdf();
-  $campaigns = new campaigns();
+	$info = new infotopdf();
+	$campaigns = new campaigns();
  
 	$elements=infotopdfController::getItem();;
  
@@ -82,9 +84,17 @@ function ini_page_body ($ini_conf){
 
 						?>
 						</div>
-					</div>
-					 
+					</div>				 
 					<span id="file-alert" class="alert-message"></span>
+
+					<label for="cuerpo_info">Contenido de la plantilla:</label>
+					<p>El contenido de la plantilla puede incluir las etiquetas [USER_LOGO], [USER_EMPRESA], [USER_DIRECCION], [DATE_PROMOCION], [CLAIM_PROMOCION], [DESCUENTO_PROMOCION].</p>
+					<textarea cols="40" rows="5" id="cuerpo_info" name="cuerpo_info"><?php echo $elements[0]['cuerpo_info'];?></textarea>
+					<script type="text/javascript">
+						var editor=CKEDITOR.replace('cuerpo_info',{customConfig : 'config-page.js'});
+						CKFinder.setupCKEditor(editor, 'js/ckfinder/') ;
+					</script>
+
 					<br /><br />
 					<input type="button" name="SubmitData" id="SubmitData" class="btn btn-primary pull-right" value="Guardar documentación" />
 				</form>	
@@ -109,7 +119,7 @@ function ini_page_body ($ini_conf){
 function insertData()
 {
 	$info = new infotopdf();
-  $resultado=$info->insertInfo($_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana']);
+  $resultado=$info->insertInfo($_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info']);
 	if ($resultado=="") {
 	OkMsg('Registro insertado correctamente.');
 	$id=$info->SelectMaxReg("id_info","infotopdf","");
@@ -121,7 +131,7 @@ function insertData()
 function UpdateData($id)
 {
   $info = new infotopdf();
-  if ($info->updateInfo($id,$_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'])) {
+  if ($info->updateInfo($id,$_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info'])) {
 	OkMsg('Registro modificado correctamente.');}
   else
   {

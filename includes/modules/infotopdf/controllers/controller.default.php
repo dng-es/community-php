@@ -1,6 +1,4 @@
 <?php
-include_once(__DIR__ . "/../../mailing/templates/emailfooter.php");
-
 class infotopdfController{
 	public static function getItem(){
 		if (isset($_GET['id'])){
@@ -49,12 +47,32 @@ class infotopdfController{
 	}
 
 	public function getHTMLtoPDF(){
-		if (isset($_REQUEST['idp']) and $_REQUEST['idp']>0){
+		if (isset($_POST['id_info']) and $_POST['id_info']>0){
 			$info = new infotopdf();
 			global $ini_conf;
-			$html_content = $info->getInfo(" AND id_info=".$_REQUEST['idp']);
-			$content = '<img src="'.$ini_conf['SiteUrl'].'/docs/info/'.$html_content[0]['file_info'].'" />';
-			$content .= footerMail($_SESSION['user_name']);
+			$html_content = $info->getInfo(" AND id_info=".$_POST['id_info']);
+
+			$user_direccion = "";
+			if (isset($_POST['calle_direccion']) and $_POST['calle_direccion']!=""){ $user_direccion .= $_POST['calle_direccion'];}
+			if (isset($_POST['postal_direccion']) and $_POST['postal_direccion']!=""){ $user_direccion .= "<br />".$_POST['postal_direccion'];}
+			if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion']!=""){ $user_direccion .= " - ".$_POST['poblacion_direccion'];}
+			if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion']!=""){ $user_direccion .= " - ".$_POST['provincia_direccion'];}
+			if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion']!=""){ $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];}
+			if (isset($_POST['web_direccion']) and $_POST['web_direccion']!=""){ $user_direccion .= "<br />".$_POST['web_direccion'];}
+			if (isset($_POST['email_direccion']) and $_POST['email_direccion']!=""){ $user_direccion .= "<br />".$_POST['email_direccion'];}
+
+
+			$content = $html_content[0]['cuerpo_info'];
+			$content = str_replace($ini_conf['SiteUrl']."/", '', $content);
+			$content = str_replace('[USER_DIRECCION]', $user_direccion, $content);
+			$content = str_replace('[USER_EMPRESA]', $_SESSION['user_empresa'], $content);
+			$content = str_replace('[USER_LOGO]', '<img src="images/usuarios/'.$_SESSION['user_foto'].'" />', $content);
+
+
+			if (isset($_POST['claim_promocion'])){ $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);}
+			if (isset($_POST['descuento_promocion'])){ $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);}
+			if (isset($_POST['date_promocion'])){ $content = str_replace('[DATE_PROMOCION]', $_POST['date_promocion'], $content);}
+
 			HTMLtoPDF($content, $html_content[0]['tipo']);
 		}
 	    

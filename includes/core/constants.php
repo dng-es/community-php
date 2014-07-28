@@ -92,4 +92,5 @@ define('CANAL1','comercial');
 define('CANAL1_LABEL','Canal comercial');
 define('CANAL2','gerente');
 define('CANAL2_LABEL','Canal gerentes');
+define('DEFAULT_IMG_PROFILE', "user.jpg")
 ?>

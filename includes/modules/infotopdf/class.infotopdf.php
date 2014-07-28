@@ -28,7 +28,7 @@ class infotopdf extends connection{
 		return connection::execute_query($Sql);
       } 
 
-	  public function insertInfo($fichero,$titulo,$canal,$tipo,$id_campaign){
+	  public function insertInfo($fichero,$titulo,$canal,$tipo,$id_campaign,$cuerpo_info){
 		//SUBIR FICHERO
 		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
 		$nombre_archivo = strtolower($nombre_archivo);
@@ -39,15 +39,15 @@ class infotopdf extends connection{
 			//generar miniatura
 			imgThumbnail($nombre_archivo, PATH_INFO, 200, 100);
 			//INSERTAR REGISTRO EN LA BBDD  
-			$Sql="INSERT INTO infotopdf (titulo_info,file_info,canal_info,tipo_info,id_campaign) 
+			$Sql="INSERT INTO infotopdf (titulo_info,file_info,canal_info,tipo_info,id_campaign,cuerpo_info) 
 				 VALUES
-				 ('".$titulo."','".$nombre_archivo."','".$canal."',".$tipo.",".$id_campaign.")";
+				 ('".$titulo."','".$nombre_archivo."','".$canal."',".$tipo.",".$id_campaign.",'".$cuerpo_info."')";
 			if (connection::execute_query($Sql)){ return "";}
 			else { return "Ocurrió algún error al subir el contenido. No pudo guardarse 1.";}		   
 		}else{ return "Ocurrió algún error al subir el contenido. No pudo guardarse 2.";} 
       }  
 
-      public function updateInfo($id,$document_file,$title,$canal,$tipo,$id_campaign){
+      public function updateInfo($id,$document_file,$title,$canal,$tipo,$id_campaign,$cuerpo_info){
 		if ($document_file['name']!='') {
 			$nombre_archivo = time().'_'.str_replace(" ","_",$document_file['name']);
 			$nombre_archivo = strtolower($nombre_archivo);
@@ -65,6 +65,7 @@ class infotopdf extends connection{
 			 titulo_info='".$title."',
 			 ".$SqlUpdate."
 			 canal_info='".$canal."', 
+			 cuerpo_info = '".$cuerpo_info."', 
 			 tipo_info=".$tipo.",
 			 id_campaign=".$id_campaign." 
 			 WHERE id_info=".$id;

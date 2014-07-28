@@ -4,6 +4,7 @@ else {$page='login';}
 
 include_once ("includes/core/functions.core.php");
 include_once ("includes/core/constants.php");
+include_once ("includes/core/debugger.php");
 
 
 //LOGOUT SESSION
@@ -42,8 +43,7 @@ if ($page != "logout"){
 	headers::PageHeader(SUBJECT_META_PAGE,KEYWORDS_META_PAGE);
 	ini_page_header ($ini_conf);
 	//PAGE BODY
-	headers::PageBody($ini_conf,$page,$menu_admin);
-	include_once ("includes/core/debugger.php");	
+	headers::PageBody($ini_conf,$page,$menu_admin);		
 	ini_page_body ($ini_conf);
 	//PAGE FOOTER
 	footer::PageFooter($menu_admin);

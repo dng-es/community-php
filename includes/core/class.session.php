@@ -69,7 +69,7 @@ class session {
 				$_SESSION['user_canal_nombre'] = "";
 				$_SESSION['user_perfil'] = $result_user[0]['perfil'];
 				$_SESSION['user_mail'] = $result_user[0]['email'];
-				$_SESSION['user_foto'] = $result_user[0]['foto'];			  
+				$_SESSION['user_foto'] = ($result_user[0]['foto']!="" ? $result_user[0]['foto'] : DEFAULT_IMG_PROFILE);			  
 				$_SESSION['territorial'] = $result_user[0]['territorial'];
 				$_SESSION['user_canal_nombre'] = ($result_user[0]['canal']=='admin') ? "Administración" : ucfirst($result_user[0]['canal']);
 
