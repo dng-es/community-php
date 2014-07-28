@@ -60,19 +60,19 @@ Estructura de archivos y directorios
 ================================
 La estructura de archivos y directorios básica será:
 
-<b>bin/</b> directorio donde se encuentra la herramienta de consola<br />
-<b>css/</b> archivos de estilos generales de la comunidad<br />
-<b>docs/</b> directorio de almacenamiento de documentos para los módulos<br />
-<b>documentacion/</b> documentación sobre la comunidad<br />
-<b>images/</b> imagenes generales de la comunidad<br />
-<b>includes/</b> archivos y directorios principales de la comunidad<br />
-    <b>core/</b><br />
-    <b>languages/</b><br />
-	<b>modules/</b><br />
-		<b>my_module/</b><br />
-			<b>controllers/</b><br />
-			<b>pages/</b><br />
-			<b>resources/</b><br />
-			<b>templates/</b><br />
-			<b>class.my_module.php</b><br />
-<b>js/</b> archivos javascript generales de la comunidad
+- <b>bin/</b> directorio donde se encuentra la herramienta de consola<br />
+- <b>css/</b> archivos de estilos generales de la comunidad<br />
+- <b>docs/</b> directorio de almacenamiento de documentos para los módulos<br />
+- <b>documentacion/</b> documentación sobre la comunidad<br />
+- <b>images/</b> imagenes generales de la comunidad<br />
+- <b>includes/</b> archivos y directorios principales de la comunidad<br />
+	- <b>core/</b><br />
+	- <b>languages/</b><br />
+	- <b>modules/</b><br />
+		- <b>my_module/</b><br />
+			- <b>controllers/</b><br />
+			- <b>pages/</b><br />
+			- <b>resources/</b><br />
+			- <b>templates/</b><br />
+			- <b>class.my_module.php</b><br />
+- <b>js/</b> archivos javascript generales de la comunidad
