@@ -73,6 +73,9 @@ La estructura de archivos y directorios básica será:
 			- <b>controllers/</b><br />
 			- <b>pages/</b><br />
 			- <b>resources/</b><br />
+				- <b>images</b>
+				- <b>js</b>
+				- <b>languages</b>
 			- <b>templates/</b><br />
 			- <b>class.my_module.php</b><br />
 - <b>js/</b> archivos javascript generales de la comunidad
