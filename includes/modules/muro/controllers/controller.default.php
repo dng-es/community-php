@@ -1,5 +1,17 @@
 <?php
 class muroController{
+	public static function getListAction($reg = 0, $filtro=""){
+		$muro = new muro();
+		$find_reg = "";
+		$paginator_items = PaginatorPages($reg);
+		$total_reg = connection::countReg("muro_comentarios",$filtro); 
+		return array('items' => $muro->getComentarios($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+					'pag' 		=> $paginator_items['pag'],
+					'reg' 		=> $reg,
+					'find_reg' 	=> $find_reg,
+					'total_reg' => $total_reg);
+	}
+
 	public static function createAction(){
 		
 	}

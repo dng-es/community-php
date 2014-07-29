@@ -53,7 +53,7 @@ function ini_page_body ($ini_conf){
 	    </div>
 	</div>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-6 nopadding">
 			<div class="row" style="background-color:#c0c0c0;color:#555;border-top: 10px solid #f0f0f0">
 				<h2 style="margin-left:40px">Tipos de campañas</h2>
 				<div class="row inset">
@@ -68,11 +68,11 @@ function ini_page_body ($ini_conf){
 				</div>
 			</div>			
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 nopadding" style="border-top: 10px solid #f0f0f0">
 			<div id="muro-insert">
 				<form id="muro-form" name="coment-form" action="" method="post" role="form">
 					<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />   
-					<label for="texto-comentario">insertar nuevo comentario en el muro:</label>
+					<label for="texto-comentario"><?php echo strTranslate("New_comment_on_wall");?></label>
 					<textarea maxlength="160" class="form-control" id="texto-comentario" name="texto-comentario"></textarea>
 					<?php if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'):?>
 					<select name="canal_comentario" id="canal_comentario" class="form-control">
@@ -87,8 +87,7 @@ function ini_page_body ($ini_conf){
 			<div id="destino">
   				<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 			</div>
-			<?php //replyMuro();
-			?>
+			<?php replyMuro();?>
 		</div>
 	</div>
 

@@ -3,7 +3,7 @@ $base_dir = str_replace('modules/muro/pages', '', realpath(dirname(__FILE__))) ;
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/class.configuration.php");
 include_once($base_dir . "core/constants.php");
-include_once($base_dir . "core/functions.php");
+include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/users/class.users.php");
 include_once($base_dir . "modules/muro/class.muro.php");
@@ -72,7 +72,7 @@ $inicio = 0;
 if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
 if (!$pag) { $inicio = 0; $pag = 1;}
 else { $inicio = ($pag - 1) * $reg;}
-$total_reg = muro::countReg("muro_comentarios c",$filtro_comentarios);
+$total_reg = connection::countReg("muro_comentarios c",$filtro_comentarios);
 		
 $comentarios_muro = $muro->getComentarios($filtro_comentarios.' LIMIT '.$inicio.','.$reg);
 echo '<div id="muro-home" style="height: 100% !important">';

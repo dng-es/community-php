@@ -97,16 +97,26 @@ echo '			<p><a href="?page=admin-validacion-fotos" class="comunidad-color">'.str
 echo '			</div>
 			</div>
 		</div>';		
+echo '</div>';
+echo '<div class="row inset">';
+echo '	<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading"><i class="fa fa-comment"></i> Foros</a></div>
+				<div class="panel-body">';
+				  //CONTENIDOS FORO PENDIENTE DE VALIDAR
+				  getForoPendientes(); 				
+echo '		</div>
+			</div>	
+		</div>';
 
-// echo '	<div class="col-md-4">
-// 			<div class="panel panel-default">
-// 				<div class="panel-heading"><i class="fa fa-comment"></i> Foros</a></div>
-// 				<div class="panel-body">';
-// 				  //CONTENIDOS FORO PENDIENTE DE VALIDAR
-// 				  getForoPendientes(); 				
-// echo '		</div>
-// 			</div>	
-// 		</div>';
+echo '	<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading"><i class="fa fa-comment"></i> Muro</a></div>
+				<div class="panel-body">';
+echo '			<p><a href="?page=admin-validacion-muro" class="comunidad-color">Comentarios en el muro</a></p>';			
+echo '		</div>
+			</div>	
+		</div>';		
 
 echo '</div>';
 echo '</div>

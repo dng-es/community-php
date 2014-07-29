@@ -16,7 +16,7 @@ function ini_page_header ($ini_conf) {
 		$muro->cambiarEstado($_REQUEST['id'],2);
 		$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
 	}
-	header("Location: ?page=admin-validacion-muro"); 
+	header("Location: ?page=admin-validacion-muro&pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1)); 
   }
 ?>
 		<!-- ficheros ventana modal -->
@@ -50,18 +50,16 @@ function ini_page_body ($ini_conf){
 function getMuroPendientes()
 {
 	$muro = new muro();
-	$calculo = strtotime("-4 days");
-	$fecha_ayer= date("Y-m-d", $calculo);
-	$pendientes = $muro->getComentarios(" AND date_comentario>='".$fecha_ayer."' AND estado=1 AND tipo_muro IN ('principal','responsable') ORDER BY date_comentario DESC");
+	$elements = muroController::getListAction(2, " AND estado=1 AND tipo_muro IN ('principal','responsable') ORDER BY date_comentario DESC");
 
-	if (count($pendientes)==0){
-		echo '<p>No hay mensajes en el <span class="comunidad-color">MURO</span> insertados ultimamente (fecha: '.$fecha_ayer.').<br />
+	if ($elements['total_reg']==0){
+		echo '<p>No hay mensajes en el <span class="comunidad-color">MURO</span>.<br />
 	  		Puntos a otorgar por mensaje: <span class="comunidad-color">'.PUNTOS_MURO.'.</span></p>';
 	}
 	else{
-	  echo '<p>Hay los siguientes mensajes en el <span class="comunidad-color">MURO</span> insertados ultimamente (fecha: '.$fecha_ayer.').<br />
+	  echo '<p>Hay los siguientes mensajes en el <span class="comunidad-color">MURO</span> ('.$elements['total_reg'].').<br />
 	  		Puntos a otorgar por mensaje: <span class="comunidad-color">'.PUNTOS_MURO.'.</span></p>';
-	  echo '<table class="table table-striped">';
+	  echo '<table class="table">';
 	  echo '<tr>';
 	  echo '<th width="40px">&nbsp;</th>';
 	  echo '<th>ID</th>';
@@ -71,12 +69,12 @@ function getMuroPendientes()
 	  echo '<th>Fecha</th>';
 	  echo '</tr>';
   
-	  foreach($pendientes as $element):
+	  foreach($elements['items'] as $element):
 			echo '<tr>';
 			echo '<td nowrap="nowrap">
 					<span class="fa fa-ban icon-table" title="Eliminar"
 					    onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
-						\'?page=admin-validacion-muro&act=muro_ko&id='.$element['id_comentario'].'&u='.$element['user_comentario'].'\')">
+						\'?page=admin-validacion-muro&act=muro_ko&id='.$element['id_comentario'].'&pag='.(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1).'&u='.$element['user_comentario'].'\')">
 					</span>			
 				 </td>';					
 			echo '<td><a href="#" class="abrir-modal" title="MensajeMuro'.$element['id_comentario'].'">'.$element['id_comentario'].'</a>
@@ -103,7 +101,8 @@ function getMuroPendientes()
 			echo '<td>'.strftime(DATE_TIME_FORMAT,strtotime($element['date_comentario'])).'</td>';			
 			echo '</tr>';   
 	  endforeach;
-	  echo '</table><br />';	
+	  echo '</table><br />';
+	  Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);
 	}
 }
 ?>

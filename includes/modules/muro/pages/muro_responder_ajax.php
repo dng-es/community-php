@@ -66,11 +66,11 @@ $filtro=" AND id_comentario_id=".$id_comentario." ORDER BY date_comentario DESC"
 $comentarios_muro = $muro->getComentarios($filtro);
 echo '<div class="">';
   foreach($comentarios_muro as $comentario_muro):
-	$votado=$muro->countReg("muro_comentarios_votaciones"," AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
+	$votado = connection::countReg("muro_comentarios_votaciones"," AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
 	if ($_SESSION['user_name']==$comentario_muro['user_comentario']) {$votado_user=1;}
 	else {$votado_user=0;}
 				echo '<div class="media">';
-			userFicha($comentario_muro,$movil);
+			userFicha($comentario_muro,0);
 			echo '		<p class="comunidad-color"><b>'.$comentario_muro['nick'].'</b> <span class="date-format-ago" data-date="'.$comentario_muro['date_comentario'].'">'.strftime(DATE_TIME_FORMAT,strtotime($comentario_muro['date_comentario'])).'</span> respondió :';
 		    //SOLO LOS FORMADORES Y ADMIN PUEDEN VER EL CANAL
 		    if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'){  echo ' (canal '.$comentario_muro['canal_comentario'].')';}

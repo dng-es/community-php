@@ -7,8 +7,8 @@ function commentMuro($comentario_muro){
 	if ($page=='muro_comentarios') {$pagina=$page.'&c='.$comentario_muro['tipo_muro'];}
 	else {$pagina=$page;}
 	//respuestas al comentario
-	$respuestas=$muro->countReg("muro_comentarios"," AND id_comentario_id=".$comentario_muro['id_comentario']." AND estado=1 ");
-	$votado=$muro->countReg("muro_comentarios_votaciones"," AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
+	$respuestas = connection::countReg("muro_comentarios"," AND id_comentario_id=".$comentario_muro['id_comentario']." AND estado=1 ");
+	$votado = connection::countReg("muro_comentarios_votaciones"," AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
 	if ($_SESSION['user_name']==$comentario_muro['user_comentario']) {$votado_user=1;}
 	else {$votado_user=0;}
 	echo '<div class="media">';

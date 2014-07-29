@@ -34,7 +34,7 @@ jQuery(document).ready(function(){
 			if (valor==0){				
 				$("#responder-form").load("includes/modules/muro/pages/muro-respuestas.php?idvc="+id_comentario, function(){			
 					$(campo).attr("value",1);
-					$(campo_votaciones).html(valor_votaciones+1);
+					$(campo_votaciones).html(" " + (valor_votaciones+1));
 					$(campo_resultado).html("Votacion realizada con exito");
 				});
 			}

@@ -1,5 +1,6 @@
 <?php
 if($ini_conf['debug_app']==1){
+	ini_set('memory_limit', -1);
 	$errors_log = array();
 	set_error_handler('errorHandler');
 	register_shutdown_function("shutdownHandler");
