@@ -19,7 +19,10 @@ class connection_sql {
 	public function conex(){
 		//Database conection
 		global $ini_conf;
-		if (!$link = mysqli_connect($ini_conf['host'],$ini_conf['user'],$ini_conf['pass'],$ini_conf['db'])){ die(mysqli_error());}
+		$link = mysqli_connect($ini_conf['host'],$ini_conf['user'],$ini_conf['pass'],$ini_conf['db']);
+		if (mysqli_connect_errno($link)){
+			die(mysqli_connect_error());
+		}
 		return $link;
 	}
 
@@ -29,15 +32,14 @@ class connection_sql {
 	
 	public function execute_query($consulta){
 		$link=self::conex();
-		mysqli_set_charset('utf8',$link);
-		if ($da_query = mysqli_query($consulta, $link)) {
+		mysqli_set_charset($link,'utf8');
+		if ($da_query = mysqli_query($link, $consulta)) {
 			self::close_conex($link);
 			return $da_query;  
 		}
 		else {
 			global $ini_conf;
-			if ($ini_conf['debug_app']==1)
-			{
+			if ($ini_conf['debug_app']==1) {
 				$msg="<b>SQL ERROR in query:</b> ".$consulta."; <b>SQL ERROR description:</b> ".mysqli_error($link);
 				ErrorMsg($msg);
 			}

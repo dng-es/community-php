@@ -22,7 +22,7 @@ pass = "AdminImagar"
 db = "comunidad"
 
 ;Sql connector. Posibles valores: mysql, mysqli
-sql_connector = "mysql"
+sql_connector = "mysqli"
 
 ;DEFAULT LANGUAGE
 language = "es"

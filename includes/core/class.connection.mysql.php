@@ -37,8 +37,7 @@ class connection_sql {
 		}
 		else {
 			global $ini_conf;
-			if ($ini_conf['debug_app']==1)
-			{
+			if ($ini_conf['debug_app']==1) {
 				$msg="<b>SQL ERROR in query:</b> ".$consulta."; <b>SQL ERROR description:</b> ".mysql_error($link);
 				ErrorMsg($msg);
 			}
