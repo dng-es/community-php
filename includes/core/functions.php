@@ -450,6 +450,13 @@ function ComboCanales($canal=""){
 function getBrowser($user_agent) {
      $navegadores = array(
      	  'IExplorer 11' => 'Trident/7+',
+          'IExplorer 10' => '(MSIE 10\.[0-9]+)',
+          'IExplorer 9' => '(MSIE 9\.[0-9]+)',
+          'IExplorer 8' => '(MSIE 8\.[0-9]+)',
+          'IExplorer 7' => '(MSIE 7\.[0-9]+)',
+          'IExplorer 6' => '(MSIE 6\.[0-9]+)',
+          'IExplorer 5' => '(MSIE 5\.[0-9]+)',
+          'IExplorer 4' => '(MSIE 4\.[0-9]+)',
           'Opera' => 'Opera',
           'Chrome' => 'Chrome',
           'Safari' => 'Safari',
@@ -460,16 +467,9 @@ function getBrowser($user_agent) {
           'Lynx' => 'Lynx',
           'Netscape' => '(Mozilla/4\.75)|(Netscape6)|(Mozilla/4\.08)|(Mozilla/4\.5)|(Mozilla/4\.6)|(Mozilla/4\.79)',
           'Konqueror'=>'Konqueror',
-          'IExplorer 10' => '(MSIE 10\.[0-9]+)',
-          'IExplorer 9' => '(MSIE 9\.[0-9]+)',
-          'IExplorer 8' => '(MSIE 8\.[0-9]+)',
-          'IExplorer 7' => '(MSIE 7\.[0-9]+)',
-          'IExplorer 6' => '(MSIE 6\.[0-9]+)',
-          'IExplorer 5' => '(MSIE 5\.[0-9]+)',
-          'IExplorer 4' => '(MSIE 4\.[0-9]+)',
 	);
 	foreach($navegadores as $navegador=>$pattern){
-	       if (preg_match("/".$pattern."/", $user_agent))
+	       if (preg_match("~".$pattern."~", $user_agent))
 	       return $navegador;
 	    }
 	return 'Otros';
