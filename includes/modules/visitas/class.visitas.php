@@ -4,7 +4,7 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0
 */	
-class visitas extends connection{
+class visitas{
 	
 	function getVisitas($filter = ""){
 		$Sql="SELECT a.*,u.name,u.surname FROM accesscontrol a 
@@ -47,6 +47,12 @@ class visitas extends connection{
 	function getAccessTopPages($filter = ""){
 		$Sql="SELECT COUNT(webpage) AS contador,webpage FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY webpage ORDER BY webpage ";
 		return connection::getSQL($Sql);
-	}	  	        
+	}
+
+	function getVisitasInformes($filter = ""){
+		$Sql="SELECT a.*,u.name,u.surname FROM accesscontrol a 
+			  JOIN users u ON u.username=a.username WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
 }
 ?>

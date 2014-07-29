@@ -54,7 +54,7 @@ function ini_page_body ($ini_conf){
 
 	//echo '<h2 class="h2Seccion">respuestas al comentario en el muro de: <span style="font-weight: bold">'.$comentario_muro[0]['nick'].'</span></h2>';
 	//OBTENER RESPUESTAS DEL COMENTARIO
-	echo '<div id="cargando" style="display:none"><img src="images/ajax.gif" /></div>
+	echo '<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 				<div id="destino"></div>';  
 
 	echo '</div></div>';

@@ -5,7 +5,7 @@
 * @version 1.0 
 * 
 */	
-class videos extends connection{
+class videos{
  
 	public function getVideos($filter = ""){
 		$Sql="SELECT v.*,u.*,v.canal AS canal_file FROM galeria_videos v 

@@ -5,6 +5,7 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 $menu_admin=0;
 $menu_sel = 1;
 function ini_page_header ($ini_conf) {?>
+	<script language="JavaScript" src="<?php echo getAsset("muro");?>js/muro-comentario-ajax.js"></script>
 	<script>
 	jQuery(document).ready(function(){
 		$('.carousel').carousel()
@@ -12,6 +13,7 @@ function ini_page_header ($ini_conf) {?>
 	</script>
 <?php }
 function ini_page_body ($ini_conf){ 
+	templateload("reply","muro");
 	$plantillas = mailingTemplatesController::getListAction(4, "activos");
 	$documentos = infotopdfController::getListAction(3);
 	$ficheros = infoController::getListAction(4);
@@ -50,18 +52,43 @@ function ini_page_body ($ini_conf){
 	      <a class="carousel-control right" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 	    </div>
 	</div>
-
-	<div class="row" style="background-color:#c0c0c0;color:#555;border-top: 10px solid #f0f0f0">
-		<h2 style="margin-left:40px">Tipos de campañas</h2>
-		<div class="row inset">
-			<?php foreach($campanas['items'] as $element): ?>
-			<div class="col-md-4" style="text-align:center;background-color:#ccc;">
-				<div class="inset">
-					<h3><a href="?page=user-campaigns&f=<?php echo $element['id_campaign_type'];?>"><?php echo $element['campaign_type_name'];?></a></h3>
-					<p class="legend"><?php echo ShortText($element['campaign_type_desc'], 100);?></p>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="row" style="background-color:#c0c0c0;color:#555;border-top: 10px solid #f0f0f0">
+				<h2 style="margin-left:40px">Tipos de campañas</h2>
+				<div class="row inset">
+					<?php foreach($campanas['items'] as $element): ?>
+					<div class="col-md-4" style="text-align:center;background-color:#ccc;">
+						<div class="inset">
+							<h3><a href="?page=user-campaigns&f=<?php echo $element['id_campaign_type'];?>"><?php echo $element['campaign_type_name'];?></a></h3>
+							<p class="legend"><?php echo ShortText($element['campaign_type_desc'], 100);?></p>
+						</div>
+					</div>
+					<?php endforeach; ?>
 				</div>
+			</div>			
+		</div>
+		<div class="col-md-6">
+			<div id="muro-insert">
+				<form id="muro-form" name="coment-form" action="" method="post" role="form">
+					<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />   
+					<label for="texto-comentario">insertar nuevo comentario en el muro:</label>
+					<textarea maxlength="160" class="form-control" id="texto-comentario" name="texto-comentario"></textarea>
+					<?php if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'):?>
+					<select name="canal_comentario" id="canal_comentario" class="form-control">
+					<option value="comercial">Canal comerciales</option>
+					<option value="gerente">Canal gerentes</option>
+					</select>
+					<?php endif;?>
+					<button class="btn btn-primary" type="button" id="muro-submit" name="coment-submit">Enviar</button>
+				</form>
 			</div>
-			<?php endforeach; ?>
+			<div id="result-muro"></div>
+			<div id="destino">
+  				<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+			</div>
+			<?php //replyMuro();
+			?>
 		</div>
 	</div>
 

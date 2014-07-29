@@ -1,5 +1,6 @@
 <?php
-include_once ("includes/core/functions.php");
+$base_dir_config = realpath(dirname(__FILE__)) ;
+include_once ($base_dir_config."/functions.php");
 
 
 /**

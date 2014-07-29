@@ -1,12 +1,7 @@
 <?php
 
 //EXPORT ACCESOS
-if (isset($_POST['export-stats']) and isset($_POST['fecha_ini'])){
-	$visitas = new visitas();
-	$fecha_ini = $_POST['fecha_ini'];
-	$fecha_fin = $_POST['fecha_fin'];
-	$visitas->getVisitasInformes(" AND fecha BETWEEN '".$fecha_ini." 00:00:00' AND '".$fecha_fin." 23:59:59' ORDER BY fecha DESC ");
-}
+visitasController::exportAction();
 
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
@@ -489,7 +484,7 @@ function ini_page_body ($ini_conf){
 			<br />
 			<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
           	<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
-          	<a class="btn btn-primary" href="#" onClick="Confirma(\'¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.\', \'?page=informe-accesos&pag='.$pag.'&act=del\')" title="Vaciar registros" />Vaciar registros de accesos</a>
+          	<a class="btn btn-primary" href="#" onClick="Confirma(\'¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.\', \'?page=informe-accesos&act=del\')" title="Vaciar registros" />Vaciar registros de accesos</a>
           	<br /><br />
           	<p>En los informes gráficos no se muestran los accesos al panel de administración.</p>
           	<hr />
@@ -502,14 +497,14 @@ function ini_page_body ($ini_conf){
 		media de visitas por página: '.$media1.'</p>
 		<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
 		<div id="chartdiv1" class="access-stats">
-			<div id="loading1" class="loading"><img src="images/ajax.gif" /></div>
+			<div id="loading1" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 		</div>
 		<h2><b>Páginas vistas por día</b>: número de paginas que se han visto cada día.</h2>
 		<p>total páginas visitadas: '.$total2.'<br />
 		media de páginas visitadas: '.$media2.'</p>
 		<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
 		<div id="chartdiv2" class="access-stats">
-			<div id="loading2" class="loading"><img src="images/ajax.gif" /></div>
+			<div id="loading2" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 		</div>
 
 		<h2>Visitas únicas por día: número de accesos únicos realizados a la Web cada día.</h2>
@@ -517,7 +512,7 @@ function ini_page_body ($ini_conf){
 		media visitas únicas: '.$media3.'</p>
 		<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
 		<div id="chartdiv3"  class="access-stats">
-			<div id="loading3" class="loading"><img src="images/ajax.gif" /></div>
+			<div id="loading3" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i>></div>
 		</div>
 
 		<div class="">
@@ -525,14 +520,14 @@ function ini_page_body ($ini_conf){
 				<h2>Visitas por navegador</h2>
 				<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
 				<div id="chartdiv4" class="access-stats">
-					<div id="loading4" class="loading"><img src="images/ajax.gif" /></div>
+					<div id="loading4" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 				</div> 
 			</div>
 			<div class="" style="width:100%">
 				<h2>Visitas por plataforma (SO).</h2>
 				<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
 				<div id="chartdiv5" class="access-stats">
-					<div id="loading5" class="loading"><img src="images/ajax.gif" /></div>
+					<div id="loading5" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 				</div>
 			</div>
 		</div>

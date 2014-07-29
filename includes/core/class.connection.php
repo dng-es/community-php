@@ -8,7 +8,9 @@
 ///////////////////////////////////////////////////////////////////////////////////
 set_time_limit(0);
 global $ini_conf;
-include ("class.connection.".$ini_conf['sql_connector'].".php");
+$base_dir_config = realpath(dirname(__FILE__)) ;
+$conector = (isset($ini_conf['sql_connector']) ? $ini_conf['sql_connector'] : "mysqli");
+include ($base_dir_config."/class.connection.".$conector.".php");
 
 class connection extends connection_sql{
 	public function SelectMaxReg($campo,$tabla,$filter){	

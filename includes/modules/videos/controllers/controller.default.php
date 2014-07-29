@@ -20,7 +20,7 @@ class videosController{
 		$filter .= " ORDER BY id_file";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = $videos->countReg("galeria_videos v",$filter); 
+		$total_reg = connection::countReg("galeria_videos v",$filter); 
 		return array('items' => $videos->getVideos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -91,7 +91,7 @@ class videosController{
 		if (isset($_REQUEST['f']) and $_REQUEST['f']!="") {$filter = " AND comentario LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'].$filter;} 
 		$paginator_items = self::PaginatorPagesVideoComments($reg);
 		
-		$total_reg = $videos->countReg("galeria_videos_comentarios",$filter); 
+		$total_reg = connection::countReg("galeria_videos_comentarios",$filter); 
 		return array('items' => $videos->getComentariosVideo($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
