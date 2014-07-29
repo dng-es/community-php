@@ -46,11 +46,11 @@ function ini_page_body ($ini_conf){
 		else { $inicio = ($pag - 1) * $reg;}
 		
 		if (isset($_POST['find_reg']) and $_POST['find_reg'] != "") {
-			$filtro_subtemas.=" AND (c.comentario LIKE '%".$_POST['find_reg']."%' OR t.nombre LIKE  '%".$_POST['find_reg']."%')";
+			$filtro_subtemas.=" AND (c.comentario LIKE '%".$_POST['find_reg']."%' OR t.nombre LIKE  '%".$_POST['find_reg']."%') ";
 			$find_reg=$_POST['find_reg'];
 		}
 		if (isset($_REQUEST['f']) and $_REQUEST['f']!="") {
-			$filtro_subtemas.=" AND (c.comentario LIKE '%".$_REQUEST['f']."%' OR t.nombre LIKE '%".$_REQUEST['f']."%')";
+			$filtro_subtemas.=" AND (c.comentario LIKE '%".$_REQUEST['f']."%' OR t.nombre LIKE '%".$_REQUEST['f']."%') ";
 			$find_reg=$_REQUEST['f'];
 		}
 		if (isset($_POST['find_tipo']) and $_POST['find_tipo'] != "") {
