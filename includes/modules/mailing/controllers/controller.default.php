@@ -1,6 +1,6 @@
 <?php
 class mailingController{
-	public static function getListAction($reg = 0, $filtro){
+	public static function getListAction($reg = 0, $filtro = ""){
 		$mailing = new mailing();
 		$filtro .= "  ORDER BY id_message DESC";
 		$paginator_items = PaginatorPages($reg);

@@ -16,8 +16,26 @@ class muroController{
 		
 	}
 
-	public static function updateAction(){
+	public static function validateAction(){
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='muro_ok'){
+			$users = new users();
+			$muro = new muro();
+			$muro->cambiarEstado($_REQUEST['id'],1);
+			$users->sumarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
+			session::setFlashMessage( 'actions_message', "Comentario validado correctamente.", "alert alert-success");
+			redirectURL("?page=admin-validacion-muro&pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
+		}
+	}
 
+	public static function cancelAction(){
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='muro_ko'){
+			$users = new users();
+			$muro = new muro();
+			$muro->cambiarEstado($_REQUEST['id'],2);
+			$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
+			session::setFlashMessage( 'actions_message', "Comentario cancelado correctamente.", "alert alert-success");
+			redirectURL("?page=admin-validacion-muro&pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
+		}
 	}
 
 	/**

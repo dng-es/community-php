@@ -64,7 +64,7 @@ $comentarios_muro = $muro->getComentarios($filtro);
 	 commentMuro($comentario_muro);
 	endforeach;	
 	if (count($comentarios_muro)==0):?>
-	<div class="alert alert-warning">Todavía no hay comentarios en el muro.</div>
+	<div class="alert alert-warning"><?php echo strTranslate("No_comments_on_wall");?></div>
 	<?php endif;?>
 	</div>
 	<div class="ver-mas">
