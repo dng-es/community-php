@@ -469,7 +469,7 @@ function getBrowser($user_agent) {
           'IExplorer 4' => '(MSIE 4\.[0-9]+)',
 	);
 	foreach($navegadores as $navegador=>$pattern){
-	       if (eregi($pattern, $user_agent))
+	       if (preg_match("/".$pattern."/", $user_agent))
 	       return $navegador;
 	    }
 	return 'Otros';
@@ -499,7 +499,7 @@ function getPlatform($user_agent) {
           'Linux' => 'Linux',
 	);
 	foreach($plataformas as $plataforma=>$pattern){
-	       if (eregi($pattern, $user_agent))
+	       if (preg_match("/".$pattern."/", $user_agent))
 	       return $plataforma;
 	    }
 	return 'Otras';
