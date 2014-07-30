@@ -103,8 +103,8 @@ echo '	<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-comment"></i> Foros</a></div>
 				<div class="panel-body">';
-				  //CONTENIDOS FORO PENDIENTE DE VALIDAR
-				  getForoPendientes(); 				
+echo '			<p><a href="?page=admin-validacion-foro-temas" class="comunidad-color">Temas en los foros.</a></p>';
+echo '			<p><a href="?page=admin-validacion-foro-comentarios" class="comunidad-color">Comentarios en los foros.</a></p>';				
 echo '		</div>
 			</div>	
 		</div>';
@@ -168,25 +168,7 @@ echo '</div>
 ///////////////////////////////////////////////////////////////////////////////////
 
 
-function getAsignacionPuntos()
-{
+function getAsignacionPuntos(){
 	echo '<p><a href="?page=admin-puntos" class="comunidad-color">Asignar puntos a los usuarios.</a></p>';
-}
-
-function getForoPendientes($itinerario='')
-{
-	$foro = new foro();
-	$calculo = strtotime("-4 days");
-	$fecha_ayer= date("Y-m-d", $calculo);
-	$pendientes = $foro->getComentarios(" AND t.id_area=0 AND t.ocio=0 AND date_comentario>='".$fecha_ayer."' AND estado=1 AND t.itinerario='".$itinerario."' ");	
-	$temas = $foro->getTemas(" AND activo=1 AND itinerario='".$itinerario."' ");
-	$link_validacion='admin-validacion-foro';
-	
-	if ((count($pendientes)+count($temas))==0){
-		echo '<p>No hay mensajes recientes '.$itinerario.' ('.$fecha_ayer.').</p>';
-	}
-	else{
-	  echo '<p><a href="?page='.$link_validacion.'" class="comunidad-color">Hay mensajes recientes '.$itinerario.' ('.$fecha_ayer.').</a></p>';
-	}
 }
 ?>

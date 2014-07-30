@@ -1,11 +1,76 @@
 <?php
 class foroController{
-	public static function createAction(){
-		
+	public static function getListTemasAction($reg = 0, $filtro=""){
+		$foro = new foro();
+		$find_reg = "";
+		$paginator_items = PaginatorPages($reg);
+		$total_reg = connection::countReg("foro_temas",$filtro); 
+		return array('items' => $foro->getTemas($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+					'pag' 		=> $paginator_items['pag'],
+					'reg' 		=> $reg,
+					'find_reg' 	=> $find_reg,
+					'total_reg' => $total_reg);
 	}
 
-	public static function updateAction(){
+	public static function getListComentariosAction($reg = 0, $filtro=""){
+		$foro = new foro();
+		$find_reg = "";
+		$paginator_items = PaginatorPages($reg);
+		$total_reg = connection::countReg("foro_comentarios",$filtro); 
+		return array('items' => $foro->getComentarios($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+					'pag' 		=> $paginator_items['pag'],
+					'reg' 		=> $reg,
+					'find_reg' 	=> $find_reg,
+					'total_reg' => $total_reg);
+	}
 
+	public static function cancelComentarioAction(){
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='foro_ko'){
+			$foro = new foro(); 
+			$users = new users();
+			$foro->cambiarEstado($_REQUEST['id'],2);
+			$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
+			session::setFlashMessage( 'actions_message', "Comentario cancelado correctamente.", "alert alert-success");
+			redirectURL("?page=admin-validacion-foro-comentarios&pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
+		}		
+	}
+
+
+	public static function validateComentarioAction(){
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='foro_ok'){
+			$foro = new foro(); 
+			$users = new users();
+			$foro->cambiarEstado($_REQUEST['id'],1);
+			$users->sumarPuntos($_REQUEST['u'],PUNTOS_FORO,PUNTOS_FORO_MOTIVO);
+			session::setFlashMessage( 'actions_message', "Comentario validado correctamente.", "alert alert-success");
+			redirectURL("?page=admin-validacion-foro-comentarios&pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
+		}
+	}
+
+	public static function changeTipoAction(){
+		if (isset($_POST['find_tipo'])) { 	 
+			$foro->cambiarTipoTema($_POST['id_tema_tipo'],$_POST['find_tipo']);
+			session::setFlashMessage( 'actions_message', "Tema modificado correctamente.", "alert alert-success");
+			redirectURL($_SERVER['REQUEST_URI']);
+		}
+	}
+
+	public static function cancelTemaAction(){
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='tema_ko') { 	 
+			$foro = new foro();
+			$foro->cambiarEstadoTema($_REQUEST['id'],0);
+			session::setFlashMessage( 'actions_message', "Tema cancelado correctamente.", "alert alert-success");
+			redirectURL("?page=admin-validacion-foro-temas&pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1)); 
+		}		
+	}
+
+	public static function exportTemasAction(){
+		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+			$foro = new foro(); 
+			$elements_exp=$foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['id']." ");
+			$file_name='exported_file'.date("YmdGis");
+			exportCsv($elements_exp, "comentarios");
+		}		
 	}
 
 	public static function createRespuestaAction(){
@@ -16,7 +81,7 @@ class foroController{
 								$_SESSION['user_name'],
 								ESTADO_COMENTARIOS_FORO,
 								$_POST['comment-reply-id'])){
-			session::setFlashMessage( 'actions_message', "Respuesta insertada correctamente.", "alert alert-success");
+				session::setFlashMessage( 'actions_message', "Respuesta insertada correctamente.", "alert alert-success");
 			} 
 			else{ session::setFlashMessage( 'actions_message', "Se ha producido un error en la inserción de la respuesta. Por favor, inténtalo más tarde.", "alert alert-danger");}    
 			redirectURL($_SERVER['REQUEST_URI']);

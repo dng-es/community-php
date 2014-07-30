@@ -134,7 +134,8 @@ function ini_page_body ($ini_conf){
 								</table>
 							</div>
 					  		<div class="col-md-3">
-								<img src="<?php echo $usuario['user_foto'];?>" style="width:100%" /><br /><br />
+								<img src="<?php echo $usuario['user_foto'];?>" style="width:100%" /><br />
+								<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
 								<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="<?php echo strTranslate("Change_picture");?>" /><br />
 								<input type="submit" class="btn btn-primary btn-block" id="confirm-submit" name="confirm-submit" value="<?php echo strTranslate("Save_data");?>" />
 							</div>

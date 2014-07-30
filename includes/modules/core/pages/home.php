@@ -52,7 +52,7 @@ function ini_page_body ($ini_conf){
 	      <a class="carousel-control right" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 	    </div>
 	</div>
-	<div class="row">
+	<div class="row" style="background-color:#c0c0c0">
 		<div class="col-md-6 nopadding">
 			<div class="row" style="background-color:#c0c0c0;color:#555;border-top: 10px solid #f0f0f0">
 				<h2 style="margin-left:40px">Tipos de campañas</h2>
@@ -68,7 +68,7 @@ function ini_page_body ($ini_conf){
 				</div>
 			</div>			
 		</div>
-		<div class="col-md-6 nopadding" style="border-top: 10px solid #f0f0f0">
+		<div class="col-md-6" style="border-top: 10px solid #f0f0f0">
 			<div id="muro-insert">
 				<form id="muro-form" name="coment-form" action="" method="post" role="form">
 					<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />   
@@ -84,7 +84,7 @@ function ini_page_body ($ini_conf){
 				</form>
 			</div>
 			<div id="result-muro"></div>
-			<div id="destino">
+			<div id="destino" class="panel-muro">
   				<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 			</div>
 			<?php replyMuro();?>

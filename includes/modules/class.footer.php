@@ -15,7 +15,7 @@ class footer{
 			<p><a href="?page=contact"><?php echo strTranslate("Contact");?></a> - 
 			<a href="#" id="declaracion-trigger"><?php echo strTranslate("Rights_and_responsabilities");?>.</a> - 
 			<a href="#" id="policy-trigger"><?php echo strTranslate("Private_policy");?>.</a><br />
-			make with <i class="fa fa-heart heart-pulp"></i> by Grass Roots Spain <?php echo date("Y");?></p>
+			make with <i class="fa fa-heart heart-pulp"></i> by DNG <?php echo date("Y");?></p>
 		</div>
 
 		<!-- Modal -->
