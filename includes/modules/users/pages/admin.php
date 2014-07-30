@@ -9,31 +9,34 @@ function ini_page_header ($ini_conf) {?>
 function ini_page_body ($ini_conf){
   //CONTROL NIVEL DE ACCESO
   $perfiles_autorizados = array("admin");
-  session::AccessLevel($perfiles_autorizados);
-    
-  echo '<div id="page-info">Administración de la comunidad</div>';
-  echo '<div class="row inset">
-  		<div class="col-md-12"><h3>Gestión de contenidos</h3></div>
+  session::AccessLevel($perfiles_autorizados);?>
 
-		<div class="col-md-4">
-			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-file"></i> Documentación a PDF</a></div>
-				<div class="panel-body">';
-echo '			<p><a href="?page=admin-infotopdf-doc&act=new" class="comunidad-color">Nuevo documento.</a></p>';
-echo '			<p><a href="?page=admin-infotopdf" class="comunidad-color">Listado de documentos.</a></p>';
-echo '		</div>
-			</div>	
-		</div>
+  <div class="row row-top">
+  	<div class="col-md-9">
+		<h1>Administración de la comunidad</h1>
+		<div class="row">
+		  		<div class="col-md-12"><h3>Gestión de contenidos</h3></div>
 
-		<div class="col-md-4">
-			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-file"></i> Documentación</a></div>
-				<div class="panel-body">';
-echo '			<p><a href="?page=admin-info-doc&act=new" class="comunidad-color">Nuevo documento.</a></p>';
-echo '			<p><a href="?page=admin-info" class="comunidad-color">Listado de documentos.</a></p>';
-echo '		</div>
-			</div>	
-		</div>';
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading"><i class="fa fa-file"></i> Documentación a PDF</a></div>
+						<div class="panel-body">
+				<p><a href="?page=admin-infotopdf-doc&act=new" class="comunidad-color">Nuevo documento.</a></p>
+					<p><a href="?page=admin-infotopdf" class="comunidad-color">Listado de documentos.</a></p>
+				</div>
+					</div>	
+				</div>
+
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading"><i class="fa fa-file"></i> Documentación</a></div>
+						<div class="panel-body">
+					<p><a href="?page=admin-info-doc&act=new" class="comunidad-color">Nuevo documento.</a></p>
+					<p><a href="?page=admin-info" class="comunidad-color">Listado de documentos.</a></p>
+				</div>
+					</div>	
+				</div>
+<?php
 
 // echo '<div class="col-md-4">
 // 			<div class="panel panel-default">
@@ -141,6 +144,7 @@ echo '</div>
 				<div class="panel-heading"><i class="fa fa-user"></i>'.strTranslate("Users").'</a></div>
 				<div class="panel-body">';
   echo '		  <p><a href="?page=users" class="comunidad-color">'.strTranslate("Users_list").'</a></p>';
+  echo '		  <p><a href="?page=admin-puntos" class="comunidad-color">Asignación de puntos</a></p>';
   echo '		  <p><a href="?page=users-tiendas" class="comunidad-color">'.strTranslate("Users_groups_list").'</a></p>';
   echo '		  <p><a href="?page=cargas-users" class="comunidad-color">'.strTranslate("Users_import").'</a></p>';				
 				  //ASIGNACION DE HUELLAS
@@ -158,9 +162,12 @@ echo '</div>
    echo '		  <p><a href="?page=informe-puntuaciones" class="comunidad-color">Informe de puntuaciones.</a></p>';			  				  			
   echo '		</div>
 			</div>
-		</div>		
-	
-		</div>';
+		</div>';?>	
+		</div>
+		</div>
+	<?php menu::adminMenu();?>
+	</div>
+	<?php
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

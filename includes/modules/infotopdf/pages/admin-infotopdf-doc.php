@@ -33,9 +33,9 @@ function ini_page_body ($ini_conf){
 	$elements=infotopdfController::getItem();;
  
 ?>
-  <div id="page-info">Gestión de documentos</div>
-  <div class="row inset row-top">
-	<div class="col-md-8">
+<div class="row row-top">
+	<div class="col-md-9">
+		<h1>Gestión de documentos PDF</h1>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
 			<div class="panel-body">
@@ -101,16 +101,7 @@ function ini_page_body ($ini_conf){
 			</div>
 		</div>
 	</div>
-
-	<div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">Gestion de documentos</div>
-			<div class="panel-body">
-				<a href="?page=admin-infotopdf" class="comunidad-color">Ir a todos los documentos</a><br />
-				<a href="?page=admin-infotopdf-doc&act=new" class="comunidad-color">Nuevo documento</a>
-			</div>
-		</div>
-	</div>
+	<?php menu::adminMenu();?>
 </div>
 <?php 
 }

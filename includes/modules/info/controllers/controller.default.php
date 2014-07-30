@@ -16,16 +16,43 @@ class infoController{
 	}
 
 	public function getItemAction($id){
-		$info = new info();
-		return $info->getInfo(" AND id_info=".$id);
+		if (isset($_GET['act']) and $_GET['act']=='edit'){
+			$info = new info();
+			return $info->getInfo(" AND id_info=".$id);
+		}
 	}	
 
 	public static function createAction(){
-		
+		if (isset($_POST['id']) and $_POST['id']==0){
+			$info = new info();
+			$resultado=$info->insertInfo($_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana']);
+			if ($resultado==0){
+				session::setFlashMessage( 'actions_message', "Registro insertado correctamente", "alert alert-success");
+				$id = connection::SelectMaxReg("id_info","info","");
+				redirectURL("?page=admin-info-doc&act=edit&id=".$id);
+			}
+			elseif ($resultado==1){
+				session::setFlashMessage( 'actions_message', "Ocurrió algún error al subir el contenido. No pudo generarse el registro.", "alert alert-danger");
+				redirectURL("?page=admin-info-doc&act=new");
+			}
+			elseif ($resultado==2){
+				session::setFlashMessage( 'actions_message', "Ocurrió algún error al subir el contenido. No pudo guardarse el archivo.", "alert alert-danger");
+				redirectURL("?page=admin-info-doc&act=new");
+			}
+		}
 	}
 
-	public static function updateAction(){
-
+	public static function updateAction($id){
+		if (isset($_POST['id']) and $_POST['id']>0){
+			$info = new info();
+			if ($info->updateInfo($id,$_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'])) {
+				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
+			}
+			else{
+				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
+			}
+			redirectURL("?page=admin-info-doc&act=edit&id=".$id);
+		}
 	}
 
 	public static function deleteAction(){

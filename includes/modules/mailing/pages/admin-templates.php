@@ -18,9 +18,9 @@ function ini_page_body ($ini_conf){
 	$elements = mailingTemplatesController::getListAction(20);
 
 	?>
-	<div class="row inset row-top">
-	  	<div class="col-md-12"> 
-	  		<h2>Plantillas de comunicaciones</h2>
+	<div class="row row-top">
+	  	<div class="col-md-9"> 
+	  		<h1>Plantillas de comunicaciones</h1>
   			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		            <ul class="nav navbar-nav">       
@@ -63,7 +63,7 @@ function ini_page_body ($ini_conf){
 			</table>
 			<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		</div>
-	</div>
+		<?php menu::adminMenu();?>
 	</div>
 <?php
 }

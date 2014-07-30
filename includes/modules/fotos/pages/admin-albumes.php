@@ -34,7 +34,7 @@ function ini_page_body ($ini_conf){
 	?>
 	<div class="row row-top">
 		<div class="col-md-9">
-			<div id="page-info">Albumes de fotos</div>
+			<h1>Albumes de fotos</h1>
 			<div class="btn-group"> 
 				<a href="?page=admin-albumes-new&act=new" title="<?php echo strTranslate("New_album");?>" class="btn btn-default"><?php echo strTranslate("New_album");?></a>  
 			</div>

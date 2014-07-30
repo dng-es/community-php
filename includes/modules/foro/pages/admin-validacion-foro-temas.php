@@ -34,9 +34,7 @@ function ini_page_body ($ini_conf){
 
 	<div class="row row-top">
 		<div class="col-md-9">
-		<div id="page-info">Temas en los foros</div>
-		
-		
+			<h1>Temas en los foros</h1>
 			<p>Hay los siguientes <b>TEMAS</b> (<?php echo $elements['total_reg'];?>) creados en los foros</p>
 			<table class="table">
 				<tr>

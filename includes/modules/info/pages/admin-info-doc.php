@@ -18,25 +18,25 @@ function ini_page_body ($ini_conf){
 	$perfiles_autorizados = array("admin");
 	session::AccessLevel($perfiles_autorizados);
 
-	$accion=$_GET['act'];
-	$id = (isset($_GET['id']) ? $_GET['id'] : '');
-	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData($id);}
-	if ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}  
+	$accion = (isset($_GET['act']) ? $_GET['act'] : "new");
+	$id = (isset($_GET['id']) ? $_GET['id'] : 0);
+
+	session::getFlashMessage( 'actions_message' ); 
+	infoController::createAction();
+	infoController::updateAction($id);
 
 	$info = new info();
 	$campaigns = new campaigns();
-	$elements = array();
-	if ($id!=''){  
-		$elements=$info->getInfo(" AND id_info=".$id);
-	}  
+	$elements = infoController::getItemAction($id); 
 ?>
-  <div id="page-info">Gestión de documentos</div>
-  <div class="row inset row-top">
-	<div class="col-md-8">
+<div class="row row-top">
+	<div class="col-md-9">
+  		<h1>Gestión de documentos</h1>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
 			<div class="panel-body">
-				<form id="formData" role="form" name="formData" method="post" enctype="multipart/form-data" action="?page=admin-info-doc&act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
+				<form id="formData" role="form" name="formData" method="post" enctype="multipart/form-data" action="">
+					<input type="hidden" name="id" value="<?php echo $id;?>" />
 					<label>Titulo del documento:</label>
 					<input class="form-control" type="text" id="info_title" name="info_title" value="<?php echo $elements[0]['titulo_info'];?>" />
 					<span id="title-alert" class="alert-message"></span>
@@ -86,41 +86,8 @@ function ini_page_body ($ini_conf){
 			</div>
 		</div>
 	</div>
-
-	<div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">Gestion de documentos</div>
-			<div class="panel-body">
-				<a href="?page=admin-info" class="comunidad-color">Ir a todos los documentos</a><br />
-				<a href="?page=admin-info-doc&act=new" class="comunidad-color">Nuevo documento</a>
-			</div>
-		</div>
-	</div>
+	<?php menu::adminMenu();?>
 </div>
 <?php 
-}
-  
-
-function insertData()
-{
-	$info = new info();
-  $resultado=$info->insertInfo($_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana']);
-	if ($resultado=="") {
-	OkMsg('Registro insertado correctamente.');
-	$id=$info->SelectMaxReg("id_info","info","");
-	return $id;
-  }
-  else{ErrorMsg($resultado);}
-}
-
-function UpdateData($id)
-{
-  $info = new info();
-  if ($info->updateInfo($id,$_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'])) {
-	OkMsg('Registro modificado correctamente.');}
-  else
-  {
-	ErrorMsg('Error al modificar el documento.');
-  }
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 class fotosController{
-public static function getListAction($reg = 0, $filter = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$fotos = new fotos();
 		$find_reg = "";
 		if (isset($_POST['find_reg'])) {$filter .= " AND titulo LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
@@ -61,7 +61,7 @@ public static function getListAction($reg = 0, $filter = ""){
 			session::setFlashMessage( 'actions_message', $message, "alert alert-warning");
 			redirectURL("?page=".$destination);
 		}		
-	}
+	}	
 
 	/**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario

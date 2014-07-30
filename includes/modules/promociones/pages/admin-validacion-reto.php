@@ -6,7 +6,7 @@ templateload("player","videos");
 
 function ini_page_header ($ini_conf) {?>
 	<script type="text/javascript" src="js/jwplayer/jwplayer.js"></script>
-    <?php
+	<?php
 	//DESCARGAR ARCHIVO
 	if (isset($_REQUEST['exp']) and $_REQUEST['exp']!="") {	
 		require ("includes/core/class.zipfile.php");
@@ -35,7 +35,7 @@ function ini_page_header ($ini_conf) {?>
 	$promocion = $promociones->getPromociones(" AND active=1 ");
 	$id_promocion = $promocion[0]['id_promocion'];
 	$nombre_muro = $promocion[0]['nombre_promocion'];
-    
+	
 	if ($_REQUEST['act']=='video_conv'){
 	  $videos->convertirVideo($_REQUEST['f'],PATH_VIDEOS_TEMP,PATH_VIDEOS_CONVERT);    
 	}
@@ -106,37 +106,41 @@ function ini_page_header ($ini_conf) {?>
   }
 ?>
 		<!-- ficheros ventana modal -->
-        <LINK rel="stylesheet" type="text/css" href="css/modal.css" />
-        <script language="JavaScript" src="js/modal.js"></script>
-        <!-- fin ficheros ventana modal -->
+		<LINK rel="stylesheet" type="text/css" href="css/modal.css" />
+		<script language="JavaScript" src="js/modal.js"></script>
+		<!-- fin ficheros ventana modal -->
 <?php }
 function ini_page_body ($ini_conf){
-  //CONTROL NIVEL DE ACCESO
-  $perfiles_autorizados = array("admin");
-  session::AccessLevel($perfiles_autorizados);
-  
-  //SELECCIÓN DEL RETO ACTIVO
-  $promociones = new promociones();
-  $promocion = $promociones->getPromociones(" AND active=1 ");
-  $id_promocion = $promocion[0]['id_promocion'];
-  $nombre_muro = $promocion[0]['nombre_promocion'];
-  
-  echo '<div class="comunidad-panel">';						
-  echo '<h1>validaciones reto actual</h1>';	
-  //COMENTARIOS RETO PENDIENTES DE VALIDAR
-  getRetoPendientes($nombre_muro);
-  //COMENTARIOS RETO VALIDADOS
-  getRetoValidados($nombre_muro);  
-  //VIDEOS PENDIENTES DE VALIDAR
-  getVideosRetoPendientes($id_promocion);
-  //VIDEOS VALIDADOS
-  getVideosRetoValidados($id_promocion);  
-  //FOTOS PENDIENTES DE VALIDAR
-  getFotosRetoPendientes($id_promocion);   
-  //FOTOS PENDIENTES DE VALIDAR
-  getFotosRetoValidados($id_promocion);  
-	  
-  echo '</div>';
+	//CONTROL NIVEL DE ACCESO
+	$perfiles_autorizados = array("admin");
+	session::AccessLevel($perfiles_autorizados);
+
+	//SELECCIÓN DEL RETO ACTIVO
+	$promociones = new promociones();
+	$promocion = $promociones->getPromociones(" AND active=1 ");
+	$id_promocion = $promocion[0]['id_promocion'];
+	$nombre_muro = $promocion[0]['nombre_promocion'];?>
+
+	<div class="row row-top">
+		<div class="col-md-9">
+			<h1>validaciones reto actual</h1>
+			<?php
+			//COMENTARIOS RETO PENDIENTES DE VALIDAR
+			getRetoPendientes($nombre_muro);
+			//COMENTARIOS RETO VALIDADOS
+			getRetoValidados($nombre_muro);  
+			//VIDEOS PENDIENTES DE VALIDAR
+			getVideosRetoPendientes($id_promocion);
+			//VIDEOS VALIDADOS
+			getVideosRetoValidados($id_promocion);  
+			//FOTOS PENDIENTES DE VALIDAR
+			getFotosRetoPendientes($id_promocion);   
+			//FOTOS PENDIENTES DE VALIDAR
+			getFotosRetoValidados($id_promocion);?>
+		</div>
+		<?php menu::adminMenu();?>
+	</div>
+  <?php
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -154,11 +158,11 @@ function getVideosRetoPendientes($id_promocion)
 	  echo '<p class="TituloSecc2">Tiene los siguientes <span class="comunidad-color">VIDEOS</span> en el reto pendientes de validar.<br />
 			Puntos a otorgar por video validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
 	  foreach($pendientes as $element):
-	  		if (file_exists(PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4')){ $convertido=true;}
+			if (file_exists(PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4')){ $convertido=true;}
 			else {$convertido=false;}
 			
 			echo '<div class="video-container">';
-	 		echo '<div class="video-tool">';	
+			echo '<div class="video-tool">';	
 			if ($convertido==true){ 
 			echo'	<a class="video-tool-validate" href="#" onClick="Confirma(\'¿Seguro que desea validar el video '.str_replace('"','',$element['titulo']).'?\',
 					\'?page=admin-validacion-reto&act=videoreto_ok&id='.$element['id_file'].'&p='.$element['id_promocion'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" title="validar video" /><span>validar video</span></a>
@@ -193,15 +197,15 @@ function getVideosRetoValidados($id_promocion)
 	$pendientes = $videos->getVideos(" AND estado=1 AND seleccion_reto=0 AND id_promocion=".$id_promocion." ");
 	if (count($pendientes)==0){
 		echo '<p class="TituloSecc2">No hay <span class="comunidad-color">VIDEOS</span> en el reto para seleccionar.<br />
-	  		Puntos a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span><br />';
+			Puntos a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span><br />';
 	}
 	else{
 	  echo '<p class="TituloSecc2">Tiene los siguientes <span class="comunidad-color">VIDEOS</span> en el reto para seleccionar como los mejores.<br />
-	  		Puntos a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
+			Puntos a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
 
 	  foreach($pendientes as $element):
 			echo '<div class="video-container">';
-	 		echo ' <div class="video-tool">';
+			echo ' <div class="video-tool">';
 			echo '   <a class="video-tool-validate" href="#" 
 					onClick="Confirma(\'¿Seguro que desea seleccionar el video '.str_replace('"','',$element['titulo']).'?\',
 					 \'?page=admin-validacion-reto&act=videoreto_sel&id='.$element['id_file'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" 
@@ -232,12 +236,12 @@ function getFotosRetoPendientes($id_promocion)
 	$pendientes = $fotos->getFotos(" AND estado=0 AND seleccion_reto=0 and id_promocion=".$id_promocion." ");
 	if (count($pendientes)==0){
 		echo '<p class="TituloSecc2">No hay <span class="comunidad-color">FOTOS</span> en el reto pendientes de validar.<br /> 
-	  		Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.<br />
+			Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.<br />
 			Puntos a otorgar por validar foto: <span class="comunidad-color">'.PUNTOS_RETO.'</span></p><br />';
 	}
 	else{
 	  echo '<p class="TituloSecc2">Tiene las siguientes <span class="comunidad-color">FOTOS</span> en el reto pendientes de validar.<br /> 
-	  		Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.<br />
+			Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.<br />
 			Puntos a otorgar por validar foto: <span class="comunidad-color">'.PUNTOS_RETO.'</span></p><br />';
 	  echo '<table class="TableData" cellpadding="3" cellspacing="0">';
 	  echo '<tr>';
@@ -271,7 +275,7 @@ function getFotosRetoPendientes($id_promocion)
 						  <center>
 							<img src="'.PATH_FOTOS.$element['name_file'].'" class="galeria-fotos" style=" width:280px !important" />
 						  </center>
-				    </div>
+					</div>
 				 </td>';					
 			echo '<td>'.$element['user_add'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
@@ -289,11 +293,11 @@ function getFotosRetoValidados($id_promocion)
 	$pendientes = $fotos->getFotos(" AND estado=1 AND seleccion_reto=0 and id_promocion=".$id_promocion." ");
 	if (count($pendientes)==0){
 		echo '<p class="TituloSecc2">No hay <span class="comunidad-color">FOTOS</span> en el reto pendientes de seleccionar.<br /> 
-	  		Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.</p><br />';
+			Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.</p><br />';
 	}
 	else{
 	  echo '<p class="TituloSecc2">Tiene las siguientes <span class="comunidad-color">FOTOS</span> en el reto pendientes de seleccionar.<br /> 
-	  		Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.</p><br />';
+			Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.</p><br />';
 	  echo '<table class="TableData" cellpadding="3" cellspacing="0">';
 	  echo '<tr>';
 	  echo '<th width="50px">&nbsp;</th>';
@@ -320,7 +324,7 @@ function getFotosRetoValidados($id_promocion)
 						  <center>
 							<img src="'.PATH_FOTOS.$element['name_file'].'" class="galeria-fotos" style=" width:280px !important" />
 						  </center>
-				    </div>
+					</div>
 				 </td>';					
 			echo '<td>'.$element['user_add'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
@@ -338,11 +342,11 @@ function getRetoPendientes($nombre_muro)
 
 	if (count($pendientes)==0){
 		echo '<p class="TituloSecc2">No hay mensajes en el <span class="comunidad-color">RETO</span> pendientes de validar.<br />
-	  		Puntos a otorgar por mensaje validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
+			Puntos a otorgar por mensaje validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
 	}
 	else{
 	  echo '<p class="TituloSecc2">Hay los siguientes mensajes en el <span class="comunidad-color">RETO</span> pendientes de validar.<br />
-	  		Puntos a otorgar por mensaje validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
+			Puntos a otorgar por mensaje validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
 	  echo '<table class="TableData" cellpadding="3" cellspacing="0">';
 	  echo '<tr>';
 	  echo '<th width="30px">&nbsp;</th>';
@@ -360,13 +364,13 @@ function getRetoPendientes($nombre_muro)
 			echo '<tr class="'.$color_row.'">';
 			echo '<td nowrap="nowrap">	
 					<span class="ui-icon-color2 ui-icon ui-icon-circle-plus" title="Validar"
-					    onClick="Confirma(\'¿Seguro que desea validar el comentario '.$element['id_comentario'].'?\',
+						onClick="Confirma(\'¿Seguro que desea validar el comentario '.$element['id_comentario'].'?\',
 						\'?page=admin-validacion-reto&act=reto_ok&id='.$element['id_comentario'].'&p='.$element['tipo_muro'].'&u='.$element['user_comentario'].'\')">
 						<span>Cerrar</span>
 					</span>
 					
 					<span class="ui-icon-color2 ui-icon ui-icon-close" title="Eliminar"
-					    onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
+						onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
 						\'?page=admin-validacion-reto&act=muro_ko&id='.$element['id_comentario'].'&u='.$element['user_comentario'].'\')">
 						<span>Cerrar</span>
 					</span>																				
@@ -374,7 +378,7 @@ function getRetoPendientes($nombre_muro)
 					<div id="MensajeMuro'.$element['id_comentario'].'" class="modal-content">
 						  <p><b>'.$element['user_comentario'].'</b> escribi&oacute;:</p><hr />
 						  <p><em>'.$element['comentario'].'</em></p>
-				    </div>			
+					</div>			
 				 </td>';					
 			echo '<td><a href="#" class="abrir-modal" title="MensajeMuro'.$element['id_comentario'].'">'.$element['id_comentario'].'</a></td>';
 			echo '<td>'.$element['tipo_muro'].'</td>';
@@ -394,11 +398,11 @@ function getRetoValidados($nombre_muro)
 
 	if (count($pendientes)==0){
 		echo '<p class="TituloSecc2">No hay mensajes en el <span class="comunidad-color">RETO</span> para ser seleccionados.<br />
-	  		Puntos a otorgar por mensaje seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
+			Puntos a otorgar por mensaje seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
 	}
 	else{
 	  echo '<p class="TituloSecc2">Hay los siguientes mensajes en el <span class="comunidad-color">RETO</span> para ser seleccionados.<br />
-	  		Puntos a otorgar por mensaje seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
+			Puntos a otorgar por mensaje seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
 	  echo '<table class="TableData" cellpadding="3" cellspacing="0">';
 	  echo '<tr>';
 	  echo '<th width="30px">&nbsp;</th>';
@@ -416,14 +420,14 @@ function getRetoValidados($nombre_muro)
 			echo '<tr class="'.$color_row.'">';
 			echo '<td nowrap="nowrap">
 					<span class="ui-icon-color2 ui-icon ui-icon-circle-check" title="Seleccionar"
-					    onClick="Confirma(\'¿Seguro que desea seleccionar el comentario '.$element['id_comentario'].'?\',
+						onClick="Confirma(\'¿Seguro que desea seleccionar el comentario '.$element['id_comentario'].'?\',
 						\'?page=admin-validacion-reto&act=reto_sel&id='.$element['id_comentario'].'&u='.$element['user_comentario'].'\')">
 						<span>Cerrar</span>
 					</span>					
 					<div id="MensajeMuro'.$element['id_comentario'].'" class="modal-content">
 						  <p><b>'.$element['user_comentario'].'</b> escribi&oacute;:</p><hr />
 						  <p><em>'.$element['comentario'].'</em></p>
-				    </div>			
+					</div>			
 				 </td>';					
 			echo '<td><a href="#" class="abrir-modal" title="MensajeMuro'.$element['id_comentario'].'">'.$element['id_comentario'].'</a></td>';
 			echo '<td>'.$element['tipo_muro'].'</td>';

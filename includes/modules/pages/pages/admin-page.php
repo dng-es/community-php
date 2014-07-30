@@ -20,12 +20,11 @@ function ini_page_body ($ini_conf){
 	$page_name = isset($_REQUEST['p']) ? $_REQUEST['p'] : (isset($_POST['page_name']) ? $_POST['page_name'] : "");		
 
 	$pages = new pages();
-	$pagina= $pages->getPages(" AND page_name='".$page_name."' ");
-
-?>
-	<div id="page-info">Edición de páginas</div>
-	<div class="row inset row-top">	
-		<div class="col-md-12">
+	$pagina= $pages->getPages(" AND page_name='".$page_name."' "); ?>
+	
+	<div class="row row-top">	
+		<div class="col-md-9">
+			<h1>Edición de páginas</h1>
 			<form id="formData" name="formData" method="post" action="" role="form">
 				<input type="hidden" name="page_name" id="page_name" value="<?php echo $page_name;?>" />
 
@@ -46,12 +45,8 @@ function ini_page_body ($ini_conf){
 				<br /><button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit">Guardar página</button>
 			</form>	
 		</div>
+	<?php menu::adminMenu();?>
 </div>
 <?php 
-}
-	
-
-function updatePagina(){
-
 }
 ?>

@@ -38,11 +38,10 @@ function ini_page_body ($ini_conf){
   if ($elements[0]['foto']==""){$user_foto=PATH_USERS_FOTO."user.jpg";}
   else {$user_foto=PATH_USERS_FOTO.$elements[0]['foto'];}
 ?>
-	<div id="page-info"><?php echo strTranslate("User_info");?></div>
-		<div class="row inset row-top">
-
-		<div class="col-md-8">
-
+	
+	<div class="row row-top">
+		<div class="col-md-6">
+			<h1><?php echo strTranslate("User_info");?></h1>
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs">
 			  <li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
@@ -165,28 +164,22 @@ function ini_page_body ($ini_conf){
 				</div>			
 				</div>
 
-				<div class="col-md-4">
-				  <div class="panel panel-default">
-					<div class="panel-heading"><?php echo strTranslate("Users");?></div>
-					<div class="panel-body">
-					  <a href="?page=users" class="comunidad-color"><?php echo strTranslate("Users_list");?></a><br />
-					  <a href="?page=user&act=new" class="comunidad-color"><?php echo strTranslate("New_user");?></a>
+				<div class="col-md-3">
+					<br /><br />
+					<div class="panel panel-default">
+						<div class="panel-heading"><?php echo strTranslate("Picture");?></div>
+						<div class="panel-body">
+							  <img src="<?php echo $user_foto;?>" style="width:100%" class="responsive" /><br /><br />
+							<?php
+							echo '<div class="btn btn-primary btn-block" id="DeleteFoto" onClick="Confirma(\'¿Seguro que desea borrar la foto del usuario?\',
+								\'?page=user&act1=del&act='.$accion.'&id='.$elements[0]['username'].'&f='.$elements[0]['foto'].'\')" 
+								title="'.strTranslate("Delete_photo").'" />'.strTranslate("Delete_photo").'</div>';
+							?>
+						</div>
 					</div>
-				  </div>
-
-				  <div class="panel panel-default">
-					<div class="panel-heading"><?php echo strTranslate("Picture");?></div>
-					<div class="panel-body">
-					  <img src="<?php echo $user_foto;?>" style="width:100%" class="responsive" /><br /><br />
-				<?php
-				echo '<div class="btn btn-primary btn-block" id="DeleteFoto" onClick="Confirma(\'¿Seguro que desea borrar la foto del usuario?\',
-						\'?page=user&act1=del&act='.$accion.'&id='.$elements[0]['username'].'&f='.$elements[0]['foto'].'\')" 
-						title="'.strTranslate("Delete_photo").'" />'.strTranslate("Delete_photo").'</div>';
-				?>
 				</div>
+				<?php menu::adminMenu();?>
 			</div>
-		</div>
-	</div>
 <?php 
 }
   

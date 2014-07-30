@@ -39,9 +39,9 @@ class info extends connection{
 			$Sql="INSERT INTO info (titulo_info,file_info,canal_info,tipo_info,id_campaign) 
 				 VALUES
 				 ('".$titulo."','".$nombre_archivo."','".$canal."',".$tipo.",".$id_campaign.")";
-			if (connection::execute_query($Sql)){ return "";}
-			else { return "Ocurrió algún error al subir el contenido. No pudo guardarse 1.";}		   
-		}else{ return "Ocurrió algún error al subir el contenido. No pudo guardarse 2.";} 
+			if (connection::execute_query($Sql)){ return 0;}
+			else { return 1;}		   
+		}else{ return 2;} 
       }  
 
       public function updateInfo($id,$document_file,$title,$canal,$tipo,$id_campaign){

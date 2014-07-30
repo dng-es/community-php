@@ -24,9 +24,9 @@ function ini_page_body ($ini_conf){
 	muroController::cancelAction();			
 	$elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('principal','responsable') ORDER BY date_comentario DESC"); ?>
 
-	<div id="page-info">Validación de comentarios del muro</div>
-	<div class="row inset row-top">
+	<div class="row row-top">
 		<div class="col-md-9">
+			<h1>Validación de comentarios del muro</h1>
 			<?php if ($elements['total_reg']==0):?>
 			<p>No hay mensajes en el <span class="comunidad-color">MURO</span>.<br />
 			Puntos a otorgar por mensaje: <span class="comunidad-color"><?php echo PUNTOS_MURO;?>.</span></p>
@@ -78,6 +78,7 @@ function ini_page_body ($ini_conf){
 			Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);
 			endif;?>
 		</div>
+		<?php menu::adminMenu();?>
 	</div>
 	<?php
 }

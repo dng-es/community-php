@@ -14,9 +14,9 @@ function ini_page_body ($ini_conf){
 	infotopdfController::deleteAction();
 	$elements = infotopdfController::getListAction(20);
 	?>
-	<div id="page-info">Gestión de documentos</div>
-	<div class="row inset row-top">
-		<div class="col-md-12">
+	<div class="row row-top">
+		<div class="col-md-9">
+			<h1>Gestión de documentos PDF</h1>
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">       
@@ -47,6 +47,7 @@ function ini_page_body ($ini_conf){
 			</table>
 			<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		</div>
+		<?php menu::adminMenu();?>
 	</div>
 <?php
 }

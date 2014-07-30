@@ -18,9 +18,9 @@ function ini_page_body ($ini_conf){
 	$plantilla = campaignsController::getItemAction();	
 
 ?>
-	<div id="page-info">Edición de campañas</div>
-	<div class="row inset row-top">	
-		<div class="col-md-8">
+	<div class="row row-top">	
+		<div class="col-md-9">
+			<h1>Edición de campañas</h1>
 			<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
 				<input type="hidden" name="id_campaign" id="id_campaign" value="<?php echo $plantilla['id_campaign'];?>" />
 				
@@ -81,15 +81,7 @@ function ini_page_body ($ini_conf){
 				<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit">Guardar campaña</button>
 			</form>	
 		</div>
-		<div class="col-md-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">Gestion de campañas</div>
-				<div class="panel-body">
-					<a href="?page=admin-campaigns" class="comunidad-color">Ir a todas las campañas</a><br />
-					<a href="?page=admin-campaign&act=new" class="comunidad-color">Nueva campaña</a>
-				</div>
-			</div>
-		</div>
+		<?php menu::adminMenu();?>
 	</div>
 <?php 
 }

@@ -11,18 +11,15 @@ function ini_page_header ($ini_conf) {?>
 <?php 
 }
 
-function ini_page_body ($ini_conf){
-	
+function ini_page_body ($ini_conf){	
 	session::getFlashMessage( 'actions_message' ); 
 	configurationController::updateAction();
 	$elements = configurationController::getItemAction();
 	$modules = configurationController::getListModulesAction();
 	?>
-	
-	<div id="page-info">Configuración de la comunidad</div>
-	<div class="row inset row-top">
-		<div class="col-md-12">
-
+	<div class="row  row-top">
+		<div class="col-md-9">
+			<h1>Configuración de la comunidad</h1>
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs">
 			  <li class="active"><a href="#general" data-toggle="tab">Datos generales</a></li>
@@ -143,6 +140,7 @@ function ini_page_body ($ini_conf){
 				</div>
 			</div>
 		</div>
+		<?php menu::adminMenu();?>
 	</div>
 <?php
 }

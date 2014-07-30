@@ -70,55 +70,62 @@ class menu{
 	*/
 	static function adminMenu(){
 		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']='admin'){ ?>
-			<div class="col-md-3">
-				<div id="admin-panel">
-					<h3>Gestión de contenidos</h3>
-					<ul>
-						<li class="module-admin-header">Documentación a pdf</li>
-						<ul class="module-admin-item">
-							<li>Nuevo documento</li>
-							<li>Listado de documentos</li>
-						</ul>
-						<li class="module-admin-header">Documentación</li>
-						<li class="module-admin-header">Envío de comunicaciones</li>
-						<ul class="module-admin-item">
-							<li><a href="?page=admin-messages">Comunicaciones enviadas</a></li>
-							<li><a href="?page=admin-templates">Plantillas de comunicaciones</a></li>
-						</ul>						
-						<li class="module-admin-header">Campañas</li>
-						<ul class="module-admin-item">
-							<li><a href="?page=admin-campaign&act=new">Nueva campaña</a></li>
-							<li><a href="?page=admin-campaigns">Listado de campañas</a></li>
-							<li><a href="?page=admin-campaigns-types">Tipos de campañas</a></li>
-						</ul>						
-						<li class="module-admin-header">Vídeos</li>
-						<ul class="module-admin-item">
-							<li><a href="?page=admin-videos">Listado de vídeos</a></li>
-							<li><a href="?page=admin-validacion-videos">Validación de vídeos</a></li>
-						</ul>						
-						<li class="module-admin-header">Fotos</li>
-						<ul class="module-admin-item">
-							<li><a href="?page=admin-albumes">Listado de fotos</a></li>
-							<li><a href="?page=admin-validacion-fotos">Validación de fotos</a></li>
-						</ul>
-						<li class="module-admin-header">Foros</li>
-						<ul class="module-admin-item">
-							<li><a href="?page=admin-validacion-foro-temas">Temas en los foros</a></li>
-							<li><a href="?page=admin-validacion-foro-comentarios">Comentarios en los foros</a></li>
-						</ul>
-						<li class="module-admin-header">Muro</li>
-						<ul class="module-admin-item">
-							<li><a href="?page=admin-validacion-muro">Comentarios en el muro</a></li>
-						</ul>
+			<div class="col-md-3" id="admin-panel">
+				<h3>Gestión de contenidos</h3>
+				<ul>
+					<li class="module-admin-header">Documentación a pdf</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-infotopdf">Listado de documentos</a></li>
+						<li><a href="?page=admin-infotopdf-doc&act=new">Nuevo Documento</a></li>
 					</ul>
-					
-					<h3>Herramientas</h3>
-					<ul>
-						<li class="module-admin-header">Configuración</li>
-						<li class="module-admin-header">Usuarios</li>
-						<li class="module-admin-header">Informes</li>
+					<li class="module-admin-header">Documentación</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-info">Listado de documentos</a></li>
+						<li><a href="?page=admin-info-doc&act=new">Nuevo Documento</a></li>
 					</ul>
-				</div>
+					<li class="module-admin-header">Envío de comunicaciones</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-messages">Comunicaciones enviadas</a></li>
+						<li><a href="?page=admin-templates">Plantillas de comunicaciones</a></li>
+					</ul>						
+					<li class="module-admin-header">Campañas</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-campaign&act=new">Nueva campaña</a></li>
+						<li><a href="?page=admin-campaigns">Listado de campañas</a></li>
+						<li><a href="?page=admin-campaigns-types">Tipos de campañas</a></li>
+					</ul>						
+					<li class="module-admin-header">Vídeos</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-videos">Listado de vídeos</a></li>
+						<li><a href="?page=admin-validacion-videos">Validación de vídeos</a></li>
+					</ul>						
+					<li class="module-admin-header">Fotos</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-albumes">Álbumes de fotos</a></li>
+						<li><a href="?page=admin-validacion-fotos">Validación de fotos</a></li>
+					</ul>
+					<li class="module-admin-header">Foros</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-validacion-foro-temas">Temas en los foros</a></li>
+						<li><a href="?page=admin-validacion-foro-comentarios">Comentarios en los foros</a></li>
+					</ul>
+					<li class="module-admin-header">Blog</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-blog">Listado de entradas</a></li>
+						<li><a href="?page=admin-blog-new&act=new">Nueva entrada</a></li>
+					</ul>
+					<li class="module-admin-header">Muro</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-validacion-muro">Comentarios en el muro</a></li>
+					</ul>
+				</ul>
+				
+				<h3>Herramientas</h3>
+				<ul>
+					<li class="module-admin-header">Configuración</li>
+					<li class="module-admin-header">Usuarios</li>
+					<li class="module-admin-header">Informes</li>
+				</ul>
 			</div>
 			<?php
 		}

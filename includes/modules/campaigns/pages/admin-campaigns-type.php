@@ -17,9 +17,9 @@ function ini_page_body ($ini_conf){
 	$plantilla = campaignsController::getItemTypesAction();	
 
 ?>
-	<div id="page-info">Edición de tipos de campañas</div>
 	<div class="row inset row-top">	
-		<div class="col-md-8">
+		<div class="col-md-9">
+			<h1>Edición de tipos de campañas</h1>
 			<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
 				<input type="hidden" name="id" id="id" value="<?php echo $plantilla['id_campaign_type'];?>" />
 				<div class="form-group">
@@ -36,15 +36,7 @@ function ini_page_body ($ini_conf){
 				<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit">Guardar tipo</button>
 			</form>	
 		</div>
-		<div class="col-md-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">Gestion de campañas</div>
-				<div class="panel-body">
-					<a href="?page=admin-campaigns-types" class="comunidad-color">Ir a todos los tipos</a><br />
-					<a href="?page=admin-campaigns-type&act=new" class="comunidad-color">Nuevo tipo</a>
-				</div>
-			</div>
-		</div>
+		<?php menu::adminMenu();?>
 	</div>
 <?php 
 }

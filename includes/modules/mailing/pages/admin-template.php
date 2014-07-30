@@ -20,9 +20,9 @@ function ini_page_body ($ini_conf){
 	$plantilla = mailingTemplatesController::getItemAction();	
 
 ?>
-	<div id="page-info">Edición de plantillas</div>
-	<div class="row inset row-top">	
+	<div class="row row-top">	
 		<div class="col-md-9">
+			<h1>Edición de plantillas</h1>
 			<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
 				<input type="hidden" name="id_template" id="id_template" value="<?php echo $plantilla['id_template'];?>" />
 				<div class="form-group">
@@ -39,7 +39,6 @@ function ini_page_body ($ini_conf){
 						</div>	
 					</div>			
 				</div>
-
 
 				<label>Tipo de plantilla:</label>
 				<select name="template_tipo" id="template_tipo" class="form-control">
@@ -74,15 +73,7 @@ function ini_page_body ($ini_conf){
 				<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit">Guardar plantilla</button>
 			</form>	
 		</div>
-		<div class="col-md-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">Gestion de plantillas</div>
-				<div class="panel-body">
-					<a href="?page=admin-templates" class="comunidad-color">Ir a todas las plantillas</a><br />
-					<a href="?page=admin-template&act=new" class="comunidad-color">Nueva plantilla</a>
-				</div>
-			</div>
-		</div>
+		<?php menu::adminMenu();?>
 	</div>
 <?php 
 }

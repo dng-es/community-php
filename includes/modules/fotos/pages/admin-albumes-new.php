@@ -20,17 +20,16 @@ function ini_page_body ($ini_conf){
 	$perfiles_autorizados = array("admin");
 	$session->AccessLevel($perfiles_autorizados);
 
-	$accion=$_GET['act'];
-	$accion1=$_GET['act1'];
+	$accion = (isset($_GET['act']) ? $_GET['act'] : "");
+	$accion1 = (isset($_GET['act1']) ? $_GET['act1'] : "");
 	$id = 0;
 
 	$fotos = new fotos();
 	$elements = array();
-	
 
 	if ($accion=='edit'){ $id=$_GET['id'];}
-	if ($accion=='edit' and $_GET['accion2']=='ok' and $accion1!="del"){ UpdateData();}
-	elseif ($accion=='new' and $_GET['accion2']=='ok'){ $id=InsertData();$accion="edit";}
+	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok') and $accion1!="del"){ UpdateData();}
+	elseif ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}
 
 	//AGREGAR IMAGEN AL ALBUM
 	if (isset($_POST['file_id'])){
@@ -43,14 +42,11 @@ function ini_page_body ($ini_conf){
 	}
 
 	//CANCELAR IMAGEN
-	if ($_REQUEST['act2']=='foto_ko'){$fotos->cambiarEstado($_REQUEST['idc'],2,0);}
-
-
-	$elements=$fotos->getFotosAlbumes(" AND id_album=".$id." ");
-?>
-<div id="page-info">Albumes de fotos</div>
-	<div class="row inset row-top">
+	if (isset($_REQUEST['act2']) and $_REQUEST['act2']=='foto_ko'){$fotos->cambiarEstado($_REQUEST['idc'],2,0);}
+	$elements = fotosAlbumController::getItemAction($id); ?>
+	<div class="row row-top">
 		<div class="col-md-9">
+			<h1>Albumes de fotos</h1>
 			<div class="panel panel-default">
 				<div class="panel-heading">Datos del album</div>
 				<div class="panel-body">
@@ -62,13 +58,27 @@ function ini_page_body ($ini_conf){
 					</form>
 				</div>
 			</div>
-			<?php if ($accion == 'edit'){?>
+			<?php if ($accion == 'edit'){ ?>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Agregar imagen al álbum</div>
+				<div class="panel-body">
+					<form action="" method="post" role="form">
+						<input type="hidden" name="id_album" value="<?php echo $id;?>" />
+						<label for="file_id">Introduce el ID de la foto:</label>
+						<input type="text" class="form-control entero" name="file_id" id="file_id" />
+						<br />
+						<button type="submit" class="btn btn-primary">Agregar</button>
+					</form>
+				</div>
+			</div>
+
 			<h3>Fotos incluidas en el álbum</h3>
 			<?php 
 			$fotos = new fotos();
 			$elements = $fotos->getFotos("AND estado=1 AND id_album=".$id." ");
 			if (count($elements)==0):?>
-				<div class="alert alert-danger">No existen fotos en el álbum</div>
+				<div class="alert alert-warning">No existen fotos en el álbum</div>
 			<?php else: ?>
 				<table class="table">
 					<tr>
@@ -117,34 +127,10 @@ function ini_page_body ($ini_conf){
 				<?php
 				endif;
 			}
-			?>
-			
-			</div>
-
-			<?php if ($accion == 'edit'): ?>
-				<div class="col-md-3">
-					<div class="panel panel-default">
-						<div class="panel-heading">Agregar imagen al álbum</div>
-						<div class="panel-body">
-							<form action="" method="post" role="form">
-								<input type="hidden" name="id_album" value="<?php echo $id;?>" />
-								<label for="file_id">Introduce el ID de la foto:</label>
-								<input type="text" class="form-control entero" name="file_id" id="file_id" />
-								<br />
-								<button type="submit" class="btn btn-primary">Agregar</button>
-							</form>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">Gestión de albumes</div>
-						<div class="panel-body">
-								<a href="?page=admin-albumes" title="Exportar">Volver al listado de albumes</a><br /> 
-								<a href="?page=admin-albumes-new&act=new" title="nuevo usuario"><?php echo strTranslate("New_album");?></a>  
-						</div>
-					</div>         
-				</div>
-			<?php endif;?>
-			</div>
+			?>	
+		</div>
+		<?php menu::adminMenu();?>
+	</div>
 	<?php
 }
 	
