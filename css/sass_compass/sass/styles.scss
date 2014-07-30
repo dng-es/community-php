@@ -229,8 +229,8 @@ label{font-weight:normal; color:$color1}
 .header-info{
 	background-color:#f5f5f5;
 	position:relative;
-	height: 90px;
-	padding:20px 0 0 0;
+	height: 65px;
+	padding:5px 0 0 0;
 	@media screen and (max-width: $break-medium) {
 		padding: 0px;
 		height:auto;
@@ -388,11 +388,12 @@ label{font-weight:normal; color:$color1}
 
 /*Panel de informacion usuario*/
 #user-info{
-	color:$color3;
+	color:#c9c9c9;
+	font-size:13px;
 	margin-right:20px
 }
-#user-info a{color:$color1;outline: none}
-#user-info a:hover{color:$color3;}
+#user-info a{color:#b0b0b0;outline: none}
+#user-info a:hover{color:$color1;}
 #user-info p{margin:10px;text-align: right;}
 #user-info span {color:$color3}
 #banda-info{
@@ -1308,3 +1309,41 @@ table th {
 	50% { font-size: 17px; }  		/* Mitad de la animación */
 	100% { font-size: 14px; }  		/* Al final de la animación */
 }
+
+/*Panel de administración*/
+#admin-panel{
+	background-color:#f9f9f9;
+	border-left:1px solid #f5f5f5;
+	color:#b5b5b5;
+	font-size:13px;
+	padding: 15px;
+	a{
+		color:#b5b5b5;
+	}
+	a:hover{
+		color:$color1;
+	}
+	h3{
+		color:#a9a9a9;
+		font-size:16px;
+	}
+	li{
+		list-style:none;
+		padding:0px;
+		margin:0;
+	}
+	ul{
+		padding:0;
+		margin:0 0 0 15px;
+	}
+}
+.module-admin-header{
+	cursor:pointer;
+}
+.module-admin-header:hover{
+	color:$color1;
+}
+.module-admin-item{
+	display:none
+}
+/*Fin Panel de administración*/

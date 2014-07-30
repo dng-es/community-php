@@ -12,13 +12,14 @@ function ini_page_body ($ini_conf){
 	$session->AccessLevel($perfiles_autorizados);
 	
 	$fotos = new fotos();  
+	$find_reg = "";
 	$filtro = " AND activo=1 ORDER BY id_album DESC";
 	if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $fotos->cambiarEstadoAlbum($_REQUEST['id'],0);}
 
 	//SHOW PAGINATOR
 	$reg = 35;
 	if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
-	if (!$pag) { $inicio = 0; $pag = 1;}
+	if (!isset($pag)) { $inicio = 0; $pag = 1;}
 	else { $inicio = ($pag - 1) * $reg;}
 	$total_reg = $fotos->countReg("galeria_fotos_albumes",$filtro);
 
@@ -31,9 +32,9 @@ function ini_page_body ($ini_conf){
 
 	$elements=$fotos->getFotosAlbumes($filtro.' LIMIT '.$inicio.','.$reg);
 	?>
-	<div id="page-info">Albumes de fotos</div>
-	<div class="row inset row-top">
+	<div class="row row-top">
 		<div class="col-md-9">
+			<div id="page-info">Albumes de fotos</div>
 			<div class="btn-group"> 
 				<a href="?page=admin-albumes-new&act=new" title="<?php echo strTranslate("New_album");?>" class="btn btn-default"><?php echo strTranslate("New_album");?></a>  
 			</div>
@@ -69,6 +70,7 @@ function ini_page_body ($ini_conf){
 			</table>
 			<?php Paginator($pag,$reg,$total_reg, 'admin-albumes', strTranslate("Users"), $find_reg);?>
 		</div>
+		<?php menu::adminMenu();?>
 	</div>
 	<?php
 }

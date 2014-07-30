@@ -34,9 +34,11 @@ function ini_page_body ($ini_conf){
 	foroController::cancelComentarioAction();
 	$elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY id_comentario DESC");
 	
-	echo '<div id="page-info">Comentarios en los foros</div>';
-	echo '<div class="row inset row-top">';
+
+	echo '<div class="row row-top">';
 	echo '	<div class="col-md-9">';
+	echo '<div id="page-info">Comentarios en los foros</div>';
+
 
 	
 	if ($elements['total_reg']==0){
@@ -92,7 +94,8 @@ function ini_page_body ($ini_conf){
 		echo '</table><br />';
 		Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);	
 	}
-	echo '		</div>';	
+	echo '		</div>';
+	menu::adminMenu();
 	echo '	</div>';
 }
 ?>

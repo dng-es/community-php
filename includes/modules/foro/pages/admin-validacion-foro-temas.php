@@ -32,9 +32,11 @@ function ini_page_body ($ini_conf){
 	foroController::changeTipoAction();
 	$elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND activo=1 and itinerario='' ".$filtro_temas);?>
 
-	<div id="page-info">Temas en los foros</div>
-	<div class="row inset row-top">
+	<div class="row row-top">
 		<div class="col-md-9">
+		<div id="page-info">Temas en los foros</div>
+		
+		
 			<p>Hay los siguientes <b>TEMAS</b> (<?php echo $elements['total_reg'];?>) creados en los foros</p>
 			<table class="table">
 				<tr>
@@ -102,17 +104,13 @@ function ini_page_body ($ini_conf){
 			endforeach;
 			echo '</table><br />';
 			Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);
-				echo '		</div>';	
-			// echo '<div class="col-md-4">
-			// 			<div class="panel panel-default">
-			// 			<div class="panel-heading">Buscar tema</div>
-			// 			<div class="panel-body">';
-			// SearchTemas($find_tipo);
-			// echo '		</div>
-			// 			</div>';		
-			// echo '</div>';?>
+			//SearchTemas($find_tipo);
+			echo '</div>';	
+			menu::adminMenu();
+			?>
 	</div>
 	<?php
+	
 }
 
 

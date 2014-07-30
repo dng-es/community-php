@@ -13,9 +13,9 @@ function ini_page_header ($ini_conf) {?>
 
 <?php }
 function ini_page_body ($ini_conf){
-	echo '<div id="page-info">'.strTranslate("Video_list").'</div>';
-	echo '<div class="row inset row-top">';
+	echo '<div class="row row-top">';
 	echo '<div class="col-md-9">';
+	echo '<div id="page-info">'.strTranslate("Video_list").'</div>';
 
 
 	//CONTROL NIVEL DE ACCESO
@@ -33,7 +33,7 @@ function ini_page_body ($ini_conf){
 	if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
 	if (!isset($pag)) { $inicio = 0; $pag = 1;}
 	else { $inicio = ($pag - 1) * $reg;}
-	$total_reg = $videos->countReg("galeria_videos",$filtro);
+	$total_reg = connection::countReg("galeria_videos",$filtro);
 
 	
 	//EXPORT EXCEL - SHOW AND GENERATE
@@ -55,7 +55,7 @@ function ini_page_body ($ini_conf){
 	
 	$color_row='TableRow';
 	foreach($elements as $element):
-		$num_comentarios = $videos->countReg("galeria_videos_comentarios"," AND estado=1 AND id_file=".$element['id_file']." ");
+		$num_comentarios = connection::countReg("galeria_videos_comentarios"," AND estado=1 AND id_file=".$element['id_file']." ");
 		echo '<tr>';
 		echo '<td nowrap="nowrap">	
 				<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'"
@@ -76,10 +76,7 @@ function ini_page_body ($ini_conf){
 	echo '</table>';
 	Paginator($pag,$reg,$total_reg,'admin-videos','Videos',$find_reg);
 	echo '</div>';
-
-
-	
-	echo '</div>';
+	menu::adminMenu();
 	echo '</div>';
 }
 ?>

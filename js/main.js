@@ -54,5 +54,12 @@ jQuery(document).ready(function(){
 		if ($(bg).width() > 0) {
 		$(bg).css("left", (screenWidth - $(bg).width()) / 2);
 		}
-	}	
+	}
+
+
+	//Menu administración
+	$(".module-admin-header").click(function(e){
+		e.preventDefault();
+		$(this).next(".module-admin-item").slideToggle();	
+	});
 });
