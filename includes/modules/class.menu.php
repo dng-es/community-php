@@ -71,6 +71,7 @@ class menu{
 	static function adminMenu(){
 		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']='admin'){ ?>
 			<div class="col-md-3" id="admin-panel">
+				<h2><a href="?page=admin">Panel Principal</a></h2>
 				<h3>Gestión de contenidos</h3>
 				<ul>
 					<li class="module-admin-header">Documentación a pdf</li>
@@ -123,8 +124,24 @@ class menu{
 				<h3>Herramientas</h3>
 				<ul>
 					<li class="module-admin-header">Configuración</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=admin-config">Datos generales</a></li>
+						<li><a href="?page=admin-page&p=policy">Política de privacidad</a></li>
+						<li><a href="?page=admin-page&p=declaracion">Derechos y responsabilidades.</a></li>
+					</ul>
 					<li class="module-admin-header">Usuarios</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=users">Listado de usuarios</a></li>
+						<li><a href="?page=admin-puntos">Asignación de puntos</a></li>
+						<li><a href="?page=users-tiendas">Listado de tiendas.</a></li>
+						<li><a href="?page=cargas-users">Importar usuarios.</a></li>
+					</ul>					
 					<li class="module-admin-header">Informes</li>
+					<ul class="module-admin-item">
+						<li><a href="?page=informe-accesos">Accesos a la comunidad</a></li>
+						<li><a href="?page=informe-participaciones">Informe de participaciones</a></li>
+						<li><a href="?page=informe-puntuaciones">Informe de puntuaciones</a></li>
+					</ul>
 				</ul>
 			</div>
 			<?php

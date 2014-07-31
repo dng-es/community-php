@@ -430,10 +430,6 @@ function ini_page_body ($ini_conf){
 	$perfiles_autorizados = array("admin");
 	$session->AccessLevel($perfiles_autorizados);
 
-	echo '<div id="page-info">Accesos a la aplicación</div>';
-	echo '<div class="row inset row-top">';
-	echo '<div class="col-md-12">';
-
 	//VACIAR LOGS
 	if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $visitas->deleteVisitas();}
 
@@ -445,51 +441,55 @@ function ini_page_body ($ini_conf){
 		$fecha_fin = date('Y-m-d');
 		$fecha_ini = strtotime ( '-1 month' , strtotime ( $fecha_fin ) ) ;
 		$fecha_ini = date ( 'Y-m-d' , $fecha_ini );
-	}
+	}?>
 
-  echo '<div class="col-md-12">
-  		<p>Puedes filtrar los informes de acceso por fechas:</p>
-        <form name="inf-accesos" id="inf-accesos" method="post" action="?page='.$_REQUEST['page'].'" role="form" class="">
-            <input type="hidden" name="export_fechas" id="export_fechas" value="1" />
+	<div class="row row-top">
+		<div class="col-md-9">
+			<h1>Accesos a la aplicación</h1>
+			<div class="col-md-12">
+  				<p>Puedes filtrar los informes de acceso por fechas:</p>
+				<form name="inf-accesos" id="inf-accesos" method="post" action="?page=<?php echo $_REQUEST['page'];?>" role="form" class="">
+					<input type="hidden" name="export_fechas" id="export_fechas" value="1" />
 
-            <label for="fecha_ini">Fecha inicio:</label>
-            <div id="datetimepicker1" class="input-group date">
-              	<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_ini" class="form-control" name="fecha_ini" placeholder="Fecha inicio" value="'.$fecha_ini.'"></input>
-                <span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-            </div>
+					<label for="fecha_ini">Fecha inicio:</label>
+					<div id="datetimepicker1" class="input-group date">
+						<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_ini" class="form-control" name="fecha_ini" placeholder="Fecha inicio" value="<?php echo $fecha_ini;?>"></input>
+					<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+					</div>
 
-            <script>
-            jQuery(document).ready(function(){
-              $("#datetimepicker1").datetimepicker({
-                  language: "es-ES"
-                });
-              });
-            </script>
+					<script>
+					jQuery(document).ready(function(){
+						$("#datetimepicker1").datetimepicker({
+						  language: "es-ES"
+						});
+					});
+					</script>
 
-			<label for="fecha_fin">Fecha fin:</label>
-            <div id="datetimepicker2" class="input-group date">
-              	<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_fin" class="form-control" name="fecha_fin" placeholder="Fecha fin" value="'.$fecha_fin.'"></input>
-                <span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-            </div>
+					<label for="fecha_fin">Fecha fin:</label>
+					<div id="datetimepicker2" class="input-group date">
+						<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_fin" class="form-control" name="fecha_fin" placeholder="Fecha fin" value="<?php echo $fecha_fin;?>"></input>
+					<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+					</div>
 
-            <script>
-            jQuery(document).ready(function(){
-              $("#datetimepicker2").datetimepicker({
-                  language: "es-ES"
-                });
-              });
-            </script>
-            <span id="fecha-alert" class="alert-message alert alert-danger"></span>
+					<script>
+					jQuery(document).ready(function(){
+						$("#datetimepicker2").datetimepicker({
+						  language: "es-ES"
+						});
+					});
+					</script>
+					<span id="fecha-alert" class="alert-message alert alert-danger"></span>
 
-			<br />
-			<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
-          	<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
-          	<a class="btn btn-primary" href="#" onClick="Confirma(\'¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.\', \'?page=informe-accesos&act=del\')" title="Vaciar registros" />Vaciar registros de accesos</a>
-          	<br /><br />
-          	<p>En los informes gráficos no se muestran los accesos al panel de administración.</p>
-          	<hr />
-        </form>
-    </div>'; 
+					<br />
+					<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
+					<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
+					<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', '?page=informe-accesos&act=del')" title="Vaciar registros" />Vaciar registros de accesos</a>
+					<br /><br />
+					<p>En los informes gráficos no se muestran los accesos al panel de administración.</p>
+					<hr />
+				</form>
+			</div>
+  <?php
 
   echo '<div>';
   echo '<h2>Páginas visitadas: visitas realizadas por página.</h2>
@@ -513,7 +513,7 @@ function ini_page_body ($ini_conf){
 		<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
 		<div id="chartdiv3"  class="access-stats">
 			<div id="loading3" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i>></div>
-		</div>
+		</div>';?>
 
 		<div class="">
 			<div class="" style="width:100%">
@@ -530,14 +530,11 @@ function ini_page_body ($ini_conf){
 					<div id="loading5" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 				</div>
 			</div>
-		</div>
-		
-		</div>
-
+		</div>	
 		</div>
 		</div>
- 
-		';
-
+		<?php menu::adminMenu();?>
+	</div>
+	<?php
 }
 ?>
