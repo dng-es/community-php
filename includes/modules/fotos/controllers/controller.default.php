@@ -73,6 +73,19 @@ class fotosController{
 		$num_votaciones = connection::countReg("galeria_fotos_votaciones"," AND user_votacion='".$username."' ");
 		return array( strTranslate("Photo_uploads") => $num,
 					  strTranslate("Votes_in_photos") => $num_votaciones,);
-	}	
+	}
+
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Modules',
+							"LabelSection" => strTranslate("Photos"),
+							"LabelItem" => strTranslate("Photo_list"),
+							"LabelUrl" => 'admin-albumes',
+							"LabelPos" => 1),
+					  array("LabelHeader"=>'Modules',
+							"LabelSection"=> strTranslate("Photos"),
+							"LabelItem"=> strTranslate("Photo_validation"),
+							"LabelUrl"=>'admin-validacion-fotos',
+							"LabelPos" => 2));	
+	}		
 }
 ?>

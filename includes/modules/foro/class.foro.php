@@ -69,7 +69,7 @@ class foro extends connection{
 			 (".$id.",'".$texto_comentario."','".$usuario."',".$estado.",".$id_comentario_id.")";
 		if (connection::execute_query($Sql)){ 
 		  //puntuacion semanal
-		  if(self::countReg("foro_comentarios"," AND user_comentario='".$usuario."' AND WEEK(date_comentario)=WEEK(NOW()) AND YEAR(date_comentario)=YEAR(NOW())")==1){
+		  if(connection::countReg("foro_comentarios"," AND user_comentario='".$usuario."' AND WEEK(date_comentario)=WEEK(NOW()) AND YEAR(date_comentario)=YEAR(NOW())")==1){
 			  users::sumarPuntos($usuario,PUNTOS_FORO_SEMANA,PUNTOS_FORO_SEMANA_MOTIVO);}
 		  if ($estado==1){users::sumarPuntos($usuario,PUNTOS_FORO,PUNTOS_FORO_MOTIVO);}
 		  

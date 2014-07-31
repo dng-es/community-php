@@ -27,12 +27,7 @@ function ini_page_body ($ini_conf){
 	<div class="row row-top">
 		<div class="col-md-9">
 			<h1>Validación de comentarios del muro</h1>
-			<?php if ($elements['total_reg']==0):?>
-			<p>No hay mensajes en el <span class="comunidad-color">MURO</span>.<br />
-			Puntos a otorgar por mensaje: <span class="comunidad-color"><?php echo PUNTOS_MURO;?>.</span></p>
-			<?php else:?>
-			<p>Hay los siguientes mensajes en el <span class="comunidad-color">MURO</span> (<?php echo $elements['total_reg'];?>).<br />
-			Puntos a otorgar por mensaje: <span class="comunidad-color"><?php echo PUNTOS_MURO;?>.</span></p>
+			<p>Hay los siguientes mensajes en el <b>MURO</b> (<?php echo $elements['total_reg'];?>). Puntos a otorgar por mensaje: <span class="comunidad-color"><?php echo PUNTOS_MURO;?>.</span></p>
 			<table class="table">
 			<tr>
 			<th width="40px">&nbsp;</th>
@@ -75,8 +70,7 @@ function ini_page_body ($ini_conf){
 				echo '</tr>';   
 			endforeach;
 			echo '</table><br />';
-			Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);
-			endif;?>
+			Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		</div>
 		<?php menu::adminMenu();?>
 	</div>

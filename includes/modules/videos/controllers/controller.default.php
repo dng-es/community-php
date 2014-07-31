@@ -177,5 +177,18 @@ class videosController{
 					  strTranslate("Comments_in_videos") => $num_comentarios,
 					  strTranslate("Votes_in_videos_comments") => $num_comentarios_votaciones);
 	}	
+
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Modules',
+							"LabelSection" => strTranslate("Videos"),
+							"LabelItem" => strTranslate("Video_list"),
+							"LabelUrl" => 'admin-videos',
+							"LabelPos" => 1),
+					  array("LabelHeader"=>'Modules',
+							"LabelSection"=> strTranslate("Videos"),
+							"LabelItem"=> strTranslate("Video_validation"),
+							"LabelUrl"=>'admin-validacion-videos',
+							"LabelPos" => 2));	
+	}	
 }
 ?>

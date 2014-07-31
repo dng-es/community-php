@@ -114,5 +114,22 @@ class foroController{
 					 'Votaciones realizadas en los foros' => $num_votaciones,
 					 'Visitas en los foros' => $num_visitas);	
 	}	
+
+	/**
+	 * Elementos para el menu de administración
+	 * @return 	array           			Array con datos
+	 */	
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Modules',
+							"LabelSection" => 'Foros',
+							"LabelItem" => 'Temas en los foros',
+							"LabelUrl" => 'admin-validacion-foro-temas',
+							"LabelPos" => 1),
+					  array("LabelHeader"=>'Modules',
+							"LabelSection"=>'Foros',
+							"LabelItem"=>'Comentarios en los foros',
+							"LabelUrl"=>'admin-validacion-foro-comentarios',
+							"LabelPos" => 2));	
+	}		
 }
 ?>

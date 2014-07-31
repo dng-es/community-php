@@ -17,5 +17,17 @@ class visitasController{
 			exportCsv($elements, "accesos");
 		}
 	}
+
+	/**
+	 * Elementos para el menu de administración
+	 * @return 	array           			Array con datos
+	 */	
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Tools',
+							"LabelSection" => 'Informes',
+							"LabelItem" => 'Accesos a la comunidad',
+							"LabelUrl" => 'informe-accesos',
+							"LabelPos" => 1));	
+	}	
 }
 ?>

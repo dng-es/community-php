@@ -54,5 +54,22 @@ class pagesController{
 			redirectURL("?page=admin-pages");
 		}
 	}	
+
+	/**
+	 * Elementos para el menu de administración
+	 * @return 	array           			Array con datos
+	 */	
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Tools',
+							"LabelSection" => 'Configuración',
+							"LabelItem" => 'Política de privacidad',
+							"LabelUrl" => 'admin-page&p=policy',
+							"LabelPos" => 2),
+					  array("LabelHeader"=>'Tools',
+							"LabelSection"=>'Configuración',
+							"LabelItem"=>'Derechos y responsabilidades',
+							"LabelUrl"=>'admin-page&p=declaracion',
+							"LabelPos" => 3));	
+	}	
 }
 ?>

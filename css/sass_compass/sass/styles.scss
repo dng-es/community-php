@@ -1349,6 +1349,13 @@ table th {
 	color:$color1;
 }
 .module-admin-item{
-	display:none
+	display:none;
+
+	li a{
+		color:#666 !important;
+	}
+	li a:hover{
+		color:$color1 !important;
+	}
 }
 /*Fin Panel de administración*/

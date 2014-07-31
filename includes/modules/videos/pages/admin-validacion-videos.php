@@ -46,10 +46,9 @@ function ini_page_body ($ini_conf){
   
 	$videos = new videos();
 	$pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
-
-	<div id="page-info"><?php echo strTranslate("Video_validation");?></div>
 	<div class="row inset row-top">
 		<div class="col-md-9">
+		<h1><?php echo strTranslate("Video_validation");?></h1>
 		<?php if (count($pendientes)==0): ?>
 			<p>No hay <span class="comunidad-color">VIDEOS</span> pendientes de validar.<br />
 		  	Puntos a otorgar por video: <span class="comunidad-color"><?php echo PUNTOS_VIDEO;?></span>.</p>
@@ -91,6 +90,7 @@ function ini_page_body ($ini_conf){
 			endforeach;  	
 		endif;?>
 		</div>
+		<?php menu::adminMenu();?>
   	</div>
 <?php
 }

@@ -132,5 +132,42 @@ class usersController{
 		return $array_final;
 	}
 
+	/**
+	 * Elementos para el menu de administración
+	 * @return 	array           			Array con datos
+	 */	
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Tools',
+							"LabelSection" => strTranslate("Users"),
+							"LabelItem" => strTranslate("Users_list"),
+							"LabelUrl" => 'users',
+							"LabelPos" => 1),
+					  array("LabelHeader" => 'Tools',
+							"LabelSection" => strTranslate("Users"),
+							"LabelItem" => strTranslate("Users_import"),
+							"LabelUrl" => 'cargas-users',
+							"LabelPos" => 2),
+					  array("LabelHeader" => 'Tools',
+							"LabelSection"=> strTranslate("Users"),
+							"LabelItem"=> 'Asignación de puntos',
+							"LabelUrl"=> 'admin-puntos',
+							"LabelPos" => 3),
+					  array("LabelHeader"=> 'Tools',
+							"LabelSection"=> strTranslate("Users"),
+							"LabelItem"=> strTranslate("Users_groups_list"),
+							"LabelUrl"=> 'users-tiendas',
+							"LabelPos" => 4),
+					  array("LabelHeader"=> 'Tools',
+							"LabelSection"=> 'Informes',
+							"LabelItem" => 'Informe puntuaciones',
+							"LabelUrl" => 'informe-puntuaciones',
+							"LabelPos" => 2),
+					  array("LabelHeader" => 'Tools',
+							"LabelSection" => 'Informes',
+							"LabelItem" => 'Informe de participaciones',
+							"LabelUrl" => 'informe-participaciones',
+							"LabelPos" => 3));	
+	}	
+
 }
 ?>

@@ -49,5 +49,13 @@ class muroController{
 		return array('Comentarios en el muro' => $num,
 					 'Votaciones realizadas en el muro' => $num_votaciones);
 	}	
+
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Modules',
+							"LabelSection" => 'Muro',
+							"LabelItem" => 'Comentarios en el muro',
+							"LabelUrl" => 'admin-validacion-muro',
+							"LabelPos" => 1));	
+	}	
 }
 ?>

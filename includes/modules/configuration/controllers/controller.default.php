@@ -59,5 +59,17 @@ class configurationController{
 		endforeach;	
 		return $listModules;	
 	}
+
+	/**
+	 * Elementos para el menu de administración
+	 * @return 	array           			Array con datos
+	 */	
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Tools',
+							"LabelSection" => 'Configuración',
+							"LabelItem" => 'Datos generales',
+							"LabelUrl" => 'admin-config',
+							"LabelPos" => 1));	
+	}	
 }
 ?>

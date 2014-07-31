@@ -73,5 +73,18 @@ class infoController{
 			fileToZip($_REQUEST['exp'], PATH_INFO);
 		}
 	}	
+
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Modules',
+							"LabelSection" => "Documentación",
+							"LabelItem" => "Nuevo documento",
+							"LabelUrl" => 'admin-info-doc&act=new',
+							"LabelPos" => 1),
+					  array("LabelHeader"=>'Modules',
+							"LabelSection"=> "Documentación",
+							"LabelItem"=> "Listado de documentos",
+							"LabelUrl"=>'admin-info',
+							"LabelPos" => 2));	
+	}		
 }
 ?>

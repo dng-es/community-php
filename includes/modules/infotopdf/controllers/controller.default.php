@@ -77,5 +77,18 @@ class infotopdfController{
 		}
 	    
 	}	
+
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Modules',
+							"LabelSection" => "Documentación PDF",
+							"LabelItem" => "Nuevo documento",
+							"LabelUrl" => 'admin-infotopdf-doc&act=new',
+							"LabelPos" => 1),
+					  array("LabelHeader"=>'Modules',
+							"LabelSection"=> "Documentación PDF",
+							"LabelItem"=> "Listado de documentos",
+							"LabelUrl"=>'admin-infotopdf',
+							"LabelPos" => 2));	
+	}	
 }
 ?>

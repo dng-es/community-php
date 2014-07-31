@@ -64,87 +64,76 @@ class menu{
 		}
 	}	
 
+
+
+	static function getMenuSection($section, $array_final){
+		$header_name = "";
+		foreach($array_final as $elem):
+					
+				if ($elem['LabelHeader']==$section) {
+					if($header_name!="" and $header_name!=$elem['LabelSection']){
+						echo '</ul>';
+					}
+
+					if ($header_name!=$elem['LabelSection']){
+						$header_name = $elem['LabelSection'];
+						echo '<li class="module-admin-header">'.$elem['LabelSection'].'</li>
+						<ul class="module-admin-item">';
+						echo '<li><a href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+					}
+					elseif($header_name=$elem['LabelSection']){
+						echo '<li><a href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+					}
+					
+					
+				}
+		endforeach;
+		echo '</ul>';
+	}
+
+
 	/**
 	* Print administration menu
 	*
 	*/
 	static function adminMenu(){
-		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']='admin'){ ?>
-			<div class="col-md-3" id="admin-panel">
-				<h2><a href="?page=admin">Panel Principal</a></h2>
-				<h3>Gestión de contenidos</h3>
-				<ul>
-					<li class="module-admin-header">Documentación a pdf</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-infotopdf">Listado de documentos</a></li>
-						<li><a href="?page=admin-infotopdf-doc&act=new">Nuevo Documento</a></li>
-					</ul>
-					<li class="module-admin-header">Documentación</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-info">Listado de documentos</a></li>
-						<li><a href="?page=admin-info-doc&act=new">Nuevo Documento</a></li>
-					</ul>
-					<li class="module-admin-header">Envío de comunicaciones</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-messages">Comunicaciones enviadas</a></li>
-						<li><a href="?page=admin-templates">Plantillas de comunicaciones</a></li>
-					</ul>						
-					<li class="module-admin-header">Campañas</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-campaign&act=new">Nueva campaña</a></li>
-						<li><a href="?page=admin-campaigns">Listado de campañas</a></li>
-						<li><a href="?page=admin-campaigns-types">Tipos de campañas</a></li>
-					</ul>						
-					<li class="module-admin-header">Vídeos</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-videos">Listado de vídeos</a></li>
-						<li><a href="?page=admin-validacion-videos">Validación de vídeos</a></li>
-					</ul>						
-					<li class="module-admin-header">Fotos</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-albumes">Álbumes de fotos</a></li>
-						<li><a href="?page=admin-validacion-fotos">Validación de fotos</a></li>
-					</ul>
-					<li class="module-admin-header">Foros</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-validacion-foro-temas">Temas en los foros</a></li>
-						<li><a href="?page=admin-validacion-foro-comentarios">Comentarios en los foros</a></li>
-					</ul>
-					<li class="module-admin-header">Blog</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-blog">Listado de entradas</a></li>
-						<li><a href="?page=admin-blog-new&act=new">Nueva entrada</a></li>
-					</ul>
-					<li class="module-admin-header">Muro</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-validacion-muro">Comentarios en el muro</a></li>
-					</ul>
-				</ul>
-				
-				<h3>Herramientas</h3>
-				<ul>
-					<li class="module-admin-header">Configuración</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=admin-config">Datos generales</a></li>
-						<li><a href="?page=admin-page&p=policy">Política de privacidad</a></li>
-						<li><a href="?page=admin-page&p=declaracion">Derechos y responsabilidades.</a></li>
-					</ul>
-					<li class="module-admin-header">Usuarios</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=users">Listado de usuarios</a></li>
-						<li><a href="?page=admin-puntos">Asignación de puntos</a></li>
-						<li><a href="?page=users-tiendas">Listado de tiendas.</a></li>
-						<li><a href="?page=cargas-users">Importar usuarios.</a></li>
-					</ul>					
-					<li class="module-admin-header">Informes</li>
-					<ul class="module-admin-item">
-						<li><a href="?page=informe-accesos">Accesos a la comunidad</a></li>
-						<li><a href="?page=informe-participaciones">Informe de participaciones</a></li>
-						<li><a href="?page=informe-puntuaciones">Informe de puntuaciones</a></li>
-					</ul>
-				</ul>
-			</div>
-			<?php
+		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']='admin'){ 
+
+		$array_final = array();
+		$modules = getListModules();		
+		foreach($modules as $module):
+			$moduleClass = $module['folder']."Controller";
+			$instance = new $moduleClass();
+			if (method_exists($instance, "adminMenu")) {
+		        $array_final = array_merge($array_final, $instance->adminMenu());
+		    }
+		endforeach;
+		
+
+
+
+
+		foreach ($array_final as $clave => $fila) {
+		    $principal[$clave] = $fila['LabelHeader'];
+		    $seccion[$clave] = $fila['LabelSection'];
+		    $posicion[$clave] = $fila['LabelPos'];
+		}
+
+		array_multisort($principal, SORT_ASC, $seccion, SORT_ASC, $posicion, SORT_ASC, $array_final);
+
+		?>
+		<div class="col-md-3" id="admin-panel">
+			<h2><a href="?page=admin">Ir al Panel Principal</a></h2>
+			<h3>Gestión de contenidos</h3>
+			<ul>
+				<?php self::getMenuSection("Modules", $array_final);?>
+			</ul>
+			<h3><?php echo strTranslate("Tools");?></h3>
+			<ul>
+				<?php self::getMenuSection("Tools", $array_final);?>
+			</ul>
+		</div>
+		<?php
 		}
 	}	
 }?>
