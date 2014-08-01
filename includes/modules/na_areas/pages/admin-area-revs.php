@@ -54,14 +54,15 @@ function ini_page_body ($ini_conf){
 	//OBTENER DATOS DE LA TAREA
 	$tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 	
-	echo '<div class="row inset row-top">';
-	echo '  <div class="col-md-12">
-				<h2>Revisiones de la tarea: '.$tarea[0]['tarea_titulo'].'</h2>';
+	echo '<div class="row row-top">';
+	echo '  <div class="col-md-9">
+				<h1>Revisiones</h1>
+				<p>Tarea: '.$tarea[0]['tarea_titulo'].'</p>';
 	echo '		<nav class="navbar navbar-default" role="navigation">
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">       
 							<li><a href="?page=admin-area&act=edit&id='.$id_area.'">Volver al curso</a></li>
-							<li><a href="?page=admin-area-revs&t3=1&a='.$id_area.'&id='.$id_tarea.'">Exportar CSV</a></li>
+							<li><a href="?page=admin-area-revs&t3=1&a='.$id_area.'&id='.$id_tarea.'">'.strTranslate("Export").'</a></li>
 						</ul>
 					</div>
 				</nav>';
@@ -135,9 +136,12 @@ function ini_page_body ($ini_conf){
 		else{revisionesFicheros($id_tarea,$id_area,$id_grupo);} 
 	}
 	else{ErrorMsg("Error al cargar la tarea");}
+	?>
 
-	echo '</div>
-		</div>';
+		</div>
+		<?php menu::adminMenu();?>
+	</div>
+	<?php
 }
 
 function revisionesFicheros($id_tarea,$id_area,$id_grupo){

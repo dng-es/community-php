@@ -83,7 +83,7 @@ label{font-weight:normal; color:$color1}
 :-ms-input-placeholder {  
    color: $color2 !important;  
 }
-#container-content{background: #fff;margin-top:0px;padding-bottom:20px}
+#container-content{background: #fff;margin-top:0px;padding-bottom:0px}
 #page-home #container-content{padding-bottom:0px}
 #container-content h2{
 	font-size:28px;
@@ -1003,7 +1003,6 @@ table th {
 	background-color:#fff;
 	color: $color1;
 }
-#page-admin-area [class*="col-"]{margin-bottom: 0px !important;padding-bottom: 0px !important;}
 [class*="col-"]{margin-bottom: -99999px !important;padding-bottom: 99999px !important;}
 .row{overflow: hidden;}
 .bootstrap-datetimepicker-widget{background-color:$color1 !important}
@@ -1317,6 +1316,7 @@ table th {
 	color:#b5b5b5;
 	font-size:13px;
 	padding: 15px;
+	right: 0;
 	a{
 		color:#b5b5b5;
 	}
@@ -1351,6 +1351,10 @@ table th {
 .module-admin-item{
 	display:none;
 
+	li a.active{
+		font-weight:bolder;
+		color:#333 !important;
+	}
 	li a{
 		color:#666 !important;
 	}

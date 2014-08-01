@@ -343,6 +343,23 @@ class mailingController{
 	public function userModuleStatistis($username){
 		$num = connection::countReg("mailing_messages"," AND username_add='".$username."' ");
 		return array('Mailing masivos' => $num);
-	}	
+	}
+
+	/**
+	 * Elementos para el menu de administración
+	 * @return 	array           			Array con datos
+	 */	
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Modules',
+							"LabelSection" => 'Comunicaciones Email',
+							"LabelItem" => 'Comunicaciones enviadas',
+							"LabelUrl" => 'admin-messages',
+							"LabelPos" => 1),
+					  array("LabelHeader" => 'Modules',
+							"LabelSection" => 'Comunicaciones Email',
+							"LabelItem" => 'Plantillas de comunicaciones',
+							"LabelUrl" => 'admin-templates',
+							"LabelPos" => 2));	
+	}		
 }
 ?>

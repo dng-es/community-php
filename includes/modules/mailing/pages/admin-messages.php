@@ -24,21 +24,13 @@ function ini_page_body ($ini_conf){
 	<div class="row row-top">
 	  	<div class="col-md-9"> 
 	  		<h1>Comunicaciones enviadas</h1>
-  			<nav class="navbar navbar-default" role="navigation">
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		            <ul class="nav navbar-nav">       
-		              <li><a href="?page=admin-message&act=new">Nueva comunicación</a></li>
-		              <li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'">Exportar CSV</a></li>
-		            </ul>
-  				</div>
-        	</nav>
-        	<p>Total <b><?php echo $elements['total_reg'];?></b> registros</p>
+        	<p>Total <b>ENVÍOS</b> (<?php echo $elements['total_reg'];?>) realizados. <a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?></p>
 			<table class="table">
 				<tr>
 					<th width="40px">&nbsp;</th>
 					<th>Asunto</th>
 					<th>Estado</th>
-					<th>Fecha</th>
+					<th><?php echo strTranslate("Date");?></th>
 					<th>Tot</th>
 					<th>Env</th>
 					<th>Pen</th>

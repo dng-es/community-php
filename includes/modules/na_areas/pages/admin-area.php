@@ -25,10 +25,10 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 function ini_page_header ($ini_conf) {
 ?>	
 	<script language="JavaScript" src="js/jquery.numeric.js"></script>
+	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
 	<script language="JavaScript" src="<?php echo getAsset("na_areas");?>js/admin-area.js"></script>
 	<script language="JavaScript" src="<?php echo getAsset("users");?>js/admin-cargas.js"></script>
 	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
 	<script language="javascript" type="text/javascript">
 		$(document).ready(function(){
 			 $(".abrir-modal").click(function(event) {
@@ -40,9 +40,9 @@ function ini_page_header ($ini_conf) {
 			
 <?php }
 function ini_page_body ($ini_conf){
-	echo '<div id="page-info">Gestión de cursos de formación</div>';
-	echo '<div class="row inset row-top">';
-	echo '  <div class="col-md-8">';  
+	echo '<div class="row row-top">';
+	echo '<div class="col-md-9">';  
+	echo '<h1>Gestión de cursos de formación</h1>';
 
 	session::getFlashMessage( 'actions_message' );
 
@@ -108,27 +108,7 @@ function ini_page_body ($ini_conf){
 		ErrorMsg($na_areas->estadoLinksTarea($_REQUEST['del_t'],$_REQUEST['el']));
 	}  
 	
-	$elements=$na_areas->getAreas(" AND id_area=".$id." "); 	
-	ShowData($elements,$id,$accion);
-
-	echo '</div>
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">Cursos de formación</div>
-						<div class="panel-body">
-							<a href="?page=admin-areas" class="comunidad-color">Ir a todos los cursos</a><br />
-							<a href="?page=admin-area&act=new" class="comunidad-color">Nuevo curso</a>
-						</div>
-					</div>
-				</div>
-			</div>';
-}
-
-///////////////////////////////////////////////////////////////////////////////////
-// PAGE FUNCTIONS
-///////////////////////////////////////////////////////////////////////////////////
-function ShowData($elements,$id,$accion)
-{
+	$elements=$na_areas->getAreas(" AND id_area=".$id." ");
 	$area_nombre = isset($elements[0]['area_nombre']) ? $elements[0]['area_nombre'] : "";
 	$area_descripcion = isset($elements[0]['area_descripcion']) ? $elements[0]['area_descripcion'] : "";
 	$puntos = isset($elements[0]['puntos']) ? $elements[0]['puntos'] : "";
@@ -173,19 +153,23 @@ function ShowData($elements,$id,$accion)
 					<span id="canal-alert" class="alert-message alert alert-danger"></span>
 					</div>
 
-					<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary">Guardar curso</button>
+					<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
 				</form>	
+			</div>
 		</div>
+		<?php
+		if ($accion=='edit'){
+			$id_area = $elements[0]['id_area'];
+			$area_canal = $elements[0]['area_canal'];
+			//showGruposArea($id_area);
+			showTareasArea($id_area);
+			showUsuariosArea($id_area,$area_canal);
+			//showForosArea($id_area);
+		}?>
+		</div>
+		<?php menu::adminMenu();?>
 	</div>
-	<?php
-	if ($accion=='edit'){
-		$id_area = $elements[0]['id_area'];
-		$area_canal = $elements[0]['area_canal'];
-		//showGruposArea($id_area);
-		showTareasArea($id_area);
-		showUsuariosArea($id_area,$area_canal);
-		//showForosArea($id_area);
-	}
+	<?php	
 }
 
 function showUsuariosArea($id_area,$area_canal){
@@ -594,7 +578,7 @@ function InsertData()
 				$_POST['area_canal'],
 				$_POST['area_puntos'],
 				$_POST['area_limite'])) {
-		OkMsg("Curso insertado correctamente.");
+		OkMsg(strTranslate("Insert_procesing"));
 		$id_area=$na_areas->SelectMaxReg("id_area","na_areas","");
 		return $id_area;
 	}
@@ -615,7 +599,7 @@ function UpdateData()
 							$_POST['area_nombre'],
 							$_POST['area_descripcion'],
 							$_POST['area_canal']);
-				OkMsg("Curso modificado correctamente.");}
+				OkMsg(strTranslate("Update_procesing"));}
 	else { ErrorMsg("Se ha producido algun error durante la modificacion de los datos.");}
 }
 

@@ -164,6 +164,24 @@ class campaignsController{
 			}
 			redirectURL("?page=admin-campaigns-types");
 		}
+	}	
+
+	public static function adminMenu(){
+		return array( array("LabelHeader" => 'Modules',
+							"LabelSection" => "Campañas",
+							"LabelItem" => "Nueva campaña",
+							"LabelUrl" => 'admin-campaign&act=new',
+							"LabelPos" => 1),
+					  array("LabelHeader"=>'Modules',
+							"LabelSection"=> "Campañas",
+							"LabelItem"=> "Listado de campañas",
+							"LabelUrl"=>'admin-campaigns',
+							"LabelPos" => 2),
+					  array("LabelHeader"=>'Modules',
+							"LabelSection"=> "Campañas",
+							"LabelItem"=> "Tipos de campañas",
+							"LabelUrl"=>'admin-campaigns-types',
+							"LabelPos" => 3));	
 	}			
 }
 ?>

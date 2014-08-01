@@ -26,7 +26,7 @@ class menu{
 					            <li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
 					          </ul>
 					        </li>';
-			echo '			<li><a class="menu-item" href="?page=areas">Cursos</a></li>';
+			echo '			<li><a class="menu-item" href="?page=areas">'.strTranslate("Na_areas").'</a></li>';
 			echo '			<li><a class="menu-item" href="?page=foro-subtemas&id='.$id_foro.'">Foros</a></li>';
 			echo '			<li><a class="menu-item" href="?page=user-info-all">Documentación</a></li>';
 			//echo 				'<li><a class="menu-item" href="?page=mystery">Mystery</a></li>';
@@ -62,15 +62,15 @@ class menu{
 			</div>
 			<?php
 		}
-	}	
-
-
+	}
 
 	static function getMenuSection($section, $array_final){
 		$header_name = "";
 		foreach($array_final as $elem):
 					
 				if ($elem['LabelHeader']==$section) {
+					$main_url = explode("&", $elem['LabelUrl']);
+					$active = (($_GET['page']==$main_url[0] or $_GET['page']==$elem['LabelUrl']) ? " class=\"active\" " : "");
 					if($header_name!="" and $header_name!=$elem['LabelSection']){
 						echo '</ul>';
 					}
@@ -79,13 +79,11 @@ class menu{
 						$header_name = $elem['LabelSection'];
 						echo '<li class="module-admin-header">'.$elem['LabelSection'].'</li>
 						<ul class="module-admin-item">';
-						echo '<li><a href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+						echo '<li><a '.$active.' href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
 					}
 					elseif($header_name=$elem['LabelSection']){
-						echo '<li><a href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
-					}
-					
-					
+						echo '<li><a '.$active.' href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+					}				
 				}
 		endforeach;
 		echo '</ul>';
@@ -109,10 +107,6 @@ class menu{
 		    }
 		endforeach;
 		
-
-
-
-
 		foreach ($array_final as $clave => $fila) {
 		    $principal[$clave] = $fila['LabelHeader'];
 		    $seccion[$clave] = $fila['LabelSection'];
@@ -132,6 +126,7 @@ class menu{
 			<ul>
 				<?php self::getMenuSection("Tools", $array_final);?>
 			</ul>
+			<br />
 		</div>
 		<?php
 		}

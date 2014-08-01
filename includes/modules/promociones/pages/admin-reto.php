@@ -33,7 +33,7 @@ function ini_page_body ($ini_conf){
 
 	if (isset($_REQUEST['act'])) {$accion=$_REQUEST['act'];}
 	else {$accion='edit';}
-	if ($accion=='edit' and $_GET['accion2']=='ok'){ UpdateData();}
+	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData();}
 	elseif ($accion=='new'){ InsertData();$accion="edit";}
 	elseif ($accion=='del_v'){ $promociones->deleteFile($_REQUEST['id'],$_REQUEST['n']);}
 	elseif ($accion=='video_ok'){
@@ -157,13 +157,13 @@ echo '<form id="video-form" name="video-form" action="?page=admin-reto&act=video
 			<tr valign="top">
 				<td><label for="titulo-fichero">Título:</label></td>
 				<td>
-					<input maxlength="250" name="titulo-fichero" id="titulo-fichero" type="text" class="form-control" value="'.$_POST['titulo-fichero'].'" />
+					<input maxlength="250" name="titulo-fichero" id="titulo-fichero" type="text" class="form-control" value="'.(isset($_POST['titulo-fichero']) ? $_POST['titulo-fichero'] : '').'" />
 					<span id="titulo-video-alert" class="alert-message alert alert-danger"></span>
 				</td>
 			</tr>
 			<tr valign="top">
 				<td><label for="descripcion-fichero">Descripción:</label></td>
-				<td><input maxlength="250" name="descripcion-fichero" id="descripcion-fichero" type="text" class="form-control" value="'.$_POST['descripcion-fichero'].'" /></td>
+				<td><input maxlength="250" name="descripcion-fichero" id="descripcion-fichero" type="text" class="form-control" value="'.(isset($_POST['descripcion-fichero']) ? $_POST['descripcion-fichero'] : '').'" /></td>
 			</tr>			
 			<tr valign="top">
 				<td><label for="nombre-fichero">Fichero:</label></td>

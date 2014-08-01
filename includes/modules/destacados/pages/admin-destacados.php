@@ -12,8 +12,8 @@ function ini_page_body ($ini_conf){
 	$perfiles_autorizados = array("admin");
 	$session->AccessLevel($perfiles_autorizados);
 	
-	$accion=$_GET['act'];
-	if ($accion=='edit' and $_GET['accion2']=='ok'){ insertDestacado();}	
+	$accion=isset($_GET['act']) ? $_GET['act'] : 0;
+	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ insertDestacado();}	
 	$destacados = new destacados(); 	
 ?>
 <div class="row row-top">

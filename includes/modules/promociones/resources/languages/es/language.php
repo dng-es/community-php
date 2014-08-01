@@ -1,3 +1,3 @@
 <?php
-Hello = "Hola"
+Reto_tag = "El reto"
 ?>

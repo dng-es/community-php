@@ -57,14 +57,14 @@ function ini_page_body ($ini_conf){
 
 	?>
 
-	<div class="row inset row-top">
-		<div class="col-md-12">
-			<h2>Cursos de formación</h2>
+	<div class="row row-top">
+		<div class="col-md-9">
+			<h1><?php echo strTranslate("Na_areas_list");?></h1>
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">       
-						<li><a href="?page=admin-area&act=new">Nuevo curso</a></li>
-						<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q=<?php echo $find_text;?>">Exportar CSV</a></li>
+						<li><a href="?page=admin-area&act=new"><?php echo strTranslate("Na_areas_new");?></a></li>
+						<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q=<?php echo $find_text;?>"><?php echo strTranslate("Export");?></a></li>
 					</ul>
 				</div>
 			</nav>
@@ -73,9 +73,9 @@ function ini_page_body ($ini_conf){
 			<table class="table">
 			<tr>
 			<th width="40px">&nbsp;</th>
-			<th>Curso</th>
+			<th><?php echo strTranslate("Na_areas");?></th>
 			<th>Canal</th>
-			<th>Fecha</th>
+			<th><?php echo strTranslate("Date");?></th>
 			</tr>		
 			<?php foreach($elements as $element): ?>
 				<?php
@@ -97,7 +97,7 @@ function ini_page_body ($ini_conf){
 						</span>
 
 						<span class="fa fa-ban icon-table" title="Eliminar"
-							onClick="Confirma('¿Seguro que deseas eliminar el curso?', '?page=admin-areas&pag=<?php echo $pag;?>&act=del&id=<?php echo $element['id_area'];?>&e=2')">
+							onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', '?page=admin-areas&pag=<?php echo $pag;?>&act=del&id=<?php echo $element['id_area'];?>&e=2')">
 						</span>
 
 						<a href="?page=admin-areas&id=<?php echo $element['id_area'];?>" class="fa fa-download icon-table" title="Descargar usuarios"></a>
@@ -113,6 +113,7 @@ function ini_page_body ($ini_conf){
 			</table>
 			<?php Paginator($pag,$reg,$total_reg,'admin-areas','Areas',$find_reg);?>
 		</div>
+		<?php menu::adminMenu();?>
 	</div>
 <?php
 }

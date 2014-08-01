@@ -56,8 +56,7 @@ function ini_page_body ($ini_conf){
 			</table>
 			<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		</div>
-	</div>
-	<?php menu::adminMenu();?>
+		<?php menu::adminMenu();?>
 	</div>
 <?php
 }

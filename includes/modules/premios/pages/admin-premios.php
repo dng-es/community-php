@@ -18,8 +18,8 @@ function ini_page_body ($ini_conf){
 	$perfiles_autorizados = array("admin");
 	$session->AccessLevel($perfiles_autorizados);
 	
-	$accion=$_GET['act'];
-	if ($accion=='edit' and $_GET['accion2']=='ok'){ UpdateData();}
+	$accion= isset($_GET['act']) ? $_GET['act'] : 0;
+	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData();}
 	
 	$premios = new premios();
 	$elements=$premios->getPremios(); 	
@@ -47,13 +47,13 @@ function ini_page_body ($ini_conf){
 
 			</td></tr>
 			<tr><td>
-				<label>selecciona la im&aacute;gen del banner:</label>
+				<label>selecciona la imágen del banner:</label>
 				<div class="radio">
-					<label><input name="imagen_premio" type="radio" value="1" checked /> Im&aacute;gen 1 fija</label>
+					<label><input name="imagen_premio" type="radio" value="1" checked /> Imágen 1 fija</label>
 				</div>
 
 				<div class="radio">
-					<label><input name="imagen_premio" type="radio" value="2" /> Im&aacute;gen 2 con movimiento</label>
+					<label><input name="imagen_premio" type="radio" value="2" /> Imágen 2 con movimiento</label>
 				</div>
 			</td></tr>  
 			<tr><td>
