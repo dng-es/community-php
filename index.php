@@ -4,7 +4,7 @@ else {$page='login';}
 
 include_once ("includes/core/functions.core.php");
 include_once ("includes/core/constants.php");
-include_once ("includes/core/debugger.php");
+
 
 
 //LOGOUT SESSION

@@ -4,7 +4,7 @@ class campaignsController{
 		$campaigns = new campaigns();
 		$filtro = $filter." AND active=1 ORDER BY name_campaign ASC ";
 
-		$find_reg = (isset($_GET['f']) and $_GET['f']>0) ? $_GET['f'] : "";
+		//$find_reg = (isset($_GET['f']) and $_GET['f']>0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = $campaigns->countReg("campaigns c",$filtro);
 		return array('items' => $campaigns->getCampaigns($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),

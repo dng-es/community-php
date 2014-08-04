@@ -14,7 +14,7 @@ function ini_page_body ($ini_conf){
 
 	session::getFlashMessage( 'actions_message' ); 
 	campaignsController::deleteAction();
-	$elements = campaignsController::getListAction(20);
+	$elements = campaignsController::getListAction();
 
 	?>
 	<div class="row row-top">

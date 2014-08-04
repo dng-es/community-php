@@ -31,14 +31,18 @@ class connection_sql {
 	}
 	
 	public function execute_query($consulta){
+		global $ini_conf;
 		$link=self::conex();
 		mysqli_set_charset($link,'utf8');
 		if ($da_query = mysqli_query($link, $consulta)) {
+			if ($ini_conf['debug_app']==1) {
+				debugger::addError(0, $consulta, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql");
+			}			
+			
 			self::close_conex($link);
 			return $da_query;  
 		}
-		else {
-			global $ini_conf;
+		else {	
 			if ($ini_conf['debug_app']==1) {
 				$msg="<b>SQL ERROR in query:</b> ".$consulta."; <b>SQL ERROR description:</b> ".mysqli_error($link);
 				ErrorMsg($msg);

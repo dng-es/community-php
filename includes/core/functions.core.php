@@ -76,7 +76,7 @@ function templateload($template,$classname){
 * @param 	string 		$classname 			CLass name
 */
 function __autoload($classname){    
-	if ($classname == "connection" || $classname == "session" || $classname == "FileSystem"){
+	if ($classname == "connection" || $classname == "session" || $classname == "FileSystem" || $classname == "debugger"){
 		include_once (dirname(__FILE__) ."/class.".strtolower($classname).".php");
 	}
 	elseif (strpos($classname, "Controller")){
