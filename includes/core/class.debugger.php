@@ -30,7 +30,7 @@ class debugger {
 		$msg_number = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errno']);
 		$msg_line = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errline']);
 		$msg_text = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errstr']);
-		$msg_text = str_replace("'", '', $msg_text);
+		$msg_text = str_replace("'", '`', $msg_text);
 		$msg_context = print_r($error_log['errcontext'], true);
 		$msg_context = str_replace(array("\r\n", "\r", "\n"), '\n', $msg_context);
 		$msg_backtrace = print_r($error_log['errbacktrace'], true);
@@ -43,7 +43,16 @@ class debugger {
 		err_containner.className = "debugger-container";
 		err_containner.innerHTML = '<ul class="errTrigger"><b><?php echo $msg_file;?></b> - Error(<?php echo $msg_number;?>) in line: <?php echo $msg_line;?> - <?php echo $msg_text;?> <li data-d="0"><div class="debugger-content2"><b>Error Context</b><br /><pre><?php echo $msg_context;?></pre></div><div class="debugger-content2"><b>Error Backtrace</b><br /><pre><?php echo $msg_backtrace;?></pre></div></li></ul>';
 		destino.appendChild(err_containner);
-		<?php		
+		<?php
+		}
+		elseif ( $error_log['errtype']=='sql'){
+		?>
+		var err_containner = document.createElement("div");
+		err_containner.id = "contentSql";
+		err_containner.className = "debugger-container2";
+		err_containner.innerHTML = '<ul class="errTrigger"><b><?php echo $msg_file;?></b> - <?php echo $msg_text;?> </li></ul>';
+		destino.appendChild(err_containner);
+		<?php			
 		}
 	}
 }
@@ -104,11 +113,21 @@ function shutdownHandler (){
 			color:#8a6d3b;
 			font-size: 12px;
 			padding: 5px;
-		}	
+		}
+		.debugger-container2{
+			background-color: #dff0d8;
+			border-bottom: 1px solid #d6e9c6;
+			color:#3c763d;
+			font-size: 12px;
+			padding: 5px;
+		}
 		.errTrigger{
 			cursor:pointer;
 			margin:0;
 			padding: 0;
+		}
+		.errOk{
+
 		}
 
 		.errTrigger li{
@@ -169,9 +188,13 @@ function shutdownHandler (){
 			var debugger_container =  document.createElement("div");
 			debugger_container.id = "debugger-content";
 			document.body.appendChild(debugger_container);
+
+			var debugger_container2 =  document.createElement("div");
+			debugger_container2.id = "debugger-content2";
+			document.body.appendChild(debugger_container2);
 			
 			var destino = document.getElementById("debugger-content");
-			destino.innerHTML = "<p><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - Num Errors: <b>".count($errors_log)."</b></p>";?>";		
+			destino.innerHTML = "<p><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - Num Alerts: <b>".count($errors_log)."</b>- Num Warnings: <span id='num-warnings'>0</span>- Num Sql queries: <span id='num-sql'>0</span></p>";?>";		
 			destino.style.display = "block";
 			<?php
 			foreach($errors_log as $error_log):
