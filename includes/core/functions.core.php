@@ -76,8 +76,14 @@ function templateload($template,$classname){
 * @param 	string 		$classname 			CLass name
 */
 function __autoload($classname){    
-	if ($classname == "connection" || $classname == "session" || $classname == "FileSystem" || $classname == "debugger"){
+	global $ini_conf;
+	if ($classname == "connection" || $classname == "session" || $classname == "FileSystem"){
 		include_once (dirname(__FILE__) ."/class.".strtolower($classname).".php");
+	}
+	elseif ($classname == "debugger") {
+		if($ini_conf['debug_app']==1){
+			include_once (dirname(__FILE__) ."/class.".strtolower($classname).".php");
+		}
 	}
 	elseif (strpos($classname, "Controller")){
 		$controller_name = "default";

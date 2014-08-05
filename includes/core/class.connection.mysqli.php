@@ -34,11 +34,15 @@ class connection_sql {
 		global $ini_conf;
 		$link=self::conex();
 		mysqli_set_charset($link,'utf8');
-		if ($da_query = mysqli_query($link, $consulta)) {
-			if ($ini_conf['debug_app']==1) {
+
+		//debugger control		
+		if ((isset($ini_conf['debug_app']) and $ini_conf['debug_app']==1) and $consulta!="") {
+			if (class_exists('debugger')) {
 				debugger::addError(0, $consulta, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql");
-			}			
-			
+			}
+		}
+		
+		if ($da_query = mysqli_query($link, $consulta)) {
 			self::close_conex($link);
 			return $da_query;  
 		}
