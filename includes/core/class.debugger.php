@@ -1,13 +1,13 @@
 <?php
-//if($ini_conf['debug_app']==1){
-	ini_set('memory_limit', -1);
-	//$errors_log = array();
-	set_error_handler('errorHandler');
-	register_shutdown_function("shutdownHandler");
-// }
-// else{
-// 	error_reporting(0);
-// }
+/**
+ * Class degugger
+ * @version 1.0
+ * @author David Noguera Gutierrez nogueradavid1@gmail.com
+ */
+
+ini_set('memory_limit', -1);
+set_error_handler('debugger::errorHandler');
+register_shutdown_function('debugger::shutdownHandler');
 
 class debugger {
 	
@@ -57,138 +57,33 @@ class debugger {
 		<?php			
 		}
 	}
-}
 
-function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
-	if (!(error_reporting() & $errno)) {
-		// Este código de error no está incluido en error_reporting
-		return;
+
+	function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
+		if (!(error_reporting() & $errno)) {
+			// Este código de error no está incluido en error_reporting
+			return;
+		}
+
+		debugger::addError($errno, $errstr, $errfile, $errline, $errcontext, debug_backtrace(), 'php');
+
+	    /* No ejecutar el gestor de errores interno de PHP */
+	    return true;
 	}
 
-	debugger::addError($errno, $errstr, $errfile, $errline, $errcontext, debug_backtrace(), 'php');
 
-    /* No ejecutar el gestor de errores interno de PHP */
-    return true;
-}
+	function shutdownHandler (){
+		$errors_log = debugger::$errors_log;
+		if (count($errors_log)>0): 
+			debugger::stylesDebug();
+			debugger::jsDebug();
+		endif;
+	}
 
-
-
-function shutdownHandler (){
-
-//var_dump(debugger::$errors_log);
-
-	$errors_log = debugger::$errors_log;
-	if (count($errors_log)>0): ?>
-		<style type="text/css">
-			#debugger-content{
-				bottom:0;
-				border-top: 1px solid #EBCCD1;
-				display: none;
-				font-family:Arial;
-				font-size: 14px;
-				left: 0;		
-				margin:0 0 0 0;
-				max-height: 250px;
-				overflow-y:auto;
-				position: fixed;
-				width:100%;
-				z-index: 999999999;
-			}
-			#debugger-main{
-				background-color:#f2dede;
-				border-bottom: 1px solid #EBCCD1;
-				color:#a94442;
-				font-family:Arial;
-				font-size: 14px;
-				left: 0;
-				padding: 5px;
-				text-align:left;		
-				top:0;
-				width:100%;		
-			}
-			#debugger-content h1{
-				color:#fff;
-				font-family:Arial;
-				font-size:22px;
-				margin: 15px 0 0 0;
-			}
-			#debugger-content h2{
-				color:#000;
-				font-family:Arial;
-				font-size:20px;
-				margin:0px !important;
-			}
-			#debugger-content h3{
-				color:#000;
-				font-family:Arial;
-				font-size:16px;
-			}
-			#debugger-content pre{
-				font-size: 11px;
-			}
-			.debugger-container{
-				background-color: #fcf8e3;
-				border-bottom: 1px solid #faebcc;
-				color:#8a6d3b;
-				font-size: 14px;
-				padding: 5px;
-			}
-			.debugger-container2{
-				background-color: #dff0d8;
-				border-bottom: 1px solid #d6e9c6;
-				color:#3c763d;
-				font-size: 14px;
-				padding: 5px;
-			}
-			.errTrigger{
-				cursor:pointer;
-				margin:0;
-				padding: 0;
-			}
-
-			.errTrigger li{
-				display:none;
-			}	
-			.debugger-content1{
-				display:none;
-				font-size: 14px;
-			}
-			.debugger-content2{	
-				background-color: #fff;
-				font-size: 14px;		
-				margin: 5px 0 0 0;
-				max-height: 100px;
-				overflow:auto;
-				padding: 5px;
-			}
-
-			#contentPhp{
-				display: none;
-			}
-
-			#contentSql{
-				display: none;
-			}		
-			#num-warnings span{
-				background-color: red;
-				border-radius: 20px;
-				color: #fff;
-				cursor: pointer;
-				font-weight: bolder;
-				padding: 3px 6px;
-			}
-
-			#num-sql span{
-				background-color: red;
-				border-radius: 20px;
-				color: #fff;
-				cursor: pointer;
-				font-weight: bolder;
-				padding: 3px 6px;
-			}
-		</style>
+	private function jsDebug(){
+		?>
 		<script type="text/javascript">
-
+			(function(){ 
 			function elemListen (elem, event, fn) { 
 				if (document.addEventListener){ 
 					elem.addEventListener(event, fn, false);
@@ -263,7 +158,7 @@ function shutdownHandler (){
 			destinoDebug.appendChild(destinoSql);
 
 			<?php
-			foreach($errors_log as $error_log):
+			foreach(debugger::$errors_log as $error_log):
 				debugger::addMessage($error_log);
 			endforeach;
 			?>
@@ -279,8 +174,122 @@ function shutdownHandler (){
 
 			var errTriggers = document.getElementsByClassName("errTrigger");
 			listListen (errTriggers,"click", showErr);
+			})();
 		</script>
 		<?php
-	endif;
+	}
+
+	private function stylesDebug(){
+		?>
+			<style type="text/css">
+				#debugger-content{
+					bottom:0;
+					border-top: 1px solid #EBCCD1;
+					display: none;
+					font-family:Arial;
+					font-size: 14px;
+					left: 0;		
+					margin:0 0 0 0;
+					max-height: 250px;
+					overflow-y:auto;
+					position: fixed;
+					width:100%;
+					z-index: 999999999;
+				}
+				#debugger-main{
+					background-color:#f2dede;
+					border-bottom: 1px solid #EBCCD1;
+					color:#a94442;
+					font-family:Arial;
+					font-size: 14px;
+					left: 0;
+					padding: 5px;
+					text-align:left;		
+					top:0;
+					width:100%;		
+				}
+				#debugger-content h1{
+					color:#fff;
+					font-family:Arial;
+					font-size:22px;
+					margin: 15px 0 0 0;
+				}
+				#debugger-content h2{
+					color:#000;
+					font-family:Arial;
+					font-size:20px;
+					margin:0px !important;
+				}
+				#debugger-content h3{
+					color:#000;
+					font-family:Arial;
+					font-size:16px;
+				}
+				#debugger-content pre{
+					font-size: 11px;
+				}
+				.debugger-container{
+					background-color: #fcf8e3;
+					border-bottom: 1px solid #faebcc;
+					color:#8a6d3b;
+					font-size: 14px;
+					padding: 5px;
+				}
+				.debugger-container2{
+					background-color: #dff0d8;
+					border-bottom: 1px solid #d6e9c6;
+					color:#3c763d;
+					font-size: 14px;
+					padding: 5px;
+				}
+				.errTrigger{
+					cursor:pointer;
+					margin:0;
+					padding: 0;
+				}
+
+				.errTrigger li{
+					display:none;
+				}	
+				.debugger-content1{
+					display:none;
+					font-size: 14px;
+				}
+				.debugger-content2{	
+					background-color: #fff;
+					font-size: 14px;		
+					margin: 5px 0 0 0;
+					max-height: 100px;
+					overflow:auto;
+					padding: 5px;
+				}
+
+				#contentPhp{
+					display: none;
+				}
+
+				#contentSql{
+					display: none;
+				}		
+				#num-warnings span{
+					background-color: red;
+					border-radius: 20px;
+					color: #fff;
+					cursor: pointer;
+					font-weight: bolder;
+					padding: 3px 6px;
+				}
+
+				#num-sql span{
+					background-color: red;
+					border-radius: 20px;
+					color: #fff;
+					cursor: pointer;
+					font-weight: bolder;
+					padding: 3px 6px;
+				}
+			</style>
+		<?php 
+	}
 }
 ?>
