@@ -36,7 +36,7 @@ class connection_sql {
 		mysqli_set_charset($link,'utf8');
 
 		//debugger control		
-		if ((isset($ini_conf['debug_app']) and $ini_conf['debug_app']==1) and $consulta!="") {
+		if ((isset($ini_conf['debug_app']) and ($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2)) and $consulta!="") {
 			if (class_exists('debugger')) {
 				debugger::addError(0, $consulta, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql");
 			}
@@ -47,9 +47,10 @@ class connection_sql {
 			return $da_query;  
 		}
 		else {	
-			if ($ini_conf['debug_app']==1) {
-				$msg="<b>SQL ERROR in query:</b> ".$consulta."; <b>SQL ERROR description:</b> ".mysqli_error($link);
-				ErrorMsg($msg);
+			if ($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2) {
+				//$msg="<b>SQL ERROR in query:</b> ".$consulta."; <b>SQL ERROR description:</b> ".mysqli_error($link);
+				//ErrorMsg($msg);
+				debugger::addError(0, $consulta, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql_error");
 			}
 			self::close_conex($link);
 			return false;

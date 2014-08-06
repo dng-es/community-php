@@ -14,6 +14,8 @@ class debugger {
 	static public $errors_log = array();
 	static public $num_warnings = 0;
 	static public $num_sql = 0;
+	static public $num_sql_error = 0;
+	static public $debugger_output = "screen"; //values: screen or file
 
 	public static function addError($errno, $errstr, $errfile, $errline, $errcontext, $errbacktrace,$errtype){
 		$error = array( 'errfile' => $errfile,
@@ -54,6 +56,15 @@ class debugger {
 		err_containner.className = "debugger-container2";
 		err_containner.innerHTML = '<ul class="errTrigger"><b><?php echo $msg_file;?></b> - <?php echo $msg_text;?> </li></ul>';
 		destinoSql.appendChild(err_containner);
+		<?php			
+		}
+		elseif ( $error_log['errtype']=='sql_error'){
+			debugger::$num_sql_error ++
+		?>
+		var err_containner = document.createElement("div");
+		err_containner.className = "debugger-container3";
+		err_containner.innerHTML = '<ul class="errTrigger"><b><?php echo $msg_file;?></b> - <?php echo $msg_text;?> </li></ul>';
+		destinoSqlError.appendChild(err_containner);
 		<?php			
 		}
 	}
@@ -141,12 +152,25 @@ class debugger {
 				return false;
 			}
 
+			function showMessagesSqlError(){
+				var item = document.getElementById("contentSqlError");
+				if (this.getAttribute("data-d")=="0"){
+					item.style.display = "block";
+					this.setAttribute("data-d", 1);
+				}
+				else{
+					item.style.display = "none";
+					this.setAttribute("data-d", 0);
+				}
+				return false;
+			}			
+
 			var debugger_container =  document.createElement("div");
 			debugger_container.id = "debugger-content";
 			document.body.appendChild(debugger_container);
 			
 			var destinoDebug = document.getElementById("debugger-content");
-			destinoDebug.innerHTML = "<div id='debugger-main'><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - Num Alerts: <b>".count(debugger::$errors_log)."</b> | Num Warnings: <span id='num-warnings'>0</span> | Num Sql queries: <span id='num-sql'>0</span></div>";?>";		
+			destinoDebug.innerHTML = "<div id='debugger-main'><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - <b>Sql queries:</b> <span id='num-sql'>0</span> <b>Warnings:</b> <span id='num-warnings'>0</span> <b>Sql errors:</b> <span id='num-sql-error'>0</span></div>";?>";		
 			destinoDebug.style.display = "block";
 
 			var destinoPhp =  document.createElement("div");
@@ -156,6 +180,10 @@ class debugger {
 			var destinoSql =  document.createElement("div");
 			destinoSql.id = "contentSql";
 			destinoDebug.appendChild(destinoSql);
+
+			var destinoSqlError =  document.createElement("div");
+			destinoSqlError.id = "contentSqlError";
+			destinoDebug.appendChild(destinoSqlError);
 
 			<?php
 			foreach(debugger::$errors_log as $error_log):
@@ -172,6 +200,11 @@ class debugger {
 			num_sql.setAttribute("data-d", 0);
 			elemListen (num_sql,"click", showMessagesSql);
 
+			var num_sql_error = document.getElementById("num-sql-error");
+			num_sql_error.innerHTML = "<?php echo debugger::$num_sql_error>0 ? '<span>'.debugger::$num_sql_error.'</span>' : debugger::$num_sql_error;?>";
+			num_sql_error.setAttribute("data-d", 0);
+			elemListen (num_sql_error,"click", showMessagesSqlError);
+
 			var errTriggers = document.getElementsByClassName("errTrigger");
 			listListen (errTriggers,"click", showErr);
 			})();
@@ -184,10 +217,10 @@ class debugger {
 			<style type="text/css">
 				#debugger-content{
 					bottom:0;
-					border-top: 1px solid #EBCCD1;
+					border-top: 1px solid #BCE8F1;
 					display: none;
 					font-family:Arial;
-					font-size: 14px;
+					font-size: 12px;
 					left: 0;		
 					margin:0 0 0 0;
 					max-height: 250px;
@@ -197,11 +230,11 @@ class debugger {
 					z-index: 999999999;
 				}
 				#debugger-main{
-					background-color:#f2dede;
-					border-bottom: 1px solid #EBCCD1;
-					color:#a94442;
+					background-color:#D9EDF7;
+					border-bottom: 1px solid #BCE8F1;
+					color:#31708F;
 					font-family:Arial;
-					font-size: 14px;
+					font-size: 12px;
 					left: 0;
 					padding: 5px;
 					text-align:left;		
@@ -232,14 +265,21 @@ class debugger {
 					background-color: #fcf8e3;
 					border-bottom: 1px solid #faebcc;
 					color:#8a6d3b;
-					font-size: 14px;
+					font-size: 12px;
 					padding: 5px;
 				}
 				.debugger-container2{
 					background-color: #dff0d8;
 					border-bottom: 1px solid #d6e9c6;
 					color:#3c763d;
-					font-size: 14px;
+					font-size: 12px;
+					padding: 5px;
+				}
+				.debugger-container3{
+					background-color: #f2dede;
+					border-bottom: 1px solid #EBCCD1;
+					color:#a94442;
+					font-size: 12px;
 					padding: 5px;
 				}
 				.errTrigger{
@@ -253,11 +293,11 @@ class debugger {
 				}	
 				.debugger-content1{
 					display:none;
-					font-size: 14px;
+					font-size: 12px;
 				}
 				.debugger-content2{	
 					background-color: #fff;
-					font-size: 14px;		
+					font-size: 12px;		
 					margin: 5px 0 0 0;
 					max-height: 100px;
 					overflow:auto;
@@ -270,20 +310,32 @@ class debugger {
 
 				#contentSql{
 					display: none;
+				}
+				#contentSqlError{
+					display: none;
 				}		
 				#num-warnings span{
-					background-color: red;
+					background-color: #faebcc;
 					border-radius: 20px;
-					color: #fff;
+					color: #8a6d3b;
 					cursor: pointer;
 					font-weight: bolder;
 					padding: 3px 6px;
 				}
 
 				#num-sql span{
-					background-color: red;
+					background-color: #3c763d;
 					border-radius: 20px;
-					color: #fff;
+					color: #fcf8e3;
+					cursor: pointer;
+					font-weight: bolder;
+					padding: 3px 6px;
+				}
+
+				#num-sql-error span{
+					background-color: #a94442;
+					border-radius: 20px;
+					color: #f2dede;
 					cursor: pointer;
 					font-weight: bolder;
 					padding: 3px 6px;

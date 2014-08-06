@@ -81,8 +81,11 @@ function __autoload($classname){
 		include_once (dirname(__FILE__) ."/class.".strtolower($classname).".php");
 	}
 	elseif ($classname == "debugger") {
-		if($ini_conf['debug_app']==1){
+		if ($ini_conf['debug_app'] == 1 || $ini_conf['debug_app'] == 2){
 			include_once (dirname(__FILE__) ."/class.".strtolower($classname).".php");
+			if ($ini_conf['debug_app'] == 2){
+				debugger::$debugger_output = "file";
+			}
 		}
 	}
 	elseif (strpos($classname, "Controller")){
