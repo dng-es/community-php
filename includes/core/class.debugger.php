@@ -146,7 +146,7 @@ class debugger {
 			document.body.appendChild(debugger_container);
 			
 			var destinoDebug = document.getElementById("debugger-content");
-			destinoDebug.innerHTML = "<div id='debugger-main'><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - Num Alerts: <b>".count($errors_log)."</b> | Num Warnings: <span id='num-warnings'>0</span> | Num Sql queries: <span id='num-sql'>0</span></div>";?>";		
+			destinoDebug.innerHTML = "<div id='debugger-main'><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - Num Alerts: <b>".count(debugger::$errors_log)."</b> | Num Warnings: <span id='num-warnings'>0</span> | Num Sql queries: <span id='num-sql'>0</span></div>";?>";		
 			destinoDebug.style.display = "block";
 
 			var destinoPhp =  document.createElement("div");
