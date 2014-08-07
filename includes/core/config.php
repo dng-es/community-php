@@ -28,5 +28,5 @@ sql_connector = "mysqli"
 language = "es"
 
 ;DEBUG OPTIONS. Poner 0 en servidores de producción. 1 salida por pantallas. 2 salida fichero error
-debug_app = 1
+debug_app = 3
 ?>

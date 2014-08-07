@@ -14,26 +14,26 @@ include ($base_dir_config."/class.connection.".$conector.".php");
 
 class connection extends connection_sql{
 	public function SelectMaxReg($campo,$tabla,$filter){	
-	    global $ini_conf;
 	    $Sql = "SELECT IFNULL(max(".$campo."),0) AS max_counter FROM ".$tabla." WHERE 1=1 ".$filter;
-		$result = self::execute_query($Sql) or die (($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2) ? debugger::addError(0, $Sql, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql_error") : "");
-		$row = self::get_result($result);
-		return $row['max_counter'];
+		if (($result = self::execute_query($Sql))!==false){
+			$row = self::get_result($result);
+			return $row['max_counter'];
+		}
     }
 	public function countReg($tabla,$filter){
-	    global $ini_conf;
 	    $Sql="SELECT count(*) AS table_counter FROM ".$tabla." WHERE 1=1 ".$filter;
-		$result = self::execute_query($Sql) or die (($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2) ? debugger::addError(0, $Sql, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql_error") : "");
-		$row = self::get_result($result);
-		return $row['table_counter'];
+		if (($result = self::execute_query($Sql))!==false){
+			$row = self::get_result($result);
+			return $row['table_counter'];
+		}	
     }
 
 	public function timeServer(){
-		global $ini_conf;
 	    $Sql = "SELECT NOW() AS ahora";
-		$result = self::execute_query($Sql) or die (($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2) ? debugger::addError(0, $Sql, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql_error") : "");
-		$row = self::get_result($result);
-		return $row['ahora'];
+		if (($result = self::execute_query($Sql))!==false){
+			$row = self::get_result($result);
+			return $row['ahora'];
+		}
     }
 
     public function getSQL($Sql){
@@ -43,11 +43,6 @@ class connection extends connection_sql{
 		  $registros[] = $registro;  
 		}
 		return $registros;  
-    }
-
-    public static function executeSQL($Sql){
-		if (self::execute_query($Sql)){ return true;}
-		else { return false;}    	
     }
 }
 ?>

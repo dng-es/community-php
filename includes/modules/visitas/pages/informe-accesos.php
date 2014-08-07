@@ -1,4 +1,8 @@
 <?php
+//CONTROL NIVEL DE ACCESO
+$session = new session();
+$perfiles_autorizados = array("admin");
+$session->AccessLevel($perfiles_autorizados);
 
 //EXPORT ACCESOS
 visitasController::exportAction();
@@ -424,11 +428,6 @@ function ini_page_body ($ini_conf){
 	global $total1,$total2,$total3,$media1,$media2,$media3;
 
 	$visitas = new visitas();
-
-	//CONTROL NIVEL DE ACCESO
-	$session = new session();
-	$perfiles_autorizados = array("admin");
-	$session->AccessLevel($perfiles_autorizados);
 
 	//VACIAR LOGS
 	if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $visitas->deleteVisitas();}

@@ -29,17 +29,24 @@ class connection_sql {
 	}
 	
 	public function execute_query($consulta){
+		global $ini_conf;
 		$link=self::conex();
 		mysql_set_charset('utf8',$link);
+
+		//debugger control		
+		if ((isset($ini_conf['debug_app']) and ($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2)) and $consulta!="") {
+			if (class_exists('debugger')) {
+				debugger::addError(0, $consulta, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql");
+			}
+		}
+
 		if ($da_query = mysql_query($consulta, $link)) {
 			self::close_conex($link);
 			return $da_query;  
 		}
 		else {
-			global $ini_conf;
-			if ($ini_conf['debug_app']==1) {
-				$msg="<b>SQL ERROR in query:</b> ".$consulta."; <b>SQL ERROR description:</b> ".mysql_error($link);
-				ErrorMsg($msg);
+			if ($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2) {
+				debugger::addError(0, $consulta." - <b>".mysql_error($link)."</b>", $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql_error");
 			}
 			self::close_conex($link);
 			return false;
