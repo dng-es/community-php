@@ -122,16 +122,16 @@ class debugger {
 
 					init = function(){
 						createContainers();
-						<?php
+						<?php 
 						foreach(debugger::$errors_log as $error_log):
 							debugger::addScreenMessage($error_log);
-						endforeach;
-						?>
+						endforeach; ?>
+
 						var lblSqlError = "<?php echo debugger::$num_sql_error>0 ? '<span>'.debugger::$num_sql_error.'</span>' : debugger::$num_sql_error;?>",			
 							lblPhp = "<?php echo debugger::$num_warnings>0 ? '<span>'.debugger::$num_warnings.'</span>' : debugger::$num_warnings;?>",	
 							lblSql = "<?php echo debugger::$num_sql>0 ? '<span>'.debugger::$num_sql.'</span>' : debugger::$num_sql;?>";
 						
-						createLabels (lblSqlError, lblPhp, lblSql)
+						createLabels (lblSqlError, lblPhp, lblSql);
 					}
 
 					elemListen = function (elem, event, fn) { 
@@ -178,13 +178,18 @@ class debugger {
 						return false;
 					}
 
+					closeDebugger = function (){
+						document.getElementById("debugger-content").style.display = "none";
+						return false;
+					}
+
 					createContainers = function(){
 						var debugger_container =  document.createElement("div");
 						debugger_container.id = "debugger-content";
 						document.body.appendChild(debugger_container);
 						
 						var destinoDebug = document.getElementById("debugger-content");
-						destinoDebug.innerHTML = "<div id='debugger-main'><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - <b>Sql queries:</b> <span id='num-sql' class='debugger-label'>0</span> <b>Warnings:</b> <span id='num-warnings' class='debugger-label'>0</span> <b>Sql errors:</b> <span id='num-sql-error' class='debugger-label'>0</span></div>";?>";		
+						destinoDebug.innerHTML = "<div id='debugger-main'><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - <b>Sql queries:</b> <span id='num-sql' class='debugger-label'>0</span> <b>Warnings:</b> <span id='num-warnings' class='debugger-label'>0</span> <b>Sql errors:</b> <span id='num-sql-error' class='debugger-label'>0</span><a href='#' id='debugger-close'>close</a></div>";?>";		
 						destinoDebug.style.display = "block";
 
 						var destinoSqlError =  document.createElement("div");
@@ -206,7 +211,10 @@ class debugger {
 						createLabel ("num-sql", lblSql, "contentSql");
 
 						var errTriggers = document.getElementsByClassName("errTrigger");
-						listListen (errTriggers,"click", showErr);				
+						listListen (errTriggers,"click", showErr);
+
+						var closeTrigger = document.getElementById("debugger-close");
+						elemListen (closeTrigger,"click", closeDebugger);		
 					}
 
 					createLabel = function(elem, lblMessage, destination){
@@ -230,7 +238,7 @@ class debugger {
 			<style type="text/css">
 				#debugger-content{
 					bottom:0;
-					border-top: 1px solid #BCE8F1;
+					border-top: 1px solid #d9d9d9;
 					display: none;
 					font-family:Arial;
 					font-size: 12px;
@@ -244,17 +252,16 @@ class debugger {
 				}
 				#debugger-main{
 					background: #eeeeee; /* Old browsers */
-/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VlZWVlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjY2NjY2MiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-background: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-8 */
-
-					border-bottom: 1px solid #BCE8F1;
+					/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+					background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VlZWVlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjY2NjY2MiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+					background: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+					background: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
+					background: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
+					background: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-8 */
+					border-bottom: 1px solid #b5b5b5;
 					color:#31708F;
 					font-family:Arial;
 					font-size: 12px;
@@ -354,6 +361,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 				#num-sql-error span{
 					background-color: #a94442;
 					color: #f2dede;
+				}
+
+				#debugger-close{
+					color: #31708F;
+					float: right;
+				}
+				#debugger-close:hover{
+					color: #5685E4;
 				}
 			</style>
 		<?php 

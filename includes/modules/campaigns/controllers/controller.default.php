@@ -2,7 +2,7 @@
 class campaignsController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$campaigns = new campaigns();
-		$filtro = $filter." AND actives=1 ORDER BY name_campaign ASC ";
+		$filtro = $filter." AND active=1 ORDER BY name_campaign ASC ";
 
 		$find_reg = (isset($_GET['f']) and $_GET['f']>0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
