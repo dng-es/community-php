@@ -48,7 +48,7 @@ class connection_sql {
 		}
 		else {	
 			if ($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2) {
-				debugger::addError(0, $consulta." - <b>".mysqli_error($link)."</b>", $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql_error");
+				debugger::addError(0, $consulta." - ".mysqli_error($link), $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql_error");
 			}
 			self::close_conex($link);
 			return false;

@@ -58,7 +58,7 @@ class headers{
 		global $paginas_free; ?>
 		</head>
 			<body id="page-<?php echo $page;?>">
-			<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged']==true and !in_array($_REQUEST['page'], $paginas_free)): ?>
+			<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged']==true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
 
 				<div id="wrapper">
 				<!-- Page content -->

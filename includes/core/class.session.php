@@ -16,7 +16,7 @@ class session {
 			//error o de nuevo al formulario de ingreso.
 			header ("Location: ?page=login");
 		}
-		elseif( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) or $_REQUEST['page']=="")){
+		elseif( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) or (isset($_REQUEST['page']) and $_REQUEST['page']==""))){
 			header ("Location: ?page=home");
 		}
 		else {
