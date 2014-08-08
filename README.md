@@ -76,6 +76,7 @@ La estructura de archivos y directorios básica es la siguiente:
 			- <b>controllers/</b> controladores del módulo<br />
 			- <b>pages/</b> páginas del módulo<br />
 			- <b>resources/</b> recursos del módulo (imagenes, javascript y traducciones específicas)<br />
+				- <b>css/</b>
 				- <b>images/</b>
 				- <b>js/</b>
 				- <b>languages/</b>
