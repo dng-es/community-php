@@ -1,13 +1,11 @@
 // JavaScript Document
-function Confirma(Mensaje,Destino)
-{
+function Confirma(Mensaje,Destino){
 		var respuesta=confirm(Mensaje);        
 		if (respuesta==true)
 				location.href=Destino;
 }
 
-function validateEmail(email)
-{
+function validateEmail(email){
 	if(email.length <= 0)
 	{
 	  return false;
@@ -29,7 +27,7 @@ function validateEmail(email)
 	  }// if
 	  return true;
 	}
-return false;
+	return false;
 }
 
 function esFechaValida(fecha){

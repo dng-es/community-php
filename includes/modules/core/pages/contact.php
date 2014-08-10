@@ -5,17 +5,11 @@ $menu_admin=0;
 $menu_sel = 6;
 function ini_page_header ($ini_conf) { ?>
 	<script src="js/jquery.jtextarea.js"></script>
-	<script>
-		$(document).ready(function(){
-			$(".jtextarea").jtextarea({maxSizeElement: 1000,
-				cssElement: { display: "inline-block",color: "#999999",background: "transparent"}});	
-		})
-	</script>
 	<script src="<?php echo getAsset("core");?>js/contact.js"></script>
 <?php }
 function ini_page_body ($ini_conf){
 	?>
-	<div id="page-info">Contactar</div>
+	<div id="page-info"><?php echo strTranslate("Contact");?></div>
 	<div class="row inset row-top">
 		<div class="col-md-8">
 	<?php 
@@ -35,7 +29,7 @@ function ini_page_body ($ini_conf){
 		else { session::setFlashMessage( 'actions_message', "Se ha producido un error durante el envío, Por favor inténtalo más tarde.", "alert alert-danger");}
 		redirectURL($_SERVER['REQUEST_URI']);
 	} ?>
-			<p>Si lo deseas, puedes enviarnos un email con tus consultas:</p>
+			<p><?php echo strTranslate("Send_us_an_email");?></p>
 			<form id="contact_form" name="contact_form" method="post" action="" method="post" role="form">
 				<label for="subject_form" class="sr-only">Asunto:</label>
 				<input type="text" name="subject_form" id="subject_form" class="form-control"placeholder="Introduce al asunto del mensaje" />
@@ -43,7 +37,7 @@ function ini_page_body ($ini_conf){
 				<br /><textarea cols="56" rows="8" name="body_form" id="body_form" class="jtextarea form-control" placeholder="Tu mensaje"></textarea>
 				<div class="message-form alert alert-danger" id="message-form-body">Debes escribir el mensaje, mínimo 5 caracteres, máximo 1000.</div>
 				<br /><br />
-				<button type="submit" class="btn btn-primary" id="EnviarForm" value="Enviar">Enviar mensaje</button>
+				<button type="submit" class="btn btn-primary" id="EnviarForm" value="Enviar"><?php echo strTranslate("Send");?></button>
 			</form>
 		</div>
 	</div>

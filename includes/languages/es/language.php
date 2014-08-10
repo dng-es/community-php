@@ -2,6 +2,7 @@
 Hello = "Hola"
 Home = "Inicio"
 Contact = "Contactar"
+Send_us_an_email = "Envíanos un mensaje con tus consultas."
 Edit = "Editar"
 Send ="Enviar"
 Send_data = "Enviar datos"

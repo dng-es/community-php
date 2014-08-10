@@ -27,31 +27,22 @@ if (isset($_POST['subject_form'])) {
 				  </div>';
 	}
 	else { $mensaje='<div style="color: red;">Se ha producido un error durante el envío, Por favor intentelo más tarde.</div>';}
-}
-  echo '<h1 class="h1Seccion">contactar</h1>'.$mensaje.'
-		<p>Si lo deseas, puedes enviarnos un email con tus consultas:</p>
+}?>
+	<div id="page-info"><?php echo strTranslate("Contact");?></div>
+	<?php echo $mensaje;?>
+	<p><?php echo strTranslate("Send_us_an_email");?></p>
 
-		<form enctype="multipart/form-data" id="contact_form" name="contact_form" method="post" action="" method="post">
-			<table>
-			<tr><td><label>Remitente:</label></td><td>
-				<input type="text" name="email_form" id="email_form" size="50" />
-			</td></tr>
-			<tr><td colspan="2">
-				<span class="message-form" id="message-form-email">Debe introducir un email v&aacute;lido.</span>
-			</td></tr>
-			<tr><td><label>Asunto:</label></td><td>
-				<input type="text" name="subject_form" id="subject_form" size="50" />
-			</td></tr>
-			<tr><td colspan="2">
-				<span class="message-form" id="message-form-subject">Debe introducir el asunto, m&iacute;nimo 2 caracteres.</span>			
-			</td></tr>
-			<tr><td colspan="2">
-				<textarea cols="56" rows="8" name="body_form" id="body_form" class="jtextarea"></textarea><br />
-				<span class="message-form" id="message-form-body">Debe escribir el mensaje, m&iacute;nimo 5 caracteres, m&aacute;ximo 1000.</span>
-				<br /><input type="button" value="" class="enviarButton" id="EnviarForm" />
-			</td></tr>
-			</table>
-		</form>';
-
+	<form enctype="multipart/form-data" id="contact_form" name="contact_form" method="post" action="" method="post">
+		<label for="email_form" class="sr-only">Remitente:</label>
+		<input type="text" name="email_form" id="email_form" class="form-control" />
+		<div class="message-form" id="message-form-email">Debe introducir un email válido.</div>
+		<label for="subject_form">Asunto:</label>
+		<input type="text" name="subject_form" id="subject_form" class="form-control" />
+		<div class="message-form" id="message-form-subject">Debe introducir el asunto, mínimo 2 caracteres.</div>
+		<textarea class="form-control jtextarea" name="body_form" id="body_form"></textarea>
+		<div class="message-form" id="message-form-body">Debe escribir el mensaje, mínimo 5 caracteres, máximo 1000.</div>
+		<br /><button type="submit" value="" class="btn btn-primary" id="EnviarForm"><?php echo strTranslate("Send");?></button>
+	</form>
+<?php
 }
 ?>

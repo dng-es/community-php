@@ -6,6 +6,16 @@
 * 
 */	
 class users extends connection{
+	
+	public function getPerfiles($filter = ""){
+		$Sql="SELECT DISTINCT perfil FROM users WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);  
+	}
+
+	public function getCanales($filter = ""){
+		$Sql="SELECT DISTINCT canal FROM users WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);  
+	}	
 
 	public function getUsers($filter = ""){
 		$Sql="SELECT u.*,t.* FROM users u  

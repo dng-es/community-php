@@ -145,12 +145,13 @@ function strTranslate($str){
 	//translations from modules
 	$modules = getListModules();
 	foreach($modules as $module):
-		$path_module = "includes/modules/".$module['folder']."/resources/languages/".$ini_conf['language']."/language.php";
+		$path_module = realpath(dirname(__FILE__))."/../modules/".$module['folder']."/resources/languages/".$ini_conf['language']."/language.php";
 		$str = getTranlationStr($path_module,$str);
 	endforeach;
 
 	//trasnlations from core
-	$path_core = "includes/languages/".$ini_conf['language']."/language.php";
+	$path_core = realpath(dirname(__FILE__))."/../languages/".$ini_conf['language']."/language.php";
+	//echo $path_core."<br />";
 	$str = getTranlationStr($path_core,$str);
 	
 	return $str;

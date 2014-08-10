@@ -25,6 +25,26 @@ class usersController{
 					'total_reg' => $total_reg);
 	}
 
+	public static function getPerfilesAction($filter = ""){
+		$users = new users();	
+		$elements = $users->getPerfiles($filter." ORDER BY perfil"); 
+		$string_format = "";
+		foreach ($elements as $element):
+			$string_format.= (trim($element['perfil'])!="" ? $element['perfil']." " : '<span class="label label-danger" title="Hay usuarios sin perfil. Esto es potencialmente peligroso.">Hay usuarios sin perfil</span> ');
+		endforeach;
+		return $string_format;
+	}
+
+	public static function getCanalesAction($filter = ""){
+		$users = new users();	
+		$elements = $users->getCanales($filter." ORDER BY canal"); 
+		$string_format = "";
+		foreach ($elements as $element):
+			$string_format.= (trim($element['canal'])=="" ? '<span class="label label-danger" title="Hay usuarios sin canal. Esto es potencialmente peligroso.">Hay usuarios sin canal</span> ' : ($element['canal']!='admin' ? $element['canal']." " : ""));
+		endforeach;
+		return $string_format;
+	}		
+
 	public static function exportListAction(){
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 			$users = new users();

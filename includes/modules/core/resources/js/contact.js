@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	$(".jtextarea").jtextarea({maxSizeElement: 1000,
+				cssElement: { display: "inline-block",color: "#999999",background: "transparent"}});	
+	
 	$(".message-form").css({"display":"none"});
 	
 	$("#contact_form").submit(function(e){

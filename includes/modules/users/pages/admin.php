@@ -12,6 +12,8 @@ function ini_page_body ($ini_conf){
 
 	$num_users = number_format(connection::countReg("users", " AND disabled=0 AND registered=1 AND confirmed=1 "), 0, ',', '.');
 	$num_access = number_format(connection::countReg("accesscontrol", " AND webpage<>'Inicio de sesion' "), 0, ',', '.');
+	$num_perfiles = usersController::getPerfilesAction();
+	$num_canales = usersController::getCanalesAction();
 	?>
 
 	<div class="row row-top">
@@ -24,8 +26,8 @@ function ini_page_body ($ini_conf){
 						<div class="panel-body">
 							<ul>
 								<li>Total usuarios activos: <b><?php echo $num_users;?></b></li>
-								<li>Perfiles activos: <b></b></li>
-								<li>Canales activos: <b></b></li>
+								<li>Perfiles activos: <b><?php echo $num_perfiles;?></b></li>
+								<li>Canales activos: <b><?php echo $num_canales;?></b></li>
 								<li>Páginas visitadas: <b><?php echo $num_access;?></b></li>
 							</ul>
 						</div>
