@@ -24,9 +24,9 @@ function ForoList($sub_tema,$destino = "foro-comentarios")
 		</div>
 		<div class="panel-footer">
 			<span class="fa fa-comment" title="comentarios en el foro"></span>
-			<span class="contador-foro-counter"><?php echo $num_comentarios;?></span> comentarios 
+			<span class="contador-foro-counter"><?php echo $num_comentarios;?></span> <?php echo strTranslate("Comments");?> 
 			<span class="fa fa-eye" title="visitas al foro"></span> 
-			<span class="contador-foro-counter"><?php echo $num_visitas;?></span> visitas 
+			<span class="contador-foro-counter"><?php echo $num_visitas;?></span> <?php echo strTranslate("Visits");?> 
 			<!--<span class="fa fa-tag"></span> Etiquetas: <?php echo $tipo_tema;?>-->
 		</div>
 	</div>

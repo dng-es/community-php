@@ -23,26 +23,24 @@ function ini_page_header ($ini_conf) {?>
 	<script src="js/jquery.jtextarea.js"></script>
 			<script>
 	$(document).ready(function(){	
-		 $(".jtextareaComentar").jtextarea({maxSizeElement: 600,
+		 $(".jtextareaComentar").jtextarea({maxSizeElement: 600, textElement: "<?php echo strTranslate('Characters');?>", 
 		 cssElement: { display: "inline-block",color: "#cccccc",background: "transparent"}});		
 	})
 	</script>
 	<!-- fin textarea -->       
 <?php }
-function ini_page_body ($ini_conf){
-	$foro = new foro();	
+function ini_page_body ($ini_conf){ ?>
+		
+	<div id="page-info"><?php echo strTranslate("Forums");?></div>
+	<div class="row row-top">
+		<div class="col-md-8 inset">
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//	LATERAL IZQUIERDO		///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-	echo '<div id="page-info">Foros</div>';
-	echo '<div class="row row-top">
-					<div class="col-md-8 inset">';
-
+	<?php
 	session::getFlashMessage( 'actions_message' );
 	foroController::createRespuestaAction();
 	foroController::votarAction();
+
+	$foro = new foro();
 	
 	//OBTENCION DE LOS DATOS DEL FORO
 	if (isset($_REQUEST['id'])){$id_tema=$_REQUEST['id'];}
@@ -101,7 +99,7 @@ function ini_page_body ($ini_conf){
 	</div>
 	<div class="col-md-4 lateral">
 		<div class="insert-foro">
-			<h4>Inserta comentario</h4>
+			<h4><?php echo strTranslate("Insert_comment_forum");?></h4>
 			<p>Inserta un nuevo comentario en el foro. Máximo 600 caracteres.</p>
 			<?php 
 

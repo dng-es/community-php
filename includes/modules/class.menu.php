@@ -27,7 +27,7 @@ class menu{
 					          </ul>
 					        </li>';
 			echo '			<li><a class="menu-item" href="?page=areas">'.strTranslate("Na_areas").'</a></li>';
-			echo '			<li><a class="menu-item" href="?page=foro-subtemas&id='.$id_foro.'">Foros</a></li>';
+			echo '			<li><a class="menu-item" href="?page=foro-subtemas&id='.$id_foro.'">'.strTranslate("Forums").'</a></li>';
 			echo '			<li><a class="menu-item" href="?page=user-info-all">Documentación</a></li>';
 			//echo 				'<li><a class="menu-item" href="?page=mystery">Mystery</a></li>';
 			echo' 		</ul>

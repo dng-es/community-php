@@ -43,6 +43,7 @@ uploaded_by = "uploaded by"
 Date = "Date"
 Author = "Author"
 Title = "Title"
+Description = "Description"
 Comment = "Comment"
 Comments = "Comments"
 Reply = "Reply"
@@ -51,4 +52,5 @@ Vote_comment = "Vote comment"
 Go_to = "Go to"
 Go_back = "Go back"
 Visits = "Visits"
+Characters = "Characters";
 ?>

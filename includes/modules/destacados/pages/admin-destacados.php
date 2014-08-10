@@ -3,7 +3,7 @@ define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 $menu_admin=1;
 function ini_page_header ($ini_conf) {?>
-		<script type="text/javascript" src="<?php echo getAsset("destacados");?>js/admin-destacados.js"></script>
+	<script type="text/javascript" src="<?php echo getAsset("destacados");?>js/admin-destacados.js"></script>
 <?php
 }
 function ini_page_body ($ini_conf){
@@ -11,17 +11,17 @@ function ini_page_body ($ini_conf){
 	$session = new session();
 	$perfiles_autorizados = array("admin");
 	$session->AccessLevel($perfiles_autorizados);
-	
-	$accion=isset($_GET['act']) ? $_GET['act'] : 0;
-	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ insertDestacado();}	
-	$destacados = new destacados(); 	
+
+	session::getFlashMessage( 'actions_message' );
+	destacadosController::updateAction();
+		
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
-		<h1>Destacados del día</h1>
+		<h1>Destacado del día</h1>
 		<p>Introduce los datos del nuevo destacado del día: Id del archivo; selecciona si es un video o una foto; el canal donde quieres que aparezca
 		como destacado; e introduce un texto por el que destacas el contenido enviado por el usuario.</p>
-		<form id="formData" name="formData" method="post" action="?page=admin-destacados&act=edit&amp;accion2=ok" role="form">
+		<form id="formData" name="formData" method="post" action="" role="form">
 		<table cellspacing="0" cellpadding="2px">
 			<tr><td valign="top"><label for="id_destacado">ID contenido:</label></td>
 			<td colspan="3">
@@ -55,11 +55,5 @@ function ini_page_body ($ini_conf){
 	<?php menu::adminMenu();?>
 </div>
 <?php 
-}
-
-function insertDestacado(){
-	$destacados = new destacados();
-	if ($destacados->InsertDestacado($_POST['tipo_destacado'],$_POST['id_destacado'],$_POST['texto_destacado'],$_POST['canal_destacado'])) {
-		OkMsg("destacado insertado correctamente.");}
 }
 ?>

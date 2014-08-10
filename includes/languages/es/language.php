@@ -43,6 +43,7 @@ uploaded_by ="subido por"
 Date = "Fecha"
 Author = "Autor"
 Title = "Título"
+Description = "Descripción"
 Comment = "Comentario"
 Comments = "Comentarios"
 Reply = "Responder"
@@ -51,4 +52,5 @@ Vote_comment = "Votar el comentario"
 Go_to = "Ir a"
 Go_back = "Volver atrás"
 Visits = "Visitas"
+Characters = "Caracteres";
 ?>

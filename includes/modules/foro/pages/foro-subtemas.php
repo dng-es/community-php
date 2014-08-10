@@ -15,15 +15,13 @@ function ini_page_body ($ini_conf){
 	$foro = new foro();
 	$id_tema_parent="";
 	$canal="";
+	?>
+	<div id="page-info"><?php echo strTranslate("Forums");?></div>
+	<div class="row row-top">
+		<div class="col-md-7 col-lg-8 inset">
+			<p>Comparte con tus compañeros todas las dudas y temas que te interesen . Puedes participar de los temas ya propuestos o puedes crear uno nuevo.</p>
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//	CENTRO		///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-	echo '<div id="page-info">Foros</div>';
-	echo '<div class="row row-top">
-			<div class="col-md-7 col-lg-8 inset">
-			<p>Comparte con tus compañeros todas las dudas y temas que te interesen . Puedes participar de los temas ya propuestos o puedes crear uno nuevo.</p>';
-
+	<?php
 	session::getFlashMessage( 'actions_message' ); 	
 
 	$id_tema_parent = $_REQUEST['id'];

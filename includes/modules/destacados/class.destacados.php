@@ -2,7 +2,7 @@
 /**
 * @Destacado del día. Depende de los módulos de fotos y videos.
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 0.5
+* @version 1.0
 */	
 class destacados extends connection{
  

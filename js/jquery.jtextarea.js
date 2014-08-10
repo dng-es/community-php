@@ -27,7 +27,7 @@ jQuery.fn.jtextarea = function(options) {
 
    this.each(function(){
       var elem = $(this);
-      var counter_element = $('<div class="textarea-message">' + configuration.textElement + ': ' + elem.val().length + ' (m&aacute;ximo '+configuration.maxSizeElement+')</div>');
+      var counter_element = $('<div class="textarea-message">' + configuration.textElement + ': ' + elem.val().length + ' (max. '+configuration.maxSizeElement+')</div>');
 	  counter_element.css(configuration.cssElement);
       elem.after(counter_element);
       elem.data("counter_field", counter_element);
@@ -41,7 +41,7 @@ jQuery.fn.jtextarea = function(options) {
 
       elem.keyup(function(){
 		 var counter_field = elem.data("counter_field");
-		 counter_field.text(configuration.textElement + ': ' + elem.val().length+ ' (máximo '+configuration.maxSizeElement+')');
+		 counter_field.text(configuration.textElement + ': ' + elem.val().length+ ' (max. '+configuration.maxSizeElement+')');
       });
    });
    return this;

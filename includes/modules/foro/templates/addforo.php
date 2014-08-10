@@ -27,11 +27,11 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 		redirectURL($_SERVER['REQUEST_URI']);
 	} 	
 	
-	$title_add = ($ocio==1) ? "Nueva noticia" : "Nuevo tema en el foro";
+	$title_add = ($ocio==1) ? "Nueva noticia" : strTranslate("Create_new_forum");
 	$title_add_desc = ($ocio==1) ? "Puedes insertar una nueva noticia. Para ello introduce su título y descripción." : "Puedes insertar un nuevo tema en el foro. Para ello introduce un nombre para el tema y su descripción.";
-	$title_btn = ($ocio==1) ? "Crear noticia" : "Crea tema";
-	$title_name = ($ocio==1) ? "Título de la noticia:" : "Nombre del tema:";
-	$title_desc = ($ocio==1) ? "Descripción de la noticia:" : "Descripción del tema:";
+	$title_btn = ($ocio==1) ? "Crear noticia" : strTranslate("Create_forum");
+	$title_name = ($ocio==1) ? "Título de la noticia:" : strTranslate("Title");
+	$title_desc = ($ocio==1) ? "Descripción de la noticia:" : strTranslate("Description");
 	?>
 	<script language="JavaScript" src="<?php echo getAsset("foro");?>js/foro-subtemas.js"></script>
 	<div id="banner-foros-form">
@@ -53,9 +53,9 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 			<input type="file" id="imagen_contenido" name="imagen_contenido" class="inputFile form-control">
 	<?php endif; ?>		
 			<label for="nombre-tema" class="sr-only"><?php echo $title_name;?></label>
-			<input type="text" maxlength="100" id="nombre-tema" name="nombre-tema" class="form-control" placeholder="Nombre del tema">   
+			<input type="text" maxlength="100" id="nombre-tema" name="nombre-tema" class="form-control" placeholder="<?php echo strTranslate('Title');?>">   
 			<label for="texto-descripcion" class="sr-only"><?php echo $title_desc;?></label>
-			<textarea id="texto-descripcion" name="texto-descripcion" class="form-control" placeholder="Descripción del tema"></textarea>
+			<textarea id="texto-descripcion" name="texto-descripcion" class="form-control" placeholder="<?php echo strTranslate('Description');?>"></textarea>
 			<input type="hidden" value="<?php $ocio;?>" name="ocio" id="ocio" />
 			<span id="alertas-mensajes" class="alert-message alert alert-danger"></span>
 			<button type="submit" id="tema-submit" name="tema-submit" class="btn btn-primary btn-block"><?php echo $title_btn;?></button>
