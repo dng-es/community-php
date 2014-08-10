@@ -37,10 +37,10 @@ if (isset($_POST['subject_form'])) {
 		<input type="text" name="email_form" id="email_form" class="form-control" />
 		<div class="message-form" id="message-form-email">Debe introducir un email válido.</div>
 		<label for="subject_form">Asunto:</label>
-		<input type="text" name="subject_form" id="subject_form" class="form-control" />
-		<div class="message-form" id="message-form-subject">Debe introducir el asunto, mínimo 2 caracteres.</div>
-		<textarea class="form-control jtextarea" name="body_form" id="body_form"></textarea>
-		<div class="message-form" id="message-form-body">Debe escribir el mensaje, mínimo 5 caracteres, máximo 1000.</div>
+		<input type="text" name="subject_form" id="subject_form" class="form-control" placeholder="<?php echo strTranslate('Message_subject');?>" />
+		<div class="message-form" id="message-form-subject"><?php echo strTranslate('Introduce_subject');?></div>
+		<textarea class="form-control jtextarea" name="body_form" id="body_form" placeholder="<?php echo strTranslate('Your_message');?>"></textarea>
+		<div class="message-form" id="message-form-body"><?php echo strTranslate('Introduce_your_message');?></div>
 		<br /><button type="submit" value="" class="btn btn-primary" id="EnviarForm"><?php echo strTranslate("Send");?></button>
 	</form>
 <?php

@@ -16,7 +16,7 @@ function commentForo($comentario_foro,$destino="foro-comentarios"){
 	<div class="media media-comment">
 		<?php userFicha($comentario_foro); ?>
 		<div class="media-body">
-		<p><b><?php echo $comentario_foro['nick']; ?></b> dice: (<?php echo strftime(DATE_FORMAT_SHORT,strtotime($comentario_foro['date_comentario'])); ?>)</p>
+		<p><b><?php echo $comentario_foro['nick']; ?></b> <?php echo strTranslate("says");?>: (<?php echo strftime(DATE_FORMAT_SHORT,strtotime($comentario_foro['date_comentario'])); ?>)</p>
 		<p><?php echo $comentario_foro['comentario'];?></p>				
 		<div class="comment-info">
 			<span class="comment-reply-trigger label label-info" title="<?php echo strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Reply");?></span> 

@@ -6,6 +6,12 @@ $menu_sel = 6;
 function ini_page_header ($ini_conf) { ?>
 	<script src="js/jquery.jtextarea.js"></script>
 	<script src="<?php echo getAsset("core");?>js/contact.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".jtextarea").jtextarea({maxSizeElement: 1000, textElement: "<?php echo strTranslate('Characters');?>", 
+						cssElement: { display: "inline-block",color: "#999999",background: "transparent"}});	
+		});
+	</script>
 <?php }
 function ini_page_body ($ini_conf){
 	?>
@@ -15,27 +21,15 @@ function ini_page_body ($ini_conf){
 	<?php 
 	//MESSAGES
 	session::getFlashMessage( 'actions_message' );
-
-	//EMAIL SEND
-	if (isset($_POST['subject_form'])) {
-		$asunto='EMAIL DESDE '.strtoupper($ini_conf['SiteName']).': '.$_POST['subject_form'];
-		$cuerpo_mensaje=$_SESSION['user_name'].' - nick: '.$_SESSION['user_nick'].', escribio: 
-		
-		'.$_POST['body_form'];
-		//if (SendEmail($_SESSION['user_email'],$ini_conf['ContactEmail'],$asunto,$cuerpo_mensaje,0)) {
-		if (messageProcess($asunto, array($ini_conf['MailingEmail'] => 'Contactar'), array($ini_conf['ContactEmail']), $cuerpo_mensaje, null)){
-			session::setFlashMessage( 'actions_message', "Su mensaje ha sido enviado correctamente, en breve nos pondremos en contacto.<br />Gracias por tu consulta.", "alert alert-success");
-		}
-		else { session::setFlashMessage( 'actions_message', "Se ha producido un error durante el envío, Por favor inténtalo más tarde.", "alert alert-danger");}
-		redirectURL($_SERVER['REQUEST_URI']);
-	} ?>
+	coreContactController::contactAction();
+	?>
 			<p><?php echo strTranslate("Send_us_an_email");?></p>
 			<form id="contact_form" name="contact_form" method="post" action="" method="post" role="form">
 				<label for="subject_form" class="sr-only">Asunto:</label>
-				<input type="text" name="subject_form" id="subject_form" class="form-control"placeholder="Introduce al asunto del mensaje" />
-				<div class="message-form alert alert-danger" id="message-form-subject">Debes introducir el asunto, mínimo 2 caracteres.</div>				
-				<br /><textarea cols="56" rows="8" name="body_form" id="body_form" class="jtextarea form-control" placeholder="Tu mensaje"></textarea>
-				<div class="message-form alert alert-danger" id="message-form-body">Debes escribir el mensaje, mínimo 5 caracteres, máximo 1000.</div>
+				<input type="text" name="subject_form" id="subject_form" class="form-control"placeholder="<?php echo strTranslate('Message_subject');?>" />
+				<div class="message-form alert alert-danger" id="message-form-subject"><?php echo strTranslate('Introduce_subject');?></div>				
+				<br /><textarea cols="56" rows="8" name="body_form" id="body_form" class="jtextarea form-control" placeholder="<?php echo strTranslate('Your_message');?>"></textarea>
+				<div class="message-form alert alert-danger" id="message-form-body"><?php echo strTranslate('Introduce_your_message');?></div>
 				<br /><br />
 				<button type="submit" class="btn btn-primary" id="EnviarForm" value="Enviar"><?php echo strTranslate("Send");?></button>
 			</form>

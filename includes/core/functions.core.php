@@ -51,11 +51,11 @@ function dirCarga($dir, $module){
 	$pos = strrpos( $dir , "\\" );
 	if ($pos === false){
 		//linux
-		$dir_final = str_replace("/core", "",  $dir .$module);
+		$dir_final = str_replace("includes/core", "includes",  $dir .$module);
 	}
 	else{
 		//windows
-		$dir_final = str_replace("\\core", "", $dir . str_replace("/", "\\\\", $module));       
+		$dir_final = str_replace("includes\\core", "includes", $dir . str_replace("/", "\\\\", $module));       
 	}
 	return $dir_final;
 }
