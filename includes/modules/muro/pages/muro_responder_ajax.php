@@ -94,7 +94,7 @@ echo '<div class="">';
 		  echo ' <hr>
 				</div>';  
   endforeach;
-  if(count($comentarios_muro)==0){ echo '<p style="clear: both">No hay respuesta para este comentario del muro</p>';}	
+  if(count($comentarios_muro)==0){ echo '<div class="alert alert-warning">No hay respuesta para este comentario del muro.</div>';}	
   echo '</div>';			
 ?> 
 
