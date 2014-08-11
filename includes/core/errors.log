@@ -3,3 +3,8 @@
 			  FROM campaigns c LEFT JOIN campaigns_types t ON t.id_campaign_type=c.id_campaign_type 
 			  WHERE 1=1  AND active4=1 ORDER BY name_campaign ASC  LIMIT 0,20 - Unknown column 'active4' in 'where clause'
 [2014-08-08 10:46:49] [client 127.0.0.1] [php] mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[2014-08-11 09:04:07] [client 127.0.0.1] [sql_error] SELECT count(*) AS table_counter FROM campaigns c WHERE 1=1  AND activei=1 ORDER BY name_campaign ASC  - Unknown column 'activei' in 'where clause'
+[2014-08-11 09:04:07] [client 127.0.0.1] [sql_error] SELECT c.*,t.campaign_type_name AS tipo 
+			  FROM campaigns c LEFT JOIN campaigns_types t ON t.id_campaign_type=c.id_campaign_type 
+			  WHERE 1=1  AND activei=1 ORDER BY name_campaign ASC  LIMIT 0,20 - Unknown column 'activei' in 'where clause'
+[2014-08-11 09:04:07] [client 127.0.0.1] [php] mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given

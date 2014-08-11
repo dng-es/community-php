@@ -28,7 +28,7 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 	} 	
 	
 	$title_add = ($ocio==1) ? "Nueva noticia" : strTranslate("Create_new_forum");
-	$title_add_desc = ($ocio==1) ? "Puedes insertar una nueva noticia. Para ello introduce su título y descripción." : "Puedes insertar un nuevo tema en el foro. Para ello introduce un nombre para el tema y su descripción.";
+	$title_add_desc = ($ocio==1) ? "Puedes insertar una nueva noticia. Para ello introduce su título y descripción." : strTranslate("Create_new_forum_label");
 	$title_btn = ($ocio==1) ? "Crear noticia" : strTranslate("Create_forum");
 	$title_name = ($ocio==1) ? "Título de la noticia:" : strTranslate("Title");
 	$title_desc = ($ocio==1) ? "Descripción de la noticia:" : strTranslate("Description");

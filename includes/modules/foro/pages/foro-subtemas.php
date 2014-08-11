@@ -19,7 +19,7 @@ function ini_page_body ($ini_conf){
 	<div id="page-info"><?php echo strTranslate("Forums");?></div>
 	<div class="row row-top">
 		<div class="col-md-7 col-lg-8 inset">
-			<p>Comparte con tus compañeros todas las dudas y temas que te interesen . Puedes participar de los temas ya propuestos o puedes crear uno nuevo.</p>
+			<p><?php echo strTranslate("Forums_title");?></p>
 
 	<?php
 	session::getFlashMessage( 'actions_message' ); 	

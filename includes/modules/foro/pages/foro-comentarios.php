@@ -100,7 +100,7 @@ function ini_page_body ($ini_conf){ ?>
 	<div class="col-md-4 lateral">
 		<div class="insert-foro">
 			<h4><?php echo strTranslate("Insert_comment_forum");?></h4>
-			<p>Inserta un nuevo comentario en el foro. Máximo 600 caracteres.</p>
+			<p><?php echo strTranslate("Insert_comment_forum_label");?></p>
 			<?php 
 
 			addForoComment($id_tema); 
