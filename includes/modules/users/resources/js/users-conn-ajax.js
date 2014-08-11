@@ -16,8 +16,8 @@ function cargarUsersConn(){
 	});
 }
 
-$(window).scroll(function(){		
-	if ($(window).scrollTop() == $(document).height() - $(window).height()){
+$("#mensajes-users-conn").scroll(function(){		
+	if ($(".mensajes-users-conn").scrollTop() == (450*pagina_conn)){
 		pagina_conn++;
 		cargarUsersConn();
 	}
