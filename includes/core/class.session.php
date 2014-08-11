@@ -21,8 +21,15 @@ class session {
 		}
 		else {
 			//SI HAN PASADO 15 MINUTOS DE INACTIVIDAD SE CIERRA LA SESION (60*15=900)
-			if ( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) and (time()-$_SESSION["session_time"] > 1800)){ self::DestroySession();}
-			else {$_SESSION["session_time"] = time();}
+			if ( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) and (time()-$_SESSION["session_time"] > SESSION_MAXTIME)){ self::DestroySession();}
+			else {
+				$_SESSION["session_time"] = time();
+				if (isset($_SESSION['user_name']) && in_array($_REQUEST['page'], $paginas_free)==false){
+					$users = new users();
+					$users->deleteUserConn($_SESSION['user_name']);
+					$users->insertUserConn($_SESSION['user_name'],$_SESSION['user_canal']);
+				}
+			}
 		}
 	}
 
@@ -93,6 +100,9 @@ class session {
 	*
 	*/
 	public static function DestroySession(){
+		$users = new users();
+		$users->deleteUserConn($_SESSION['user_name']);
+
 		session_unset();
 		session_destroy();
 		header ("Location: ?page=login");

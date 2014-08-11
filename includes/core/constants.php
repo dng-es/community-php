@@ -15,6 +15,8 @@ $paginas_free = array("login","user-confirm","logout","contact-free","declaracio
 //TIPOS DE ARCHIVOS PERMITIDOS
 $videos_types = array("MP4","MOV","AVI","3GP","WMV");
 $fotos_types = array("GIF","JPG","JPEG","PNG");
+//TIEMPO DE SESION
+define('SESSION_MAXTIME',1800);
 //PUNTOS A OTORGAR POR ACCION REALIZADA POR USUARIO Y TEXTOS DE MOTIVOS
 define('PUNTOS_VIDEO',0);
 define('PUNTOS_FOTO',0);

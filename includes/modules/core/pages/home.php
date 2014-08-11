@@ -6,6 +6,7 @@ $menu_admin=0;
 $menu_sel = 1;
 function ini_page_header ($ini_conf) {?>
 	<script language="JavaScript" src="<?php echo getAsset("muro");?>js/muro-comentario-ajax.js"></script>
+	<script language="JavaScript" src="<?php echo getAsset("users");?>js/users-conn-ajax.js"></script>
 	<script>
 	jQuery(document).ready(function(){
 		$('.carousel').carousel()
@@ -55,18 +56,22 @@ function ini_page_body ($ini_conf){
 	<div class="row" style="background-color:#c0c0c0">
 		<div class="col-md-6 nopadding">
 			<div class="row" style="background-color:#c0c0c0;color:#555;border-top: 10px solid #f0f0f0">
-				<h2 style="margin-left:40px">Tipos de campañas</h2>
-				<div class="row inset">
+				<div class="col-md-6" style="background-color:#ccc;">
+					<h2 style="margin-left:40px">Tipos de campañas</h2>
 					<?php foreach($campanas['items'] as $element): ?>
-					<div class="col-md-4" style="text-align:center;background-color:#ccc;">
 						<div class="inset">
 							<h3><a href="?page=user-campaigns&f=<?php echo $element['id_campaign_type'];?>"><?php echo $element['campaign_type_name'];?></a></h3>
 							<p class="legend"><?php echo ShortText($element['campaign_type_desc'], 100);?></p>
 						</div>
-					</div>
 					<?php endforeach; ?>
 				</div>
-			</div>			
+				<div class="col-md-6">
+					<h2>usuarios conectados</h2>
+					<div id="mensajes">
+						<div class="mensaje"><div id="cargando-users-conn"><i class="fa fa-spinner fa-spin ajax-load"></i></div></div>
+					</div>
+				</div>
+			</div>		
 		</div>
 		<div class="col-md-6" style="border-top: 10px solid #f0f0f0">
 			<div id="muro-insert">

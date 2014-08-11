@@ -392,5 +392,27 @@ class users extends connection{
 		$Sql="UPDATE users SET last_access=NOW() WHERE username='".$username."'";
 		return connection::execute_query($Sql); 
 	}	
+
+	public function getUsersConn($filter = "") {
+		$Sql="SELECT u.* FROM users_connected c 
+			  LEFT JOIN users u ON u.username=c.username 
+			  WHERE FROM_UNIXTIME(UNIX_TIMESTAMP(connection_time)+".SESSION_MAXTIME.")>NOW() ".$filter;
+		return connection::getSQL($Sql);
+	}  
+		  
+	public function insertUserConn($username,$connection_canal){
+		if ($username<>''){		 
+			$Sql="INSERT INTO users_connected (username,connection_canal) 
+				  VALUES ('".$username."','".$connection_canal."')";
+			return connection::execute_query($Sql);
+		}
+	}
+
+	public function deleteUserConn($username){		  
+		$Sql="DELETE FROM users_connected
+			 WHERE username='".$username."'";
+			 
+		return connection::execute_query($Sql);
+	}		
 }
 ?>

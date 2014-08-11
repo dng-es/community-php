@@ -505,7 +505,8 @@ label{font-weight:normal; color:$color1}
 #col-muro{background-color: #ccc}
 #muro-home{height: 450px;overflow-y: auto;overflow-x: hidden;padding-left: 10px; padding-top: 10px;background: #fff}
 #muro-home p {margin-bottom: 5px}
-#cargando { margin-top: 80px; position: absolute; top: 100px; left: 50%; width: 48px; margin-left: -24px;}
+.cargando-ajax { margin-top: 80px; position: absolute; top: 100px; left: 50%; width: 48px; margin-left: -24px;}
+#cargando {@extend .cargando-ajax;}
 .murogusta{cursor: pointer}
 .responder-triger{cursor: pointer}
 .ajax-load{font-size: 50px; color:#9B577A;margin-top: 30px}
@@ -1308,6 +1309,22 @@ table th {
 	50% { font-size: 17px; }  		/* Mitad de la animación */
 	100% { font-size: 14px; }  		/* Al final de la animación */
 }
+
+/*Users connected*/
+#cargando-users-conn {@extend .cargando-ajax;}
+.users-connected{
+	overflow-y:auto;
+	overflow-x:hidden;
+	.media{
+		.media-heading{
+			font-size:14px;
+		}
+		img{
+			width:50px;
+		}
+	}
+}
+/*End Users connected*/
 
 /*Panel de administración*/
 #admin-panel{
