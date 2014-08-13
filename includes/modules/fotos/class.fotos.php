@@ -74,8 +74,6 @@ class fotos extends connection{
 		//SUBIR FICHERO
 		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
 		$nombre_archivo=NormalizeText($nombre_archivo);
-
-		$tipo_archivo = $fichero['type'];
 		$tamano_archivo = $fichero['size'];
 		$ext = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 		//compruebo si las características del archivo son las que deseo
