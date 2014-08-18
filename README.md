@@ -33,8 +33,11 @@
 - resizeImage: (includes/core/class.resizeimage.php) php. Clase para generar miniaturas de imágenes
 
 ## Herramienta console 
-- Descripción: Aplicación de consola para crear módulos. 
-- Uso: "php bin/console parameters". Opciones de parameters:
+Aplicación de consola para crear módulos. Uso: 
+```bash 
+php bin/console parameters"
+```
+Opciones de parameters:
 
 * [createmodule] (#createmodule)
 * [findpage] (#findpage)
