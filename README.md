@@ -11,16 +11,14 @@
 - Establecer configuración de la comunidad desde el panel de administración->Datos generales
 
 
-Requisitos y dependencias
-================================
-- PHP 5.3 o superior (TODO: para versiones 5.4 o superior modificar ereg_replace).
+## Requisitos y dependencias
+- PHP 5.3 o superior.
 - FFMPEG para la conversión de videos. Librerias libx264 y libfaac necesarias.
 - La hoja de estilos .CSS esta creada con SASS (styles.scss)
 - Emplea Bootstrap v3.0.3 para la maquetación
 
 
-Librerias de terceros
-================================
+## Librerias de terceros 
 - jQuery: (js/jquery.php) Javascript.
 - Bootstrap: (css/bootstrap.min.css - js/bootstrap.min.js)
 - Bootstrap Datepicker: (js/bootstrap-datepicker.js) Javascript. Datapicker para formularios
@@ -34,8 +32,7 @@ Librerias de terceros
 - Zipfile: (includes/core/class.zipfile.php) php. Clase para generación de ficheros ZIP
 - resizeImage: (includes/core/class.resizeimage.php) php. Clase para generar miniaturas de imágenes
 
-Herramienta console
-================================
+## Herramienta console 
 - Descripción: Aplicación de consola para crear módulos. 
 - Uso: "php bin/console parameters". Opciones de parameters:
 	- createmodule: crea nuevo módulo con su estructura de directorios y ficheros básicos
@@ -43,22 +40,19 @@ Herramienta console
 	- findpage: encuentra una pagina. Muestra en que módulo se encuentra
 
 
-Idiomas
-================================
+## Idiomas
 Soporte para idiomas implementado. Establecer idioma en includes/core/config.php. Los ficheros de traducciones se encuentran en includes/languages. Cada módulo cuenta con sus propios ficheros de traducciones en includes/modules/module_name/resources/languages
 
-Debug mode
-================================
+## Debug mode
 Se puede activar desde includes/core/config.php con la variable debug_app. Opciones:
 - 0: debug mode desactivado
 - 1: debug mode activado, salida por pantalla.
 - 2: debug mode activado, salida a fichero log (includes/core/errors.log). Sólo se registrarán los errores Php y sql, no se mostrarán las sentencias sql ejecutadas con éxito.
 
-<b>IMPORTANTE</b>: desactivar debug mode en servidores de producción (debug_app = 0) o establecer salida a fichero de log (debug_app = 2)
+**IMPORTANTE: desactivar debug mode en servidores de producción (debug_app = 0) o establecer salida a fichero de log (debug_app = 2)**
 
 
-Estructura de archivos y directorios
-================================
+## Estructura de archivos y directorios
 La estructura de archivos y directorios básica es la siguiente:
 
 - <b>bin/</b> directorio donde se encuentra la herramienta de consola<br />
