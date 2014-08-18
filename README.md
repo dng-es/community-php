@@ -35,7 +35,7 @@
 ## Herramienta console 
 Aplicación de consola para crear módulos. Uso: 
 ```bash 
-php bin/console parameters"
+php bin/console parameters
 ```
 Opciones de parameters:
 
