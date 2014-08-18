@@ -35,10 +35,19 @@
 ## Herramienta console 
 - Descripción: Aplicación de consola para crear módulos. 
 - Uso: "php bin/console parameters". Opciones de parameters:
-	- createmodule: crea nuevo módulo con su estructura de directorios y ficheros básicos
-	- showmodules: muestra todos los modulos con su información
-	- findpage: encuentra una pagina. Muestra en que módulo se encuentra
 
+* [createmodule] (#createmodule)
+* [findpage] (#findpage)
+* [showmodules] (#showmodules)
+
+### createmodule
+Crea nuevo módulo con su estructura de directorios y ficheros básicos
+
+### findpage
+Encuentra una pagina. Muestra en que módulo se encuentra
+
+### showmodules
+Muestra todos los modulos con su información
 
 ## Idiomas
 Soporte para idiomas implementado. Establecer idioma en includes/core/config.php. Los ficheros de traducciones se encuentran en includes/languages. Cada módulo cuenta con sus propios ficheros de traducciones en includes/modules/module_name/resources/languages
