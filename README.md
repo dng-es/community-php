@@ -1,9 +1,7 @@
-Community-php
-================================
-Comunidad de usuarios php5 y mysql. Ver módulos en includes/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
+# Community-php 
+> Comunidad de usuarios php5 y mysql. Ver módulos en includes/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
-Instalación
-================================
+## Instalación
 - Establecer configuración principal en el fichero: includes/core/config.php (<b>IMPORTANTE</b>: desactivar debug mode en servidores de producción o establecer salida a fichero de log)
 - Eliminar carpeta ./bin en servidores de produccción
 - Eliminar carpeta ./documentacion en servidores de produccción
