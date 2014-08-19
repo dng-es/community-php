@@ -253,19 +253,19 @@ uploadFileToFolder($file, $destination);
 Donde $file será $_FILES['nombre_input_file'] y $destination el directorio donde se ha de subir la imágen
 
 ### validateDate
-Valida si una cadena es una fecha valida. Uso: 
+Comprueba si una cadena es una fecha válida según el formato especificado. Uso: 
 ```php 
-validateDate($date, $format = 'Y-m-d H:i:s');
+validateDate($date, 'Y-m-d H:i:s');
 ```
 
 ### validateEmail
-Valida un texto si es o no una cuenta de correo válida. Uso: 
+Comprueba si un texto si es o no una cuenta de correo válida. Uso: 
 ```php 
 validateEmail($email);
 ```
 
 ### validateNifCifNie
-Valida si un NIF, CIF o NIE es correcto. Devolverá:
+Comprueba si un NIF, CIF o NIE es correcto. Devolverá:
 - 1 = NIF ok
 - 2 = CIF ok
 - 3 = NIE ok
