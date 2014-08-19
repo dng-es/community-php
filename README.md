@@ -265,7 +265,7 @@ validateEmail($email);
 ```
 
 ### validateNifCifNie
-EValida si un NIF, CIF o NIE es correcto. Devolverá:
+Valida si un NIF, CIF o NIE es correcto. Devolverá:
 - 1 = NIF ok
 - 2 = CIF ok
 - 3 = NIE ok
@@ -273,6 +273,8 @@ EValida si un NIF, CIF o NIE es correcto. Devolverá:
 - -2 = CIF bad
 - -3 = NIE bad
 - 0 = ??? incorrecto.
+
+Uso:
 ```php 
 checkNifCifNie($cif);
 ```
