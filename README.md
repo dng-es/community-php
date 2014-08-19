@@ -99,3 +99,34 @@ La estructura de archivos y directorios básica es la siguiente:
 			- <b>templates/</b> plantillas del módulo<br />
 			- <b>class.my_module.php</b> acceso a la base de datos desde el módulo<br /> 
 - <b>js/</b> archivos javascript generales de la comunidad
+
+## Referencia de funciones
+
+* [getAsset] (#getAsset)
+* [redirectURL] (#redirectURL)
+* [strTranslate] (#strTranslate)
+* [templateload] (#templateload)
+
+### getAsset
+Obtiene la ruta de los assets del módulo especificado con $modulename. Uso: 
+```php 
+getAsset($modulename);
+```
+
+### redirectURL
+Redirecciona a la url especificada. Uso: 
+```php 
+redirectURL($url);
+```
+
+### strTranslate
+Traduce la cadena de texto pasada por parámetro en el idioma establecido por defecto. Uso: 
+```php 
+strTranslate($str);
+```
+
+### templateload
+Carga la plantilla especificada con $template situada en el módulo especificado con $modulename. Uso: 
+```php 
+templateload($template,$modulename);
+```
