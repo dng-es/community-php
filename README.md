@@ -1,6 +1,14 @@
 # Community-php 
 > Comunidad de usuarios php5 y mysql. Ver módulos en includes/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
+* [Instalación] (#instalación)
+* [Requisitos y dependencias] (#requisitos y dependencias)
+* [Herramienta console] (#herramienta console)
+* [Idiomas] (#idiomas)
+* [Debug mode] (#debug mode)
+* [Estructura de archivos y directorios] (#estructura de archivos y directorios)
+* [Referencia API] (#Referencia API)
+
 ## Instalación
 - Establecer configuración principal en el fichero: includes/core/config.php (<b>IMPORTANTE</b>: desactivar debug mode en servidores de producción o establecer salida a fichero de log)
 - Eliminar carpeta ./bin en servidores de produccción
@@ -18,7 +26,7 @@
 - Emplea Bootstrap v3.0.3 para la maquetación
 
 
-## Librerias de terceros 
+### Librerias de terceros 
 - jQuery: (js/jquery.php) Javascript.
 - Bootstrap: (css/bootstrap.min.css - js/bootstrap.min.js)
 - Bootstrap Datepicker: (js/bootstrap-datepicker.js) Javascript. Datapicker para formularios
