@@ -125,7 +125,9 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 
 * [fileToZip] (#filetozip)
 * [getAsset] (#getasset)
+* [getBrowser] (#getbrowser)
 * [getListModules] (#getlistmodules)
+* [getPlatform] (#getplatform)
 * [HTMLtoPDF] (#htmltopdf)
 * [messageProcess] (#messageprocess)
 * [NormalizeText] (#normalizetext)
@@ -147,10 +149,22 @@ Obtiene la ruta de los assets del módulo especificado con $modulename. Uso:
 getAsset($modulename);
 ```
 
+### getBrowser
+Obtiene la versión del navegador según el UserAgent. Uso: 
+```php 
+getBrowser($user_agent);
+```
+
 ### getListModules
 Devuelve un array con todos los módulos instalados. Uso: 
 ```php 
 getListModules();
+```
+
+### getPlatform
+Obtiene el Sistema Operativo según el UserAgent del navegador. Uso: 
+```php 
+getPlatform($user_agent);
 ```
 
 ### HTMLtoPDF
