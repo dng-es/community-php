@@ -24,13 +24,14 @@ class headers{
 			<meta name="robots" content="noarchive" />
 			<title><?php echo $ini_conf['SiteTitle'];?></title>
 			<link rel="shortcut icon" href="favicon.ico">
-			<link rel="icon" type="image/ico"  href="favicon.ico" >
-			
+			<link rel="icon" type="image/ico"  href="favicon.ico" >		
+
+			<link href="css/styles.css" rel="stylesheet">
+			<link href="css/font-awesome.min.css" rel="stylesheet">
+
 			<script language="JavaScript" src="js/jquery.js"></script>
 			<script language="JavaScript" src="js/functions.js"></script>
 
-			<!-- Bootstrap core -->
-			<link href="css/bootstrap.min.css" rel="stylesheet">
 			<script src="js/bootstrap.min.js"></script>
 			<script src="js/bootstrap-dropdown.js"></script>	 
 			 
@@ -39,11 +40,7 @@ class headers{
 			  <script type="text/javascript" src="js/css3-mediaqueries.js"></script> 
 			  <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 			  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
-			<![endif]-->		
-
-			<!-- Add custom CSS here -->
-			<link href="css/styles.css" rel="stylesheet">
-			<link href="css/font-awesome.min.css" rel="stylesheet">
+			<![endif]-->
 	<?php
 	}
 
