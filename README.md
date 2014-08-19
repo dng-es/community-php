@@ -152,7 +152,7 @@ getAsset($modulename);
 ### getBrowser
 Obtiene la versión del navegador según el UserAgent. Uso: 
 ```php 
-getBrowser($user_agent);
+getBrowser($_SERVER['HTTP_USER_AGENT']);
 ```
 
 ### getListModules
@@ -164,7 +164,7 @@ getListModules();
 ### getPlatform
 Obtiene el Sistema Operativo según el UserAgent del navegador. Uso: 
 ```php 
-getPlatform($user_agent);
+getPlatform($_SERVER['HTTP_USER_AGENT']);
 ```
 
 ### HTMLtoPDF
