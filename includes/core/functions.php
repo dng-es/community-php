@@ -305,57 +305,22 @@ function exportCsv($registros, $file_name = "file") {
 
 /**
  * Genera una cadena aleatoria segun el patron definido en $chars
- * @return string Cadena generada de forma aleatoria
+ * @param 	int 		$num_car         Número de caracteres de la cadena a generar
+ * @param 	string 		$chars           Caracteres permitidos
+ * @return  string 						 Cadena generada de forma aleatoria
  */
-function createRandomPassword() {
-	
-	$chars = "abcdefghijkmnopqrstuvwxyz023456789"; 
+function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz023456789") {
 	srand((double)microtime()*1000000); 
 	$i = 0; 
 	$pass = '' ; 
 	
-	while ($i <= 7) { 
+	while ($i <= $num_car) { 
 		$num = rand() % 33; 
 		$tmp = substr($chars, $num, 1); 
 		$pass = $pass . $tmp; 
 		$i++; 
 	} 	
 	return $pass; 
-}
-
-/**
-* Remove all files and folder from a given folder name
-*
-* @param 	string 			$dirname 			Folder to clean
-* @param 	string 			$nombre_fichero		file which determinate the date limit to remove existing files
-* @return 	boolean/array						returns false is $dirname is not a folder, otherwise returns an array of deleted items
-*/
-function rmdirtree($dirname, $nombre_fichero) {
-   if (is_dir($dirname)) {    //Operate on dirs only
-       $result=array();
-       if (substr($dirname,-1)!='/') {$dirname.='/';}    //Append slash if necessary
-       $handle = opendir($dirname);
-       while (false !== ($file = readdir($handle))) {		      
-           if ($file!='.' && $file!= '..') {    //Ignore . and ..
-               $path = $dirname.$file;
-			   //echo 'entra dir 2 '.$path;
-               if (is_dir($path)) {    //Recurse if subdir, Delete if file
-                   $result=array_merge($result,rmdirtree($path));
-               }
-			   elseif (filectime($path) <= (filectime($dirname.$nombre_fichero)-1000))
-			   {
-				   unlink($path);
-                   $result[].=$path;
-               }
-           }
-       }
-       closedir($handle);
-       //rmdir($dirname);    //Remove dir
-       $result[].=$dirname;
-       return $result;    //Return array of deleted items
-   }else{
-       return false;    //Return false if attempting to operate on a file
-   }
 }
 
 /**

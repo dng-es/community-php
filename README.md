@@ -123,6 +123,7 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 
 ## Referencia API
 
+* [createRandomPassword] (#createrandompassword)
 * [fileToZip] (#filetozip)
 * [getAsset] (#getasset)
 * [getBrowser] (#getbrowser)
@@ -136,6 +137,16 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 * [ShortText] (#shorttext)
 * [templateload] (#templateload)
 * [uploadFileToFolder] (#uploadfiletofolder)
+
+
+### createRandomPassword
+Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
+```php 
+createRandomPassword(7);
+
+//especificando los caracteres aleatorios
+createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
+```
 
 ### fileToZip
 Comprime a zip el fichero especificado por $filename alojado en la ruta $path. Uso: 
