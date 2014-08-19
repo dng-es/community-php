@@ -87,6 +87,24 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 ## Estructura de archivos y directorios
 La estructura de archivos y directorios básica es la siguiente:
 
+Overview
+
+    ├── client
+    │   ├── app                 - All of our app specific components go in here
+    │   ├── assets              - Custom assets: fonts, images, etc…
+    │   ├── components          - Our reusable components, non-specific to to our app
+    │
+    ├── e2e                     - Our protractor end to end tests
+    │
+    └── server
+        ├── api                 - Our apps server api
+        ├── auth                - For handling authentication with different auth strategies
+        ├── components          - Our reusable or app-wide components
+        ├── config              - Where we do the bulk of our apps configuration
+        │   └── local.env.js    - Keep our environment variables out of source control
+        │   └── environment     - Configuration specific to the node environment
+        └── views               - Server rendered views
+
 - <b>bin/</b> directorio donde se encuentra la herramienta de consola<br />
 - <b>css/</b> archivos de estilos generales de la comunidad<br />
 - <b>docs/</b> directorio de almacenamiento de documentos para los módulos<br />
