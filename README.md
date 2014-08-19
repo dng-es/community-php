@@ -152,13 +152,13 @@ createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
 
 ### checkNifCifNie
 EValida si un NIF, CIF o NIE es correcto. Devolverá:
-1 = NIF ok
-2 = CIF ok
-3 = NIE ok
--1 = NIF bad
--2 = CIF bad
--3 = NIE bad
-0 = ??? incorrecto.
+- 1 = NIF ok
+- 2 = CIF ok
+- 3 = NIE ok
+- -1 = NIF bad
+- -2 = CIF bad
+- -3 = NIE bad
+- 0 = ??? incorrecto.
 ```php 
 checkNifCifNie($cif);
 ```
