@@ -29,4 +29,13 @@ language = "es"
 
 ;DEBUG OPTIONS. Poner 0 en servidores de producción. 1 salida por pantallas. 2 salida fichero error
 debug_app = 1
+
+[SMTP settings]
+smtp_domain = "smtp.example.org"
+smtp_port = 25
+smtp_user = "your username"
+smtp_pass = "your password"
+
+[Sendmail settings]
+sendmail_command = "/usr/sbin/sendmail -bs"
 ?>

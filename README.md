@@ -146,8 +146,10 @@ messageProcess( $message_subject,
 				$message_from = array('john@doe.com' => 'John Doe'), 
 				$message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), 
 				$message_body, 
-				$message_attachment = null);
+				$message_attachment = null,
+				$message_protocol = "smtp");
 ```
+$message_protocol puede ser Mail(valor por defecto), smtp o Sendmail. Si en $message_protocol se emplea smpt, se utilizá la configuración SMTP establecida en el fichero de configuraciópn general config.php. Para Sendmail la configuración se establecerá igualmente en config.php.
 
 ### NormalizeText
 Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso: 

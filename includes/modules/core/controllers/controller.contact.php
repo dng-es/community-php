@@ -8,8 +8,7 @@ class coreContactController{
 			$cuerpo_mensaje=$_SESSION['user_name'].' - '.strTranslate("Nick").': '.$_SESSION['user_nick'].', '.strTranslate("says").': 
 			
 			'.$_POST['body_form'];
-			//if (SendEmail($_SESSION['user_email'],$ini_conf['ContactEmail'],$asunto,$cuerpo_mensaje,0)) {
-			if (messageProcess($asunto, array($ini_conf['MailingEmail'] => 'Contactar'), array($ini_conf['ContactEmail']), $cuerpo_mensaje, null)){
+			if (messageProcess($asunto, array($ini_conf['MailingEmail'] => 'Contactar'), array($ini_conf['ContactEmail']), $cuerpo_mensaje, null,'smtp')){
 				session::setFlashMessage( 'actions_message', "Su mensaje ha sido enviado correctamente, en breve nos pondremos en contacto.<br />Gracias por tu consulta.", "alert alert-success");
 			}
 			else { session::setFlashMessage( 'actions_message', "Se ha producido un error durante el envío, Por favor inténtalo más tarde.", "alert alert-danger");}

@@ -506,10 +506,22 @@ function getPlatform($user_agent) {
  * @param  	string 		$message_attachment 	Fichero adjunto
  * @return 	boolean                     		Resultado del envío
  */
-function messageProcess($message_subject, $message_from = array('john@doe.com' => 'John Doe'), $message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), $message_body, $message_attachment = null){
+function messageProcess($message_subject, $message_from = array('john@doe.com' => 'John Doe'), $message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), $message_body, $message_attachment = null, $message_protocol = "Mail"){
 	require_once("Swift-5.1.0/lib/swift_required.php");
-	// Mail
-	$transport = Swift_MailTransport::newInstance();
+	if (strtolower($message_protocol) == 'smtp'){
+		global $ini_conf;
+		if (!$transport = Swift_SmtpTransport::newInstance($ini_conf['smtp_domain'], $ini_conf['smtp_port'])
+		  ->setUsername($ini_conf['smtp_user'])
+		  ->setPassword($ini_conf['smtp_pass'])) return false;
+	}
+	if (strtolower($message_protocol) == 'sendmail'){
+		global $ini_conf;
+		$transport = Swift_SendmailTransport::newInstance($ini_conf['sendmail_command']);
+	}
+	else{
+		$transport = Swift_MailTransport::newInstance();	
+	}
+	
 
 	// Create the Mailer using your created Transport
 	$mailer = Swift_Mailer::newInstance($transport);
