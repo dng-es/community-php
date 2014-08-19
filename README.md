@@ -2,11 +2,11 @@
 > Comunidad de usuarios php5 y mysql. Ver módulos en includes/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
 * [Instalación] (#instalación)
-* [Estructura de archivos y directorios] (#estructura de archivos y directorios)
-* [Herramienta console] (#herramienta console)
+* [Estructura de archivos y directorios] (#estructura-de-archivos-y-directorios)
+* [Herramienta console] (#herramienta-console)
 * [Idiomas] (#idiomas)
-* [Debug mode] (#debug mode)
-* [Referencia API] (#Referencia API)
+* [Debug mode] (#debug-mode)
+* [Referencia API] (#referencia-api)
 
 ## Instalación
 - Establecer configuración principal en el fichero: includes/core/config.php (<b>IMPORTANTE</b>: desactivar debug mode en servidores de producción o establecer salida a fichero de log)
