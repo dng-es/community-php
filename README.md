@@ -19,7 +19,7 @@
 - Establecer configuración de la comunidad desde el panel de administración->Datos generales
 
 
-## Requisitos y dependencias
+## Requisitos y dependencias (#requisitos)
 - PHP 5.3 o superior.
 - FFMPEG para la conversión de videos. Librerias libx264 y libfaac necesarias.
 - La hoja de estilos .CSS esta creada con SASS (styles.scss)
