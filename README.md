@@ -2,7 +2,7 @@
 > Comunidad de usuarios php5 y mysql. Ver módulos en includes/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
 * [Instalación] (#instalación)
-* [Requisitos y dependencias] (#requisitos y dependencias)
+* [Requisitos y dependencias] (#requisitos)
 * [Herramienta console] (#herramienta console)
 * [Idiomas] (#idiomas)
 * [Debug mode] (#debug mode)
