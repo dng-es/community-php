@@ -44,13 +44,25 @@ Opciones de parameters:
 * [showmodules] (#showmodules)
 
 ### createmodule
-Crea nuevo módulo con su estructura de directorios y ficheros básicos
+Crea nuevo módulo con su estructura de directorios y ficheros básicos. Uso: 
+```bash 
+php bin/console createmodule
+```
+Tras ejecutar el comando se preguntará por el nombre del nuevo modulo
 
 ### findpage
-Encuentra una pagina. Muestra en que módulo se encuentra
+Encuentra una pagina. Muestra en que módulo se encuentra. Uso: 
+```bash 
+php bin/console findpage
+```
+Tras ejecutar el comando se preguntará por la página a buscar. Si la página es encontrada mostrará su ruta
 
 ### showmodules
-Muestra todos los modulos con su información
+Muestra todos los modulos con su información. Uso: 
+```bash 
+php bin/console showmodules
+```
+Tras ejecutar el comando se mostrarán todos los modulos instalados.
 
 ## Idiomas
 Soporte para idiomas implementado. Establecer idioma en includes/core/config.php. Los ficheros de traducciones se encuentran en includes/languages. Cada módulo cuenta con sus propios ficheros de traducciones en includes/modules/module_name/resources/languages
