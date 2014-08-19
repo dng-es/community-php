@@ -61,7 +61,7 @@ function ini_page_body ($ini_conf){
 					<?php foreach($campanas['items'] as $element): ?>
 						<div class="inset">
 							<h3><a href="?page=user-campaigns&f=<?php echo $element['id_campaign_type'];?>"><?php echo $element['campaign_type_name'];?></a></h3>
-							<p class="legend"><?php echo ShortText($element['campaign_type_desc'], 100);?></p>
+							<p class="legend"><?php echo shortText($element['campaign_type_desc'], 100);?></p>
 						</div>
 					<?php endforeach; ?>
 				</div>

@@ -35,7 +35,7 @@ function NormalizeText( $text, $text_separator = "_") {
  * @param 	int 		$num_car   		Numero de carateres
  * @return 	string  	        		Texto acortado con puntos suspensivos si es mas largo que $num_car
  */
-function ShortText($text_html,$num_car){
+function shortText($text_html,$num_car){
 	if (strlen($text_html)<=$num_car) { return $text_html;}
 	else { return substr(strip_tags($text_html),0,strpos(strip_tags($text_html),' ',$num_car))."...";}
 }
@@ -69,19 +69,6 @@ function SendEmail($from_mail,$to_mail,$subject_mail,$body_mail,$html_mode = 0,$
 	//$headers_mail .= 'From: '.$from_mail_real.' <'.$from_mail.'>\nReply-To: '.$from_mail.'\nX-Mailer: PHP/' . phpversion();
 
 	if (mail($to_mail,$subject_mail,$body_mail,$headers_mail)) { return true;}
-}
-
-/**
- * Valida un texto si es o no una cuenta de correo válida
- * @param 	string 		$email 			Cadena de texto a validar
- * @return 	boolean  	        		Resultado de la validación
- */
-function ValidateEmail($email){
-	$res = ereg(
-	'^[a-z]+([\.]?[a-z0-9_-]+)*@'.// user
-	'[a-z0-9]+([\.-]+[a-z0-9]+)*\.[a-z]{2,}$', // server.
-	$email);
-	return $res;
 }
 
 /**
@@ -154,7 +141,7 @@ function Paginator($pag,$reg,$total_reg,$pag_dest,$title,$find_reg="",$num_pagin
 /**
  * Envia cabeceras para eliminar cache del navegador
  */
-function NoCache() {
+function noCache() {
 	//Incluido al principio, hace que el navegador no use cache
 	header("Expires: Mon, 1 Jul 1900 00:00:00 GMT");
 	header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -163,11 +150,35 @@ function NoCache() {
 }
 
 /**
+ * Valida un texto si es o no una cuenta de correo válida
+ * @param 	string 		$email 			Cadena de texto a validar
+ * @return 	boolean  	        		Resultado de la validación
+ */
+function validateEmail($email){
+	$res = ereg(
+	'^[a-z]+([\.]?[a-z0-9_-]+)*@'.// user
+	'[a-z0-9]+([\.-]+[a-z0-9]+)*\.[a-z]{2,}$', // server.
+	$email);
+	return $res;
+}
+
+/**
+ * Valida si una cadena es una fecha valida
+ * @param  string $date   Valor a verificar
+ * @param  string $format formato de la fecha
+ * @return boolean         resultado de la verificacion
+ */
+function validateDate($date, $format = 'Y-m-d H:i:s'){
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}
+
+/**
  * Comprueba si una cadena es un NIF, CIF, NIE
  * @param  	string 		$cif 			Cadena de texto a verificar
  * @return 	int      					1 = NIF ok, 2 = CIF ok, 3 = NIE ok, -1 = NIF bad, -2 = CIF bad, -3 = NIE bad, 0 = ??? bad
  */
-function checkNifCifNie($cif) {
+function validateNifCifNie($cif) {
 	$cif = strtoupper($cif);
 		
 	for ($i = 0; $i < 9; $i ++){
@@ -584,14 +595,4 @@ function fileToZip($filename, $path){
 	echo $zipfile->file();
 }
 
-/**
- * Valida si una cadena es una fecha valida
- * @param  string $date   Valor a verificar
- * @param  string $format formato de la fecha
- * @return boolean         resultado de la verificacion
- */
-function validateDate($date, $format = 'Y-m-d H:i:s'){
-    $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) == $date;
-}
 ?>

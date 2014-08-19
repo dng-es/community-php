@@ -132,7 +132,7 @@ class mailingListsController{
 
 			//$userdate = date('Y-m-d', trim($data->sheets[0]['cells'][$fila][2]));
 			//$userdate = date("M-d-Y", $userdate);	
-			if (ValidateEmail($username)){
+			if (validateEmail($username)){
 				$mailing->insertListsUsers($id_list,$username);
 				if ($userdate!=""){
 					$userdate = date("Y-m-d",strtotime($userdate));

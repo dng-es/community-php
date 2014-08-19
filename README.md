@@ -124,7 +124,6 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 ## Referencia API
 
 * [createRandomPassword] (#createrandompassword)
-* [checkNifCifNie] (#checknifcifnie)
 * [exportCsv] (#exportcsv)
 * [fileToZip] (#filetozip)
 * [getAsset] (#getasset)
@@ -134,11 +133,15 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 * [HTMLtoPDF] (#htmltopdf)
 * [messageProcess] (#messageprocess)
 * [NormalizeText] (#normalizetext)
+* [NormalizeText] (#normalizetext)
 * [redirectURL] (#redirecturl)
 * [strTranslate] (#strtranslate)
-* [ShortText] (#shorttext)
+* [shortText] (#shorttext)
 * [templateload] (#templateload)
 * [uploadFileToFolder] (#uploadfiletofolder)
+* [validateDate] (#validatedate)
+* [validateEmail] (#validateemail)
+* [validateNifCifNie] (#validatenifcifnie)
 
 
 ### createRandomPassword
@@ -148,19 +151,6 @@ createRandomPassword(7);
 
 //especificando los caracteres aleatorios
 createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
-```
-
-### checkNifCifNie
-EValida si un NIF, CIF o NIE es correcto. Devolverá:
-- 1 = NIF ok
-- 2 = CIF ok
-- 3 = NIE ok
-- -1 = NIF bad
-- -2 = CIF bad
-- -3 = NIE bad
-- 0 = ??? incorrecto.
-```php 
-checkNifCifNie($cif);
 ```
 
 ### exportCsv
@@ -218,6 +208,12 @@ messageProcess( $message_subject,
 ```
 $message_protocol puede ser Mail(valor por defecto), smtp o Sendmail. Si en $message_protocol se emplea smpt, se utilizá la configuración SMTP establecida en el fichero de configuraciópn general config.php. Para Sendmail la configuración se establecerá igualmente en config.php.
 
+### noCache
+Envia cabeceras para eliminar la cache del navegador. Uso: 
+```php 
+noCache();
+```
+
 ### NormalizeText
 Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso: 
 ```php 
@@ -236,10 +232,10 @@ Traduce la cadena de texto pasada por parámetro en el idioma establecido por de
 strTranslate($str);
 ```
 
-### ShortText
+### shortText
 Acorta un texto añadiendo puntos suspensivos. Uso: 
 ```php 
-ShortText($text_html,$num_car);
+shortText($text_html,$num_car);
 ```
 Donde $text_html será la cadena a cortar y $num_car el numero de caracteres máximo de la cadena
 
@@ -255,3 +251,28 @@ Sube un fichero a la ruta especificada. Uso:
 uploadFileToFolder($file, $destination);
 ```
 Donde $file será $_FILES['nombre_input_file'] y $destination el directorio donde se ha de subir la imágen
+
+### validateDate
+Valida si una cadena es una fecha valida. Uso: 
+```php 
+validateDate($date, $format = 'Y-m-d H:i:s');
+```
+
+### validateEmail
+Valida un texto si es o no una cuenta de correo válida. Uso: 
+```php 
+validateEmail($email);
+```
+
+### validateNifCifNie
+EValida si un NIF, CIF o NIE es correcto. Devolverá:
+- 1 = NIF ok
+- 2 = CIF ok
+- 3 = NIE ok
+- -1 = NIF bad
+- -2 = CIF bad
+- -3 = NIE bad
+- 0 = ??? incorrecto.
+```php 
+checkNifCifNie($cif);
+```

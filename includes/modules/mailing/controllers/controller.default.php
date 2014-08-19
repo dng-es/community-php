@@ -128,7 +128,7 @@ class mailingController{
 	    for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
 			$username=trim(strtolower($data->sheets[0]['cells'][$fila][1]));
 			//verificar es un email valido
-			if(ValidateEmail($username)){
+			if(validateEmail($username)){
 				//verificar no este mas de una vez
 				if ($mailing->countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ")==0){
 					//verificar no este en la lista negra
@@ -151,7 +151,7 @@ class mailingController{
 	    foreach($elements as $element):
 			$username=trim(strtolower($element['email']));
 			//verificar es un email valido
-			if(ValidateEmail($username)){
+			if(validateEmail($username)){
 				//verificar no este mas de una vez
 				if ($mailing->countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ")==0){
 					//verificar no este en la lista negra
