@@ -102,9 +102,9 @@ La estructura de archivos y directorios básica es la siguiente:
 
 ## Referencia de funciones
 
-* [getAsset] (#getAsset)
-* [redirectURL] (#redirectURL)
-* [strTranslate] (#strTranslate)
+* [getAsset] (#getasset)
+* [redirectURL] (#redirecturl)
+* [strTranslate] (#strtranslate)
 * [templateload] (#templateload)
 
 ### getAsset
