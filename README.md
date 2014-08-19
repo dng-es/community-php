@@ -100,7 +100,7 @@ Estructura general
     │   ├── languajes           - archivos generales de traducciones
     │   └── modules             - directorio que contiene todos los módulos
     │
-    └── js               		- archivos javascript generales de la comunidad
+    └── js                      - archivos javascript generales de la comunidad
 
 
 Estructura de un módulo
