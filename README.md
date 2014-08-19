@@ -48,14 +48,14 @@ Crea nuevo módulo con su estructura de directorios y ficheros básicos. Uso:
 ```bash 
 php bin/console createmodule
 ```
-Tras ejecutar el comando se preguntará por el nombre del nuevo modulo
+Tras ejecutar el comando se preguntará por el nombre del nuevo modulo.
 
 ### findpage
 Encuentra una pagina. Muestra en que módulo se encuentra. Uso: 
 ```bash 
 php bin/console findpage
 ```
-Tras ejecutar el comando se preguntará por la página a buscar. Si la página es encontrada mostrará su ruta
+Tras ejecutar el comando se preguntará por la página a buscar. Si la página es encontrada mostrará su ruta.
 
 ### showmodules
 Muestra todos los modulos con su información. Uso: 
@@ -65,7 +65,7 @@ php bin/console showmodules
 Tras ejecutar el comando se mostrarán todos los modulos instalados.
 
 ## Idiomas
-Soporte para idiomas implementado. Establecer idioma en includes/core/config.php. Los ficheros de traducciones se encuentran en includes/languages. Cada módulo cuenta con sus propios ficheros de traducciones en includes/modules/module_name/resources/languages
+Soporte para idiomas implementado. Establecer idioma en includes/core/config.php. Los ficheros de traducciones se encuentran en includes/languages. Cada módulo cuenta con sus propios ficheros de traducciones en includes/modules/module_name/resources/languages.
 
 ## Debug mode
 Se puede activar desde includes/core/config.php con la variable debug_app. Opciones:
@@ -73,7 +73,7 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 - 1: debug mode activado, salida por pantalla.
 - 2: debug mode activado, salida a fichero log (includes/core/errors.log). Sólo se registrarán los errores Php y sql, no se mostrarán las sentencias sql ejecutadas con éxito.
 
-**IMPORTANTE: desactivar debug mode en servidores de producción (debug_app = 0) o establecer salida a fichero de log (debug_app = 2)**
+**IMPORTANTE: desactivar debug mode en servidores de producción (debug_app = 0) o establecer salida a fichero de log (debug_app = 2).**
 
 
 ## Estructura de archivos y directorios
