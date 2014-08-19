@@ -2,11 +2,10 @@
 > Comunidad de usuarios php5 y mysql. Ver módulos en includes/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
 * [Instalación] (#instalación)
-* [Requisitos y dependencias] (#requisitos)
+* [Estructura de archivos y directorios] (#estructura de archivos y directorios)
 * [Herramienta console] (#herramienta console)
 * [Idiomas] (#idiomas)
 * [Debug mode] (#debug mode)
-* [Estructura de archivos y directorios] (#estructura de archivos y directorios)
 * [Referencia API] (#Referencia API)
 
 ## Instalación
@@ -19,7 +18,7 @@
 - Establecer configuración de la comunidad desde el panel de administración->Datos generales
 
 
-## Requisitos y dependencias (#requisitos)
+### Requisitos y dependencias
 - PHP 5.3 o superior.
 - FFMPEG para la conversión de videos. Librerias libx264 y libfaac necesarias.
 - La hoja de estilos .CSS esta creada con SASS (styles.scss)
@@ -39,6 +38,44 @@
 - SwiftMailer: (includes/core/Swift-5.1.0) php. Envío de emials
 - Zipfile: (includes/core/class.zipfile.php) php. Clase para generación de ficheros ZIP
 - resizeImage: (includes/core/class.resizeimage.php) php. Clase para generar miniaturas de imágenes
+
+
+## Estructura de archivos y directorios
+La estructura de archivos y directorios básica es la siguiente:
+
+Estructura general
+
+
+    ├── bin                     - herramienta de consola
+    ├── css                     - Archivos CSS principales
+    ├── docs                    - directorio de almacenamiento de documentos
+    ├── documentacion           - documentación sobre la comunidad
+    ├── images                  - directorio para imágenes
+    ├── includes
+    │   ├── core                - núcleo del sistema
+    │   ├── languajes           - archivos generales de traducciones
+    │   └── modules             - directorio que contiene todos los módulos
+    │
+    └── js                      - archivos javascript generales de la comunidad
+
+
+Estructura de un módulo
+
+
+    ├── my_module
+    │   ├── controllers         - controladores del módulo
+    │   ├── pages               - páginas del módulo
+    │   ├── resources           - recursos del módulo   
+    │   │   ├── css             - archivos CSS del módulo   
+    │   │   ├── images          - imágenes del módulo   
+    │   │   ├── js              - javascripts del módulo           
+    │   │   └── languages       - ficheros de idiomas del módulo 
+    │   │
+    │   ├── templates           - plantillas del módulo       
+    │   └── class.my_module.php - acceso a la base de datos desde el módulo
+    │
+
+
 
 ## Herramienta console 
 Aplicación de consola para crear módulos. Uso: 
@@ -82,43 +119,6 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 - 2: debug mode activado, salida a fichero log (includes/core/errors.log). Sólo se registrarán los errores Php y sql, no se mostrarán las sentencias sql ejecutadas con éxito.
 
 **IMPORTANTE: desactivar debug mode en servidores de producción (debug_app = 0) o establecer salida a fichero de log (debug_app = 2).**
-
-
-## Estructura de archivos y directorios
-La estructura de archivos y directorios básica es la siguiente:
-
-Estructura general
-
-
-    ├── bin                     - herramienta de consola
-    ├── css                     - Archivos CSS principales
-    ├── docs                    - directorio de almacenamiento de documentos
-    ├── documentacion           - documentación sobre la comunidad
-    ├── images                  - directorio para imágenes
-    ├── includes
-    │   ├── core                - núcleo del sistema
-    │   ├── languajes           - archivos generales de traducciones
-    │   └── modules             - directorio que contiene todos los módulos
-    │
-    └── js                      - archivos javascript generales de la comunidad
-
-
-Estructura de un módulo
-
-
-    ├── my_module
-    │   ├── controllers         - controladores del módulo
-    │   ├── pages               - páginas del módulo
-    │   ├── resources           - recursos del módulo   
-    │   │   ├── css             - archivos CSS del módulo   
-    │   │   ├── images          - imágenes del módulo   
-    │   │   ├── js              - javascripts del módulo           
-    │   │   └── languages       - ficheros de idiomas del módulo 
-    │   │
-    │   ├── templates           - plantillas del módulo       
-    │   └── class.my_module.php - acceso a la base de datos desde el módulo
-    │
-
 
 
 ## Referencia API
