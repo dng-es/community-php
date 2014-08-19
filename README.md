@@ -145,92 +145,92 @@ Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, au
 createRandomPassword (7);
 
 //especificando los caracteres aleatorios
-createRandomPassword (7, "abcdefghijkmnopqrstuvwxyz023456789");
+createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
 ```
 
 ### fileToZip
 Comprime a zip el fichero especificado por $filename alojado en la ruta $path. Uso: 
 ```php 
-fileToZip ($filename, $path);
+fileToZip($filename, $path);
 ```
 
 ### getAsset
 Obtiene la ruta de los assets del módulo especificado con $modulename. Uso: 
 ```php 
-getAsset ($modulename);
+getAsset($modulename);
 ```
 
 ### getBrowser
 Obtiene la versión del navegador según el UserAgent. Uso: 
 ```php 
-getBrowser ($_SERVER['HTTP_USER_AGENT']);
+getBrowser($_SERVER['HTTP_USER_AGENT']);
 ```
 
 ### getListModules
 Devuelve un array con todos los módulos instalados. Uso: 
 ```php 
-getListModules ();
+getListModules();
 ```
 
 ### getPlatform
 Obtiene el Sistema Operativo según el UserAgent del navegador. Uso: 
 ```php 
-getPlatform ($_SERVER['HTTP_USER_AGENT']);
+getPlatform($_SERVER['HTTP_USER_AGENT']);
 ```
 
 ### HTMLtoPDF
 Convierte a PDF la cadena de texto en formato HTML. Uso: 
 ```php 
-HTMLtoPDF ($content, [$size]);
+HTMLtoPDF($content, [$size]);
 ```
 Donde $content será la cadena de texto en formato HTML a convertir a PDF. El parámetro opcional $size indica el tamaño del documento, por defecto A4.
 
 ### messageProcess
 Envia un email con Swift Mailer. Uso: 
 ```php 
-messageProcess ( $message_subject, 
-				 $message_from = array('john@doe.com' => 'John Doe'), 
-				 $message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), 
-				 $message_body, 
-				 $message_attachment = null,
-				 $message_protocol = "smtp");
+messageProcess( $message_subject, 
+				$message_from = array('john@doe.com' => 'John Doe'), 
+				$message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), 
+				$message_body, 
+				$message_attachment = null,
+				$message_protocol = "smtp");
 ```
 $message_protocol puede ser Mail(valor por defecto), smtp o Sendmail. Si en $message_protocol se emplea smpt, se utilizá la configuración SMTP establecida en el fichero de configuraciópn general config.php. Para Sendmail la configuración se establecerá igualmente en config.php.
 
 ### NormalizeText
 Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso: 
 ```php 
-NormalizeText ($text, $text_separator);
+NormalizeText($text, $text_separator);
 ```
 
 ### redirectURL
 Redirecciona a la url especificada. Uso: 
 ```php 
-redirectURL ($url);
+redirectURL($url);
 ```
 
 ### strTranslate
 Traduce la cadena de texto pasada por parámetro en el idioma establecido por defecto. Uso: 
 ```php 
-strTranslate ($str);
+strTranslate($str);
 ```
 
 ### ShortText
 Acorta un texto añadiendo puntos suspensivos. Uso: 
 ```php 
-ShortText ($text_html,$num_car);
+ShortText($text_html,$num_car);
 ```
 Donde $text_html será la cadena a cortar y $num_car el numero de caracteres máximo de la cadena
 
 ### templateload
 Carga la plantilla especificada con $template situada en el módulo especificado con $modulename. Uso: 
 ```php 
-templateload ($template,$modulename);
+templateload($template,$modulename);
 ```
 
 ### uploadFileToFolder
 Sube un fichero a la ruta especificada. Uso: 
 ```php 
-uploadFileToFolder ($file, $destination);
+uploadFileToFolder($file, $destination);
 ```
 Donde $file será $_FILES['nombre_input_file'] y $destination el directorio donde se ha de subir la imágen
