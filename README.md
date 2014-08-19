@@ -132,7 +132,7 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 * [getPlatform] (#getplatform)
 * [HTMLtoPDF] (#htmltopdf)
 * [messageProcess] (#messageprocess)
-* [NormalizeText] (#normalizetext)
+* [noCache] (#nocache)
 * [NormalizeText] (#normalizetext)
 * [redirectURL] (#redirecturl)
 * [strTranslate] (#strtranslate)
