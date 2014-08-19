@@ -124,6 +124,8 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 ## Referencia API
 
 * [createRandomPassword] (#createrandompassword)
+* [checkNifCifNie] (#checknifcifnie)
+* [exportCsv] (#exportcsv)
 * [fileToZip] (#filetozip)
 * [getAsset] (#getasset)
 * [getBrowser] (#getbrowser)
@@ -142,10 +144,22 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 ### createRandomPassword
 Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
 ```php 
-createRandomPassword (7);
+createRandomPassword(7);
 
 //especificando los caracteres aleatorios
 createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
+```
+
+### checkNifCifNie
+EValida si un NIF, CIF o NIE es correcto. Devolverá 1 = NIF ok, 2 = CIF ok, 3 = NIE ok, -1 = NIF bad, -2 = CIF bad, -3 = NIE bad, 0 = ??? incorrecto. Uso: 
+```php 
+checkNifCifNie($cif);
+```
+
+### exportCsv
+Exporta a CSV un array, donde $regs sera el array de registros a exportar y $file_name el nombre del archivo a generar sin la extension. Uso: 
+```php 
+exportCsv($regs, $file_name);
 ```
 
 ### fileToZip

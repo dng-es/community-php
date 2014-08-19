@@ -167,7 +167,7 @@ function NoCache() {
  * @param  	string 		$cif 			Cadena de texto a verificar
  * @return 	int      					1 = NIF ok, 2 = CIF ok, 3 = NIE ok, -1 = NIF bad, -2 = CIF bad, -3 = NIE bad, 0 = ??? bad
  */
-function check_nif_cif_nie($cif) {
+function checkNifCifNie($cif) {
 	$cif = strtoupper($cif);
 		
 	for ($i = 0; $i < 9; $i ++){
