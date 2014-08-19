@@ -71,7 +71,7 @@ class mailingController{
 					}else{
 						if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 							//BORRAR FICHEROS ANTIGUOS
-							//rmdirtree('docs/cargas',$archivo_destino);
+							//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
 							
 							require_once 'docs/reader.php';
 							$data = new Spreadsheet_Excel_Reader();

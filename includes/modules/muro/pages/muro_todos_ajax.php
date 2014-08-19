@@ -14,13 +14,11 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 	<html lang="es">
 		<head>
 		<meta charset="utf-8">
-		<script type="text/javascript" src="js/jquery.js"></script>
-
-		<!-- Bootstrap core -->
-	    <link href="css/bootstrap.min.css" rel="stylesheet">
-	    <script src="js/bootstrap.min.js"></script>
-
 		<LINK rel="stylesheet" type="text/css" href="css/styles.css" />
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+
+		<script type="text/javascript" src="js/jquery.js"></script>
+	    <script src="js/bootstrap.min.js"></script>
 		<script language="JavaScript" src="includes/modules/muro/resources/js/muro-comentario.js"></script>
 		<script language="JavaScript" src="includes/modules/muro/resources/js/muro-respuestas-ajax.js"></script>
 		
