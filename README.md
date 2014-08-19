@@ -35,9 +35,9 @@
 ## Herramienta console 
 Aplicación de consola para crear módulos. Uso: 
 ```bash 
-php bin/console parameters
+php bin/console options
 ```
-Opciones de parameters:
+Opciones de console:
 
 * [createmodule] (#createmodule)
 * [findpage] (#findpage)
