@@ -103,6 +103,7 @@ La estructura de archivos y directorios básica es la siguiente:
 ## Referencia de funciones
 
 * [getAsset] (#getasset)
+* [getListModules] (#getlistmodules)
 * [redirectURL] (#redirecturl)
 * [strTranslate] (#strtranslate)
 * [templateload] (#templateload)
@@ -111,6 +112,12 @@ La estructura de archivos y directorios básica es la siguiente:
 Obtiene la ruta de los assets del módulo especificado con $modulename. Uso: 
 ```php 
 getAsset($modulename);
+```
+
+### getListModules
+Devuelve un array con todos los módulos instalados. Uso: 
+```php 
+getListModules();
 ```
 
 ### redirectURL
