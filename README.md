@@ -100,13 +100,25 @@ La estructura de archivos y directorios básica es la siguiente:
 			- <b>class.my_module.php</b> acceso a la base de datos desde el módulo<br /> 
 - <b>js/</b> archivos javascript generales de la comunidad
 
-## Referencia de funciones
+## Referencia API
 
+* [fileToZip] (#filetozip)
 * [getAsset] (#getasset)
 * [getListModules] (#getlistmodules)
+* [HTMLtoPDF] (#htmltopdf)
+* [messageProcess] (#messageprocess)
+* [NormalizeText] (#normalizetext)
 * [redirectURL] (#redirecturl)
 * [strTranslate] (#strtranslate)
+* [ShortText] (#shorttext)
 * [templateload] (#templateload)
+* [uploadFileToFolder] (#uploadfiletofolder)
+
+### fileToZip
+Comprime a zip el fichero especificado por $filename alojado en la ruta $path. Uso: 
+```php 
+fileToZip($filename, $path);
+```
 
 ### getAsset
 Obtiene la ruta de los assets del módulo especificado con $modulename. Uso: 
@@ -118,6 +130,25 @@ getAsset($modulename);
 Devuelve un array con todos los módulos instalados. Uso: 
 ```php 
 getListModules();
+```
+
+### HTMLtoPDF
+Convierte a PDF la cadena de texto en formato HTML. Uso: 
+```php 
+HTMLtoPDF($content, [$size]);
+```
+Donde $content será la cadena de texto en formato HTML a convertir a PDF. El parámetro opcional $size indica el tamaño del documento, por defecto A4.
+
+### messageProcess
+Envia un email con Swift Mailer. Uso: 
+```php 
+messageProcess($message_subject, $message_from = array('john@doe.com' => 'John Doe'), $message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), $message_body, $message_attachment = null);
+```
+
+### NormalizeText
+Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso: 
+```php 
+NormalizeText( $text, $text_separator);
 ```
 
 ### redirectURL
@@ -132,8 +163,22 @@ Traduce la cadena de texto pasada por parámetro en el idioma establecido por de
 strTranslate($str);
 ```
 
+### ShortText
+Acorta un texto añadiendo puntos suspensivos. Uso: 
+```php 
+ShortText($text_html,$num_car);
+```
+Donde $text_html será la cadena a cortar y $num_car el numero de caracteres máximo de la cadena
+
 ### templateload
 Carga la plantilla especificada con $template situada en el módulo especificado con $modulename. Uso: 
 ```php 
 templateload($template,$modulename);
 ```
+
+### uploadFileToFolder
+Sube un fichero a la ruta especificada. Uso: 
+```php 
+uploadFileToFolder($file, $destination);
+```
+Donde $file será $_FILES['nombre_input_file'] y $destination el directorio donde se ha de subir la imágen

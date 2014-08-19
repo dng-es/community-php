@@ -4,8 +4,7 @@
  * @param 	string  	$msg      		Message text
  * @param 	integer 	$msg_show 		Opción para mostrar o no alertas
  */
-function ErrorMsg($msg,$msg_show = 1)
-{
+function ErrorMsg($msg,$msg_show = 1){
 	if ($msg_show == 1) {echo '<div class="alert alert-danger">'.$msg.'</div>';}
 }
 
@@ -14,20 +13,20 @@ function ErrorMsg($msg,$msg_show = 1)
  * @param 	string  	$msg      		Message text
  * @param 	integer 	$msg_show 		Opción para mostrar o no alertas
  */
-function OkMsg($msg,$msg_show = 1)
-{
+function OkMsg($msg,$msg_show = 1){
 	if ($msg_show == 1) {echo '<div class="alert alert-success">'.$msg.'</div>';}
 }
 
 /**
- * Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más )
- * @param 	string  	$texto      	Texto a normalizar
+ * Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más)
+ * @param 	string  	$text      		Texto a normalizar
+ * @param 	string  	$text_separator Caracter separador para la cadena normalizada
  * @return 	string  	        		Texto normalizado
  */
-function NormalizeText( $texto ) {
+function NormalizeText( $text, $text_separator = "_") {
 	//utilizada para subida de ficheros, elimina todos los caracteres extraños
-	$texto = strtolower($texto);
-	return ereg_replace( '[^ A-Za-z0-9_.-]', '_', $texto);
+	$text = strtolower($text);
+	return ereg_replace( '[^ A-Za-z0-9_.-]', $text_separator, $text);
 }
 
 /**
@@ -36,8 +35,7 @@ function NormalizeText( $texto ) {
  * @param 	int 		$num_car   		Numero de carateres
  * @return 	string  	        		Texto acortado con puntos suspensivos si es mas largo que $num_car
  */
-function ShortText($text_html,$num_car)
-{
+function ShortText($text_html,$num_car){
 	if (strlen($text_html)<=$num_car) { return $text_html;}
 	else { return substr(strip_tags($text_html),0,strpos(strip_tags($text_html),' ',$num_car))."...";}
 }
@@ -62,8 +60,7 @@ function dateLong($fecha){
  * @param 	string  	$from_mail_real Nombre compleato del remitente
  * @return 	boolean  	        		Resultado del envio
  */
-function SendEmail($from_mail,$to_mail,$subject_mail,$body_mail,$html_mode = 0,$from_mail_real = '')
-{
+function SendEmail($from_mail,$to_mail,$subject_mail,$body_mail,$html_mode = 0,$from_mail_real = ''){
 	if ($html_mode == 1) {
 		$headers_mail = "MIME-Version: 1.0\r\n";
 		$headers_mail .= "Content-type: text/html; charset=utf8\r\n";
@@ -115,8 +112,7 @@ function PaginatorPages($reg){
  * @param 	integer 	$num_paginas 	Número máximo de páginas a mostrar en el paginador
  * @param 	string  	$addClass    	Clase CSS
  */
-function Paginator($pag,$reg,$total_reg,$pag_dest,$title,$find_reg="",$num_paginas=10,$addClass="", $pagecount_dest = "pag")
-{
+function Paginator($pag,$reg,$total_reg,$pag_dest,$title,$find_reg="",$num_paginas=10,$addClass="", $pagecount_dest = "pag"){
 	$total_pag = ceil($total_reg / $reg);
 	if ($total_pag > 1){
 		$reg_ini=(($pag-1)*$reg)+1;
@@ -158,8 +154,7 @@ function Paginator($pag,$reg,$total_reg,$pag_dest,$title,$find_reg="",$num_pagin
 /**
  * Envia cabeceras para eliminar cache del navegador
  */
-function NoCache()
-{
+function NoCache() {
 	//Incluido al principio, hace que el navegador no use cache
 	header("Expires: Mon, 1 Jul 1900 00:00:00 GMT");
 	header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -241,8 +236,7 @@ function check_nif_cif_nie($cif) {
  * @param 	array 		$array_data 	Datos a exportar
  * @param 	string 		$file_ext   	Extensión del fichero a generar (XLS)
  */
-function ExportExcel ($path,$name_file,$array_data,$file_ext ="xls")
-{
+function ExportExcel ($path,$name_file,$array_data,$file_ext ="xls"){
 	//tep_set_time_limit(0);
     $backup_file = $name_file.'.'.$file_ext;
     $fp = fopen($path.$backup_file, 'w');
@@ -272,8 +266,7 @@ function ExportExcel ($path,$name_file,$array_data,$file_ext ="xls")
  * @param 	int 		$clave    		Key array item
  * @param 	file 		$fp       		Fichero donde se escribe
  */
-function ExportExcelHeaders($elemento, $clave,$fp)
-{
+function ExportExcelHeaders($elemento, $clave,$fp){
     $cadena = '<td><font  face="Arial, Helvetica, sans-serif" color="#0000CC">'.$clave.'</font></td>';
 	fputs($fp,$cadena);
 }
@@ -375,8 +368,7 @@ function rmdirtree($dirname, $nombre_fichero) {
  * @param 	string 		$clase_css   	Clase CSS para el panel contenedor del form
  * @param 	string 		$class_form  	Clase CSS para el form
  */
-function SearchForm($reg,$pag,$formId="searchForm",$labelForm="Buscar:",$labelButton="ir",$clase_css="panel-interior",$class_form="form-inline")
-{	
+function SearchForm($reg,$pag,$formId="searchForm",$labelForm="Buscar:",$labelButton="ir",$clase_css="panel-interior",$class_form="form-inline") {	
 	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
 
 	echo '<div class="'.$clase_css.'">  
@@ -572,6 +564,11 @@ function uploadFileToFolder($fichero, $destino){
 	return $nombre_archivo;
 }
 
+/**
+ * Convierte a PDF la cadena de texto en formato HTML
+ * @param  	string 		$content 			cadena en formato HTML a convertir a PDF
+ * @return 	string      $size				tamaño del PDF
+ */
 function HTMLtoPDF($content, $size = 'A4'){
     require_once('html2pdf/html2pdf.class.php');
     $html2pdf = new HTML2PDF('P',$size,'es');
@@ -593,6 +590,12 @@ function imgThumbnail($nombre_archivo, $path_archivo, $width, $height = 0){
 
 }
 
+/**
+ * Comprime a zip el fichero especificado por $filename alojado en la ruta $path
+ * @param  string 		$filename   	archivo a comprimir
+ * @param  string 		$path 			ruta del archivo a comprimir
+ * @return          					resultado de la verificacion
+ */
 function fileToZip($filename, $path){
 	require_once ("class.zipfile.php");
 	$zipfile = new zipfile();
