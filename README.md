@@ -87,23 +87,38 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 ## Estructura de archivos y directorios
 La estructura de archivos y directorios básica es la siguiente:
 
-Overview
+Estructura general
 
-    ├── client
-    │   ├── app                 - All of our app specific components go in here
-    │   ├── assets              - Custom assets: fonts, images, etc…
-    │   ├── components          - Our reusable components, non-specific to to our app
+
+    ├── bin                     - herramienta de consola
+    ├── css                     - Archivos CSS principales
+    ├── docs                    - directorio de almacenamiento de documentos para los módulos
+    ├── documentacion           - documentación sobre la comunidad
+    ├── images                  - directorio para imágenes
+    ├── includes
+    │   ├── core                - núcleo del sistema
+    │   ├── languajes           - archivos generales de traducciones
+    │   └── modules             - directorio que contiene todos los módulos
     │
-    ├── e2e                     - Our protractor end to end tests
+    └── js               		- archivos javascript generales de la comunidad
+
+
+Estructura de un módulo
+
+
+    ├── my_module
+    │   ├── controllers         - controladores del módulo
+    │   ├── pages               - páginas del módulo
+    │   ├── resources           - recursos del módulo   
+    │   │   ├── css             - archivos CSS del módulo   
+    │   │   ├── images          - imágenes del módulo   
+    │   │   ├── js              - javascripts del módulo           
+    │	│	└── languages       - ficheros de idiomas del módulo 
+    │   │
+    │   ├── templates           - plantillas del módulo       
+    │   └── class.my_module.php - acceso a la base de datos desde el módulo
     │
-    └── server
-        ├── api                 - Our apps server api
-        ├── auth                - For handling authentication with different auth strategies
-        ├── components          - Our reusable or app-wide components
-        ├── config              - Where we do the bulk of our apps configuration
-        │   └── local.env.js    - Keep our environment variables out of source control
-        │   └── environment     - Configuration specific to the node environment
-        └── views               - Server rendered views
+
 
 - <b>bin/</b> directorio donde se encuentra la herramienta de consola<br />
 - <b>css/</b> archivos de estilos generales de la comunidad<br />
