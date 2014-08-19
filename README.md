@@ -142,7 +142,11 @@ Donde $content será la cadena de texto en formato HTML a convertir a PDF. El pa
 ### messageProcess
 Envia un email con Swift Mailer. Uso: 
 ```php 
-messageProcess($message_subject, $message_from = array('john@doe.com' => 'John Doe'), $message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), $message_body, $message_attachment = null);
+messageProcess( $message_subject, 
+				$message_from = array('john@doe.com' => 'John Doe'), 
+				$message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), 
+				$message_body, 
+				$message_attachment = null);
 ```
 
 ### NormalizeText
