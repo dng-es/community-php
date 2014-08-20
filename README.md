@@ -147,7 +147,7 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 * [validateNifCifNie] (#validatenifcifnie)
 
 
-### createRandomPassword [api(#referencia-api)] ![](http://img.shields.io/badge/unicorn-approved-ff69b4.svg)
+### createRandomPassword [api(#referencia-api)]
 Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
 ```php 
 createRandomPassword(7);
