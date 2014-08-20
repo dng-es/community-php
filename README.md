@@ -188,6 +188,7 @@ Exporta a CSV un array, donde $regs sera el array de registros a exportar y $fil
 ```php 
 exportCsv($regs, $file_name);
 ```
+**IMPORTANTE: debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.**
 
 ### fileToZip
 Comprime a zip el fichero especificado por $filename alojado en la ruta $path. Uso: 
