@@ -135,6 +135,7 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 * [noCache] (#nocache)
 * [NormalizeText] (#normalizetext)
 * [redirectURL] (#redirecturl)
+
 Sesiones
 * [session::AccessLevel] (#sessionaccesslevel)
 * [session::createSession] (#sessioncreatesession)
@@ -142,11 +143,13 @@ Sesiones
 * [session::getFlashMessage] (#sessiongetflashmessage)
 * [session::setFlashMessage] (#sessionsetflashmessage)
 * [session::ValidateSessionAjax] (#sessionvalidatesessionajax)
-Menejo de cadenas
+
+Manejo de cadenas
 * [strTranslate] (#strtranslate)
 * [shortText] (#shorttext)
 * [templateload] (#templateload)
 * [uploadFileToFolder] (#uploadfiletofolder)
+
 Validaciones
 * [validateDate] (#validatedate)
 * [validateEmail] (#validateemail)
