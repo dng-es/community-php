@@ -38,7 +38,7 @@ class session {
 	* @param 	string 	$url 		redirect url if user is not logged	
 	*
 	*/
-	public static function ValidateSessionAjax($url){
+	public static function ValidateSessionAjax($url="login"){
 		if (!isset($_SESSION['user_logged']) or $_SESSION['user_logged'] != true){
 			header ("Location: ?page=".$url);
 		}
