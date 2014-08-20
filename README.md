@@ -123,18 +123,21 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 
 ## Referencia API
 
-* [createRandomPassword] (#createrandompassword)
-* [exportCsv] (#exportcsv)
-* [fileToZip] (#filetozip)
+Core
 * [getAsset] (#getasset)
 * [getBrowser] (#getbrowser)
 * [getListModules] (#getlistmodules)
 * [getPlatform] (#getplatform)
-* [HTMLtoPDF] (#htmltopdf)
 * [messageProcess] (#messageprocess)
 * [noCache] (#nocache)
-* [NormalizeText] (#normalizetext)
 * [redirectURL] (#redirecturl)
+* [templateload] (#templateload)
+
+Generación y procesamiento de archivos
+* [exportCsv] (#exportcsv)
+* [fileToZip] (#filetozip)
+* [HTMLtoPDF] (#htmltopdf)
+* [uploadFileToFolder] (#uploadfiletofolder)
 
 Sesiones
 * [session::AccessLevel] (#sessionaccesslevel)
@@ -145,10 +148,11 @@ Sesiones
 * [session::ValidateSessionAjax] (#sessionvalidatesessionajax)
 
 Manejo de cadenas
+* [createRandomPassword] (#createrandompassword)
+* [NormalizeText] (#normalizetext)
 * [strTranslate] (#strtranslate)
 * [shortText] (#shorttext)
-* [templateload] (#templateload)
-* [uploadFileToFolder] (#uploadfiletofolder)
+
 
 Validaciones
 * [validateDate] (#validatedate)
