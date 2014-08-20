@@ -41,13 +41,21 @@ function shortText($text_html,$num_car){
 }
 
 /**
+ * Devuelve el mes con texto de una fecha
+ * @param  	date 		$fecha 			Fecha a obtener el mes
+ * @return 	string        				Mes en texto
+ */
+function dateMonth($fecha){
+	return strftime("%B",mktime(0, 0, 0, strftime(DATE_MONTH,strtotime($fecha)), 1, 2000));
+}
+
+/**
  * Devuelve una fecha formateada con el mes con texto
  * @param  	date 		$fecha 			Fecha a dar formato
  * @return 	string        				Fecha formateada
  */
 function dateLong($fecha){
-	$mes = strftime("%B",mktime(0, 0, 0, strftime(DATE_MONTH,strtotime($fecha)), 1, 2000));
-	return strftime(DATE_DAY,strtotime($fecha)).' de '.ucfirst($mes).' '.strftime(DATE_YEAR,strtotime($fecha));
+	return strftime(DATE_DAY,strtotime($fecha)).' de '.ucfirst(dateMonth($fecha)).' '.strftime(DATE_YEAR,strtotime($fecha));
 }
 
 /**

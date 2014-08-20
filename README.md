@@ -149,10 +149,11 @@ Sesiones
 
 Manejo de cadenas
 * [createRandomPassword] (#createrandompassword)
+* [dateLong] (#datelong)
+* [dateMont] (#dateMonth)
 * [NormalizeText] (#normalizetext)
 * [strTranslate] (#strtranslate)
 * [shortText] (#shorttext)
-
 
 Validaciones
 * [validateDate] (#validatedate)
@@ -160,13 +161,26 @@ Validaciones
 * [validateNifCifNie] (#validatenifcifnie)
 
 
-### createRandomPassword <small>[api](#referencia-api)</small>
+### createRandomPassword
 Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
 ```php 
 createRandomPassword(7);
 
 //especificando los caracteres aleatorios
 createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
+```
+### dateLong
+Devuelve una fecha formateada con el mes con texto. Uso: 
+```php 
+dateLong('2014-01-14');
+//mostrará -> 14 de Enero 2014
+```
+
+### dateMonth
+Devuelve el mes con texto de una fecha. Uso: 
+```php 
+dateMonth('2014-01-14');
+//mostrará -> Enero
 ```
 
 ### exportCsv
