@@ -135,6 +135,9 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 * [noCache] (#nocache)
 * [NormalizeText] (#normalizetext)
 * [redirectURL] (#redirecturl)
+* [session::AccessLevel] (#session::accessLevel)
+* [session::setFlashMessage] (#session::setflashmessage)
+* [session::getFlashMessage] (#session::getflashmessage)
 * [strTranslate] (#strtranslate)
 * [shortText] (#shorttext)
 * [templateload] (#templateload)
@@ -225,6 +228,28 @@ Redirecciona a la url especificada. Uso:
 ```php 
 redirectURL($url);
 ```
+
+### session::AccessLevel
+Establece el nivel de acceso a una determinada página. Uso: 
+```php 
+$perfiles_autorizados = array("admin", "formador");
+session::AccessLevel($perfiles_autorizados);
+```
+En el ejemplo anterior se restringe el acceso a usuarios con perfil admin y formador
+
+### session::getFlashMessage
+Obtiene el mensaje pasado por parámetro. Uso: 
+```php 
+session::getFlashMessage( 'actions_message' );
+```
+Una vez mostrado el mensaje  'actions_message' será borrado de la memoria flash. Para crear un mensaje flash ver [session::setFlashMessage] (#session::setflashmessage).
+
+### session::setFlashMessage
+Crea un mensaje flash. Uso: 
+```php 
+session::setFlashMessage( 'actions_message', 'Registro insertado correctamente', 'alert alert-success');
+```
+En el ejemplo se crea el mensaje flash 'actions_message' con el texto 'Registro insertado correctamente' y se le aplica la clase css 'alert alert-success'. Para recuperar un mensaje flash ver [session::getFlashMessage] (#session::getflashmessage).
 
 ### strTranslate
 Traduce la cadena de texto pasada por parámetro en el idioma establecido por defecto. Uso: 
