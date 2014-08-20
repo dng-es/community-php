@@ -136,8 +136,11 @@ Se puede activar desde includes/core/config.php con la variable debug_app. Opcio
 * [NormalizeText] (#normalizetext)
 * [redirectURL] (#redirecturl)
 * [session::AccessLevel] (#sessionaccesslevel)
+* [session::createSession] (#createsession)
+* [session::destroySession] (#destroysession)
 * [session::getFlashMessage] (#sessiongetflashmessage)
 * [session::setFlashMessage] (#sessionsetflashmessage)
+* [session::ValidateSessionAjax] (#validatesessionajax)
 * [strTranslate] (#strtranslate)
 * [shortText] (#shorttext)
 * [templateload] (#templateload)
@@ -237,6 +240,19 @@ session::AccessLevel($perfiles_autorizados);
 ```
 En el ejemplo anterior se restringe el acceso a usuarios con perfil admin y formador
 
+### session::createSession
+Crea una sesión si el usuario y contraseña es correcto. Tras el inicio de sesión se redirige a la página "home" o a otra pagina establecida por el parámetro opcional $url. Uso: 
+```php 
+session::createSession($usuario, $password, [$url]);
+```
+
+### session::destroySession
+Destruye la sesion actual y redirecciona a la url pasada por parámetro. Uso: 
+```php 
+session::destroySession();
+```
+Si no se pasa pámetro redirige a "login".
+
 ### session::getFlashMessage
 Obtiene el mensaje pasado por parámetro. Uso: 
 ```php 
@@ -250,6 +266,12 @@ Crea un mensaje flash. Uso:
 session::setFlashMessage( 'actions_message', 'Registro insertado correctamente', 'alert alert-success');
 ```
 En el ejemplo se crea el mensaje flash 'actions_message' con el texto 'Registro insertado correctamente' y se le aplica la clase css 'alert alert-success'. Para recuperar un mensaje flash ver [session::getFlashMessage] (#session::getflashmessage).
+
+### session::ValidateSessionAjax
+Comprueba si un usuario esta correctamente autentificado, en caso contrario redirige a "login" o en su defecto a la página indicada por el paámetro opcional $url. Uso: 
+```php 
+session::ValidateSessionAjax([$url]);
+```
 
 ### strTranslate
 Traduce la cadena de texto pasada por parámetro en el idioma establecido por defecto. Uso: 

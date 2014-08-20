@@ -8,15 +8,15 @@ include_once ("includes/core/constants.php");
 
 
 //LOGOUT SESSION
-if ($page=='logout') {session::DestroySession();}
+if ($page=='logout') {session::destroySession();}
 
 //LOGIN-SESSION
-if (isset($_POST['form-login-user'])) { session::CreateSession($_POST['form-login-user'],$_POST['form-login-password']);}
+if (isset($_POST['form-login-user'])) { session::createSession($_POST['form-login-user'],$_POST['form-login-password']);}
 else { session::ValidateSession();}
 
 if (isset ($_REQUEST['page']) and (in_array($page, $paginas_free)==false)){
 	if (!isset($_SESSION['user_name']) or trim($_SESSION['user_name'])=="") {
-		session::DestroySession();
+		session::destroySession();
 		$page="login";
 	}
 	else {

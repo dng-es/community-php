@@ -21,7 +21,7 @@ class session {
 		}
 		else {
 			//SI HAN PASADO 15 MINUTOS DE INACTIVIDAD SE CIERRA LA SESION (60*15=900)
-			if ( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) and (time()-$_SESSION["session_time"] > SESSION_MAXTIME)){ self::DestroySession();}
+			if ( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) and (time()-$_SESSION["session_time"] > SESSION_MAXTIME)){ self::destroySession();}
 			else {
 				$_SESSION["session_time"] = time();
 				if (isset($_SESSION['user_name']) && in_array($_REQUEST['page'], $paginas_free)==false){
@@ -35,11 +35,12 @@ class session {
 
 	/**
 	* Check if user is logged in Ajax pages. If not redirects to login page
+	* @param 	string 	$url 		redirect url if user is not logged	
 	*
 	*/
-	public static function ValidateSessionAjax(){
+	public static function ValidateSessionAjax($url){
 		if (!isset($_SESSION['user_logged']) or $_SESSION['user_logged'] != true){
-			header ("Location: ?page=login");
+			header ("Location: ?page=".$url);
 		}
 	}	
 
@@ -50,7 +51,7 @@ class session {
 	* @param 	string 		$Login_pass 	Password POST sent
 	* @param 	string 		$destination 	Destination page when login OK
 	*/
-	public static function CreateSession($Login_user, $Login_pass, $destination = "home")
+	public static function createSession($Login_user, $Login_pass, $destination = "home")
 	{
 		$users = new users();
 		$result_user=$users->getUsers(" AND username ='".$Login_user."'  
@@ -96,16 +97,17 @@ class session {
 	}
 
 	/**
-	* Destroy users session and redirects to login page.
+	* Destroy users session and redirects to $url page.
+	* @param 	string 	$url 		redirect url after session is destroyed
 	*
 	*/
-	public static function DestroySession(){
+	public static function destroySession( $url='login' ){
 		$users = new users();
 		$users->deleteUserConn($_SESSION['user_name']);
 
 		session_unset();
 		session_destroy();
-		header ("Location: ?page=login");
+		header ("Location: ?page=".$url);
 	}
 	
 	/**
