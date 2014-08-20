@@ -195,6 +195,7 @@ Comprime a zip el fichero especificado por $filename alojado en la ruta $path. U
 ```php 
 fileToZip($filename, $path);
 ```
+**IMPORTANTE: debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.**
 
 ### getAsset
 Obtiene la ruta de los assets del módulo especificado con $modulename. Uso: 
@@ -226,6 +227,8 @@ Convierte a PDF la cadena de texto en formato HTML. Uso:
 HTMLtoPDF($content, [$size]);
 ```
 Donde $content será la cadena de texto en formato HTML a convertir a PDF. El parámetro opcional $size indica el tamaño del documento, por defecto A4.
+
+**IMPORTANTE: debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.**
 
 ### messageProcess
 Envia un email con Swift Mailer. Uso: 
