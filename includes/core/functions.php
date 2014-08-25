@@ -69,6 +69,7 @@ function dateLong($fecha){
  * @return 	boolean  	        		Resultado del envio
  */
 function SendEmail($from_mail,$to_mail,$subject_mail,$body_mail,$html_mode = 0,$from_mail_real = ''){
+	$headers_mail = "";
 	if ($html_mode == 1) {
 		$headers_mail = "MIME-Version: 1.0\r\n";
 		$headers_mail .= "Content-type: text/html; charset=utf8\r\n";
