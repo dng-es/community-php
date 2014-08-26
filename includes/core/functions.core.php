@@ -37,7 +37,7 @@ function pageRouter($page){
 		}
 		closedir($dh);
 	}
-	return "";
+	return pageRouter("404.php");
 }
 
 /**

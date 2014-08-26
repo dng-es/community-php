@@ -26,19 +26,17 @@ if (isset ($_REQUEST['page']) and (in_array($page, $paginas_free)==false)){
 }
 
 //MOSTRAR PAGINA SOLICITADA. SI NO SE ENCUENTRA SE MUESTRA LA PAGINA 404
-$route = pageRouter($page.".php");
-if ($route!=""){include_once($route);}
-else if ($page != 'logout'){include_once( pageRouter("404.php"));}
+if ($page != 'logout'){
+	include_once(pageRouter($page.".php"));
 
-//SELECCION METATAGS
-if (!isset($Key_Words)){ $Key_Words=$ini_conf['SiteKeywords'];}         
-if (!isset($Subject)){ $Subject=$ini_conf['SiteSubject'];}
+	//SELECCION METATAGS
+	if (!isset($Key_Words)){ $Key_Words=$ini_conf['SiteKeywords'];}         
+	if (!isset($Subject)){ $Subject=$ini_conf['SiteSubject'];}
 
-//SELECCION DE MENUS
-if (!isset($menu_admin)){ $menu_admin=0;}
-if (!isset($menu_sel)){ $menu_sel=0;} 
+	//SELECCION DE MENUS
+	if (!isset($menu_admin)){ $menu_admin=0;}
+	if (!isset($menu_sel)){ $menu_sel=0;} 
 
-if ($page != "logout"){
 	//PAGE HEADERS
 	headers::PageHeader(SUBJECT_META_PAGE,KEYWORDS_META_PAGE);
 	ini_page_header ($ini_conf);
