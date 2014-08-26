@@ -27,7 +27,6 @@ class headers{
 			<link rel="icon" type="image/ico"  href="favicon.ico" >		
 
 			<link href="css/styles.css" rel="stylesheet">
-			<link href="css/font-awesome.min.css" rel="stylesheet">
 
 			<script language="JavaScript" src="js/jquery.js"></script>
 			<script language="JavaScript" src="js/functions.js"></script>

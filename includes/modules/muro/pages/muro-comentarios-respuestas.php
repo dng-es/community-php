@@ -5,12 +5,10 @@ $menu_admin=0;
 function ini_page_header ($ini_conf) {?>
 	<script language="JavaScript" src="<?php echo getAsset("muro");?>js/muro-comentarios-responder-ajax.js"></script>
 	<!-- ficheros tooltip -->
-	<link rel="stylesheet" type="text/css" href="css/jquery.bettertip.css" />     
-	<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      
 	<script type="text/javascript">
-			$(function(){
-					BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
-			})
+		$(function(){
+				BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
+		})
 	</script>
 	<!-- fin ficheros tooltip -->
 <?php }
@@ -21,14 +19,7 @@ function ini_page_body ($ini_conf){
 	
 	//OBTENER DATOS DEL COMENTARIO
 	$filtro_comentario = " AND id_comentario=".$id_comentario." ";					   
-	$comentario_muro = $muro->getComentarios($filtro_comentario);
-	
-	$cabeceras = new headers();
-
- 
-///////////////////////////////////////////////////////////////////////////////////////////
-//	CUERPO			///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////   
+	$comentario_muro = $muro->getComentarios($filtro_comentario);   
 
 	echo '<div id="page-info">Respuestas en el muro</div>';
 	echo '<div class="row inset row-top">';

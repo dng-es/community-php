@@ -12,8 +12,7 @@ include_once($base_dir . "modules/users/class.users.php");
 	<html lang="es">
 		<head>
 		<meta charset="utf-8">
-		<LINK rel="stylesheet" type="text/css" href="css/styles.css" />
-		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
 
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>

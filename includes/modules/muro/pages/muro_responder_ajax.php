@@ -13,16 +13,14 @@ include_once($base_dir . "modules/muro/class.muro.php");
 	<html lang="es">
 		<head>
 		<meta charset="utf-8">
-		<LINK rel="stylesheet" type="text/css" href="css/styles.css" />
-		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
 
 		<script type="text/javascript" src="js/jquery.js"></script>
 	    <script src="js/bootstrap.min.js"></script>		
 		<script language="JavaScript" src="includes/modules/muro/resources/js/muro-comentario.js"></script>
 		<script language="JavaScript" src="includes/modules/muro/resources/js/muro-respuestas-ajax.js"></script>
 		
-		<!-- tooltip -->
-	    <link rel="stylesheet" type="text/css" href="css/jquery.bettertip.css" />     
+		<!-- tooltip -->  
 	    <script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>        
 	    <script type="text/javascript">
 	        $(function(){

@@ -6,8 +6,7 @@ templateload("comment","foro");
 templateload("addcomment","foro");
 $menu_admin=0;
 function ini_page_header ($ini_conf) {?>
-	<!-- ficheros tooltip -->
-	<link rel="stylesheet" type="text/css" href="css/jquery.bettertip.css" />     
+	<!-- ficheros tooltip -->  
 	<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      
 	<script type="text/javascript">
 		$(function(){

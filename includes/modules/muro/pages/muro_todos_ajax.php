@@ -14,16 +14,14 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 	<html lang="es">
 		<head>
 		<meta charset="utf-8">
-		<LINK rel="stylesheet" type="text/css" href="css/styles.css" />
-		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
 
 		<script type="text/javascript" src="js/jquery.js"></script>
 	    <script src="js/bootstrap.min.js"></script>
 		<script language="JavaScript" src="includes/modules/muro/resources/js/muro-comentario.js"></script>
 		<script language="JavaScript" src="includes/modules/muro/resources/js/muro-respuestas-ajax.js"></script>
 		
-		<!-- tooltip -->	
-		<link rel="stylesheet" type="text/css" href="css/jquery.bettertip.css" />     
+		<!-- tooltip -->	   
 		<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script> 
 		<script type="text/javascript">
 				$(function(){
@@ -77,7 +75,7 @@ echo '<div id="muro-home" style="height: 100% !important">';
 foreach($comentarios_muro as $comentario_muro):
 	commentMuro($comentario_muro);
 endforeach;
-Paginator($pag,$reg,$total_reg,'muro-comentarios&c='.$nombre_muro,'comentarios',$find_reg,10,"selected-muro");
+Paginator($pag,$reg,$total_reg,'muro-comentarios&id='.$nombre_muro,'comentarios',$find_reg,10,"selected-muro");
 if(count($comentarios_muro)==0){ echo '<p>No hay comentarios en el muro</p>';}	
 echo '</div>';
 ?> 

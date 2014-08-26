@@ -4,8 +4,7 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 $menu_select=6;
 function ini_page_header ($ini_conf) {?>
         <script language="JavaScript" src="js/mensajes.js"></script>
-        <!-- tooltip -->
-        <link rel="stylesheet" type="text/css" href="css/jquery.bettertip.css" />     
+        <!-- tooltip -->   
         <script type="text/javascript" src="js/jquery.bettertip.pack.js"></script> 
         <script type="text/javascript">
             $(function(){

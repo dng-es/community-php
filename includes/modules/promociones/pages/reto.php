@@ -46,8 +46,7 @@ function ini_page_header ($ini_conf){?>
 		});
 		</script>
         
-        <!-- ficheros tooltip -->
-        <link rel="stylesheet" type="text/css" href="css/jquery.bettertip.css" />     
+        <!-- ficheros tooltip --> 
         <script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      
         <script type="text/javascript">
             $(function(){

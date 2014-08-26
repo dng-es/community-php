@@ -7,8 +7,7 @@ function ini_page_header ($ini_conf) {?>
 	<!-- Bootstrap input file -->
 	<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
 	<script type="text/javascript" src="js/jwplayer/jwplayer.js"></script>
-	<!-- tooltip -->
-	<link rel="stylesheet" type="text/css" href="css/jquery.bettertip.css" />     
+	<!-- tooltip -->   
 	<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      
 	<script type="text/javascript">
 		$(function(){

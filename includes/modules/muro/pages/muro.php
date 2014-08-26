@@ -14,15 +14,13 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 	<html lang="es">
 		<head>
 		<meta charset="utf-8">
-		<LINK rel="stylesheet" type="text/css" href="css/styles.css" />
-		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
 	
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>	
 		<script language="JavaScript" src="includes/modules/muro/resources/js/muro-respuestas-ajax.js"></script>
 		
-		<!-- tooltip -->
-		<link rel="stylesheet" type="text/css" href="css/jquery.bettertip.css" />     
+		<!-- tooltip --> 
 		<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script> 
 		<script type="text/javascript">
 			$(function(){
@@ -35,38 +33,37 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 				var ahora = "<?php echo users::timeServer();?>";
 				ahora = ahora.replace(" ","T") + "Z";
 				$(".date-format-ago").each(function(){
-						 var date2 = $(this).attr("data-date").replace(" ","T") + "Z";
-						 var date = prettyDate(ahora,date2);
-						 if (date) {
+						var date2 = $(this).attr("data-date").replace(" ","T") + "Z";
+						var date = prettyDate(ahora,date2);
+						if (date) {
 								$(this).text(date);
-						 }
+						}
 				});
 			});
-		</script>
-		 
-</head>
-<body>
-<div id="responder-form" style="display: none"></div>
-<?php
+		</script>	 
+	</head>
+	<body>
+	<div id="responder-form" style="display: none"></div>
+	<?php
 
-session::ValidateSessionAjax();
-$muro=new muro(); 
+	session::ValidateSessionAjax();
+	$muro=new muro(); 
 
-$filtro="";
-if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador'){$filtro=" AND c.canal='".$_SESSION['user_canal']."' ";}
-$filtro.=" AND tipo_muro='principal' AND estado=1 AND id_comentario_id=0 ORDER BY date_comentario DESC LIMIT 20";
-$comentarios_muro = $muro->getComentarios($filtro);
-	echo '<div class="" id="muro-home">'; 
-	foreach($comentarios_muro as $comentario_muro):
-	 commentMuro($comentario_muro);
-	endforeach;	
-	if (count($comentarios_muro)==0):?>
-	<div class="alert alert-warning"><?php echo strTranslate("No_comments_on_wall");?></div>
-	<?php endif;?>
-	</div>
-	<div class="ver-mas">
-		<a href="?page=muro-comentarios&c=principal">
-		<span class="fa fa-search"></span> ver más comentarios</a>
-	</div>
-</body>
+	$filtro="";
+	if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador'){$filtro=" AND c.canal='".$_SESSION['user_canal']."' ";}
+	$filtro.=" AND tipo_muro='principal' AND estado=1 AND id_comentario_id=0 ORDER BY date_comentario DESC LIMIT 20";
+	$comentarios_muro = $muro->getComentarios($filtro);
+		echo '<div class="" id="muro-home">'; 
+		foreach($comentarios_muro as $comentario_muro):
+		 commentMuro($comentario_muro);
+		endforeach;	
+		if (count($comentarios_muro)==0):?>
+		<div class="alert alert-warning"><?php echo strTranslate("No_comments_on_wall");?></div>
+		<?php endif;?>
+		</div>
+		<div class="ver-mas">
+			<a href="?page=muro-comentarios&id=principal">
+			<span class="fa fa-search"></span> ver más comentarios</a>
+		</div>
+	</body>
 </html>

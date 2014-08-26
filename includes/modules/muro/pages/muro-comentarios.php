@@ -5,16 +5,15 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 $menu_admin=0;
 function ini_page_header ($ini_conf) {?>
 	<script language="JavaScript" src="<?php echo getAsset("muro");?>js/muro-comentarios-todos-ajax.js"></script>
-		<!-- ficheros tooltip -->
-		<link rel="stylesheet" type="text/css" href="css/jquery.bettertip.css" />     
-		<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      
-		<script type="text/javascript">
-			$(function(){
-					BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
-			})
-		</script>
-		<!-- fin ficheros tooltip -->  
-		<script>
+	<!-- ficheros tooltip -->   
+	<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      
+	<script type="text/javascript">
+		$(function(){
+				BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
+		})
+	</script>
+	<!-- fin ficheros tooltip -->  
+	<script>
 		$(document).ready(function(){
 				$(".comunidad-panel").fadeIn(1000);	
 		})
@@ -24,18 +23,16 @@ function ini_page_body ($ini_conf){
 	templateload("reply","muro");
 
 	$muro = new muro();	
-	if (isset($_REQUEST['id']) and $_REQUEST['id']!="" ){$id_comentario=$_REQUEST['id'];}
-	else {$id_comentario=0;}
 	
 	//OBTENCION DE LOS COMENTARIOS DEL MURO
-	if (isset($_REQUEST['c'])){$nombre_muro=$_REQUEST['c'];}
+	if (isset($_REQUEST['id'])){$nombre_muro=$_REQUEST['id'];}
 	if (isset($_POST['tipo_responder'])){$nombre_muro=$_POST['tipo_responder'];}
 	if (isset($_POST['tipo_muro'])){$nombre_muro=$_POST['tipo_muro'];}
 	if ($nombre_muro==""){$nombre_muro="principal";}  
 	if (isset($_REQUEST['pag'])){$pagina=$_REQUEST['pag'];}
 	else{$pagina=1;}
-	
-	$cabeceras = new headers();?>
+
+	?>
 	<div id="page-info">El muro</div>
 	<div class="row inset row-top">
 		<div class="col-md-9">
