@@ -1,32 +1,28 @@
 <?php
-if (isset($_REQUEST['page']) and $_REQUEST['page']!="") {$page=$_REQUEST['page'];}
-else {$page='login';}
-
 include_once ("includes/core/functions.core.php");
 include_once ("includes/core/constants.php");
 
-
+$page = (isset($_REQUEST['page']) and $_REQUEST['page']!="") ? $_REQUEST['page'] : 'login';
 
 //LOGOUT SESSION
 if ($page=='logout') {session::destroySession();}
+else{
+	//LOGIN-SESSION
+	if (isset($_POST['form-login-user'])) { session::createSession($_POST['form-login-user'],$_POST['form-login-password']);}
+	else { session::ValidateSession();}
 
-//LOGIN-SESSION
-if (isset($_POST['form-login-user'])) { session::createSession($_POST['form-login-user'],$_POST['form-login-password']);}
-else { session::ValidateSession();}
-
-if (isset ($_REQUEST['page']) and (in_array($page, $paginas_free)==false)){
-	if (!isset($_SESSION['user_name']) or trim($_SESSION['user_name'])=="") {
-		session::destroySession();
-		$page="login";
+	if (in_array($page, $paginas_free)==false){
+		if (!isset($_SESSION['user_name']) or trim($_SESSION['user_name'])=="") {
+			session::destroySession();
+			$page="login";
+		}
+		else {
+			$visitas = new visitas();
+			$visitas ->insertVisitas($_SESSION['user_name'],$page);  
+		}
 	}
-	else {
-		$visitas = new visitas();
-		$visitas ->insertVisitas($_SESSION['user_name'],$page);  
-	}
-}
 
-//MOSTRAR PAGINA SOLICITADA. SI NO SE ENCUENTRA SE MUESTRA LA PAGINA 404
-if ($page != 'logout'){
+	//MOSTRAR PAGINA SOLICITADA. SI NO SE ENCUENTRA SE MUESTRA LA PAGINA 404
 	include_once(pageRouter($page.".php"));
 
 	//SELECCION METATAGS
