@@ -1,8 +1,44 @@
 <?php
 session_start();
 
-class session {          
+class session {    
+   
 	
+	public static function validateUserSession(){
+		self::setUrlSession();
+	
+		if (isset($_POST['form-login-user'])) { self::createSession($_POST['form-login-user'],$_POST['form-login-password']);}
+		else { self::ValidateSession();}
+
+		global $page, $paginas_free;
+		if (in_array($page, $paginas_free)==false){
+			if (!isset($_SESSION['user_name']) or trim($_SESSION['user_name'])=="") {
+				self::destroySession();
+			}
+			else {
+				$visitas = new visitas();
+				$visitas ->insertVisitas($_SESSION['user_name'],$page);  
+			}
+		}
+	}
+
+	/**
+	* Devuelve la URL actual.
+	*
+	*/
+	function curPageURL() {
+		$pageURL = 'http';
+		if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+		$pageURL .= "://";
+		if ($_SERVER["SERVER_PORT"] != "80") {
+			$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+		} 
+		else {
+			$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		}
+		return $pageURL;
+	}
+
 	/**
 	* Check if user is currently logged, if so redirects to the correct page, if not redirects to login. 
 	* If no page is specified, redirects to home page.
@@ -49,10 +85,9 @@ class session {
 	*
 	* @param 	string 		$Login_user 	Username POST sent
 	* @param 	string 		$Login_pass 	Password POST sent
-	* @param 	string 		$destination 	Destination page when login OK
+	* @param 	string 		$url_confirm 	Destination page when login confirm
 	*/
-	public static function createSession($Login_user, $Login_pass, $destination = "home")
-	{
+	public static function createSession($Login_user, $Login_pass, $url_confirm = "user-confirm"){
 		$users = new users();
 		$result_user=$users->getUsers(" AND username ='".$Login_user."'  
 										AND user_password COLLATE utf8_bin ='".$Login_pass."' 
@@ -85,15 +120,25 @@ class session {
 				$visitas = new visitas();
 				$visitas ->insertVisitas($_SESSION['user_name'],"Inicio sesion");
 				$users->updateLastAccess($_SESSION['user_name']);
-							  
-				//Redirijimos a la pagina correcta.
-				header ("Location: ?page=".$destination);
 			}
 			elseif ($result_user[0]['confirmed']==0 and $result_user[0]['registered']==0) {
 				//Redirijimos a la pagina de confirmacion de datos.
-				header ("Location: ?page=user-confirm");			  
+				header ("Location: ?page=".$url_confirm);			  
 			}
 		}	
+	}
+
+
+	public static function setUrlSession(){
+		global $paginas_free;
+
+		if(!isset($_SESSION['url_request'])) session_start();
+		if (isset($_REQUEST['page'])){
+			if (in_array($_REQUEST['page'], $paginas_free)==false){
+				$_SESSION['url_request'] = self::curPageURL();
+			}
+		}
+		//echo "SES: ".$_SESSION["url_request"];			
 	}
 
 	/**
@@ -104,9 +149,11 @@ class session {
 	public static function destroySession( $url='login' ){
 		$users = new users();
 		$users->deleteUserConn($_SESSION['user_name']);
-
 		session_unset();
 		session_destroy();
+		
+		self::setUrlSession();
+
 		header ("Location: ?page=".$url);
 	}
 	

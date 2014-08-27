@@ -269,7 +269,7 @@ session::AccessLevel($perfiles_autorizados);
 En el ejemplo anterior se restringe el acceso a usuarios con perfil admin y formador
 
 ### session::createSession
-Crea una sesión si el usuario y contraseña es correcto. Tras el inicio de sesión se redirige a la página "home" o a otra pagina establecida por el parámetro opcional $url. Uso: 
+Crea una sesión si el usuario y contraseña es correcto. Tras el inicio de sesión si el usuario tiene sus datos pendientes de confirmar se redirige a la página "user-confirm" o a otra pagina establecida por el parámetro opcional $url. Uso: 
 ```php 
 session::createSession($usuario, $password, [$url]);
 ```

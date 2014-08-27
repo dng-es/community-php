@@ -2,7 +2,16 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 function ini_page_header ($ini_conf) { 
-	if (isset($_SESSION['user_logged']) and $_SESSION['user_logged']) {header("Location: ?page=home");}
+	if (isset($_SESSION['user_logged']) and $_SESSION['user_logged']) {
+		
+		if (isset($_SESSION['url_request']) and $_SESSION['url_request']!=""){
+			header("Location: ".$_SESSION['url_request']);
+		}
+		else{
+			header("Location: ?page=home");
+		}
+		
+	}
 ?>
 	<script src="<?php echo getAsset("users");?>js/login.js"></script>
 <?php
