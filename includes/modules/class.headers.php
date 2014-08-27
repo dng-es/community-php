@@ -48,9 +48,8 @@ class headers{
 	*
 	* @param 	array 		$ini_conf 		Configuration values
 	* @param 	string 		$page 			Current page
-	* @param 	int 		$menu_admin 	Current selected menu
 	*/
-	public static function PageBody($ini_conf,$page = "",$menu_admin = 0){
+	public static function PageBody($ini_conf,$page = ""){
 		global $paginas_free; ?>
 		</head>
 			<body id="page-<?php echo $page;?>">

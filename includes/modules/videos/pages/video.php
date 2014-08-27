@@ -5,8 +5,7 @@ include_once ("includes/videos/templates/gallery.php");
 include_once ("includes/videos/templates/addfile.php");
 include_once ("includes/videos/templates/addcomment.php");
 include_once ("includes/videos/templates/comment.php");
-$menu_admin=0;
-$menu_sel = 3;
+
 function ini_page_header ($ini_conf) {?>
 	<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
 	<script type="text/javascript" src="js/jwplayer/jwplayer.js"></script>

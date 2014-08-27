@@ -8,7 +8,7 @@ usersPuntuacionesController::exportListAction();
 
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-$menu_admin=1;
+
 function ini_page_header ($ini_conf) { }
 function ini_page_body ($ini_conf){
 

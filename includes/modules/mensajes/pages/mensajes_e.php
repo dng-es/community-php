@@ -1,7 +1,7 @@
 <?php
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-$menu_select=6;
+
 function ini_page_header ($ini_conf) {?>
         <script language="JavaScript" src="js/mensajes.js"></script>
         <!-- tooltip -->   

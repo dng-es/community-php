@@ -1,14 +1,7 @@
 <?php
-///////////////////////////////////////////////////////////////////////////////////
-// FRAMEWORK_DA
-// Author: David Noguera Gutierrez
-// License: GPL
-// Date: 2010-09-18
-// Please don't remove these lines
-///////////////////////////////////////////////////////////////////////////////////
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-$menu_admin=0;
+
 function ini_page_header ($ini_conf) { ?>
 	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>

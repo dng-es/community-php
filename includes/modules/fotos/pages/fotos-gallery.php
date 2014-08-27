@@ -12,8 +12,7 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 templateload("gallery","fotos");
 templateload("addfile","fotos");
 
-$menu_admin=0;
-$menu_sel = 3;
+
 function ini_page_header ($ini_conf) {?>
 		<!-- Bootstrap input file -->
 		<script type="text/javascript" src="js/bootstrap.file-input.js"></script>

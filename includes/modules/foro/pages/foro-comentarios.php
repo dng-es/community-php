@@ -2,11 +2,9 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-
 templateload("addcomment","foro");
 templateload("comment","foro");
 
-$menu_admin=0;
 function ini_page_header ($ini_conf) {?>
 	<script language="JavaScript" src="<?php echo getAsset("foro");?>js/foro-comentario.js"></script>     
 	

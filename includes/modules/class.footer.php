@@ -53,9 +53,8 @@ class footer{
 	* Print HTML end file. From Javascript to </html>.
 	* Includes Piwik block for statistics
 	*
-	* @param 	int		$menu_admin 	Indicates which menu option is selected
 	*/	
-	public static function PageFooter($menu_admin)
+	public static function PageFooter()
 	{
 	  	global $ini_conf, $paginas_free,$page;
 	  	if (!in_array($page, $paginas_free)){

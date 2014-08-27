@@ -1,7 +1,7 @@
 <?php
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-$menu_admin=0;
+
 function ini_page_header ($ini_conf) {?>
 	<script src="<?php echo getAsset("foro");?>js/foro-temas.js"></script>
 <?php }

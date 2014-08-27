@@ -2,7 +2,7 @@
 set_time_limit(0);
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-$menu_select=5;
+
 function ini_page_header ($ini_conf) { }
 function ini_page_body ($ini_conf){
   //CONTROL NIVEL DE ACCESO

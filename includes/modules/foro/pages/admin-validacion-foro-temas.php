@@ -4,8 +4,6 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 foroController::exportTemasAction();
 
-
-$menu_admin=1;
 function ini_page_header ($ini_conf) { ?>
 	<!-- ficheros ventana modal -->
 	<script type="text/javascript">

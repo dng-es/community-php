@@ -1,7 +1,7 @@
 <?php
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-$menu_admin=1;
+
 function ini_page_header ($ini_conf) {?>
 	<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
 	<script language="JavaScript" src="<?php echo getAsset("users");?>js/admin-cargas.js"></script>

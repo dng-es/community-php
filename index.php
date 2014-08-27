@@ -29,17 +29,13 @@ else{
 	if (!isset($Key_Words)){ $Key_Words=$ini_conf['SiteKeywords'];}         
 	if (!isset($Subject)){ $Subject=$ini_conf['SiteSubject'];}
 
-	//SELECCION DE MENUS
-	if (!isset($menu_admin)){ $menu_admin=0;}
-	if (!isset($menu_sel)){ $menu_sel=0;} 
-
 	//PAGE HEADERS
 	headers::PageHeader(SUBJECT_META_PAGE,KEYWORDS_META_PAGE);
 	ini_page_header ($ini_conf);
 	//PAGE BODY
-	headers::PageBody($ini_conf,$page,$menu_admin);		
+	headers::PageBody($ini_conf,$page);		
 	ini_page_body ($ini_conf);
 	//PAGE FOOTER
-	footer::PageFooter($menu_admin);
+	footer::PageFooter();
 }
 ?>

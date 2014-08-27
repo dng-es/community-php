@@ -1,11 +1,4 @@
 <?php
-///////////////////////////////////////////////////////////////////////////////////
-// FRAMEWORK_DA
-// Author: David Noguera Gutierrez
-// License: GPL
-// Date: 2010-09-18
-// Please don't remove these lines
-///////////////////////////////////////////////////////////////////////////////////
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 include_once ("includes/fotos/templates/gallery.php");
@@ -14,8 +7,7 @@ include_once ("includes/fotos/templates/addfile.php");
 include_once ("includes/videos/templates/addfile.php");
 include_once ("includes/promociones/templates/comment.php");
 include_once ("includes/promociones/templates/addcomment.php");
-$menu_admin=0;
-$menu_sel = 2;
+
 
 templateload("player","videos");
 

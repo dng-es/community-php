@@ -1,8 +1,7 @@
 <?php
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-$menu_admin=0;
-$menu_sel = 6;
+
 function ini_page_header ($ini_conf) { ?>
 	<script src="js/jquery.jtextarea.js"></script>
 	<script src="<?php echo getAsset("core");?>js/contact.js"></script>

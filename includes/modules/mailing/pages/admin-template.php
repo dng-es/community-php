@@ -1,7 +1,7 @@
 <?php
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-$menu_admin=1;
+
 function ini_page_header ($ini_conf) {?>
 	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
 	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>

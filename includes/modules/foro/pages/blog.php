@@ -1,10 +1,11 @@
 <?php
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
+
 templateload("blog","foro");
 templateload("comment","foro");
 templateload("addcomment","foro");
-$menu_admin=0;
+
 function ini_page_header ($ini_conf) {?>
 	<!-- ficheros tooltip -->  
 	<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      

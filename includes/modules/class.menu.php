@@ -7,7 +7,6 @@ class menu{
 	static function PageMenu(){
 		//MENU DE NAVAGACION
 		if ($_SESSION['user_logged']==true){
-			global $menu_sel;
 		
 			//SELECCION DEL FORO
 			$id_foro = ($_SESSION['user_canal']== CANAL2) ? 2 : 1;

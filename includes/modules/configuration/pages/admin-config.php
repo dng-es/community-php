@@ -5,7 +5,7 @@ session::AccessLevel($perfiles_autorizados);
 
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-$menu_sel=7;
+
 function ini_page_header ($ini_conf) {?>
 	<script language="JavaScript" src="<?php echo getAsset("configuration");?>js/admin-config.js"></script>  
 <?php 

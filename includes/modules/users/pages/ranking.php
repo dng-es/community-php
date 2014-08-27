@@ -4,9 +4,6 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 templateload("tipuser","users");
 
-
-$menu_select=2;
-$menu_sel = 5;
 function ini_page_header ($ini_conf) {?>
 		<script type="text/javascript" src="<?php echo getAsset("users");?>js/ranking.js"></script>
         <!-- ficheros tooltip -->    
