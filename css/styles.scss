@@ -991,14 +991,26 @@ table th {
 .desplegable{width: 80%}
 /*Fin de blog*/
 
+.navbar-menu{
+	margin-bottom:0
+}
+
 /*Bootstrap*/
 .navbar-default{
-	background-color:$color2;
-	border-color:$color1;
-	color:$color2;
+	background-color:#000;
+	border-color: transparent;
+	@include border-radius(0px);
+	color:#fff;
 }
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+	background-color:$color1 !important;
+	a{
+		color:$color2 !important;
+	}
+}
+
 .navbar-nav li a {
-	color:$color3 !important;
+	color:#fff !important;
 }
 .navbar-nav li a:hover {
 	color:$color1 !important;
@@ -1066,13 +1078,17 @@ table th {
 	color:#fff !important;
 }
 .dropdown-menu{
-	background-color:#eee;
+	background-color:$color1;
 	@include border-radius(0px);
 	text-align:left;
 }
 .dropdown-menu a{
 	background-color: transparent !important;
 	display: block;
+}
+a.dropdown-toggle:hover{
+	background-color:$color1 !important;	
+	color: #fff !important;
 }
 
 /*Fin bootstrap*/

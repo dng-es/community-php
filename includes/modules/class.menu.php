@@ -9,28 +9,44 @@ class menu{
 		if ($_SESSION['user_logged']==true){
 		
 			//SELECCION DEL FORO
-			$id_foro = ($_SESSION['user_canal']== CANAL2) ? 2 : 1;
+			$id_foro = ($_SESSION['user_canal']== CANAL2) ? 2 : 1;?>
 
-			echo '<!-- Sidebar -->
-					<div id="sidebar-wrapper">
-						<ul class="sidebar-nav" role="navigation"> 
-							<li><a class="menu-item" href="?page=home">'.strTranslate("Home").'</a></li>
-							<li><a class="menu-item" href="?page=videos">'.strTranslate("Videos").'</a></li>
-							<li><a class="menu-item" href="?page=fotos">'.strTranslate("Photos").'</a></li>';
-			echo '			<li><a class="menu-item" href="?page=user-infotopdf-all">Impresos PDF</a></li>';
-			echo '			<li class="dropdown"><a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false">Envío emails <b class="caret"></b></a>
-					          <ul class="dropdown-menu">
-					            <li><a href="?page=user-templates">Ver todas las comunicaciones</a></li>
-					            <li><a href="?page=user-lists">Mis listas de envío</a></li>
-					            <li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
-					          </ul>
-					        </li>';
-			echo '			<li><a class="menu-item" href="?page=areas">'.strTranslate("Na_areas").'</a></li>';
-			echo '			<li><a class="menu-item" href="?page=foro-subtemas&id='.$id_foro.'">'.strTranslate("Forums").'</a></li>';
-			echo '			<li><a class="menu-item" href="?page=user-info-all">Documentación</a></li>';
-			//echo 				'<li><a class="menu-item" href="?page=mystery">Mystery</a></li>';
-			echo' 		</ul>
-					</div>';
+			<nav class="navbar navbar-default navbar-menu" role="navigation">
+				<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Community</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="?page=home"><?php echo strTranslate("Home")?></a></li>
+					<li><a href="?page=videos"><?php echo strTranslate("Videos")?></a></li>
+					<li><a href="?page=fotos"><?php echo strTranslate("Photos")?></a></li>
+					<li><a href="?page=user-infotopdf-all">Impresos PDF</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false">Envío emails <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="?page=user-templates">Ver todas las comunicaciones</a></li>
+							<li><a href="?page=user-lists">Mis listas de envío</a></li>
+							<li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
+						</ul>
+					</li>
+					<li><a href="?page=areas"><?php echo strTranslate("Na_areas")?></a></li>
+					<li><a href="?page=foro-subtemas&id=<?php echo $id_foro;?>"><?php echo strTranslate("Forums")?></a></li>
+					<li><a href="?page=user-info-all">Documentación</a></li>
+				</ul>
+				</div><!-- /.navbar-collapse -->
+				</div><!-- /.container-fluid -->
+			</nav>
+			<?php
 		}	
 	}
 
