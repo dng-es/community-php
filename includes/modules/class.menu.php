@@ -42,6 +42,13 @@ class menu{
 					<li><a href="?page=areas"><?php echo strTranslate("Na_areas")?></a></li>
 					<li><a href="?page=foro-subtemas&id=<?php echo $id_foro;?>"><?php echo strTranslate("Forums")?></a></li>
 					<li><a href="?page=user-info-all">Documentación</a></li>
+
+					<li class="hidden-md hidden-lg"><a href="?page=user-perfil"><?php echo strTranslate("My_profile")?></a></li>
+					<?php if ($_SESSION['user_perfil']=='admin'){
+					echo '<li class="hidden-md hidden-lg"><a href="?page=admin">'.strTranslate("Administration").'</a></li>';
+					}
+					?>
+					<li class="hidden-md hidden-lg"><a href="?page=logout"><?php echo strTranslate("Logout")?></a></li>
 				</ul>
 				</div><!-- /.navbar-collapse -->
 				</div><!-- /.container-fluid -->

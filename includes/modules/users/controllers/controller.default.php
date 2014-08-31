@@ -152,6 +152,38 @@ class usersController{
 		return $array_final;
 	}
 
+	public static function recoverPasswordAction(){
+		if (isset($_POST['form-lostpw-user'])){
+			$users = new users();
+			$user = $users->getUsers(" AND username='".$_POST['form-lostpw-user']."'");
+
+			if ($user[0]['user_password'] <> ''){
+				$asunto = strtoupper($ini_conf['SiteName']).': '.strTranslate("Recover_credentials");
+				$cuerpo_mensaje = strTranslate("Your_details_access").' '.$ini_conf['SiteName'].':
+				'.strTranslate("Username").': '.$_POST['form-lostpw-user'].'
+				'.strTranslate("Password").': '.$user[0]['user_password'];	
+
+				if (SendEmail($ini_conf['ContactEmail'],$user[0]['email'],$asunto,$cuerpo_mensaje,0)) {
+					session::setFlashMessage( 'actions_message', strTranslate("Recover_password_alert"), "alert alert-success");
+				}
+				else { session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");}
+			}
+			else { session::setFlashMessage( 'actions_message', strTranslate("User_not_valid"), "alert alert-danger");}
+			redirectURL($_SERVER['REQUEST_URI']);
+		}
+	}
+
+	public static function loginRedirectAction(){
+		if (isset($_SESSION['user_logged']) and $_SESSION['user_logged']) {		
+			if (isset($_SESSION['url_request']) and $_SESSION['url_request']!=""){
+				redirectURL($_SESSION['url_request']);
+			}
+			else{
+				redirectURL("?page=home");
+			}		
+		}
+	}
+
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
