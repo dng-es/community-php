@@ -131,8 +131,7 @@ class session {
 
 	public static function setUrlSession(){
 		global $paginas_free;
-
-		if(!isset($_SESSION['url_request'])) session_start();
+		if(!session_id()) session_start();
 		if (isset($_REQUEST['page'])){
 			if (in_array($_REQUEST['page'], $paginas_free)==false){
 				$_SESSION['url_request'] = self::curPageURL();
@@ -150,10 +149,8 @@ class session {
 		$users = new users();
 		$users->deleteUserConn($_SESSION['user_name']);
 		session_unset();
-		session_destroy();
-		
+		session_destroy();		
 		self::setUrlSession();
-
 		header ("Location: ?page=".$url);
 	}
 	
