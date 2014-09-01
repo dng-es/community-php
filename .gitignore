@@ -11,5 +11,3 @@ images/usuarios/*.*
 images/mailing/*
 images/banners/*.*
 /.project
-css/.sass-cache
-bin/.sass-cache
