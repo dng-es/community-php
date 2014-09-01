@@ -12,15 +12,10 @@ function ini_page_body ($ini_conf){
 		<div class="col-md-6">
 			<img src="images/logo01.png" class="responsive login-img" />
 		</div>
-		<div class="col-md-6 login-right">
+		<div class="col-md-6 login-container">
 			<div class="col-md-12 noppading">	            
-				<?php
-				session::getFlashMessage( 'actions_message' ); 
-				usersController::recoverPasswordAction();
-				
-				if (!isset($_GET['do']) or $_GET['do'] <> "lostpw"): ?>
-	            <!-- Formulario de login -->
-	            <h2><?php echo strTranslate("Identify_to_access");?></h2>
+				<h2><?php echo strTranslate("Identify_to_access");?></h2>
+				<?php session::getFlashMessage( 'actions_message' );?>
 	            <form method="post" action="" name="form-login" id="form-login" role="form" class="form-horizontal">          
 	                <div class="row">
 		                <div class="col-md-6"> 
@@ -41,22 +36,11 @@ function ini_page_body ($ini_conf){
 						</div>
 					</div>
 	                <button type="submit" name="loginSubmit" id="loginSubmit" class="btn btn-primary pull-right"><?php echo strTranslate("Enter");?></button>
-	                <p><?php echo strTranslate("Forgot_your_password");?> <a href="?page=login&do=lostpw" ><?php echo strTranslate("Click_here");?></a></p>
+	                <p><?php echo strTranslate("Forgot_your_password");?> <a href="?page=remember" ><?php echo strTranslate("Click_here");?></a></p>
 	            </form>
-	            <?php  else: ?>
-	            <!-- Formulario de recuperar contraseña -->
-				<form method="post" action="" name="form-lostpw" id="form-lostpw" role="form" class="form-signin">
-					<img src="images/logo01.png" class="responsive login-img" />
-					<p><?php echo strTranslate("Recover_password_info");?></p>
-					<label for="form-lostpw-user" class="sr-only"><?php echo strTranslate("Username");?>:</label>
-					<input type="text" name="form-lostpw-user" id="form-lostpw-user" class="form-control" placeholder="<?php echo strTranslate("Username");?>" required autofocus />
-					<button type="button" name="PassSubmit" id="PassSubmit" class="btn btn-primary btn-block"><?php echo strTranslate("Recover_password");?></button>
-					<a class="btn btn-primary btn-block" id="back-link" href="?page=login"><?php echo strTranslate("Go_back");?></a>
-				</form>		
-				<?php endif; ?>
-				</div>
+			</div>
 			<div class="col-md-12" style="border-top:1px solid #1d7493;padding-top:20px;margin-top:20px">
-				<p><?php echo strTranslate("If_not_registered");?> <a class="btn btn-primary" href="?page=registration"><?php echo strTranslate("Register");?></a></p>
+				<p><?php echo strTranslate("If_not_registered");?>: <a href="?page=registration"><?php echo strTranslate("Register");?></a></p>
 			</div>
 		</div>
 	</div>

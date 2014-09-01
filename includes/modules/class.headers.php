@@ -26,14 +26,10 @@ class headers{
 			<link rel="shortcut icon" href="favicon.ico">
 			<link rel="icon" type="image/ico"  href="favicon.ico" >		
 
-			<link href="css/styles.css" rel="stylesheet">
+			<link href="css/styles.css" rel="stylesheet"> 
+			
+			<script type="text/javascript" src="js/main.min.js"></script>
 
-			<script language="JavaScript" src="js/jquery.js"></script>
-			<script language="JavaScript" src="js/functions.js"></script>
-
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/bootstrap-dropdown.js"></script>	 
-			 
 			<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 			<!--[if lt IE 9]>
 			  <script type="text/javascript" src="js/css3-mediaqueries.js"></script> 

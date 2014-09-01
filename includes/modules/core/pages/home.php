@@ -64,7 +64,7 @@ function ini_page_body ($ini_conf){
 					<?php endforeach; ?>
 				</div>
 				<div class="col-md-6">
-					<h2>usuarios conectados</h2>
+					<h2><?php echo strTranslate("Users_connected");?></h2>
 					<div id="mensajes">
 						<div class="mensaje"><div id="cargando-users-conn"><i class="fa fa-spinner fa-spin ajax-load"></i></div></div>
 					</div>
@@ -83,7 +83,7 @@ function ini_page_body ($ini_conf){
 					<option value="gerente">Canal gerentes</option>
 					</select>
 					<?php endif;?>
-					<button class="btn btn-primary" type="button" id="muro-submit" name="coment-submit">Enviar</button>
+					<button class="btn btn-primary btn-sm" type="button" id="muro-submit" name="coment-submit"><?php echo strTranslate("Send");?></button>
 				</form>
 			</div>
 			<div id="result-muro"></div>

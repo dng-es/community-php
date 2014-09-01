@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 /*SASS VARIABLES*/
 $color1 : #008AC9;	//color principal
 $color2 : #e0eaf9;	//color claro
@@ -22,11 +24,11 @@ $break-large: 1399px;
 
 
 /*font-awesome SCSS*/
-$fa-font-path: "./lib/font-awesome-4.2.0/fonts/";
-@import './lib/font-awesome-4.2.0/font-awesome.scss';
+$fa-font-path: "./libs/font-awesome-4.2.0/fonts/";
+@import './libs/font-awesome-4.2.0/font-awesome.scss';
 
 /*jQuery Bettertip*/
-@import './lib/bettertip/jquery.bettertip.scss';
+@import './libs/bettertip/jquery.bettertip.scss';
 
 
 /*Bootstrap SCSS*/
@@ -42,8 +44,8 @@ $navbar-default-toggle-hover-bg: $color1;
 $navbar-default-toggle-icon-bar-bg: #fff;
 $dropdown-bg: $color1;
 $dropdown-link-color:#fff;
-$icon-font-path: "./lib/bootstrap-sass-3.2.0/fonts/";
-@import './lib/bootstrap-sass-3.2.0/assets/stylesheets/bootstrap.scss';
+$icon-font-path: "./libs/bootstrap-sass-3.2.0/fonts/";
+@import './libs/bootstrap-sass-3.2.0/assets/stylesheets/bootstrap.scss';
 
 /*SASS MIXINS*/
 @mixin border-radius($radius) {
@@ -101,7 +103,14 @@ label{font-weight:normal; color:$color1}
 :-ms-input-placeholder {  
    color: $color2 !important;  
 }
-#container-content{background: #fff;margin-top:0px;padding-bottom:0px}
+#container-content{
+	background: #fff;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	@media screen and (max-width: $break-medium) {
+	    margin-top: 0;
+	}
+}
 #page-home #container-content{padding-bottom:0px}
 #container-content h2{
 	font-size:28px;
@@ -245,7 +254,7 @@ label{font-weight:normal; color:$color1}
 }
 
 .header-info{
-	background-color:#f5f5f5;
+	background-color: #000;
 	position:relative;
 	height: 65px;
 	padding:5px 0 0 0;
@@ -339,8 +348,7 @@ label{font-weight:normal; color:$color1}
 	color:$color1;
 }
 
-/*Login page*/
-#login-container-deg{
+.free-container{
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
 	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwZjBmMCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC44Ii8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
 	background: -moz-linear-gradient(left,  rgba(240,240,240,0) 0%, rgba(255,255,255,0.8) 100%); /* FF3.6+ */
@@ -350,21 +358,35 @@ label{font-weight:normal; color:$color1}
 	background: -ms-linear-gradient(left,  rgba(240,240,240,0) 0%,rgba(255,255,255,0.8) 100%); /* IE10+ */
 	background: linear-gradient(to right,  rgba(240,240,240,0) 0%,rgba(255,255,255,0.8) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00f0f0f0', endColorstr='#ccffffff',GradientType=1 ); /* IE6-8 */
+	color: #fff;
+	margin: 10% 0 0 0;
+	@include text-shadow(#000 1px 1px 3px);
+
+	a {
+		color: #FF1493;
+		@include text-shadow(#fff 1px 1px 3px);
+	}
+
+	h2{
+		color: #FF1493;
+		margin-bottom:40px;
+	}
+
+	label{
+		color:#fff;
+		font-weight: bolder;
+	}
+}
+
+/*Login page*/
+#login-container-deg{
+	@extend .free-container;
 	margin: 10% 0 0 0;
 }
-#login-container{
-	background-color: transparent;
-	max-width: 330px;
-	padding: 15px;
-	margin: 5% auto;
+.login-container{
+	border-left:1px solid $color3;
+	padding: 0
 }
-#login-container .btn-primary {
-	margin-top: 10px;
-}
-#login-container .form-control{border: 1px solid #000;text-align:center;margin-top:10px;}
-#login-container label{text-align:center;display:block;font-weight:normal}
-.login-img{width:50%;margin:10px 25% 0 25%}
-.login-right{border-left:1px solid $color3;padding: 0}
 #form-login{
 	margin-right: 10%;
 	@media screen and (max-width: $break-medium) {
@@ -375,21 +397,10 @@ label{font-weight:normal; color:$color1}
 
 /*Confirm page*/
 #confirm-container{
-	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwZjBmMCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC44Ii8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
-	background: -moz-linear-gradient(left,  rgba(240,240,240,0) 0%, rgba(255,255,255,0.8) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(240,240,240,0)), color-stop(100%,rgba(255,255,255,0.8))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  rgba(240,240,240,0) 0%,rgba(255,255,255,0.8) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  rgba(240,240,240,0) 0%,rgba(255,255,255,0.8) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  rgba(240,240,240,0) 0%,rgba(255,255,255,0.8) 100%); /* IE10+ */
-	background: linear-gradient(to right,  rgba(240,240,240,0) 0%,rgba(255,255,255,0.8) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00f0f0f0', endColorstr='#ccffffff',GradientType=1 ); /* IE6-8 */
+	@extend .free-container;
 	margin: 10% 0 50px 0;
-	}
-#confirm-container h2 {text-align:center}	
+	}	
 #confirm-container .login-img{width:50%;margin:0 25% 10px 25%}	
-#confirm-container .form-control{border: 1px solid #000}
- #confirm-container .add-on{border: 1px solid #000;border-left:0}
 #confirm-container .btn-primary {
 	margin-top: 10px;
 }
@@ -411,7 +422,7 @@ label{font-weight:normal; color:$color1}
 	margin-right:20px;
 
 	a{
-		color:#b0b0b0;
+		color:#FF1493;
 		outline: none
 	}
 	

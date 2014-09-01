@@ -63,10 +63,7 @@ class footer{
 			echo '</div></div>';
 		}
 		?>
-	    <script type="text/javascript" src="js/main.js"></script>
 		</body>
-		<!-- Piwik -->
-		<!-- End Piwik Tracking Code -->
 	</html>
 	<?php }		
 }

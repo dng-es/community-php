@@ -24,20 +24,19 @@ class users extends connection{
 		return connection::getSQL($Sql);  
 	} 
 
-	public function insertUser($username,$user_password,$email,$name_user,$confirmed,$disabled,$responsable,$empresa,$territorial,$canal,$perfil,$telefono,$provincia,$sfid,$surname,$registered=0){
+	public function insertUser($username,$user_password,$email,$name_user,$confirmed,$disabled,$empresa,$canal,$perfil,$telefono,$surname,$registered=0){
 		if ($perfil=='admin') {$canal='admin';}
 		elseif ($perfil=='formador') {$canal='formador';}
 		elseif ($perfil=='foros') {$canal='foros';}
 		 
 		$Sql="INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, 
-			  empresa, perfil, responsable, provincia, territorial, telefono,sfid,surname,user_comentarios,registered) 
+			  empresa, perfil, telefono, surname, user_comentarios, registered) 
 			  VALUES ('".$username."','".$user_password."','".$email."','".$name_user."',".$confirmed.",".$disabled.",
-			  '".$canal."','".$empresa."','".$perfil."','".$responsable."','".$provincia."',
-			  '".strtoupper($territorial)."','".$telefono."','".$sfid."','".$surname."','',".$registered.")";
+			  '".$canal."','".$empresa."','".$perfil."','".$telefono."','".$surname."','',".$registered.")";
 		return connection::execute_query($Sql);
 	}
 
-	public function updateUser($username,$user_password,$email,$name_user,$confirmed,$disabled,$responsable,$empresa,$territorial,$canal,$perfil,$telefono,$provincia,$sfid,$surname,$registered){
+	public function updateUser($username,$user_password,$email,$name_user,$confirmed,$disabled,$empresa,$canal,$perfil,$telefono,$surname,$registered){
 		if ($perfil=='admin') {$canal='admin';}
 		elseif ($perfil=='formador') {$canal='formador';}
 		elseif ($perfil=='foros') {$canal='foros';}
@@ -52,12 +51,8 @@ class users extends connection{
 			 canal='".$canal."',
 			 empresa='".$empresa."',
 			 perfil='".$perfil."',
-			 responsable='".$responsable."',
-			 provincia='".$provincia."',
-			 territorial='".$territorial."',
 			 telefono='".$telefono."',
-			 sfid='".$sfid."',
-			 surname='".$username."'    
+			 surname='".$surname."'    
 			 WHERE username='".$username."'";
 		return connection::execute_query($Sql);
 	}

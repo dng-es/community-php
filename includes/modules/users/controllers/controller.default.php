@@ -2,7 +2,7 @@
 class usersController{
 
 	public static function getItemAction(){
-		if (isset($_GET['act']) and $_GET['act']=='edit'){ 
+		if (isset($_GET['id']) and $_GET['id']!=''){ 
 			$users = new users();
 	  		return $users->getUsers(" AND username='".$_GET['id']."'");
   		}
@@ -126,7 +126,7 @@ class usersController{
 	}	
 
 	public static function getUserStatistics(){
-		if (isset($_GET['act']) and $_GET['act']=='edit'){ 
+		if (isset($_GET['id']) and $_GET['id']!=''){ 
 			return self::userStatistics($_GET['id']);
 		}
 	}		
@@ -181,6 +181,76 @@ class usersController{
 			else{
 				redirectURL("?page=home");
 			}		
+		}
+	}
+
+	public static function insertUserAction(){
+		if (isset($_POST['id_username']) and $_POST['id_username']==""){
+			$users = new users();
+			//VERIFICAR NOMBRE USUARIO YA EXISTE
+			if (count($users->getUsers(" AND username='".$_POST['username']."' "))==0){
+				$confirmed = ($_POST['confirmed_user']=="on" ? 1 : 0);
+				$registered = ($_POST['registered_user']=="on" ? 1 : 0);
+				$disabled = ($_POST['disabled_user']=="on" ? 1 : 0);
+				if ($users->insertUser($_POST['username'],
+							$_POST['user_password'],
+							$_POST['email_user'],
+							$_POST['name_user'],
+							$confirmed,
+							$disabled,
+							$_POST['empresa_user'],
+							$_POST['canal_user'],
+							$_POST['perfil_user'],
+							$_POST['telefono_user'],
+							$_POST['surname'],
+							$registered
+							)) {
+					session::setFlashMessage( 'actions_message', "Usuario insertado correctamente.", "alert alert-success");
+					redirectURL("?page=user&id=".$_POST['username']);
+				}
+			}
+			else { 
+				session::setFlashMessage( 'actions_message', "El usuario ya existe.", "alert alert-warning");
+				redirectURL("?page=user");
+			}		
+		}
+	}
+
+	public static function updateUserAction(){
+		if (isset($_POST['id_username']) and $_POST['id_username']!=""){
+			$users = new users();
+			$confirmed = (isset($_POST['confirmed_user']) and $_POST['confirmed_user']=="on") ? 1 : 0;
+			$registered = (isset($_POST['registered_user']) and $_POST['registered_user']=="on") ? 1 : 0;
+			$disabled = (isset($_POST['disabled_user']) and $_POST['disabled_user']=="on") ? 1 : 0;
+
+			if ($users->updateUser($_POST['id_username'],
+								$_POST['user_password'],
+								$_POST['email_user'],
+								$_POST['name_user'],
+								$confirmed,
+								$disabled,
+								$_POST['empresa_user'],
+								$_POST['canal_user'],
+								$_POST['perfil_user'],
+								$_POST['telefono_user'],
+								$_POST['surname'],
+								$registered)) {
+						session::setFlashMessage( 'actions_message', "Usuario modificado correctamente.", "alert alert-success");}
+			else { 
+				session::setFlashMessage( 'actions_message', "Se ha producido algun error durante la modificacion de los datos.", "alert alert-danger");}
+
+			redirectURL("?page=user&id=".$_POST['id_username']);
+		}
+	}	
+
+	public static function deleteFotoAction(){
+		$users = new users();
+		if (isset($_REQUEST['f']) and $_REQUEST['f']!=""){
+			if ($users->deleteFoto($_REQUEST['id'],$_REQUEST['f'])) { 
+				session::setFlashMessage( 'actions_message', "foto borrada correctamente.", "alert alert-success");}
+			else { 
+				session::setFlashMessage( 'actions_message', "No se ha podido eliminar la foto.", "alert alert-danger");}
+			redirectURL("?page=user&id=".$_REQUEST['id']);
 		}
 	}
 

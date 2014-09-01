@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
-	
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/main.min.js"></script>
 	<script src="<?php echo getAsset("fotos");?>js/fotos-gallery-ajax.js"></script>
 </head>
 <body>

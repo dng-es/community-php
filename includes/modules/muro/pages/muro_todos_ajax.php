@@ -16,8 +16,7 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="css/styles.css" />
 
-		<script type="text/javascript" src="js/jquery.js"></script>
-	    <script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/main.min.js"></script>
 		<script language="JavaScript" src="includes/modules/muro/resources/js/muro-comentario.js"></script>
 		<script language="JavaScript" src="includes/modules/muro/resources/js/muro-respuestas-ajax.js"></script>
 		

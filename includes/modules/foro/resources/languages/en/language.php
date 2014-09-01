@@ -1,5 +1,5 @@
 <?php
-Forums = "Formus"
+Forums = "Forums"
 Create_new_forum = "Create new forum"
 Create_new_forum_label = "You can create a new forum, introduce the name and description."
 Create_forum = "Create forum"

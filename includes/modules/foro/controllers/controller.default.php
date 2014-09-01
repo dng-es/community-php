@@ -121,12 +121,12 @@ class foroController{
 	 */	
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => 'Foros',
+							"LabelSection" => strTranslate('Forums'),
 							"LabelItem" => 'Temas en los foros',
 							"LabelUrl" => 'admin-validacion-foro-temas',
 							"LabelPos" => 1),
 					  array("LabelHeader"=>'Modules',
-							"LabelSection"=>'Foros',
+							"LabelSection"=>strTranslate('Forums'),
 							"LabelItem"=>'Comentarios en los foros',
 							"LabelUrl"=>'admin-validacion-foro-comentarios',
 							"LabelPos" => 2));	

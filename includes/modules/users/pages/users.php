@@ -29,7 +29,7 @@ function ini_page_body ($ini_conf){
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">       
-						<li><a href="?page=user&act=new"><?php echo strTranslate("New_user");?></a></li>
+						<li><a href="?page=user"><?php echo strTranslate("New_user");?></a></li>
 						<li><a href="?page=<?php echo $_REQUEST['page'].'&export=true';?>"><?php echo strTranslate("Export");?> CSV</a></li>
 						<li><a href="?page=<?php echo $_REQUEST['page'].'&export_s=true';?>">Exportar estadísticas CSV</a></li>
 					</ul>
@@ -47,13 +47,13 @@ function ini_page_body ($ini_conf){
 				<th><?php echo strTranslate("Nick");?></th>
 				<th><?php echo strTranslate("Group_user");?></th>  
 				<th>Email</th>
-				<th>Conf.</th>
-				<th>Desh.</th>
+				<th><?php echo strTranslate("Confirmed");?></th>
+				<th><?php echo strTranslate("Disabled");?></th>
 				</tr>	
 				<?php foreach($elements['items'] as $element):?>
 					<tr>
 					<td nowrap="nowrap">
-						<span class="fa fa-edit icon-table" title="<?php echo strTranslate("Edit");?>" onClick="location.href='?page=user&act=edit&id=<?php echo $element['username'];?>'">
+						<span class="fa fa-edit icon-table" title="<?php echo strTranslate("Edit");?>" onClick="location.href='?page=user&id=<?php echo $element['username'];?>'">
 						</span>
 						
 						<span class="fa fa-ban icon-table" title="Eliminar"

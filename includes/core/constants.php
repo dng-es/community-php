@@ -11,7 +11,7 @@ $ini_conf = array_merge($ini_conf, $site_config);
 
 
 //PAGINAS EN LAS QUE EL USUARIO NO ES NECESARIO QUE ESTE LOGUEADO
-$paginas_free = array("login","user-confirm","logout","contact-free","declaracion","policy","404","registration","registration-confirm","unsuscribe");
+$paginas_free = array("login","user-confirm","logout","contact-free","declaracion","policy","404","remember","registration","registration-confirm","unsuscribe");
 //TIPOS DE ARCHIVOS PERMITIDOS
 $videos_types = array("MP4","MOV","AVI","3GP","WMV");
 $fotos_types = array("GIF","JPG","JPEG","PNG");
