@@ -19,7 +19,8 @@
 
 	compass: {
 	   dev: {
-	       options: {              
+	       options: {
+	       	   config: '../css/config.rb',         
 	           sassDir: ['../css'],
 	           cssDir: ['../css'],
 	           environment: 'development'
@@ -28,6 +29,7 @@
 
 	   prod: {
 	       options: {              
+	           config: '../css/config.rb', 
 	           sassDir: ['../css'],
 	           cssDir: ['../css'],
 	           environment: 'production'
