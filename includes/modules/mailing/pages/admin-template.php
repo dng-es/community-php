@@ -4,8 +4,8 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 function ini_page_header ($ini_conf) {?>
 	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>
+	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="js/libs/ckfinder/ckfinder.js"></script>
 	<script type="text/javascript" src="<?php echo getAsset("mailing");?>js/admin-template.js"></script>
 <?php
 }
@@ -67,7 +67,7 @@ function ini_page_body ($ini_conf){
 					<textarea cols="40" rows="5" id="template_body" name="template_body"><?php echo $plantilla['template_body'];?></textarea>
 					<script type="text/javascript">
 						var editor=CKEDITOR.replace('template_body',{customConfig : 'config-page.js'});
-						CKFinder.setupCKEditor(editor, 'js/ckfinder/') ;
+						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 					</script>
 				</div>
 				<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit">Guardar plantilla</button>

@@ -5,7 +5,7 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 function ini_page_header ($ini_conf) {?>
 	<!-- Bootstrap input file -->
 	<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
-	<script type="text/javascript" src="js/jwplayer/jwplayer.js"></script>
+	<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
 	<!-- tooltip -->   
 	<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      
 	<script type="text/javascript">

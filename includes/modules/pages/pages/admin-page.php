@@ -3,8 +3,8 @@ define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 function ini_page_header ($ini_conf) {?>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>
+<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="js/libs/ckfinder/ckfinder.js"></script>
 <script type="text/javascript" src="<?php echo getAsset("pages");?>js/admin-page.js"></script>
 <?php
 }
@@ -40,7 +40,7 @@ function ini_page_body ($ini_conf){
 				<textarea cols="40" rows="5" id="page_content" name="page_content"><?php echo $pagina[0]['page_content'];?></textarea>
 				<script type="text/javascript">
 					var editor=CKEDITOR.replace('page_content',{customConfig : 'config-page.js'});
-					CKFinder.setupCKEditor(editor, 'js/ckfinder/') ;
+					CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 				</script>
 				<br /><button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit">Guardar página</button>
 			</form>	

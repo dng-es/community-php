@@ -5,7 +5,7 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 templateload("player","videos");
 
 function ini_page_header ($ini_conf) {?>
-	<script type="text/javascript" src="js/jwplayer/jwplayer.js"></script>
+	<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
 	<?php
 	//DESCARGAR ARCHIVO
 	if (isset($_REQUEST['exp']) and $_REQUEST['exp']!="") {	

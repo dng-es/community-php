@@ -3,8 +3,8 @@ define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 function ini_page_header ($ini_conf) {?>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>
+<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="js/libs/ckfinder/ckfinder.js"></script>
 <script language="JavaScript" src="js/bootstrap.file-input.js"></script>
 <script type="text/javascript" src="<?php echo getAsset("infotopdf");?>js/admin-infotopdf-doc.js"></script>
 <?php }
@@ -85,7 +85,7 @@ function ini_page_body ($ini_conf){
 					<textarea cols="40" rows="5" id="cuerpo_info" name="cuerpo_info"><?php echo $elements[0]['cuerpo_info'];?></textarea>
 					<script type="text/javascript">
 						var editor=CKEDITOR.replace('cuerpo_info',{customConfig : 'config-page.js'});
-						CKFinder.setupCKEditor(editor, 'js/ckfinder/') ;
+						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 					</script>
 
 					<br /><br />

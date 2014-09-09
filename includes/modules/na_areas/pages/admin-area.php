@@ -28,7 +28,7 @@ function ini_page_header ($ini_conf) {
 	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
 	<script language="JavaScript" src="<?php echo getAsset("na_areas");?>js/admin-area.js"></script>
 	<script language="JavaScript" src="<?php echo getAsset("users");?>js/admin-cargas.js"></script>
-	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
 	<script language="javascript" type="text/javascript">
 		$(document).ready(function(){
 			 $(".abrir-modal").click(function(event) {

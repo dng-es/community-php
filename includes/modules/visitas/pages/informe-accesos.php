@@ -106,7 +106,7 @@ function ini_page_header ($ini_conf) {
 ?>
  		<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
   		<script type="text/javascript" src="js/bootstrap-datepicker.es.js"></script>
-		<script src="js/amcharts/amcharts.js" type="text/javascript"></script> 
+		<script type="text/javascript" src="js/libs/amcharts/amcharts.js" ></script> 
 		<script type="text/javascript">
 			jQuery(document).ready(function(){
 				

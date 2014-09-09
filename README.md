@@ -14,7 +14,7 @@
 - Eliminar carpeta ./documentacion en servidores de produccción
 - Eliminar archivo README.md
 - Permisos de escritura en los directorios: images/usuarios, images/foro, images/mailing, docs/
-- Establecer configuración CKFinder: modificar $baseUrl y $baseDir en js/CKFinder/config.php
+- Establecer configuración CKFinder: modificar $baseUrl y $baseDir en js/libs/CKFinder/config.php
 - Establecer configuración de la comunidad desde el panel de administración->Datos generales
 
 
@@ -31,10 +31,10 @@
 - Bootstrap Datepicker: (js/bootstrap-datepicker.js) Javascript. Datapicker para formularios
 - Bootstrap Dropdown: (js/bootstrap-dropdown.js) Javascript. Incluye efecto de despligue de los dropdowns de bootstrap al hacer over sobre el elemento
 - Bootstrap FileInput: (js/bootstrap.file-input.js) Javascript. modifica aspecto de los input file
-- CKEditor: (js/ckeditor) Javascript. Editor WYSIWYG
-- CKFinder: (js/ckfinder) Javascript. Subida de archivos integrado en CKEditor
-- amCharts: (js/amcharts) Javascript. Generación de gráficos
-- JWPlayer: (js/jwplayer) Javascript. Reproductor de video
+- CKEditor: (js/libs/ckeditor) Javascript. Editor WYSIWYG
+- CKFinder: (js/libs/ckfinder) Javascript. Subida de archivos integrado en CKEditor
+- amCharts: (js/libs/amcharts) Javascript. Generación de gráficos
+- JWPlayer: (js/libs/jwplayer) Javascript. Reproductor de video
 - SwiftMailer: (includes/core/Swift-5.1.0) php. Envío de emials
 - Zipfile: (includes/core/class.zipfile.php) php. Clase para generación de ficheros ZIP
 - resizeImage: (includes/core/class.resizeimage.php) php. Clase para generar miniaturas de imágenes

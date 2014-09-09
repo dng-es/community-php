@@ -40,7 +40,7 @@
 	   dev: {
 	       files: {
 	           '../js/main.min.js': [
-	           '../js/libs/jquery.js',
+	           '../js/libs/jquery-*.js',
 	           '../js/libs/functions.js', 
 	           '../css/libs/bootstrap*/assets/javascripts/bootstrap.js', 
 	           '../js/bootstrap-dropdown.js', 
@@ -52,7 +52,7 @@
 	   prod: {
 	       files: {
 	           '../js/main.min.js': [
-	           '../js/libs/jquery.js',
+	           '../js/libs/jquery-*.js',
 	           '../js/libs/functions.js', 
 	           '../css/libs/bootstrap*/assets/javascripts/bootstrap.js', 
 	           '../js/bootstrap-dropdown.js', 

@@ -9,7 +9,7 @@ $perfiles_autorizados = array("admin");
 session::AccessLevel($perfiles_autorizados);
 ?>	
 <script language="JavaScript" src="js/jquery.numeric.js"></script>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
 <script language="JavaScript" src="js/bootstrap.file-input.js"></script>
 <script language="JavaScript" src="<?php echo getAsset("mailing");?>js/admin-message.js"></script>
 <script language="JavaScript" src="<?php echo getAsset("mailing");?>js/admin-message-test.js"></script>

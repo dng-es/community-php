@@ -3,7 +3,7 @@ define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 function ini_page_header ($ini_conf) {?>
-	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
 	<!-- Bootstrap input file -->
 	<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
 		<script type="text/javascript">

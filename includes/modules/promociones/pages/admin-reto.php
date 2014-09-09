@@ -6,10 +6,10 @@ templateload("player","videos");
 
 function ini_page_header ($ini_conf) {?>
 	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datepicker.es.js"></script>
-	<script type="text/javascript" src="js/jwplayer/jwplayer.js"></script>
+	<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
 	<script type="text/javascript" src="<?php echo getAsset("promociones");?>js/admin-reto.js"></script>
 	<LINK rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css" /> 
 <?php }

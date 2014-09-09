@@ -13,7 +13,7 @@ templateload("player","videos");
 
 function ini_page_header ($ini_conf){?>
 		<script language="JavaScript" src="js/bootstrap.file-input.js"></script> 
-		<script type="text/javascript" src="js/jwplayer/jwplayer.js"></script>
+		<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
 
 
 

@@ -3,8 +3,8 @@ define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 function ini_page_header ($ini_conf) {?>
-	<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>
+	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="js/libs/ckfinder/ckfinder.js"></script>
 	<!-- Bootstrap input file -->
 	<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
 	<script type="text/javascript">
@@ -44,7 +44,7 @@ function ini_page_body ($ini_conf){
 			<script type="text/javascript">
 
 			var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
-			CKFinder.setupCKEditor(editor, 'js/ckfinder/') ;
+			CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 
 			</script>
 			

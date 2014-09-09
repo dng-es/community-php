@@ -8,8 +8,7 @@ templateload("addforo","foro");
 templateload("player","videos");
 
 function ini_page_header ($ini_conf) {?>
-	<script type="text/javascript" src="js/jwplayer/jwplayer.js"></script>
-	<script type="text/javascript">jwplayer.key="sXxg3tvpo2EaFKQ4R2bMmk5aC1YrvW4ub5vY7Elr9Po=";</script>
+	<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
 	<script language="JavaScript" src="<?php echo getAsset("na_areas");?>js/areas_det.js"></script>
 	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
     <script language="javascript" type="text/javascript">

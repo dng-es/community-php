@@ -8,7 +8,7 @@ include_once ("includes/videos/templates/comment.php");
 
 function ini_page_header ($ini_conf) {?>
 	<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
-	<script type="text/javascript" src="js/jwplayer/jwplayer.js"></script>
+	<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
 	<!-- tooltip -->  
 	<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      
 	<script type="text/javascript">
