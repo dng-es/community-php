@@ -138,16 +138,16 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 			foreach($revisiones as $revision):
 				$usuario_rev=$users->getUsers(" AND username='".$revision['user_tarea']."' ");
 				if ($revision['revision']==1){
-					$imagen_revision="ok2.gif";
+					$imagen_revision='<i class="fa fa-check icon-ok"></i>';
 					$destino_validar_revision="";}
 				else {
-					$imagen_revision="exclamation.gif";
+					$imagen_revision='<i class="fa fa-exclamation icon-alert"></i>';
 					$destino_validar_revision='onClick="Confirma(\'¿Seguro que desea marcar como revisada la tarea del usuario '.$revision['user_tarea'].'?\',
 								\'?page=admin-area-revs&act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\')"';}
 								
 				echo '<tr>';      
 				echo '<td>a href="?page=mensajes&n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a>';  
-				echo '<a href="#" '.$destino_validar_revision.'><img src="images/'.$imagen_revision.'" border="0" /></a></td>';
+				echo '<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a></td>';
 				echo '<td>('.strftime(DATE_TIME_FORMAT,strtotime($revision['fecha_tarea'])).')</td>';
 				echo '<td><a href="docs/showfile.php?t=1&file='.$revision['file_tarea'].'" target="_blank">descargar</a></td>';
 				echo '<td style="width: 80px; text-align: center">'.$revision['canal'].'</td>';
