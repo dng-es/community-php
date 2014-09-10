@@ -176,7 +176,7 @@ Agrega los ficheros JS específicos de una paguna. Uso:
 //my_page.php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("my_module")."js/my_page.js"));
 ```
-Agrega los arvivos bootstrap.file-input.js y my_page.js (perteneciente al módulo my_module)
+Agrega los arvivos bootstrap.file-input.js y my_page.js, donde my_page.js pertenece al módulo my_module (para su carga se emplea la función [getAsset()] (#getasset)). 
 
 ### createRandomPassword
 Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
