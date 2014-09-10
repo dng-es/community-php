@@ -168,13 +168,14 @@ Agrega los ficheros Css específicos de una paguna. Uso:
 ```php 
 //my_page.php
 addCss("css/my_page.css");
+```
 
 ### addJavascripts
 Agrega los ficheros JS específicos de una paguna. Uso: 
 ```php 
 //my_page.php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("my_module")."js/my_page.js"));
-
+```
 Agrega los arvivos bootstrap.file-input.js y my_page.js (perteneciente al módulo my_module)
 
 ### createRandomPassword
