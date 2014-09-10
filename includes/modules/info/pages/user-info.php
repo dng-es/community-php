@@ -5,13 +5,9 @@ infoController::getZipAction();
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-<script type="text/javascript" src="<?php echo getAsset("info");?>js/admin-info-doc.js"></script>
-<?php }
-function ini_page_body ($ini_conf){
+addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-info-doc.js"));
 
-  	$elements = infoController::getItemAction($_GET['id']);
+$elements = infoController::getItemAction($_GET['id']);
 
 ?>
   <div id="page-info">Gestión de documentos</div>
@@ -43,6 +39,3 @@ function ini_page_body ($ini_conf){
 		</div>
 	</div>
 </div>
-<?php 
-}
-?>

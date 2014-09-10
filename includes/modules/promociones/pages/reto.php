@@ -11,130 +11,91 @@ include_once ("includes/promociones/templates/addcomment.php");
 
 templateload("player","videos");
 
-function ini_page_header ($ini_conf){?>
-		<script language="JavaScript" src="js/bootstrap.file-input.js"></script> 
-		<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
+
+addJavascripts(array("js/bootstrap.file-input.js", "js/libs/jwplayer/jwplayer.js", "js/modal.js"));
 
 
+$muro = new muro();
+$promociones = new promociones();
+$videos = new videos();
+$fotos = new fotos();
 
-		<!-- visor imagenes -->
-		<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
-		<script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" charset="utf-8">
-		$(document).ready(function(){
-			
-			$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animationSpeed:'slow',theme:'facebook',slideshow:4000, autoplay_slideshow: true});
-			$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animationSpeed:'slow',slideshow:50000});
-			
-			$("#custom_content a[rel^='prettyPhoto']:first").prettyPhoto({
-				custom_markup: '<div id="map_canvas" style="width:260px; height:265px"></div>',
-				changepicturecallback: function(){ initialize(); }
-			});
+//VOTAR COMENTARIO
+if (isset($_REQUEST['idv']) and $_REQUEST['idv']!="") { 
+$mensaje = $muro->InsertVotacion($_REQUEST['idv'],$_SESSION['user_name']);
+echo '<script>$(document).ready(function(){ MostrarVideos();})</script>';}
 
-			$("#custom_content a[rel^='prettyPhoto']:last").prettyPhoto({
-				custom_markup: '<div id="bsap_1237859" class="bsarocks bsap_d49a0984d0f377271ccbf01a33f2b6d6" style="height:260px"></div><div id="bsap_1251710" class="bsarocks bsap_d49a0984d0f377271ccbf01a33f2b6d6"></div>',
-				changepicturecallback: function(){ _bsap.exec(); }
-			});
-		});
-		</script>
-        
-        <!-- ficheros tooltip --> 
-        <script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>      
-        <script type="text/javascript">
-            $(function(){
-                BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
-            })
-        </script>
-        <!-- fin ficheros tooltip -->       
-<?php 
-}
-function ini_page_body ($ini_conf){
-  $muro = new muro();
-  $promociones = new promociones();
-  $videos = new videos();
-  $fotos = new fotos();
-  
-  //VOTAR COMENTARIO
-  if (isset($_REQUEST['idv']) and $_REQUEST['idv']!="") { 
-    $mensaje = $muro->InsertVotacion($_REQUEST['idv'],$_SESSION['user_name']);
-	echo '<script>$(document).ready(function(){ MostrarVideos();})</script>';}
-  
-  //VOTAR VIDEO
-  if (isset($_REQUEST['idvv']) and $_REQUEST['idvv']!="") { 
-    $mensaje = $videos->InsertVotacion($_REQUEST['idvv'],$_SESSION['user_name']);}
-  
-  //VOTAR FOTO
-  if (isset($_REQUEST['idvf']) and $_REQUEST['idvf']!="") { 
-    $mensaje = $fotos->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']);}
-  
-  //INSERTAR COMENTARIO
-  if (isset($_POST['texto-comentario']) and $_POST['texto-comentario']!=""){
-    if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){$canal=$_SESSION['user_canal'];}
-    else { $canal=$_POST['canal-comentario'];}	  
-	$mensaje = $promociones->InsertComentario($canal,
-															$_POST['texto-comentario'],
-															$_SESSION['user_name'],
-															0,
-															$_POST['tipo_muro'],
-															$_POST['tipo_comentario']);}
-  
-  //INSERTAR FOTO
-  if (isset($_POST['titulo-foto']) and $_POST['titulo-foto']!=""){
-	if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){$canal=$_SESSION['user_canal'];}
-    else { $canal=$_POST['canal-foto'];}
-	$mensaje = $promociones->insertFile($_FILES['nombre-foto'],
-													$canal,
-													$_POST['titulo-foto'],
-													$_POST['id_promocion'],
-													$_POST['tipo_envio'],
-													$_POST['tipo-fichero']);}
-													
-  //INSERTAR VIDEO
-  if (isset($_POST['titulo-video']) and $_POST['titulo-video']!=""){
-	if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){$canal=$_SESSION['user_canal'];}
-    else { $canal=$_POST['canal-video'];}
-	$mensaje = $promociones->insertFile($_FILES['nombre-video'],
-													$canal,
-													$_POST['titulo-video'],
-													$_POST['id_promocion'],
-													$_POST['tipo_envio'],
-													$_POST['tipo-fichero']);}													
+//VOTAR VIDEO
+if (isset($_REQUEST['idvv']) and $_REQUEST['idvv']!="") { 
+$mensaje = $videos->InsertVotacion($_REQUEST['idvv'],$_SESSION['user_name']);}
 
-  //DATOS DEL RETO ACTIVO
-  echo '<div id="page-info">El reto</div>';
-  echo '<div class="row inset row-top">';
-  echo '	<div class="col-md-9">';
-  $id_promocion=$_REQUEST['id'];
-  $promocion = $promociones->getPromociones(" AND active=1 AND id_promocion='".$id_promocion."' LIMIT 1 ");
-  if (count($promocion)==1)
-  {
-	  $nombre_promocion=$promocion[0]['nombre_promocion'];
-	  $fecha_actual = strtotime(date("Y-m-d H:i:00",time()));  
-	  $fecha_inicio = strtotime($promocion[0]['date_comentarios']." 00:00:00");  
-	  $fecha_fin = strtotime($promocion[0]['date_fin_comentarios']." 11:59:59"); 
-	  if($fecha_actual < $fecha_inicio){
-		   $insert_comentarios=1;
-		   if($promocion[0]['galeria_videos']==1){$insert_videos=1;}
-		   if($promocion[0]['galeria_fotos']==1){$insert_fotos=1;}
-	  }
-	  else{ 
-	    $insert_comentarios=0;
+//VOTAR FOTO
+if (isset($_REQUEST['idvf']) and $_REQUEST['idvf']!="") { 
+$mensaje = $fotos->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']);}
+
+//INSERTAR COMENTARIO
+if (isset($_POST['texto-comentario']) and $_POST['texto-comentario']!=""){
+if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){$canal=$_SESSION['user_canal'];}
+else { $canal=$_POST['canal-comentario'];}	  
+$mensaje = $promociones->InsertComentario($canal,
+														$_POST['texto-comentario'],
+														$_SESSION['user_name'],
+														0,
+														$_POST['tipo_muro'],
+														$_POST['tipo_comentario']);}
+
+//INSERTAR FOTO
+if (isset($_POST['titulo-foto']) and $_POST['titulo-foto']!=""){
+if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){$canal=$_SESSION['user_canal'];}
+else { $canal=$_POST['canal-foto'];}
+$mensaje = $promociones->insertFile($_FILES['nombre-foto'],
+												$canal,
+												$_POST['titulo-foto'],
+												$_POST['id_promocion'],
+												$_POST['tipo_envio'],
+												$_POST['tipo-fichero']);}
+												
+//INSERTAR VIDEO
+if (isset($_POST['titulo-video']) and $_POST['titulo-video']!=""){
+if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){$canal=$_SESSION['user_canal'];}
+else { $canal=$_POST['canal-video'];}
+$mensaje = $promociones->insertFile($_FILES['nombre-video'],
+												$canal,
+												$_POST['titulo-video'],
+												$_POST['id_promocion'],
+												$_POST['tipo_envio'],
+												$_POST['tipo-fichero']);}													
+
+//DATOS DEL RETO ACTIVO
+echo '<div id="page-info">El reto</div>';
+echo '<div class="row inset row-top">';
+echo '	<div class="col-md-9">';
+$id_promocion=$_REQUEST['id'];
+$promocion = $promociones->getPromociones(" AND active=1 AND id_promocion='".$id_promocion."' LIMIT 1 ");
+if (count($promocion)==1) {
+
+	$nombre_promocion=$promocion[0]['nombre_promocion'];
+	$fecha_actual = strtotime(date("Y-m-d H:i:00",time()));  
+	$fecha_inicio = strtotime($promocion[0]['date_comentarios']." 00:00:00");  
+	$fecha_fin = strtotime($promocion[0]['date_fin_comentarios']." 11:59:59"); 
+	if($fecha_actual < $fecha_inicio){
+	   $insert_comentarios=1;
+	   if($promocion[0]['galeria_videos']==1){$insert_videos=1;}
+	   if($promocion[0]['galeria_fotos']==1){$insert_fotos=1;}
+	}
+	else{ 
+		$insert_comentarios=0;
 		$insert_videos=0;
 		$insert_fotos=0;
-	  }
+	}
   
 ///////////////////////////////////////////////////////////////////////////////////////////
 //	LATERAL IZQUIERDO		///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
   
-
-		
- 
   echo '<div class="row">';
   echo '<div class="col-md-12">';
   if ($mensaje!=""){ErrorMsg($mensaje);}
-  
-
 
 ///////////////////////////////////////////////////////////////////////////////////  
 //DESCRIPCION DEL RETO
@@ -448,5 +409,5 @@ echo '</div>
 		}
 echo '</div>';	
 echo '</div>';		
-}
+
 ?>

@@ -2,68 +2,64 @@
 
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);   
-function ini_page_header ($ini_conf) {
+
 
 //CONTROL NIVEL DE ACCESO
 $perfiles_autorizados = array("admin");
 session::AccessLevel($perfiles_autorizados);
+
+addJavascripts(array("js/jquery.numeric.js", 
+					 "js/libs/ckeditor/ckeditor.js", 
+					 "js/bootstrap.file-input.js"
+					 getAsset("mailing")."js/admin-message.js"), 
+					 getAsset("mailing")."js/admin-message-test.js"));
 ?>	
-<script language="JavaScript" src="js/jquery.numeric.js"></script>
-<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
-<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-<script language="JavaScript" src="<?php echo getAsset("mailing");?>js/admin-message.js"></script>
-<script language="JavaScript" src="<?php echo getAsset("mailing");?>js/admin-message-test.js"></script>
-<?php }
-function ini_page_body ($ini_conf){
-	echo '<div id="page-info">Envío de comunicaciones</div>';
-	echo '<div class="row inset row-top">';
-	echo '  <div class="col-md-8">';  
 
-	session::getFlashMessage( 'actions_message' );
+<div id="page-info">Envío de comunicaciones</div>
+<div class="row inset row-top">
+	<div class="col-md-8">
+		<?php
+		session::getFlashMessage( 'actions_message' );
 
-	$mailing = new mailing();
-	$id=0;
+		$mailing = new mailing();
+		$id=0;
 
-	$accion = isset($_GET['act']) == true ? $_GET['act'] : "";
-	$accion1 = isset($_GET['act1']) == true ? $_GET['act1'] : "";
-	$accion2 = isset($_GET['accion2']) == true ? $_GET['accion2'] : "";
-	
-	if ($accion=='edit'){ $id=$_GET['id'];}
-	//if ($accion=='edit' and $accion2=='ok' and $accion1!="del"){ UpdateData();}
-	elseif ($accion=='new' and $accion2=='ok'){ 
-		$id = mailingController::createAction();
-		$accion = "edit";
-	}
-	else{
-		$elements=$mailing->getMessages(" AND id_message=".$id." "); 	
-		ShowData($elements,$id,$accion);	
-	}	
-	
-
-	echo '	</div>
-			<div class="col-md-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">Envío de comunicaciones</div>
-					<div class="panel-body">
-						<a href="?page=admin-messages" class="comunidad-color">Ir a todas las comunicaciones</a><br />
-						<a href="?page=admin-message&act=new" class="comunidad-color">Nueva comunicación</a>
-					</div>
+		$accion = isset($_GET['act']) == true ? $_GET['act'] : "";
+		$accion1 = isset($_GET['act1']) == true ? $_GET['act1'] : "";
+		$accion2 = isset($_GET['accion2']) == true ? $_GET['accion2'] : "";
+		
+		if ($accion=='edit'){ $id=$_GET['id'];}
+		//if ($accion=='edit' and $accion2=='ok' and $accion1!="del"){ UpdateData();}
+		elseif ($accion=='new' and $accion2=='ok'){ 
+			$id = mailingController::createAction();
+			$accion = "edit";
+		}
+		else{
+			$elements=$mailing->getMessages(" AND id_message=".$id." "); 	
+			ShowData($elements,$id,$accion);	
+		}	
+		?>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Envío de comunicaciones</div>
+				<div class="panel-body">
+					<a href="?page=admin-messages" class="comunidad-color">Ir a todas las comunicaciones</a><br />
+					<a href="?page=admin-message&act=new" class="comunidad-color">Nueva comunicación</a>
 				</div>
 			</div>
 		</div>
-	</div>';
-}
+	</div>
+</div>
 
-///////////////////////////////////////////////////////////////////////////////////
-// PAGE FUNCTIONS
-///////////////////////////////////////////////////////////////////////////////////
-function ShowData($elements,$id,$accion)
-{
+
+<?php
+function ShowData($elements,$id,$accion){
 	global $ini_conf;
 	$mailing = new mailing();
 	$na_areas = new na_areas();
 	$users = new users();
-?>
+	?>
 	<div class="panel panel-default">
 			<div class="panel-heading">Datos del mensaje</div>
 			<div class="panel-body">

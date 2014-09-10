@@ -6,15 +6,10 @@ session::AccessLevel($perfiles_autorizados);
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-
-<?php }
-function ini_page_body ($ini_conf){
-
-	session::getFlashMessage( 'actions_message' ); 
-	mailingTemplatesController::deleteAction();
-	mailingTemplatesController::updateEstadoAction();
-	$elements = mailingTemplatesController::getListAction(20);
+session::getFlashMessage( 'actions_message' ); 
+mailingTemplatesController::deleteAction();
+mailingTemplatesController::updateEstadoAction();
+$elements = mailingTemplatesController::getListAction(20);
 
 	?>
 	<div class="row row-top">
@@ -64,6 +59,3 @@ function ini_page_body ($ini_conf){
 		</div>
 		<?php menu::adminMenu();?>
 	</div>
-<?php
-}
-?>

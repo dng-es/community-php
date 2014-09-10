@@ -4,25 +4,26 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 templateload("player","videos");
 
-function ini_page_header ($ini_conf) {?>
-	<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
-	<?php
-	//DESCARGAR ARCHIVO
-	if (isset($_REQUEST['exp']) and $_REQUEST['exp']!="") {	
-		require ("includes/core/class.zipfile.php");
-		$zipfile = new zipfile();
-		$origen=PATH_VIDEOS_TEMP;
-		if (isset($_REQUEST['s']) and $_REQUEST['s']==1){$origen=PATH_VIDEOS;}
+addCss(array("css/modal.css"));
+addJavascripts(array("js/libs/jwplayer/jwplayer.js", "js/modal.js"));
 
-		$zipfile->add_file(implode("",file($origen.$_REQUEST['exp'])), $_REQUEST['exp']);
 
-		header("Content-type: application/octet-stream");
-		header("Content-disposition: attachment; filename=videos.zip");
-		echo $zipfile->file();
-	}
+//DESCARGAR ARCHIVO
+if (isset($_REQUEST['exp']) and $_REQUEST['exp']!="") {	
+	require ("includes/core/class.zipfile.php");
+	$zipfile = new zipfile();
+	$origen=PATH_VIDEOS_TEMP;
+	if (isset($_REQUEST['s']) and $_REQUEST['s']==1){$origen=PATH_VIDEOS;}
+
+	$zipfile->add_file(implode("",file($origen.$_REQUEST['exp'])), $_REQUEST['exp']);
+
+	header("Content-type: application/octet-stream");
+	header("Content-disposition: attachment; filename=videos.zip");
+	echo $zipfile->file();
+}
 
 //VALIDAR CONTENIDOS
-  if (isset($_REQUEST['act'])) { 	
+if (isset($_REQUEST['act'])) { 	
 	$users = new users();
 	$videos = new videos();
 	$fotos = new fotos();
@@ -103,45 +104,39 @@ function ini_page_header ($ini_conf) {?>
 		$promociones->emailCancelacionSimple($_REQUEST['u'],$id_promocion,$nombre_muro);
 	}
 	header("Location: ?page=admin-validacion-reto"); 
-  }
-?>
-		<!-- ficheros ventana modal -->
-		<LINK rel="stylesheet" type="text/css" href="css/modal.css" />
-		<script language="JavaScript" src="js/modal.js"></script>
-		<!-- fin ficheros ventana modal -->
-<?php }
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$perfiles_autorizados = array("admin");
-	session::AccessLevel($perfiles_autorizados);
-
-	//SELECCIÓN DEL RETO ACTIVO
-	$promociones = new promociones();
-	$promocion = $promociones->getPromociones(" AND active=1 ");
-	$id_promocion = $promocion[0]['id_promocion'];
-	$nombre_muro = $promocion[0]['nombre_promocion'];?>
-
-	<div class="row row-top">
-		<div class="col-md-9">
-			<h1>validaciones reto actual</h1>
-			<?php
-			//COMENTARIOS RETO PENDIENTES DE VALIDAR
-			getRetoPendientes($nombre_muro);
-			//COMENTARIOS RETO VALIDADOS
-			getRetoValidados($nombre_muro);  
-			//VIDEOS PENDIENTES DE VALIDAR
-			getVideosRetoPendientes($id_promocion);
-			//VIDEOS VALIDADOS
-			getVideosRetoValidados($id_promocion);  
-			//FOTOS PENDIENTES DE VALIDAR
-			getFotosRetoPendientes($id_promocion);   
-			//FOTOS PENDIENTES DE VALIDAR
-			getFotosRetoValidados($id_promocion);?>
-		</div>
-		<?php menu::adminMenu();?>
-	</div>
-  <?php
 }
+
+//CONTROL NIVEL DE ACCESO
+$perfiles_autorizados = array("admin");
+session::AccessLevel($perfiles_autorizados);
+
+//SELECCIÓN DEL RETO ACTIVO
+$promociones = new promociones();
+$promocion = $promociones->getPromociones(" AND active=1 ");
+$id_promocion = $promocion[0]['id_promocion'];
+$nombre_muro = $promocion[0]['nombre_promocion'];?>
+
+<div class="row row-top">
+	<div class="col-md-9">
+		<h1>validaciones reto actual</h1>
+		<?php
+		//COMENTARIOS RETO PENDIENTES DE VALIDAR
+		getRetoPendientes($nombre_muro);
+		//COMENTARIOS RETO VALIDADOS
+		getRetoValidados($nombre_muro);  
+		//VIDEOS PENDIENTES DE VALIDAR
+		getVideosRetoPendientes($id_promocion);
+		//VIDEOS VALIDADOS
+		getVideosRetoValidados($id_promocion);  
+		//FOTOS PENDIENTES DE VALIDAR
+		getFotosRetoPendientes($id_promocion);   
+		//FOTOS PENDIENTES DE VALIDAR
+		getFotosRetoValidados($id_promocion);?>
+	</div>
+	<?php menu::adminMenu();?>
+</div>
+
+<?php
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PAGE FUNCTIONS

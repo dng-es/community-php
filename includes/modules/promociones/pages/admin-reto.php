@@ -4,42 +4,40 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 templateload("player","videos");
 
-function ini_page_header ($ini_conf) {?>
-	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-	<script type="text/javascript" src="js/bootstrap-datepicker.es.js"></script>
-	<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
-	<script type="text/javascript" src="<?php echo getAsset("promociones");?>js/admin-reto.js"></script>
-	<LINK rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css" /> 
-<?php }
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$session = new session();
-	$perfiles_autorizados = array("admin");
-	$session->AccessLevel($perfiles_autorizados);
-	$promociones = new promociones();
-	
-	echo '<div class="row row-top">
-				<div class="col-md-9">'; 
-	echo '<h1>Administración del reto</h1>';        
+addCss(array("css/bootstrap-datetimepicker.min.css"));
 
-	if (isset($_REQUEST['act'])) {$accion=$_REQUEST['act'];}
-	else {$accion='edit';}
-	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData();}
-	elseif ($accion=='new'){ InsertData();$accion="edit";}
-	elseif ($accion=='del_v'){ $promociones->deleteFile($_REQUEST['id'],$_REQUEST['n']);}
-	elseif ($accion=='video_ok'){
-		$promociones->insertPromocionVideo($_POST['id-promocion'],$_FILES['nombre-fichero'],$_POST['titulo-fichero'],$_POST['descripcion-fichero']);}
+addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
+					 "js/bootstrap.file-input.js", 
+					 "js/bootstrap-datepicker.js", 
+					 "js/bootstrap-datepicker.es.js", 
+					 "js/libs/jwplayer/jwplayer.js",
+					 getAsset("promociones")."js/admin-reto.js"));
 
-	
-	$filtro=" AND active=1 ";
-	if ($accion!='new_reto') {$elements=$promociones->getPromociones($filtro);}
 
-	echo '<h3>Estos son los datos del reto. Puedes modicarlos.</h3>';
+//CONTROL NIVEL DE ACCESO
+$session = new session();
+$perfiles_autorizados = array("admin");
+$session->AccessLevel($perfiles_autorizados);
+$promociones = new promociones();
+
+echo '<div class="row row-top">
+			<div class="col-md-9">'; 
+echo '<h1>Administración del reto</h1>';        
+
+if (isset($_REQUEST['act'])) {$accion=$_REQUEST['act'];}
+else {$accion='edit';}
+if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData();}
+elseif ($accion=='new'){ InsertData();$accion="edit";}
+elseif ($accion=='del_v'){ $promociones->deleteFile($_REQUEST['id'],$_REQUEST['n']);}
+elseif ($accion=='video_ok'){
+	$promociones->insertPromocionVideo($_POST['id-promocion'],$_FILES['nombre-fichero'],$_POST['titulo-fichero'],$_POST['descripcion-fichero']);}
+
+
+$filtro=" AND active=1 ";
+if ($accion!='new_reto') {$elements=$promociones->getPromociones($filtro);}
 ?>
 
-
+<h3>Estos son los datos del reto. Puedes modicarlos.</h3>
 <form id="formData" name="formData" enctype="multipart/form-data" method="post" action="?page=admin-reto&act=<?php echo $accion;?>&amp;accion2=ok" role="form">
 <input type="hidden" id="id_promocion" name="id_promocion" value="<?php echo $elements[0]['id_promocion'];?>" />
 <table cellspacing="0" cellpadding="2px">
@@ -123,8 +121,10 @@ if ($accion!='new_reto'){
 	</div>
 	<?php menu::adminMenu();?>
 </div>
+
+
 <?php 
-}
+
 function videosRetoAdmin($id_promocion){
 	echo '
 			<h3>Estos son los videos del reto. Puedes eliminarlos o insertar nuevos videos.</h3>'; 

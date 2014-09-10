@@ -2,25 +2,23 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-<script type="text/javascript" src="<?php echo getAsset("info");?>js/admin-info-doc.js"></script>
-<?php }
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$perfiles_autorizados = array("admin");
-	session::AccessLevel($perfiles_autorizados);
 
-	$accion = (isset($_GET['act']) ? $_GET['act'] : "new");
-	$id = (isset($_GET['id']) ? $_GET['id'] : 0);
+addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-info-doc.js"));
 
-	session::getFlashMessage( 'actions_message' ); 
-	infoController::createAction();
-	infoController::updateAction($id);
+//CONTROL NIVEL DE ACCESO
+$perfiles_autorizados = array("admin");
+session::AccessLevel($perfiles_autorizados);
 
-	$info = new info();
-	$campaigns = new campaigns();
-	$elements = infoController::getItemAction($id); 
+$accion = (isset($_GET['act']) ? $_GET['act'] : "new");
+$id = (isset($_GET['id']) ? $_GET['id'] : 0);
+
+session::getFlashMessage( 'actions_message' ); 
+infoController::createAction();
+infoController::updateAction($id);
+
+$info = new info();
+$campaigns = new campaigns();
+$elements = infoController::getItemAction($id); 
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
@@ -81,6 +79,3 @@ function ini_page_body ($ini_conf){
 	</div>
 	<?php menu::adminMenu();?>
 </div>
-<?php 
-}
-?>

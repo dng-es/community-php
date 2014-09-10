@@ -2,36 +2,34 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
 
-<?php }
-function ini_page_body ($ini_conf){
-	templateload("list","foro");
-	templateload("paginator","foro");
-	templateload("addforo","foro");
-	templateload("search","foro");
-	
-	$foro = new foro();
-	$id_tema_parent="";
-	$canal="";
-	?>
-	<div id="page-info"><?php echo strTranslate("Forums");?></div>
-	<div class="row row-top">
-		<div class="col-md-7 col-lg-8 inset">
-			<p><?php echo strTranslate("Forums_title");?></p>
+templateload("list","foro");
+templateload("paginator","foro");
+templateload("addforo","foro");
+templateload("search","foro");
 
-	<?php
-	session::getFlashMessage( 'actions_message' ); 	
+$foro = new foro();
+$id_tema_parent="";
+$canal="";
+?>
 
-	$id_tema_parent = $_REQUEST['id'];
-	//OBTENCION DE LOS TEMAS DEL FORO
-	if (isset($id_tema_parent) and $id_tema_parent!=""){
-		$filtro=" AND id_tema=".$id_tema_parent." AND activo=1 AND ocio=0 ";
-		if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
-		$temas = $foro->getTemas($filtro); 
-	}
-	
-  	if (isset($id_tema_parent) and $id_tema_parent!=""){
+<div id="page-info"><?php echo strTranslate("Forums");?></div>
+<div class="row row-top">
+	<div class="col-md-7 col-lg-8 inset">
+		<p><?php echo strTranslate("Forums_title");?></p>
+
+		<?php
+		session::getFlashMessage( 'actions_message' ); 	
+
+		$id_tema_parent = $_REQUEST['id'];
+		//OBTENCION DE LOS TEMAS DEL FORO
+		if (isset($id_tema_parent) and $id_tema_parent!=""){
+			$filtro=" AND id_tema=".$id_tema_parent." AND activo=1 AND ocio=0 ";
+			if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
+			$temas = $foro->getTemas($filtro); 
+		}
+
+		if (isset($id_tema_parent) and $id_tema_parent!=""){
 		//OBTENER SUBTEMAS DE FORO
 		$filtro_subtemas = " AND t.id_tema_parent=".$temas[0]['id_tema']." AND t.activo=1 AND t.ocio=0 "; 
 		$reg = 5;
@@ -72,24 +70,26 @@ function ini_page_body ($ini_conf){
 			 	</div>';			
 		endforeach;  
 		ForoPaginator($pag,$reg,$total_reg,'foro-subtemas&id='.$id_tema_parent,'temas',$find_reg,$find_tipo,$marca);	 
-	}
+		}?>
 
-	echo '	</div>
-			<div class="col-md-5 col-lg-4 lateral">';
+	</div>
+	<div class="col-md-5 col-lg-4 lateral">
+		<?php
+		//BUSCADOR
+		ForoSearch($reg,'?page=foro-subtemas&id='.$id_tema_parent,$find_reg,$marca,$find_tipo);
 
-	//BUSCADOR
-	ForoSearch($reg,'?page=foro-subtemas&id='.$id_tema_parent,$find_reg,$marca,$find_tipo);
+		//BANNER CREAR TEMA
+		PanelSubirTemaForo($id_tema_parent,$temas[0]['canal']);
+		?>
 
-	//BANNER CREAR TEMA
-	PanelSubirTemaForo($id_tema_parent,$temas[0]['canal']);
+	</div>
+</div>
 
-	echo '	</div>
-		</div>';
- 
-}
 
-function SearchTemas($reg,$pag,$comentario,$marca_tipo,$tipo_tema)
-{	
+
+
+<?php
+function SearchTemas($reg,$pag,$comentario,$marca_tipo,$tipo_tema){	
 	?>
 	<div class="panel-interior">
 		<form action="<?php echo $pag.'&regs='.$reg;?>" method="post" role="form" class="form-inline">

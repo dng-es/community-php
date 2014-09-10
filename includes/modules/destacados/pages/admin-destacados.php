@@ -2,19 +2,15 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-	<script type="text/javascript" src="<?php echo getAsset("destacados");?>js/admin-destacados.js"></script>
-<?php
-}
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$session = new session();
-	$perfiles_autorizados = array("admin");
-	$session->AccessLevel($perfiles_autorizados);
+addJavascripts(array(getAsset("destacados")."js/admin-destacados.js"));
 
-	session::getFlashMessage( 'actions_message' );
-	destacadosController::updateAction();
-		
+//CONTROL NIVEL DE ACCESO
+$session = new session();
+$perfiles_autorizados = array("admin");
+$session->AccessLevel($perfiles_autorizados);
+
+session::getFlashMessage( 'actions_message' );
+destacadosController::updateAction();		
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
@@ -54,6 +50,3 @@ function ini_page_body ($ini_conf){
 	</div>
 	<?php menu::adminMenu();?>
 </div>
-<?php 
-}
-?>

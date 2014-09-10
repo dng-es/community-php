@@ -3,71 +3,68 @@ set_time_limit(0);
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) { }
-function ini_page_body ($ini_conf){
-  //CONTROL NIVEL DE ACCESO
-  $session = new session();
-  $perfiles_autorizados = array("admin");
-  $session->AccessLevel($perfiles_autorizados);
+//CONTROL NIVEL DE ACCESO
+$session = new session();
+$perfiles_autorizados = array("admin");
+$session->AccessLevel($perfiles_autorizados);
 
-  $id_area = $_REQUEST['id_area'];
+$id_area = $_REQUEST['id_area'];
+?>
   
-  echo '<div id="page-info">Cargas de usuarios al area de trabajo</div>';
-  echo '<div class="row inset row-top">';
-  echo '  <div class="col-md-9">';  
+<div id="page-info">Cargas de usuarios al area de trabajo</div>
+<div class="row inset row-top">
+	<div class="col-md-9">
 
-
-  if (isset($_FILES['nombre-fichero']['name']))
-  {
-	    $fichero=$_FILES['nombre-fichero'];
-	    //SUBIR FICHERO		
-		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-		$nombre_archivo = strtolower($nombre_archivo);
-		$nombre_archivo=NormalizeText($nombre_archivo);
-		
-		
-		$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
-		$tamano_archivo = $fichero['size'];
-		//compruebo si las características del archivo son las que deseo
-		if ($tipo_archivo!="XLS") {
-			ErrorMsg("La extensión no es correcta.".$tipo_archivo);
-		}else{
-			if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
-				//BORRAR FICHEROS ANTIGUOS
-				//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
-				
-				require_once 'docs/reader.php';
-				$data = new Spreadsheet_Excel_Reader();
-				$data->setOutputEncoding('CP1251');
-				$data->read('docs/cargas/'.$nombre_archivo);
-				
-				/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
-				volcarMySQL($data);				   
-			}else{ 
-				//echo ' no sube '.'docs/cargas/'.$nombre_archivo;
-				return "Ocurrió alg&uacute;n error al subir el fichero. No pudo guardarse.";} 
-				//ErrorMsg("Ocurrió alg&uacute;n error al subir el fichero. No pudo guardarse.");
+		<?php
+		if (isset($_FILES['nombre-fichero']['name'])){
+		    $fichero=$_FILES['nombre-fichero'];
+		    //SUBIR FICHERO		
+			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
+			$nombre_archivo = strtolower($nombre_archivo);
+			$nombre_archivo=NormalizeText($nombre_archivo);
+			
+			
+			$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
+			$tamano_archivo = $fichero['size'];
+			//compruebo si las características del archivo son las que deseo
+			if ($tipo_archivo!="XLS") {
+				ErrorMsg("La extensión no es correcta.".$tipo_archivo);
+			}else{
+				if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
+					//BORRAR FICHEROS ANTIGUOS
+					//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
+					
+					require_once 'docs/reader.php';
+					$data = new Spreadsheet_Excel_Reader();
+					$data->setOutputEncoding('CP1251');
+					$data->read('docs/cargas/'.$nombre_archivo);
+					
+					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
+					volcarMySQL($data);				   
+				}else{ 
+					//echo ' no sube '.'docs/cargas/'.$nombre_archivo;
+					return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
+					//ErrorMsg("Ocurrió alg&uacute;n error al subir el fichero. No pudo guardarse.");
+			}
 		}
-  }
-
-  echo '</div>
-  		<div class="col-md-3">
-  			<div class="panel panel-default">
+		?>
+	</div>
+	<div class="col-md-3">
+		<div class="panel panel-default">
 	  		<div class="panel-heading">gestión de areas</div>
-			  <div class="panel-body">
-			  <p>resumen del proceso de importación de usuarios al área de trabajo: a la izquierda se muestra un resumen con los usuarios incluidos en el área de trabajo. 
-			  No se insertarán aquellos usuarios cuyo canal no coincida conn el canal el área.</p>
-			  <p><a href="?page=admin-area&act=edit&id='.$id_area.'">volver atr&aacute;s</a></p>
-			  </div>
+			<div class="panel-body">
+				<p>resumen del proceso de importación de usuarios al área de trabajo: a la izquierda se muestra un resumen con los usuarios incluidos en el área de trabajo. 
+				No se insertarán aquellos usuarios cuyo canal no coincida conn el canal el área.</p>
+				<p><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">volver atrás</a></p>
 			</div>
-		</div>			
-  		</div>';
-}
-///////////////////////////////////////////////////////////////////////////////////
-// PAGE FUNCTIONS
-///////////////////////////////////////////////////////////////////////////////////
-function volcarMySQL($data)
-{	
+		</div>
+	</div>			
+</div>
+
+
+<?php
+
+function volcarMySQL($data){	
 	$id_area = $_POST['id_area'];
 	$area_canal = $_POST['area_canal'];
 	$na_areas = new na_areas();

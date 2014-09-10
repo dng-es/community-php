@@ -21,101 +21,93 @@ if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 
 
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);   
-function ini_page_header ($ini_conf) {
-?>	
-	<script language="JavaScript" src="js/jquery.numeric.js"></script>
-	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-	<script language="JavaScript" src="<?php echo getAsset("na_areas");?>js/admin-area.js"></script>
-	<script language="JavaScript" src="<?php echo getAsset("users");?>js/admin-cargas.js"></script>
-	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
-	<script language="javascript" type="text/javascript">
-		$(document).ready(function(){
-			 $(".abrir-modal").click(function(event) {
-				event.preventDefault()
-				$(this).next("div .modal").modal();
-			});
-		});
-	</script> 
-			
-<?php }
-function ini_page_body ($ini_conf){
-	echo '<div class="row row-top">';
-	echo '<div class="col-md-9">';  
-	echo '<h1>Gestión de cursos de formación</h1>';
+define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);  
 
-	session::getFlashMessage( 'actions_message' );
+addJavascripts(array("js/jquery.numeric.js", 
+					 "js/bootstrap.file-input.js", 
+					 "js/libs/ckeditor/ckeditor.js", 
+					 getAsset("na_areas")."js/admin-area.js", 
+					 getAsset("na_areas")."js/admin-cargas.js"));
 
-	$na_areas = new na_areas();
-	$id=0;
-	
-	$accion = isset($_GET['act']) ? $_GET['act'] : "";
-	$accion1 = isset($_GET['act1']) ? $_GET['act1'] : "";
-	$accion2 = isset($_GET['accion2']) ? $_GET['accion2'] : "";
-	
-	if ($accion=='edit'){ $id=$_GET['id'];}
-	if ($accion=='edit' and $accion2=='ok' and $accion1!="del"){ UpdateData();}
-	elseif ($accion=='new' and $accion2=='ok'){ $id=InsertData();$accion="edit";}
-
-	//VALIDAR CONTENIDOS FORO
-	if (isset($_REQUEST['act2'])) {   
-		$foro = new foro();
-		$users = new users();
-		if ($_REQUEST['act2']=='tema_ko'){
-			$foro->cambiarEstadoTema($_REQUEST['idt'],0);
-		}
-		elseif ($_REQUEST['act2']=='foro_ko'){
-			$foro->cambiarEstado($_REQUEST['idc'],2);
-			$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
-		}
-		session::setFlashMessage( 'actions_message', "Estado modificado.", "alert alert-warning"); 
-		redirectURL("?page=admin-area&act=edit&id=".$_REQUEST['id']);
-	}
-
-	//clasificar foro
-	if (isset($_POST['find_tipo'])) {  
-		$foro = new foro(); 
-		$foro->cambiarTipoTema($_POST['id_tema_tipo'],$_POST['find_tipo']);
-		//header("Location: ?page=admin-validacion-foro"); 
-	}
-
-	//crear grupos
-	if (isset($_POST['id_area_grupo']) and $_POST['id_area_grupo'] != ""){
-		ErrorMsg($na_areas->insertGrupoArea($_POST['id_area_grupo'],$_POST['grupo_nombre']));
-	}
-
-	//crear tarea
-	if (isset($_POST['id_area_tarea']) and $_POST['id_area_tarea'] != ""){
-		if (isset($_POST['tarea_grupo']) and $_POST['tarea_grupo'] == 'on'){ $grupo = 1; }
-		else{ $grupo = 0; }
-		$mensaje = $na_areas->insertTarea($_POST['id_area_tarea'],$_POST['tarea_titulo'],$_POST['tarea_descripcion'],$_POST['tipo'],$grupo,$_SESSION['user_name'],$_FILES['fichero-tarea']);
-		session::setFlashMessage( 'actions_message', $mensaje, "alert alert-warning"); 
-		redirectURL($_SERVER['REQUEST_URI']);
-	}
-
-	//activar/desactivar tarea
-	if (isset($_REQUEST['e']) and $_REQUEST['e'] != ""){
-		ErrorMsg($na_areas->estadoTarea($_REQUEST['del_t'],$_REQUEST['e']));
-	} 
-
-	//eliminar tarea
-	if (isset($_REQUEST['del_t2']) and $_REQUEST['del_t2'] != ""){
-		ErrorMsg($na_areas->estadoTarea($_REQUEST['del_t2'],2));
-	}     
-
-	//activar/desactivar links tarea
-	if (isset($_REQUEST['el']) and $_REQUEST['el'] != ""){
-		ErrorMsg($na_areas->estadoLinksTarea($_REQUEST['del_t'],$_REQUEST['el']));
-	}  
-	
-	$elements=$na_areas->getAreas(" AND id_area=".$id." ");
-	$area_nombre = isset($elements[0]['area_nombre']) ? $elements[0]['area_nombre'] : "";
-	$area_descripcion = isset($elements[0]['area_descripcion']) ? $elements[0]['area_descripcion'] : "";
-	$puntos = isset($elements[0]['puntos']) ? $elements[0]['puntos'] : "";
-	$limite_users = isset($elements[0]['limite_users']) ? $elements[0]['limite_users'] : "";
-	$area_canal = isset($elements[0]['area_canal']) ? $elements[0]['area_canal'] : "";
 ?>
-	<div class="panel panel-default">
+
+<div class="row row-top">
+	<div class="col-md-9">
+		<h1>Gestión de cursos de formación</h1>
+
+		<?php
+		session::getFlashMessage( 'actions_message' );
+
+		$na_areas = new na_areas();
+		$id=0;
+
+		$accion = isset($_GET['act']) ? $_GET['act'] : "";
+		$accion1 = isset($_GET['act1']) ? $_GET['act1'] : "";
+		$accion2 = isset($_GET['accion2']) ? $_GET['accion2'] : "";
+
+		if ($accion=='edit'){ $id=$_GET['id'];}
+		if ($accion=='edit' and $accion2=='ok' and $accion1!="del"){ UpdateData();}
+		elseif ($accion=='new' and $accion2=='ok'){ $id=InsertData();$accion="edit";}
+
+		//VALIDAR CONTENIDOS FORO
+		if (isset($_REQUEST['act2'])) {   
+			$foro = new foro();
+			$users = new users();
+			if ($_REQUEST['act2']=='tema_ko'){
+				$foro->cambiarEstadoTema($_REQUEST['idt'],0);
+			}
+			elseif ($_REQUEST['act2']=='foro_ko'){
+				$foro->cambiarEstado($_REQUEST['idc'],2);
+				$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
+			}
+			session::setFlashMessage( 'actions_message', "Estado modificado.", "alert alert-warning"); 
+			redirectURL("?page=admin-area&act=edit&id=".$_REQUEST['id']);
+		}
+
+		//clasificar foro
+		if (isset($_POST['find_tipo'])) {  
+			$foro = new foro(); 
+			$foro->cambiarTipoTema($_POST['id_tema_tipo'],$_POST['find_tipo']);
+			//header("Location: ?page=admin-validacion-foro"); 
+		}
+
+		//crear grupos
+		if (isset($_POST['id_area_grupo']) and $_POST['id_area_grupo'] != ""){
+			ErrorMsg($na_areas->insertGrupoArea($_POST['id_area_grupo'],$_POST['grupo_nombre']));
+		}
+
+		//crear tarea
+		if (isset($_POST['id_area_tarea']) and $_POST['id_area_tarea'] != ""){
+			if (isset($_POST['tarea_grupo']) and $_POST['tarea_grupo'] == 'on'){ $grupo = 1; }
+			else{ $grupo = 0; }
+			$mensaje = $na_areas->insertTarea($_POST['id_area_tarea'],$_POST['tarea_titulo'],$_POST['tarea_descripcion'],$_POST['tipo'],$grupo,$_SESSION['user_name'],$_FILES['fichero-tarea']);
+			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-warning"); 
+			redirectURL($_SERVER['REQUEST_URI']);
+		}
+
+		//activar/desactivar tarea
+		if (isset($_REQUEST['e']) and $_REQUEST['e'] != ""){
+			ErrorMsg($na_areas->estadoTarea($_REQUEST['del_t'],$_REQUEST['e']));
+		}
+
+		//eliminar tarea
+		if (isset($_REQUEST['del_t2']) and $_REQUEST['del_t2'] != ""){
+			ErrorMsg($na_areas->estadoTarea($_REQUEST['del_t2'],2));
+		}
+
+		//activar/desactivar links tarea
+		if (isset($_REQUEST['el']) and $_REQUEST['el'] != ""){
+			ErrorMsg($na_areas->estadoLinksTarea($_REQUEST['del_t'],$_REQUEST['el']));
+		}  
+
+		$elements=$na_areas->getAreas(" AND id_area=".$id." ");
+		$area_nombre = isset($elements[0]['area_nombre']) ? $elements[0]['area_nombre'] : "";
+		$area_descripcion = isset($elements[0]['area_descripcion']) ? $elements[0]['area_descripcion'] : "";
+		$puntos = isset($elements[0]['puntos']) ? $elements[0]['puntos'] : "";
+		$limite_users = isset($elements[0]['limite_users']) ? $elements[0]['limite_users'] : "";
+		$area_canal = isset($elements[0]['area_canal']) ? $elements[0]['area_canal'] : "";
+		?>
+		<div class="panel panel-default">
 			<div class="panel-heading">Datos del curso</div>
 			<div class="panel-body">
 				<form role="form" id="formData" name="formData" method="post" action="?page=admin-area&act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
@@ -166,11 +158,12 @@ function ini_page_body ($ini_conf){
 			showUsuariosArea($id_area,$area_canal);
 			//showForosArea($id_area);
 		}?>
-		</div>
-		<?php menu::adminMenu();?>
 	</div>
-	<?php	
-}
+	<?php menu::adminMenu();?>
+</div>
+
+
+<?php	
 
 function showUsuariosArea($id_area,$area_canal){
 	$na_areas = new na_areas;

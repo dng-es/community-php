@@ -2,34 +2,29 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {
-	
-}
+//CONTROL NIVEL DE ACCESO
+$perfiles_autorizados = array("admin");
+session::AccessLevel($perfiles_autorizados);
 
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$perfiles_autorizados = array("admin");
-	session::AccessLevel($perfiles_autorizados);
-	
-	session::getFlashMessage( 'actions_message' );
-	videosController::validateCommentAction();	  
-	?>
-	<div id="page-info"><?php echo strTranslate("Video_comments");?></div>
-	<div class="row inset row-top">
-		<div class="col-md-9">
-		<?php getComentariosVideo();?>
-		</div>
-		<div class="col-md-3">
-			<div class="panel panel-default">
-				<div class="panel-heading"><?php echo strTranslate("Videos");?></div>
-				<div class="panel-body">
-					<a href="?page=admin-videos"><?php echo strTranslate("Video_list");?></a>
-				</div>
-			</div>		
-		</div>
+session::getFlashMessage( 'actions_message' );
+videosController::validateCommentAction();	  
+?>
+<div id="page-info"><?php echo strTranslate("Video_comments");?></div>
+<div class="row inset row-top">
+	<div class="col-md-9">
+	<?php getComentariosVideo();?>
 	</div>
-	<?php
-}
+	<div class="col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-heading"><?php echo strTranslate("Videos");?></div>
+			<div class="panel-body">
+				<a href="?page=admin-videos"><?php echo strTranslate("Video_list");?></a>
+			</div>
+		</div>		
+	</div>
+</div>
+<?php
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PAGE FUNCTIONS

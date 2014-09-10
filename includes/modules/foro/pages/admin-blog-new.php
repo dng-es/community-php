@@ -2,34 +2,27 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="js/libs/ckfinder/ckfinder.js"></script>
-	<!-- Bootstrap input file -->
-	<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
-	<script type="text/javascript">
-		 jQuery(document).ready(function(){
-			 $('input[type=file]').bootstrapFileInput();
-		});
-	</script>
-<?php }
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$session = new session();
-	$perfiles_autorizados = array("admin");
-	$session->AccessLevel($perfiles_autorizados);
+addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
+					 "js/libs/ckfinder/ckfinder.js", 
+					 "js/bootstrap.file-input.js", 
+					 getAsset("foro")."js/admin-blog-new.js"));
 
-	$accion=$_GET['act'];
-	$accion1=$_GET['act1'];
-	$id = 0;
-	
-	if ($accion=='edit'){ $id=$_GET['id'];}
-	if ($accion=='edit' and $_GET['accion2']=='ok' and $accion1!="del"){ UpdateData();}
-	elseif ($accion=='new' and $_GET['accion2']=='ok'){ $id=InsertData();$accion="edit";}
+//CONTROL NIVEL DE ACCESO
+$session = new session();
+$perfiles_autorizados = array("admin");
+$session->AccessLevel($perfiles_autorizados);
 
-	$foro = new foro();
-	$elements = array();
-	$elements=$foro->getTemas(" AND id_tema=".$id." ");  
+$accion=$_GET['act'];
+$accion1=$_GET['act1'];
+$id = 0;
+
+if ($accion=='edit'){ $id=$_GET['id'];}
+if ($accion=='edit' and $_GET['accion2']=='ok' and $accion1!="del"){ UpdateData();}
+elseif ($accion=='new' and $_GET['accion2']=='ok'){ $id=InsertData();$accion="edit";}
+
+$foro = new foro();
+$elements = array();
+$elements=$foro->getTemas(" AND id_tema=".$id." ");  
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
@@ -101,24 +94,19 @@ function ini_page_body ($ini_conf){
 	</div>
 	<?php menu::adminMenu();?>
 </div>
-<?php 
-}
-	
 
-function UpdateData()
-{
+
+<?php 
+function UpdateData(){
 	$foro = new foro();
 	if ($foro->updateTema($_REQUEST['id'],$_POST['nombre'],$_POST['descripcion'],$_POST['etiquetas'],$_FILES['imagen-tema'])) {
 			OkMsg("Entrada modificada correctamente.");}
 }
 
-function InsertData()
-{
+function InsertData(){
 	$foro = new foro();
 	if ($foro->InsertTema(0,$_POST['nombre'],$_POST['descripcion'],$_FILES['imagen-tema'],$_SESSION['username'],CANAL1,0,1,'',0,1,$_POST['etiquetas'])) {
 			OkMsg("Entrada insertada correctamente.");}
 	return foro::SelectMaxReg("id_tema","foro_temas"," AND ocio=1 ");
 }
-
-
 ?>

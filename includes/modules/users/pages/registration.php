@@ -2,77 +2,69 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) { ?>
-	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-	<script type="text/javascript" src="js/bootstrap-datepicker.es.js"></script>
-	<script language="JavaScript" src="<?php echo getAsset("users");?>js/registration.js"></script>
-	<LINK rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css" /> 
-	<script>
-		$(document).ready(function(){
-			$("#confirm-container").fadeIn(1400);
-		})
-	</script>     
-<?php
-}
-function ini_page_body ($ini_conf){
-	?>
+addCss(array("css/bootstrap-datetimepicker.min.css"));
+addJavascripts(array("js/bootstrap.file-input.js", 
+					 "js/bootstrap-datepicker.js", 
+					 "js/bootstrap-datepicker.es.js"
+					 getAsset("users")."js/registration.js"));
+
+?>
 <div id="confirm-container" class="row">			
 	<div class="col-md-6">
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
 	<div class="col-md-6" style="border-left:1px solid #a1569d">
 		<h2><?php echo strTranslate("Registration");?></h2>
-<?php
-	session::getFlashMessage( 'actions_message' );
+		<?php
+		session::getFlashMessage( 'actions_message' );
 
-	//REGISTRO USUARIO
-	if (isset($_POST['username-text']) and $_POST['username-text']!=""){
-		$users = new users();
-		$confirmar=$users->registerUser($_POST['username-text'],
-									   $_POST['user-nick'],
-									   $_POST['user-nombre'],
-									   $_POST['user-apellidos'],
-									   $_POST['user-pass'],
-									   $_POST['user-email'],
-									   $_FILES['nombre-fichero'],
-									   '',
-									   $_POST['user-date'],
-									   $_POST['user-empresa']);
+		//REGISTRO USUARIO
+		if (isset($_POST['username-text']) and $_POST['username-text']!=""){
+			$users = new users();
+			$confirmar=$users->registerUser($_POST['username-text'],
+										   $_POST['user-nick'],
+										   $_POST['user-nombre'],
+										   $_POST['user-apellidos'],
+										   $_POST['user-pass'],
+										   $_POST['user-email'],
+										   $_FILES['nombre-fichero'],
+										   '',
+										   $_POST['user-date'],
+										   $_POST['user-empresa']);
 
 
-		if ($confirmar==1){
-			$subject_mail = "Alta de usuario en ".$ini_conf['SiteName'];;
-			$body_mail = ' Para confirmar tu registro en '.$ini_conf['SiteName'].' haz click en el siguiente enalce: '.$ini_conf['SiteUrl'].'/?page=registration-confirm&a='.sha1($_POST['username-text']).'&b='.sha1($_POST['user-email']).'&c='.sha1($_POST['user-pass']).'';
-			
-			//SendEmail($ini_conf['ContactEmail'],$_POST['user-email'],$subject_mail,$body_mail,0,$ini_conf['SiteName']);
-			messageProcess($subject_mail, array($ini_conf['MailingEmail'] => $ini_conf['SiteName']), array($_POST['user-email']), $body_mail, null);
-			redirectURL("?page=registration&m=1");
+			if ($confirmar==1){
+				$subject_mail = "Alta de usuario en ".$ini_conf['SiteName'];;
+				$body_mail = ' Para confirmar tu registro en '.$ini_conf['SiteName'].' haz click en el siguiente enalce: '.$ini_conf['SiteUrl'].'/?page=registration-confirm&a='.sha1($_POST['username-text']).'&b='.sha1($_POST['user-email']).'&c='.sha1($_POST['user-pass']).'';
+				
+				//SendEmail($ini_conf['ContactEmail'],$_POST['user-email'],$subject_mail,$body_mail,0,$ini_conf['SiteName']);
+				messageProcess($subject_mail, array($ini_conf['MailingEmail'] => $ini_conf['SiteName']), array($_POST['user-email']), $body_mail, null);
+				redirectURL("?page=registration&m=1");
+			}
+			elseif ($confirmar==2){
+				ErrorMsg("<p>Se ha producido algun error al confirmar sus datos.</p>");
+			}
+			elseif ($confirmar==3){
+				ErrorMsg("<p>El nick <b>".$_POST['user-nick']."</b> ya existe.</p>");
+			}	
+			elseif ($confirmar==4){
+				ErrorMsg("<p>El código de tienda introducido no es válido.</p>");
+			}
+			elseif ($confirmar==5){
+				ErrorMsg("<p>El DNI/usuario ya existe.</p>");
+			}	
 		}
-		elseif ($confirmar==2){
-			ErrorMsg("<p>Se ha producido algun error al confirmar sus datos.</p>");
-		}
-		elseif ($confirmar==3){
-			ErrorMsg("<p>El nick <b>".$_POST['user-nick']."</b> ya existe.</p>");
-		}	
-		elseif ($confirmar==4){
-			ErrorMsg("<p>El código de tienda introducido no es válido.</p>");
-		}
-		elseif ($confirmar==5){
-			ErrorMsg("<p>El DNI/usuario ya existe.</p>");
-		}	
-	}
 
-	if (isset($_REQUEST['m']) and $_REQUEST['m']==1){
-		echo '<p>Tus datos se han registrado correctamente.<br />
-				Recibirás en tu cuenta de correo un email para confirmar tu registro, sigue las instrucciones del mensaje para acceder.</p>';	
-		echo '</div>';
-	}
-	else{
-		ShowForm();
-	}
+		if (isset($_REQUEST['m']) and $_REQUEST['m']==1){
+			echo '<p>Tus datos se han registrado correctamente.<br />
+					Recibirás en tu cuenta de correo un email para confirmar tu registro, sigue las instrucciones del mensaje para acceder.</p>';	
+			echo '</div>';
+		}
+		else{
+			ShowForm();
+		}
 
-}
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PAGE FUNCTIONS

@@ -18,131 +18,105 @@ if (isset($_REQUEST['t3']) and $_REQUEST['t3']=="1") na_areasController::ExportF
 
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-function ini_page_header ($ini_conf) {
-?>	
-	<script language="JavaScript" src="<?php echo getAsset("na_areas");?>js/admin-area-docs.js"></script>
-	<script language="JavaScript" src="js/jquery.numeric.js"></script>
-	<script>
-		$(document).ready(function(){
-			$(".entero").numeric();
-			$("#btn_search").click(function(){
-				$("#frm_search").submit();
-			});
-		})
 
-		function createDialog(id_tarea,usuario){
-			$.ajax({
-				type: 'POST',
-				url: 'includes/modules/na_areas/pages/admin-area-revs-form.php',
-				data: {tarea : id_tarea,user:usuario},
-				// Mostramos un mensaje con la respuesta de PHP
-				success: function(data) {
-					errorDias=data;
-						$(".modal-resp .modal-body").html(data);                   
-						$(".modal.modal-resp").modal();
-				}
-			}); 
-		}   		 
-	</script>
+addJavascripts(array("js/jquery.numeric.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
-<?php }
-function ini_page_body ($ini_conf){
-	$na_areas = new na_areas();
-	$id_area=$_REQUEST['a'];
-	$id_tarea=$_REQUEST['id'];
+//OBTENER DATOS DE LA TAREA
+$na_areas = new na_areas();
+$id_area=$_REQUEST['a'];
+$id_tarea=$_REQUEST['id'];
+$tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
+?>
 
-	//OBTENER DATOS DE LA TAREA
-	$tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
-	
-	echo '<div class="row row-top">';
-	echo '  <div class="col-md-9">
-				<h1>Revisiones</h1>
-				<p>Tarea: '.$tarea[0]['tarea_titulo'].'</p>';
-	echo '		<nav class="navbar navbar-default" role="navigation">
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">       
-							<li><a href="?page=admin-area&act=edit&id='.$id_area.'">Volver al curso</a></li>
-							<li><a href="?page=admin-area-revs&t3=1&a='.$id_area.'&id='.$id_tarea.'">'.strTranslate("Export").'</a></li>
-						</ul>
-					</div>
-				</nav>';
+<div class="row row-top">
+	<div class="col-md-9">
+		<h1>Revisiones</h1>
+		<p>Tarea: <?php echo $tarea[0]['tarea_titulo'];?></p>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">       
+					<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver al curso</a></li>
+					<li><a href="?page=admin-area-revs&t3=1&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>"><?php echo strTranslate("Export");?></a></li>
+				</ul>
+			</div>
+		</nav>
+		<?php 
+		//DESCARGAR FICHERO USUARIO-FICHEROS
+		if (isset($_REQUEST['t2']) and $_REQUEST['t2']=="1"){
+			$na_areas = new na_areas();
+			$elements=$na_areas->getTareasUserExport($_REQUEST['id'],$_REQUEST['a']);
+			$file_name='exported_file'.date("YmdGis");
+			ExportExcel ("./docs/export/",$file_name,$elements,"xls",1);
+		} 
 
-	//DESCARGAR FICHERO USUARIO-FICHEROS
-	if (isset($_REQUEST['t2']) and $_REQUEST['t2']=="1"){
-		$na_areas = new na_areas();
-		$elements=$na_areas->getTareasUserExport($_REQUEST['id'],$_REQUEST['a']);
-		$file_name='exported_file'.date("YmdGis");
-		ExportExcel ("./docs/export/",$file_name,$elements,"xls",1);
-	} 
+		//DESCARGAR FICHERO USUARIO-FICHEROS
+		// if (isset($_REQUEST['t3']) and $_REQUEST['t3']=="1"){
+		//   $na_areas = new na_areas();
+		//   $elements=$na_areas->getFormulariosFinalizados(" AND id_tarea=".$_REQUEST['id']." ORDER BY user_tarea"); 
+		//   $file_name='exported_file'.date("YmdGis");
 
-	//DESCARGAR FICHERO USUARIO-FICHEROS
-	// if (isset($_REQUEST['t3']) and $_REQUEST['t3']=="1"){
-	//   $na_areas = new na_areas();
-	//   $elements=$na_areas->getFormulariosFinalizados(" AND id_tarea=".$_REQUEST['id']." ORDER BY user_tarea"); 
-	//   $file_name='exported_file'.date("YmdGis");
+		//   $final = array();
+		//   foreach($elements as $element):
+		//     //nombre del grupo
+		//     $nombre_grupo='';
+		//     if (count($grupos=$na_areas->getUsuarioGrupoTarea($_REQUEST['id'],$_REQUEST['a']," AND grupo_username='".$element['user_tarea']."' "))>0){
+		//        $nombre_grupo=$grupos[0]['grupo_nombre'];}
+		//     $element['nombre_grupo']=$nombre_grupo;
 
-	//   $final = array();
-	//   foreach($elements as $element):
-	//     //nombre del grupo
-	//     $nombre_grupo='';
-	//     if (count($grupos=$na_areas->getUsuarioGrupoTarea($_REQUEST['id'],$_REQUEST['a']," AND grupo_username='".$element['user_tarea']."' "))>0){
-	//        $nombre_grupo=$grupos[0]['grupo_nombre'];}
-	//     $element['nombre_grupo']=$nombre_grupo;
+		//     //respuestas del usuario
+		//     $respuestas = $na_areas -> getFormulariosFinalizadosRespuestas($element['id_tarea'],$element['user_tarea']);
+		//     $i=1;
+		//     foreach($respuestas as $respuesta):
+		//       $pregunta_texto="pregunta".$i;
+		//       $element[$pregunta_texto]=$respuesta['respuesta_valor'];
+		//       $i++;
+		//     endforeach;    
+		//     array_push($final, $element);
+		//   endforeach;
+			
 
-	//     //respuestas del usuario
-	//     $respuestas = $na_areas -> getFormulariosFinalizadosRespuestas($element['id_tarea'],$element['user_tarea']);
-	//     $i=1;
-	//     foreach($respuestas as $respuesta):
-	//       $pregunta_texto="pregunta".$i;
-	//       $element[$pregunta_texto]=$respuesta['respuesta_valor'];
-	//       $i++;
-	//     endforeach;    
-	//     array_push($final, $element);
-	//   endforeach;
+		//   ExportExcel ("./docs/export/",$file_name,$final,"xls",1);
+		// }
 		
+		//VALIDAR REVISIONES FICHEROS
+		if ( isset($_REQUEST['act']) and $_REQUEST['act']=='rev_ok' ){
+			$id_tarea_user=$_REQUEST['idr'];
+			$na_areas->RevisarTareaUser($id_tarea_user,$_SESSION['user_name']);
+		} 
 
-	//   ExportExcel ("./docs/export/",$file_name,$final,"xls",1);
-	// }
-	
-	//VALIDAR REVISIONES FICHEROS
-	if ( isset($_REQUEST['act']) and $_REQUEST['act']=='rev_ok' ){
-		$id_tarea_user=$_REQUEST['idr'];
-		$na_areas->RevisarTareaUser($id_tarea_user,$_SESSION['user_name']);
-	} 
+		if (count($tarea)==1){  
 
-	if (count($tarea)==1){  
+			$id_grupo=0; 
+			if(isset($_POST['grupo_search']) and $_POST['grupo_search']!="") {$id_grupo = $_POST['grupo_search'];}
+			if(isset($_POST['id_grupo_rev']) and $_POST['id_grupo_rev']!="") {$id_grupo = $_POST['id_grupo_rev'];}
+			if(isset($_REQUEST['idg']) and $_REQUEST['idg']!="") {$id_grupo = $_REQUEST['idg'];}
 
-		$id_grupo=0; 
-		if(isset($_POST['grupo_search']) and $_POST['grupo_search']!="") {$id_grupo = $_POST['grupo_search'];}
-		if(isset($_POST['id_grupo_rev']) and $_POST['id_grupo_rev']!="") {$id_grupo = $_POST['id_grupo_rev'];}
-		if(isset($_REQUEST['idg']) and $_REQUEST['idg']!="") {$id_grupo = $_REQUEST['idg'];}
-
-		//grupos de la tarea
-		$grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tarea=".$id_tarea." ");
-		if (count($grupos_tarea)>0){
-			echo '<form action="?page=admin-area-revs&a='.$id_area.'&id='.$id_tarea.'" method="post" id="frm_search" name="frm_search">
-					<select name="grupo_search" id="grupo_search" class="cuadroTexto cuadroTextoSelect" style="width:300px !important">
-						<option value="0">-----todos los grupos de la tarea-----</option>';
-			foreach($grupos_tarea as $grupo_tarea):
-				$selected="";
-				if ($id_grupo==$grupo_tarea['id_grupo']){$selected=' selected="selected" ';}
-				echo '<option value="'.$grupo_tarea['id_grupo'].'" '.$selected.'>'.$grupo_tarea['grupo_nombre'].'</option>';
-			endforeach;
-			echo '  </select>
-					<div id="btn_search" style="margin:-4px 0 0 5px">filtrar grupo</div>
-				</form>';
+			//grupos de la tarea
+			$grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tarea=".$id_tarea." ");
+			if (count($grupos_tarea)>0){
+				echo '<form action="?page=admin-area-revs&a='.$id_area.'&id='.$id_tarea.'" method="post" id="frm_search" name="frm_search">
+						<select name="grupo_search" id="grupo_search" class="cuadroTexto cuadroTextoSelect" style="width:300px !important">
+							<option value="0">-----todos los grupos de la tarea-----</option>';
+				foreach($grupos_tarea as $grupo_tarea):
+					$selected="";
+					if ($id_grupo==$grupo_tarea['id_grupo']){$selected=' selected="selected" ';}
+					echo '<option value="'.$grupo_tarea['id_grupo'].'" '.$selected.'>'.$grupo_tarea['grupo_nombre'].'</option>';
+				endforeach;
+				echo '  </select>
+						<div id="btn_search" style="margin:-4px 0 0 5px">filtrar grupo</div>
+					</form>';
+			}
+			if ($tarea[0]['tipo']=='formulario'){revisionesFormulario($id_tarea,$id_area,$id_grupo);}
+			else{revisionesFicheros($id_tarea,$id_area,$id_grupo);} 
 		}
-		if ($tarea[0]['tipo']=='formulario'){revisionesFormulario($id_tarea,$id_area,$id_grupo);}
-		else{revisionesFicheros($id_tarea,$id_area,$id_grupo);} 
-	}
-	else{ErrorMsg("Error al cargar la tarea");}
-	?>
-
-		</div>
-		<?php menu::adminMenu();?>
+		else{ErrorMsg("Error al cargar la tarea");}
+		?>
 	</div>
-	<?php
-}
+	<?php menu::adminMenu();?>
+</div>
+
+
+<?php
 
 function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 		$na_areas = new na_areas();

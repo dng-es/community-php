@@ -1,75 +1,60 @@
 <?php
-///////////////////////////////////////////////////////////////////////////////////
-// FRAMEWORK_DA
-// Author: David Noguera Gutierrez
-// License: GPL
-// Date: 2010-09-18
-// Please don't remove these lines
-///////////////////////////////////////////////////////////////////////////////////
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-function ini_page_header ($ini_conf) {
-?>	
-		<script language="JavaScript" src="<?php echo getAsset("na_areas");?>js/admin-area-form.js"></script>
-		<script language="javascript" type="text/javascript">
-			$(document).ready(function(){
-				$(".area-detalle").wrapInner("<div class='area-detalle-out' />");
-			});
-		</script> 
 
-<?php }
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$session = new session();
-	$perfiles_autorizados = array("admin");
-	$session->AccessLevel($perfiles_autorizados);
-	$na_areas = new na_areas();
+addJavascripts(array(getAsset("na_areas")."js/admin-area-form.js"));
 
-	$id_area=$_REQUEST['a'];
-	$id_tarea=$_REQUEST['id'];
+//CONTROL NIVEL DE ACCESO
+$session = new session();
+$perfiles_autorizados = array("admin");
+$session->AccessLevel($perfiles_autorizados);
+$na_areas = new na_areas();
 
-	//OBTENER DATOS DE LA TAREA
-	$tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
+$id_area=$_REQUEST['a'];
+$id_tarea=$_REQUEST['id'];
 
-	
-	echo '<div class="row row-top">';
-	echo '  <div class="col-md-9">';
-	echo '<h1>Formulario</h1>';
-	echo 'Tarea: '.$tarea[0]['tarea_titulo'].' | ';
-	echo '<a href="?page=admin-area&act=edit&id='.$id_area.'" class="comunidad-color">Volver a la gestión del curso</a>';
+//OBTENER DATOS DE LA TAREA
+$tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
+?>
 
-	
-	//ELIMINAR PREGUNTA
-	if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $na_areas->deletePregunta($_REQUEST['idp']);}
+<div class="row row-top">
+	<div class="col-md-9">
+		<h1>Formulario</h1>
+		Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
+		<a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>" class="comunidad-color">Volver a la gestión del curso</a>
 
-	//INSERTAR PREGUNTA
-	if (isset($_REQUEST['act']) and $_REQUEST['act']=='new') { 
-		if (trim($_POST['pregunta_texto'])){
-			$na_areas->insertPregunta($id_tarea,$_POST['pregunta_texto'],$_POST['pregunta_tipo']);
-			$id_pregunta=$na_areas->SelectMaxReg("id_pregunta","na_tareas_preguntas","");
-			
-			if ($_POST['pregunta_tipo']!='texto'){
-				//INSERTAR PREGUNTA-RESPUESTA
-				$num_repuestas=$_POST['contador-respuestas'];
-				for ($i=1; $i <=$num_repuestas; $i++) { 
-					$campo_respuesta="respuesta".$i;
-					$valor = trim($_POST[$campo_respuesta]);
-					$valor = str_replace("'", "´", $valor);
-					$valor = str_replace('"', '´', $valor);
-					if ($valor!=""){$na_areas->insertPreguntaRespuesta($id_pregunta,$valor);}
+		<?php
+		//ELIMINAR PREGUNTA
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $na_areas->deletePregunta($_REQUEST['idp']);}
+
+		//INSERTAR PREGUNTA
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='new') { 
+			if (trim($_POST['pregunta_texto'])){
+				$na_areas->insertPregunta($id_tarea,$_POST['pregunta_texto'],$_POST['pregunta_tipo']);
+				$id_pregunta=$na_areas->SelectMaxReg("id_pregunta","na_tareas_preguntas","");
+				
+				if ($_POST['pregunta_tipo']!='texto'){
+					//INSERTAR PREGUNTA-RESPUESTA
+					$num_repuestas=$_POST['contador-respuestas'];
+					for ($i=1; $i <=$num_repuestas; $i++) { 
+						$campo_respuesta="respuesta".$i;
+						$valor = trim($_POST[$campo_respuesta]);
+						$valor = str_replace("'", "´", $valor);
+						$valor = str_replace('"', '´', $valor);
+						if ($valor!=""){$na_areas->insertPreguntaRespuesta($id_pregunta,$valor);}
+					}
 				}
 			}
 		}
-	}
 
-	if (count($tarea)==1 and $tarea[0]['tipo']=='formulario'){FormularioTarea($id_tarea,$id_area,$tarea);}
-	else{ErrorMsg("Error al cargar el formulario la tarea");} ?>
-
-		</div>
-		<?php menu::adminMenu();?>
+		if (count($tarea)==1 and $tarea[0]['tipo']=='formulario'){FormularioTarea($id_tarea,$id_area,$tarea);}
+		else{ErrorMsg("Error al cargar el formulario la tarea");} ?>
 	</div>
-	<?php 
-}
+	<?php menu::adminMenu();?>
+</div>
+
+
+<?php 
 
 function FormularioTarea($id_tarea,$id_area,$tarea){
 		$na_areas = new na_areas();
@@ -131,6 +116,5 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 		</table>
 		</form>
 		</div>';
-
 }
 ?>

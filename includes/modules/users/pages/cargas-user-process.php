@@ -3,49 +3,46 @@ set_time_limit(0);
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) { }
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$session = new session();
-	$perfiles_autorizados = array("admin");
-	$session->AccessLevel($perfiles_autorizados);?>
+//CONTROL NIVEL DE ACCESO
+$session = new session();
+$perfiles_autorizados = array("admin");
+$session->AccessLevel($perfiles_autorizados);?>
 
-	<div class="row  row-top">
-		<div class="col-md-9">
-		<h1>Carga de usuarios</h1>
-		<?php if (isset($_FILES['nombre-fichero']['name'])) {
-			$fichero=$_FILES['nombre-fichero'];
-			//SUBIR FICHERO		
-			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo=NormalizeText($nombre_archivo);
-			$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
-			$tamano_archivo = $fichero['size'];
-			//compruebo si las características del archivo son las que deseo
-			if ($tipo_archivo!="XLS") {
-				ErrorMsg("La extensión no es correcta.".$tipo_archivo);
-			}else{
-				if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
-					//BORRAR FICHEROS ANTIGUOS
-					//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
-					
-					require_once 'docs/reader.php';
-					$data = new Spreadsheet_Excel_Reader();
-					$data->setOutputEncoding('CP1251');
-					$data->read('docs/cargas/'.$nombre_archivo);
-					
-					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
-					volcarMySQL($data);				   
-				}else{ return "Ocurrió alg&uacute;n error al subir el fichero. No pudo guardarse.";} 
-			}
-		}?>
-		</div>
-		<?php menu::adminMenu();?>
+<div class="row  row-top">
+	<div class="col-md-9">
+	<h1>Carga de usuarios</h1>
+	<?php if (isset($_FILES['nombre-fichero']['name'])) {
+		$fichero=$_FILES['nombre-fichero'];
+		//SUBIR FICHERO		
+		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
+		$nombre_archivo=NormalizeText($nombre_archivo);
+		$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
+		$tamano_archivo = $fichero['size'];
+		//compruebo si las características del archivo son las que deseo
+		if ($tipo_archivo!="XLS") {
+			ErrorMsg("La extensión no es correcta.".$tipo_archivo);
+		}else{
+			if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
+				//BORRAR FICHEROS ANTIGUOS
+				//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
+				
+				require_once 'docs/reader.php';
+				$data = new Spreadsheet_Excel_Reader();
+				$data->setOutputEncoding('CP1251');
+				$data->read('docs/cargas/'.$nombre_archivo);
+				
+				/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
+				volcarMySQL($data);				   
+			}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
+		}
+	}?>
 	</div>
+	<?php menu::adminMenu();?>
+</div>
+
+
 <?php
-}
-///////////////////////////////////////////////////////////////////////////////////
-// PAGE FUNCTIONS
-///////////////////////////////////////////////////////////////////////////////////
+
 function volcarMySQL($data) {	
 	$users = new users();
 	$contador=0;

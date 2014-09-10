@@ -2,22 +2,19 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="js/libs/ckfinder/ckfinder.js"></script>
-	<script type="text/javascript" src="<?php echo getAsset("mailing");?>js/admin-template.js"></script>
-<?php
-}
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$perfiles_autorizados = array("admin");
-	session::AccessLevel($perfiles_autorizados);
+addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
+					 "js/libs/ckfinder/ckfinder.js", 
+					 "js/bootstrap.file-input.js"
+					 getAsset("mailing")."js/admin-template.js"));
 
-	session::getFlashMessage( 'actions_message' ); 
-	mailingTemplatesController::createAction();
-	mailingTemplatesController::updateAction();
-	$plantilla = mailingTemplatesController::getItemAction();	
+//CONTROL NIVEL DE ACCESO
+$perfiles_autorizados = array("admin");
+session::AccessLevel($perfiles_autorizados);
+
+session::getFlashMessage( 'actions_message' ); 
+mailingTemplatesController::createAction();
+mailingTemplatesController::updateAction();
+$plantilla = mailingTemplatesController::getItemAction();	
 
 ?>
 	<div class="row row-top">	
@@ -75,6 +72,3 @@ function ini_page_body ($ini_conf){
 		</div>
 		<?php menu::adminMenu();?>
 	</div>
-<?php 
-}
-?>

@@ -2,27 +2,21 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-	<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
-	<!-- Bootstrap input file -->
-	<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
-		<script type="text/javascript">
-		 jQuery(document).ready(function(){
-			 $('input[type=file]').bootstrapFileInput();
-		});
-	</script>
-<?php }
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$session = new session();
-	$perfiles_autorizados = array("admin");
-	$session->AccessLevel($perfiles_autorizados);
-	
-	$accion= isset($_GET['act']) ? $_GET['act'] : 0;
-	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData();}
-	
-	$premios = new premios();
-	$elements=$premios->getPremios(); 	
+
+addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
+					 "js/bootstrap.file-input.js", 
+					 getAsset("premios")."js/admin-premios.js"));
+
+//CONTROL NIVEL DE ACCESO
+$session = new session();
+$perfiles_autorizados = array("admin");
+$session->AccessLevel($perfiles_autorizados);
+
+$accion= isset($_GET['act']) ? $_GET['act'] : 0;
+if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData();}
+
+$premios = new premios();
+$elements=$premios->getPremios(); 	
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
@@ -69,8 +63,9 @@ function ini_page_body ($ini_conf){
 	</div>
 	<?php menu::adminMenu();?>
 </div>
+
+
 <?php 
-}
 
 function UpdateData() {
 	$premios = new premios();

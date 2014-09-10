@@ -2,51 +2,47 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) { ?>
-	<LINK rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css" />
-	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-	<script type="text/javascript" src="js/bootstrap-datepicker.es.js"></script>
-	<script language="JavaScript" src="<?php echo getAsset("users");?>js/user-confirm.js"></script>  
-<?php
-}
-function ini_page_body ($ini_conf){  
-	?>
-	<div id="confirm-container" class="row">			
-		<div class="col-md-6">
-			<img src="images/logo01.png" class="responsive login-img" />
-		</div>
-		<div class="col-md-6" style="border-left:1px solid #a1569d">
-			<h2><?php echo strTranslate("Confirmation");?></h2>
-	<?php
-	//CONFIRMAR USUARIO
-	if (isset($_POST['user-username']) and $_POST['user-username']!=""){
-		$users = new users();
-		$confirmar=$users->confirmUser($_POST['user-username'],
-									   $_POST['user-nick'],
-									   $_POST['user-nombre'],
-									   $_POST['user-apellidos'],
-									   $_POST['user-pass'],
-									   $_POST['user-email'],
-									   $_FILES['nombre-fichero'],
-									   $_POST['user-piensas'],
-									   $_POST['user-date']);
-		if ($confirmar==1){
-			echo '<p>'.strTranslate("Confirmation_message").' <a href="?page=login" class="comunidad-color">'.strTranslate("Click_here").'</a>.</p>';	
-			echo '</div>';
+addCss(array("css/bootstrap-datetimepicker.min.css"));
+addJavascripts(array("js/bootstrap-datepicker.js", 
+					 "js/bootstrap-datepicker.es.js",
+					 "js/bootstrap.file-input.js",
+					 getAsset("users")."js/user-confirm.js"));
+
+?>
+<div id="confirm-container" class="row">			
+	<div class="col-md-6">
+		<img src="images/logo01.png" class="responsive login-img" />
+	</div>
+	<div class="col-md-6" style="border-left:1px solid #a1569d">
+		<h2><?php echo strTranslate("Confirmation");?></h2>
+		<?php
+		//CONFIRMAR USUARIO
+		if (isset($_POST['user-username']) and $_POST['user-username']!=""){
+			$users = new users();
+			$confirmar=$users->confirmUser($_POST['user-username'],
+										   $_POST['user-nick'],
+										   $_POST['user-nombre'],
+										   $_POST['user-apellidos'],
+										   $_POST['user-pass'],
+										   $_POST['user-email'],
+										   $_FILES['nombre-fichero'],
+										   $_POST['user-piensas'],
+										   $_POST['user-date']);
+			if ($confirmar==1){
+				echo '<p>'.strTranslate("Confirmation_message").' <a href="?page=login" class="comunidad-color">'.strTranslate("Click_here").'</a>.</p>';	
+				echo '</div>';
+			}
+			elseif ($confirmar==2) {
+				ErrorMsg('<p>'.strTranslate("Error_procesing").'.</p>');
+				ShowForm();
+			}
+			elseif ($confirmar==3) {
+				ErrorMsg('<p>'.strTranslate("Nick").' <b>'.$_POST['user-nick'].'</b> '.strTranslate("Already_exist").'.</p>');
+				ShowForm();
+			}	
 		}
-		elseif ($confirmar==2) {
-			ErrorMsg('<p>'.strTranslate("Error_procesing").'.</p>');
-			ShowForm();
-		}
-		elseif ($confirmar==3) {
-			ErrorMsg('<p>'.strTranslate("Nick").' <b>'.$_POST['user-nick'].'</b> '.strTranslate("Already_exist").'.</p>');
-			ShowForm();
-		}	
-	}
-	else {ShowForm();}
+		else {ShowForm();}
   
-}
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PAGE FUNCTIONS

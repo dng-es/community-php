@@ -5,28 +5,23 @@ infotopdfController::getHTMLtoPDF();
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-<script language="JavaScript" src="js/jquery.numeric.js"></script>
-<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="js/bootstrap-datepicker.es.js"></script>
-<script language="JavaScript" src="<?php echo getAsset("infotopdf");?>js/user-infotopdf.js"></script>
-<?php }
-function ini_page_body ($ini_conf){
-
+addJavascripts(array("js/jquery.numeric.js", 
+					 "js/bootstrap-datepicker.js",
+					 "js/bootstrap-datepicker.es.js", 
+					 getAsset("infotopdf")."js/user-infotopdf.js"));
 	
-  	$elements = infotopdfController::getItemAction($_GET['id']);
-	$nombre_archivo = $elements[0]['file_info'];
-	$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
-	$nombre_sinext=substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
-	$nombre_miniatura = "mini".$nombre_sinext.".jpeg";
-	$direccion='';
-	$cod_postal='';
-	$poblacion='';
-	$provincia='';
-	$telefono='';
-	$web='';
-	$email = '';
-
+$elements = infotopdfController::getItemAction($_GET['id']);
+$nombre_archivo = $elements[0]['file_info'];
+$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
+$nombre_sinext=substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
+$nombre_miniatura = "mini".$nombre_sinext.".jpeg";
+$direccion='';
+$cod_postal='';
+$poblacion='';
+$provincia='';
+$telefono='';
+$web='';
+$email = '';
 
 ?>
   <div id="page-info">Gestión de documentos</div>
@@ -105,6 +100,3 @@ function ini_page_body ($ini_conf){
 		</div>
 	</div>
 </div>
-<?php 
-}
-?>

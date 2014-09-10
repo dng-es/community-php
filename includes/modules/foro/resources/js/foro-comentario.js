@@ -1,5 +1,14 @@
 // JavaScript Document
+$(function(){
+		BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
+})
+
 jQuery(document).ready(function(){
+
+	$(".jtextareaComentar").jtextarea({maxSizeElement: 600,
+	 cssElement: { display: "inline-block",color: "#666666",background: "transparent"}});	
+
+
 	$(".comment-info .label").tooltip({placement:"bottom"});
 	
 	$("#coment-form").submit(function(evento){

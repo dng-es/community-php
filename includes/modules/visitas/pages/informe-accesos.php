@@ -20,7 +20,12 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 						 'admin-messages','admin-message-proccess','admin-message-proccess-step1',
 						 'admin-areas','admin-area-revs','admin-area-form','admin-area-docs','admin-config','admin-page', 'admin-puntos','admin-mystery'";
 
-function ini_page_header ($ini_conf) { 
+addJavascripts(array("js/bootstrap-datepicker.js", 
+					 "js/bootstrap-datepicker.es.js", 
+					 "js/libs/amcharts/amcharts.js"));
+
+
+
 	global $total1,$total2,$total3,$media1,$media2,$media3,$pagina_excluidas;
 
 	if (isset($_POST['generate-stats']) and !isset($_POST['export-stats'])):
@@ -104,9 +109,7 @@ function ini_page_header ($ini_conf) {
 	$informe5 = $output;
 
 ?>
- 		<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-  		<script type="text/javascript" src="js/bootstrap-datepicker.es.js"></script>
-		<script type="text/javascript" src="js/libs/amcharts/amcharts.js" ></script> 
+
 		<script type="text/javascript">
 			jQuery(document).ready(function(){
 				
@@ -422,8 +425,7 @@ function ini_page_header ($ini_conf) {
 			});
 		</script>        
 <?php
-}
-function ini_page_body ($ini_conf){
+
   
 	global $total1,$total2,$total3,$media1,$media2,$media3;
 
@@ -514,26 +516,23 @@ function ini_page_body ($ini_conf){
 			<div id="loading3" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i>></div>
 		</div>';?>
 
-		<div class="">
-			<div class="" style="width:100%">
-				<h2>Visitas por navegador</h2>
-				<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-				<div id="chartdiv4" class="access-stats">
-					<div id="loading4" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-				</div> 
-			</div>
-			<div class="" style="width:100%">
-				<h2>Visitas por plataforma (SO).</h2>
-				<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-				<div id="chartdiv5" class="access-stats">
-					<div id="loading5" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-				</div>
-			</div>
-		</div>	
+	<div class="">
+		<div class="" style="width:100%">
+			<h2>Visitas por navegador</h2>
+			<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
+			<div id="chartdiv4" class="access-stats">
+				<div id="loading4" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+			</div> 
 		</div>
+		<div class="" style="width:100%">
+			<h2>Visitas por plataforma (SO).</h2>
+			<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
+			<div id="chartdiv5" class="access-stats">
+				<div id="loading5" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+			</div>
 		</div>
-		<?php menu::adminMenu();?>
+	</div>	
 	</div>
-	<?php
-}
-?>
+	</div>
+	<?php menu::adminMenu();?>
+</div>

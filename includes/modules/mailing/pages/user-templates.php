@@ -3,18 +3,14 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
+$elements = mailingTemplatesController::getListAction(6, "activos");
 
-<?php }
-function ini_page_body ($ini_conf){
-	$elements = mailingTemplatesController::getListAction(6, "activos");
-
-	?>
-	<div class="row inset row-top">
-	  	<div class="col-md-12"> 
-	  		<h2>Plantillas de comunicaciones</h2>
-        	<p>Total <b><?php echo $elements['total_reg'];?></b> plantillas</p>
-        	<div class="row">
+?>
+<div class="row inset row-top">
+  	<div class="col-md-12"> 
+  		<h2>Plantillas de comunicaciones</h2>
+    	<p>Total <b><?php echo $elements['total_reg'];?></b> plantillas</p>
+    	<div class="row">
 			<?php 
 			$columna = 1;
 			foreach($elements['items'] as $element): 
@@ -29,15 +25,11 @@ function ini_page_body ($ini_conf){
 				</div>
 			<?php 
 				if ($columna == 3){echo '</div>';$columna=0;}
-         		$columna++;
+	     		$columna++;
 			endforeach;
 			if ($columna == 2){echo '</div>';}
 			?>
-			</div>
-			<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		</div>
+		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
-	</div>
-<?php
-}
-?>
+</div>

@@ -1,4 +1,8 @@
 // JavaScript Document
+$(function(){
+    BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
+})
+
 jQuery(document).ready(function(){	
 	$("#mensaje-new-trigger").click(function(e){
 		e.preventDefault();

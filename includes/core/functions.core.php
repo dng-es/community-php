@@ -170,4 +170,22 @@ function getTranlationStr($path,$str){
 	}
 	return $str;
 }
+
+/**
+ * Add JS files to header page
+ * @param array $scripts Files to be added
+ */
+function addJavascripts($scripts){
+	global $scripts_js;
+	$scripts_js = $scripts;
+}
+
+/**
+ * Add CSS files to header page
+ * @param array $scripts Files to be added
+ */
+function addCss($scripts){
+	global $scripts_css;
+	$scripts_css = $scripts;
+}
 ?>

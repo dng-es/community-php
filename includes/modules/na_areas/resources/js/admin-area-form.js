@@ -1,6 +1,7 @@
 jQuery(document).ready(function(){	
-	$("#ver-formulario").button({icons: {primary: "ui-icon-extlink"}});
-	$("#SubmitData").button({icons: {primary: "ui-icon-disk"}}).click(function(evento){  
+	$(".area-detalle").wrapInner("<div class='area-detalle-out' />");
+
+	$("#SubmitData").click(function(evento){  
 	   $(".alert-message").html("").css("display","none");	   	      
 	   var form_ok=true;   
 		if (jQuery.trim($("#pregunta_texto").val())=="") 

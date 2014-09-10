@@ -2,17 +2,8 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) { ?>
-<script src="js/jquery.jtextarea.js"></script>
-<script>
-	$(document).ready(function(){
-	   $(".jtextarea").jtextarea({maxSizeElement: 1000,
-		 cssElement: { display: "inline-block",color: "#FF6600",background: "#fff"}});	
-	})
-</script>
-<script src="<?php echo getAsset("core");?>js/contact-free.js?v=2"></script>
-<?php }
-function ini_page_body ($ini_conf){
+addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact-free.js"));
+
 $mensaje='';
 if (isset($_POST['subject_form'])) {
 	//Enviar correo
@@ -43,6 +34,3 @@ if (isset($_POST['subject_form'])) {
 		<div class="message-form" id="message-form-body"><?php echo strTranslate('Introduce_your_message');?></div>
 		<br /><button type="submit" value="" class="btn btn-primary" id="EnviarForm"><?php echo strTranslate("Send");?></button>
 	</form>
-<?php
-}
-?>

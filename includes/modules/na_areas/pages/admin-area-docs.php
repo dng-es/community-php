@@ -1,57 +1,46 @@
 <?php
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-function ini_page_header ($ini_conf) {
-?>	
-	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-	<script language="JavaScript" src="<?php echo getAsset("na_areas");?>js/admin-area-docs.js"></script>
-	<script language="javascript" type="text/javascript">
-		$(document).ready(function(){
-			$('input[type=file]').bootstrapFileInput();
-		});
-	</script> 
-<?php }
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$session = new session();
-	$perfiles_autorizados = array("admin");
-	$session->AccessLevel($perfiles_autorizados);
-	$na_areas = new na_areas();
 
-	$id_area=$_REQUEST['a'];
-	$id_tarea=$_REQUEST['id'];
+addJavascripts(array("js/bootstrap.file-input.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
-	?>
+//CONTROL NIVEL DE ACCESO
+$session = new session();
+$perfiles_autorizados = array("admin");
+$session->AccessLevel($perfiles_autorizados);
+$na_areas = new na_areas();
 
-	
-	<div class="row row-top">
-		<div class="col-md-9">
+$id_area=$_REQUEST['a'];
+$id_tarea=$_REQUEST['id'];
+?>
+
+<div class="row row-top">
+	<div class="col-md-9">
 		
+		<?php
+		session::getFlashMessage( 'actions_message' );
 
-	<?php
-	session::getFlashMessage( 'actions_message' );
+		//insertar documento
+		if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){ 
+			$mensaje = $na_areas->insertTareaDoc($id_tarea,$_POST['tipo'],$_POST['nombre-documento'],$_FILES['nombre-fichero'],$_POST['documento-link']);
+			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-warning"); 
+			redirectURL($_SERVER['REQUEST_URI']);
+		}        
 
-	//insertar documento
-	if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){ 
-		$mensaje = $na_areas->insertTareaDoc($id_tarea,$_POST['tipo'],$_POST['nombre-documento'],$_FILES['nombre-fichero'],$_POST['documento-link']);
-		session::setFlashMessage( 'actions_message', $mensaje, "alert alert-warning"); 
-		redirectURL($_SERVER['REQUEST_URI']);
-	}        
-
-	//eliminar documento
-	if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { 
-		if($na_areas->deleteTareaDoc($_REQUEST['idd'])){
-			session::setFlashMessage( 'actions_message', "Documento eliminado correctamente.", "alert alert-success"); 
+		//eliminar documento
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { 
+			if($na_areas->deleteTareaDoc($_REQUEST['idd'])){
+				session::setFlashMessage( 'actions_message', "Documento eliminado correctamente.", "alert alert-success"); 
+			}
+			else {
+				session::setFlashMessage( 'actions_message', "Error al eliminar el documento.", "alert alert-danger"); 
+			}
+			redirectURL("?page=admin-area-docs&a=".$id_area."&id=".$id_tarea);
 		}
-		else {
-			session::setFlashMessage( 'actions_message', "Error al eliminar el documento.", "alert alert-danger"); 
-		}
-		redirectURL("?page=admin-area-docs&a=".$id_area."&id=".$id_tarea);
-	}
 
-	//OBTENER DATOS DE LA TAREA
-	$tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
-	$elements=$na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");?>
+		//OBTENER DATOS DE LA TAREA
+		$tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
+		$elements=$na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");?>
 
 		<h1>Documentacion de la tarea</h1>
 		<p><b>Tarea</b>: <?php echo $tarea[0]['tarea_titulo'];?>. <a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver a la gestión del curso</a></p> 
@@ -110,7 +99,4 @@ function ini_page_body ($ini_conf){
   
 	</div>
 	<?php menu::adminMenu();?>
-	</div>
-<?php 
-}
-?>
+</div>

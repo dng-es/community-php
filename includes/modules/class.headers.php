@@ -7,7 +7,7 @@ class headers{
 	* @param 	string 		$Key_Words 		Metatag Keywords
 	*/
 	public static function PageHeader($Subject,$Key_Words){
-		global $ini_conf;
+		global $ini_conf, $scripts_js, $scripts_css;
 		?>
 
 
@@ -37,6 +37,19 @@ class headers{
 			  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
 			<![endif]-->
 	<?php
+		//incluir css de la página actual
+		if (isset($scripts_css)){
+			foreach($scripts_css as $script_css):
+				echo '<link href="'.$script_css.'" rel="stylesheet"> ';
+			endforeach;
+		}
+
+		//incluir js de la página actual
+		if (isset($scripts_js)){
+			foreach($scripts_js as $script_js):
+				echo '<script type="text/javascript" src="'.$script_js.'"></script>';
+			endforeach;
+		}
 	}
 
 	/**

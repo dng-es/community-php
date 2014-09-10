@@ -2,28 +2,25 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-<script type="text/javascript" src="js/libs/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="js/libs/ckfinder/ckfinder.js"></script>
-<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-<script type="text/javascript" src="<?php echo getAsset("infotopdf");?>js/admin-infotopdf-doc.js"></script>
-<?php }
-function ini_page_body ($ini_conf){
-	//CONTROL NIVEL DE ACCESO
-	$perfiles_autorizados = array("admin");
-	session::AccessLevel($perfiles_autorizados);
-
-	$accion=$_GET['act'];
-	$id ='';
-	if ($accion=='edit'){ $id=$_GET['id'];}
-	if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData($id);}
-	if ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}  
+addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
+					 "js/libs/ckfinder/ckfinder.js",
+					 "js/bootstrap.file-input.js", 
+					 getAsset("infotopdf")."js/admin-infotopdf-doc.js"));
 
 
-	$info = new infotopdf();
-	$campaigns = new campaigns();
- 
-	$elements=infotopdfController::getItem();;
+//CONTROL NIVEL DE ACCESO
+$perfiles_autorizados = array("admin");
+session::AccessLevel($perfiles_autorizados);
+
+$accion=$_GET['act'];
+$id ='';
+if ($accion=='edit'){ $id=$_GET['id'];}
+if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData($id);}
+if ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}  
+
+$info = new infotopdf();
+$campaigns = new campaigns();
+$elements=infotopdfController::getItem();
  
 ?>
 <div class="row row-top">
@@ -96,30 +93,28 @@ function ini_page_body ($ini_conf){
 	</div>
 	<?php menu::adminMenu();?>
 </div>
+
+
+
 <?php 
-}
-  
 
-function insertData()
-{
+function insertData(){
 	$info = new infotopdf();
-  $resultado=$info->insertInfo($_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info']);
+	$resultado=$info->insertInfo($_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info']);
 	if ($resultado=="") {
-	OkMsg('Registro insertado correctamente.');
-	$id=$info->SelectMaxReg("id_info","infotopdf","");
-	return $id;
-  }
-  else{ErrorMsg($resultado);}
+		OkMsg('Registro insertado correctamente.');
+		$id=$info->SelectMaxReg("id_info","infotopdf","");
+		return $id;
+	}
+	else{ErrorMsg($resultado);}
 }
 
-function UpdateData($id)
-{
-  $info = new infotopdf();
-  if ($info->updateInfo($id,$_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info'])) {
-	OkMsg('Registro modificado correctamente.');}
-  else
-  {
-	ErrorMsg('Error al modificar el documento.');
-  }
+function UpdateData($id){
+	$info = new infotopdf();
+	if ($info->updateInfo($id,$_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info'])) {
+		OkMsg('Registro modificado correctamente.');}
+	else{
+		ErrorMsg('Error al modificar el documento.');
+	}
 }
 ?>

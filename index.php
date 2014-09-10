@@ -11,7 +11,10 @@ else{
 	session::validateUserSession();
 
 	//MOSTRAR PAGINA SOLICITADA. SI NO SE ENCUENTRA SE MUESTRA LA PAGINA 404
+	ob_start();
 	include_once(pageRouter($page.".php"));
+	$output = ob_get_contents();
+	ob_end_clean();
 
 	//SELECCION METATAGS
 	if (!isset($Key_Words)){ $Key_Words=$ini_conf['SiteKeywords'];}         
@@ -19,10 +22,11 @@ else{
 
 	//PAGE HEADERS
 	headers::PageHeader(SUBJECT_META_PAGE,KEYWORDS_META_PAGE);
-	ini_page_header ($ini_conf);
+	
 	//PAGE BODY
 	headers::PageBody($ini_conf,$page);		
-	ini_page_body ($ini_conf);
+	echo $output;
+	
 	//PAGE FOOTER
 	footer::PageFooter();
 }

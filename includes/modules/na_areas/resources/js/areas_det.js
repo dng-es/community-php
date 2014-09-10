@@ -1,4 +1,10 @@
 jQuery(document).ready(function(){
+	$('input[type=file]').bootstrapFileInput();
+
+	$(".ui-find-button").click(function(){
+		$("#form-search-foro").submit();
+	});
+
 	$(".trigger-tarea").click(function(event) {
 		var elem = $(this).next(".form-tareas");
 		elem.slideToggle();

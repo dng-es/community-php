@@ -2,27 +2,26 @@
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
-function ini_page_header ($ini_conf) {?>
-	<script language="JavaScript" src="<?php echo getAsset("mensajes");?>js/mensajes.js"></script>      
-<?php }
-function ini_page_body ($ini_conf){ 
-  
-	echo '<div id="page-info">Tus mensajes</div>';
-	echo '<div class="row inset row-top">';
-	echo '  <div class="col-md-11">';  
-	echo '	<p>Contacta con uno de tus compañeros de la comunidad, es tan sencillo como poner su Alias, escribir el mensaje y enviárselo.</p>';
+addJavascripts(array(getAsset("mensajes")."js/mensajes.js"));
 
-	session::getFlashMessage( 'actions_message' );
-	$mensajes = new mensajes();
+?>  
+<div id="page-info">Tus mensajes</div>
+<div class="row inset row-top">
+	<div class="col-md-11">
+		<p>Contacta con uno de tus compañeros de la comunidad, es tan sencillo como poner su Alias, escribir el mensaje y enviárselo.</p>
 
-  //VARIABLES DE INICIO DEL MENSAJE
-  if ($_REQUEST['act']=='resp'){
-	  //DATOS DEL MENSAJE ORIGINAL
-	  $mensaje = $mensajes->getMensajes(" AND id_mensaje=".$_REQUEST['id']." ");
-	  if ($mensaje[0]['user_destinatario']==$_SESSION['user_name']){
-	  $asunto_resp="RE: ".$mensaje[0]['asunto_mensaje'];
-	  $nick_resp=$mensaje[0]['nick'];
-	  $cuerpo_resp='
+		<?php
+		session::getFlashMessage( 'actions_message' );
+		$mensajes = new mensajes();
+
+		//VARIABLES DE INICIO DEL MENSAJE
+		if ($_REQUEST['act']=='resp'){
+			//DATOS DEL MENSAJE ORIGINAL
+			$mensaje = $mensajes->getMensajes(" AND id_mensaje=".$_REQUEST['id']." ");
+			if ($mensaje[0]['user_destinatario']==$_SESSION['user_name']){
+				$asunto_resp="RE: ".$mensaje[0]['asunto_mensaje'];
+				$nick_resp=$mensaje[0]['nick'];
+				$cuerpo_resp='
 
 
 -------------------------------------
@@ -37,22 +36,23 @@ $nick_resp.' escribió:
 			});
 		  </script>';
   }
-  else {
-	  $asunto_resp=$_POST['asunto-comentario'];
-	  $nick_resp=$_POST['nick-comentario'];	  
-	  $cuerpo_resp=$_POST['texto-comentario'];
-  } 
-  if (isset($_REQUEST['n']) and $_REQUEST['n']!=""){
-  	$nick_resp=$_REQUEST['n'];
-	echo '<script>
-		$(document).ready(function(){
-			$("#mensaje-new").slideDown();	
-		});
-	  </script>';
-  } 
+			else {
+			  $asunto_resp=$_POST['asunto-comentario'];
+			  $nick_resp=$_POST['nick-comentario'];	  
+			  $cuerpo_resp=$_POST['texto-comentario'];
+			} 
+			
+			if (isset($_REQUEST['n']) and $_REQUEST['n']!=""){
+				$nick_resp=$_REQUEST['n'];
+			echo '<script>
+				$(document).ready(function(){
+					$("#mensaje-new").slideDown();	
+				});
+			  </script>';
+			} 
   
-  //INSERTAR COMENTARIO-MENSAJE
-  if (isset($_POST['texto-comentario']) and $_POST['texto-comentario']!=""){
+	//INSERTAR COMENTARIO-MENSAJE
+	if (isset($_POST['texto-comentario']) and $_POST['texto-comentario']!=""){
 	$insercion_comentario = $mensajes->InsertMensaje($_SESSION['user_nick'],
 														 $_SESSION['user_name'],
 														 $_SESSION['user_mail'],
@@ -106,7 +106,7 @@ $nick_resp.' escribió:
   		</div>';
   	echo '</div>
 		</div>';
-}
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PAGE FUNCTIONS

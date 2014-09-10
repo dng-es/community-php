@@ -7,46 +7,37 @@ templateload("paginator","foro");
 templateload("addforo","foro");
 templateload("player","videos");
 
-function ini_page_header ($ini_conf) {?>
-	<script type="text/javascript" src="js/libs/jwplayer/jwplayer.js"></script>
-	<script language="JavaScript" src="<?php echo getAsset("na_areas");?>js/areas_det.js"></script>
-	<script language="JavaScript" src="js/bootstrap.file-input.js"></script>
-    <script language="javascript" type="text/javascript">
-    	$(document).ready(function(){		
-    		$('input[type=file]').bootstrapFileInput();
 
-    		$(".ui-find-button").click(function(){
-    			$("#form-search-foro").submit();
-    		});
-    	});
-	 </script> 
-<?php }
-function ini_page_body ($ini_conf){
-  $foro = new foro();
-  $na_areas = new na_areas();
+addJavascripts(array("js/libs/jwplayer/jwplayer.js", 
+					 "js/bootstrap.file-input.js", 
+					 getAsset("na_areas")."js/areas_det.js"));
 
 
-  if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
-	  $id_area = $_REQUEST['id'];
+$foro = new foro();
+$na_areas = new na_areas();
 
-	  //VERIFICAR ACCESO AL FORO
-	  $acceso=1;
-	  if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
-		  	$acceso=$foro->countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
-	  }
-	  if($acceso==1){
-		  
-		$filtro=" AND id_area=".$id_area." AND id_tema_parent=0 AND activo=1 ";
 
-		//OBTENCION DE LOS DATOS DEL FORO PRINCIPAL
-		if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
-		$temas = $foro->getTemas($filtro);
+if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
+	$id_area = $_REQUEST['id'];
 
-		//OBTENCION DE LOS DATOS DEL AREA
-		$area = $na_areas->getAreas(" AND id_area=".$id_area);
+	//VERIFICAR ACCESO AL FORO
+	$acceso=1;
+	if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
+		$acceso=$foro->countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
+	}
+  	if($acceso==1){
+	  
+	$filtro=" AND id_area=".$id_area." AND id_tema_parent=0 AND activo=1 ";
 
-		if (count($temas)>0){
-			$id_tema_parent = $temas[0]['id_tema'];
+	//OBTENCION DE LOS DATOS DEL FORO PRINCIPAL
+	if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
+	$temas = $foro->getTemas($filtro);
+
+	//OBTENCION DE LOS DATOS DEL AREA
+	$area = $na_areas->getAreas(" AND id_area=".$id_area);
+
+	if (count($temas)>0){
+		$id_tema_parent = $temas[0]['id_tema'];
 
 		echo '<div id="page-info">Cursos de formación</div>';
 		echo '<div class="row row-top">';
@@ -103,11 +94,13 @@ function ini_page_body ($ini_conf){
 	else{
 	  	ErrorMsg("No tienes acceso a la seecion");
 	}
-  }
-  
-  
-  echo '</div>';
 }
+
+
+echo '</div>';
+
+
+
 function printTareas($id_area){
   $na_areas = new na_areas();
   $contador_tareas=0;
