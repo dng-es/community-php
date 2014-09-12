@@ -6,15 +6,18 @@
 //EXPORT CSV
 mailingController::exportMessageAction(" AND id_message IN (SELECT id_message FROM mailing_messages WHERE username_add='".$_SESSION['user_name']."') ");
 
+//EXPORT LINKS
+mailingController::exportLinksAction(" AND username_add='".$_SESSION['user_name']."' ");
+
 define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
 define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);   
 
 addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 
 ?>
-<div id="page-info">Envío de comunicaciones</div>
 <div class="row inset row-top">
 	<div class="col-md-8">
+		<h2>Envío de comunicaciones</h2>
 		<?php
 		$mailing = new mailing();
 		session::getFlashMessage( 'actions_message' );
@@ -31,7 +34,7 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 				<div><b>Lista:</b> <?php echo $elements[0]['message_lista'];?></div>
 				<div><b>Total mensajes:</b> <?php echo $elements[0]['total_messages'];?></div>
 				<br />
-				<div><b>Estado:</b> <span class="label <?php echo $elements[0]['message_status']=='pending' ? 'label-warning' : 'label-success';?>"><?php echo $elements[0]['message_status'];?></span></div>
+				<div><b>Estado:</b> <span class="label <?php echo $elements[0]['message_status']=='pending' ? 'label-warning' : ($elements[0]['message_status']=='cancelled' ? 'label-danger' : 'label-success');?>"><?php echo $elements[0]['message_status'];?></span></div>
 				<hr />
 				<?php if ($elements[0]['message_status']=='pending'):?>
 				<a href="#" class="btn btn-primary" id="proccess-message" data-id="<?php echo $elements[0]['id_message'];?>" data-estado="enabled" data-action="pending">Procesar envío del mensaje</a>
@@ -48,9 +51,10 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 							<br />Proceso en espera...
 						</div>
 					<?php else: ?>
-						<p class="alert alert-success">El mensaje ha sido enviado por completo</p>
+						<p class="alert alert-info">Envío del mensaje finalizado.</p>
 					<?php endif;?>
-					<p>Pincha <a href="?page=admin-message-proccess&exportm=true&id=<?php echo $id;?>">aquí</a> para descarga el informe del envío.</p>
+					<p><i class="fa fa-download"></i> Pincha <a href="?page=admin-message-proccess&exportm=true&id=<?php echo $id;?>">aquí</a> para descarga el informe del envío.</p>
+					<p><i class="fa fa-download"></i> Si el informe contenia enlaces puedes descargar el informe pinchando <a href="?page=admin-message-proccess&exp=links&id=<?php echo $id;?>">aquí</a>.</p>
 				<?php endif;?>
 			</div>
 		</div>

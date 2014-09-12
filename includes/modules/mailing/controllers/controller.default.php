@@ -321,6 +321,19 @@ class mailingController{
 		redirectURL($_SERVER['REQUEST_URI']);	
 	}
 
+	public static function cancelMessageAction($filtro = ""){	
+		if (isset($_REQUEST['del']) and $_REQUEST['del']==true) {
+			$mailing = new mailing();
+			if ($mailing->updateMessageField($_REQUEST['id'],'message_status',"'cancelled'", " AND username_add='".$_SESSION['user_name']."' ")){
+				session::setFlashMessage( 'actions_message', "Comunicación cancelada correctamente", "alert alert-success");
+			}
+			else{
+				session::setFlashMessage( 'actions_message', "Se ha producido un error cancelando la comunicación.", "alert alert-danger");
+			}
+			redirectURL("?page=user-messages");
+		} 
+	}	
+
 	public static function exportListAction($filtro = ""){	
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 			$mailing = new mailing();
@@ -335,7 +348,15 @@ class mailingController{
 			$elements = $mailing->getMessagesUsers($filtro." AND id_message=".$_REQUEST['id']);
 			exportCsv($elements,"mensajes");
 		}
-	}	
+	}
+
+	public static function exportLinksAction($filtro = ""){	
+		if (isset($_REQUEST['exp']) and $_REQUEST['exp']=='links') {
+			$mailing = new mailing();
+			$elements = $mailing->getMessageLinkUserExport($filtro." AND l.id_message=".$_REQUEST['id']);
+			exportCsv($elements,"mensajes");
+		}
+	}			
 
 	public static function createBlackAction(){
 		if (isset($_POST['email_black']) and $_POST['email_black']!='') {

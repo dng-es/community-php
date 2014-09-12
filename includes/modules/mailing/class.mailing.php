@@ -2,7 +2,7 @@
 /**
 * @Modulo para mailing masivo
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0
+* @version 1.2
 * 
 */	
 class mailing extends connection{
@@ -395,6 +395,20 @@ class mailing extends connection{
 			VALUES(".$id_link.",".$id_message.",'".$username."', '".$username_email."')";
 		return connection::execute_query($Sql);
 	}	
+
+	/**
+	 * links de los mensajes con formato para exportar
+	 * @param  	string 		$filter 				Filtro SQL
+	 * @return 	array 								Array con los templates
+	 */
+	public function getMessageLinkUserExport($filter = "") {
+		$Sql="SELECT l.username_email AS email, d.link_name AS name_link, d.url AS url_link, l.date_link AS date 
+			  FROM mailing_messages_links_users l 
+			  LEFT JOIN mailing_messages m ON m.id_message=l.id_message 
+			  LEFT JOIN mailing_messages_links d ON d.id_link=l.id_link
+			  WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql); 
+	}		
 
 	/**
 	 * links de los mensajes

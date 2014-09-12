@@ -879,8 +879,20 @@ label{font-weight:normal; color:$color1}
 /*Fin Imagenes en blanco y negro*/
 
 /*Tablas*/
-.icon-table{color:$color3;cursor: pointer}
-.icon-table:hover{color:$color1;}
+a.icon-table, span.icon-table{
+	color:$color3 !important;
+	cursor: pointer;
+
+	&:hover{
+		color:$color1 !important;
+	}
+
+	&[disabled]{
+		color: #999 !important;
+		cursor: auto;
+	}
+}
+
 table th {
 	background-color: $color1 !important;
 	color: #fff;

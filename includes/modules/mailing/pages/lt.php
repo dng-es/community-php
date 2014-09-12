@@ -41,5 +41,4 @@ if ( (isset($_GET["u"]) && $_GET["u"]!="") && (isset($_GET["l"]) && $_GET["l"]!=
 	header("Location: " . $link_data[0]['url']);
 	exit;
 }
-
 ?>
