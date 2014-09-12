@@ -4,7 +4,7 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
-					 "js/bootstrap.file-input.js"
+					 "js/bootstrap.file-input.js", 
 					 getAsset("mailing")."js/admin-template.js"));
 
 //CONTROL NIVEL DE ACCESO

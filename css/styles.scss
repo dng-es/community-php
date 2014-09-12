@@ -1254,6 +1254,19 @@ table th {
 	overflow-y: scroll;
 	padding:10px;
 }
+.message-preview{
+	border: 1px solid #f0f0f0;
+	margin: 20px 10%;
+	padding: 15px 0;
+	width:80%;
+
+	.message-preview-detail{
+		border-bottom: 1px solid #f0f0f0;
+		color: #666;
+		margin:0 0 10px 0;
+		padding: 0 0 10px 10px;
+	}
+}
 /*Fin mailing*/
 
 

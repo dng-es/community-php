@@ -40,13 +40,24 @@ class mailing extends connection{
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array         						Array con los mensajes
 	 */
+	public function getMessagesUsersSimple($filter = "") {
+		$Sql="SELECT * FROM mailing_messages_users 
+			  WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql); 
+	}
+
+	/**
+	 * Mensajes enviados a los usuarios
+	 * @param  	string 		$filter 				Filtro SQL
+	 * @return 	array         						Array con los mensajes
+	 */
 	public function getMessagesUsers($filter = "") {
 		$Sql="SELECT m.*,u.name,u.surname,t.nombre_tienda FROM mailing_messages_users m 
 			  LEFT JOIN users u ON u.username=m.username_message 
 			  LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa
 			  WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
-	}	
+	}		
 
 	/**
 	 * Listas de mensajes
@@ -323,8 +334,13 @@ class mailing extends connection{
 			  SET ".$field."=".$value." 
 			  WHERE id_message=".$id_message;
 		return connection::execute_query($Sql);
-	} 
+	}
 
+	/**
+	 * usuarios en listas negras
+	 * @param  	string 		$filter 				Filtro SQL
+	 * @return 	array 								Array con los registros
+	 */
 	public function getBlackListUser($filter = "") {
 		$Sql="SELECT * from mailing_blacklist 
 			  WHERE 1=1 ".$filter;
@@ -344,6 +360,51 @@ class mailing extends connection{
 			  SET message_status='black_list' 
 			  WHERE email_message='".$email_user."' AND message_status='pending' ";
 		return connection::execute_query($Sql);
-	} 
+	}
+
+	/**
+	 * Inserta un link
+	 * @param  	int 		$id_message 		Id del mensaje en el que va el link
+	 * @param  	string 		$url				URL del link
+	 */
+	public function insertMessageLink($id_message, $url, $link_name){
+		$Sql="INSERT INTO mailing_messages_links (id_message, url, link_name) 
+			VALUES(".$id_message.",'".$url."','".$link_name."')";
+		return connection::execute_query($Sql);
+	}	
+
+	/**
+	 * Suma un click al link
+	 * @param  	int 		$id_link 		Id del link en el que va el click
+	 */
+	public function sumMessageLink($id_link){
+		$Sql="UPDATE mailing_messages_links 
+			  SET clicks=clicks+1 
+			  WHERE id_link=".$id_link;
+		return connection::execute_query($Sql);
+	}
+
+	/**
+	 * Inserta un registro en los clicks en links realizados por los usuarios
+	 * @param  	int 		$id_link 			Id del link en el que se hace click
+	 * @param  	string 		$username			Usuario que hace el click
+	 * @param  	string 		$username_email		Usuario que hace el click
+	 */
+	public function insertMessageLinkUser($id_link, $username, $username_email, $id_message){
+		$Sql="INSERT INTO mailing_messages_links_users (id_link, id_message, username, username_email) 
+			VALUES(".$id_link.",".$id_message.",'".$username."', '".$username_email."')";
+		return connection::execute_query($Sql);
+	}	
+
+	/**
+	 * links de los mensajes
+	 * @param  	string 		$filter 				Filtro SQL
+	 * @return 	array 								Array con los templates
+	 */
+	public function getMessageLink($filter = "") {
+		$Sql="SELECT * from mailing_messages_links 
+			  WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql); 
+	}			
 }
 ?>

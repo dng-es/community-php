@@ -15,14 +15,29 @@ jQuery(document).ready(function(){
       language: "es-ES"
     });
 
-	$("#formData").submit(function(evento){
-		return sendForm("mensaje");
-	});
+
+	$("#SubmitData").click(function(e){
+		e.preventDefault();
+		$("#formData")
+			.attr("action", "?page=user-message&id=" + $("#template_message").val() + "&accion2=ok")
+			.submit();
+
+	});	
 
 	$("#SubmitAgenda").click(function(evento){
 		if (sendForm("agenda")){
 			$("#formData").attr("action", "?page=user-message&accion2=ok&act=new&id=" + $("#template_message").val() + "&a=1");
 			$("#formData").submit();
+		}
+	});
+
+	$("#PreviewData").click(function(e){
+		e.preventDefault();
+		if (sendForm("preview")){
+			$("#formData")
+				.attr("action", "?page=user-message-preview")
+				.attr('target', '_blank')
+				.submit();
 		}
 	});
 
@@ -46,21 +61,23 @@ jQuery(document).ready(function(){
 			 resultado_ok=false;
 		}
 
-		if ($("#tipo-lista-lista:checked").length > 0){
-			if ($("#id_list").val()=="0") 
-			{
-				 $("#lista-alert").html("Debes seleccionar una de tus listas.").fadeIn().css("display","block");
-				 resultado_ok=false;
-			}	
-		}
-		
-		if ($("#tipo-lista-fichero:checked").length > 0){
-			if (jQuery.trim($("#nombre-fichero").val())=="") 
-			{
-				 $("#fichero-alert").html("Debes cargar un fichero con los emails.").fadeIn().css("display","block");
-				 resultado_ok=false;
-			}	
-		}		
+		if (tipo!="preview"){
+			if ($("#tipo-lista-lista:checked").length > 0){
+				if ($("#id_list").val()=="0") 
+				{
+					 $("#lista-alert").html("Debes seleccionar una de tus listas.").fadeIn().css("display","block");
+					 resultado_ok=false;
+				}	
+			}
+			
+			if ($("#tipo-lista-fichero:checked").length > 0){
+				if (jQuery.trim($("#nombre-fichero").val())=="") 
+				{
+					 $("#fichero-alert").html("Debes cargar un fichero con los emails.").fadeIn().css("display","block");
+					 resultado_ok=false;
+				}	
+			}
+		}	
 
 		if (tipo=="agenda"){
 			var fecha = jQuery.trim($("#user-date").val());

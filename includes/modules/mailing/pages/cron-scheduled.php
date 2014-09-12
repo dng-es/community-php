@@ -33,7 +33,6 @@ function pasadaProccess($id_message, $action, $pasada){
 	$elements=$mailing->getMessages(" AND id_message=".$id_message." "); 	
 	$message_subject = $elements[0]['message_subject'];
 	$message_body = $elements[0]['message_body'];
-	$message_footer = footerMail($elements[0]['username_add']);
 	$message_from = array($elements[0]['message_from_email'] => $elements[0]['message_from_name']);
 	$message_attachment = ($elements[0]['message_attachment'] != "" ? $ini_conf['SiteUrl']."/".PATH_MAILING.'attachments/'.$elements[0]['message_attachment'] : "");
 
@@ -41,7 +40,6 @@ function pasadaProccess($id_message, $action, $pasada){
 	$template = $mailing->getTemplates(" AND id_template=".$elements[0]['id_template']." ");
 	$cuerpo = $template[0]['template_body'];
 	$cuerpo = str_replace('[CONTENT]', $message_body, $cuerpo);
-	$cuerpo = str_replace('[FOOTER]', $message_footer, $cuerpo);
 	$message_body = $cuerpo;
 
 	//obtener usuarios a los que hay que enviar el mensaje
@@ -61,8 +59,7 @@ function pasadaProccess($id_message, $action, $pasada){
 		$message_body_user = str_replace('[USER_NAME]', $usuario['name'], $message_body_user);
 		$message_body_user = str_replace('[USER_SURNAME]', $usuario['surname'], $message_body_user);
 		$message_body_user = str_replace('[USER_TIENDA]', $usuario['nombre_tienda'], $message_body_user);
-		$message_body_user .= '<img src="'.$ini_conf['SiteUrl'].'/includes/modules/mailing/pages/ut.php?u='.$usuario['id_message_user'].'" />';
-		$message_body_user .= '<p>Si no desea recibir más emails piche <a href="'.$ini_conf['SiteUrl'].'/?page=unsuscribe&u='.$usuario['email_message'].'&ua='.sha1($usuario['email_message']).'">aquí</a></p>';
+		$message_body_user .= footerMail($usuario);
 		if (messageProcess($message_subject, $message_from, $message_to , $message_body_user, $message_attachment)):
 			$mailing->updateMessageUser($usuario['id_message_user'],'send');
 			$enviados++;

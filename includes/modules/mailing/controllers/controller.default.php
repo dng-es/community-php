@@ -13,36 +13,50 @@ class mailingController{
 					'total_reg' => $total_reg);
 	}
 
+	public static function createMsgBodyAction(){
+		global $ini_conf;
+		$mailing = new mailing();
+		//datos de la plantilla
+		$html_content = $mailing->getTemplates(" AND id_template=".$_POST['template_message']);
+
+		$user_direccion = "";
+		if (isset($_POST['calle_direccion']) and $_POST['calle_direccion']!=""){ $user_direccion .= $_POST['calle_direccion'];}
+		if (isset($_POST['postal_direccion']) and $_POST['postal_direccion']!=""){ $user_direccion .= " - ".$_POST['postal_direccion'];}
+		if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion']!=""){ $user_direccion .= " - ".$_POST['poblacion_direccion'];}
+		if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion']!=""){ $user_direccion .= " - ".$_POST['provincia_direccion'];}
+		if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion']!=""){ $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];}
+		if (isset($_POST['email_message']) and $_POST['email_message']!=""){ $user_direccion .= "<br />".$_POST['email_message'];}
+		if (isset($_POST['web_direccion']) and $_POST['web_direccion']!=""){ $user_direccion .= "<br />".$_POST['web_direccion'];}
+
+		$content = $html_content[0]['template_body'];
+		$content = str_replace('[USER_DIRECCION]', $user_direccion, $content);
+		$content = str_replace('[USER_EMPRESA]', $_SESSION['user_empresa'], $content);
+		$content = str_replace('[USER_LOGO]', '<img src="'.$ini_conf['SiteUrl'].'/images/usuarios/'.$_SESSION['user_foto'].'" />', $content);
+
+		
+		if (isset($_POST['claim_promocion']) and $_POST['claim_promocion']!=""){ $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);}
+		if (isset($_POST['descuento_promocion']) and $_POST['descuento_promocion']!=""){ $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);}
+		if (isset($_POST['date_promocion']) and $_POST['date_promocion']!=""){ $content = str_replace('[DATE_PROMOCION]', $_POST['date_promocion'], $content);}
+
+		return $content;
+	}
+
+	public static function previewUserAction(){
+		if (isset($_POST['template_message']) and $_POST['template_message']>0){
+			return self::createMsgBodyAction();
+		}
+	}
+
 	public static function createUserAction(){
 		if (isset($_POST['template_message']) and $_POST['template_message']>0){
 			$mailing = new mailing();
-			global $ini_conf;	
+				
 			$fichero = isset($_FILES['nombre-fichero']) == true ? $_FILES['nombre-fichero'] : null ; 
 			$nombre_lista = ($_POST['tipo-lista']=='fichero') ? $fichero['name'] : $_POST['id_list'];
 			$date_scheduled = ((isset($_REQUEST['a']) and $_REQUEST['a']==1) ? "'".$_POST['user-date']."'" : "NULL" );
 	
-			//datos de la plantilla
-			$html_content = $mailing->getTemplates(" AND id_template=".$_POST['template_message']);
-
-			$user_direccion = "";
-			if (isset($_POST['calle_direccion']) and $_POST['calle_direccion']!=""){ $user_direccion .= $_POST['calle_direccion'];}
-			if (isset($_POST['postal_direccion']) and $_POST['postal_direccion']!=""){ $user_direccion .= " - ".$_POST['postal_direccion'];}
-			if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion']!=""){ $user_direccion .= " - ".$_POST['poblacion_direccion'];}
-			if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion']!=""){ $user_direccion .= " - ".$_POST['provincia_direccion'];}
-			if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion']!=""){ $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];}
-			if (isset($_POST['email_message']) and $_POST['email_message']!=""){ $user_direccion .= "<br />".$_POST['email_message'];}
-			if (isset($_POST['web_direccion']) and $_POST['web_direccion']!=""){ $user_direccion .= "<br />".$_POST['web_direccion'];}
-
-			$content = $html_content[0]['template_body'];
-			$content = str_replace('[USER_DIRECCION]', $user_direccion, $content);
-			$content = str_replace('[USER_EMPRESA]', $_SESSION['user_empresa'], $content);
-			$content = str_replace('[USER_LOGO]', '<img src="'.$ini_conf['SiteUrl'].'/images/usuarios/'.$_SESSION['user_foto'].'" />', $content);
-
+			$content = self::createMsgBodyAction();
 			
-			if (isset($_POST['claim_promocion']) and $_POST['claim_promocion']!=""){ $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);}
-			if (isset($_POST['descuento_promocion']) and $_POST['descuento_promocion']!=""){ $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);}
-			if (isset($_POST['date_promocion']) and $_POST['date_promocion']!=""){ $content = str_replace('[DATE_PROMOCION]', $_POST['date_promocion'], $content);}
-
 			if ($mailing->insertMessage($_POST['template_message'],
 						$_POST['email_message'],
 						$_POST['nombre_message'],
@@ -55,6 +69,9 @@ class mailingController{
 
 				$mensaje = "Mensaje creado correctamente. Ya puedes procesar el envío.";
 				$id_message=$mailing->SelectMaxReg("id_message","mailing_messages","");
+
+				//insertar links del mensaje
+				self::insertHtmlLinks($content, $id_message);
 				 
 		    	if ($_POST['tipo-lista']=='fichero'){
 
@@ -176,6 +193,7 @@ class mailingController{
 		if (trim($lista) == "lista tienda tipo"){ $nombre_lista = $_POST['lista_tienda_tipo_sel']; }
 		if (trim($lista) == "lista usuarios"){ $nombre_lista = $_POST['lista_users']; }
 		$fichero = isset($_FILES['nombre-fichero']) == true ? $_FILES['nombre-fichero'] : null ; 
+
 		if ($mailing->insertMessage($_POST['template_message'],
 					$_POST['email_message'],
 					$_POST['nombre_message'],
@@ -184,7 +202,6 @@ class mailingController{
 					$nombre_lista,
 					$_SESSION['user_name'],
 					$fichero)) {
-
 
 			$mensaje = "Mensaje creado correctamente. Ya puedes procesar el envío.";
 			$id_message=$mailing->SelectMaxReg("id_message","mailing_messages","");
@@ -333,6 +350,75 @@ class mailingController{
 			}
 			redirectURL("?page=unsuscribe");
 		}
+	}	
+
+	/**
+	 * Convierte los links del mensaje para estadísticas. Adaptado de PHPList
+	 * @param  int 		$htmlmessage 	Cuerpo del mensaje
+	 * @return string              		Cuerpo del mensaje transformado
+	 */
+	public static function insertHtmlLinks($htmlmessage, $id_message){
+		global $ini_conf;
+		$mailing = new mailing();
+		preg_match_all('/<a(.*)href=["\'](.*)["\']([^>]*)>(.*)<\/a>/Umis',$htmlmessage,$links);
+
+    	// to process the Yahoo webpage with base href and link like <a href=link> we'd need this one
+		# preg_match_all('/<a href=([^> ]*)([^>]*)>(.*)<\/a>/Umis',$htmlmessage,$links);
+    	$clicktrack_root = $ini_conf['SiteUrl'].'/includes/modules/mailing/pages/lt.php';
+
+		for($i=0; $i<count($links[2]); $i++){
+			$link = cleanUrl($links[2][$i]);
+			$link = str_replace('"','',$link);
+			if (preg_match('/\.$/',$link)) {
+				$link = substr($link,0,-1);
+			}
+			if ((preg_match('/^http|ftp/',$link)) && !strpos($link,$clicktrack_root)) {		
+				# take off personal uids
+				$url = cleanUrl($link,array('PHPSESSID','uid'));
+
+				#        $url = preg_replace('/&uid=[^\s&]+/','',$link);
+
+				#        if (!strpos('http:',$link)) {
+				#          $link = $urlbase . $link;
+				#        }
+				$mailing->insertMessageLink($id_message, $url, $links[4][$i]);
+			}
+		}
+	}
+
+	/**
+	 * Convierte los links del mensaje para estadísticas. Adaptado de PHPList
+	 * @param  int 		$htmlmessage 	Cuerpo del mensaje
+	 * @return string              		Cuerpo del mensaje transformado
+	 */
+	public static function convertHtmlLinks($htmlmessage, $id_message, $id_message_user){
+		global $ini_conf;
+		$mailing = new mailing();
+		preg_match_all('/<a(.*)href=["\'](.*)["\']([^>]*)>(.*)<\/a>/Umis',$htmlmessage,$links);
+
+    	// to process the Yahoo webpage with base href and link like <a href=link> we'd need this one
+		# preg_match_all('/<a href=([^> ]*)([^>]*)>(.*)<\/a>/Umis',$htmlmessage,$links);
+    	$clicktrack_root = $ini_conf['SiteUrl'].'/?page=unsuscribe';
+
+		for($i=0; $i<count($links[2]); $i++){
+			$link = cleanUrl($links[2][$i]);
+			$link = str_replace('"','',$link);
+			if (preg_match('/\.$/',$link)) {
+				$link = substr($link,0,-1);
+			}
+			if ( preg_match('/^http|ftp/',$link) && strpos($link,$clicktrack_root)===false ) {	
+				$url = cleanUrl($link,array('PHPSESSID','uid'));		
+				$id_link = $mailing->getMessageLink(" AND id_message=".$id_message." AND link_name='".$links[4][$i]."' AND url='".$url."' ");
+				$messageid = urlencode(base64_encode($id_message_user));
+				$linkid = urlencode(base64_encode($id_link[0]['id_link']));
+
+				//$newlink = sprintf('<a%shref="%s://%s/lt.php?id=%s" %s>%s</a>',$links[1][$i],$GLOBALS["scheme"],$website.$GLOBALS["pageroot"],$masked,$links[3][$i],$links[4][$i]);
+				$newlink = sprintf('<a%shref="%s/lt.php?l=%s&u=%s" %s>%s</a>',$links[1][$i],$ini_conf['SiteUrl'].'/includes/modules/mailing/pages',$linkid,$messageid,$links[3][$i],$links[4][$i]);
+				$htmlmessage = str_replace($links[0][$i], $newlink, $htmlmessage);
+			}
+		}
+
+		return $htmlmessage;
 	}	
 
 	/**

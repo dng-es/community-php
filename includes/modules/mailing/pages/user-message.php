@@ -112,8 +112,9 @@ addJavascripts(array("js/jquery.numeric.js",
 						<div class="col-md-8">
 							<div class="radio">
 								<label>
-								<input type="radio" name="tipo-lista" id="tipo-lista-fichero" value="fichero" />Selecciona un fichero Excel (XLS) que contenga en la primera columna los emails:<br /><br />
+									<input type="radio" name="tipo-lista" id="tipo-lista-fichero" value="fichero" />Selecciona un fichero Excel (XLS) que contenga en la primera columna los emails:
 								</label>
+								<br /><br />
 								<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary" title="Seleccionar fichero" />
 								<span id="fichero-alert" class="alert-message alert alert-danger"></span>
 							</div>						
@@ -132,7 +133,8 @@ addJavascripts(array("js/jquery.numeric.js",
 								<div class="col-md-6">
 									<br />
 									<p>Para finalizar, pulsa en el botón "crear mensaje".</p>
-									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary">Crear mensaje</button>						
+									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary">Crear mensaje</button>
+									<a href="#" target="_blank" id="PreviewData" name="PreviewData" class="btn btn-primary">Previsualizar mensaje</a>
 								</div>
 							</div>
 

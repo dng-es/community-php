@@ -32,11 +32,15 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 				<th>Env</th>
 				<th>Pen</th>
 				<th>Fallo</th>
+				<th>Visto</th>
+				<th>Links</th>
 			</tr>
 			<?php
 			foreach($elements['items'] as $element):
 				$estado = $element['message_status']=='pending' ? 'label-warning' : 'label-success';
 				$date_scheduled = ($element['date_scheduled'] != null) ? (strftime(DATE_FORMAT_SHORT,strtotime($element['date_scheduled']))) : "";
+				$total_views = connection::countReg("mailing_messages_users", " AND views>0 AND id_message=".$element['id_message']."");
+				$total_links = connection::countReg("mailing_messages_links_users", " AND id_message=".$element['id_message']."");
 				?>
 				<tr>
 				<td nowrap="nowrap">
@@ -51,6 +55,8 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 				echo '<td><span class="label">'.$element['total_send'].'</span></td>';
 				echo '<td><span class="label'.($element['total_pending']>0 ? " label-danger" : "").'">'.$element['total_pending'].'</span></td>';
 				echo '<td><span class="label'.($element['total_failed']>0 ? " label-danger" : "").'">'.$element['total_failed'].'</span></td>';
+				echo '<td><span class="label"><a href="?page=user-messages&exp=views&id='.$element['id_message'].'">'.$total_views.'</a></span></td>';
+				echo '<td><span class="label"><a href="?page=user-messages&exp=links&id='.$element['id_message'].'">'.$total_links.'</a></span></td>';
 				?>
 				</tr> 
 			<?php endforeach;?>
