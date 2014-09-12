@@ -11,7 +11,7 @@ config.skin = 'kama';
 config.enterMode = CKEDITOR.ENTER_BR;
 config.colorButton_colors = '4A5A73,c54747,00773d,555555';
 config.height        = '400px';
-config.contentsCss = 'js/ckeditor/contents.css';
+config.contentsCss = 'js/libs/ckeditor/contents.css';
 config.toolbar_Full = [
 ['Styles','Format','Font','FontSize'],
 ['JustifyLeft','JustifyCenter','JustifyRight','Just ifyFull','TextColor','BGColor','Bold','Italic','Underline'],

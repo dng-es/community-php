@@ -23,10 +23,12 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	            <ul class="nav navbar-nav">
 	              <li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'">Exportar CSV</a></li>
+	              <li><a href="?page=user-lists">Mis listas de envío</a></li>
 	            </ul>
 			</div>
     	</nav>
     	<p>Total <b><?php echo $elements['total_reg'];?></b> registros</p>
+		<div class="table-responsive">
 		<table class="table">
 			<tr>
 				<th width="40px">&nbsp;</th>
@@ -74,6 +76,7 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 				</tr> 
 			<?php endforeach;?>
 		</table>
+		</div>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
 </div>

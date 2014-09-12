@@ -300,20 +300,22 @@ function exportCsv($registros, $file_name = "file") {
 	set_time_limit(0);
 
 	$salida_cvs = "";
-	//encabezados
-	$keys = array_keys($registros[0]);		 
-	foreach($keys as $value) {
-	    $salida_cvs .= strtoupper($value) . ";";
-	}		
-	$salida_cvs .= "\n";    
-	
-	foreach($registros as $registro):
-		$keys = array_keys($registro);		 
+	if (count($registros)>0){
+		//encabezados
+		$keys = array_keys($registros[0]);		 
 		foreach($keys as $value) {
-		    $salida_cvs .= str_replace(";", ".",strip_tags(str_replace("<br />"," || ",nl2br($registro[$value])))) . ";";
-		}
-		$salida_cvs .= "\n";		
-	endforeach;
+		    $salida_cvs .= strtoupper($value) . ";";
+		}		
+		$salida_cvs .= "\n";    
+		
+		foreach($registros as $registro):
+			$keys = array_keys($registro);		 
+			foreach($keys as $value) {
+			    $salida_cvs .= str_replace(";", ".",strip_tags(str_replace("<br />"," || ",nl2br($registro[$value])))) . ";";
+			}
+			$salida_cvs .= "\n";		
+		endforeach;
+	}
 	
 	header("Content-type: application/vnd.ms-excel; charset=utf-8");
 	header("Content-disposition: csv" . date("Y-m-d") . ".csv");

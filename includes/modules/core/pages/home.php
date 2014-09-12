@@ -13,39 +13,9 @@ $documentos = infotopdfController::getListAction(3);
 $ficheros = infoController::getListAction(4);
 $campanas = campaignsController::getListTypesAction(3);
 ?>
-<div class="row">	
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-      </ol>
-      <!-- Carousel items -->
-      <div class="carousel-inner">
-		<?php $i=0; ?>
-		<?php foreach($plantillas['items'] as $element): ?>
-			 <?php if ($i==0): ?>
-			 	<?php $i++;?>
-			 	<div class="active item">
-			 <?php else: ?>
-				<div class="item">
-			 <?php endif; ?>
-			 	<a href="?page=user-message&act=new&id=<?php echo $element['id_template'];?>">
-			 		<img style="width:100%" src="images/mailing/<?php echo $element['template_mini'];?>" alt="banner" />
-			 	</a>
-				<div class="carousel-caption">
-					<h3><?php echo $element['template_name'];?></h3>
-					<p><?php echo strTranslate("Email_customer_info");?></p>					
-				</div>
-			</div>
-		<?php endforeach;?>   
-      </div>
-      <!-- Carousel nav -->
-      <a class="carousel-control left" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-      <a class="carousel-control right" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-    </div>
-</div>
+
+
+
 <div class="row" style="background-color:#c0c0c0">
 	<div class="col-md-6 nopadding">
 		<div class="row" style="background-color:#c0c0c0;color:#555;border-top: 10px solid #f0f0f0">

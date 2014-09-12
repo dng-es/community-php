@@ -20,6 +20,7 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 	            <ul class="nav navbar-nav">
 	              <li><a href="?page=user-list&act=new">Nueva lista</a></li>
 	              <li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'">Exportar CSV</a></li>
+	              <li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
 	            </ul>
 				</div>
     	</nav>
