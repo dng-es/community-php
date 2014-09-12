@@ -25,38 +25,40 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 				</div>
     	</nav>
     	<p>Total <b><?php echo $elements['total_reg'];?></b> registros</p>
-		<table class="table">
-			<tr>
-				<th width="40px">&nbsp;</th>
-				<th>Nombre</th>
-				<th>Fecha</th>
-				<th>Emails</th>
-			</tr>
-			<?php
-			$mailing = new mailing();
-
-			foreach($elements['items'] as $element):
-				
-				$total_emails = $mailing->countReg("mailing_lists_users"," AND id_list=".$element['id_list']." ");
-
-				?>
+    	<div class="table-responsive">
+			<table class="table">
 				<tr>
-				<td nowrap="nowrap">
-					<a class="fa fa-edit icon-table" title="Ver/editar" onClick="location.href='?page=user-list&act=edit&id=<?php echo $element['id_list'];?>';return false">
-					</a>
-					<a href="?page=<?php echo $_REQUEST['page'];?>&exportm=true&id=<?php echo $element['id_list'];?>" class="fa fa-download icon-table" title="Descargar"></a>		
-											<a class="fa fa-ban icon-table" title="Eliminar"
-						onClick="Confirma('¿Seguro que deseas eliminar la lista?', '?page=user-lists&pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_list'];?>'); return false;">
-					</a>
-				</td>
-				<?php			
-				echo '<td>'.$element['name_list'].'</td>';
-				echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_list'])).'</td>';
-				echo '<td><span class="label label-success">'.$total_emails.'</span></td>'; 
-				?>
-				</tr> 
-			<?php endforeach;?>
-		</table>
+					<th width="40px">&nbsp;</th>
+					<th>Nombre</th>
+					<th>Fecha</th>
+					<th>Emails</th>
+				</tr>
+				<?php
+				$mailing = new mailing();
+
+				foreach($elements['items'] as $element):
+					
+					$total_emails = $mailing->countReg("mailing_lists_users"," AND id_list=".$element['id_list']." ");
+
+					?>
+					<tr>
+					<td nowrap="nowrap">
+						<a class="fa fa-edit icon-table" title="Ver/editar" onClick="location.href='?page=user-list&act=edit&id=<?php echo $element['id_list'];?>';return false">
+						</a>
+						<a href="?page=<?php echo $_REQUEST['page'];?>&exportm=true&id=<?php echo $element['id_list'];?>" class="fa fa-download icon-table" title="Descargar"></a>		
+												<a class="fa fa-ban icon-table" title="Eliminar"
+							onClick="Confirma('¿Seguro que deseas eliminar la lista?', '?page=user-lists&pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_list'];?>'); return false;">
+						</a>
+					</td>
+					<?php			
+					echo '<td>'.$element['name_list'].'</td>';
+					echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_list'])).'</td>';
+					echo '<td><span class="label label-success">'.$total_emails.'</span></td>'; 
+					?>
+					</tr> 
+				<?php endforeach;?>
+			</table>
+		</div>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
 </div>
