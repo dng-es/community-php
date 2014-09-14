@@ -128,7 +128,7 @@ class menu{
 		$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
 		$destination = str_replace("&lan=", "&lano=", $_SERVER['REQUEST_URI']);
 		foreach($folders as $folder):
-			echo '<a href="'.$destination.'&lan='.$folder.'">'.$folder.'</a>';
+			echo '<a href="'.$destination.'&lan='.$folder.'" title="'.$folder.'"><img src="includes/languages/'.$folder.'/images/flag.png" /></a>';
 		endforeach;
 		echo '</span>';
 	}	
