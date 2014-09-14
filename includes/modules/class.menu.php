@@ -9,7 +9,9 @@ class menu{
 		if ($_SESSION['user_logged']==true){
 		
 			//SELECCION DEL FORO
-			$id_foro = ($_SESSION['user_canal']== CANAL2) ? 2 : 1;?>
+			$id_foro = ($_SESSION['user_canal']== CANAL2) ? 2 : 1;
+
+			?>
 
 			<nav class="navbar navbar-default navbar-menu" role="navigation">
 				<div class="container-fluid">
@@ -64,7 +66,7 @@ class menu{
 	static function UserInfoMenu(){
 		if ($_SESSION['user_logged']==true){
 			$users = new users();
-			$huellas_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
+			$puntos_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
 			?>
 			<div class="row header-info">
 				<a href="?page=home"><img src="images/logo.png" id="header-info-logo" class="img-responsive" /></a>
@@ -72,12 +74,18 @@ class menu{
 					<div class="pull-right" style="width:75%">
 					<?php 
 					echo '<img class="comment-mini-img" src="images/usuarios/'.$_SESSION['user_foto'].'" style="width:50px !important;height:55px !important;float:right;margin-left:10px" />';
-					echo '<p><i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
+					
+					echo '<p>';
+					//SELECTOR DE IDIOMAS
+					self::languageSelector();
+
+					echo ' <i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
 					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="?page=admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
 					echo '<a href="?page=user-perfil" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';	
 					echo '<a href="?page=logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a></p>';	
-					//echo '<p><span>Horas de vuelo</span> <span style="font-size:32px;font-weight:bolder;color:#fff">'.$huellas_user[0]['horas_vuelo'].'</span></p>';
-					//echo '<span>Puntos</span> '.$huellas_user[0]['puntos'].' </p>';
+					//echo '<p><span>Horas de vuelo</span> <span style="font-size:32px;font-weight:bolder;color:#fff">'.$puntos_user[0]['horas_vuelo'].'</span></p>';
+					//echo '<span>Puntos</span> '.$puntos_user[0]['puntos'].' </p>';
+					echo ' </p>';
 					?>
 					</div>		
 				</div>
@@ -110,6 +118,20 @@ class menu{
 		endforeach;
 		echo '</ul>';
 	}
+
+	/**
+	* Print language selector
+	*
+	*/
+	static function languageSelector(){
+		echo '<span id="language-selector">';
+		$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
+		$destination = str_replace("&lan=", "&lano=", $_SERVER['REQUEST_URI']);
+		foreach($folders as $folder):
+			echo '<a href="'.$destination.'&lan='.$folder.'">'.$folder.'</a>';
+		endforeach;
+		echo '</span>';
+	}	
 
 
 	/**

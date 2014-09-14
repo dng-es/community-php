@@ -142,15 +142,17 @@ function getListModules(){
 function strTranslate($str){
 	global $ini_conf;
 
+	$language = (isset($_SESSION['language']) and $_SESSION['language']!="") ? $_SESSION['language'] : $ini_conf['language'];
+
 	//translations from modules
 	$modules = getListModules();
 	foreach($modules as $module):
-		$path_module = realpath(dirname(__FILE__))."/../modules/".$module['folder']."/resources/languages/".$ini_conf['language']."/language.php";
+		$path_module = realpath(dirname(__FILE__))."/../modules/".$module['folder']."/resources/languages/".$language."/language.php";
 		$str = getTranlationStr($path_module,$str);
 	endforeach;
 
 	//trasnlations from core
-	$path_core = realpath(dirname(__FILE__))."/../languages/".$ini_conf['language']."/language.php";
+	$path_core = realpath(dirname(__FILE__))."/../languages/".$language."/language.php";
 	//echo $path_core."<br />";
 	$str = getTranlationStr($path_core,$str);
 	

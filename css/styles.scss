@@ -1432,3 +1432,15 @@ table th {
 	}
 }
 /*Fin Panel de administración*/
+
+#language-selector{
+	display:inline-block;
+
+	li{
+		display:inline-block;
+	}
+
+	a{
+		margin-right:5px;
+	}
+}
