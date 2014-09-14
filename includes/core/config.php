@@ -25,10 +25,10 @@ db = "comunidad"
 sql_connector = "mysqli"
 
 ;DEFAULT LANGUAGE
-language = "en"
+language = "es"
 
 ;DEBUG OPTIONS. Poner 0 en servidores de producción. 1 salida por pantallas. 2 salida fichero error
-debug_app = 0
+debug_app = 1
 
 [SMTP settings]
 smtp_domain = "smtp.example.org"

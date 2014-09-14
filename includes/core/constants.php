@@ -9,6 +9,8 @@ $configuration = new configuration();
 $site_config=$configuration->getConfigIni("");
 $ini_conf = array_merge($ini_conf, $site_config);
 
+//LOCALE, DATE AND TIME DEFINITIONS
+include($base_dir_config."/../languages/".$ini_conf['language']."/options.php");
 
 //PAGINAS EN LAS QUE EL USUARIO NO ES NECESARIO QUE ESTE LOGUEADO
 $paginas_free = array("login","user-confirm","logout","contact-free","declaracion","policy","404","remember","registration","registration-confirm","unsuscribe");
@@ -74,20 +76,6 @@ define('PATH_MAILING',"images/mailing/");
 //ESTADOS POR DEFECTO DE LOS CONTENIDOS ENVIADOS
 define('ESTADO_COMENTARIOS_MURO',1);
 define('ESTADO_COMENTARIOS_FORO',1);
-///////////////////////////////////////////////////////////////////////////////////
-// LOCALE, DATE AND TIME DEFINITIONS
-///////////////////////////////////////////////////////////////////////////////////
-@setlocale(LC_TIME, 'es_ES.ISO_8859-1');
-setlocale(LC_TIME, 'spanish');
-date_default_timezone_set('Europe/Madrid');
-define('DATE_MONTH', '%m');  // this is used for strftime()
-define('DATE_DAY', '%d');  // this is used for strftime()
-define('DATE_YEAR', '%Y');  // this is used for strftime()
-define('DATE_FORMAT_SHORT', '%d/%m/%Y');  // this is used for strftime()
-define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
-define('DATE_FORMAT', 'd/m/Y');  // this is used for date()
-define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
-define('TIME_FORMAT', ' %H:%M:%S');
 
 //CANALES DE LA COMUNIDAD
 define('CANAL1','comercial');

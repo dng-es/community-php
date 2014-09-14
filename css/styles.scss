@@ -680,8 +680,17 @@ label{font-weight:normal; color:$color1}
 	margin-top:5px;
 }
 .insert-foro{padding-right: 20px}
-.legend{color: $color3}
-.legend a{color: $color3}
+.legend{
+	color: $color3;
+	a{
+		color: $color3;
+	}
+}
+
+.legend-table{
+	color: #999;
+	margin: 10px 0;
+}
 .form-group-big{min-width: 45%}
 .search-form{margin:0 !important; padding-bottom: 10px !important}
 .search-form form{padding:0 10px 0 0}

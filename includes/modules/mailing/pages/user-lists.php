@@ -14,23 +14,19 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 ?>
 <div class="row inset row-top">
   	<div class="col-md-12"> 
-  		<h2>Mis listas de envío</h2>
-			<nav class="navbar navbar-default" role="navigation">
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	            <ul class="nav navbar-nav">
-	              <li><a href="?page=user-list&act=new">Nueva lista</a></li>
-	              <li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'">Exportar CSV</a></li>
-	              <li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
-	            </ul>
-				</div>
-    	</nav>
-    	<p>Total <b><?php echo $elements['total_reg'];?></b> registros</p>
+  		<h1>Mis listas de envío</h1>
+		<ul class="nav nav-pills navbar-default">
+			<li><a href="?page=user-list&act=new">Nueva lista</a></li>
+			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
+			<li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
+		</ul>
+    	<p class="legend-table"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strTranslate("Items");?></p>
     	<div class="table-responsive">
 			<table class="table">
 				<tr>
 					<th width="40px">&nbsp;</th>
-					<th>Nombre</th>
-					<th>Fecha</th>
+					<th><?php echo strTranslate("Name");?></th>
+					<th><?php echo strTranslate("Date");?></th>
 					<th>Emails</th>
 				</tr>
 				<?php
