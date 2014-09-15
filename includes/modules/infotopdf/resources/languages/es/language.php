@@ -1,3 +1,3 @@
 <?php
-Hello = "Hola"
+Infotopdf_Documents = "Documentos PDF"
 ?>

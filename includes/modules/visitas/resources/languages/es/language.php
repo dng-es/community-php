@@ -1,3 +1,3 @@
 <?php
-Hello = "Hola"
+Visits_title = "Visitas"
 ?>

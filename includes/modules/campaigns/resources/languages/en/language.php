@@ -1,3 +1,3 @@
 <?php
-Hello = "Hello"
+Campaigns = "Campaigns"
 ?>

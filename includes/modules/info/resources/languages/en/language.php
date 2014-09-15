@@ -1,3 +1,3 @@
 <?php
-Hello = "Hello"
+Info_Documents = "Documents"
 ?>

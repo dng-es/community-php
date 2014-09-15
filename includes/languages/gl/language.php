@@ -1,5 +1,5 @@
 <?php
-Hello = "Hola"
+Hello = "Ola"
 Home = "Inicio"
 Contact = "Contactar"
 Your_message = "Tu mensaje"

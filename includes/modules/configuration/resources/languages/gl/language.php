@@ -1,3 +1,3 @@
 <?php
-Hello = "Hola"
+Configuration = "Configuración"
 ?>
