@@ -1,7 +1,6 @@
 <?php
 function PanelSubirFoto($id_promocion=0){
-    echo '	<script language="JavaScript" src="'.getAsset("fotos").'js/fotos.js"></script> 
-			<div id="banner-fotos-form">
+    echo '	<div id="banner-fotos-form">
 			<h4>'.strTranslate("Upload_photo").'</h4>
   			<p>'.strTranslate("Upload_photo_formats_allowed").' <b>GIF</b>, <b>PNG,</b> o <b>JPG</b>. '.strTranslate("Upload_photo_max_size_allowed").' <b>'.MAX_SIZE_FOTOS_KB.' Kb</b></p>
 			<form id="foto-form" name="coment-form" action="" method="post" enctype="multipart/form-data" role="form">
