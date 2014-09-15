@@ -1,8 +1,10 @@
 <?php
 session_start();
+session::setLanguage();
 
 class session {    
-   
+	
+ 
 	
 	public static function validateUserSession(){
 		self::setUrlSession();
@@ -196,12 +198,19 @@ class session {
 	*
 	* @param 	array	$perfiles_autorizados 	Authorized users
 	*/
-	public static function AccessLevel($perfiles_autorizados)
-	{
+	public static function AccessLevel($perfiles_autorizados){
 		if (in_array($_SESSION['user_perfil'], $perfiles_autorizados)==false and $_SESSION['user_perfil']!='admin'){
 			ErrorMsg("Acceso denegado.");
 			die();
 		}
+	}
+
+	/**
+	* Set user language
+	*
+	*/
+	public static function setLanguage(){
+		if (isset($_REQUEST['lan']) and $_REQUEST['lan']!="") $_SESSION['language'] = $_REQUEST['lan'];
 	}
 }
 ?>

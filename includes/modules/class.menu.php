@@ -96,25 +96,24 @@ class menu{
 
 	static function getMenuSection($section, $array_final){
 		$header_name = "";
-		foreach($array_final as $elem):
-					
-				if ($elem['LabelHeader']==$section) {
-					$main_url = explode("&", $elem['LabelUrl']);
-					$active = (($_GET['page']==$main_url[0] or $_GET['page']==$elem['LabelUrl']) ? " class=\"active\" " : "");
-					if($header_name!="" and $header_name!=$elem['LabelSection']){
-						echo '</ul>';
-					}
-
-					if ($header_name!=$elem['LabelSection']){
-						$header_name = $elem['LabelSection'];
-						echo '<li class="module-admin-header">'.$elem['LabelSection'].'</li>
-						<ul class="module-admin-item">';
-						echo '<li><a '.$active.' href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
-					}
-					elseif($header_name=$elem['LabelSection']){
-						echo '<li><a '.$active.' href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
-					}				
+		foreach($array_final as $elem):				
+			if ($elem['LabelHeader']==$section) {
+				$main_url = explode("&", $elem['LabelUrl']);
+				$active = (($_GET['page']==$main_url[0] or $_GET['page']==$elem['LabelUrl']) ? " class=\"active\" " : "");
+				if($header_name!="" and $header_name!=$elem['LabelSection']){
+					echo '</ul>';
 				}
+
+				if ($header_name!=$elem['LabelSection']){
+					$header_name = $elem['LabelSection'];
+					echo '<li class="module-admin-header">'.$elem['LabelSection'].'</li>
+					<ul class="module-admin-item">';
+					echo '<li><a '.$active.' href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+				}
+				elseif($header_name=$elem['LabelSection']){
+					echo '<li><a '.$active.' href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+				}				
+			}
 		endforeach;
 		echo '</ul>';
 	}
@@ -124,13 +123,16 @@ class menu{
 	*
 	*/
 	static function languageSelector(){
-		echo '<span id="language-selector">';
-		$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
-		$destination = str_replace("&lan=", "&lano=", $_SERVER['REQUEST_URI']);
-		foreach($folders as $folder):
-			echo '<a href="'.$destination.'&lan='.$folder.'" title="'.$folder.'"><img src="includes/languages/'.$folder.'/images/flag.png" /></a>';
-		endforeach;
-		echo '</span>';
+		global $ini_conf;
+		if ($ini_conf['language_selector']==true){
+			$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
+			$destination = str_replace("&lan=", "&lano=", $_SERVER['REQUEST_URI']);
+			echo '<span id="language-selector">';
+			foreach($folders as $folder):
+				echo '<a href="'.$destination.'&lan='.$folder.'" title="'.$folder.'"><img src="includes/languages/'.$folder.'/images/flag.png" /></a>';
+			endforeach;
+			echo '</span>';
+		}
 	}	
 
 
