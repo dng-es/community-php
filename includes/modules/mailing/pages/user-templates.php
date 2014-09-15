@@ -1,10 +1,5 @@
 <?php
-
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 $elements = mailingTemplatesController::getListAction(6, "activos");
-
 ?>
 <div class="row inset row-top">
   	<div class="col-md-12"> 

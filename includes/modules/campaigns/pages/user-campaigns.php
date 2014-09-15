@@ -1,10 +1,6 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 $elements = campaignsController::getListAction(4, " AND c.id_campaign_type=".$_REQUEST['f']);
 $plantilla = campaignsController::getItemTypesAction();	
-
 ?>
 <div class="row inset row-top">
   	<div class="col-md-12"> 

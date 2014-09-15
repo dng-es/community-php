@@ -7,109 +7,103 @@ $session->AccessLevel($perfiles_autorizados);
 //EXPORT ACCESOS
 visitasController::exportAction();
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
-	$total1=0;
-	$total2=0;
-	$total3=0;
-	$media1=0;
-	$media2=0;
-	$media3=0;
-	$pagina_excluidas = "'admin','informe-accesos','informe-participaciones', 'informe-puntuaciones','users','user','users-tiendas','cargas-users','admin-area','admin-message','Inicio sesion','admin-validacion-foro',
-						 'admin-messages','admin-message-proccess','admin-message-proccess-step1',
-						 'admin-areas','admin-area-revs','admin-area-form','admin-area-docs','admin-config','admin-page', 'admin-puntos','admin-mystery'";
+$total1=0;
+$total2=0;
+$total3=0;
+$media1=0;
+$media2=0;
+$media3=0;
+$pagina_excluidas = "'admin','informe-accesos','informe-participaciones', 'informe-puntuaciones','users','user','users-tiendas','cargas-users','admin-area','admin-message','Inicio sesion','admin-validacion-foro',
+					 'admin-messages','admin-message-proccess','admin-message-proccess-step1',
+					 'admin-areas','admin-area-revs','admin-area-form','admin-area-docs','admin-config','admin-page', 'admin-puntos','admin-mystery'";
 
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					 "js/bootstrap-datepicker.es.js", 
 					 "js/libs/amcharts/amcharts.js"));
 
+global $total1,$total2,$total3,$media1,$media2,$media3,$pagina_excluidas;
+
+if (isset($_POST['generate-stats']) and !isset($_POST['export-stats'])):
+	$filtro_informe=" AND fecha BETWEEN '".$_POST['fecha_ini']." 00:00:00' AND '".$_POST['fecha_fin']." 23:59:59' ";
+else:
+	$filtro_informe = " AND fecha>=DATE_ADD(NOW(), INTERVAL -1 MONTH) ";
+endif;
 
 
-	global $total1,$total2,$total3,$media1,$media2,$media3,$pagina_excluidas;
+$visitas = new visitas();
+//DATOS VISITAS POR PAGINAS
+$output="";
 
-	if (isset($_POST['generate-stats']) and !isset($_POST['export-stats'])):
-		$filtro_informe=" AND fecha BETWEEN '".$_POST['fecha_ini']." 00:00:00' AND '".$_POST['fecha_fin']." 23:59:59' ";
-	else:
-		$filtro_informe = " AND fecha>=DATE_ADD(NOW(), INTERVAL -1 MONTH) ";
-	endif;
+$filtro=$filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
+$elements = $visitas->getAccessTopPages($filtro);
+$visitas = 0;
+$output="[";
+foreach($elements as $element):
+	$visitas+=$element['contador'];
+	$output.='{webpage: "'.$element['webpage'].'",visits: '.$element['contador'].'},';
+endforeach;
+$media = round(($visitas/count($elements)),2);
+$media1=str_replace(",", ".",$media);
+$total1=$visitas;
+$output = substr($output, 0,strlen($output)-1);
+$output.="]";
+$informe1 = $output;
 
+//DATOS VISITAS POR DIA
+$output="";
+ $elements = visitas::getAccessPages($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
+ $output="[";
+ $visitas = 0;
+ foreach($elements as $element):
+	$visitas+=$element['contador'];
+	$output.="{date: new Date(".$element['anio'].", ".($element['mes']-1).", ".$element['dia']."),price: ".$element['contador']."},";
+ endforeach;
+$media = round(($visitas/count($elements)),2);
+$output = substr($output, 0,strlen($output)-1);
+$output.="]";
+$media2=str_replace(",", ".",$media);
+$total2=$visitas;
+$informe2 = $output;
 
-	$visitas = new visitas();
-	//DATOS VISITAS POR PAGINAS
-	$output="";
+//DATOS VISITAS UNICAS
+$output="";
+$elements = visitas::getAccessPages($filtro_informe." AND webpage='Inicio sesion' ");
+$output="[";
+$visitas = 0;
+foreach($elements as $element):
+	$visitas+=$element['contador'];
+	$output.="{date: new Date(".$element['anio'].", ".($element['mes']-1).", ".$element['dia']."),price: ".$element['contador']."},";
+endforeach;
+$media = round(($visitas/count($elements)),2);
+$output = substr($output, 0,strlen($output)-1);
+$output.="]";
+$media3=str_replace(",", ".",$media);
+$total3=$visitas;
+$informe3 = $output;
 
-	$filtro=$filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
-	$elements = $visitas->getAccessTopPages($filtro);
-	$visitas = 0;
-	$output="[";
-	foreach($elements as $element):
-		$visitas+=$element['contador'];
-		$output.='{webpage: "'.$element['webpage'].'",visits: '.$element['contador'].'},';
-	endforeach;
-	$media = round(($visitas/count($elements)),2);
-	$media1=str_replace(",", ".",$media);
-	$total1=$visitas;
-	$output = substr($output, 0,strlen($output)-1);
-	$output.="]";
-	$informe1 = $output;
+//DATOS VISITAS POR NAVEGADOR
+$output="";
+$elements = visitas::getAccessBrowser($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
+$output="[";
+foreach($elements as $element):
+	$output.='{browser: "'.$element['browser'].'",value: '.$element['contador'].'},';
+endforeach;
+$output = substr($output, 0,strlen($output)-1);
+$output.="]";
+$informe4 = $output;	
 
-	//DATOS VISITAS POR DIA
-	$output="";
-	 $elements = visitas::getAccessPages($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
-	 $output="[";
-	 $visitas = 0;
-	 foreach($elements as $element):
-		$visitas+=$element['contador'];
-		$output.="{date: new Date(".$element['anio'].", ".($element['mes']-1).", ".$element['dia']."),price: ".$element['contador']."},";
-	 endforeach;
-	$media = round(($visitas/count($elements)),2);
-	$output = substr($output, 0,strlen($output)-1);
-	$output.="]";
-	$media2=str_replace(",", ".",$media);
-	$total2=$visitas;
-	$informe2 = $output;
-
-	//DATOS VISITAS UNICAS
-	$output="";
-	$elements = visitas::getAccessPages($filtro_informe." AND webpage='Inicio sesion' ");
-	$output="[";
-	$visitas = 0;
-	foreach($elements as $element):
-		$visitas+=$element['contador'];
-		$output.="{date: new Date(".$element['anio'].", ".($element['mes']-1).", ".$element['dia']."),price: ".$element['contador']."},";
-	endforeach;
-	$media = round(($visitas/count($elements)),2);
-	$output = substr($output, 0,strlen($output)-1);
-	$output.="]";
-	$media3=str_replace(",", ".",$media);
-	$total3=$visitas;
-	$informe3 = $output;
-
-	//DATOS VISITAS POR NAVEGADOR
-	$output="";
-	$elements = visitas::getAccessBrowser($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
-	$output="[";
-	foreach($elements as $element):
-		$output.='{browser: "'.$element['browser'].'",value: '.$element['contador'].'},';
-	endforeach;
-	$output = substr($output, 0,strlen($output)-1);
-	$output.="]";
-	$informe4 = $output;	
-
-	//DATOS VISITAS POR PLATAFORMA
-	$output="";
-	$elements = visitas::getAccessPlatform($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
-	$output="[";
-	foreach($elements as $element):
-		$output.='{platform: "'.$element['platform'].'",value: '.$element['contador'].'},';
-	endforeach;
-	$output = substr($output, 0,strlen($output)-1);
-	$output.="]";
-	$informe5 = $output;
+//DATOS VISITAS POR PLATAFORMA
+$output="";
+$elements = visitas::getAccessPlatform($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
+$output="[";
+foreach($elements as $element):
+	$output.='{platform: "'.$element['platform'].'",value: '.$element['contador'].'},';
+endforeach;
+$output = substr($output, 0,strlen($output)-1);
+$output.="]";
+$informe5 = $output;
 
 ?>
-
 		<script type="text/javascript">
 			jQuery(document).ready(function(){
 				

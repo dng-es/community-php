@@ -1,7 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 usersController::loginRedirectAction(); 
 addJavascripts(array(getAsset("users")."js/login.js"));
 ?>

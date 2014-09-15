@@ -1,7 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addJavascripts(array("js/bootstrap.file-input.js", 
 					 "js/libs/jwplayer/jwplayer.js", 
 					 "js/jquery.bettertip.pack.js"));

@@ -3,10 +3,6 @@
 $perfiles_autorizados = array("admin");
 session::AccessLevel($perfiles_autorizados);
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
-
 session::getFlashMessage( 'actions_message' ); 
 pagesController::deleteAction();
 $elements = pagesController::getListAction(3);

@@ -1,13 +1,9 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addCss(array("css/bootstrap-datetimepicker.min.css"));
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					 "js/bootstrap-datepicker.es.js",
 					 "js/bootstrap.file-input.js",
 					 getAsset("users")."js/user-confirm.js"));
-
 ?>
 <div id="confirm-container" class="row">			
 	<div class="col-md-6">

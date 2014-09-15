@@ -1,11 +1,8 @@
 ﻿<?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js", 
 					 getAsset("users")."js/users-conn-ajax.js", 
 					 getAsset("core")."js/home.js"));
-
 
 templateload("reply","muro");
 $plantillas = mailingTemplatesController::getListAction(4, "activos");

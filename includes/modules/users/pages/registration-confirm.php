@@ -1,8 +1,3 @@
-<?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
-?>
 <div id="confirm-container" class="row">      
 	<div class="col-md-6">
 		<img src="images/logo01.png" class="responsive login-img" />

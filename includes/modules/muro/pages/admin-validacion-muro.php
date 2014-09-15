@@ -1,7 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addJavascripts(array(getAsset("muro")."js/admin-validacion-muro.js"));
 
 //CONTROL NIVEL DE ACCESO

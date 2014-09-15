@@ -1,9 +1,5 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addJavascripts(array(getAsset("users")."js/remember.js"));
-
 ?>
 <div class="row" id="login-container-deg">
 	<div class="col-md-6">

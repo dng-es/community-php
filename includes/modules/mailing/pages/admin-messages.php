@@ -9,9 +9,6 @@ mailingController::exportListAction();
 //EXPORT MESSAGE CSV
 mailingController::exportMessageAction();
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 $elements = mailingController::getListAction(20);
 
 ?>

@@ -6,11 +6,7 @@ session::AccessLevel($perfiles_autorizados);
 //EXPORT EXCEL - SHOW AND GENERATE
 usersPuntuacionesController::exportListAction();
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 $elements = usersPuntuacionesController::getListAction(100);
-
 ?>
 <div class="row row-top">
 	<div class="col-md-9">	

@@ -1,8 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
-
 echo '<h1>Tu documentación</h1>';
 
 if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){

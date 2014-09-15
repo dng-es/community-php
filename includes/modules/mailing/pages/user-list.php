@@ -1,8 +1,4 @@
 <?php
-
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-list.js"));
 ?>
 <div class="row inset row-top">

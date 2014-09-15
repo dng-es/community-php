@@ -6,11 +6,7 @@ session::AccessLevel($perfiles_autorizados);
 //EXPORT CSV
 usersParticipacionesController::exportListAction();
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 $elements = usersParticipacionesController::getListAction(100);
-
 ?>
 <div class="row row-top">
 	<div class="col-md-9">

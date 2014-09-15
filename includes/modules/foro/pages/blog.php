@@ -1,7 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 templateload("blog","foro");
 templateload("comment","foro");
 templateload("addcomment","foro");
@@ -12,7 +9,6 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 					 getAsset("foro")."js/foro-comentario.js"));
 
 $foro = new foro();
-
 
 echo '<div id="page-info"><img src="images/blog-logo.png" /><span>Blog de la comunidad</span></div>';
 echo '<div class="row row-top">

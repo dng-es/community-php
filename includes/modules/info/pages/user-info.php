@@ -1,14 +1,7 @@
 <?php
-
 infoController::getZipAction();
-
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-info-doc.js"));
-
 $elements = infoController::getItemAction($_GET['id']);
-
 ?>
   <div id="page-info">Gestión de documentos</div>
   <div class="row inset row-top">

@@ -25,10 +25,6 @@ if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
 	$na_areas->estadoArea($_REQUEST['id'],$estado);
 }	
 
-
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 $na_areas = new na_areas();
 $find_reg = "";
 $find_text = "";

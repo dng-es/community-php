@@ -16,9 +16,6 @@ if (isset($_REQUEST['t']) and $_REQUEST['t']!="") na_areasController::ExportForm
 //EXPORT REVS
 if (isset($_REQUEST['t3']) and $_REQUEST['t3']=="1") na_areasController::ExportFormAllAction();
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addJavascripts(array("js/jquery.numeric.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
 //OBTENER DATOS DE LA TAREA

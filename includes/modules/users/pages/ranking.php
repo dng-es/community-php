@@ -1,11 +1,7 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 templateload("tipuser","users");
 
 addJavascripts(array(getAsset("users")."js/ranking.js"));
-
   
 $users = new users();
 $huellas_user = $users->getUsers(" AND username='".$_SESSION['user_name']."' ");

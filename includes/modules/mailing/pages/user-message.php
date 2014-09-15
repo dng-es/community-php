@@ -1,8 +1,5 @@
 <?php
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);  
-
 templateload("cmbListas","mailing");
 
 addJavascripts(array("js/jquery.numeric.js", 

@@ -1,17 +1,13 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 include_once ("includes/videos/templates/gallery.php");
 include_once ("includes/videos/templates/addfile.php");
 include_once ("includes/videos/templates/addcomment.php");
 include_once ("includes/videos/templates/comment.php");
 
-
 addJavascripts(array("js/bootstrap.file-input.js", 
 					 "js/libs/jwplayer/jwplayer.js", 
 					 "js/jquery.bettertip.pack.js", 
 					 getAsset("videos")."js/video.js"));
-
 
 $id_video = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 $pagina_sig = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1 );

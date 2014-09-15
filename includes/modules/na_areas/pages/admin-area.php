@@ -4,7 +4,6 @@ $session = new session();
 $perfiles_autorizados = array("admin");
 $session->AccessLevel($perfiles_autorizados);
 
-
 //DESCARGAR USUARIOS DEL AREA
 if (isset($_REQUEST['t']) and $_REQUEST['t']==1){
 	$na_areas = new na_areas();
@@ -18,10 +17,6 @@ if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 	$elements = $foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['idt']." ");
 	exportCsv($elements);
 }
-
-
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);  
 
 addJavascripts(array("js/jquery.numeric.js", 
 					 "js/bootstrap.file-input.js", 

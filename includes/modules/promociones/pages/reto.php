@@ -1,6 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 include_once ("includes/fotos/templates/gallery.php");
 include_once ("includes/videos/templates/gallery.php");
 include_once ("includes/fotos/templates/addfile.php");

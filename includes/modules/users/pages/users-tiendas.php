@@ -11,9 +11,6 @@ if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 	exportCsv($elements);
 }  
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 $users = new users();
 if (isset($_POST['find_reg'])) {$filtro=" AND nombre_tienda LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
 if (isset($_REQUEST['f'])) {$filtro=" AND nombre_tienda LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 

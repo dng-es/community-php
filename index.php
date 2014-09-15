@@ -10,24 +10,22 @@ else{
 	//LOGIN-SESSION
 	session::validateUserSession();
 
-	//MOSTRAR PAGINA SOLICITADA. SI NO SE ENCUENTRA SE MUESTRA LA PAGINA 404
+	//OBTENER PAGINA SOLICITADA. SI NO SE ENCUENTRA SE MUESTRA LA PAGINA 404
 	ob_start();
 	include_once(pageRouter($page.".php"));
 	$output = ob_get_contents();
 	ob_end_clean();
 
-	//SELECCION METATAGS
-	if (!isset($Key_Words)){ $Key_Words=$ini_conf['SiteKeywords'];}         
-	if (!isset($Subject)){ $Subject=$ini_conf['SiteSubject'];}
-
-	//PAGE HEADERS
-	headers::PageHeader(SUBJECT_META_PAGE,KEYWORDS_META_PAGE);
+	//TEMPLATE PAGE HEADERS
+	headers::PageHeader();
 	
+	//TEMPLATE PAGE BODY
+	headers::PageBody($ini_conf,$page);
+
 	//PAGE BODY
-	headers::PageBody($ini_conf,$page);		
 	echo $output;
 	
-	//PAGE FOOTER
+	//TEMPLATE PAGE FOOTER
 	footer::PageFooter();
 }
 ?>

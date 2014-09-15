@@ -11,9 +11,6 @@ mailingController::exportMessageAction(" AND id_message IN (SELECT id_message FR
 //EXPORT LINKS
 mailingController::exportLinksAction(" AND username_add='".$_SESSION['user_name']."' ");
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION['user_name']."' ");
 ?>
 <div class="row inset row-top">

@@ -1,7 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 "js/bootstrap.file-input.js", 

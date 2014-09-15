@@ -3,13 +3,14 @@ class headers{
 	/**
 	* Print HTML page header. Goes from the begining </head>
 	*
-	* @param 	string 		$Subject 		Metatag subject
-	* @param 	string 		$Key_Words 		Metatag Keywords
 	*/
-	public static function PageHeader($Subject,$Key_Words){
-		global $ini_conf, $scripts_js, $scripts_css;
-		?>
+	public static function PageHeader(){
+		global $ini_conf, $scripts_js, $scripts_css, $KEYWORDS_META_PAGE, $SUBJECT_META_PAGE, $TITLE_META_PAGE;
 
+		$Key_Words = (isset( $KEYWORDS_META_PAGE ) ? $KEYWORDS_META_PAGE : $ini_conf['SiteKeywords']);
+		$Subject = (isset( $SUBJECT_META_PAGE ) ? $SUBJECT_META_PAGE : $ini_conf['SiteSubject']);
+		$Title = (isset( $TITLE_META_PAGE ) ? $ini_conf['SiteTitle']." - ".$TITLE_META_PAGE : $ini_conf['SiteTitle']);
+		?>
 
 		<!DOCTYPE html>
 		<html lang="es">
@@ -22,7 +23,7 @@ class headers{
 			<meta NAME="Keywords" CONTENT="<?php echo $Key_Words;?>" />
 			<meta name="copyright" CONTENT="Copyright(c) 2014 by Grass Roots Spain" />
 			<meta name="robots" content="noarchive" />
-			<title><?php echo $ini_conf['SiteTitle'];?></title>
+			<title><?php echo $Title;?></title>
 			<link rel="shortcut icon" href="favicon.ico">
 			<link rel="icon" type="image/ico"  href="favicon.ico" >		
 

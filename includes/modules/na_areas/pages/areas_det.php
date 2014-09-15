@@ -1,17 +1,14 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
+
 templateload("search","foro");
 templateload("list","foro");
 templateload("paginator","foro");
 templateload("addforo","foro");
 templateload("player","videos");
 
-
 addJavascripts(array("js/libs/jwplayer/jwplayer.js", 
 					 "js/bootstrap.file-input.js", 
 					 getAsset("na_areas")."js/areas_det.js"));
-
 
 $foro = new foro();
 $na_areas = new na_areas();

@@ -2,9 +2,6 @@
 
 infotopdfController::getHTMLtoPDF();
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addJavascripts(array("js/jquery.numeric.js", 
 					 "js/bootstrap-datepicker.js",
 					 "js/bootstrap-datepicker.es.js", 

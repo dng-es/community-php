@@ -1,7 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addCss(array("css/bootstrap-datetimepicker.min.css"));
 
 addJavascripts(array("js/bootstrap.file-input.js", 

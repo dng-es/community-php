@@ -10,8 +10,9 @@ usersController::exportListAction();
 //EXPORT STATISTICS
 usersController::exportStatisticsAction();
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
+$KEYWORDS_META_PAGE =  'usuarios, palabras clave';
+$SUBJECT_META_PAGE = strTranslate("Users_list");
+$TITLE_META_PAGE = strTranslate("Users_list");
 
 session::getFlashMessage( 'actions_message' ); 
 usersController::deleteAction();

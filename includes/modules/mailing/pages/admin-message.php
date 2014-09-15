@@ -1,9 +1,4 @@
 <?php
-
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);   
-
-
 //CONTROL NIVEL DE ACCESO
 $perfiles_autorizados = array("admin");
 session::AccessLevel($perfiles_autorizados);

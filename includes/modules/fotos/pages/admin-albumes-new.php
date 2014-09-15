@@ -1,6 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 

@@ -1,9 +1,6 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 addJavascripts(array(getAsset("foro")."js/foro-temas.js"));
-
 
 templateload("blog","foro");
 templateload("list","foro");

@@ -1,9 +1,6 @@
 <?php
 header("HTTP/1.0 404 Not Found");
 header("Status: 404 Not Found");
-
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 ?>
 
 <div id="page-info">Página no encontrada</div>

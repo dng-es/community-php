@@ -1,9 +1,3 @@
-<?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
-?>
-
 <div id="page-info">Cursos de formación</div>
 <div class="row inset row-top">
 		<div class="col-md-12">

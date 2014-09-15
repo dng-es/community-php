@@ -1,13 +1,4 @@
 <?php
-///////////////////////////////////////////////////////////////////////////////////
-// FRAMEWORK_DA
-// Author: David Noguera Gutierrez
-// License: GPL
-// Date: 2010-09-18
-// Please don't remove these lines
-///////////////////////////////////////////////////////////////////////////////////
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 
 templateload("gallery","fotos");
 templateload("addfile","fotos");
@@ -18,7 +9,6 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					 "js/jquery.bettertip.pack.js", 
 					 "js/jquery.prettyPhoto.js", 
 					 getAsset("fotos")."js/fotos-gallery.js"));
-
 
 $fotos = new fotos();
 

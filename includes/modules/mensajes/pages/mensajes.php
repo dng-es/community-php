@@ -1,9 +1,5 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 addJavascripts(array(getAsset("mensajes")."js/mensajes.js"));
-
 ?>  
 <div id="page-info">Tus mensajes</div>
 <div class="row inset row-top">

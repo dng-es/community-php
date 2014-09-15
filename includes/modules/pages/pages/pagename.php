@@ -1,7 +1,4 @@
 <?php
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 $pages = new pages();
 if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 	$id = $_REQUEST['id'];

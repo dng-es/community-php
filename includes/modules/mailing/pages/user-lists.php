@@ -5,9 +5,6 @@ mailingListsController::exportListAction(" AND user_list='".$_SESSION['user_name
 //EXPORT EMAILS CSV
 mailingListsController::exportUserListAction(" AND id_list IN (SELECT id_list FROM mailing_lists WHERE user_list='".$_SESSION['user_name']."') ");
 
-define('KEYWORDS_META_PAGE', $ini_conf['SiteKeywords']);
-define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
-
 session::getFlashMessage( 'actions_message' ); 
 mailingListsController::deleteAction();
 $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
