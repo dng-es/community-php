@@ -6,7 +6,7 @@ $page = (isset($_REQUEST['page']) and $_REQUEST['page']!="") ? $_REQUEST['page']
 
 //LOGOUT SESSION
 if ($page=='logout') {session::destroySession();}
-else{
+
 	//LOGIN-SESSION
 	session::validateUserSession();
 
@@ -27,5 +27,4 @@ else{
 	
 	//TEMPLATE PAGE FOOTER
 	footer::PageFooter();
-}
 ?>

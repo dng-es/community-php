@@ -4,8 +4,6 @@ session::setLanguage();
 
 class session {    
 	
- 
-	
 	public static function validateUserSession(){
 		self::setUrlSession();
 	
@@ -153,6 +151,7 @@ class session {
 		session_destroy();		
 		self::setUrlSession();
 		header ("Location: ?page=".$url);
+		die();
 	}
 	
 	/**
