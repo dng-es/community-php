@@ -13,4 +13,3 @@ images/banners/*.*
 /.project
 css/.sass-cache
 bin/.sass-cache
-bin/npm-debug.log
