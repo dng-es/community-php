@@ -2,7 +2,7 @@
 addCss(array("css/bootstrap-datetimepicker.min.css"));
 addJavascripts(array("js/bootstrap.file-input.js", 
 					 "js/bootstrap-datepicker.js", 
-					 "js/bootstrap-datepicker.es.js"
+					 "js/bootstrap-datepicker.es.js",
 					 getAsset("users")."js/registration.js"));
 ?>
 <div id="confirm-container" class="row">			
