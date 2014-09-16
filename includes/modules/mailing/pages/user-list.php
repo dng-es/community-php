@@ -3,7 +3,7 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 ?>
 <div class="row inset row-top">
 	<div class="col-md-12">
-		<h2>Listas de envío</h2>
+		<h1>Listas de envío</h1>
 		<ul class="nav nav-pills navbar-default">
 			<li><a href="?page=user-list&act=new">Nueva lista</a></li>
 			<li><a href="?page=user-lists">Ir a todas las listas</a></li>

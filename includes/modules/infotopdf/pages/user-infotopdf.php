@@ -21,9 +21,9 @@ $web='';
 $email = '';
 
 ?>
-  <div id="page-info">Gestión de documentos</div>
   <div class="row inset row-top">
 	<div class="col-md-8">
+		<h1>Gestión de documentos</h1>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
 			<div class="panel-body">

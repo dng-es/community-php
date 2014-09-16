@@ -9,13 +9,12 @@ else {$id_comentario=0;}
 $filtro_comentario = " AND id_comentario=".$id_comentario." ";					   
 $comentario_muro = $muro->getComentarios($filtro_comentario);   
 ?>
-<div id="page-info">Respuestas en el muro</div>
 <div class="row inset row-top">
 	<div class="col-md-9">
+		<h1>Respuestas en el muro</h1>
 		<?php
 		//SOLO LOS COMERCIALES,FORMADORES Y ADMIN PUEDEN INSERTAR COMENTARIOS
-		if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='usuario' or $_SESSION['user_perfil']=='formador' or $_SESSION['user_perfil']=='responsable' or $_SESSION['user_perfil']=='forosIns')
-		{				
+		if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='usuario' or $_SESSION['user_perfil']=='formador' or $_SESSION['user_perfil']=='responsable' or $_SESSION['user_perfil']=='forosIns') {				
 		echo '<div id="muro-insert">
 						<form id="form-responder-muro" name="form-responder-muro" action="" method="post" role="form">
 						<input type="hidden" name="id_comentario_responder" id ="id_comentario_responder" value="'.$id_comentario.'" />

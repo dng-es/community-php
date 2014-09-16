@@ -13,9 +13,9 @@ if (isset($_REQUEST['pag'])){$pagina=$_REQUEST['pag'];}
 else{$pagina=1;}
 
 ?>
-<div id="page-info">El muro</div>
 <div class="row inset row-top">
 	<div class="col-md-9">
+		<h1>El muro</h1>
 		<span id="tipo_muro" value="<?php echo $nombre_muro;?>"></span>
 		<span id="pagina" value="<?php echo $pagina;?>"></span>
 		<div id="muro-insert">

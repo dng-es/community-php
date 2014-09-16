@@ -3,7 +3,7 @@ $elements = mailingTemplatesController::getListAction(6, "activos");
 ?>
 <div class="row inset row-top">
   	<div class="col-md-12"> 
-  		<h2>Plantillas de comunicaciones</h2>
+  		<h1>Plantillas de comunicaciones</h1>
     	<p>Total <b><?php echo $elements['total_reg'];?></b> plantillas</p>
     	<div class="row">
 			<?php 

@@ -14,7 +14,7 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 ?>
 <div class="row inset row-top">
 	<div class="col-md-8">
-		<h2>Envío de comunicaciones</h2>
+		<h1>Envío de comunicaciones</h1>
 		<?php
 		$mailing = new mailing();
 		session::getFlashMessage( 'actions_message' );

@@ -1,9 +1,9 @@
 <?php
 addJavascripts(array(getAsset("mensajes")."js/mensajes.js"));
 ?>  
-<div id="page-info">Tus mensajes</div>
 <div class="row inset row-top">
 	<div class="col-md-11">
+		<h1>Tus mensajes</h1>
 		<p>Contacta con uno de tus compañeros de la comunidad, es tan sencillo como poner su Alias, escribir el mensaje y enviárselo.</p>
 
 		<?php

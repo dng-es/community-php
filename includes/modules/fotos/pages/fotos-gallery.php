@@ -25,9 +25,9 @@ $mensaje=$insercion_foto = $fotos->insertFile($_FILES['nombre-foto'],PATH_FOTOS,
 if (isset($_REQUEST['idvf']) and $_REQUEST['idvf']!="") { 
 	$mensaje=$insercion_votacion = $fotos->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']);}
 ?>
-<div id="page-info"><?php echo strTranslate("Photo_gallery");?></div>
 <div class="row row-top">
 	<div class="col-md-9 inset">
+		<h1><?php echo strTranslate("Photo_gallery");?></h1>
 		<?php
 		//FILTROS
 		$busqueda="";

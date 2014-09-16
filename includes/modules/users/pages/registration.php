@@ -10,7 +10,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
 	<div class="col-md-6" style="border-left:1px solid #a1569d">
-		<h2><?php echo strTranslate("Registration");?></h2>
+		<h1><?php echo strTranslate("Registration");?></h1>
 		<?php
 		session::getFlashMessage( 'actions_message' );
 

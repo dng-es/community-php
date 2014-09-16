@@ -36,9 +36,9 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 	if (count($temas)>0){
 		$id_tema_parent = $temas[0]['id_tema'];
 
-		echo '<div id="page-info">Cursos de formación</div>';
 		echo '<div class="row row-top">';
-		echo '	<div class="col-md-11 inset">';	
+		echo '	<div class="col-md-11 inset">';
+		echo '		<h1>Cursos de formación</h1>';
 
 		session::getFlashMessage( 'actions_message' );		  
 

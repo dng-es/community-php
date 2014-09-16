@@ -11,10 +11,9 @@ videosController::voteAction();
 videosController::createAction();
 $elements = videosController::getListAction(4, " AND estado=1 ");	
 ?>
-
-<div id="page-info"><?php echo strTranslate("Video_gallery");?></div>
 <div class="row row-top">
 	<div class="col-md-9 inset">
+		<h1><?php echo strTranslate("Video_gallery");?></h1>
 		<?php 
 		galleryVideos($elements['items'],true,0,4);
 		Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>

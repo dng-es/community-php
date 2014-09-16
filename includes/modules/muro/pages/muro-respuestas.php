@@ -17,7 +17,6 @@ include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/users/class.users.php");
 include_once($base_dir . "modules/muro/class.muro.php");
 
-
 session::ValidateSessionAjax();
 $muro=new muro();
   //VOTAR COMENTARIO

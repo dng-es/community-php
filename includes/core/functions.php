@@ -416,7 +416,8 @@ function ComboPerfiles($perfil){
  */
 function ComboCanales($canal=""){
 ?>
-      <option tp="1" value="<?php echo CANAL1;?>" <?php if ($canal==CANAL1){ echo ' selected="selected" ';}?>><?php echo CANAL1_LABEL;?></option>
+    <option value="<?php echo CANAL1;?>" <?php if ($canal==CANAL1){ echo ' selected="selected" ';}?>><?php echo CANAL1_LABEL;?></option>
+    <option value="<?php echo CANAL2;?>" <?php if ($canal==CANAL2){ echo ' selected="selected" ';}?>><?php echo CANAL2_LABEL;?></option>
 <?php	
 }
 

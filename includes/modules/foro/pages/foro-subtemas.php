@@ -9,10 +9,9 @@ $foro = new foro();
 $id_tema_parent="";
 $canal="";
 ?>
-
-<div id="page-info"><?php echo strTranslate("Forums");?></div>
 <div class="row row-top">
 	<div class="col-md-7 col-lg-8 inset">
+		<h1><?php echo strTranslate("Forums");?></h1>
 		<p><?php echo strTranslate("Forums_title");?></p>
 
 		<?php

@@ -3,7 +3,7 @@
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
 	<div class="col-md-6" style="border-left:1px solid #1d7493">
-		<h2>Confirmación de baja</h2>
+		<h1>Confirmación de baja</h1>
 		<?php 
 		session::getFlashMessage( 'actions_message' );  
 		mailingController::createBlackAction();	  

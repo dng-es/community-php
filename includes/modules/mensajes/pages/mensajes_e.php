@@ -1,25 +1,24 @@
 <?php
 addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/mensajes.js"));
 ?>
-
-<div id="page-info">Tus mensajes</div>
 <div class="row inset row-top">
 	<div class="col-md-11">
-	<p>Contacta con uno de tus compañeros de la comunidad, es tan sencillo como poner su Alias, escribir el mensaje y enviárselo.</p>
+		<h1 id="page-info">Tus mensajes</h1>
+		<p>Contacta con uno de tus compañeros de la comunidad, es tan sencillo como poner su Alias, escribir el mensaje y enviárselo.</p>
 
-	<?php
-	session::getFlashMessage( 'actions_message' );
-	    
-	$mensajes = new mensajes();
-	//VARIABLES DE INICIO DEL MENSAJE
-	if ($_REQUEST['act']=='resp'){
-		//DATOS DEL MENSAJE ORIGINAL
-		$mensaje = $mensajes->getMensajes(" AND id_mensaje=".$_REQUEST['id']." ");
-		if ($mensaje[0]['user_remitente']==$_SESSION['user_name']){
-			$asunto_resp="RV: ".$mensaje[0]['asunto_mensaje'];
-			$nick_remitente=$mensaje[0]['nick'];
-			$nick_resp="";
-			$cuerpo_resp='
+		<?php
+		session::getFlashMessage( 'actions_message' );
+		    
+		$mensajes = new mensajes();
+		//VARIABLES DE INICIO DEL MENSAJE
+		if ($_REQUEST['act']=='resp'){
+			//DATOS DEL MENSAJE ORIGINAL
+			$mensaje = $mensajes->getMensajes(" AND id_mensaje=".$_REQUEST['id']." ");
+			if ($mensaje[0]['user_remitente']==$_SESSION['user_name']){
+				$asunto_resp="RV: ".$mensaje[0]['asunto_mensaje'];
+				$nick_remitente=$mensaje[0]['nick'];
+				$nick_resp="";
+				$cuerpo_resp='
 
 
 -------------------------------------

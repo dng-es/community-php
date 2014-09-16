@@ -8,7 +8,7 @@ addJavascripts(array(getAsset("users")."js/login.js"));
 	</div>
 	<div class="col-md-6 login-container">
 		<div class="col-md-12 noppading">	            
-			<h2><?php echo strTranslate("Identify_to_access");?></h2>
+			<h1><?php echo strTranslate("Identify_to_access");?></h1>
 			<?php session::getFlashMessage( 'actions_message' );?>
             <form method="post" action="" name="form-login" id="form-login" role="form" class="form-horizontal">          
                 <div class="row">

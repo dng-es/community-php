@@ -1,10 +1,9 @@
 <?php
 $elements = infotopdfController::getListAction(20);
 ?>
-<div id="page-info">Comunicaciones impresas</div>
 <div class="row inset row-top">
 	<div class="col-md-12">
-		<div class="row">
+		<h1>Comunicaciones impresas</h1>
 		<?php 
 		$columna = 1;
 		foreach($elements['items'] as $element): 
@@ -27,7 +26,6 @@ $elements = infotopdfController::getListAction(20);
 		endforeach;
 		if ($columna == 2){echo '</div>';}
 		?>
-		</div>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
 </div>

@@ -9,9 +9,9 @@ $ficheros = infoController::getListAction(400000, " AND i.id_campaign=".$_GET['i
 $plantilla = campaignsController::getItemAction();	
 
 ?>
-<div id="page-info">Campañas</div>
 <div class="row inset row-top">	
 	<div class="col-md-12">
+		<h1>Campañas</h1>
 		<h3><?php echo $plantilla['name_campaign'];?></h3>
 		<p><?php echo $plantilla['novedad']==1 ? '<span class="label label-success">novedad</span> ' : '';?></p>
 		<p><?php echo $plantilla['desc_campaign'];?></p>	

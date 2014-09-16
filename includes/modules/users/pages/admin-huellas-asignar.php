@@ -9,8 +9,7 @@ include_once($base_dir . "modules/users/class.users.php");
 
 session::ValidateSessionAjax();
 	
-if (isset($_REQUEST['id_usuario']) and $_REQUEST['id_usuario']!="")
-{
+if (isset($_REQUEST['id_usuario']) and $_REQUEST['id_usuario']!=""){
 	$users = new users();
 	//VERIFICAR USUARIO EXISTE
 	if ($users->countReg("users"," AND username='". $_REQUEST['id_usuario']."' ")==0){ 

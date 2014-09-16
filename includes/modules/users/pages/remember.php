@@ -7,7 +7,7 @@ addJavascripts(array(getAsset("users")."js/remember.js"));
 	</div>
 	<div class="col-md-6 login-container">
 		<div class="col-md-12 noppading">
-			<h2><?php echo strTranslate("Recover_password");?></h2>            
+			<h1><?php echo strTranslate("Recover_password");?></h1>            
 			<?php
 			session::getFlashMessage( 'actions_message' ); 
 			usersController::recoverPasswordAction();?>

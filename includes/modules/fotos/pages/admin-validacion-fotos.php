@@ -28,7 +28,7 @@ $albumes = $fotos->getFotosAlbumes("");?>
 
 <div class="row row-top">
 	<div class="col-md-9">	
-			<h1>Validación de fotos</h1>
+		<h1>Validación de fotos</h1>
 		<p>Tienes las siguientes <b>FOTOS</b> (<?php echo count($pendientes);?>) pendientes de validar. Puntos a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b>.</p>
 		<table class="table">
 		<tr>

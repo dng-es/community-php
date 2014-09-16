@@ -9,10 +9,9 @@ addJavascripts(array("js/jquery.numeric.js",
 					 getAsset("mailing")."js/admin-message.js"), 
 					 getAsset("mailing")."js/admin-message-test.js"));
 ?>	
-
-<div id="page-info">Envío de comunicaciones</div>
 <div class="row inset row-top">
 	<div class="col-md-8">
+		<h1>Envío de comunicaciones</h1>
 		<?php
 		session::getFlashMessage( 'actions_message' );
 

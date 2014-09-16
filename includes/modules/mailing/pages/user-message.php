@@ -10,22 +10,22 @@ addJavascripts(array("js/jquery.numeric.js",
 					 getAsset("mailing")."js/user-message-test.js"));
 
 ?>
-<div id="page-info">Envío de comunicaciones</div>
 <div class="row inset row-top">
 	<div class="col-md-9">
-	<?php
-	session::getFlashMessage( 'actions_message' );
-	mailingController::createUserAction();
+		<h1>Envío de comunicaciones</h1>
+		<?php
+		session::getFlashMessage( 'actions_message' );
+		mailingController::createUserAction();
 
-	$id = isset($_GET['id']) == true ? $_GET['id'] : 0;
-	$plantilla = mailingTemplatesController::getItemAction($id);
-	$direccion='';
-	$cod_postal='';
-	$poblacion='';
-	$provincia='';
-	$telefono='';
-	$web='';
-	?>
+		$id = isset($_GET['id']) == true ? $_GET['id'] : 0;
+		$plantilla = mailingTemplatesController::getItemAction($id);
+		$direccion='';
+		$cod_postal='';
+		$poblacion='';
+		$provincia='';
+		$telefono='';
+		$web='';
+		?>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del mensaje</div>
 			<div class="panel-body">

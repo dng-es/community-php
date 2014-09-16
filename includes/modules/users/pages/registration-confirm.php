@@ -2,7 +2,8 @@
 	<div class="col-md-6">
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
-	<div class="col-md-6" style="border-left:1px solid #a1569d"><h2>Confirmación de usuario</h2>
+	<div class="col-md-6" style="border-left:1px solid #a1569d">
+		<h1>Confirmación de usuario</h1>
 		<?php
 		$users = new users();
 		if ($users->countReg("users"," AND sha1(username)='".$_REQUEST['a']."' AND sha1(user_password)='".$_REQUEST['c']."' AND sha1(email)='".$_REQUEST['b']."' ")==1){
