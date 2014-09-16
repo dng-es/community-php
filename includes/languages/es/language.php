@@ -1,4 +1,5 @@
 <?php
+APP_points = "puntos"
 Hello = "Hola"
 Home = "Inicio"
 Contact = "Contactar"
@@ -57,4 +58,7 @@ Go_to = "Ir a"
 Go_back = "Volver atrás"
 Visits = "Visitas"
 Characters = "Caracteres";
+404_page_not_found ="Página no encontrada"
+404_page_not_found_title ="La página que has solicitado no se encuentra."
+404_page_not_found_info ="Si estas seguro de que esta página existe y se ha producido un error, porfavor informa al administrador del problema."
 ?>

@@ -13,7 +13,7 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Validación de comentarios del muro</h1>
-		<p>Hay los siguientes mensajes en el <b>MURO</b> (<?php echo $elements['total_reg'];?>). Puntos a otorgar por mensaje: <span class="comunidad-color"><?php echo PUNTOS_MURO;?>.</span></p>
+		<p>Hay los siguientes mensajes en el <b>MURO</b> (<?php echo $elements['total_reg'];?>). <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <span class="comunidad-color"><?php echo PUNTOS_MURO;?>.</span></p>
 		<table class="table">
 		<tr>
 		<th width="40px">&nbsp;</th>

@@ -82,9 +82,8 @@ class menu{
 					echo ' <i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
 					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="?page=admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
 					echo '<a href="?page=user-perfil" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';	
-					echo '<a href="?page=logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a></p>';	
-					//echo '<p><span>Horas de vuelo</span> <span style="font-size:32px;font-weight:bolder;color:#fff">'.$puntos_user[0]['horas_vuelo'].'</span></p>';
-					//echo '<span>Puntos</span> '.$puntos_user[0]['puntos'].' </p>';
+					echo '<a href="?page=logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a> | ';
+					echo ucfirst(strTranslate("APP_points")).': '.$puntos_user[0]['puntos'];
 					echo ' </p>';
 					?>
 					</div>		

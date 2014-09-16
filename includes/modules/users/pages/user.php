@@ -112,7 +112,7 @@ $estadisticas = usersController::getUserStatistics();
 		<p>Estadísticas de uso de la comunidad por el usuario <b><?php echo $elements[0]['username'];?></b></p>
 		<table class="table">
 		<tr><td><label>Fecha de alta</label></td><td><?php echo $elements[0]['date_add'];?></td></tr>
-		<tr><td><label>Puntos</label></td><td><?php echo $elements[0]['puntos'];?></td></tr>
+		<tr><td><label><?php echo ucfirst(strTranslate("APP_points"));?></label></td><td><?php echo $elements[0]['puntos'];?></td></tr>
 		<tr><td><label>Participaciones</label></td><td><?php echo $elements[0]['participaciones'];?></td></tr>
 		<?php if (count($estadisticas)>0): ?>
 			<?php foreach(array_keys($estadisticas) as $final): ?>

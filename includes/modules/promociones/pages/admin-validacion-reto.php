@@ -144,11 +144,11 @@ function getVideosRetoPendientes($id_promocion)
 	$pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=".$id_promocion." ");
 	if (count($pendientes)==0){
 		echo '<p class="TituloSecc2">No hay <span class="comunidad-color">VIDEOS</span> en el reto pendientes de validar.<br />
-			Puntos a otorgar por video validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
+			'.ucfirst(strTranslate("APP_points")).' a otorgar por video validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
 	}
 	else{
 	  echo '<p class="TituloSecc2">Tiene los siguientes <span class="comunidad-color">VIDEOS</span> en el reto pendientes de validar.<br />
-			Puntos a otorgar por video validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
+			'.ucfirst(strTranslate("APP_points"));.' a otorgar por video validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
 	  foreach($pendientes as $element):
 			if (file_exists(PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4')){ $convertido=true;}
 			else {$convertido=false;}
@@ -189,11 +189,11 @@ function getVideosRetoValidados($id_promocion)
 	$pendientes = $videos->getVideos(" AND estado=1 AND seleccion_reto=0 AND id_promocion=".$id_promocion." ");
 	if (count($pendientes)==0){
 		echo '<p class="TituloSecc2">No hay <span class="comunidad-color">VIDEOS</span> en el reto para seleccionar.<br />
-			Puntos a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span><br />';
+			'.ucfirst(strTranslate("APP_points")).' a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span><br />';
 	}
 	else{
 	  echo '<p class="TituloSecc2">Tiene los siguientes <span class="comunidad-color">VIDEOS</span> en el reto para seleccionar como los mejores.<br />
-			Puntos a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
+			'.ucfirst(strTranslate("APP_points")).' a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
 
 	  foreach($pendientes as $element):
 			echo '<div class="video-container">';

@@ -29,7 +29,7 @@ $albumes = $fotos->getFotosAlbumes("");?>
 <div class="row row-top">
 	<div class="col-md-9">	
 		<h1>Validación de fotos</h1>
-		<p>Tienes las siguientes <b>FOTOS</b> (<?php echo count($pendientes);?>) pendientes de validar. Puntos a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b>.</p>
+		<p>Tienes las siguientes <b>FOTOS</b> (<?php echo count($pendientes);?>) pendientes de validar. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b>.</p>
 		<table class="table">
 		<tr>
 		<th width="40px">&nbsp;</th>

@@ -336,11 +336,11 @@ function getForoPendientes($id_area)
 	$pendientes = $foro->getComentarios($filtro_temas." AND date_comentario>='".$fecha_ayer."' AND estado=1 AND t.id_area=".$id_area." ORDER BY id_comentario DESC");
 	if (count($pendientes)==0){
 		echo '<p class="TituloSecc2">No hay mensajes en el <span class="orange-color">FORO</span> insertados ultimamente (fecha: '.$fecha_ayer.').<br />
-				Puntos a otorgar por mensaje: <span class="orange-color">'.PUNTOS_FORO.'.</span></p><br />';
+				'.ucfirst(strTranslate("APP_points")).' a otorgar por mensaje: <span class="orange-color">'.PUNTOS_FORO.'.</span></p><br />';
 	}
 	else{
 		echo '<p class="TituloSecc2">Hay los siguientes mensajes en el <span class="orange-color">FORO</span> insertados ultimamente (fecha: '.$fecha_ayer.').<br />
-				Puntos a otorgar por mensaje: <span class="orange-color">'.PUNTOS_FORO.'.</span></p><br />';
+				'.ucfirst(strTranslate("APP_points")).' a otorgar por mensaje: <span class="orange-color">'.PUNTOS_FORO.'.</span></p><br />';
 		echo '<table class="table table-striped">';
 		echo '	<tr>';
 		echo '	<th width="30px">&nbsp;</th>';

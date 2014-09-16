@@ -13,7 +13,7 @@ $elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Comentarios en los foros</h1>
-			<p>Hay los siguientes <b>MENSAJES</b> (<?php echo $elements['total_reg'];?>) en los foros. Puntos a otorgar por mensaje: <span class="comunidad-color"><?php echo PUNTOS_FORO;?>.</span></p>
+			<p>Hay los siguientes <b>MENSAJES</b> (<?php echo $elements['total_reg'];?>) en los foros. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <span class="comunidad-color"><?php echo PUNTOS_FORO;?>.</span></p>
 			<div class="table-responsive">
 				<table class="table">
 				<tr>
