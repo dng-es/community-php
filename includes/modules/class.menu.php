@@ -29,12 +29,12 @@ class menu{
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="?page=home"><?php echo strTranslate("Home")?></a></li>
+					<li><a href="?page=home"><?php echo strTranslate("Home")?></a></li>
 					<li><a href="?page=videos"><?php echo strTranslate("Videos")?></a></li>
 					<li><a href="?page=fotos"><?php echo strTranslate("Photos")?></a></li>
 					<li><a href="?page=user-infotopdf-all">Impresos PDF</a></li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false">Envío emails <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false">Envío emails <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="?page=user-templates">Ver todas las comunicaciones</a></li>
 							<li><a href="?page=user-lists">Mis listas de envío</a></li>

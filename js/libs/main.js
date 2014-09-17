@@ -60,7 +60,7 @@ jQuery(document).ready(function(){
 	//Menu administración
 	$(".module-admin-header").click(function(e){
 		e.preventDefault();
-		$(this).next(".module-admin-item").slideToggle();	
+		$(this).next(".module-admin-item").slideToggle();
 	});
 
 	//desplegar menu administración activo
