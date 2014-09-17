@@ -105,7 +105,7 @@ class debugger {
 		$error_log['errno'] = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errno']);
 		$error_log['errline'] = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errline']);
 		$error_log['errstr'] = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errstr']);
-		$error_log['errstr'] = str_replace("'", '`', $error_log['errstr']);
+		$error_log['errstr'] = addslashes($error_log['errstr']);
 		$error_log['errcontext'] = print_r($error_log['errcontext'], true);
 		$error_log['errcontext'] = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errcontext']);
 		$error_log['errbacktrace'] = print_r($error_log['errbacktrace'], true);
