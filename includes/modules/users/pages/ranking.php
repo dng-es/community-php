@@ -42,6 +42,7 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 	</div>
 	<div class="col-md-3 lateral">
 		<?php rankingUsuario($puntos_user[0],$puntos[0]['puntos'],20,$posicion_user);?>
+		<a href="?page=ranking-empresas" class="btn btn-primary btn-block">Ir a ranking de empresas</a>
 	</div>
 </div>
 

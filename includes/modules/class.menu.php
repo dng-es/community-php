@@ -44,6 +44,7 @@ class menu{
 					<li><a href="?page=areas"><?php echo strTranslate("Na_areas")?></a></li>
 					<li><a href="?page=foro-subtemas&id=<?php echo $id_foro;?>"><?php echo strTranslate("Forums")?></a></li>
 					<li><a href="?page=user-info-all">Documentación</a></li>
+					<li><a href="?page=ranking">Ranking</a></li>
 
 					<li class="hidden-md hidden-lg"><a href="?page=user-perfil"><?php echo strTranslate("My_profile")?></a></li>
 					<?php if ($_SESSION['user_perfil']=='admin'){

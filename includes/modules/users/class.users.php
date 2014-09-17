@@ -332,7 +332,7 @@ class users extends connection{
 	public static function posicionRankingEmpresa($empresa){
 		$Sql="SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM 
 			(SELECT SUM(puntos),empresa FROM users WHERE empresa<>'' AND empresa<>'comunidad' GROUP BY empresa HAVING SUM(puntos)>=
-			(SELECT SUM(puntos) FROM users WHERE empresa='".$empresa."' GROUP BY empresa ORDER BY puntos DESC,empresa ASC)) r,  
+			(SELECT SUM(puntos) FROM users WHERE empresa='".$empresa."' GROUP BY empresa) ORDER BY puntos ASC,empresa DESC) r,  
 			(SELECT @rownum:=0) ro ) f WHERE empresa='".$empresa."' GROUP BY empresa";
 		$result=self::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
 		$row=self::get_result($result);
@@ -340,8 +340,10 @@ class users extends connection{
 	} 
 	  
 	public function getPuntosEmpresa($filter = "", $extra =""){
-		$Sql="SELECT empresa,SUM(puntos) AS puntos_empresa 
-			  FROM users WHERE 1=1 ".$filter." 
+		$Sql="SELECT empresa,SUM(puntos) AS puntos_empresa, nombre_tienda  
+			  FROM users u 
+			  LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
+			  WHERE 1=1 ".$filter." 
 			  GROUP BY empresa ".$extra;
 		return connection::getSQL($Sql); 
 	} 
