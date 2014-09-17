@@ -9,17 +9,15 @@ $posicion_empresa_user=users::posicionRankingEmpresa($_SESSION['user_empresa']);
 if ($_SESSION['user_perfil']=='admin'){$posicion_empresa=0;}
 $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ","ORDER BY puntos_empresa DESC,empresa ASC LIMIT 15");
 
-?>	
-	
-
+?>
 <div class="row inset row-top">
 	<div class="col-md-9">
 		<h1>Ranking empresas</h1>
 		<div class="row">
 			<div class="col-md-12">
-				<p>Cada una de tus aportaciones ayuda a tu empresa a acumular <?php echo strTranslate("APP_points");?>. ¿Cuántas <?php echo strTranslate("APP_points");?> tenéis?<br />
+				<p>Cada una de tus aportaciones ayuda a tu empresa a acumular <?php echo strTranslate("APP_points");?>. ¿Cuántos <?php echo strTranslate("APP_points");?>, tenéis? 
 				¿estáis entre los primeros? descúbrelo en este ranking:</p>
-				<br />
+				<h3><?php echo $puntos_empresa[0]['nombre_tienda'];?> <small><?php echo $puntos_empresa[0]['puntos_empresa']." ".strTranslate("APP_points");?></small> Posición <small><?php echo $posicion_empresa_user;?></small></h3>
 				<table class="table">
 					<?php 	
 					//LOS 10 PRIMEROS DEL RANKING
@@ -40,11 +38,7 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3 lateral">
-		<h3>Tu empresa en el ranking: <small><?php echo $posicion_empresa_user;?></small></h3>
-		<p><?php echo $puntos_empresa[0]['nombre_tienda'];?><br />
-		<?php echo strTranslate("APP_points")." ".$puntos_empresa[0]['puntos_empresa'];?> 
-		</p>
+	<div class="col-md-3 lateral">	
 		<a href="?page=ranking" class="btn btn-primary btn-block">Ir a ranking de usuarios</a>
 		<br />
 		<h4>¿Cómo ganar <?php echo strTranslate("APP_points");?>?</h4>

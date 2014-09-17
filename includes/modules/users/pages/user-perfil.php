@@ -127,7 +127,7 @@ $usuario = usersController::getPerfilAction();
 		</div>
 		<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="statistics">
 			<br />
-			<p>No hay estadistivas activas</p>
+			<p>No hay estadísticas activas</p>
 			<br /><br /><br /><br />
 		</div>
 	</div>
