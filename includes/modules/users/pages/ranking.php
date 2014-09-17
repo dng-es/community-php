@@ -20,7 +20,14 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 		<div class="row">
 			<?php for ($i=0;$i<=5;$i++){ ?>
 			<div class="col-md-2">
-				<?php if (isset($puntos[$i])) userdatos($puntos[$i], ($i+1));?>
+				<?php if (isset($puntos[$i])):
+				$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg");?>
+				<img src="<?php echo $foto;?>" style="width:100%" />
+				<h4>Posicion: <small><?php echo ($i+1);?></small></h4>
+				<p><?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?><br />
+				<?php echo $puntos[$i]['nombre_tienda'];?><br />
+				<?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></p>
+				<?php endif; ?>
 			</div>
 			<?php } ?>
 		</div> 
@@ -30,65 +37,35 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 				<table class="table">
 					<?php
 					//LOS 10 PRIMEROS DEL RANKING
-					$total_usuarios=$users->countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
+					//$total_usuarios=$users->countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
 					//echo '	<p>Los mejores en el ranking, total de usuarios activos: '.$total_usuarios.'</p>';
 
 					for ($i=6;$i<=14;$i++){	
-						if (isset($puntos[$i]))userRanking($puntos[$i],$puntos[0]['puntos'],$i,($i+1));
-					}?>
+						if (isset($puntos[$i])):
+							$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg"); ?>
+							<tr>
+								<td class="table-number"><?php echo ($i+1);?></td>
+								<td><img src="<?php echo $foto;?>" width="50px" height="50px" /></td>
+								<td>
+									<?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?><br />
+									<?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?>
+								</td>
+								<td><?php $puntos[$i]['nombre_tienda'];?></td>
+							</tr>
+						<?php endif;
+					} ?>
 				</table>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-3 lateral">
-		<?php rankingUsuario($puntos_user[0],$puntos[0]['puntos'],20,$posicion_user);?>
+		<?php $foto = PATH_USERS_FOTO. ($puntos_user[0]['foto'] != "" ? $puntos_user[0]['foto'] : "user.jpg");?>
+		<img src="<?php echo $foto;?>" class="user-perfil-img" />   
+		<h3>Tu posición: <small><?php echo $posicion_user;?></small></h3>
+		<p><?php echo $puntos_user[0]['name'].' '.$puntos_user[0]['surname'];?><br />
+		<?php echo $puntos_user[0]['nombre_tienda'];?><br />
+		<?php echo $puntos_user[0]['puntos'];?> <?php echo strTranslate("APP_points");?>
+		</p>
 		<a href="?page=ranking-empresas" class="btn btn-primary btn-block">Ir a ranking de empresas</a>
 	</div>
 </div>
-
-
-<?php
-///////////////////////////////////////////////////////////////////////////////////
-// PAGE FUNCTIONS
-///////////////////////////////////////////////////////////////////////////////////
-function userdatos($puntos,$posicion_ranking){
-	$foto = PATH_USERS_FOTO. ($puntos['foto'] != "" ? $puntos['foto'] : "user.jpg");
-	echo '
-			<img src="'.$foto.'" style="width:100%" />
-				<h4>Posicion: <small>'.$posicion_ranking.'</small></h4>
-				<p>'.$puntos['name'].' '.$puntos['surname'].'<br />
-				'.$puntos['nombre_tienda'].'<br />
-				'.$puntos['puntos'].' '.strTranslate("APP_points").'</p>';
-
-}
-function userRanking($puntos,$max_puntos,$i,$posicion_ranking){
-	$foto = PATH_USERS_FOTO. ($puntos['foto'] != "" ? $puntos['foto'] : "user.jpg");
-
-	echo '<tr>
-			<td class="table-number">'.$posicion_ranking.'</td>
-			<td>
-				<a id="a'.$i.'" href="$a'.$i.'Tip?width=350" class="betterTip" title="Datos del usuario <em>'.$puntos['nick'].'</em>">
-					<img src="'.$foto.'" width="50px" height="50px" />
-				</a>
-			</td>
-			<td>
-				'.$puntos['name'].' '.$puntos['surname'].'<br />
-				'.$puntos['puntos'].' '.strTranslate("APP_points").'
-			</td>
-			<td>'.$puntos['nombre_tienda'].'</td>
-		</tr>';	
-}
-
-function rankingUsuario($puntos,$max_puntos,$i,$posicion_ranking){
-	$foto = PATH_USERS_FOTO. ($puntos['foto'] != "" ? $puntos['foto'] : "user.jpg");
-
-	echo '<div class="user-ranking">
-			<img src="'.$foto.'" class="user-perfil-img" />   
-			<h3>Tu posición: <small>'.$posicion_ranking.'</small></h3>
-			<p>'.$puntos['name'].' '.$puntos['surname'].'<br />
-			'.$puntos['nombre_tienda'].'<br />
-			'.$puntos['puntos'].' '.strTranslate("APP_points").'
-			</p>
-		</div>';  
-}
-?>

@@ -1,8 +1,8 @@
 <?php
 Administration ="Administración"
 User_info = "Datos del usuario"
-My_profile = "Mi perfil"
-Logout = "Desconectar"
+My_profile = "Meu perfil"
+Logout = "Saír"
 Username = "Usuario"
 Password = "Contraseña"
 Password_re ="Reescribir contraseña"

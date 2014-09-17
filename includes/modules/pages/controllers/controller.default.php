@@ -61,12 +61,12 @@ class pagesController{
 	 */	
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Tools',
-							"LabelSection" => 'Configuración',
+							"LabelSection" => strTranslate("Configuration"),
 							"LabelItem" => 'Política de privacidad',
 							"LabelUrl" => 'admin-page&p=policy',
 							"LabelPos" => 2),
 					  array("LabelHeader"=>'Tools',
-							"LabelSection"=>'Configuración',
+							"LabelSection"=>strTranslate("Configuration"),
 							"LabelItem"=>'Derechos y responsabilidades',
 							"LabelUrl"=>'admin-page&p=declaracion',
 							"LabelPos" => 3));	

@@ -91,7 +91,7 @@
 		* @param 	string 			$class 				Class name
 		* @return 	array 			$annotations		Class annotations
 		*/	
-		function getClassAnnotations($class){       
+		public static function getClassAnnotations($class){       
 		    $r = new ReflectionClass($class);
 		    $doc = $r->getDocComment();
 		    preg_match_all('#@(.*?)\n#s', $doc, $annotations);

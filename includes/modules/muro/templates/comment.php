@@ -13,7 +13,7 @@ function commentMuro($comentario_muro){
 	else {$votado_user=0;}
 	echo '<div class="media">';
 	userFicha($comentario_muro);
-	echo '	<p><b>'.$comentario_muro['nick'].'</b> <span class="date-format-ago" data-date="'.$comentario_muro['date_comentario'].'">'.strftime(DATE_TIME_FORMAT,strtotime($comentario_muro['date_comentario'])).'</span> dice:';
+	echo '	<p><b>'.$comentario_muro['nick'].'</b> <span class="date-format-ago" data-date="'.$comentario_muro['date_comentario'].'">'.strftime(DATE_TIME_FORMAT,strtotime($comentario_muro['date_comentario'])).'</span> '.strTranslate("says").':';
     //SOLO LOS FORMADORES Y ADMIN PUEDEN VER EL CANAL
     if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'){  echo ' (canal '.$comentario_muro['canal_comentario'].')';}
 	echo '	</p>

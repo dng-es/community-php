@@ -331,8 +331,8 @@ class users extends connection{
 	  
 	public static function posicionRankingEmpresa($empresa){
 		$Sql="SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM 
-			(SELECT SUM(puntos),empresa FROM users WHERE empresa<>'' AND empresa<>'comunidad' GROUP BY empresa HAVING SUM(puntos)>=
-			(SELECT SUM(puntos) FROM users WHERE empresa='".$empresa."' GROUP BY empresa) ORDER BY puntos ASC,empresa DESC) r,  
+			(SELECT SUM(puntos) AS suma_puntos,empresa FROM users WHERE empresa<>'' AND empresa<>'comunidad' GROUP BY empresa HAVING SUM(puntos)>=
+			(SELECT SUM(puntos) FROM users WHERE empresa='".$empresa."' GROUP BY empresa) ORDER BY suma_puntos DESC,empresa DESC) r,  
 			(SELECT @rownum:=0) ro ) f WHERE empresa='".$empresa."' GROUP BY empresa";
 		$result=self::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
 		$row=self::get_result($result);

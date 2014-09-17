@@ -24,12 +24,12 @@ class configurationController{
 		}
 	}
 
-	public function getItemAction(){
+	public static function getItemAction(){
 		$configuration = new configuration();
 		return $configuration->getConfiguracion("");
 	}
 
-	public function getListModulesAction(){
+	public static function getListModulesAction(){
 		$listModules = array();
 		$folders = getListModules();
 		foreach($folders as $folder):
@@ -66,7 +66,7 @@ class configurationController{
 	 */	
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Tools',
-							"LabelSection" => 'Configuración',
+							"LabelSection" => strTranslate("Configuration"),
 							"LabelItem" => 'Datos generales',
 							"LabelUrl" => 'admin-config',
 							"LabelPos" => 1));	

@@ -8,17 +8,15 @@ addJavascripts(array("js/bootstrap.file-input.js",
 
 session::getFlashMessage( 'actions_message' ); 
 usersController::updatePerfilAction();
-usersSucursalesController::createAction();
-usersSucursalesController::deleteAction();
 $usuario = usersController::getPerfilAction();
-$sucursales = usersSucursalesController::getListAction(-1, $_SESSION['user_name']);
+
 ?>
 <div class="row inset row-top">
 	<h1><?php echo strTranslate("My_profile");?></h1>
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs">
 		<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab">Datos generales</a></li>
-		<li <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' class="active"' : '');?>><a href="#sucursales" data-toggle="tab">Sucursales activas</a></li>
+		<li <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' class="active"' : '');?>><a href="#statistics" data-toggle="tab"><?php echo strTranslate("Statistics");?></a></li>
 	</ul>	
 	
 	<div class="tab-content">
@@ -127,52 +125,10 @@ $sucursales = usersSucursalesController::getListAction(-1, $_SESSION['user_name'
 				</form>
 			</div>
 		</div>
-		<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="sucursales">
-			<div class="row">
-				<div class="col-md-5">
-					<br /><p>Puedes agregar nuevas sucursales a tu tienda:</p>
-					<div class="panel panel-default">
-						<div class="panel-heading"><i class="fa fa-plus-square"></i> Agregar sucursal</a></div>
-						<div class="panel-body">
-							<form id="form-sucursal" method="post" action="?page=user-perfil&t=2" role="form">
-								<label for="sucursal_name"><?php echo strTranslate("Name");?></label>
-								<input type="text" name="sucursal_name" id="sucursal_name" class="form-control" />
-								<span id="sucursal-name-alert" class="alert-message alert alert-danger"></span>
-								<label for="sucursal_direccion"><?php echo strTranslate("Address");?></label>
-								<input type="text" name="sucursal_direccion" id="sucursal_direccion" class="form-control" />
-								<span id="sucursal-direccion-alert" class="alert-message alert alert-danger"></span>					
-								<br />
-								<button class="btn btn-primary" type="submit"><?php echo strTranslate("Save_data");?></button>
-							</form>
-						</div>
-					</div>				
-				</div>
-				<div class="col-md-7">
-					<br /><p>Tus sucursales dadas de alta</p>
-					<?php if (count($sucursales['items'])>0):?>
-						<table class="table">
-						<tr>
-							<th width="30px">&nbsp;</th>
-							<th>Nombre</th>
-							<th>Dirección</th>
-						</tr>
-						<?php foreach($sucursales['items'] as $sucursal): ?>
-						<tr>
-							<td nowrap="nowrap">
-								<a class="fa fa-ban icon-table" title="Eliminar"
-									onClick="Confirma('¿Seguro que deseas eliminar la sucursal?', '?page=user-perfil&t=2&act=del&id=<?php echo $sucursal['id_sucursal'];?>'); return false;">
-								</a>
-							</td>	
-							<td><?php echo $sucursal['name_sucursal'];?></td>
-							<td><?php echo $sucursal['address_sucursal'];?></td>
-						</tr>
-						<?php endforeach;?>
-						</table>
-					<?php else:?>
-						<div class="alert alert-warning">Todavia no has dado de alta sucursales</div>
-					<?php endif;?>
-				</div>
-			</div>			
+		<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="statistics">
+			<br />
+			<p>No hay estadistivas activas</p>
+			<br /><br /><br /><br />
 		</div>
 	</div>
 </div>
