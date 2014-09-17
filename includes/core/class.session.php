@@ -26,7 +26,7 @@ class session {
 	* Devuelve la URL actual.
 	*
 	*/
-	function curPageURL() {
+	public static function curPageURL() {
 		$pageURL = 'http';
 		if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
 		$pageURL .= "://";

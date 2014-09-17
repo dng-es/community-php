@@ -18,7 +18,7 @@ class debugger {
 	static public $debugger_output = "screen"; //values: screen or file
 	static public $debugger_file = "errors.log"; //file name for errors log
 
-	public function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
+	public static function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
 		if (!(error_reporting() & $errno)) {
 			// Este código de error no está incluido en error_reporting
 			return;
@@ -30,7 +30,7 @@ class debugger {
 	    return true;
 	}
 
-	public function shutdownHandler (){
+	public static function shutdownHandler (){
 		if (count(debugger::$errors_log)>0): 
 			switch (debugger::$debugger_output){
 				case "file":
@@ -54,7 +54,7 @@ class debugger {
 		array_push(debugger::$errors_log, $error);
 	}
 
-	private function screenDebug(){
+	private static function screenDebug(){
 		debugger::stylesDebug();
 		debugger::jsDebug();
 	}	
@@ -100,7 +100,7 @@ class debugger {
 		endif;
 	}	
 
-	private function prepareJsText($error_log){
+	private static function prepareJsText($error_log){
 		$error_log['errfile'] = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errfile']);
 		$error_log['errno'] = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errno']);
 		$error_log['errline'] = str_replace(array("\r\n", "\r", "\n"), '\n', $error_log['errline']);
@@ -114,7 +114,7 @@ class debugger {
 		return $error_log;
 	}
 
-	private function jsDebug(){ ?>
+	private static function jsDebug(){ ?>
 		<script type="text/javascript">
 			(function(global,undefined){ 
 
@@ -234,7 +234,7 @@ class debugger {
 		<?php
 	}
 
-	private function stylesDebug(){ ?>
+	private static function stylesDebug(){ ?>
 			<style type="text/css">
 				#debugger-content{
 					bottom:0;

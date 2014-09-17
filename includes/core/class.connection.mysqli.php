@@ -16,7 +16,7 @@ class connection_sql {
 		trigger_error ("$name is not defined");
 	}
 	
-	public function conex(){
+	public static function conex(){
 		//Database conection
 		global $ini_conf;
 		$link = mysqli_connect($ini_conf['host'],$ini_conf['user'],$ini_conf['pass'],$ini_conf['db']);
@@ -26,11 +26,11 @@ class connection_sql {
 		return $link;
 	}
 
-	public function close_conex($cn) {
+	public static function close_conex($cn) {
 		mysqli_close($cn);  
 	}
 	
-	public function execute_query($consulta){
+	public static function execute_query($consulta){
 		global $ini_conf;
 		$link=self::conex();
 		mysqli_set_charset($link,'utf8');
@@ -55,7 +55,7 @@ class connection_sql {
 		}  
 	}
 	   
-	public function get_result($result, $tipo = MYSQLI_ASSOC) {  
+	public static function get_result($result, $tipo = MYSQLI_ASSOC) {  
 		try {
 			return mysqli_fetch_array($result, $tipo); 
 		} catch (Exception $e) {

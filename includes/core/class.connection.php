@@ -13,14 +13,14 @@ $conector = (isset($ini_conf['sql_connector']) ? $ini_conf['sql_connector'] : "m
 include ($base_dir_config."/class.connection.".$conector.".php");
 
 class connection extends connection_sql{
-	public function SelectMaxReg($campo,$tabla,$filter){	
+	public static function SelectMaxReg($campo,$tabla,$filter){	
 	    $Sql = "SELECT IFNULL(max(".$campo."),0) AS max_counter FROM ".$tabla." WHERE 1=1 ".$filter;
 		if (($result = self::execute_query($Sql))!==false){
 			$row = self::get_result($result);
 			return $row['max_counter'];
 		}
     }
-	public function countReg($tabla,$filter){
+	public static function countReg($tabla,$filter){
 	    $Sql="SELECT count(*) AS table_counter FROM ".$tabla." WHERE 1=1 ".$filter;
 		if (($result = self::execute_query($Sql))!==false){
 			$row = self::get_result($result);
@@ -28,7 +28,7 @@ class connection extends connection_sql{
 		}	
     }
 
-	public function timeServer(){
+	public static function timeServer(){
 	    $Sql = "SELECT NOW() AS ahora";
 		if (($result = self::execute_query($Sql))!==false){
 			$row = self::get_result($result);
@@ -36,7 +36,7 @@ class connection extends connection_sql{
 		}
     }
 
-    public function getSQL($Sql){
+    public static function getSQL($Sql){
 		$result = self::execute_query($Sql);	
 		$registros = array();  
 		while ($registro = self::get_result($result)){  

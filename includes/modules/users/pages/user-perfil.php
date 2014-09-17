@@ -119,7 +119,7 @@ $sucursales = usersSucursalesController::getListAction(-1, $_SESSION['user_name'
 
 					</div>
 			  		<div class="col-md-3">
-						<img src="<?php echo $usuario['user_foto'];?>" id="user-perfil-img" /><br />
+						<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" /><br />
 						<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
 						<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="<?php echo strTranslate("Change_picture");?>" /><br />
 						<input type="submit" class="btn btn-primary btn-block" id="confirm-submit" name="confirm-submit" value="<?php echo strTranslate("Save_data");?>" />
