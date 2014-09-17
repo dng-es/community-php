@@ -21,7 +21,8 @@
 ### Requisitos y dependencias
 - PHP 5.3 o superior.
 - FFMPEG para la conversión de videos. Librerias libx264 y libfaac necesarias.
-- La hoja de estilos .CSS esta creada con SASS (styles.scss)
+- GRUNT para la generación de ficheros CSS y JS (gruntfile.js esta en /bin)
+- La hoja de estilos .CSS esta creada con SASS y COMPASS (styles.scss)
 - Emplea Bootstrap v3.0.3 para la maquetación
 
 
