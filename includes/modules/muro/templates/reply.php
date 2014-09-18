@@ -12,7 +12,7 @@ function replyMuro(){
 						<input type="hidden" id="id_comentario_responder" name="id_comentario_responder" value="" />
 						<input type="hidden" name="tipo_muro" id="tipo_muro" value="" />
 						<textarea maxlength="160" class="form-control" id="texto-responder" name="texto-responder"></textarea>
-						<button id="muro-responder-submit" class="btn btn-primary" type="button">Publicar</button>
+						<button id="muro-responder-submit" class="btn btn-primary btn-block" type="button">Publicar</button>
 					</form>';	
 		  }
 		  else { echo "<p>No dispone de permisos para responder mensajes en el muro.</p>";}	

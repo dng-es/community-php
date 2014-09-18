@@ -4,7 +4,8 @@ jQuery(document).ready(function(){
 	$(".tooltip-top").tooltip({placement:"top"});
 
 	$(".responder-triger").tooltip({placement:"top"}).click(function(e){
-		$("#muro-responder").css("display","block");
+		//$("#muro-responder").css("display","block");
+		$("#muro-responder").slideToggle();
 		var id_comentario=$(this).attr("value");
 		var tipo_muro=$(this).attr("tipom");
 		var comentario =$("#texto-comentario-" + id_comentario).html();

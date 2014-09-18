@@ -559,6 +559,12 @@ label{font-weight:normal; color:$color1}
 		border-top: 1px solid #f0f0f0;
 	}
 }
+#muro-home-container{
+	border-left: 1px solid #000;
+	@media screen and (max-width: $break-medium) {
+		border-left: 0;
+	}
+}
 #col-muro{background-color: #ccc}
 #muro-home{height: 450px;overflow-y: auto;overflow-x: hidden;padding-left: 10px; padding-top: 10px;background: #fff}
 #muro-home p {margin-bottom: 5px}
@@ -585,9 +591,58 @@ label{font-weight:normal; color:$color1}
 
 
 /*Muro responder*/
-#muro-insert{background-color: #444;padding: 5px 15px;color: #fff;overflow: hidden}
-#muro-insert .btn-primary{margin-top:10px;}
-#muro-responder{bottom:20px;left:20px;margin:auto;position:fixed;width:425px;z-index:1001;display:none;background:#f9f9f9;border:1px solid #f0f0f0;padding:0 0 15px 0;color:#E31E27;font-weight:bold;-webkit-box-shadow:0 0 5px #999;-moz-box-shadow:0 0 5px #333;box-shadow:0 0 5px #999;overflow:hidden}
+#muro-insert{
+	background-color: #000;
+	padding: 15px 30px 15px 15px;
+	color: #fff;
+	overflow: hidden;
+
+	.btn-primary{
+		margin-top:10px;
+		@media screen and (max-width: $break-medium) {
+			margin-bottom: 10px
+		}
+	}
+
+	label{
+		color: #fff;
+		@media screen and (max-width: $break-medium) {
+			color:$color1;
+		}
+	}
+
+	select{
+		margin-top:10px;
+	}
+	
+	@media screen and (max-width: $break-medium) {
+		background-color: #e0e0e0;
+		padding: 20px 30px 0px 20px !important;
+		color:#666;
+		margin-bottom: 10px
+	}
+}
+
+#muro-responder{
+	bottom:20px;
+	right:20px;
+	margin:auto;
+	position:fixed;
+	width:425px;
+	z-index:1001;
+	display:none;
+	background:#f9f9f9;
+	border:1px solid #f0f0f0;
+	padding:0 0 15px 0;
+	color:#E31E27;
+	font-weight:bold;
+	@include box-shadow(#999 0px 0px 5px);
+	overflow:hidden;
+
+	.btn{
+		margin-top:10px;
+	}
+}
 #muro-responder-content{padding:0 10px 0 10px;color:#666666}
 #muro-responder h2{line-height:15px;margin:0;font-size:12px;padding:8px 0 8px 10px;@include border-radius(0px);border:0;color:#000;text-shadow:1px 1px 1px #fff;}
 .responder-triger{height:13px;cursor:pointer;display:inline-block;padding:3px 0 0 0; margin:0 0 0 10px}
@@ -1182,8 +1237,7 @@ table th {
 
 	/*Muro*/
 	#col-muro{background-color: #fff}
-	#muro-insert{background-color: #e0e0e0;padding: 100px 20px 0px 20px !important;color:#666;margin-bottom: 10px}
-	#muro-insert .btn-primary{margin-bottom: 10px}
+	
 	#muro-home{width:95%; height: auto;margin: 0 20px}
 	/*Fin Muro*/
 
@@ -1437,3 +1491,15 @@ table th {
 		margin-right:5px;
 	}
 }
+
+/*Novedades / Premios del dia*/
+.novedades-container{
+	background-color: #f0f0f0;
+	padding: 15px 15px 15px 15px;
+	margin-bottom: 15px;
+}
+
+.novedades-item{
+	margin-bottom: 15px;
+}
+/*Fin Novedades / Premios del dia*/

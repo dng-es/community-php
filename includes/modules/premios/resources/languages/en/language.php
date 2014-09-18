@@ -1,3 +1,0 @@
-<?php
-Awards = "Awards"
-?>

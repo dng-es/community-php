@@ -14,7 +14,7 @@ $num_canales = usersController::getCanalesAction();
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
-					<div class="panel-heading"><h3 class="panel-title">Resumen general <i class="fa fa-pie-chart pull-right text-muted"></i></h3></div>
+					<div class="panel-heading"><h3 class="panel-title">Resumen general <small><i class="fa fa-pie-chart pull-right text-muted"></i></small></h3></div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
 							<dt>Total usuarios activos</dt>
@@ -31,7 +31,7 @@ $num_canales = usersController::getCanalesAction();
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-default">
-					<div class="panel-heading"><h3 class="panel-title"><?php echo strTranslate("Reports");?> <i class="fa fa-file pull-right text-muted"></i></h3></div>
+					<div class="panel-heading"><h3 class="panel-title"><?php echo strTranslate("Reports");?> <small><i class="fa fa-file pull-right text-muted"></i></small></h3></div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
 							<dt>Accesos</dt>
