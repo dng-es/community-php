@@ -23,7 +23,7 @@ class menu{
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><i class="fa fa-home"></i> Community</a>
+				<a class="navbar-brand" href="?page=home"><i class="fa fa-home"></i> Community</a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
