@@ -2,7 +2,7 @@
 /**
 * @Modulo Novedades
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 0.9
+* @version 1.0
 *
 */	
 class novedades {
