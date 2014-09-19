@@ -29,9 +29,9 @@ if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
 }
 
 ?>
-<div id="page-info">Cursos de formación</div>
 <div class="row inset row-top">
 	<div class="col-md-12">
+		<h1>Cursos de formación</h1>
 		<?php
 		session::getFlashMessage( 'actions_message' );
 

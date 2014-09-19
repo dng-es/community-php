@@ -355,18 +355,20 @@ function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz0
  * @param 	string 		$clase_css   	Clase CSS para el panel contenedor del form
  * @param 	string 		$class_form  	Clase CSS para el form
  */
-function SearchForm($reg,$pag,$formId="searchForm",$labelForm="Buscar:",$labelButton="ir",$clase_css="panel-interior",$class_form="form-inline") {	
+function SearchForm($reg,$pag,$formId="searchForm",$labelForm="Buscar:",$labelButton="ir",$clase_css="",$class_form="") {	
 	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
 
 	echo '<div class="'.$clase_css.'">  
-			  <form action="'.$pag.'&regs='.$reg.'" method="post" id="'.$formId.'" role="form" class="'.$class_form.'">		  
-				<div class="form-group">
-				    <label class="sr-only" for="find_reg">'.$labelForm.'</label>
-				    <input type="text" class="form-control" id="find_reg" name="find_reg" placeholder="'.$labelForm.'" value="'.$busqueda.'">
-				    <input type="hidden" name="registros_form" value="'.$reg.'" />
-			  	</div> 
-			  	<button type="submit" class="btn btn-primary" destino="'.$formId.'">'.$labelButton.'</button>		  
-			  </form>
+			<form action="'.$pag.'&regs='.$reg.'" method="post" id="'.$formId.'" role="search" class="'.$class_form.'">		  
+				<div class="input-group">
+					<label class="sr-only" for="find_reg">'.$labelForm.'</label>
+					<input type="text" class="form-control" id="find_reg" name="find_reg" placeholder="'.$labelForm.'" value="'.$busqueda.'">
+					<input type="hidden" name="registros_form" value="'.$reg.'" />
+					<div class="input-group-btn">
+						<button type="submit" class="btn btn-default" title="'.$labelButton.'" destino="'.$formId.'"><i class="glyphicon glyphicon-search"></i></button>
+					</div>
+				</div>  
+			</form>
 		  </div>';	
 }
 

@@ -70,8 +70,6 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 		}
 
 		//DATOS DE AREA DE TRABAJO
-		echo '<div class="row">';
-		echo '	<div class="col-md-12">';
 		echo '		<div class="panel panel-default panel-comunidad col-panel panel-areas-detalle">
 						<div class="panel-body">';
 		echo '  			<h4>'.$area[0]['area_nombre'].'</h4>
@@ -79,8 +77,6 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 		    				<a href="?page=areas_form&id='.$elements[0]['id_tarea'].'" class="btn btn-primary pull-right">'.$txtBtn.'</a>';
 		echo '			</div>';
 		echo '		</div>';
-		echo '	</div>';
-		echo '</div>';
 
 		//printTareas($id_area);
 		documentosTarea($elements[0]['id_tarea']);

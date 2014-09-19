@@ -60,7 +60,7 @@ class footer{
 	  	if (!in_array($page, $paginas_free)){
 			
 			self::PageFooterInfo();
-			echo '</div></div>';
+			echo '</div>';
 		}
 		?>
 		</body>

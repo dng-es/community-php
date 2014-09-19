@@ -11,6 +11,9 @@ class menu{
 			//SELECCION DEL FORO
 			$id_foro = ($_SESSION['user_canal']== CANAL2) ? 2 : 1;
 
+			//SELECCION ULTIMO VIDEO
+			$filter_videos = ($_SESSION['user_canal']!='admin' ? " AND canal='".$_SESSION['user_canal']."' " : "");			
+			$id_video = connection::SelectMaxReg("id_file", "galeria_videos", $filter_videos." AND estado=1 ");
 			?>
 
 			<nav class="navbar navbar-default navbar-menu" role="navigation">
@@ -29,7 +32,7 @@ class menu{
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="?page=videos"><?php echo strTranslate("Videos")?></a></li>
+					<li><a href="?page=video&id=<?php echo $id_video;?>"><?php echo strTranslate("Videos")?></a></li>
 					<li><a href="?page=fotos"><?php echo strTranslate("Photos")?></a></li>
 					<li><a href="?page=user-infotopdf-all">Impresos PDF</a></li>
 					<li class="dropdown">

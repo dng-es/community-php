@@ -10,7 +10,8 @@ $num_canales = usersController::getCanalesAction();
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="col-md-9">
+		<br />
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">

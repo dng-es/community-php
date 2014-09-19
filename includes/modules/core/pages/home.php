@@ -22,7 +22,7 @@ $users_conn = count(users::getUsersConn($filtroCanal));
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding" id="muro-home-container">
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div id="muro-insert">
 			<form id="muro-form" name="coment-form" action="" method="post" role="form">
 				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />   

@@ -65,9 +65,8 @@ class headers{
 			<body id="page-<?php echo $page;?>">
 			<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged']==true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
 
-				<div id="wrapper">
+				<div style="padding:0">
 				<!-- Page content -->
-				<div id="page-content-wrapper">
 					<?php menu::UserInfoMenu();?>
 					<?php menu::PageMenu();?>
 					<div id="container-content">

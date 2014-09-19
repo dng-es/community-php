@@ -9,7 +9,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 inset">
+	<div class="col-md-8 col-lg-9 inset">
 		<h1><?php echo strTranslate("Forums");?></h1>
 
 		<?php
@@ -70,8 +70,8 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 		}
 		?> 
 	</div>
-	<div class="col-md-4 lateral">
-		<div class="insert-foro">
+	<div class="col-md-4 col-lg-3 nopadding">
+		<div class="panel-interior">
 			<h4><?php echo strTranslate("Insert_comment_forum");?></h4>
 			<p><?php echo strTranslate("Insert_comment_forum_label");?></p>
 			<?php 
