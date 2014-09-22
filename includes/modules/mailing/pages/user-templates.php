@@ -28,3 +28,4 @@ $elements = mailingTemplatesController::getListAction(6, "activos");
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
 </div>
+</div>

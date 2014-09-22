@@ -12,8 +12,8 @@ if ($_SESSION['user_perfil']=='admin'){$posicion_user=0;}
 $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username ASC LIMIT 15");
 
 ?>
-<div class="row inset row-top">
-	<div class="col-md-9">
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
 		<h1>Ranking usuarios</h1>
 		<p>Cada una de tus aportaciones te ayudan a acumular puntos. ¿Cuántos puntos tienes?, ¿estás entre los primeros? descúbrelo en este ranking:</p><br />
 
@@ -58,14 +58,16 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3 lateral">
-		<?php $foto = PATH_USERS_FOTO. ($puntos_user[0]['foto'] != "" ? $puntos_user[0]['foto'] : "user.jpg");?>
-		<img src="<?php echo $foto;?>" class="user-perfil-img" />   
-		<h3>Tu posición: <small><?php echo $posicion_user;?></small></h3>
-		<p><?php echo $puntos_user[0]['name'].' '.$puntos_user[0]['surname'];?><br />
-		<?php echo $puntos_user[0]['nombre_tienda'];?><br />
-		<?php echo $puntos_user[0]['puntos'];?> <?php echo strTranslate("APP_points");?>
-		</p>
-		<a href="?page=ranking-empresas" class="btn btn-primary btn-block">Ir a ranking de empresas</a>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+			<?php $foto = PATH_USERS_FOTO. ($puntos_user[0]['foto'] != "" ? $puntos_user[0]['foto'] : "user.jpg");?>
+			<img src="<?php echo $foto;?>" class="user-perfil-img" />   
+			<h3>Tu posición: <small><?php echo $posicion_user;?></small></h3>
+			<p><?php echo $puntos_user[0]['name'].' '.$puntos_user[0]['surname'];?><br />
+			<?php echo $puntos_user[0]['nombre_tienda'];?><br />
+			<?php echo $puntos_user[0]['puntos'];?> <?php echo strTranslate("APP_points");?>
+			</p>
+			<a href="?page=ranking-empresas" class="btn btn-primary btn-block">Ir a ranking de empresas</a>
+		</div>
 	</div>
 </div>

@@ -10,8 +10,8 @@ if ($_SESSION['user_perfil']=='admin'){$posicion_empresa=0;}
 $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ","ORDER BY puntos_empresa DESC,empresa ASC LIMIT 15");
 
 ?>
-<div class="row inset row-top">
-	<div class="col-md-9">
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
 		<h1>Ranking empresas</h1>
 		<div class="row">
 			<div class="col-md-12">
@@ -38,14 +38,16 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3 lateral">	
-		<a href="?page=ranking" class="btn btn-primary btn-block">Ir a ranking de usuarios</a>
-		<br />
-		<h4>¿Cómo ganar <?php echo strTranslate("APP_points");?>?</h4>
-		<p><b><?php echo PUNTOS_ACCESO_SEMANA." ".strTranslate("APP_points");?> por...</b> entrar 1 vez a la semana en la comunidad<br /><br />
-		<b><?php echo PUNTOS_FORO_SEMANA." ".strTranslate("APP_points");?> por...</b> participar 1 vez por semana en los foros<br /><br />
-		<b><?php echo PUNTOS_VIDEO." ".strTranslate("APP_points");?> por...</b> subir un vídeo<br /><br />
-		<b><?php echo PUNTOS_FOTO." ".strTranslate("APP_points");?> por...</b> por subir una foto<br />
-		</p>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">	
+			<h3>¿Cómo ganar <?php echo strTranslate("APP_points");?>?</h3>
+			<br />
+			<p><b><?php echo PUNTOS_ACCESO_SEMANA." ".strTranslate("APP_points");?> por...</b> entrar 1 vez a la semana en la comunidad<br /><br />
+			<b><?php echo PUNTOS_FORO_SEMANA." ".strTranslate("APP_points");?> por...</b> participar 1 vez por semana en los foros<br /><br />
+			<b><?php echo PUNTOS_VIDEO." ".strTranslate("APP_points");?> por...</b> subir un vídeo<br /><br />
+			<b><?php echo PUNTOS_FOTO." ".strTranslate("APP_points");?> por...</b> por subir una foto<br />
+			</p>
+			<a href="?page=ranking" class="btn btn-primary btn-block">Ir a ranking de usuarios</a>
+		</div>
 	</div>        
 </div>

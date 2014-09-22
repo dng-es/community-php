@@ -1,3 +1,4 @@
 <?php
-Mainling_messages = "Messages"
+Mailing_messages = "Messages"
+New_message = "New message"
 ?>

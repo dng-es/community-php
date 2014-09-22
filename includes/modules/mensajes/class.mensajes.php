@@ -70,12 +70,8 @@ class mensajes extends connection{
 	}
 
     public function deleteMensajeEnviado($id){
-	  	//PRIMERO COMPROBAMOS QUE SEA EL DUEÑO DEL MENSAJE
-	  	$mensaje_data=$this->getMensajes(" AND id_mensaje=".$id." ");
-	  	if ($mensaje_data[0]['user_remitente']==$_SESSION['user_name']){
-			$Sql="UPDATE mensajes SET estado_remitente=1 WHERE id_mensaje=".$id;
-			return connection::execute_query($Sql);
-		}
+	  	$Sql="UPDATE mensajes SET estado_remitente=1 WHERE id_mensaje=".$id;
+		return connection::execute_query($Sql);
     }
 	  
 	public function leerMensaje($id){

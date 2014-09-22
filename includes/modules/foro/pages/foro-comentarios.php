@@ -70,7 +70,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 		}
 		?> 
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding">
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 			<h4><?php echo strTranslate("Insert_comment_forum");?></h4>
 			<p><?php echo strTranslate("Insert_comment_forum_label");?></p>

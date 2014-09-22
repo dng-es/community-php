@@ -1,13 +1,12 @@
 <?php
-addJavascripts(array(getAsset("mensajes")."js/mensajes.js"));
-?>  
-<div class="row inset row-top">
-	<div class="col-md-11">
-		<h1>Tus mensajes</h1>
-		<p>Contacta con uno de tus compañeros de la comunidad, es tan sencillo como poner su Alias, escribir el mensaje y enviárselo.</p>
+templateload("addmessage","mensajes");
 
+addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/mensajes.js"));
+?>  
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
 		<?php
-		session::getFlashMessage( 'actions_message' );
+		
 		$mensajes = new mensajes();
 
 		//VARIABLES DE INICIO DEL MENSAJE
@@ -78,32 +77,24 @@ $nick_resp.' escribió:
   if ($_REQUEST['act']=='ko'){
 	  $mensajes->deleteMensaje($_REQUEST['id']);
   }
-  
 
-	echo '	<div class="comunidad-mensaje">
-			<div id="mensaje-new">
-			<form id="coment-form" name="coment-form" action="" method="post">
-			  <input type="hidden" name="remitente-comentario" id="remitente-comentario" value="'.$_SESSION['user_name'].'" />
-						<label for="nick-comentario">Destinatario / Alias:</label>
-						<input maxlength="100" name="nick-comentario" id="nick-comentario" type="text" class="form-control" value="'.$nick_resp.'" />
-						<span id="nick-comentario-alert" class="alert-message"></span>
-						<label for="asunto-comentario">Asunto:</label>
-						<input maxlength="250" name="asunto-comentario" id="asunto-comentario" type="text" class="form-control" value="'.$asunto_resp.'" />
-						<span id="asunto-comentario-alert" class="alert-message"></span>
-						<label for="texto-comentario">Mensaje:</label>
-						<textarea id="texto-comentario" name="texto-comentario" class="form-control">'.$cuerpo_resp.'</textarea>
-						<div id="texto-comentario-alert" class="alert-message"></div>
-						<br /><button type="button" class="btn btn-primary" id="coment-submit" name="coment-submit">enviar mensaje</button>';
-		echo '</form>
-			  	<span id="mensaje-cerrar" class="fa fa-times" title="cerrar"></span>
-			  </div>'; 
-		getBandejaEntrada();				
-  	echo '</div>
-  		</div>';
-  	echo '</div>
-		</div>';
+session::getFlashMessage( 'actions_message' );  
 
+?>
 
+		<?php getBandejaEntrada(); ?>
+	</div>
+  	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+			<h4>Tus mensajes</h4>
+			<p>Contacta con uno de tus compañeros de la comunidad, es tan sencillo como poner su Alias, escribir el mensaje y enviárselo.</p>
+		</div>
+	</div>
+</div>
+
+<?php addMensaje();?>
+
+<?php
 ///////////////////////////////////////////////////////////////////////////////////
 // PAGE FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////

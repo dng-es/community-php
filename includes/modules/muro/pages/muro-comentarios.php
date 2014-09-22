@@ -13,12 +13,17 @@ if (isset($_REQUEST['pag'])){$pagina=$_REQUEST['pag'];}
 else{$pagina=1;}
 
 ?>
-<div class="row inset row-top">
-	<div class="col-md-9">
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
 		<h1>El muro</h1>
 		<span id="tipo_muro" value="<?php echo $nombre_muro;?>"></span>
 		<span id="pagina" value="<?php echo $pagina;?>"></span>
-		<div id="muro-insert">
+		<div id="destino">
+			<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+		</div>	
+	</div>
+	<div class="col-md-4 col-lg-3 nopadding">
+		<div class="panel-interior">
 			<form id="muro-form" name="coment-form" action="" method="post" role="form">
 				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />	  
 				<p><?php echo strTranslate("New_comment_on_wall");?></p>
@@ -30,12 +35,9 @@ else{$pagina=1;}
 				</select>
 				<?php endif;?>
 				<button class="muro-enviar btn btn-primary" type="button" id="muro-submit" value="Enviar" name="coment-submit">Enviar</button>   
-			</form>
-		</div>	
-		<div id="result-muro"></div>
-		<div id="destino">
-			<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-		</div>	
+			</form>	
+			<br /><div id="result-muro"></div>
+		</div>
 	</div>
 </div>
 <?php replyMuro();?>

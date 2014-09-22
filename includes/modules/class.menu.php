@@ -16,7 +16,7 @@ class menu{
 			$id_video = connection::SelectMaxReg("id_file", "galeria_videos", $filter_videos." AND estado=1 ");
 			?>
 
-			<nav class="navbar navbar-default navbar-menu" role="navigation">
+			<nav class="navbar navbar-default" id="menu-main" role="navigation">
 				<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
@@ -26,7 +26,7 @@ class menu{
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="?page=home"><i class="fa fa-home"></i> Community</a>
+				<a class="navbar-brand" href="?page=home"><i class="fa fa-home"></i> <?php echo strTranslate("Home")?></a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -84,7 +84,8 @@ class menu{
 
 					echo ' <i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
 					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="?page=admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
-					echo '<a href="?page=user-perfil" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';	
+					echo '<a href="?page=user-perfil" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';
+					echo '<a href="?page=mensajes" id="perfil-btn"><i class="fa fa-envelope"></i> '.strTranslate("Mailing_messages").'</a> | ';	
 					echo '<a href="?page=logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a> | ';
 					echo ucfirst(strTranslate("APP_points")).': '.$puntos_user[0]['puntos'];
 					echo ' </p>';

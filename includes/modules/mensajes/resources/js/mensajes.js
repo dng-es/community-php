@@ -6,15 +6,14 @@ $(function(){
 jQuery(document).ready(function(){	
 	$("#mensaje-new-trigger").click(function(e){
 		e.preventDefault();
-		$("#mensaje-new").slideDown();
+
 		$("#nick-comentario").attr("value","").css({"background-color":"#fff","border-color":"#D8D8D8"});
 		$("#asunto-comentario").attr("value","").css({"background-color":"#fff","border-color":"#D8D8D8"});
 		$("#texto-comentario").attr("value","").css({"background-color":"#fff","border-color":"#D8D8D8"});
+
+		$('#new_mensaje').modal();
 	});
-	
-	$("#mensaje-cerrar").click(function(){
-		$("#mensaje-new").slideUp();
-	});
+
 	$(".TituloNoleido").click(function(evento){
 		evento.preventDefault();		
 		if($(this).attr("value")==1){
@@ -50,34 +49,30 @@ jQuery(document).ready(function(){
 		$(mensaje).slideToggle();  
 	});
 	
-	$("#coment-submit").click(function(evento){
+	$("#message-form").submit(function(evento){
 	    $("#nick-comentario").css({"background-color":"#fff","border-color":"#D8D8D8"});
 	    $("#asunto-comentario").css({"background-color":"#fff","border-color":"#D8D8D8"});
 	    $("#texto-comentario").css({"background-color":"#fff","border-color":"#D8D8D8"});   
 	    var resultado_ok=true;   
-		if (jQuery.trim($("#nick-comentario").val())=="") 
-		{
+		if (jQuery.trim($("#nick-comentario").val())==""){
 			$("#nick-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
 			resultado_ok=false;
 		}
-		if (jQuery.trim($("#nick-comentario").val())==jQuery.trim($("#remitente-comentario").val())) 
-		{
+		if (jQuery.trim($("#nick-comentario").val())==jQuery.trim($("#remitente-comentario").val())) {
 			$("#nick-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
 			resultado_ok=false;
 		}
 		
-		if (jQuery.trim($("#asunto-comentario").val())=="") 
-		{
+		if (jQuery.trim($("#asunto-comentario").val())=="") {
 			$("#asunto-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
 			resultado_ok=false;
 		}
 		
-		if (jQuery.trim($("#texto-comentario").val())=="") 
-		{
+		if (jQuery.trim($("#texto-comentario").val())=="") {
 			$("#texto-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
 			resultado_ok=false;
 		}
 				
-		if (resultado_ok==true) {$("#coment-form").submit();}
+		return resultado_ok;
 	});
 });

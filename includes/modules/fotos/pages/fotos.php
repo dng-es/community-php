@@ -27,7 +27,7 @@ $elements = fotosController::getListAction(4, " AND estado=1 ");
 		</div>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding">
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 			<?php SearchForm($elements['reg'],"?page=fotos","searchForm","Buscar foto por título","buscar");?>
 			<?php PanelSubirFoto(0);?>

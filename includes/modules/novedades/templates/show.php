@@ -7,14 +7,14 @@ function showNovedades(){
 	$elements = novedadesController::getListAction(100, $filter);
 	if (count($elements['items'])>0){
 		?>
-		<div class="novedades-container">
+		<section>
 			<h3><?php echo strTranslate("News");?></h3>
 			<?php foreach($elements['items'] as $element): ?>
-				<div class="novedades-item">
-					<?php echo $element['cuerpo'];?>
-				</div>
+			<article>
+				<?php echo $element['cuerpo'];?>
+			</article>
 			<?php endforeach; ?>
-		</div>
+		</section>
 	<?php }
 }
 ?>

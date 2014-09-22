@@ -65,7 +65,7 @@ $canal="";
 		}?>
 
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding">
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 			<?php
 			//BUSCADOR
