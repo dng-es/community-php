@@ -2,7 +2,7 @@
 /**
 * @Mensajeria interna
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 0.9
+* @version 1.0
 *
 */
 class mensajes extends connection{
@@ -60,13 +60,9 @@ class mensajes extends connection{
 	 * @param  int 		$id 		Id registro a eliminar
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function deleteMensaje($id){
-		//PRIMERO COMPROBAMOS QUE SEA EL DUEÑO DEL MENSAJE
-	  	$mensaje_data=$this->getMensajes(" AND id_mensaje=".$id." ");
-	  	if ($mensaje_data[0]['user_destinatario']==$_SESSION['user_name']){
-			$Sql="UPDATE mensajes SET estado=2 WHERE id_mensaje=".$id;
-			return connection::execute_query($Sql);
-		}
+	public function deleteMensajeRecibido($id){
+		$Sql="UPDATE mensajes SET estado=2 WHERE id_mensaje=".$id;
+		return connection::execute_query($Sql);
 	}
 
     public function deleteMensajeEnviado($id){

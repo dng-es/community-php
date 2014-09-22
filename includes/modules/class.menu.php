@@ -70,6 +70,10 @@ class menu{
 		if ($_SESSION['user_logged']==true){
 			$users = new users();
 			$puntos_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
+
+			//MENSAJE NO LEIDOS
+			$contador_no_leidos=connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
+
 			?>
 			<div class="row header-info">
 				<a href="?page=home"><img src="images/logo.png" id="header-info-logo" class="img-responsive" /></a>
@@ -85,7 +89,7 @@ class menu{
 					echo ' <i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
 					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="?page=admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
 					echo '<a href="?page=user-perfil" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';
-					echo '<a href="?page=mensajes" id="perfil-btn"><i class="fa fa-envelope"></i> '.strTranslate("Mailing_messages").'</a> | ';	
+					echo '<a href="?page=mensajes" id="perfil-btn"><i class="fa fa-envelope"></i> '.strTranslate("Mailing_messages").' <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a> | ';	
 					echo '<a href="?page=logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a> | ';
 					echo ucfirst(strTranslate("APP_points")).': '.$puntos_user[0]['puntos'];
 					echo ' </p>';

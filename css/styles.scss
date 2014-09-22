@@ -360,6 +360,15 @@ section{
 		display:none;
 		overflow:hidden;	
 	}
+
+	#contador-leidos-header{
+		@include border-radius(20px);
+		background-color: $color1;
+		color: #fff;
+		display:inline-block;
+		padding: 1px 6px;
+		text-align:center;
+	}
 }
 
 .stars-user {
@@ -414,7 +423,7 @@ section{
 .MensajeTextoCuerpo{
 	display:none;margin:0 0 15px 0;
 	padding:10px;
-	background:#f0f0f0;
+	background:#f9f9f9;
 }
 .MensajeNoLeido{
 	background-color:#f0f0f0;
@@ -1035,12 +1044,9 @@ table th {
 /*Ventana modal Bootstrap*/
 .alert{@include border-radius($border-def)}
 .alert-danger{background-color:#b23939;color:#fff}
-.modal {}
-.modal-dialog h2{font-size:24px}
-.modal-dialog h4{font-size:20px}
-.modal-content{background-color: #000 !important;color: #fff}
-.modal-header {color: $color2;border-bottom: 1px solid $color2}
-.modal-header .close{color: #fff !important}
+
+
+
 .modal-img-container{width: 65px; height: 65px;overflow: hidden;float: left;margin: 3px;border: 1px solid #ccc}
 .modal-img-container img{width: 65px;min-height: 65px; cursor:pointer;}
 .modal.modal-wide .modal-dialog {width: 50%;}

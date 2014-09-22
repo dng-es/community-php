@@ -21,27 +21,28 @@ class mensajesController{
 	}
 
 	public static function deleteRecibidoAction(){
-		if ($_REQUEST['act']=='ko'){
-			deleteUserAction($_REQUEST['id']);
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='ko'){
+			self::deleteUserAction($_REQUEST['id'], 'user_destinatario');
 			redirectURL("?page=mensajes");
 		}
 	}
 
 	public static function deleteEnviadoAction(){
-		if ($_REQUEST['act']=='ko'){
-			deleteUserAction($_REQUEST['id']);
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='ko'){
+			self::deleteUserAction($_REQUEST['id'], 'user_remitente');
 			redirectURL("?page=mensajes_e");
 		}
 	}		
 
-	public static function deleteUserAction($id){
-		if (self::verifyOwner($id)) self::deleteAction($id);
+	public static function deleteUserAction($id, $user_type){
+		if (self::verifyOwner($id, $user_type)) self::deleteAction($id, $user_type);
 		else session::setFlashMessage( 'actions_message', "Error eliminando mensaje.", "alert alert-danger");
 	}
 
-	public static function deleteAction($id){
+	public static function deleteAction($id, $user_type){
 		$mensajes = new mensajes();
-		if ($mensajes->deleteMensajeEnviado($id)){
+		$function_delete = ($user_type=='user_destinatario' ? "deleteMensajeRecibido": "deleteMensajeEnviado");
+		if ($mensajes->$function_delete($id)){
 			session::setFlashMessage( 'actions_message', "Mensaje eliminado correctamente.", "alert alert-success");
 		}
 		else{
@@ -56,8 +57,8 @@ class mensajesController{
 	 * @return 	boolean           			Resultado de la verificacion
 	 */
 	public static function verifyOwner($id, $user_type='user_destinatario'){
-		$mensaje = new mensaje();
-	  	$mensaje_data = $mensaje->getMensajes(" AND id_mensaje=".$id." ");
+		$mensajes = new mensajes();
+	  	$mensaje_data = $mensajes->getMensajes(" AND id_mensaje=".$id." ");
 	  	return ($mensaje_data[0][$user_type]==$_SESSION['user_name']);
 	}
 
