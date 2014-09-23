@@ -78,7 +78,7 @@ class fotosController{
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Modules',
 							"LabelSection" => strTranslate("Photos"),
-							"LabelItem" => strTranslate("Photo_list"),
+							"LabelItem" => 'Álbumes de fotos',
 							"LabelUrl" => 'admin-albumes',
 							"LabelPos" => 1),
 					  array("LabelHeader"=>'Modules',

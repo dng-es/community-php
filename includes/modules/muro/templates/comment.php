@@ -36,7 +36,7 @@ function commentMuro($comentario_muro){
 			    	 <a href="?page=muro-comentarios-respuestas&id='.$comentario_muro['id_comentario'].'" class="tooltip-top" title="ver todas las respuestas"> <span class="fa fa-sign-in"></span></a>
 				</span>
 			</div>';
-	echo '	<div id="muro-result-megusta'.$comentario_muro['id_comentario'].'" class="muro-result-megusta"></div>';
+	echo '	<div id="muro-result-megusta'.$comentario_muro['id_comentario'].'" class="text-danger"></div>';
 	echo '	<hr>
 		</div>';  
 }

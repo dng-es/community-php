@@ -13,27 +13,29 @@ $id = 0;
 
 $fotos = new fotos();
 $elements = array();
-
-if ($accion=='edit'){ $id=$_GET['id'];}
-if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok') and $accion1!="del"){ UpdateData();}
-elseif ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}
-
-//AGREGAR IMAGEN AL ALBUM
-if (isset($_POST['file_id'])){
-	if ($fotos->updateFotoAlbum($_POST['file_id'],$_POST['id_album'])){
-		ErrorMsg("Foto agregada correctamente");
-	}
-	else{
-		ErrorMsg("Error al agregar foto");
-	}
-}
-
-//CANCELAR IMAGEN
-if (isset($_REQUEST['act2']) and $_REQUEST['act2']=='foto_ko'){$fotos->cambiarEstado($_REQUEST['idc'],2,0);}
-$elements = fotosAlbumController::getItemAction($id); ?>
+?>
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Albumes de fotos</h1>
+		<?php
+		if ($accion=='edit'){ $id=$_GET['id'];}
+		if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok') and $accion1!="del"){ UpdateData();}
+		elseif ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}
+
+		//AGREGAR IMAGEN AL ALBUM
+		if (isset($_POST['file_id'])){
+			if ($fotos->updateFotoAlbum($_POST['file_id'],$_POST['id_album'])){
+				ErrorMsg("Foto agregada correctamente");
+			}
+			else{
+				ErrorMsg("Error al agregar foto");
+			}
+		}
+
+		//CANCELAR IMAGEN
+		if (isset($_REQUEST['act2']) and $_REQUEST['act2']=='foto_ko'){$fotos->cambiarEstado($_REQUEST['idc'],2,0);}
+		$elements = fotosAlbumController::getItemAction($id); ?>
+
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del album</div>
 			<div class="panel-body">

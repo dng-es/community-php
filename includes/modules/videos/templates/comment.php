@@ -24,7 +24,7 @@ function videoComment($comentario, $destino = "videos-comentarios"){
 				<p>';				
 	echo '		<a class="trigger-video fa fa-heart tooltip-top" href="?page='.$destino.'&idvc='.$comentario['id_comentario'].'" data-id="'.$comentario['id_comentario'].'" title="votar">
 				'.$comentario['votaciones'].'</a>
-				<span class="muro-result-megusta"></span>';
+				<span class="alert alert-danger"></span>';
 	if ($_SESSION['user_perfil']=='admin') { echo ' <b>id:</b> '.$comentario['id_comentario'];}
 	echo '		</p>';				
 	echo '</div><hr />';		

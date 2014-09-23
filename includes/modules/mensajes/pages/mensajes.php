@@ -14,13 +14,13 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 
 		$mensajeria = new mensajes();
 		$mensajes = $mensajeria->getMensajes(" AND user_destinatario='".$_SESSION['user_name']."' AND estado<>2 ORDER BY date_mensaje DESC");
-		$contador_no_leidos=mensajes::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
+		$contador_no_leidos=connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 		?>
 
-		<h2>bandeja de entrada</h2>
+		<h2>Mensajes recibidos</h2>
 		<p><?php echo strTranslate("Mailing_messages");?>: <?php echo count($mensajes);?> (<?php echo strTranslate("Mailing_unread");?>: <span id="contador-no-leidos"><?php echo $contador_no_leidos;?></span>) | 
 		<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message");?></a> | <a href="?page=mensajes">Refrescar bandeja de entrada</a> | <a href="?page=mensajes_e">Mensajes enviados</a></p>
-		<div class="table-responsive">
+		<div class="table-responsive container-min">
 			<table class="table">
 			<?php foreach($mensajes as $mensaje):
 				if ($mensaje['estado']==0){$estilo_leido="MensajeNoLeido";$estilo_titulo="TituloNoleido ";}

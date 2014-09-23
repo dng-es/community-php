@@ -72,12 +72,11 @@ class fotos extends connection{
 	public function insertFile($fichero,$path_archivo,$canal,$titulo,$id_promocion=0,$formacion=0,$tipo_foto=''){
 		global $fotos_types;
 		//SUBIR FICHERO
-		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-		$nombre_archivo=NormalizeText($nombre_archivo);
+		$ext = substr($fichero['name'], strrpos($fichero['name'],".") + 1);
+		$nombre_archivo = time().'.'.$ext;
 		$tamano_archivo = $fichero['size'];
-		$ext = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 		//compruebo si las características del archivo son las que deseo
-		if (!(in_array($ext, $fotos_types) && ($tamano_archivo < MAX_SIZE_FOTOS))) {
+		if (!(in_array(strtoupper($ext), $fotos_types) && ($tamano_archivo < MAX_SIZE_FOTOS))) {
 			return 0;
 		}else{
 			if (move_uploaded_file($fichero['tmp_name'], $path_archivo.$nombre_archivo)){

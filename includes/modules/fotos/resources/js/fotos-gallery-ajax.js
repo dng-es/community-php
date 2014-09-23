@@ -46,6 +46,8 @@ jQuery(document).ready(function(){
 			votaciones = $(this).attr("data-votaciones");
 
 		$("#modal-img-main").attr("src",ruta);
+		$("#modal-img-main").attr("title",titulo);
+		$("#modal-img-main").closest("a").attr("href",ruta);
 		$("#image-titulo").html(titulo);
 		$("#image-fecha").html(fecha);
 		$("#image-nick").html(nick);

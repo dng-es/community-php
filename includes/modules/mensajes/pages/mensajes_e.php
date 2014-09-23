@@ -16,8 +16,8 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 
 		<h2>Mensajes enviados</h2>
 		<p><?php echo strTranslate("Mailing_messages");?>: <span id="contador-leidos"><?php echo count($mensajes);?></span> | 
-		<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message");?></a> | <a href="?page=mensajes">Bandeja de entrada</a></p>
-		<div class="table-responsive">
+		<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message");?></a> | <a href="?page=mensajes">Mensajes recibidos</a></p>
+		<div class="table-responsive container-min">
 			<table class="table">
 			<?php foreach($mensajes as $mensaje): ?>			
 				<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo MensajeLeido">

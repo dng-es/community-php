@@ -7,6 +7,7 @@ include_once($base_dir . "core/functions.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/users/class.users.php");
 include_once($base_dir . "modules/fotos/class.fotos.php");
+include_once($base_dir . "modules/users/templates/tipuser.php");
 include_once($base_dir . "modules/fotos/templates/comment.php");
 
 

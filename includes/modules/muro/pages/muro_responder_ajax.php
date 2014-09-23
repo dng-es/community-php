@@ -83,7 +83,7 @@ echo '<div class="">';
 							</span>
 						</div>';
 
-			echo '<div id="muro-result-megusta'.$comentario_muro['id_comentario'].'" class="muro-result-megusta"></div>';
+			echo '<div id="muro-result-megusta'.$comentario_muro['id_comentario'].'" class="alert alert-danger"></div>';
 		  echo ' <hr>
 				</div>';  
   endforeach;

@@ -5,7 +5,7 @@
 * @version 1.0
 *
 */
-class mensajes extends connection{
+class mensajes{
 
 	/**
 	 * Devuelve array con los registros

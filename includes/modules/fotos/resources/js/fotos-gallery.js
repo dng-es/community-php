@@ -22,7 +22,7 @@ jQuery(document).ready(function(){
 	$(".trigger-gallery").click(function(){
 		var id_album = $(this).attr("data-id"),
 			nombre_abum = $(this).attr("data-album");
-		$(".modal-body").load("fotos-gallery-ajax.php?id=" + id_album,function(){
+		$(".modal-body").load("includes/modules/fotos/pages/fotos-gallery-ajax.php?id=" + id_album,function(){
 			$("#myModalLabel").html(nombre_abum);
 			$('#myModal').modal('show');
 		})
