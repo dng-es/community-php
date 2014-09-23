@@ -64,4 +64,5 @@ Characters = "Characters";
 404_page_not_found ="Page not found"
 404_page_not_found_title ="The requested page does not exist."
 404_page_not_found_info ="If you are sure that this page must exist, plaese contact us to inform about the error."
+Loading = "Loading"
 ?>

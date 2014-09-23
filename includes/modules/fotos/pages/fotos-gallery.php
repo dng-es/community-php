@@ -26,7 +26,7 @@ if (isset($_REQUEST['idvf']) and $_REQUEST['idvf']!="") {
 	$mensaje=$insercion_votacion = $fotos->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']);}
 ?>
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="col-md-8 col-lg-9 inset">
 		<h1><?php echo strTranslate("Photo_gallery");?></h1>
 		<?php
 		//FILTROS
@@ -116,7 +116,8 @@ echo '<!-- Modal -->
 			</div>';
 
 	echo '</div>
-		  <div class="col-md-3 lateral">';
+		  <div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">';
 	//buscador
 	//SearchForm($reg,"?page=fotos","searchForm","Buscar foto por título","buscar");
 	//PANEL SUBIR ARCHIVOS
@@ -129,7 +130,7 @@ echo '<!-- Modal -->
 		echo '<div class="galeria-ultimos"><img class="trigger-gallery" data-target="#myModal" data-id="'.$element['id_album'].'" src="'.PATH_FOTOS.$element['name_file'].'" title="'.$element['titulo'].'" /></div>
 			  <p><b>'.$element['titulo'].'</b><br />
 			  Album: <b>'.$element['nombre_album'].'</b></p>';
-	endforeach;
-	echo '</div>
-		</div>';
-?>
+	endforeach; ?>
+		</div>
+	</div>
+</div>

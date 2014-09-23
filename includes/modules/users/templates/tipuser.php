@@ -37,7 +37,7 @@ function userTip($id,$user_data,$estrellas_print,$movil=0){
 			//echo '	<span class="ficha-user-tip-info">Provincia: <span>'.$user_data['provincia'].'</span></span><br />';
 			echo '	<span class="ficha-user-tip-info">Puntos: <span>'.$user_data['puntos'].'</span></span><br />';
 			// echo '	<span class="ficha-user-tip-info">&iquest;En que piensas?:</span>
-			// 		<span class="grey-color"><em>'.$user_data['user_comentarios'].'</em></span>';
+			// 		<span class="text-muted"><em>'.$user_data['user_comentarios'].'</em></span>';
 			echo '	</span>
 					<span>'.$estrellas_print.'</span>
 					</td>

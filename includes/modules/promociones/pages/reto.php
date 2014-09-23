@@ -65,9 +65,9 @@ $mensaje = $promociones->insertFile($_FILES['nombre-video'],
 												$_POST['tipo-fichero']);}													
 
 //DATOS DEL RETO ACTIVO
-echo '<div id="page-info">El reto</div>';
-echo '<div class="row inset row-top">';
-echo '	<div class="col-md-9">';
+echo '<div class="row row-top">';
+echo '<h1>El reto</h1>';
+echo '	<div class="col-md-8 col-lg-9 inset">';
 $id_promocion=$_REQUEST['id'];
 $promocion = $promociones->getPromociones(" AND active=1 AND id_promocion='".$id_promocion."' LIMIT 1 ");
 if (count($promocion)==1) {
@@ -202,7 +202,7 @@ if (count($promocion)==1) {
 		if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador'){$filtro=" AND c.canal='".$_SESSION['user_canal']."' ";}
 		$filtro.=" AND tipo_muro='".$promocion[0]['nombre_promocion']."' AND estado=1 AND seleccion_reto=1 ORDER BY RAND()";		
 		$comentarios_muro = $muro->getComentarios($filtro.""); 		
-		if (count($comentarios_muro)==0){ echo '<p class="TituloSecc2">en este reto no hay textos seleccionados.</p>';} 
+		if (count($comentarios_muro)==0){ echo '<p>en este reto no hay textos seleccionados.</p>';} 
 		foreach($comentarios_muro as $comentario_muro):
 		  showComentarioPromocion($comentario_muro,$promocion[0]['id_promocion'],true);
 		endforeach;	
@@ -225,7 +225,7 @@ if (count($promocion)==1) {
 			echo '<h2>los mejores videos</h2>
 				  <p>A continuaci&oacute;n se muestran los videos seleccionados del reto. 
 				  Puedes empezar a realizar tus votaciones para elegir los que mas te gustan:</p><br />';	
-			if (count($videos_reto)==0){ echo '<p class="TituloSecc2">en este reto no hay videos seleccionados.</p><br />';} 
+			if (count($videos_reto)==0){ echo '<p>en este reto no hay videos seleccionados.</p><br />';} 
 			else{ galleryVideos($videos_reto,true,$id_promocion,4);}
 
 
@@ -271,7 +271,7 @@ if (count($promocion)==1) {
 			$filtro=" AND c.canal='".$_SESSION['user_canal']."' ";
 			$filtro.=" AND tipo_muro='".$promocion[0]['nombre_promocion']."' AND estado=1 AND seleccion_reto=1 ORDER BY votaciones DESC LIMIT ".$num_ganadores;
 			$comentarios_muro = $muro->getComentarios($filtro); 		
-			if (count($comentarios_muro)==0){ echo '<p class="TituloSecc2">en este reto no hay comentarios ganadores.</p>';} 
+			if (count($comentarios_muro)==0){ echo '<p>en este reto no hay comentarios ganadores.</p>';} 
 			foreach($comentarios_muro as $comentario_muro):
 			  showComentarioPromocion($comentario_muro,$promocion[0]['id_promocion'],false);
 			endforeach;				
@@ -282,7 +282,7 @@ if (count($promocion)==1) {
 			$filtro=" AND c.canal='gerente' ";
 			$filtro.=" AND tipo_muro='".$promocion[0]['nombre_promocion']."' AND estado=1 AND seleccion_reto=1 ORDER BY votaciones DESC LIMIT ".$num_ganadores;
 			$comentarios_muro = $muro->getComentarios($filtro); 		
-			if (count($comentarios_muro)==0){ echo '<p class="TituloSecc2">en este reto no hay comentarios ganadores en el canal gerentes.</p><br />';} 
+			if (count($comentarios_muro)==0){ echo '<p>en este reto no hay comentarios ganadores en el canal gerentes.</p><br />';} 
 			foreach($comentarios_muro as $comentario_muro):
 			  showComentarioPromocion($comentario_muro,$promocion[0]['id_promocion'],false);
 			endforeach;
@@ -335,7 +335,7 @@ if (count($promocion)==1) {
 				$filtro=" AND f.canal='".$_SESSION['user_canal']."' ";
 				$filtro.=" AND id_promocion=".$promocion[0]['id_promocion']." AND seleccion_reto=1 ORDER BY fotos_puntos DESC LIMIT ".$num_ganadores;
 				$fotos_reto = $fotos->getFotos($filtro); 
-				if (count($fotos_reto)==0){ echo '<p class="TituloSecc2" style="clear: both">en este reto no hay fotos ganadoras.</p><br />';} 
+				if (count($fotos_reto)==0){ echo '<p class="clearfix">en este reto no hay fotos ganadoras.</p><br />';} 
 				galleryPhotos($fotos_reto,false,$id_promocion,4);
 
 			}
@@ -344,7 +344,7 @@ if (count($promocion)==1) {
 				$filtro=" AND f.canal='gerente' ";
 				$filtro.=" AND id_promocion=".$promocion[0]['id_promocion']." AND seleccion_reto=1 ORDER BY fotos_puntos DESC LIMIT ".$num_ganadores;
 				$fotos_reto = $fotos->getFotos($filtro); 			
-				if (count($fotos_reto)==0){ echo '<p class="TituloSecc2">en este reto no hay fotos ganadoras en el canal gerentes.</p><br />';} 
+				if (count($fotos_reto)==0){ echo '<p>en este reto no hay fotos ganadoras en el canal gerentes.</p><br />';} 
 				else{galleryPhotos($fotos_reto,false,$id_promocion,4);}
 				
 
@@ -353,7 +353,7 @@ if (count($promocion)==1) {
 				$filtro=" AND f.canal='comercial' ";
 				$filtro.=" AND id_promocion=".$promocion[0]['id_promocion']." AND seleccion_reto=1 ORDER BY fotos_puntos DESC LIMIT ".$num_ganadores;
 				$fotos_reto = $fotos->getFotos($filtro); 											
-				if (count($fotos_reto)==0){ echo '<p class="TituloSecc2">en este reto no hay fotos ganadoras en el canal comerciales.</p><br />';}
+				if (count($fotos_reto)==0){ echo '<p>en este reto no hay fotos ganadoras en el canal comerciales.</p><br />';}
 				else{galleryPhotos($fotos_reto,false,$id_promocion,4);}
 							
 			}
@@ -367,7 +367,8 @@ if (count($promocion)==1) {
 //	LATERAL DERECHO			///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////    
 echo '</div>
-		<div class="col-md-3 lateral">';
+		<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">';
 			//FASE 1 DEL RETO: EXPLICACION DEL RETO
 		if($fecha_actual < $fecha_inicio){ 	
 			echo '<p>'.$promocion[0]['cabecera_promocion'].'</p>';
@@ -404,8 +405,7 @@ echo '</div>
 		  echo '<h2>Ya tenemos ganadores!!!</h2>
 		  		<p>Ya tenemos ganadores del reto, puedes entrar en cada sección para ver los ganadores</p>
 		  		<p>'.$promocion[0]['cabecera_promocion'].'</p>';	
-		}
-echo '</div>';	
-echo '</div>';		
-
-?>
+		}?>
+		</div>
+	</div>	
+</div>

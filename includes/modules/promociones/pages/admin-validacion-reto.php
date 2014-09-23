@@ -143,11 +143,11 @@ function getVideosRetoPendientes($id_promocion)
 	$videos = new videos();
 	$pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=".$id_promocion." ");
 	if (count($pendientes)==0){
-		echo '<p class="TituloSecc2">No hay <span class="comunidad-color">VIDEOS</span> en el reto pendientes de validar.<br />
+		echo '<p>No hay <span class="comunidad-color">VIDEOS</span> en el reto pendientes de validar.<br />
 			'.ucfirst(strTranslate("APP_points")).' a otorgar por video validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
 	}
 	else{
-	  echo '<p class="TituloSecc2">Tiene los siguientes <span class="comunidad-color">VIDEOS</span> en el reto pendientes de validar.<br />
+	  echo '<p>Tiene los siguientes <span class="comunidad-color">VIDEOS</span> en el reto pendientes de validar.<br />
 			'.ucfirst(strTranslate("APP_points"));.' a otorgar por video validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
 	  foreach($pendientes as $element):
 			if (file_exists(PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4')){ $convertido=true;}
@@ -188,11 +188,11 @@ function getVideosRetoValidados($id_promocion)
 	$videos = new videos();
 	$pendientes = $videos->getVideos(" AND estado=1 AND seleccion_reto=0 AND id_promocion=".$id_promocion." ");
 	if (count($pendientes)==0){
-		echo '<p class="TituloSecc2">No hay <span class="comunidad-color">VIDEOS</span> en el reto para seleccionar.<br />
+		echo '<p>No hay <span class="comunidad-color">VIDEOS</span> en el reto para seleccionar.<br />
 			'.ucfirst(strTranslate("APP_points")).' a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span><br />';
 	}
 	else{
-	  echo '<p class="TituloSecc2">Tiene los siguientes <span class="comunidad-color">VIDEOS</span> en el reto para seleccionar como los mejores.<br />
+	  echo '<p>Tiene los siguientes <span class="comunidad-color">VIDEOS</span> en el reto para seleccionar como los mejores.<br />
 			'.ucfirst(strTranslate("APP_points")).' a otorgar por video seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
 
 	  foreach($pendientes as $element):
@@ -227,15 +227,16 @@ function getFotosRetoPendientes($id_promocion)
 	$fotos = new fotos();
 	$pendientes = $fotos->getFotos(" AND estado=0 AND seleccion_reto=0 and id_promocion=".$id_promocion." ");
 	if (count($pendientes)==0){
-		echo '<p class="TituloSecc2">No hay <span class="comunidad-color">FOTOS</span> en el reto pendientes de validar.<br /> 
+		echo '<p>No hay <span class="comunidad-color">FOTOS</span> en el reto pendientes de validar.<br /> 
 			Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.<br />
 			Puntos a otorgar por validar foto: <span class="comunidad-color">'.PUNTOS_RETO.'</span></p><br />';
 	}
 	else{
-	  echo '<p class="TituloSecc2">Tiene las siguientes <span class="comunidad-color">FOTOS</span> en el reto pendientes de validar.<br /> 
+	  echo '<p>Tiene las siguientes <span class="comunidad-color">FOTOS</span> en el reto pendientes de validar.<br /> 
 			Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.<br />
 			Puntos a otorgar por validar foto: <span class="comunidad-color">'.PUNTOS_RETO.'</span></p><br />';
-	  echo '<table class="TableData" cellpadding="3" cellspacing="0">';
+	  echo '<div class="table-responsive">';
+	  echo '<table class="table">';
 	  echo '<tr>';
 	  echo '<th width="50px">&nbsp;</th>';
 	  echo '<th>&nbsp;usuario</th>';
@@ -244,11 +245,8 @@ function getFotosRetoPendientes($id_promocion)
 	  echo '<th>fecha</th>';
 	  echo '</tr>';
   
-	  $color_row='TableRow';
 	  foreach($pendientes as $element):
-			if ($color_row=='TableRow') {$color_row='TableRow2';}
-			else {$color_row='TableRow';}
-			echo '<tr class="'.$color_row.'">';
+			echo '<tr>';
 			echo '<td nowrap="nowrap">
 					<span class="sprites mini-add">
 						<a href="#" onClick="Confirma(\'¿Seguro que desea validar la foto '.str_replace('"','',$element['titulo']).'?\',
@@ -263,7 +261,7 @@ function getFotosRetoPendientes($id_promocion)
 					
 					<div id="MensajeFoto'.$element['id_file'].'" class="modal-content">
 						  <p><b>'.$element['user_add'].'</b> mand&oacute; la foto:</p><hr />
-						  <p class="TituloSecc2"><em>'.$element['titulo'].'</em></p><br />
+						  <p><em>'.$element['titulo'].'</em></p><br />
 						  <center>
 							<img src="'.PATH_FOTOS.$element['name_file'].'" class="galeria-fotos" style=" width:280px !important" />
 						  </center>
@@ -273,9 +271,11 @@ function getFotosRetoPendientes($id_promocion)
 			echo '<td>'.$element['canal'].'</td>';
 			echo '<td><a href="#" class="abrir-modal" title="MensajeFoto'.$element['id_file'].'">'.$element['titulo'].'</a></td>';
 			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['f.date_foto'])).'</td>';			
-			echo '<tr>';   
+			echo '</tr>';   
 	  endforeach;
-	  echo '</table><br />';	
+	  echo '</table>
+		</div>
+	  <br />';	
 	}
 }
 
@@ -284,13 +284,14 @@ function getFotosRetoValidados($id_promocion)
 	$fotos = new fotos();
 	$pendientes = $fotos->getFotos(" AND estado=1 AND seleccion_reto=0 and id_promocion=".$id_promocion." ");
 	if (count($pendientes)==0){
-		echo '<p class="TituloSecc2">No hay <span class="comunidad-color">FOTOS</span> en el reto pendientes de seleccionar.<br /> 
+		echo '<p>No hay <span class="comunidad-color">FOTOS</span> en el reto pendientes de seleccionar.<br /> 
 			Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.</p><br />';
 	}
 	else{
-	  echo '<p class="TituloSecc2">Tiene las siguientes <span class="comunidad-color">FOTOS</span> en el reto pendientes de seleccionar.<br /> 
+	  echo '<p>Tiene las siguientes <span class="comunidad-color">FOTOS</span> en el reto pendientes de seleccionar.<br /> 
 			Puntos a otorgar por seleccionar foto: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'</span>.</p><br />';
-	  echo '<table class="TableData" cellpadding="3" cellspacing="0">';
+	  echo '<div class="table-responsive">';
+	  echo '<table class="table">';
 	  echo '<tr>';
 	  echo '<th width="50px">&nbsp;</th>';
 	  echo '<th>&nbsp;usuario</th>';
@@ -299,11 +300,8 @@ function getFotosRetoValidados($id_promocion)
 	  echo '<th>fecha</th>';
 	  echo '</tr>';
   
-	  $color_row='TableRow';
 	  foreach($pendientes as $element):
-			if ($color_row=='TableRow') {$color_row='TableRow2';}
-			else {$color_row='TableRow';}
-			echo '<tr class="'.$color_row.'">';
+			echo '<tr>';
 			echo '<td nowrap="nowrap">
 					<span class="sprites mini-sel">
 						<a href="#" onClick="Confirma(\'¿Seguro que desea selecionar la foto '.str_replace('"','',$element['titulo']).'?\',
@@ -312,7 +310,7 @@ function getFotosRetoValidados($id_promocion)
 					</span>					
 					<div id="MensajeFoto'.$element['id_file'].'" class="modal-content">
 						  <p><b>'.$element['user_add'].'</b> mand&oacute; la foto:</p><hr />
-						  <p class="TituloSecc2"><em>'.$element['titulo'].'</em></p><br />
+						  <p><em>'.$element['titulo'].'</em></p><br />
 						  <center>
 							<img src="'.PATH_FOTOS.$element['name_file'].'" class="galeria-fotos" style=" width:280px !important" />
 						  </center>
@@ -322,9 +320,11 @@ function getFotosRetoValidados($id_promocion)
 			echo '<td>'.$element['canal'].'</td>';
 			echo '<td><a href="#" class="abrir-modal" title="MensajeFoto'.$element['id_file'].'">'.$element['titulo'].'</a></td>';
 			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['f.date_foto'])).'</td>';			
-			echo '<tr>';   
+			echo '</tr>';   
 	  endforeach;
-	  echo '</table><br />';	
+	  echo '</table>
+		</div>
+	  <br />';	
 	}
 }
 function getRetoPendientes($nombre_muro)
@@ -333,13 +333,14 @@ function getRetoPendientes($nombre_muro)
 	$pendientes = $muro->getComentarios(" AND estado=0 AND seleccion_reto=0 AND tipo_muro='".$nombre_muro."' ");
 
 	if (count($pendientes)==0){
-		echo '<p class="TituloSecc2">No hay mensajes en el <span class="comunidad-color">RETO</span> pendientes de validar.<br />
+		echo '<p>No hay mensajes en el <span class="comunidad-color">RETO</span> pendientes de validar.<br />
 			Puntos a otorgar por mensaje validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
 	}
 	else{
-	  echo '<p class="TituloSecc2">Hay los siguientes mensajes en el <span class="comunidad-color">RETO</span> pendientes de validar.<br />
+	  echo '<p>Hay los siguientes mensajes en el <span class="comunidad-color">RETO</span> pendientes de validar.<br />
 			Puntos a otorgar por mensaje validado: <span class="comunidad-color">'.PUNTOS_RETO.'.</span></p><br />';
-	  echo '<table class="TableData" cellpadding="3" cellspacing="0">';
+	  echo '<div class="table-responsive">';
+	  echo '<table class="table">';
 	  echo '<tr>';
 	  echo '<th width="30px">&nbsp;</th>';
 	  echo '<th>&nbsp;ID</th>';
@@ -349,19 +350,16 @@ function getRetoPendientes($nombre_muro)
 	  echo '<th>fecha</th>';
 	  echo '</tr>';
   
-	  $color_row='TableRow';
 	  foreach($pendientes as $element):
-			if ($color_row=='TableRow') {$color_row='TableRow2';}
-			else {$color_row='TableRow';}
-			echo '<tr class="'.$color_row.'">';
+			echo '<tr>';
 			echo '<td nowrap="nowrap">	
-					<span class="ui-icon-color2 ui-icon ui-icon-circle-plus" title="Validar"
+					<span class="fa fa-check-circle icon-table" title="Validar"
 						onClick="Confirma(\'¿Seguro que desea validar el comentario '.$element['id_comentario'].'?\',
 						\'?page=admin-validacion-reto&act=reto_ok&id='.$element['id_comentario'].'&p='.$element['tipo_muro'].'&u='.$element['user_comentario'].'\')">
 						<span>Cerrar</span>
 					</span>
 					
-					<span class="ui-icon-color2 ui-icon ui-icon-close" title="Eliminar"
+					<span class="fa fa-ban icon-table" title="Eliminar"
 						onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
 						\'?page=admin-validacion-reto&act=muro_ko&id='.$element['id_comentario'].'&u='.$element['user_comentario'].'\')">
 						<span>Cerrar</span>
@@ -377,9 +375,11 @@ function getRetoPendientes($nombre_muro)
 			echo '<td>'.$element['user_comentario'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
 			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_comentario'])).'</td>';			
-			echo '<tr>';   
+			echo '</tr>';   
 	  endforeach;
-	  echo '</table><br />';	
+	  echo '</table>
+		</div>
+	  <br />';	
 	}
 }
 
@@ -389,13 +389,14 @@ function getRetoValidados($nombre_muro)
 	$pendientes = $muro->getComentarios(" AND estado=1 AND seleccion_reto=0 AND tipo_muro='".$nombre_muro."' ");
 
 	if (count($pendientes)==0){
-		echo '<p class="TituloSecc2">No hay mensajes en el <span class="comunidad-color">RETO</span> para ser seleccionados.<br />
+		echo '<p>No hay mensajes en el <span class="comunidad-color">RETO</span> para ser seleccionados.<br />
 			Puntos a otorgar por mensaje seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
 	}
 	else{
-	  echo '<p class="TituloSecc2">Hay los siguientes mensajes en el <span class="comunidad-color">RETO</span> para ser seleccionados.<br />
+	  echo '<p>Hay los siguientes mensajes en el <span class="comunidad-color">RETO</span> para ser seleccionados.<br />
 			Puntos a otorgar por mensaje seleccionado: <span class="comunidad-color">'.PUNTOS_RETO_SELECCION.'.</span></p><br />';
-	  echo '<table class="TableData" cellpadding="3" cellspacing="0">';
+	  echo '<div class="table-responsive">';
+	  echo '<table class="table">';
 	  echo '<tr>';
 	  echo '<th width="30px">&nbsp;</th>';
 	  echo '<th>&nbsp;ID</th>';
@@ -405,13 +406,10 @@ function getRetoValidados($nombre_muro)
 	  echo '<th>fecha</th>';
 	  echo '</tr>';
   
-	  $color_row='TableRow';
 	  foreach($pendientes as $element):
-			if ($color_row=='TableRow') {$color_row='TableRow2';}
-			else {$color_row='TableRow';}
-			echo '<tr class="'.$color_row.'">';
+			echo '<tr>';
 			echo '<td nowrap="nowrap">
-					<span class="ui-icon-color2 ui-icon ui-icon-circle-check" title="Seleccionar"
+					<span class="fa fa-check-circle icon-table" title="Seleccionar"
 						onClick="Confirma(\'¿Seguro que desea seleccionar el comentario '.$element['id_comentario'].'?\',
 						\'?page=admin-validacion-reto&act=reto_sel&id='.$element['id_comentario'].'&u='.$element['user_comentario'].'\')">
 						<span>Cerrar</span>
@@ -426,9 +424,11 @@ function getRetoValidados($nombre_muro)
 			echo '<td>'.$element['user_comentario'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
 			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_comentario'])).'</td>';			
-			echo '<tr>';   
+			echo '</tr>';   
 	  endforeach;
-	  echo '</table><br />';	
+	  echo '</table>
+	  </div>
+	  <br />';	
 	}
 }
 ?>

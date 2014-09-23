@@ -49,9 +49,6 @@ $albumes = $fotos->getFotosAlbumes("");?>
 
 					<span class="fa fa-check-circle icon-table trigger-validar" data-id="'.$element['id_file'].'" data-user="'.$element['user_add'].'"	title="Validar" />
 					</span>';
-										
-
-
 			echo'</td>';
 			echo '<td>';
 			ComboAlbumes(0,$albumes,"nombre_album_" .$element['id_file']);

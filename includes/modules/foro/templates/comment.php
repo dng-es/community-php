@@ -20,9 +20,9 @@ function commentForo($comentario_foro,$destino="foro-comentarios"){
 		<p><?php echo $comentario_foro['comentario'];?></p>				
 		<div class="comment-info">
 			<span class="comment-reply-trigger label label-info" title="<?php echo strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Reply");?></span> 
-			<span class="label label-info" title="<?php echo strTranslate("Vote_comment");?>"><a class="fa fa-heart tooltip-top" href="?page=<?php echo $destino.'&id='.$comentario_foro['id_tema'].'&idvf='.$comentario_foro['id_comentario'].'&pag='.$page_num;?>">
-			</a> <?php echo $comentario_foro['votaciones'];?></span>
-			<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label label-info">id:'.$comentario_foro['id_comentario'].'</span>'; ?>	
+			<span class="label label-info" title="<?php echo strTranslate("Vote_comment");?>"><a href="?page=<?php echo $destino.'&id='.$comentario_foro['id_tema'].'&idvf='.$comentario_foro['id_comentario'].'&pag='.$page_num;?>">
+			<i class="fa fa-heart"></i> <?php echo $comentario_foro['votaciones'];?></a></span>
+			<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label label-info" title="ID del comentario">id:'.$comentario_foro['id_comentario'].'</span>'; ?>	
 		</div>
 		
 		<div class="comment-reply">

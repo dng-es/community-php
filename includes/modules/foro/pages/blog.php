@@ -10,9 +10,9 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 
 $foro = new foro();
 
-echo '<div id="page-info"><img src="images/blog-logo.png" /><span>Blog de la comunidad</span></div>';
 echo '<div class="row row-top">
-		<div class="col-md-9 inset">';
+		<h1>Blog de la comunidad</h1>
+		<div class="col-md-8 col-lg-9 inset">';
 
 
 session::getFlashMessage( 'actions_message' );	
@@ -76,12 +76,8 @@ if (count($tema)>0){
 	$foro->insertVisita($_SESSION['user_name'],$id_tema,0);
 	//INSERTAR NUEVOS COMENTARIOS EN EL BLOG
 
-	echo '<div class="insert-comment">
-			<p>¿Qué piensas de este artículo? déjanos tu comentario</p>';
-			addForoComment($id_tema);
-	echo '</div>';
-
-
+	echo '<p>¿Qué piensas de este artículo? déjanos tu comentario</p>';
+	addForoComment($id_tema);
 	
 	echo '<div class="panel-container-foro">';
 	$filtro_comentarios.= " ORDER BY date_comentario DESC";
@@ -121,36 +117,29 @@ if (count($tema)>0){
 					<li class="next '.$siguiente_disabled .'"><a href="'.$siguiente_enlace.'">Entrada siguiente &rarr;</a></li>
 				</ul>';
 	}
-}
+}?>
 
-echo '</div>';
+	</div>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+			<?php
+			//BUSCADOR
+			searchBlog();
 
-////////////////////////////////////////////////////////
-//LATERAL DERRECHO
-////////////////////////////////////////////////////////
-echo '<div class="col-md-3 lateral lateral-container">';
-//BUSCADOR
-echo '<div class="lateral-container-int">';
-searchBlog();
-echo '</div>';
+			//ENTRADAS RECIENTES
+			echo '	<h4>Entradas recientes</h4>';
+			$elements = $foro->getTemas(" AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
+			entradasBlog($elements);
 
-//ENTRADAS RECIENTES
-echo '	<h4>Entradas recientes</h4>';
-$elements = $foro->getTemas(" AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
-entradasBlog($elements);
+			//ARCHIVO BLOG
+			echo '<h4>Archivos</h4>';
+			$elements = $foro->getArchivoBlog();
+			archivoBlog($elements);
 
-//ARCHIVO BLOG
-echo '<h4>Archivos</h4>
-	  <div class="lateral-container">';
-$elements = $foro->getArchivoBlog();
-archivoBlog($elements);
-echo '</div>';
-
-//CATEGORIAS
-$elements = $foro->getCategorias(" AND ocio=1 ");
-echo '<h4>Categorias</h4>';
-categoriasBlog($elements);
-
-	
-	echo '</div>';
-echo '</div>';
+			//CATEGORIAS
+			$elements = $foro->getCategorias(" AND ocio=1 ");
+			echo '<h4>Categorias</h4>';
+			categoriasBlog($elements);?>
+		</div>
+	</div>
+</div>

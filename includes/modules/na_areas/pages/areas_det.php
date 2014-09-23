@@ -108,7 +108,7 @@ function printTareas($id_area){
 	}
   	if ($element['tarea_grupo']==0 or $acceso_grupo==1){
   		$contador_tareas++;
-		echo '<div class="panel panel-default panel-comunidad2">
+		echo '<div class="panel panel-default">
 			  <div class="panel-heading">'.$element['tarea_titulo'].'</div>
 			  <div class="panel-body">
 			  <p>'.$element['tarea_descripcion'].'</p>';

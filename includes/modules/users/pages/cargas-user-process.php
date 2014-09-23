@@ -112,7 +112,7 @@ function volcarMySQL($data) {
 	// }
  //  endforeach;
    
-  echo '<br /><p class="TituloSecc2"><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atr&aacute;s</a> | </p>
+  echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atr&aacute;s</a> | </p>
 	   <p>El proceso de importaci&oacute;n ha finalizado con &eacute;xito</p>';
   if ($contador>0) { echo '<p>los siguientes usuarios han sido dados de alta: ('.$contador.')</p>'.$mensaje;}
   //if ($contador_ko>0) { echo '<p>los siguientes usuarios no fueron insertados porque ya estaban dados de alta: ('.$contador_ko.')</p>'.$mensaje_ko;}
