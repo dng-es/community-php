@@ -8,6 +8,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 
 		<?php 
 		session::getFlashMessage( 'actions_message' );  
+		mensajesController::createNickAction();
 		mensajesController::createAction();
 		mensajesController::deleteRecibidoAction();
 

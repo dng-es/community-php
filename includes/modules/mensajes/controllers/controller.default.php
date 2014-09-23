@@ -20,6 +20,18 @@ class mensajesController{
 		}		
 	}
 
+	public static function createNickAction(){
+		if (isset($_REQUEST['n']) and $_REQUEST['n']!=''){
+			echo '
+			<script>
+			$(document).ready(function(){	
+				$("#nick-comentario").val("'.$_REQUEST['n'].'");
+				$("#new_mensaje").modal();
+			});
+			</script>';
+		}
+	}	
+
 	public static function deleteRecibidoAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act']=='ko'){
 			self::deleteUserAction($_REQUEST['id'], 'user_destinatario');

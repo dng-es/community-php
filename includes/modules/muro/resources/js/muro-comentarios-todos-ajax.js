@@ -1,7 +1,7 @@
 // JavaScript Document
 jQuery(document).ready(function(){
-	var id_muro=$("#tipo_muro").val();
-	var pagina=$("#pagina").val();
+	var id_muro=$("#tipo_muro").data("val");
+	var pagina=$("#pagina").data("val");
 	showMuro(id_muro,pagina);
 	
 	

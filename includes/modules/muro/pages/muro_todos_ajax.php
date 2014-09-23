@@ -50,7 +50,8 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 <?php
 session::ValidateSessionAjax();
 $muro=new muro();
-	
+$find_reg = "";
+$filtro_comentarios = "";
 
 //OBTENER COMENTARIOS DEL MURO
 if (isset($_REQUEST['c'])){$nombre_muro=$_REQUEST['c'];}

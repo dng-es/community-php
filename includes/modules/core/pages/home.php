@@ -9,7 +9,8 @@ templateload("show","novedades");
 
 //usuarios conectados
 $filtroCanal= ($_SESSION['user_canal']!="admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') " : "");
-$users_conn = count(users::getUsersConn($filtroCanal));
+$users = new users();
+$users_conn = count($users->getUsersConn($filtroCanal));
 
 ?>
 <div class="row row-top">
