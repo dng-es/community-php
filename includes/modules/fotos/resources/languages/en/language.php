@@ -33,4 +33,5 @@ Photo_title = "Photo title"
 Order_photos_by_date = "Order photos by date"
 Order_photos_by_votes = "Order photos by votes"
 New_album = "New album"
+Photo_albums = "Photo albums"
 ?>

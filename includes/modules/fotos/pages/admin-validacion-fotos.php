@@ -24,7 +24,7 @@ session::AccessLevel($perfiles_autorizados);
 
 $fotos = new fotos();
 $pendientes = $fotos->getFotos(" AND estado=0 AND id_promocion=0 ");
-$albumes = $fotos->getFotosAlbumes("");?>
+$albumes = $fotos->getFotosAlbumes(" ORDER BY nombre_album");?>
 
 <div class="row row-top">
 	<div class="col-md-9">	

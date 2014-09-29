@@ -74,7 +74,7 @@ class users extends connection{
 		return connection::getSQL($Sql);  
 	} 
 
-	public function insertPuntuacion($puntuacion_username,$puntuacion_puntos,$puntuacion_motivo){
+	public static function insertPuntuacion($puntuacion_username,$puntuacion_puntos,$puntuacion_motivo){
 		$Sql="INSERT INTO users_puntuaciones (puntuacion_username, puntuacion_puntos, puntuacion_motivo) 
 			  VALUES ('".$puntuacion_username."','".$puntuacion_puntos."','".$puntuacion_motivo."')";
 		return connection::execute_query($Sql);
@@ -104,7 +104,7 @@ class users extends connection{
 			return connection::execute_query($Sql);
 	}	
 	  
-	public function sumarPuntos($username,$puntos,$motivo){	
+	public static function sumarPuntos($username,$puntos,$motivo){	
 		if ($motivo!=PUNTOS_ACCESO_SEMANA_MOTIVO and $motivo!=PUNTOS_FORO_SEMANA_MOTIVO and $motivo!='Puntos juego'){
 			self::sumarParticipacion($username,$motivo,$puntos);
 		}	

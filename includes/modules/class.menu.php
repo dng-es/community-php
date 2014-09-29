@@ -33,7 +33,7 @@ class menu{
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="?page=video&id=<?php echo $id_video;?>"><?php echo strTranslate("Videos")?></a></li>
-					<li><a href="?page=fotos-gallery"><?php echo strTranslate("Photos")?></a></li>
+					<li><a href="?page=fotos"><?php echo strTranslate("Photos")?></a></li>
 					<li><a href="?page=user-infotopdf-all">Impresos PDF</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false">Envío emails <b class="caret"></b></a>

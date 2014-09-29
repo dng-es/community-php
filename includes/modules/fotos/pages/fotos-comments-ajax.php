@@ -15,53 +15,36 @@ include_once($base_dir . "modules/fotos/templates/gallery.php");
 <head>
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
 	<script type="text/javascript" src="js/main.min.js"></script>
+	<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>
 	<script src="<?php echo getAsset("fotos");?>js/fotos-gallery-ajax.js"></script>
 </head>
 <body>
 <?php
 
-
 session::ValidateSessionAjax();
 
-
-
 $fotos = new fotos();
-$id_galeria = 0;
-if(isset($_REQUEST['id']) and $_REQUEST['id']!=""){$id_galeria=$_REQUEST['id'];}
+$id_file = 0;
+if(isset($_REQUEST['id']) and $_REQUEST['id']!=""){$id_file=$_REQUEST['id'];}
 //OBTENCION DE LAS FOTOS
-$filtro = " AND estado=1 AND id_album=".$id_galeria." ";
+$filtro = " AND estado=1 AND id_file=".$id_file." ";
 if ($_SESSION['user_canal']!='admin' and $_SESSION['user_perfil']!='formador'){$filtro.=" AND f.canal='".$_SESSION['user_canal']."' ";}
 $files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
-
-echo '  <div class="row">
-			<div class="col-md-7">';
-showFotoModal($files_galeria[0],true,0,0);
-
-//insertar comentario
-echo '<h4>Nuevo comentario</h4>
-	  <form action="" method="post" role="form" id="form-comentario" name="form-comentario">
-		<input type="hidden" name="id_file" id="id_file" value="'.$files_galeria[0]['id_file'].'" />
-		<textarea class="form-control" name="respuesta-texto" id="respuesta-texto" placeholder="Nuevo comentario"></textarea>
-		<div id="respuesta-alert" class="alert-message alert alert-danger"></div>
-		<button type="submit" class="btn btn-primary btn-block">Publicar</button>
-	  </form>
-
-	  <div id="respuestas-result" class="alert-message alert alert-success"></div>
-	  <div id="respuestas-textos"></div>';
-
-echo '	</div>
-		<div class="col-md-5">';
-echo '      <div class="gallery clearfix">';
-foreach($files_galeria as $element):
-	echo '<div class="modal-img-container gallery clearfix">
-			<img id="img-mini'.$element['id_file'].'" class="blanco-negro" src="'.PATH_FOTOS.$element['name_file'].'" title="'.$element['titulo'].'" data-id="'.$element['id_file'].'" data-votaciones="'.$element['fotos_puntos'].'" data-fecha="'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_foto'])).'" data-nick="'.$element['nick'].'" />
-		  </div>';
-endforeach;
-echo '      </div>';
-echo '    </div>
-	  </div>';
 ?>
-
+<div class="row">
+	<div class="col-md-12">
+		<?php showFotoModal($files_galeria[0],true,0,0);?>
+		<h4><?php echo strTranslate("Photo_comment_new");?></h4>
+		<form action="" method="post" role="form" id="form-comentario-fotos" name="form-comentario-fotos">
+			<input type="hidden" name="id_file" id="id_file" value="<?php echo $files_galeria[0]['id_file'];?>" />
+			<textarea class="form-control" name="respuesta-texto" id="respuesta-texto"></textarea>
+			<button type="submit" class="btn btn-primary btn-block"><?php echo strTranslate("Send");?></button>
+			<div id="respuesta-alert" class="alert-message alert alert-danger"></div>
+		</form>
+		<div id="respuestas-result" class="alert-message alert alert-success"></div>
+		<div id="respuestas-textos"></div>
+	</div>
+</div>
 </body>
 </html>
 
@@ -75,14 +58,15 @@ function showFotoModal($file_galeria,$votaciones=true,$movil=0,$reto=0){
 	$nick = $file_galeria['nick'];
 	if ($nick==""){$nick="(sin nick)";}
 
-	echo '<div class="thumbnail">
+	echo '<div class="thumbnail photo-comment">
 			<a href="'.PATH_FOTOS.$file_galeria['name_file'].'" target="_blank">
 			<img title="'.$file_galeria['titulo'].'" src="'.PATH_FOTOS.$file_galeria['name_file'].'" id="modal-img-main" /></a>
-			<div class="caption"><span id="image-titulo">'.$titulo.'</span>';
-	if ($_SESSION['user_perfil']=='admin'){ echo ' <span class="comunidad-color"><b>id:</b></span> <span id="image-id">'.$file_galeria['id_file'].'</span>';}
-	echo '	<div class="img-info"><a id="a'.$file_galeria['id_file'].'" href="$a'.$file_galeria['id_file'].'Tip?width=350" 
-			class="betterTip comunidad-color" title="Datos del usuario <em>'.$file_galeria['nick'].'</em>">
-			<b><span id="image-nick">'.$nick.'</span></b></a> - <span id="image-fecha">'.strftime(DATE_FORMAT_SHORT,strtotime($file_galeria['date_foto'])).'</span></div>';							
+			<div class="caption">
+			<a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="pantalla completa" ><i class="fa fa-desktop"></i></a> 
+			<span class="text-muted">'.$nick.' - '.strftime(DATE_FORMAT_SHORT,strtotime($file_galeria['date_foto']));
+			if ($_SESSION['user_perfil']=='admin'){ echo ' - ID: '.$file_galeria['id_file'];}	
+	echo '</span> <span id="image-titulo">'.$titulo.'</span>';
+						
 	userTip($file_galeria['id_file'],$file_galeria,userEstrellas($file_galeria['participaciones']),$movil);				
 			
 

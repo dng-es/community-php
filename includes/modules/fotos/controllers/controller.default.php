@@ -1,16 +1,17 @@
 <?php
 class fotosController{
-	public static function getListAction($reg = 0, $filter = ""){
+	public static function getListAction($reg = 0, $filtro = ""){
 		$fotos = new fotos();
 		$find_reg = "";
+		$filter = "";
 		if (isset($_POST['find_reg'])) {$filter .= " AND titulo LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filter .= " AND titulo LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
+		if (isset($_REQUEST['f'])) {$filter .= " AND titulo LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];}
 		if ($_SESSION['user_canal']!='admin' and $_SESSION['user_perfil']!='formador'){$filter.=" AND f.canal='".$_SESSION['user_canal']."' ";}
-		$filter .= " ORDER BY id_file";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = $fotos->countReg("galeria_fotos f",$filter); 
-		return array('items' => $fotos->getFotos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = $fotos->countReg("galeria_fotos f", $filter); 
+		//return array('items' => $fotos->getFotos($filter.$filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		return array('items' => $fotos->getFotos($filter.$filtro),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,

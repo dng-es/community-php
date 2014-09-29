@@ -1,3 +1,6 @@
+$(function(){
+		BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
+})
 jQuery(document).ready(function(){
 	CargarComentarios($("#id_file").val());
 
@@ -6,7 +9,7 @@ jQuery(document).ready(function(){
 	}
 
 
-	$("#form-comentario").submit(function(event) {
+	$("#form-comentario-fotos").submit(function(event) {
 		/* Validaciones */
 		$(".alert-message").html("").css("display","none");
 
@@ -23,10 +26,10 @@ jQuery(document).ready(function(){
 			$.ajax({
 				type: 'POST',
 				url: 'includes/modules/fotos/pages/gallery_process.php',
-				data: $('#form-comentario').serialize(),
+				data: $('#form-comentario-fotos').serialize(),
 				// Mostramos un mensaje con la respuesta de PHP
 				success: function(data) {
-					$('#respuestas-result').html("Respuesta insertada").show();
+					$('#respuestas-result').html("Comentario insertado").show();
 					var idf = $("#id_file").val();
 					$("#respuesta-texto").val("");
 					CargarComentarios(idf);

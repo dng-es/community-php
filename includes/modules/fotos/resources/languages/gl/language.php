@@ -33,4 +33,5 @@ Photo_title = "Título de la foto"
 Order_photos_by_date = "Ordenar fotos por fecha"
 Order_photos_by_votes = "Ordenar fotos por votaciones"
 New_album = "Nuevo álbum"
+Photo_albums = "Álbumes de fotos"
 ?>
