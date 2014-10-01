@@ -13,10 +13,8 @@ include_once($base_dir . "modules/fotos/templates/gallery.php");
 
 session::ValidateSessionAjax();
 $fotos=new fotos();
-$pagina = (isset($_REQUEST['pagina']) ? $_REQUEST['pagina'] : 1 );
+$pagina = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1 );
 $filtro_album = ((isset($_REQUEST['id']) and $_REQUEST['id']>0) ? " AND id_album=".$_REQUEST['id']." " : "" );
-$regs = 18;
-$inicio = ($pagina*$regs);
-$elements = fotosController::getListAction($regs, $filtro_album." AND estado=1 ORDER BY id_file DESC LIMIT ".$inicio.", ".$regs);
+$elements = fotosController::getListAction(18, $filtro_album." AND estado=1 ORDER BY id_file DESC ");
 galleryPhotos($elements['items'],true,0,4);
 ?>

@@ -1,16 +1,13 @@
 <?php
 class fotosController{
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$fotos = new fotos();
-		$filter = "";
 		$find_reg = ((isset($_REQUEST['f']) and $_REQUEST['f'] != 'null') ? $_REQUEST['f'] : (isset($_POST['find_reg']) ? $_POST['find_reg'] : ""));
-		if ($find_reg !="" ) {$filter .= " AND titulo LIKE '%".$find_reg."%' ";}
-		if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_perfil'] != 'formador'){$filter.=" AND f.canal='".$_SESSION['user_canal']."' ";}
-		$paginator_items = PaginatorPages($reg);
-		
+		if ($find_reg !="" ) {$filter = " AND titulo LIKE '%".$find_reg."%' ".$filter;}
+		if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_perfil'] != 'formador'){$filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;}
+		$paginator_items = PaginatorPages($reg);	
 		$total_reg = $fotos->countReg("galeria_fotos f", $filter); 
-		//return array('items' => $fotos->getFotos($filter.$filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
-		return array('items' => $fotos->getFotos($filter.$filtro),
+		return array('items' => $fotos->getFotos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -80,12 +77,17 @@ class fotosController{
 							"LabelSection" => strTranslate("Photos"),
 							"LabelItem" => 'Álbumes de fotos',
 							"LabelUrl" => 'admin-albumes',
-							"LabelPos" => 1),
+							"LabelPos" => 2),
 					  array("LabelHeader"=>'Modules',
 							"LabelSection"=> strTranslate("Photos"),
 							"LabelItem"=> strTranslate("Photo_validation"),
 							"LabelUrl"=>'admin-validacion-fotos',
-							"LabelPos" => 2));	
+							"LabelPos" => 3),
+					  array("LabelHeader"=>'Modules',
+							"LabelSection"=> strTranslate("Photos"),
+							"LabelItem"=> strTranslate("New_album"),
+							"LabelUrl"=>'admin-albumes-new',
+							"LabelPos" => 1));	
 	}		
 }
 ?>

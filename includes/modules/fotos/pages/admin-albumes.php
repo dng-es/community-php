@@ -3,31 +3,15 @@
 $session = new session();
 $perfiles_autorizados = array("admin");
 $session->AccessLevel($perfiles_autorizados);
-
-$fotos = new fotos();  
-$find_reg = "";
-$filtro = " AND activo=1 ORDER BY id_album DESC";
-if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $fotos->cambiarEstadoAlbum($_REQUEST['id'],0);}
-
-//SHOW PAGINATOR
-$reg = 35;
-if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
-if (!isset($pag)) { $inicio = 0; $pag = 1;}
-else { $inicio = ($pag - 1) * $reg;}
-$total_reg = $fotos->countReg("galeria_fotos_albumes",$filtro);
-
-
-//EXPORT EXCEL - SHOW AND GENERATE
-if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
-	$elements=$fotos->getFotosAlbumes($filtro);
-	$file_name='exported_file'.date("YmdGis");
-	ExportExcel('./docs/export/',$file_name,$elements);}
-
-$elements=$fotos->getFotosAlbumes($filtro.' LIMIT '.$inicio.','.$reg);
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Albumes de fotos</h1>
+		<?php
+		session::getFlashMessage( 'actions_message' );
+		fotosAlbumController::deleteAction();
+		$elements = fotosAlbumController::getListAction(20, " AND activo=1 ORDER BY nombre_album ");
+		?>
 		<div class="btn-group"> 
 			<a href="?page=admin-albumes-new&act=new" title="<?php echo strTranslate("New_album");?>" class="btn btn-default"><?php echo strTranslate("New_album");?></a>  
 		</div>
@@ -40,7 +24,7 @@ $elements=$fotos->getFotosAlbumes($filtro.' LIMIT '.$inicio.','.$reg);
 				<th><?php echo strTranslate("User");?></th>
 				<th><?php echo strTranslate("Photos");?></th>
 			</tr>
-			<?php foreach($elements as $element):
+			<?php foreach($elements['items'] as $element):
 			$num_fotos = connection::countReg("galeria_fotos", "AND estado=1 AND id_album=".$element['id_album']." ");
 			echo '<tr>';
 			echo '<td nowrap="nowrap">
@@ -50,7 +34,7 @@ $elements=$fotos->getFotosAlbumes($filtro.' LIMIT '.$inicio.','.$reg);
 					
 					<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'"
 						onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',
-						\'?page=admin-albumes&pag='.$pag.'&act=del&id='.$element['id_album'].'\')">
+						\'?page=admin-albumes&pag='.$elements['pag'].'&act=del&id='.$element['id_album'].'\')">
 					</span>
 				 </td>';
 						
@@ -61,7 +45,7 @@ $elements=$fotos->getFotosAlbumes($filtro.' LIMIT '.$inicio.','.$reg);
 			echo '</tr>';   
 			endforeach;?>
 		</table>
-		<?php Paginator($pag,$reg,$total_reg, 'admin-albumes', strTranslate("Users"), $find_reg);?>
+		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

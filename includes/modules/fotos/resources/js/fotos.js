@@ -1,11 +1,11 @@
 // JavaScript Document
-var page_num = 0,
+var page_num = 1,
 	id_album = 0;		
 
 function getImages(){
 	$.ajax({
 	url: "includes/modules/fotos/pages/fotos-load-ajax.php",
-	data: {pagina: page_num, id: id_album, f: decodeURIComponent(find_text)},
+	data: {pag: page_num, id: id_album, f: decodeURIComponent(find_text)},
 	cache: false,
 	success: function(html){
 		if(html)			{

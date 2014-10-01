@@ -17,7 +17,7 @@ class usersController{
 		$filtro .= " ORDER BY username";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = $users->countReg("users",$filtro); 
+		$total_reg = connection::countReg("users",$filtro); 
 		return array('items' => $users->getUsers($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

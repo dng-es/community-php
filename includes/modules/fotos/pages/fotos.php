@@ -17,7 +17,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		session::getFlashMessage( 'actions_message' );
 		fotosController::voteAction();
 		fotosController::createAction();
-		$albums = fotosAlbumController::getListAction();
+		$albums = fotosAlbumController::getListAction(100, " AND activo=1 ORDER BY nombre_album ");
 		?>
 		<section id="photos">
 
@@ -33,7 +33,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 			<hr />
 			<h4><?php echo strTranslate("Photo_albums");?></h4>
 			<ul>
-			<?php foreach($albums as $album): ?>
+			<?php foreach($albums['items'] as $album): ?>
 				<li><a href="?page=fotos&id=<?php echo $album['id_album'];?>"><?php echo $album['nombre_album'];?></a></li>
 			<?php endforeach;?>
 			</ul>
