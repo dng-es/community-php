@@ -52,7 +52,7 @@ $elements = array();
 		<div class="panel panel-default">
 			<div class="panel-heading">Agregar imagen al álbum</div>
 			<div class="panel-body">
-				<form action="" method="post" role="form">
+				<form action="?page=admin-albumes-new&act=edit&id=<?php echo $id;?>" method="post" role="form">
 					<input type="hidden" name="id_album" value="<?php echo $id;?>" />
 					<label for="file_id">Introduce el ID de la foto:</label>
 					<input type="text" class="form-control entero" name="file_id" id="file_id" />
@@ -79,7 +79,7 @@ $elements = array();
 					<th><span class="fa fa-comment"></span></th>
 				</tr>
 				<?php foreach($elements as $element):
-					$num_comentarios = $fotos->countReg("galeria_fotos_comentarios"," AND estado=1 AND id_file=".$element['id_file']." ");?>
+					$num_comentarios = connection::countReg("galeria_fotos_comentarios"," AND estado=1 AND id_file=".$element['id_file']." ");?>
 					<tr>
 						<td nowrap="nowrap">
 						<?php echo '<span class="fa fa-ban icon-table" onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',

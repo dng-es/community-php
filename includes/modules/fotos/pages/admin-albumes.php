@@ -41,7 +41,7 @@ $elements=$fotos->getFotosAlbumes($filtro.' LIMIT '.$inicio.','.$reg);
 				<th><?php echo strTranslate("Photos");?></th>
 			</tr>
 			<?php foreach($elements as $element):
-			$num_fotos = $fotos->countReg("galeria_fotos", "AND estado=1 AND id_album=".$element['id_album']." ");
+			$num_fotos = connection::countReg("galeria_fotos", "AND estado=1 AND id_album=".$element['id_album']." ");
 			echo '<tr>';
 			echo '<td nowrap="nowrap">
 					<span class="fa fa-edit icon-table" title="Ver/editar album"
