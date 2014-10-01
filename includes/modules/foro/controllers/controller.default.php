@@ -12,6 +12,17 @@ class foroController{
 					'total_reg' => $total_reg);
 	}
 
+	public static function getItemTemaAction($id){
+		$foro = new foro();
+		return $foro->getTemas(" AND id_tema=".$id." ");
+	}
+
+	public static function getLastTemasAction($limit = 3){
+		$foro = new foro();
+		$filter = ($_SESSION['user_canal']!='admin' ? " AND t.canal='".$_SESSION['user_canal']."' " : "");
+		return $foro->getLastTemas($filter, $limit);
+	}	
+
 	public static function getListComentariosAction($reg = 0, $filtro=""){
 		$foro = new foro();
 		$find_reg = "";

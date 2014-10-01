@@ -180,5 +180,14 @@ class foro extends connection{
 	    $registros = array_values(array_unique($registros));
 	    return $registros;  
 	  }
+
+	public function getLastTemas($filter = "",$limit=3){
+		$Sql="SELECT DISTINCT c.id_tema FROM `foro_comentarios` c
+			LEFT JOIN foro_temas t ON t.id_tema=c.id_tema
+			WHERE t.activo=1 ".$filter."
+			ORDER BY c.id_comentario DESC
+			LIMIT ".$limit;
+		return connection::getSQL($Sql);  
+	}
 }
 ?>

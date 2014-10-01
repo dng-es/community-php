@@ -23,11 +23,12 @@ addJavascripts(array("js/bootstrap.file-input.js",
 
 		</section>
 		<div id="cargando-infinnite"><span class="btn btn-default">seguir cargando imagenes <i class="fa fa-arrow-circle-down"></i></span></div>
+		<div id="cargando-infinnite-end"><span class="btn btn-default alert-info">No hay más imágenes <i class="fa fa-info-circle"></i></span></div>
 		<div class="clearfix"></div>
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			<?php SearchPhoto("?page=fotos","searchForm","Buscar foto por título","buscar", "", "", "get");?>
+			<?php SearchPhoto("fotos","searchForm","Buscar foto por título","buscar", "", "", "get");?>
 			<?php PanelSubirFoto(0);?>
 			<hr />
 			<h4><?php echo strTranslate("Photo_albums");?></h4>

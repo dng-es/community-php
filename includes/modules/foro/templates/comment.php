@@ -19,10 +19,10 @@ function commentForo($comentario_foro,$destino="foro-comentarios"){
 		<p><b><?php echo $comentario_foro['nick']; ?></b> <?php echo strTranslate("says");?>: (<?php echo strftime(DATE_FORMAT_SHORT,strtotime($comentario_foro['date_comentario'])); ?>)</p>
 		<p><?php echo $comentario_foro['comentario'];?></p>				
 		<div class="comment-info">
-			<span class="comment-reply-trigger label label-info" title="<?php echo strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Reply");?></span> 
-			<span class="label label-info" title="<?php echo strTranslate("Vote_comment");?>"><a href="?page=<?php echo $destino.'&id='.$comentario_foro['id_tema'].'&idvf='.$comentario_foro['id_comentario'].'&pag='.$page_num;?>">
+			<span class="comment-reply-trigger label" title="<?php echo strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Reply");?></span> 
+			<span class="label" title="<?php echo strTranslate("Vote_comment");?>"><a href="?page=<?php echo $destino.'&id='.$comentario_foro['id_tema'].'&idvf='.$comentario_foro['id_comentario'].'&pag='.$page_num;?>">
 			<i class="fa fa-heart"></i> <?php echo $comentario_foro['votaciones'];?></a></span>
-			<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label label-info" title="ID del comentario">id:'.$comentario_foro['id_comentario'].'</span>'; ?>	
+			<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label" title="ID del comentario">id: '.$comentario_foro['id_comentario'].'</span>'; ?>	
 		</div>
 		
 		<div class="comment-reply">

@@ -17,7 +17,7 @@ class videosController{
 		if (isset($_POST['find_reg'])) {$filter .= " AND titulo LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
 		if (isset($_REQUEST['f'])) {$filter .= " AND titulo LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
 		if ($_SESSION['user_canal']!='admin' and $_SESSION['user_perfil']!='formador'){$filter.=" AND v.canal='".$_SESSION['user_canal']."' ";}
-		$filter .= " ORDER BY id_file";
+		$filter .= " ORDER BY id_file DESC";
 		$paginator_items = PaginatorPages($reg);
 		
 		$total_reg = connection::countReg("galeria_videos v",$filter); 
@@ -52,7 +52,7 @@ class videosController{
 		}			
 	}
 
-	public static function voteAction($destination = "videos"){
+	public static function voteAction($destination = "video"){
 		if (isset($_REQUEST['idvv']) and $_REQUEST['idvv']!="") { 
 			$videos = new videos();
 			$response = $videos->InsertVotacion($_REQUEST['idvv'],$_SESSION['user_name']);
@@ -70,7 +70,7 @@ class videosController{
 			if (isset($_REQUEST['pag']) and $_REQUEST['pag']!="") {$destination .= "&pag=".$_REQUEST['pag'];} 
 
 			session::setFlashMessage( 'actions_message', $message, "alert alert-warning");
-			redirectURL("?page=".$destination);
+			redirectURL("?page=".$destination."&id=".$_REQUEST['idvv']);
 		}		
 	}
 

@@ -3,7 +3,7 @@ $base_dir = str_replace('modules/fotos/pages', '', realpath(dirname(__FILE__))) 
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/class.configuration.php");
 include_once($base_dir . "core/constants.php");
-include_once($base_dir . "core/functions.php");
+include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/users/class.users.php");
 include_once($base_dir . "modules/fotos/class.fotos.php");
@@ -13,12 +13,10 @@ include_once($base_dir . "modules/fotos/templates/gallery.php");
 
 session::ValidateSessionAjax();
 $fotos=new fotos();
-//VOTAR FOTO
 $pagina = (isset($_REQUEST['pagina']) ? $_REQUEST['pagina'] : 1 );
 $filtro_album = ((isset($_REQUEST['id']) and $_REQUEST['id']>0) ? " AND id_album=".$_REQUEST['id']." " : "" );
-$filtro_name = ((isset($_REQUEST['f']) and $_REQUEST['f']!="") ? " AND titulo LIKE '%".$_REQUEST['f']."%' " : "" );
 $regs = 18;
 $inicio = ($pagina*$regs);
-$elements = fotosController::getListAction($regs, $filtro_album.$filtro_name." AND estado=1 ORDER BY id_file DESC LIMIT ".$inicio.", ".$regs);
+$elements = fotosController::getListAction($regs, $filtro_album." AND estado=1 ORDER BY id_file DESC LIMIT ".$inicio.", ".$regs);
 galleryPhotos($elements['items'],true,0,4);
 ?>

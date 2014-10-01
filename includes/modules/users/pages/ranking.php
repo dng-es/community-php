@@ -17,13 +17,13 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 		<h1>Ranking usuarios</h1>
 		<p>Cada una de tus aportaciones te ayudan a acumular puntos. ¿Cuántos puntos tienes?, ¿estás entre los primeros? descúbrelo en este ranking:</p><br />
 
-		<div class="row">
+		<div class="row container-fade">
 			<?php for ($i=0;$i<=5;$i++){ ?>
 			<div class="col-md-2">
 				<?php if (isset($puntos[$i])):
 				$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg");?>
 				<img src="<?php echo $foto;?>" style="width:100%" />
-				<h4>Posicion: <small><?php echo ($i+1);?></small></h4>
+				<h4>Posición <small><?php echo ($i+1);?></small></h4>
 				<p><?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?><br />
 				<?php echo $puntos[$i]['nombre_tienda'];?><br />
 				<?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></p>
@@ -62,7 +62,7 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 		<div class="panel-interior">
 			<?php $foto = PATH_USERS_FOTO. ($puntos_user[0]['foto'] != "" ? $puntos_user[0]['foto'] : "user.jpg");?>
 			<img src="<?php echo $foto;?>" class="user-perfil-img" />   
-			<h3>Tu posición: <small><?php echo $posicion_user;?></small></h3>
+			<h3>Tu posición <small><?php echo $posicion_user;?></small></h3>
 			<p><?php echo $puntos_user[0]['name'].' '.$puntos_user[0]['surname'];?><br />
 			<?php echo $puntos_user[0]['nombre_tienda'];?><br />
 			<?php echo $puntos_user[0]['puntos'];?> <?php echo strTranslate("APP_points");?>

@@ -14,7 +14,7 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 	<div class="col-md-8 col-lg-9 inset">
 		<h1>Ranking empresas</h1>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12 container-fade">
 				<p>Cada una de tus aportaciones ayuda a tu empresa a acumular <?php echo strTranslate("APP_points");?>. ¿Cuántos <?php echo strTranslate("APP_points");?>, tenéis? 
 				¿estáis entre los primeros? descúbrelo en este ranking:</p>
 				<h3><?php echo $puntos_empresa[0]['nombre_tienda'];?> <small><?php echo $puntos_empresa[0]['puntos_empresa']." ".strTranslate("APP_points");?></small> Posición <small><?php echo $posicion_empresa_user;?></small></h3>

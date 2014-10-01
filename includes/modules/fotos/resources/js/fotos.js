@@ -5,7 +5,7 @@ var page_num = 0,
 function getImages(){
 	$.ajax({
 	url: "includes/modules/fotos/pages/fotos-load-ajax.php",
-	data: {pagina: page_num, id: id_album, f: find_text},
+	data: {pagina: page_num, id: id_album, f: decodeURIComponent(find_text)},
 	cache: false,
 	success: function(html){
 		if(html)			{
@@ -14,6 +14,7 @@ function getImages(){
 		}
 		else{
 			$('#cargando-infinnite').hide();
+			$('#cargando-infinnite-end').show();
 		}
 	}
 	});	

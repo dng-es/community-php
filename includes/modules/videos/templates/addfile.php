@@ -1,6 +1,5 @@
 <?php
 function PanelSubirVideo($id_promocion = 0){ ?>
-    <script language="JavaScript" src="<?php echo getAsset("videos");?>js/videos.js"></script>
 	<h4><?php echo strTranslate("Upload_video");?></h4>
 	<p><?php echo strTranslate("Upload_video_formats_allowed");?> <b>MP4, MOV, AVI, 3GP, WMV</b>. <?php echo strTranslate("Upload_video_max_size_allowed");?> <b><?php echo MAX_SIZE_VIDEOS_KB;?> Kb</b>.</p>
 	<form id="video-form" name="video-form" action="" method="post" enctype="multipart/form-data" role="form" >

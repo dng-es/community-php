@@ -33,9 +33,9 @@ $files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
 ?>
 <div class="row">
 	<div class="col-md-12">
-		<?php showFotoModal($files_galeria[0],true,0,0);?>
-		<h4><?php echo strTranslate("Photo_comment_new");?></h4>
-		<form action="" method="post" role="form" id="form-comentario-fotos" name="form-comentario-fotos">
+		<?php showFotoModal($files_galeria[0],true,0,0);?>	
+		<form action="" method="post" role="form" id="form-comentario-fotos" name="form-comentario-fotos" class="panel-interior">
+			<h5><?php echo strTranslate("Photo_comment_new");?></h5>
 			<input type="hidden" name="id_file" id="id_file" value="<?php echo $files_galeria[0]['id_file'];?>" />
 			<textarea class="form-control" name="respuesta-texto" id="respuesta-texto"></textarea>
 			<button type="submit" class="btn btn-primary btn-block"><?php echo strTranslate("Send");?></button>
@@ -52,29 +52,21 @@ $files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
 <?php
 function showFotoModal($file_galeria,$votaciones=true,$movil=0,$reto=0){
 	$fotos = new fotos();
-	if (strlen($file_galeria['titulo'])>30){ $titulo = substr($file_galeria['titulo'],0,28)."...";}
-	else {$titulo = $file_galeria['titulo'];}
-
-	$nick = $file_galeria['nick'];
-	if ($nick==""){$nick="(sin nick)";}
+	$titulo = (strlen($file_galeria['titulo'])>30 ? substr($file_galeria['titulo'],0,28)."..." : $file_galeria['titulo']);
+	$nick = ($file_galeria['nick'] == "" ? "(sin nick)" : $file_galeria['nick']);
+	$votado = $fotos->countReg("galeria_fotos_votaciones", " AND id_file=".$file_galeria['id_file']." AND user_votacion='".$_SESSION['user_name']."' ");
 
 	echo '<div class="thumbnail photo-comment">
 			<a href="'.PATH_FOTOS.$file_galeria['name_file'].'" target="_blank">
 			<img title="'.$file_galeria['titulo'].'" src="'.PATH_FOTOS.$file_galeria['name_file'].'" id="modal-img-main" /></a>
 			<div class="caption">
-			<a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="pantalla completa" ><i class="fa fa-desktop"></i></a> 
-			<span class="text-muted">'.$nick.' - '.strftime(DATE_FORMAT_SHORT,strtotime($file_galeria['date_foto']));
-			if ($_SESSION['user_perfil']=='admin'){ echo ' - ID: '.$file_galeria['id_file'];}	
-	echo '</span> <span id="image-titulo">'.$titulo.'</span>';
-						
-	userTip($file_galeria['id_file'],$file_galeria,userEstrellas($file_galeria['participaciones']),$movil);				
-			
-
-	$votado = $fotos->countReg("galeria_fotos_votaciones", " AND id_file=".$file_galeria['id_file']." AND user_votacion='".$_SESSION['user_name']."' ");
-	echo ' <a href="#" data-id="'.$file_galeria['id_file'].'" data-v="'.$votado.'"  title="votar foto" class="fa fa-heart trigger-votar"> '.$file_galeria['fotos_puntos'].'</a>';
-
+			<span id="image-titulo">'.$titulo.'</span><br />
+			<span class="text-muted"><a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="pantalla completa" ><i class="fa fa-desktop"></i></a> 
+			'.$nick.' - '.strftime(DATE_FORMAT_SHORT,strtotime($file_galeria['date_foto']));
+	if ($_SESSION['user_perfil']=='admin'){ echo ' - ID: '.$file_galeria['id_file'];}		
+	echo ' - <a href="#" data-id="'.$file_galeria['id_file'].'" data-v="'.$votado.'"  title="votar foto" class="fa fa-heart trigger-votar"> '.$file_galeria['fotos_puntos'].'</a>';
+	echo '</span> ';
 	echo '<div class="alert-votacion text-danger"></div>';
-	
 	echo '</div></div>';		  
 }
 ?>

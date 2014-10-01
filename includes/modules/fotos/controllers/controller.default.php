@@ -2,11 +2,10 @@
 class fotosController{
 	public static function getListAction($reg = 0, $filtro = ""){
 		$fotos = new fotos();
-		$find_reg = "";
 		$filter = "";
-		if (isset($_POST['find_reg'])) {$filter .= " AND titulo LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filter .= " AND titulo LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];}
-		if ($_SESSION['user_canal']!='admin' and $_SESSION['user_perfil']!='formador'){$filter.=" AND f.canal='".$_SESSION['user_canal']."' ";}
+		$find_reg = ((isset($_REQUEST['f']) and $_REQUEST['f'] != 'null') ? $_REQUEST['f'] : (isset($_POST['find_reg']) ? $_POST['find_reg'] : ""));
+		if ($find_reg !="" ) {$filter .= " AND titulo LIKE '%".$find_reg."%' ";}
+		if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_perfil'] != 'formador'){$filter.=" AND f.canal='".$_SESSION['user_canal']."' ";}
 		$paginator_items = PaginatorPages($reg);
 		
 		$total_reg = $fotos->countReg("galeria_fotos f", $filter); 

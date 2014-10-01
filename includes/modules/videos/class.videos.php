@@ -98,6 +98,20 @@ class videos{
 		else {return 3;}
 	}
 
+	public function sumVideoView($id){
+		$Sql="UPDATE galeria_videos SET
+			 views=views+1 
+			 WHERE id_file=".$id."";
+		return connection::execute_query($Sql);
+	}
+
+	public function insertVideoView($id, $username){
+		if (self:: sumVideoView($id)){
+			$Sql="INSERT INTO galeria_videos_views (id_file, username) VALUES (".$id.",'".$username."')";
+			return connection::execute_query($Sql);
+		}
+	}	
+
 	//////////////////////////////////////////////////////////
 	// VIDEOS COMMENTS
 	//////////////////////////////////////////////////////////

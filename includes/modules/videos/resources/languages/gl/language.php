@@ -30,6 +30,7 @@ Video_upload_ko0 = "El archivo subido no tiene uno de los formatos permitidos o 
 Video_upload_ko1 = "Ocurrió algún error al subir el fichero. No se guardaron los datos."
 Video_upload_ko2 = "Ocurrió algún error al subir el fichero. No guardo el video."
 Video_title = "Título del vídeo"
-Order_videos_by_date = "Order videos by date"
-Order_videos_by_votes = "Order videos by votes"
+Order_videos_by_date = "Ordenar vídeos por fecha"
+Order_videos_by_votes = "Ordenar vídeos por votaciones"
+Last_videos = "Últimos vídeos"
 ?>

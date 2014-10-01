@@ -12,6 +12,9 @@ $filtroCanal= ($_SESSION['user_canal']!="admin" ? " AND (connection_canal='".$_S
 $users = new users();
 $users_conn = count($users->getUsersConn($filtroCanal));
 
+$last_photo = fotosController::getListAction(1, " ORDER BY id_file DESC ");
+$last_video = videosController::getListAction(1, "");
+$last_foros = foroController::getLastTemasAction(5);
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
@@ -20,6 +23,45 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 		<div class="row">
 			<div class="col-md-12">
 				<?php showNovedades();?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<section>
+					<h3><?php echo strTranslate("Last_photos");?></h3>
+					<div class="video-preview-container">
+						<a href="?page=fotos"><img class="video-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" /></a>
+						<div>
+							<a href="?page=fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
+							<span><?php echo dateLong($last_photo['items'][0]['date_foto']);?></span><br />
+							<?php echo $last_photo['items'][0]['nick'];?>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-4">
+				<section>
+					<h3><?php echo strTranslate("Last_videos");?></h3>
+					<div class="video-preview-container">
+						<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>"><img class="video-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" /></a>
+						<div>
+							<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>"><?php echo $last_video['items'][0]['titulo'];?></a><br />
+							<span><?php echo dateLong($last_video['items'][0]['date_video']);?></span><br />
+							<?php echo $last_video['items'][0]['nick'];?>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-4">
+				<section>
+					<h3><?php echo strTranslate("Last_formus");?></h3>
+					<ul>
+					<?php foreach($last_foros as $last_foro): ?>
+						<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
+						<li><a href="?page=foro-comentarios&id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
+					<?php endforeach; ?>
+					</ul>
+				</section>
 			</div>
 		</div>
 	</div>

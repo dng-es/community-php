@@ -83,9 +83,6 @@ class menu{
 					echo '<img class="comment-mini-img" src="images/usuarios/'.$_SESSION['user_foto'].'" style="width:50px !important;height:55px !important;float:right;margin-left:10px" />';
 					
 					echo '<p>';
-					//SELECTOR DE IDIOMAS
-					self::languageSelector();
-
 					echo ' <i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
 					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="?page=admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
 					echo '<a href="?page=user-perfil" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';
@@ -98,6 +95,9 @@ class menu{
 				</div>
 			</div>
 			<?php
+
+			//SELECTOR DE IDIOMAS
+			self::languageSelector();
 		}
 	}
 
@@ -134,11 +134,11 @@ class menu{
 		if ($ini_conf['language_selector']==true){
 			$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
 			$destination = str_replace("&lan=", "&lano=", $_SERVER['REQUEST_URI']);
-			echo '<span id="language-selector">';
+			echo '<div id="language-selector">';
 			foreach($folders as $folder):
 				echo '<a href="'.$destination.'&lan='.$folder.'" title="'.$folder.'"><img src="includes/languages/'.$folder.'/images/flag.png" /></a>';
 			endforeach;
-			echo '</span>';
+			echo '</div>';
 		}
 	}	
 
