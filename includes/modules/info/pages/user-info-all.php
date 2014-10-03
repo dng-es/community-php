@@ -27,6 +27,6 @@ $elements = infoController::getListAction(20);
 
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			
+		</div>	
 	</div>
 </div>

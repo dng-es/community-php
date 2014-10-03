@@ -63,16 +63,17 @@ class headers{
 		global $paginas_free; ?>
 		</head>
 			<body id="page-<?php echo $page;?>">
-			<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged']==true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
-
+			<img id="bg" src="images/bg01.jpg" />
+		<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged']==true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
+				
 				<div class="container" id="container-main">
 				<!-- Page content -->
-					<?php menu::UserInfoMenu();?>
-					<?php menu::PageMenu();?>
+					<div id="header-container">
+						<?php menu::UserInfoMenu();?>
+						<?php menu::PageMenu();?>
+					</div>
 					<div id="container-content">
 					<!-- Mantener todo el contenido de la página dentro del div page-content -->
-		<?php else: ?>
-		<img id="bg" src="images/bg01.jpg" />
 		<?php endif; ?>
 <?php
 	}

@@ -22,7 +22,7 @@ $session->AccessLevel($perfiles_autorizados);
 		$album = fotosAlbumController::getItemAction($id); 
 		$elements = fotosController::getListAction(15, "AND estado=1 AND id_album=".$id." "); ?>
 
-
+		<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">Datos del album</div>
@@ -52,6 +52,7 @@ $session->AccessLevel($perfiles_autorizados);
 					</form>
 				</div>
 			</div>
+		</div>
 		</div>
 
 		<h3>Fotos incluidas en el álbum</h3>
@@ -103,6 +104,8 @@ $session->AccessLevel($perfiles_autorizados);
 			</div><!-- /.modal -->
 			<?php
 		endif;
+	else:
+		echo '</div>';
 	endif; ?>	
 	</div>
 	<?php menu::adminMenu();?>

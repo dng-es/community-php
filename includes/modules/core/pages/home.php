@@ -14,7 +14,7 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 
 $last_photo = fotosController::getListAction(1, " ORDER BY id_file DESC ");
 $last_video = videosController::getListAction(1, "");
-$last_foros = foroController::getLastTemasAction(5);
+$last_foros = foroController::getLastTemasAction(4);
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
