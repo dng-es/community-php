@@ -18,7 +18,7 @@ $reg = 15;
 if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
 if (!$pag) { $inicio = 0; $pag = 1;}
 else { $inicio = ($pag - 1) * $reg;}
-$total_reg = $foro->countReg("foro_temas",$filtro);
+$total_reg = connection::countReg("foro_temas",$filtro);
 
 
 //EXPORT EXCEL - SHOW AND GENERATE
@@ -41,8 +41,8 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 		<th><span class="fa fa-comment"></span></th>
 		</tr>
 		<?php foreach($elements as $element):
-			$num_comentarios = $foro->countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
-			$num_visitas = $foro->countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");
+			$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
+			$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");
 			echo '<tr>';
 			echo '<td nowrap="nowrap">
 					<span class="fa fa-edit icon-table" title="Ver/editar entrada"

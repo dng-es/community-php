@@ -2,9 +2,9 @@
 /**
 * @Configuration app module
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.1
+* @version 1.1.1
 */	
-class configuration extends connection{
+class configuration{
 
 	function getConfigIni($filter = ""){
 		$Sql="SELECT * FROM config WHERE 1=1 ".$filter;

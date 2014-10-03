@@ -6,7 +6,7 @@ class campaignsController{
 
 		$find_reg = (isset($_GET['f']) and $_GET['f']>0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = $campaigns->countReg("campaigns c",$filtro);
+		$total_reg = connection::countReg("campaigns c",$filtro);
 		return array('items' => $campaigns->getCampaigns($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -48,7 +48,7 @@ class campaignsController{
 
 			if ($campaigns->insertCampaigns($name_campaign,$desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad)) {
 				session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
-				$id_campaign = $campaigns->SelectMaxReg("id_campaign","campaigns","");
+				$id_campaign = connection::SelectMaxReg("id_campaign","campaigns","");
 			}
 			else{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
@@ -99,7 +99,7 @@ class campaignsController{
 		$filtro = " ORDER BY campaign_type_name ASC ";
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = $campaigns->countReg("campaigns_types",$filtro);
+		$total_reg = connection::countReg("campaigns_types",$filtro);
 		return array('items' => $campaigns->getCampaignsTypes($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -125,7 +125,7 @@ class campaignsController{
 
 			if ($campaigns->insertCampaignsType($name,$desc)) {
 				session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
-				$id = $campaigns->SelectMaxReg("id_campaign_type","campaigns_types","");
+				$id = connection::SelectMaxReg("id_campaign_type","campaigns_types","");
 			}
 			else{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");

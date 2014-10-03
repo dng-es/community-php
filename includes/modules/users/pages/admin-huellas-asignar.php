@@ -12,7 +12,7 @@ session::ValidateSessionAjax();
 if (isset($_REQUEST['id_usuario']) and $_REQUEST['id_usuario']!=""){
 	$users = new users();
 	//VERIFICAR USUARIO EXISTE
-	if ($users->countReg("users"," AND username='". $_REQUEST['id_usuario']."' ")==0){ 
+	if (connection::countReg("users"," AND username='". $_REQUEST['id_usuario']."' ")==0){ 
 		ErrorMsg('el usuario <b>'.$_REQUEST['id_usuario'].'</b> no existe');
 	}
 	else {

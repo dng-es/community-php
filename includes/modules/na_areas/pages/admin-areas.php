@@ -39,7 +39,7 @@ if (isset($_GET["pag"]) and $_GET["pag"]!="") {
 	$pag = $_GET["pag"];
 	$inicio = ($pag - 1) * $reg;
 }
-$total_reg = $na_areas->countReg("na_areas",$filtro); 
+$total_reg = connection::countReg("na_areas",$filtro); 
 $elements=$na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg); 	
 
 ?>

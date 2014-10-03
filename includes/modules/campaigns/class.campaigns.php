@@ -2,10 +2,10 @@
 /**
 * @Manage campaigns
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0
+* @version 1.0.1
 *
 */
-class campaigns extends connection{
+class campaigns{
 
 	/**
 	 * Devuelve array con los registros

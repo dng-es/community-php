@@ -8,7 +8,7 @@ class usersSucursalesController{
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);	
 		//$filtro = $filtro.' LIMIT '.$paginator_items['inicio'].','.$reg;
-		$total_reg = $users->countReg("users_sucursales",$filtro); 
+		$total_reg = connection::countReg("users_sucursales",$filtro); 
 		return array('items' => $users->getUsersSucursales($filtro),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

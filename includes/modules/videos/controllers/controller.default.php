@@ -149,7 +149,7 @@ class videosController{
 	 * Funcion para obtener variables del paginador
 	 * @param 	int 		$reg 			Número de registros por página
 	 */
-	function PaginatorPagesVideoComments($reg){
+	public static function PaginatorPagesVideoComments($reg){
 		$find_reg = "";
 		$pag = 1;
 		$inicio = 0;

@@ -5,7 +5,7 @@ class mailingController{
 		$filtro .= "  ORDER BY id_message DESC";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = $mailing->countReg("mailing_messages",$filtro); 
+		$total_reg = connection::countReg("mailing_messages",$filtro); 
 		return array('items' => $mailing->getMessages($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -68,7 +68,7 @@ class mailingController{
 
 
 				$mensaje = "Mensaje creado correctamente. Ya puedes procesar el envío.";
-				$id_message=$mailing->SelectMaxReg("id_message","mailing_messages","");
+				$id_message = connection::SelectMaxReg("id_message","mailing_messages","");
 
 				//insertar links del mensaje
 				self::insertHtmlLinks($content, $id_message);
@@ -147,9 +147,9 @@ class mailingController{
 			//verificar es un email valido
 			if(validateEmail($username)){
 				//verificar no este mas de una vez
-				if ($mailing->countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ")==0){
+				if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ")==0){
 					//verificar no este en la lista negra
-					if ($mailing->countReg("mailing_blacklist"," AND email_black='".$username."' ")==0){
+					if (connection::countReg("mailing_blacklist"," AND email_black='".$username."' ")==0){
 						if ($username!="") $mailing->insertMessageUser($id_message,"",$username);	
 					}
 					else{ $respuesta = true;}		
@@ -170,9 +170,9 @@ class mailingController{
 			//verificar es un email valido
 			if(validateEmail($username)){
 				//verificar no este mas de una vez
-				if ($mailing->countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ")==0){
+				if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ")==0){
 					//verificar no este en la lista negra
-					if ($mailing->countReg("mailing_blacklist"," AND email_black='".$username."' ")==0){
+					if (connection::countReg("mailing_blacklist"," AND email_black='".$username."' ")==0){
 						if ($username!="") $mailing->insertMessageUser($id_message,"",$username);	
 					}
 					else{ $respuesta = true;}		
@@ -204,7 +204,7 @@ class mailingController{
 					$fichero)) {
 
 			$mensaje = "Mensaje creado correctamente. Ya puedes procesar el envío.";
-			$id_message=$mailing->SelectMaxReg("id_message","mailing_messages","");
+			$id_message = connection::SelectMaxReg("id_message","mailing_messages","");
 			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-success"); 
 	    	
 			//obtener usuarios de la lista seleccionada para insertar mensajes

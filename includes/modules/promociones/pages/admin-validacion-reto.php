@@ -46,7 +46,7 @@ if (isset($_REQUEST['act'])) {
 		  $videos->cambiarEstado($_REQUEST['id'],1);
 		  $promociones->emailValidacionSimple($_REQUEST['u'],$id_promocion,$nombre_muro);
 		  $videos->cambiarNombre($_REQUEST['id']);
-		  $puntuaciones=$videos->countReg("galeria_videos"," AND id_promocion=".$_REQUEST['p']." AND user_add='".$_REQUEST['u']."' AND estado=1 ");
+		  $puntuaciones = connection::countReg("galeria_videos"," AND id_promocion=".$_REQUEST['p']." AND user_add='".$_REQUEST['u']."' AND estado=1 ");
 		  if ($puntuaciones==1){ $users->sumarPuntos($_REQUEST['u'],PUNTOS_RETO_FILE,PUNTOS_RETO_MOTIVO);}
 		  elseif ($puntuaciones==2){ $users->sumarPuntos($_REQUEST['u'],PUNTOS_RETO2_FILE,PUNTOS_RETO_MOTIVO);}
 		  elseif ($puntuaciones==3){ $users->sumarPuntos($_REQUEST['u'],PUNTOS_RETO2_FILE,PUNTOS_RETO_MOTIVO);}
@@ -63,7 +63,7 @@ if (isset($_REQUEST['act'])) {
 	elseif ($_REQUEST['act']=='fotoreto_ok'){
 	  $fotos->cambiarEstado($_REQUEST['id'],1,0);
 	  $promociones->emailValidacionSimple($_REQUEST['u'],$id_promocion,$nombre_muro);
-	  $puntuaciones=$fotos->countReg("galeria_fotos"," AND id_promocion=".$_REQUEST['p']." AND user_add='".$_REQUEST['u']."' AND estado=1 ");
+	  $puntuaciones = connection::countReg("galeria_fotos"," AND id_promocion=".$_REQUEST['p']." AND user_add='".$_REQUEST['u']."' AND estado=1 ");
 	  if ($puntuaciones==1){ $users->sumarPuntos($_REQUEST['u'],PUNTOS_RETO_FILE,PUNTOS_RETO_MOTIVO);}
 	  //elseif ($puntuaciones==2){ $users->sumarPuntos($_REQUEST['u'],PUNTOS_RETO2_FILE,PUNTOS_RETO_MOTIVO);}
 	  //elseif ($puntuaciones==3){ $users->sumarPuntos($_REQUEST['u'],PUNTOS_RETO2_FILE,PUNTOS_RETO_MOTIVO);}
@@ -76,7 +76,7 @@ if (isset($_REQUEST['act'])) {
 	  $muro->cambiarEstado($_REQUEST['id'],1);
 	  $promociones->emailValidacionSimple($_REQUEST['u'],$id_promocion,$nombre_muro);
 	  
-	  $puntuaciones=$muro->countReg("muro_comentarios"," AND tipo_muro='".$_REQUEST['p']."' AND user_comentario='".$_REQUEST['u']."' AND estado=1 ");
+	  $puntuaciones = connection::countReg("muro_comentarios"," AND tipo_muro='".$_REQUEST['p']."' AND user_comentario='".$_REQUEST['u']."' AND estado=1 ");
 
 	  if ($puntuaciones==1){ $users->sumarPuntos($_REQUEST['u'],PUNTOS_RETO,PUNTOS_RETO_MOTIVO);}
 	  elseif ($puntuaciones==2){ $users->sumarPuntos($_REQUEST['u'],PUNTOS_RETO2,PUNTOS_RETO_MOTIVO);}

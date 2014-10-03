@@ -48,9 +48,9 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 				}
 
 				$filtro_comentarios = " AND c.id_tema=".$id_tema." AND estado=1 AND id_comentario_id=0";
-				$total_reg = foro::countReg("foro_comentarios c",$filtro_comentarios);
-				$total_reg_resp = foro::countReg("foro_comentarios c"," AND c.id_tema=".$id_tema." AND estado=1 ");
-				$num_visitas = $foro->countReg("foro_visitas"," AND id_tema=".$id_tema." ");
+				$total_reg = connection::countReg("foro_comentarios c",$filtro_comentarios);
+				$total_reg_resp = connection::countReg("foro_comentarios c"," AND c.id_tema=".$id_tema." AND estado=1 ");
+				$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$id_tema." ");
 
 				echo '<h2>'.$tema[0]['nombre'].'</h2>
 					<p class="legend"><span class="fa fa-comment"></span> '.$total_reg_resp.' '.strTranslate("Comments").' <span class="fa fa-eye"></span> '.$num_visitas.' '.strTranslate("Visits").' <i class="fa fa-mail-reply"></i> <a href="?page='.$volver.'" title="'.strTranslate("Go_back").'">'.strTranslate("Go_back").'</a></p>

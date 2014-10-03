@@ -10,7 +10,7 @@ class mailingTemplatesController{
 
 		$find_reg = (isset($_GET['f']) and $_GET['f']>0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = $mailing->countReg("mailing_templates t ",$filtro);
+		$total_reg = connection::countReg("mailing_templates t ",$filtro);
 		return array('items' => $mailing->getTemplates($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -47,7 +47,7 @@ class mailingTemplatesController{
 
 			if ($mailing->insertTemplate($template_name,$template_body, $template_img, $id_type, $id_campaign)) {
 				session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
-				$id_template = $mailing->SelectMaxReg("id_template","mailing_templates","");
+				$id_template = connection::SelectMaxReg("id_template","mailing_templates","");
 			}
 			else{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");

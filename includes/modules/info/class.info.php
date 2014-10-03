@@ -2,10 +2,10 @@
 /**
 * @Libreria de archivos descargables para el usuario
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.1
+* @version 1.1.1
 *
 */	
-class info extends connection{
+class info{
  
 	  public function getInfo($filter = ""){
 	    $Sql="SELECT i.*,t.nombre_info AS tipo,c.name_campaign AS campana FROM info i 

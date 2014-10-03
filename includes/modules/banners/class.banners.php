@@ -2,9 +2,9 @@
 /**
 * @Manage banners
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 0.5
+* @version 0.6
 */	
-class banners extends connection{
+class banners{
 
 	  public function getBanners($filter = "")  
 	  {

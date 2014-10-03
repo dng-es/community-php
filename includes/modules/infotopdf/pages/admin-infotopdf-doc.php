@@ -100,7 +100,7 @@ function insertData(){
 	$resultado=$info->insertInfo($_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info']);
 	if ($resultado=="") {
 		OkMsg('Registro insertado correctamente.');
-		$id=$info->SelectMaxReg("id_info","infotopdf","");
+		$id = connection::SelectMaxReg("id_info","infotopdf","");
 		return $id;
 	}
 	else{ErrorMsg($resultado);}

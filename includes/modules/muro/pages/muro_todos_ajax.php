@@ -32,7 +32,7 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 		<!-- fechas -->
 		<script type="text/javascript">
 				jQuery(document).ready(function(){
-					var ahora = "<?php echo users::timeServer();?>";
+					var ahora = "<?php echo connection::timeServer();?>";
 					ahora = ahora.replace(" ","T") + "Z";
 					$(".date-format-ago").each(function(){
 							 var date2 = $(this).attr("data-date").replace(" ","T") + "Z";

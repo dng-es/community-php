@@ -49,7 +49,7 @@ $elements=$foro->getTemas(" AND id_tema=".$id." ");
 					<hr />
 					<?php
 						if ($accion=='edit'){
-							$num_comentarios = $foro->countReg("foro_comentarios"," AND estado=1 AND id_tema=".$id." ");
+							$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$id." ");
 							echo '<a target="_blank" href="?page=blog&id='.$id.'" title="ver entrada">Ver entrada</a><br />';
 							echo '<a href="?page=admin-blog-foro&id='.$id.'" title="comentario">Comentarios de la entrada ('.$num_comentarios.')</a><br />';
 						}

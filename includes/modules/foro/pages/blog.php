@@ -48,8 +48,8 @@ $reg = 10;
 if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
 if (!$pag) { $inicio = 0; $pag = 1;}
 else { $inicio = ($pag - 1) * $reg;}
-$total_reg = foro::countReg("foro_comentarios c",$filtro_comentarios);
-$num_visitas=$foro->countReg("foro_visitas"," AND id_tema=".$id_tema." ");
+$total_reg = conenection::countReg("foro_comentarios c",$filtro_comentarios);
+$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$id_tema." ");
 
 echo '<h2>'.$tema[0]['nombre'].'</h2>
 	<p class="legend"><span class="fa fa-comment"></span> '.$total_reg.' comentarios <span class="fa fa-eye"></span> '.$num_visitas.' visitas</span></p>

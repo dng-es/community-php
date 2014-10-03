@@ -2,10 +2,10 @@
 /**
 * @Modulo de fotos, depends on Users module. 
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 0.9
+* @version 1.0
 *
 */	
-class fotos extends connection{
+class fotos{
 
 	public function getFotos($filter = ""){
 		$Sql="SELECT f.*,u.*,f.canal AS canal_file FROM galeria_fotos f 

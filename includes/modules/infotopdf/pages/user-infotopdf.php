@@ -21,9 +21,8 @@ $web='';
 $email = '';
 
 ?>
-  <div class="row inset row-top">
-	<div class="col-md-8">
-		<h1>Gestión de documentos</h1>
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
 			<div class="panel-body">
@@ -87,13 +86,10 @@ $email = '';
 			</div>
 		</div>
 	</div>
-
-	<div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">Gestion de documentos</div>
-			<div class="panel-body">
-				<a href="?page=user-infotopdf-all" class="comunidad-color">Ir a todos los documentos</a>
-			</div>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+			<h3>Comunicaciones impresas</h3>
+			<a href="?page=user-infotopdf-all" class="comunidad-color">Ir a todos los documentos</a>
 		</div>
 	</div>
 </div>

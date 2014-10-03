@@ -8,7 +8,7 @@ class mailingListsController{
 
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = $mailing->countReg("mailing_lists",$filtro);
+		$total_reg = connection::countReg("mailing_lists",$filtro);
 		return array('items' => $mailing->getLists($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -55,7 +55,7 @@ class mailingListsController{
 			$usuario = $_SESSION['user_name'];
 			if ($mailing->insertList($name,$usuario)) {
 				session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
-				$id_list = $mailing->SelectMaxReg("id_list","mailing_lists","");
+				$id_list = connection::SelectMaxReg("id_list","mailing_lists","");
 
 				//agregar usuarios
 				self::importAction($id_list);

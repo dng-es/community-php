@@ -54,7 +54,7 @@ function showFotoModal($file_galeria,$votaciones=true,$movil=0,$reto=0){
 	$fotos = new fotos();
 	$titulo = (strlen($file_galeria['titulo'])>30 ? substr($file_galeria['titulo'],0,28)."..." : $file_galeria['titulo']);
 	$nick = ($file_galeria['nick'] == "" ? "(sin nick)" : $file_galeria['nick']);
-	$votado = $fotos->countReg("galeria_fotos_votaciones", " AND id_file=".$file_galeria['id_file']." AND user_votacion='".$_SESSION['user_name']."' ");
+	$votado = connection::countReg("galeria_fotos_votaciones", " AND id_file=".$file_galeria['id_file']." AND user_votacion='".$_SESSION['user_name']."' ");
 
 	echo '<div class="thumbnail photo-comment">
 			<a href="'.PATH_FOTOS.$file_galeria['name_file'].'" target="_blank">

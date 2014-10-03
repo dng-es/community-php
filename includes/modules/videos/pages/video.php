@@ -1,9 +1,4 @@
 <?php
-include_once ("includes/videos/templates/gallery.php");
-include_once ("includes/videos/templates/addfile.php");
-include_once ("includes/videos/templates/addcomment.php");
-include_once ("includes/videos/templates/comment.php");
-
 addJavascripts(array("js/bootstrap.file-input.js", 
 					 "js/libs/jwplayer/jwplayer.js", 
 					 "js/jquery.bettertip.pack.js", 
@@ -11,21 +6,20 @@ addJavascripts(array("js/bootstrap.file-input.js",
 
 $id_video = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 $pagina_sig = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1 );
-//$pagina_sig++;
 $pagina_com = (isset($_REQUEST['pag2']) ? $_REQUEST['pag2'] : 1 );
 $num_videos = 6;
 
-if ($id_video > 0){
-	templateload("gallery","videos");
-	templateload("addfile","videos");
-	templateload("addcomment","videos");
-	templateload("comment","videos");
-	?>		
+if ($id_video > 0){ ?>		
 
 	<div class="row row-top">
 		<div class="col-md-8 col-lg-9 inset">
 			
 			<?php
+			templateload("gallery","videos");
+			templateload("addfile","videos");
+			templateload("addcomment","videos");
+			templateload("comment","videos");
+
 			session::getFlashMessage( 'actions_message' );
 			videosController::voteAction();
 			videosController::createAction();

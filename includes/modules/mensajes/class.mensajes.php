@@ -2,7 +2,7 @@
 /**
 * @Mensajeria interna
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0
+* @version 1.0.1
 *
 */
 class mensajes{

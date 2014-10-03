@@ -12,7 +12,7 @@ class infotopdfController{
 		$filtro = $filter." ORDER BY titulo_info";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = $info->countReg("info i",$filtro); 
+		$total_reg = connection::countReg("info i",$filtro); 
 		return array('items' => $info->getInfo($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -20,7 +20,7 @@ class infotopdfController{
 					'total_reg' => $total_reg);
 	}
 
-	public function getItemAction($id){
+	public static function getItemAction($id){
 		$info = new infotopdf();
 		return $info->getInfo(" AND id_info=".$id);
 	}	

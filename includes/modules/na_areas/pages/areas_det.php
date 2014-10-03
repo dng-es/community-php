@@ -20,7 +20,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 	//VERIFICAR ACCESO AL FORO
 	$acceso=1;
 	if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
-		$acceso=$foro->countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
+		$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
 	}
   	if($acceso==1){
 	  
@@ -47,7 +47,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 
 		//Obtener datos de la primera tarea e formulario
 		$elements = $na_areas->getTareas(" AND id_area=".$id_area." AND activa=1 AND tipo='formulario' LIMIT 1 "); 
-		$finalizados = $na_areas->countReg("na_tareas_formularios_finalizados"," AND id_tarea=".$elements[0]['id_tarea']." AND user_tarea='".$_SESSION['user_name']."' ");
+		$finalizados = connection::countReg("na_tareas_formularios_finalizados"," AND id_tarea=".$elements[0]['id_tarea']." AND user_tarea='".$_SESSION['user_name']."' ");
 		$txtBtn = ($finalizados>0) ? "Curso finalizado" : "Realiza tarea del curso";
 
 		if ($finalizados>0){
@@ -58,7 +58,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 				if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos']<7){ $msg = "Tu nota es de <b>".$valoracion[0]['puntos']."</b>,  no has conseguido superar el mínimo en este curso para conseguir horas de vuelo.";}
 				if ($valoracion[0]['revision']==0){ $msg = "Tus respuestas serán revisadas por un tutor. Muy pronto podrás consultar la puntuación obtenida accediendo al curso.";}
 			}
-			echo '<div class="alert alert-info" style="margin: 0 25px 0 10px"><span class="fa fa-info-circle"></span> '.$msg.'</div>';
+			echo '<div class="alert alert-info"><span class="fa fa-info-circle"></span> '.$msg.'</div>';
 		}
 
 		//DATOS DE AREA DE TRABAJO

@@ -37,7 +37,7 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 				<table class="table">
 					<?php
 					//LOS 10 PRIMEROS DEL RANKING
-					//$total_usuarios=$users->countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
+					//$total_usuarios = connection::countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
 					//echo '	<p>Los mejores en el ranking, total de usuarios activos: '.$total_usuarios.'</p>';
 
 					for ($i=6;$i<=14;$i++){	

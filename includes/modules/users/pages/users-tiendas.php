@@ -21,8 +21,8 @@ $reg = 50;
 if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
 if (!$pag) { $inicio = 0; $pag = 1;}
 else { $inicio = ($pag - 1) * $reg;}
-$total_reg = $users->countReg("users_tiendas",$filtro);
-$elements=$users->getTiendas($filtro.' LIMIT '.$inicio.','.$reg);?>
+$total_reg = connection::countReg("users_tiendas",$filtro);
+$elements = $users->getTiendas($filtro.' LIMIT '.$inicio.','.$reg);?>
 
 <div class="row row-top">
 	<div class="col-md-9">

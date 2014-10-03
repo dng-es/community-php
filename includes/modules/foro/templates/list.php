@@ -7,8 +7,8 @@
 */
 function ForoList($sub_tema,$destino = "foro-comentarios")
 {
-	$num_comentarios=users::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$sub_tema['id_tema']." ");
-	$num_visitas=users::countReg("foro_visitas"," AND id_tema=".$sub_tema['id_tema']." ");
+	$num_comentarios=connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$sub_tema['id_tema']." ");
+	$num_visitas=connection::countReg("foro_visitas"," AND id_tema=".$sub_tema['id_tema']." ");
 	$descripcion = strip_tags($sub_tema['descripcion']);
 	$nombre = strip_tags($sub_tema['nombre']);
 

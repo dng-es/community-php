@@ -2,10 +2,10 @@
 /**
 * @Modulo de foros
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version  1.0
+* @version  1.0.1
 *
 */	
-class foro extends connection{
+class foro{
  
 	public function getTemas($filter = "") {
 		$Sql="SELECT * FROM foro_temas WHERE 1=1 ".$filter;

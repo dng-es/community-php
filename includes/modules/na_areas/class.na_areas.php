@@ -2,10 +2,10 @@
 /**
 * @Modulo áreas de trabajo. Tareas de formación
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.1
+* @version 1.1.1
 *
 */	
-class na_areas extends connection{
+class na_areas{
 
 	/**
 	 * Devuelve las areas de trabajo / cursos
@@ -26,7 +26,7 @@ class na_areas extends connection{
 		if (connection::execute_query($Sql)){
 			//si se crea el area creamos su foro general
 
-			$id_area=$this->SelectMaxReg("id_area","na_areas","");
+			$id_area = connection::SelectMaxReg("id_area","na_areas","");
 			$foro = new foro();
 			$foro->InsertTema(0,'foro '.$nombre,$descripcion,"",$_SESSION['user_name'],$canal,0,1,'',$id_area);
 			return true;
@@ -42,16 +42,14 @@ class na_areas extends connection{
 			 puntos=".$puntos.", 
 			 limite_users=".$limite_users."  
 			 WHERE id_area=".$id;
-		if (connection::execute_query($Sql)){return true;}
-		else { return false;}		   
+		return connection::execute_query($Sql);
 	  }  
 
 	  public function estadoArea($id,$estado=0){
 		$Sql="UPDATE na_areas SET 
 			 estado=".$estado." 
 			 WHERE id_area=".$id;
-		if (connection::execute_query($Sql)){return true;}
-		else { return false;}		   
+		return connection::execute_query($Sql);
 	  }        
 
 	  public function getAreasUsers($filter = ""){
@@ -65,14 +63,12 @@ class na_areas extends connection{
 	  public function insertUserArea($id_area,$user_area){	
 		$Sql="INSERT INTO na_areas_users (id_area,username_area) VALUES
 		(".$id_area.",'".$user_area."')";
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  } 	
 
 	  public function deleteUsersArea($id_area){	
 		$Sql="DELETE FROM na_areas_users WHERE id_area=".$id_area." ";
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  } 	
 
 	  public function getGruposUsers($filter = ""){
@@ -85,7 +81,7 @@ class na_areas extends connection{
 	  public function insertGrupoArea($id_area,$nombre){	
 		$Sql="INSERT INTO na_areas_grupos (id_area,grupo_nombre) VALUES
 		(".$id_area.",'".$nombre."')";
-		if ($this->execute_query($Sql)){ return "Grupo insertado correctamente";}
+		if (connection::execute_query($Sql)){ return "Grupo insertado correctamente";}
 		else { return "Se ha producido algún error al insertar el grupo, por favor intentelo otra vez";}
 	  } 	
 
@@ -94,20 +90,17 @@ class na_areas extends connection{
 			  FROM na_areas_grupos_users 
 			  WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	  }       
-
+	  }
 	   
 	  public function insertGrupoUser($id_grupo,$usuario){	
 		$Sql="INSERT INTO na_areas_grupos_users (id_grupo,grupo_username) VALUES
 		(".$id_grupo.",'".$usuario."')";
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  } 	
 
 	  public function deleteGrupoUser($id_grupo,$usuario){	
 		$Sql="DELETE FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo." AND grupo_username='".$usuario."' ";
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  } 
 
 	  public function getTareas($filter = ""){
@@ -129,7 +122,7 @@ class na_areas extends connection{
 
 		$Sql="INSERT INTO na_tareas (id_area,tarea_titulo,tarea_descripcion,tipo,tarea_grupo,user_add,tarea_archivo) VALUES
 		(".$id_area.",'".$titulo."','".$descripcion."','".$tipo."',".$grupo.",'".$usuario."','".$nombre_archivo."')";
-		if ($this->execute_query($Sql)){ return "Tarea agregada correctamente";} 
+		if (connection::execute_query($Sql)){ return "Tarea agregada correctamente";} 
 		else { return "Se ha producido algún error al agregar la tarea.";}
 	  } 
 
@@ -137,8 +130,7 @@ class na_areas extends connection{
 		$Sql="UPDATE na_tareas 
 			  SET tarea_descripcion='".$descripcion."' 
 			  WHERE id_tarea=".$id_tarea." ";
-		if ($this->execute_query($Sql)){return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  } 
 
 	  public function getGruposTareas($filter = "")  
@@ -153,28 +145,27 @@ class na_areas extends connection{
 	  public function insertGrupoTarea($id_grupo,$id_tarea){	
 		$Sql="INSERT INTO na_tareas_grupos (id_grupo,id_tarea) VALUES
 		(".$id_grupo.",".$id_tarea.")";
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  } 	
 
 	  public function deleteGrupoTarea($id_grupo,$id_tarea){	
 		$Sql="DELETE FROM na_tareas_grupos WHERE id_grupo=".$id_grupo." AND id_tarea=".$id_tarea." ";
-		if ($this->execute_query($Sql)){ 
+		if (connection::execute_query($Sql)){ 
 			$Sql="INSERT INTO na_tareas_grupos_history (id_tarea,id_grupo,user_history) VALUES(".$id_tarea.",".$id_grupo.",'".$_SESSION['user_name']."')";
-			$this->execute_query($Sql);
+			connection::execute_query($Sql);
 			return true;}
 		else { return false;}
 	  }       
 
 	   public function estadoTarea($id_tarea,$estado){	
 		$Sql="UPDATE na_tareas SET activa=".$estado." WHERE id_tarea=".$id_tarea;
-		if ($this->execute_query($Sql)){ return "Estado cambiado correctamente";}
+		if (connection::execute_query($Sql)){ return "Estado cambiado correctamente";}
 		else { return "Se ha producido algún error al cambiar el estado de la tarea.";}
 	  } 
 
 	  public function estadoLinksTarea($id_tarea,$estado){	
 		$Sql="UPDATE na_tareas SET activa_links=".$estado." WHERE id_tarea=".$id_tarea;
-		if ($this->execute_query($Sql)){ return "Estado links cambiado correctamente";}
+		if (connection::execute_query($Sql)){ return "Estado links cambiado correctamente";}
 		else { return "Se ha producido algún error al cambiar el estado de los links de la tarea.";}
 	  }       
 
@@ -226,14 +217,13 @@ class na_areas extends connection{
 
 		$Sql="INSERT INTO na_tareas_documentos (id_tarea,documento_tipo,documento_nombre,documento_file) VALUES
 		(".$id_tarea.",'".$tipo."','".$nombre."','".$enlace."')";
-		if ($this->execute_query($Sql)){ return "Documentación agregada correctamente";}
+		if (connection::execute_query($Sql)){ return "Documentación agregada correctamente";}
 		else { return "se ha producido algún error al agregar la documentación";}
 	  } 	
 
 	  public function deleteTareaDoc($id){	
 		$Sql="DELETE FROM na_tareas_documentos WHERE id_documento=".$id." ";
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  } 
 	  
 	  public function getUsersTareaGrupos($id_tarea,$usuario)  
@@ -262,8 +252,7 @@ class na_areas extends connection{
 		
 		$Sql="INSERT INTO na_tareas_users (id_area,id_tarea,user_tarea,file_tarea) VALUES
 		(".$id_area.",".$id_tarea.",'".$user_tarea."','".$nombre_archivo."')";
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  } 
 
 	  public function RevisarTareaUser($id,$usuario){
@@ -272,8 +261,7 @@ class na_areas extends connection{
 			 user_revision='".$usuario."',
 			 date_revision=NOW() 
 			 WHERE id_tarea_user=".$id;
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  }
 
 	  public function getPreguntas($filter = "")  
@@ -286,15 +274,15 @@ class na_areas extends connection{
 	  public function insertPregunta($id_tarea,$pregunta_texto,$pregunta_tipo){	
 		$Sql="INSERT INTO na_tareas_preguntas (id_tarea,pregunta_texto,pregunta_tipo) VALUES
 		(".$id_tarea.",'".$pregunta_texto."','".$pregunta_tipo."')";
-		if ($this->execute_query($Sql)){ return "Pregunta insertada correctamente";}
+		if (connection::execute_query($Sql)){ return "Pregunta insertada correctamente";}
 		else { return "Se ha producido algún error al insertar la pregunta.";}
 	  } 
 
 	  public function deletePregunta($id){	
 		$Sql="DELETE FROM na_tareas_preguntas WHERE id_pregunta=".$id;
-		if ($this->execute_query($Sql)){ 
+		if (connection::execute_query($Sql)){ 
 			$Sql="DELETE FROM na_tareas_respuestas WHERE id_pregunta=".$id;
-			$this->execute_query($Sql);
+			connection::execute_query($Sql);
 			return "Pregunta eliminada correctamente";}
 		else { return "Se ha producido algún error al eliminar la pregunta.";}
 	  } 
@@ -302,7 +290,7 @@ class na_areas extends connection{
 	  public function insertPreguntaRespuesta($id_pregunta,$respuesta_texto){	
 		$Sql="INSERT INTO na_tareas_respuestas (id_pregunta,respuesta_texto) VALUES
 		(".$id_pregunta.",'".$respuesta_texto."')";
-		if ($this->execute_query($Sql)){ return "Respuesta insertada correctamente";}
+		if (connection::execute_query($Sql)){ return "Respuesta insertada correctamente";}
 		else { return "Se ha producido algún error al insertar la respuesta.";}
 	  } 	  
 
@@ -330,7 +318,7 @@ class na_areas extends connection{
 
 	  public function insertRespuesta($id_pregunta,$respuesta_user,$respuesta_valor){	
 		//verificar si ya existe una respuesta para hacer insert o update
-		if ($this->countReg("na_tareas_respuestas_user"," AND id_pregunta=".$id_pregunta." AND respuesta_user='".$respuesta_user."' ")==0){
+		if (connection::countReg("na_tareas_respuestas_user"," AND id_pregunta=".$id_pregunta." AND respuesta_user='".$respuesta_user."' ")==0){
 			$Sql="INSERT INTO na_tareas_respuestas_user (id_pregunta,respuesta_user,respuesta_valor) VALUES
 			(".$id_pregunta.",'".$respuesta_user."','".$respuesta_valor."')";
 		}
@@ -339,7 +327,7 @@ class na_areas extends connection{
 				respuesta_valor='".$respuesta_valor."' 
 				WHERE id_pregunta=".$id_pregunta." AND respuesta_user='".$respuesta_user."' ";
 		}
-		$this->execute_query($Sql);
+		return connection::execute_query($Sql);
 	  } 	  
 
 	  public function getFormulariosFinalizados($filter = "")  
@@ -361,8 +349,7 @@ class na_areas extends connection{
 	  public function insertFormulariosFinalizados($id_tarea,$user_tarea){	
 		$Sql="INSERT INTO na_tareas_formularios_finalizados (id_tarea,user_tarea) VALUES
 		(".$id_tarea.",'".$user_tarea."')";
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return connection::execute_query($Sql);
 	  } 
 
 	  public function RevisarTareaFormUser($usuario,$id_tarea,$puntos,$revisor){
@@ -373,8 +360,7 @@ class na_areas extends connection{
 			 date_revision=NOW() 
 			 WHERE id_tarea=".$id_tarea." 
 			 AND user_tarea='".$usuario."' ";
-		if ($this->execute_query($Sql)){ return true;}
-		else { return false;}
+		return execute_query($Sql);
 	  }   
 
 	  public function getUsuarioGrupoTarea($id_tarea,$id_area,$filter = "")  

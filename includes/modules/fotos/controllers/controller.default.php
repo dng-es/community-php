@@ -6,7 +6,7 @@ class fotosController{
 		if ($find_reg !="" ) {$filter = " AND titulo LIKE '%".$find_reg."%' ".$filter;}
 		if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_perfil'] != 'formador'){$filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;}
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = $fotos->countReg("galeria_fotos f", $filter); 
+		$total_reg = connection::countReg("galeria_fotos f", $filter); 
 		return array('items' => $fotos->getFotos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

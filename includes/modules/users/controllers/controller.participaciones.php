@@ -6,7 +6,7 @@ class usersParticipacionesController{
 		$filtro = " ORDER BY participacion_date DESC ";
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = $users->countReg("users_participaciones",$filtro);
+		$total_reg = connection::countReg("users_participaciones",$filtro);
 		return array('items' => $users->getParticipaciones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

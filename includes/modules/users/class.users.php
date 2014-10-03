@@ -2,10 +2,10 @@
 /**
 * @Modulo de usuarios
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0
+* @version 1.0.1
 * 
 */	
-class users extends connection{
+class users{
 	
 	public function getPerfiles($filter = ""){
 		$Sql="SELECT DISTINCT perfil FROM users WHERE 1=1 ".$filter;
@@ -61,7 +61,7 @@ class users extends connection{
 		$Sql="UPDATE users SET
 			 foto=''
 			 WHERE username='".$username."'";
-		if ($this->execute_query($Sql)){ 
+		if (connection::execute_query($Sql)){ 
 			unlink(PATH_USERS_FOTO.$foto);
 			return true;
 		}
@@ -86,7 +86,7 @@ class users extends connection{
 		return connection::getSQL($Sql);  
 	} 
 
-	public function insertParticipacion($participacion_username,$participacion_motivo,$valor){
+	public static function insertParticipacion($participacion_username,$participacion_motivo,$valor){
 			$Sql="INSERT INTO users_participaciones (participacion_username, participacion_motivo,valor) 
 				  VALUES ('".$participacion_username."','".$participacion_motivo."',".$valor.")";
 			return connection::execute_query($Sql);
@@ -108,7 +108,7 @@ class users extends connection{
 		else { return true;}
 	}   
 	  
-	public function sumarParticipacion($username,$motivo,$puntos=0){
+	public static function sumarParticipacion($username,$motivo,$puntos=0){
 		if ($puntos<0) {$signo="-";$valor=-1;}
 		else {$signo="+";$valor=1;}
 		if (self::insertParticipacion($username,$motivo,$valor)){
@@ -136,7 +136,7 @@ class users extends connection{
 				$Sql="UPDATE users SET
 					 puntos=puntos-".$puntos."
 					 WHERE username='".$username."'";
-				if ($this->execute_query($Sql)){ return true;}
+				if (connection::execute_query($Sql)){ return true;}
 				else { return false;}
 			}
 			else { return false;}
@@ -302,8 +302,8 @@ class users extends connection{
 			(SELECT * FROM users WHERE  puntos>=
 			(SELECT puntos FROM users WHERE username='".$username."') AND perfil<>'admin' ORDER BY puntos DESC,username ASC) r,  
 			(SELECT @rownum:=0) ro ) f WHERE username='".$username."'";
-		$result=self::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
-		$row=self::get_result($result);
+		$result = connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
+		$row=connection::get_result($result);
 		return $row['rownum']; 
 	}
 	  
@@ -312,8 +312,8 @@ class users extends connection{
 			(SELECT SUM(puntos) AS suma_puntos,empresa FROM users WHERE empresa<>'' AND empresa<>'comunidad' GROUP BY empresa HAVING SUM(puntos)>=
 			(SELECT SUM(puntos) FROM users WHERE empresa='".$empresa."' GROUP BY empresa) ORDER BY suma_puntos DESC,empresa DESC) r,  
 			(SELECT @rownum:=0) ro ) f WHERE empresa='".$empresa."' GROUP BY empresa";
-		$result=self::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
-		$row=self::get_result($result);
+		$result=connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
+		$row=connection::get_result($result);
 		return $row['rownum']; 
 	} 
 	  

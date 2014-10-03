@@ -5,7 +5,7 @@ class pagesController{
 		$filtro = " ORDER BY page_name";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = $pages->countReg("pages",$filtro); 
+		$total_reg = connection::countReg("pages",$filtro); 
 		return array('items' => $pages->getPages($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

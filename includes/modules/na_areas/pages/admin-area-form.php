@@ -29,7 +29,7 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 		if (isset($_REQUEST['act']) and $_REQUEST['act']=='new') { 
 			if (trim($_POST['pregunta_texto'])){
 				$na_areas->insertPregunta($id_tarea,$_POST['pregunta_texto'],$_POST['pregunta_tipo']);
-				$id_pregunta=$na_areas->SelectMaxReg("id_pregunta","na_tareas_preguntas","");
+				$id_pregunta = connection::SelectMaxReg("id_pregunta","na_tareas_preguntas","");
 				
 				if ($_POST['pregunta_tipo']!='texto'){
 					//INSERTAR PREGUNTA-RESPUESTA

@@ -27,12 +27,8 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 					<th>Emails</th>
 				</tr>
 				<?php
-				$mailing = new mailing();
-
-				foreach($elements['items'] as $element):
-					
-					$total_emails = $mailing->countReg("mailing_lists_users"," AND id_list=".$element['id_list']." ");
-
+				foreach($elements['items'] as $element):		
+					$total_emails = connection::countReg("mailing_lists_users"," AND id_list=".$element['id_list']." ");
 					?>
 					<tr>
 					<td nowrap="nowrap">

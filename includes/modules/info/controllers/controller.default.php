@@ -7,7 +7,7 @@ class infoController{
 		$filtro = $filter." ORDER BY titulo_info";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = $info->countReg("info i",$filtro); 
+		$total_reg = connection::countReg("info i",$filtro); 
 		return array('items' => $info->getInfo($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -15,11 +15,9 @@ class infoController{
 					'total_reg' => $total_reg);
 	}
 
-	public function getItemAction($id){
-		if (isset($_GET['act']) and $_GET['act']=='edit'){
-			$info = new info();
-			return $info->getInfo(" AND id_info=".$id);
-		}
+	public static function getItemAction($id){
+		$info = new info();
+		return $info->getInfo(" AND id_info=".$id);
 	}	
 
 	public static function createAction(){

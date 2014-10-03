@@ -288,8 +288,8 @@ function getForosActivos($id_area){
 		echo '	</tr>';
 
 		foreach($temas as $element):
-			$num_comentarios=$foro->countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
-			$num_visitas=$foro->countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");
+			$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
+			$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");
 			echo '<tr>';
 			echo '<td nowrap="nowrap">
 					<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el tema '.$element['id_tema'].'?\',
@@ -577,7 +577,7 @@ function InsertData()
 				$_POST['area_puntos'],
 				$_POST['area_limite'])) {
 		OkMsg(strTranslate("Insert_procesing"));
-		$id_area=$na_areas->SelectMaxReg("id_area","na_areas","");
+		$id_area = connection::SelectMaxReg("id_area","na_areas","");
 		return $id_area;
 	}
 }

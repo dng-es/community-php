@@ -40,8 +40,8 @@ function PanelLastForos(){
 
 function temaForoInfo($sub_tema){
 	$foro = new foro();
-	$num_comentarios=$foro->countReg("foro_comentarios"," AND estado=1 AND id_tema=".$sub_tema['id_tema']." ");
-	$num_visitas=$foro->countReg("foro_visitas"," AND id_tema=".$sub_tema['id_tema']." "); 
+	$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$sub_tema['id_tema']." ");
+	$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$sub_tema['id_tema']." "); 
 	echo '<div class="panel-foros-info" value="'.$sub_tema['id_tema'].'">     
 				<a href="?page=foro-comentarios&id='.$sub_tema['id_tema'].'">
 				'.$sub_tema['nombre'].'</a> 

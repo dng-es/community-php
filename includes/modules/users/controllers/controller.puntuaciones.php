@@ -6,7 +6,7 @@ class usersPuntuacionesController{
 		$filtro = " AND puntuacion_puntos<>0 ORDER BY puntuacion_date DESC ";
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = $users->countReg("users_puntuaciones",$filtro); 
+		$total_reg = connection::countReg("users_puntuaciones",$filtro); 
 		return array('items' => $users->getPuntuaciones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

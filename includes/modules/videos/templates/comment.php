@@ -16,7 +16,7 @@ function videoCommentGallery($comentarios, $destino = "videos-comentarios"){
 function videoComment($comentario, $destino = "videos-comentarios"){?>
 	<div class="media media-comment">
 		<?php userFicha($comentario);?>
-		<p><b><?php echo $comentario['nick'];?></b> <?php echo strTranslate("says");?>: (<?php echo strftime(DATE_FORMAT_SHORT,strtotime($comentario['date_comentario']));?>) <?php echo $texto_id;?></p>
+		<p><b><?php echo $comentario['nick'];?></b> <?php echo strTranslate("says");?>: (<?php echo strftime(DATE_FORMAT_SHORT,strtotime($comentario['date_comentario']));?>) <?php echo $_SESSION['user_perfil']=='admin' ? "ID: ".$comentario['id_comentario'] : "";?></p>
 		<p><a name="comentario-id-'.$comentario['id_comentario'].'" id="comentario-id-'.$comentario['id_comentario'].'"></a></p>
 		<p><?php echo $comentario['comentario'];?></p>
 		<div class="comment-info">

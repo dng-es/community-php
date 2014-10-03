@@ -2,10 +2,10 @@
 /**
 * @Modulo el reto de las comunidades
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 0.5
+* @version 0.5.1
 * 
 */	
-class promociones extends connection{
+class promociones{
  
 	  public function getPromociones($filter = ""){
 	    $Sql="SELECT * FROM promociones WHERE 1=1 ".$filter;
@@ -110,7 +110,7 @@ class promociones extends connection{
 			  if ($videos->convertirVideo($nombre_archivo,PATH_VIDEOS,PATH_VIDEOS)){
 				  unlink (PATH_VIDEOS.$nombre_archivo);
 				  $Sql="INSERT INTO promociones_videos (id_promocion,nombre_video,ruta_video,texto_video) VALUES (".$id_promocion.",'".$nombre."','".$nombre_archivo.".mp4','".$texto."')";
-				  if ($this->execute_query($Sql)){ return true;}
+				  if (connection::execute_query($Sql)){ return true;}
 				  else { return false;}
 			  }
 			}
