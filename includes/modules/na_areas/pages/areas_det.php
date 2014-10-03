@@ -10,45 +10,27 @@ addJavascripts(array("js/libs/jwplayer/jwplayer.js",
 					 "js/bootstrap.file-input.js", 
 					 getAsset("na_areas")."js/areas_det.js"));
 
-$foro = new foro();
-$na_areas = new na_areas();
-
 
 if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
+	$na_areas = new na_areas();
 	$id_area = $_REQUEST['id'];
 
-	//VERIFICAR ACCESO AL FORO
-	$acceso=1;
-	if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
-		$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
-	}
+	session::getFlashMessage( 'actions_message' );	
+	na_areasController::uploadTareaAction();
+	$module_config = getModuleConfig("na_areas");
+	$acceso = foroController::accesoForoAreaAction($id_area);
+	$area = na_areasController::getItemAction($id_area)
+  	
   	if($acceso==1){
-	  
-	$filtro=" AND id_area=".$id_area." AND id_tema_parent=0 AND activo=1 ";
-
-	//OBTENCION DE LOS DATOS DEL FORO PRINCIPAL
-	if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
-	$temas = $foro->getTemas($filtro);
-
-	//OBTENCION DE LOS DATOS DEL AREA
-	$area = $na_areas->getAreas(" AND id_area=".$id_area);
-
-	if (count($temas)>0){
-		$id_tema_parent = $temas[0]['id_tema'];
 
 		echo '<div class="row row-top">
 				<div class="col-md-8 col-lg-9 inset">';
 		echo '		<h1>Cursos de formación</h1>';
 
-		session::getFlashMessage( 'actions_message' );	
-		na_areasController::uploadTareaAction();
-		$module_config = getModuleConfig("na_areas");
-
-
 		//Obtener datos de la primera tarea e formulario
 		$elements = $na_areas->getTareas(" AND id_area=".$id_area." AND activa=1 AND tipo='formulario' LIMIT 1 "); 
 		$finalizados = connection::countReg("na_tareas_formularios_finalizados"," AND id_tarea=".$elements[0]['id_tarea']." AND user_tarea='".$_SESSION['user_name']."' ");
-		$txtBtn = ($finalizados>0) ? "Curso finalizado" : "Realiza tarea del curso";
+		$txtBtn = ($finalizados>0) ? "Curso finalizado" : "Realizar tarea del curso";
 
 		if ($finalizados>0){
 			//obtener resultado de la valoracion
@@ -74,26 +56,30 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 
 		if ($module_config['forums']==true){
 			//mostrar foros del area
+			$filtro=" AND id_area=".$id_area." AND id_tema_parent=0 AND activo=1 ";
+			if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
+			$foro = new foro();
+			$temas = $foro->getTemas($filtro);
+			$id_tema_parent = $temas[0]['id_tema'];
 		}
 
 		echo '</div>';
-		}
 	}
 	else{
 	  	ErrorMsg("No tienes acceso a la seecion");
 	}
-}
+} ?>
 
 
-echo '<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 		
 		</div>
 	</div>
-</div>';
+</div>
 
 
-
+<?
 function printTareas($id_area){
   $na_areas = new na_areas();
   $contador_tareas=0;

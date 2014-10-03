@@ -160,7 +160,6 @@ class na_areasController{
 	public static function accesoTareaAction($id_tarea){
 		$acceso=1;
 		if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
-			$na_areas = new na_areas();
 			$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
 		}
 		return $acceso;

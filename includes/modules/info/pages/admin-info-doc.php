@@ -8,18 +8,19 @@ session::AccessLevel($perfiles_autorizados);
 
 $accion = (isset($_GET['act']) ? $_GET['act'] : "new");
 $id = (isset($_GET['id']) ? $_GET['id'] : 0);
-
-session::getFlashMessage( 'actions_message' ); 
-infoController::createAction();
-infoController::updateAction($id);
-
-$info = new info();
-$campaigns = new campaigns();
-$elements = infoController::getItemAction($id); 
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
   		<h1>Gestión de documentos</h1>
+		<?php
+		session::getFlashMessage( 'actions_message' ); 
+		infoController::createAction();
+		infoController::updateAction($id);
+		$elements = infoController::getItemAction($id);
+
+		$info = new info();
+		$campaigns = new campaigns();
+		?>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
 			<div class="panel-body">

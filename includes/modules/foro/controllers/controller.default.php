@@ -23,6 +23,13 @@ class foroController{
 		return $foro->getLastTemas($filter, $limit);
 	}	
 
+	public static function accesoForoAreaAction($id_area){
+		$acceso=1;
+		if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
+			$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
+		}
+		return $acceso;
+	}
 	public static function getListComentariosAction($reg = 0, $filtro=""){
 		$foro = new foro();
 		$find_reg = "";

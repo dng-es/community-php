@@ -9,20 +9,21 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 $perfiles_autorizados = array("admin");
 session::AccessLevel($perfiles_autorizados);
 
-$accion=$_GET['act'];
-$id ='';
-if ($accion=='edit'){ $id=$_GET['id'];}
-if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData($id);}
-if ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}  
-
-$info = new infotopdf();
-$campaigns = new campaigns();
-$elements=infotopdfController::getItem();
- 
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Gestión de documentos PDF</h1>
+		<?php
+		$accion=$_GET['act'];
+		$id ='';
+		if ($accion=='edit'){ $id=$_GET['id'];}
+		if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData($id);}
+		if ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}  
+
+		$info = new infotopdf();
+		$campaigns = new campaigns();
+		$elements=infotopdfController::getItem();
+		?>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
 			<div class="panel-body">
