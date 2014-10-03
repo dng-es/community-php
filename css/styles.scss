@@ -2,8 +2,9 @@
 
 /*SASS VARIABLES*/
 $color1 : #008AC9;	//color principal
-$color2 : #f5f5f5;	//color claro
-$color3 : #1d7493;	//color oscuro o de contraste respecto el color principal
+//$color2 : lighten($color1, 55%);	//color claro
+$color2 : #f5f5f5;
+$color3 : darken($color1, 20%);	//color oscuro o de contraste respecto el color principal
 
 $font-size-community: 14px;
 $border-def: 0px;
@@ -101,8 +102,7 @@ label{
 	font-weight:normal;
 }
 section{
-	background-color: $color2;
-	@include border-radius($border-def);
+	@extend .section;
 	margin-bottom: 15px;
 	padding: 15px;
 	h1 , h2, h3, h4{
@@ -112,6 +112,10 @@ section{
 	article{
 		margin-bottom: 15px;
 	}
+}
+.section{
+	background-color: $color2;
+	@include border-radius($border-def);
 }
 #container-main{
 	margin: 0 0%;
@@ -493,7 +497,6 @@ section{
 .panel-interior{
 	background-color: $panels-color;
 	color: $panels-color-text;
-	margin-bottom: 15px;
 	overflow: hidden;
 	padding: 0 15px 15px 15px;
 	label{
@@ -1090,7 +1093,7 @@ table th {
 [class*="col-"]{margin-bottom: -99999px !important;padding-bottom: 99999px !important;}
 .row{overflow: hidden;}
 .bootstrap-datetimepicker-widget{background-color:$color1 !important}
-.bootstrap-datetimepicker-widget thead tr:first-child th:hover{ background-color:$color2 !important}
+.bootstrap-datetimepicker-widget thead tr:first-child th:hover{ background-color:$color2 !important; color:$color1}
 .bootstrap-datetimepicker-widget td.day:hover,.bootstrap-datetimepicker-widget td span.month:hover,.bootstrap-datetimepicker-widget td span.year:hover{background-color:$color3 !important;color:$color2 !important}
 .bootstrap-datetimepicker-widget td.active{background:$color3 !important;color:$color2}
 .bootstrap-datetimepicker-widget .old, .bootstrap-datetimepicker-widget .new{color:$color2 !important}
@@ -1451,4 +1454,15 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 @-ms-keyframes fadein {
 	from { opacity: 0; }
 	to   { opacity: 1; }
+}
+
+.list-funny{
+	list-style:none;
+  li:before {
+  content: '\f105';
+  font-family: 'FontAwesome';
+  float: left;
+  margin-left: -1em;
+  color: $color1;
+}
 }

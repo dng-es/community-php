@@ -135,6 +135,19 @@ function getListModules(){
 }
 
 /**
+ * Obtiene todos los modulos instalados
+ * @return 	array 		Array con los modulos instalados
+ */
+function getModuleConfig($module){
+	$config_params = array();
+	$file = __DIR__."/../modules/".$module."/config.php";
+	if (file_exists($file)){
+		$config_params = parse_ini_file($file);
+	}	
+	return $config_params;	
+}
+
+/**
 * Returns the
 *
 * @param 	string 		$str 		string to translate

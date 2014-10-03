@@ -6,13 +6,15 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					"js/bootstrap-datepicker.es.js", 
 					getAsset("users")."js/user-perfil.js"));
 
-session::getFlashMessage( 'actions_message' ); 
-usersController::updatePerfilAction();
-$usuario = usersController::getPerfilAction();
-
 ?>
-<div class="row inset row-top">
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
 	<h1><?php echo strTranslate("My_profile");?></h1>
+	<?php
+	session::getFlashMessage( 'actions_message' ); 
+	usersController::updatePerfilAction();
+	$usuario = usersController::getPerfilAction();
+	?>
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs">
 		<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab">Datos generales</a></li>
@@ -23,7 +25,7 @@ $usuario = usersController::getPerfilAction();
 		<div class="tab-pane fade in <?php echo (!(isset($_GET['t'])) ? ' active' : '');?>" id="general">
 			<div class="row inset"> 
 				<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
-			  		<div class="col-md-9">
+			  		<div class="col-md-12">
 						<input type="hidden" name="user-username" id="user-username" value="<?php echo $_SESSION['user_name'];?>">
 						
 							<div class="form-group">
@@ -114,13 +116,14 @@ $usuario = usersController::getPerfilAction();
 								  <span id="user-comentarios-alert" class="alert-message alert alert-danger"></span>
 								</div>
 							</div>					
-
-					</div>
-			  		<div class="col-md-3">
-						<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" /><br />
-						<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
-						<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="<?php echo strTranslate("Change_picture");?>" /><br />
-						<input type="submit" class="btn btn-primary btn-block" id="confirm-submit" name="confirm-submit" value="<?php echo strTranslate("Save_data");?>" />
+							<div class="col-md-6 col-md-offset-3">
+								<div class="col-md-6 inset">
+									<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="<?php echo strTranslate("Change_picture");?>" /> 
+								</div>
+								<div class="col-md-6 inset">
+									<input type="submit" class="btn btn-primary btn-block" id="confirm-submit" name="confirm-submit" value="<?php echo strTranslate("Save_data");?>" />
+								</div>
+							</div>
 					</div>
 				</form>
 			</div>
@@ -129,6 +132,13 @@ $usuario = usersController::getPerfilAction();
 			<br />
 			<p>No hay estadísticas activas</p>
 			<br /><br /><br /><br />
+		</div>
+	</div>
+	</div>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" />  
+			<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
 		</div>
 	</div>
 </div>

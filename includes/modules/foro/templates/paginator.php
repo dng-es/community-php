@@ -2,7 +2,7 @@
 	function ForoPaginator($pag,$reg,$total_reg,$pag_dest,$title,$find_reg="",$find_tipo="",$marcado=0,$num_paginas=10)
 	{
 		$total_pag = ceil($total_reg / $reg);
-		if ($total_reg > 0){
+		if ($total_reg > 0 and $total_pag>1){
 			$reg_ini=(($pag-1)*$reg)+1;
 			$reg_end=$pag*$reg;
 			if ($reg_ini>$total_reg) {$reg_ini=$total_reg;}

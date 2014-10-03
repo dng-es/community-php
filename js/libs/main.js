@@ -17,12 +17,17 @@ jQuery(document).ready(function(){
 	resizeApp();
 
 	$(window).resize(function(){
-		resizeApp();
+		resizeApp();		
 	});
 
 	function resizeApp(){
-		var anchoVentana = $(document).width();
-		if (anchoVentana > 991){ cargarImagenes();}				
+		var anchoVentana = $(document).width(),
+			altoVentana = $(window).height();
+		if (anchoVentana > 991){ 
+			cargarImagenes();
+			$(".row-top").css({"min-height" : altoVentana - ($(".footer").outerHeight()+$("#menu-main").outerHeight()+$(".header-info").outerHeight())})
+		}
+				
 		updateBackground();
 	}
 

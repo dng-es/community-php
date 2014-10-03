@@ -55,7 +55,7 @@ $last_foros = foroController::getLastTemasAction(5);
 			<div class="col-md-4">
 				<section>
 					<h3><?php echo strTranslate("Last_formus");?></h3>
-					<ul>
+					<ul class="list-funny">
 					<?php foreach($last_foros as $last_foro): ?>
 						<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
 						<li><a href="?page=foro-comentarios&id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>

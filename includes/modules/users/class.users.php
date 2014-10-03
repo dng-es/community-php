@@ -79,19 +79,7 @@ class users extends connection{
 			  VALUES ('".$puntuacion_username."','".$puntuacion_puntos."','".$puntuacion_motivo."')";
 		return connection::execute_query($Sql);
 	}
-
-	public function getHorasVuelo($filter = ""){
-		$Sql="SELECT u.nick,u.canal,u.empresa,p.* FROM users_horas p
-			 JOIN users u ON u.username=p.puntuacion_username WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
-	} 
-
-	public function insertHorasVuelo($puntuacion_username,$puntuacion_puntos,$puntuacion_motivo){
-		$Sql="INSERT INTO users_horas (puntuacion_username, puntuacion_puntos, puntuacion_motivo) 
-			  VALUES ('".$puntuacion_username."','".$puntuacion_puntos."','".$puntuacion_motivo."')";
-		return connection::execute_query($Sql);
-	}      
-	  
+	
 	public function getParticipaciones($filter = ""){
 		$Sql="SELECT u.nick,u.canal,u.empresa,p.* FROM users_participaciones p
 			 JOIN users u ON u.username=p.participacion_username WHERE 1=1 ".$filter;
@@ -118,17 +106,7 @@ class users extends connection{
 			else { return false;}	
 			}
 		else { return true;}
-	}
-
-	public function sumarHorasVuelo($username,$puntos,$motivo){	
-		if (self::insertHorasVuelo($username,$puntos,$motivo)) {			
-			$Sql="UPDATE users SET
-				 horas_vuelo=horas_vuelo+".$puntos."
-				 WHERE username='".$username."'";
-			return connection::execute_query($Sql);
-		}
-		else { return false;}
-	}      
+	}   
 	  
 	public function sumarParticipacion($username,$motivo,$puntos=0){
 		if ($puntos<0) {$signo="-";$valor=-1;}

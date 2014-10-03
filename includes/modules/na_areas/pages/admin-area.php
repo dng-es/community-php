@@ -107,40 +107,52 @@ addJavascripts(array("js/jquery.numeric.js",
 			<div class="panel-body">
 				<form role="form" id="formData" name="formData" method="post" action="?page=admin-area&act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
 					<input type="hidden" id="id_area" name="id_area" value="<?php echo $id;?>" />
-					<div class="form-group">
+					<div class="row">
+					<div class="form-group col-md-12">
 					<label for="area_nombre">Nombre:</label>
 					<input class="form-control" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"/>
 					<span id="nombre-alert" class="alert-message alert alert-danger"></span>
 					</div>
+					</div>
 
-					<div class="form-group">
+					<div class="row">
+					<div class="form-group col-md-12">
 					<label for="area_descripcion">Descripcion:</label>
 					<textarea class="form-control" id="area_descripcion" name="area_descripcion"><?php echo $area_descripcion;?></textarea>
 					<span id="descripcion-alert" class="alert-message alert alert-danger"></span>
 					</div>
-
-					<div class="form-group">
-					<label for="area_puntos">Horas de vuelo:</label>
-					<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" />
-					<span id="puntos-alert" class="alert-message alert alert-danger"></span>
-					</div>  
-
-					<div class="form-group">
-					<label for="area_limite">Límite de usuarios:</label>
-					<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" />
-					<span id="puntos-alert" class="alert-message alert alert-danger"></span>
-					</div>                    
-
-					<div class="form-group">
-					<label for="area_canal">Canal:</label>
-					<select id="area_canal" name="area_canal" class="form-control">
-						<option value="">--selecciona el canal--</option>
-						<?php ComboCanales($area_canal);?>
-					</select>
-					<span id="canal-alert" class="alert-message alert alert-danger"></span>
 					</div>
+					
+					<div class="row">
+						<div class="form-group col-md-4">
+						<label for="area_puntos"><?php echo ucfirst(strTranslate("APP_points"));?>:</label>
+						<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" />
+						<span id="puntos-alert" class="alert-message alert alert-danger"></span>
+						</div>  
 
-					<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+						<div class="form-group col-md-4">
+						<label for="area_limite">Límite de usuarios:</label>
+						<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" />
+						<span id="puntos-alert" class="alert-message alert alert-danger"></span>
+						</div>                    
+
+						<div class="form-group col-md-4">
+						<label for="area_canal">Canal:</label>
+						<select id="area_canal" name="area_canal" class="form-control">
+							<option value="">--selecciona el canal--</option>
+							<?php ComboCanales($area_canal);?>
+						</select>
+						<span id="canal-alert" class="alert-message alert alert-danger"></span>
+						</div>
+					</div>
+					
+					<div class="clearfix"></div>
+					<br />
+					<div class="row">
+					<div class="form-group col-md-12">
+						<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+					</div>
+					</div>
 				</form>	
 			</div>
 		</div>
@@ -185,10 +197,9 @@ function showUsuariosArea($id_area,$area_canal){
 					<div class="panel-body">';
 
 	if (count($elements)>0){
-		echo '  <p>Puedes descargar un fichero CSV con los usuarios inscritos en el curso: <br /><br />
+		echo '  <p>Total usuarios inscritos: <b>'.count($elements).'</b>. Puedes descargar un fichero CSV con los usuarios inscritos en el curso: <br /><br />
 				<a href="?page=admin-area&act=edit&id='.$id_area.'&t=1" class="btn btn-primary">Descargar fichero</a></span></p>';
-		echo 'Total usuarios inscritos: <b>'.count($elements).'</b>';
-		echo '<table class="table">';
+/*		echo '<table class="table">';
 		echo '	<tr>';
 		echo '	<th>Usuario</th>';
 		echo '	<th>Alias</th>';
@@ -199,7 +210,7 @@ function showUsuariosArea($id_area,$area_canal){
 			echo '<td>&nbsp;'.$element['nick'].'</td>';
 			echo '</tr>';   
 		endforeach;
-		echo '</table>';
+		echo '</table>';*/
 	}
 	else{
 		echo '<p>No hay usuarios incluídos en el curso</p>';
@@ -260,8 +271,7 @@ function showForosArea($id_area){
 		</div>';
 }
 
-function getForosActivos($id_area)
-{
+function getForosActivos($id_area){
 	$foro = new foro();
 
 	$temas = $foro->getTemas(" AND id_tema_parent<>0 AND activo=1 AND id_area=".$id_area);  

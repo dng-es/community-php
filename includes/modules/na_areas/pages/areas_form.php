@@ -1,47 +1,27 @@
 <?php
-
 addJavascripts(array(getAsset("na_areas")."js/areas_form.js"));
-
-//CONTROL NIVEL DE ACCESO
-$na_areas = new na_areas();
-$id_tarea=0;
-$id_area=0;
-if (isset($_REQUEST['id']) and $_REQUEST['id']!=0){$id_tarea = $_REQUEST['id'];}
-
-//OBTENER DATOS DE LA TAREA
-$tarea_datos = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
-$id_area=$tarea_datos[0]['id_area'];
-$id_tarea=$tarea_datos[0]['id_tarea'];
-
-//OBTENCION DE LOS DATOS DEL AREA
-$area = $na_areas->getAreas(" AND id_area=".$id_area);
-
-//GUARDAR FORMULARIO
-if (isset($_POST['id_tarea']) and $_POST['id_tarea']!="") na_areasController::SaveFormAction();
-
-//FINALIZAR FORMULARIO
-if (isset($_REQUEST['d']) and $_REQUEST['d']==1) na_areasController::FinalizarFormAction($id_tarea);
-
-//VERIFICAR ACCESO AL FORMULARIO
-$acceso=1;
-if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
-	$acceso=$na_areas->countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
-}
-
+$id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] : 0);
 ?>
-<div class="row inset row-top">
-	<div class="col-md-12">
-		<h1>Cursos de formación</h1>
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		session::getFlashMessage( 'actions_message' );
+		na_areasController::saveFormAction();
+		na_areasController::finalizarFormAction($id_tarea);
+		$tarea = na_areasController::getItemTareaAction($id_tarea);
+		$id_area = ( isset($tarea[0]['id_area']) ? $tarea[0]['id_area'] : 0 );
+		$acceso = na_areasController::accesoTareaAction($id_tarea);
+		$area = na_areasController::getItemAction($id_area);
 
-		echo '  <h3>'.$area[0]['area_nombre'].'</h3>
-				<p>'.$area[0]['area_descripcion'].'</p>
-				<p><a href="?page=areas_det&id='.$id_area.'" class="btn btn-primary">volver al curso</a></p><hr />';
 
 		if($acceso==1){
-			$elements=$na_areas->getPreguntas(" AND id_tarea=".$id_tarea." ");
-			$finalizados=$na_areas->countReg("na_tareas_formularios_finalizados"," AND id_tarea=".$id_tarea." AND user_tarea='".$_SESSION['user_name']."' ");
+			echo '  <h1>'.$area[0]['area_nombre'].'</h1>
+				<p>'.$area[0]['area_descripcion'].'</p>
+				<hr />';
+
+			$na_areas = new na_areas();
+			$elements = $na_areas->getPreguntas(" AND id_tarea=".$id_tarea." ");
+			$finalizados = connection::countReg("na_tareas_formularios_finalizados"," AND id_tarea=".$id_tarea." AND user_tarea='".$_SESSION['user_name']."' ");
 			
 			if ($finalizados>0){
 				//obtener resultado de la valoracion
@@ -102,5 +82,11 @@ if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
 			ErrorMsg("No tienes acceso a la sección");
 		}
 		?>
+	</div>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+		<h4>Cursos de formación</h4>
+			<p>Pincha <a href="?page=areas_det&id=<?php echo $id_area;?>">aquí</a> para volver al curso</p>
+		</div>
 	</div>
 </div>

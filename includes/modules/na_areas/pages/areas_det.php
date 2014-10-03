@@ -36,22 +36,14 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 	if (count($temas)>0){
 		$id_tema_parent = $temas[0]['id_tema'];
 
-		echo '<div class="row row-top">';
-		echo '	<div class="col-md-11 inset">';
+		echo '<div class="row row-top">
+				<div class="col-md-8 col-lg-9 inset">';
 		echo '		<h1>Cursos de formación</h1>';
 
-		session::getFlashMessage( 'actions_message' );		  
+		session::getFlashMessage( 'actions_message' );	
+		na_areasController::uploadTareaAction();
+		$module_config = getModuleConfig("na_areas");
 
-		//INSERTAR TAREA
-		if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){
-			if($na_areas->insertTareaUser($_POST['id_area'],$_POST['id_tarea'],$_SESSION['user_name'],$_FILES['nombre-fichero'])){
-				session::setFlashMessage( 'actions_message', "Fichero envíado correctamente.", "alert alert-success");
-			} 
-			else{ 
-				session::setFlashMessage( 'actions_message', "Se ha producido algún error en el envío del fichero.", "alert alert-danger");
-			}		
-			redirectURL($_SERVER['REQUEST_URI']);
-		}
 
 		//Obtener datos de la primera tarea e formulario
 		$elements = $na_areas->getTareas(" AND id_area=".$id_area." AND activa=1 AND tipo='formulario' LIMIT 1 "); 
@@ -70,16 +62,19 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 		}
 
 		//DATOS DE AREA DE TRABAJO
-		echo '		<div class="panel panel-default panel-comunidad col-panel panel-areas-detalle">
-						<div class="panel-body">';
+		echo '		<section>';
 		echo '  			<h4>'.$area[0]['area_nombre'].'</h4>
 		    				<p>'.$area[0]['area_descripcion'].'</p>
-		    				<a href="?page=areas_form&id='.$elements[0]['id_tarea'].'" class="btn btn-primary pull-right">'.$txtBtn.'</a>';
-		echo '			</div>';
-		echo '		</div>';
+		    				<a href="?page=areas_form&id='.$elements[0]['id_tarea'].'" class="btn btn-primary pull-right">'.$txtBtn.'</a>
+		    				<div class="clearfix"></div>';
+		echo '		</section>';
 
 		//printTareas($id_area);
 		documentosTarea($elements[0]['id_tarea']);
+
+		if ($module_config['forums']==true){
+			//mostrar foros del area
+		}
 
 		echo '</div>';
 		}
@@ -90,7 +85,12 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 }
 
 
-echo '</div>';
+echo '<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+		
+		</div>
+	</div>
+</div>';
 
 
 

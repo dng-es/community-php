@@ -28,7 +28,7 @@ $canal="";
 		if (isset($id_tema_parent) and $id_tema_parent!=""){
 		//OBTENER SUBTEMAS DE FORO
 		$filtro_subtemas = " AND t.id_tema_parent=".$temas[0]['id_tema']." AND t.activo=1 AND t.ocio=0 "; 
-		$reg = 5;
+		$reg = 4;
 		$marca = 0;
 		$find_tipo = "";
 		$find_reg = "";

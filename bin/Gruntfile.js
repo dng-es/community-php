@@ -9,11 +9,11 @@
 	watch: {
 		compass: {
 			files: ['../css/*.{scss,sass}'],
-			tasks: ['compass:dev']
+			tasks: ['compass:prod']
 		},
 		js: {
 			files: ['../js/libs/*.js'],
-			tasks: ['uglify:dev']
+			tasks: ['uglify:prod']
 		}
 	},
 
@@ -48,6 +48,10 @@
 	           '../js/bootstrap-dropdown.js', 
 	           '../js/libs/main.js'
 	           ]
+	       },
+	       options: {
+	            preserveComments: true,
+	            compress: false
 	       }
 	   },
 
@@ -60,6 +64,9 @@
 	           '../js/bootstrap-dropdown.js', 
 	           '../js/libs/main.js'
 	           ]
+	       },
+	       options: {
+	            preserveComments: false
 	       }
 	   },
 	},	
@@ -76,4 +83,5 @@
 
   grunt.registerTask('default', []);
   grunt.registerTask('prod', ['compass:prod', 'uglify:prod']);
+  grunt.registerTask('dev', ['compass:dev', 'uglify:dev']);
 };
