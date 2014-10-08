@@ -29,7 +29,9 @@ $albumes = $fotos->getFotosAlbumes(" ORDER BY nombre_album");?>
 <div class="row row-top">
 	<div class="col-md-9">	
 		<h1>Validación de fotos</h1>
-		<p>Tienes las siguientes <b>FOTOS</b> (<?php echo count($pendientes);?>) pendientes de validar. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b>.</p>
+		<ul class="nav nav-pills navbar-default"> 
+			<li class="disabled"><a href="#">Total <b><?php echo count($pendientes);?></b> registros. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b></a></li>      
+		</ul>
 		<table class="table">
 		<tr>
 		<th width="40px">&nbsp;</th>

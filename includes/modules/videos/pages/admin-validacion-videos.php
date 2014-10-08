@@ -41,13 +41,10 @@ $videos = new videos();
 $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 <div class="row inset row-top">
 	<div class="col-md-9">
-	<h1><?php echo strTranslate("Video_validation");?></h1>
-	<?php if (count($pendientes)==0): ?>
-		<p>No hay <span class="comunidad-color">VIDEOS</span> pendientes de validar.<br />
-	  	Puntos a otorgar por video: <span class="comunidad-color"><?php echo PUNTOS_VIDEO;?></span>.</p>
-	<?php else:?>
-	  	<p>Tienes los siguientes <span class="comunidad-color">VIDEOS</span> pendientes de validar.<br />
-	  	Puntos a otorgar por video: <span class="comunidad-color"><?php echo PUNTOS_VIDEO;?></span>.</p>
+		<h1><?php echo strTranslate("Video_validation");?></h1>
+		<ul class="nav nav-pills navbar-default"> 
+			<li class="disabled"><a href="#">Total <b><?php echo count($pendientes);?></b> registros. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por video: <b><?php echo PUNTOS_VIDEO;?></b></a></li>      
+		</ul>
 		<?php foreach($pendientes as $element):	  		
 			$convertido = ((file_exists(PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4')) ? true : false);			
 			echo '<div class="col-md-3">';
@@ -80,8 +77,7 @@ $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 						<b>'.strTranslate("Title").':</b> '.$element['titulo'].'
 				  	</div>'; 
 			echo '</div>';				  
-		endforeach;  	
-	endif;?>
+		endforeach;?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

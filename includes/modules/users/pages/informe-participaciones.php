@@ -11,12 +11,12 @@ $elements = usersParticipacionesController::getListAction(100);
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Informe de participaciones</h1>
-		<ul class="nav nav-pills navbar-default">       
+		<ul class="nav nav-pills navbar-default">     
+			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>  
 			<li><a href="?page=informe-puntuaciones">Informe de puntuaciones</a></li>
 			<li><a href="?page=informe-accesos">Informe de accesos</a></li>
 			<li><a href="?page=<?php echo $_REQUEST['page'].'&export=true';?>">Exportar CSV</a></li>
 		</ul>
-		<p class="legend-table"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strTranslate("Items");?></p>
 		<div class="table-responsive">
 			<table class="table">
 				<tr>

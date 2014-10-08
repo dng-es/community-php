@@ -10,10 +10,10 @@ $elements = campaignsController::getListTypesAction(20);
 <div class="row row-top">
   	<div class="col-md-9"> 
   		<h1>Campañas</h1>
-		<ul class="nav nav-pills navbar-default">      
+		<ul class="nav nav-pills navbar-default">
+			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>  
 			<li><a href="?page=admin-campaigns-type&act=new">Nuevo tipo</a></li>
 		</ul>
-    	<p>Total <b><?php echo $elements['total_reg'];?></b> registros</p>
 		<div class="table-responsive">
 			<table class="table">
 				<tr>

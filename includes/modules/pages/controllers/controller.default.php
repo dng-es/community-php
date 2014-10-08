@@ -69,7 +69,17 @@ class pagesController{
 							"LabelSection"=>strTranslate("Configuration"),
 							"LabelItem"=>'Derechos y responsabilidades',
 							"LabelUrl"=>'admin-page&p=declaracion',
-							"LabelPos" => 3));	
+							"LabelPos" => 3),
+					  array("LabelHeader"=>'Tools',
+							"LabelSection"=>strTranslate("Pages"),
+							"LabelItem"=>strTranslate("New_page"),
+							"LabelUrl"=>'admin-page',
+							"LabelPos" => 1),
+					  array("LabelHeader"=>'Tools',
+							"LabelSection"=>strTranslate("Pages"),
+							"LabelItem"=>strTranslate("Pages_list"),
+							"LabelUrl"=>'admin-pages',
+							"LabelPos" => 2));	
 	}	
 }
 ?>

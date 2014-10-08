@@ -19,9 +19,9 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 	na_areasController::uploadTareaAction();
 	$module_config = getModuleConfig("na_areas");
 	$acceso = foroController::accesoForoAreaAction($id_area);
-	$area = na_areasController::getItemAction($id_area)
+	$area = na_areasController::getItemAction($id_area);
   	
-  	if($acceso==1){
+  	if( $acceso==1 ){
 
 		echo '<div class="row row-top">
 				<div class="col-md-8 col-lg-9 inset">';
@@ -79,7 +79,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 </div>
 
 
-<?
+<?php 
 function printTareas($id_area){
   $na_areas = new na_areas();
   $contador_tareas=0;

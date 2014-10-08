@@ -12,10 +12,10 @@ $session->AccessLevel($perfiles_autorizados);
 		fotosAlbumController::deleteAction();
 		$elements = fotosAlbumController::getListAction(20, " AND activo=1 ORDER BY nombre_album ");
 		?>
-		<div class="btn-group"> 
-			<a href="?page=admin-albumes-new&act=new" title="<?php echo strTranslate("New_album");?>" class="btn btn-default"><?php echo strTranslate("New_album");?></a>  
-		</div>
-		<br /><br /> 
+		<ul class="nav nav-pills navbar-default"> 
+			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>      
+			<li><a href="?page=admin-albumes-new&act=new"><?php echo strTranslate("New_album");?></a></li>
+		</ul>
 		<table class="table">
 			<tr>
 				<th width="40px"></th>

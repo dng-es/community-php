@@ -120,7 +120,7 @@ section{
 }
 #header-container{
 	background-color: $panels-color;
-	@include opacity(0.9);
+	/* @include opacity(0.9); */
 }
 #container-main{
 	margin: 0 (100%-$app_width)/2;
@@ -160,13 +160,14 @@ section{
 	color:$color3
 }
 #container-content{
+	background: #fff;
 	.col-md-8{
 		background: #fff;
 	}
 	margin-top: 0px;
 	padding-bottom: 0px;
 	position: relative;
-	z-index:-1;
+	/* z-index:-1; */
 	h1{
 		font-size:28px;
 		font-weight:bolder;
@@ -265,7 +266,7 @@ section{
 	border-left: 0px solid #bebebe;
 	color: $panels-color-text;
 	/* @include box-shadow(#999 0px 0px 10px); */
-	@include opacity(0.9);
+	/* @include opacity(0.9); */
 	@media screen and (max-width: $break-medium) {
 		background-color: transparent;
 		border-left: 0;
@@ -1440,7 +1441,7 @@ table th {
 		}
 	}	
 }
-section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photos div, .thumbnail img, #container-main{
+section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photos div, .thumbnail img {
 	-webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
 	-moz-animation: fadein 1s; /* Firefox < 16 */
 	-ms-animation: fadein 1s; /* Internet Explorer */
@@ -1473,11 +1474,18 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 
 .list-funny{
 	list-style:none;
-  li:before {
-  content: '\f105';
-  font-family: 'FontAwesome';
-  float: left;
-  margin-left: -1em;
-  color: $color1;
-}
+	padding-left: 0;
+	li{
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		&:before {
+			content: '\f105';
+			font-family: 'FontAwesome';
+			float: left;
+			/* margin-left: -1em; */
+			margin-right: 10px;
+			color: $color1;
+		}
+	}
 }

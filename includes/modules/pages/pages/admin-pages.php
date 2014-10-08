@@ -11,15 +11,12 @@ $elements = pagesController::getListAction(3);
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Gestion de páginas</h1>
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">       
-					<li><a href="?page=admin-page">Nueva página</a></li>
-				</ul>
-			</div>
-		</nav>
+		<ul class="nav nav-pills navbar-default">      
+			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>
+			<li><a href="?page=admin-page"><?php echo strTranslate("New_page");?></a></li>
+		</ul>
 
-		<p>Total <b><?php echo $elements['total_reg'];?></b> registros</p>
+		
 		<table class="table">
 		<tr>
 		<th width="40px">&nbsp;</th>

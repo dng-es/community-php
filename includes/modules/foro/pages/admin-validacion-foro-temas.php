@@ -19,7 +19,9 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Temas en los foros</h1>
-		<p>Hay los siguientes <b>TEMAS</b> (<?php echo $elements['total_reg'];?>) creados en los foros</p>
+		<ul class="nav nav-pills navbar-default"> 
+			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>      
+		</ul>
 		<div class="table-responsive">
 			<table class="table">
 				<tr>

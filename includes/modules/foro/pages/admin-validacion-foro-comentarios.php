@@ -13,7 +13,9 @@ $elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Comentarios en los foros</h1>
-			<p>Hay los siguientes <b>MENSAJES</b> (<?php echo $elements['total_reg'];?>) en los foros. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <span class="comunidad-color"><?php echo PUNTOS_FORO;?>.</span></p>
+			<ul class="nav nav-pills navbar-default"> 
+				<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_FORO;?></b></a></li>      
+			</ul>
 			<div class="table-responsive">
 				<table class="table">
 				<tr>

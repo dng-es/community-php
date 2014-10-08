@@ -19,7 +19,10 @@ $total_reg = connection::countReg("galeria_videos",$filtro);
 
 <div class="row row-top">
 	<div class="col-md-9">
-		<div id="page-info"><?php echo strTranslate("Video_list");?></div>
+		<h1><?php echo strTranslate("Video_list");?></h1>
+		<ul class="nav nav-pills navbar-default"> 
+			<li class="disabled"><a href="#">Total <b><?php echo $total_reg;?></b> registros.</a></li>      
+		</ul>
 		<?php
 		//EXPORT EXCEL - SHOW AND GENERATE
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
