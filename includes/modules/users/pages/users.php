@@ -57,8 +57,8 @@ $elements = usersController::getListAction(35);
 					<td><?php echo $element['nick'];?></td>
 					<td><?php echo $element['nombre_tienda'];?></td>
 					<td><?php echo $element['email'];?></td>
-					<td><span class="label<?php echo ($element['confirmed']==0 ? " label-danger" : " label-success");?>"><?php echo $element['confirmed'];?></span></td>
-					<td><span class="label<?php echo ($element['disabled']==1 ? " label-danger" : " label-success");?>"><?php echo $element['disabled'];?></span></td>
+					<td><span class="label<?php echo ($element['confirmed']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['confirmed']==1 ? "Sí" : "No");?></span></td>
+					<td><span class="label<?php echo ($element['disabled']==1 ? " label-danger" : " label-success");?>"><?php echo ($element['disabled']==0 ? "No" : "Sí");?></span></td>
 					</tr>  
 				<?php endforeach; ?>
 			</table>

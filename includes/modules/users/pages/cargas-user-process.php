@@ -73,8 +73,7 @@ function volcarMySQL($data) {
 		
 		if ($username!=""){
 			//VERIFICAR QUE EXISTA EL USUARIO
-			if (users::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ")==0)
-			{			
+			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ")==0) {			
 				if ($users->insertUser($username, $user_pass, $user_email, $nombre, 0, 0, $responsable, $empresa,
 							$territorio, $canal, $perfil, $telefono_user,  $provincia, $sfid,$surname)) {
 				$contador++;

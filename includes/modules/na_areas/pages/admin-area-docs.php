@@ -10,38 +10,26 @@ $na_areas = new na_areas();
 
 $id_area=$_REQUEST['a'];
 $id_tarea=$_REQUEST['id'];
+
+//OBTENER DATOS DE LA TAREA
+$tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
+$elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 ?>
 
 <div class="row row-top">
 	<div class="col-md-9">
+		<h1>Documentacion de la tarea <small><?php echo $tarea[0]['tarea_titulo'];?></small></h1>
 		
 		<?php
 		session::getFlashMessage( 'actions_message' );
+		na_areasController::insertDocAction();
+		na_areasController::deleteDocAction();
+		?>
 
-		//insertar documento
-		if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){ 
-			$mensaje = $na_areas->insertTareaDoc($id_tarea,$_POST['tipo'],$_POST['nombre-documento'],$_FILES['nombre-fichero'],$_POST['documento-link']);
-			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-warning"); 
-			redirectURL($_SERVER['REQUEST_URI']);
-		}        
+		<ul class="nav nav-pills navbar-default">     
+			<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver a la gestión del curso</a></li>
+		</ul>
 
-		//eliminar documento
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { 
-			if($na_areas->deleteTareaDoc($_REQUEST['idd'])){
-				session::setFlashMessage( 'actions_message', "Documento eliminado correctamente.", "alert alert-success"); 
-			}
-			else {
-				session::setFlashMessage( 'actions_message', "Error al eliminar el documento.", "alert alert-danger"); 
-			}
-			redirectURL("?page=admin-area-docs&a=".$id_area."&id=".$id_tarea);
-		}
-
-		//OBTENER DATOS DE LA TAREA
-		$tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
-		$elements=$na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");?>
-
-		<h1>Documentacion de la tarea</h1>
-		<p><b>Tarea</b>: <?php echo $tarea[0]['tarea_titulo'];?>. <a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver a la gestión del curso</a></p> 
 		<div class="panel panel-default">
 			<div class="panel-heading">Cargar nuevo documento</div>
 			<div class="panel-body">

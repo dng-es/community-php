@@ -1,25 +1,26 @@
 <?php
-templateload("blog","foro");
+templateload("blog","blog");
 templateload("comment","foro");
-templateload("addcomment","foro");
+templateload("addcomment","blog");
 
 addJavascripts(array("js/jquery.bettertip.pack.js", 
 					 "js/jquery.jtextarea.js", 
-					 getAsset("foro")."js/blog.js"), 
+					 getAsset("blog")."js/blog.js", 
 					 getAsset("foro")."js/foro-comentario.js"));
+?>
 
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
+		<h1><?php echo strTranslate("Blog");?> de la comunidad</h1><hr />
+
+<?php
 $foro = new foro();
-
-echo '<div class="row row-top">
-		<h1>Blog de la comunidad</h1>
-		<div class="col-md-8 col-lg-9 inset">';
-
-
 session::getFlashMessage( 'actions_message' );	
 foroController::createRespuestaAction();
 foroController::votarAction();								
 
 //OBTENCION DE LOS DATOS DEL FORO 
+$filtro_tema = "";
 if (isset($_REQUEST['id'])){$id_tema=$_REQUEST['id'];}
 if (isset($_REQUEST['f'])){$id_tema=$_REQUEST['f'];} 
 if (isset($id_tema) and $id_tema!=""){
@@ -46,13 +47,18 @@ $filtro_comentarios .= " AND estado=1 ";
  
 $reg = 10;
 if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
-if (!$pag) { $inicio = 0; $pag = 1;}
+if (!isset($pag)) { $inicio = 0; $pag = 1;}
 else { $inicio = ($pag - 1) * $reg;}
-$total_reg = conenection::countReg("foro_comentarios c",$filtro_comentarios);
+
+$total_reg = connection::countReg("foro_comentarios c",$filtro_comentarios);
 $num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$id_tema." ");
 
 echo '<h2>'.$tema[0]['nombre'].'</h2>
-	<p class="legend"><span class="fa fa-comment"></span> '.$total_reg.' comentarios <span class="fa fa-eye"></span> '.$num_visitas.' visitas</span></p>
+	<p class="legend">
+		<span class="text-muted">'.dateLong($tema[0]['date_tema']).'</span>
+		<span class="fa fa-comment"></span> '.$total_reg.' comentarios 
+		<span class="fa fa-eye"></span> '.$num_visitas.' visitas</span>
+	</p>
 	'.$tema[0]['descripcion'];
 
 //enlaces de pagina siguiente y anterior
@@ -65,10 +71,13 @@ $siguiente_disabled="";
 $siguiente = $foro->getTemas(" AND activo=1 AND ocio=1 AND id_tema<".$id_tema." ORDER BY id_tema DESC LIMIT 1");
 if (count($siguiente)!=1){$siguiente_disabled = "disabled";$siguiente_enlace="#";}
 else{$siguiente_enlace='?page=blog&id='.$siguiente[0]['id_tema'];}
-// echo '<ul class="pager">
-// 				<li class="previous '.$anterior_disabled .'"><a href="'.$anterior_enlace.'">&larr; Entrada anterior</a></li>
-// 				<li class="next '.$siguiente_disabled .'"><a href="'.$siguiente_enlace.'">Entrada siguiente &rarr;</a></li>
-// 			</ul>';    
+
+//enlaces de pagina siguiente y anterior
+echo '<hr /><ul class="pager">
+				<li class="previous '.$anterior_disabled .'"><a href="'.$anterior_enlace.'">&larr; Entrada anterior</a></li>
+				<li class="next '.$siguiente_disabled .'"><a href="'.$siguiente_enlace.'">Entrada siguiente &rarr;</a></li>
+			</ul>';
+}    
 
 
 if (count($tema)>0){	
@@ -76,8 +85,10 @@ if (count($tema)>0){
 	$foro->insertVisita($_SESSION['user_name'],$id_tema,0);
 	//INSERTAR NUEVOS COMENTARIOS EN EL BLOG
 
-	echo '<p>¿Qué piensas de este artículo? déjanos tu comentario</p>';
+	echo '<div class="clearfix"></div><div class="panel-interior">';
+	echo '<br /><label>¿Qué piensas de este artículo? déjanos tu comentario</label>';
 	addForoComment($id_tema);
+	echo '</div>';
 	
 	echo '<div class="panel-container-foro">';
 	$filtro_comentarios.= " ORDER BY date_comentario DESC";
@@ -85,14 +96,13 @@ if (count($tema)>0){
 	foreach($comentarios_foro as $comentario_foro):
 		commentForo($comentario_foro,"blog");
 	endforeach;	
-	echo '</div>';
+	echo '</div><br />';
 	
-	if ($total_reg==0){ echo '<div class="alert alert-warning">Todavía no se han insertado comentarios en este foro.</div>';}
+	if ($total_reg==0){ echo '<div class="alert alert-warning">Todavía no se han insertado comentarios en esta entrada.</div>';}
 	else {Paginator($pag,$reg,$total_reg,'blog&id='.$id_tema,'comentarios',$find_reg,10,"selected-foro");}
 
 	//ENTRADAS SIMILARES
-	echo '<div class="blog-similares">
-			<h4>También te puede interesar</h4>';
+	echo '<h4>También te puede interesar</h4><hr />';
 	$filtro_etiquetas = "";
 	$etiquetas = explode(",",$tema[0]['tipo_tema']);
 	foreach($etiquetas as $etiqueta):
@@ -102,21 +112,11 @@ if (count($tema)>0){
 	$filtro_etiquetas = " AND (".$filtro_etiquetas.") AND id_tema<>".$tema[0]['id_tema']." ";
 	$elements = $foro->getTemas(" AND ocio=1 AND activo=1 ".$filtro_etiquetas." ORDER BY rand() DESC LIMIT 4 "); 
 	foreach($elements as $element):
-		echo '<div class="modal-img-container-info">
-				<div class="modal-img-container">
-						<a href="?page=blog&id='.$element['id_tema'].'"><img src="images/foro/'.$element['imagen_tema'].'" title="'.$element['nombre'].'" /></a>
-				</div>
-				<p>'.$element['nombre'].'</p>
+		echo '<div class="col-md-3">
+						<a href="?page=blog&id='.$element['id_tema'].'"><img style="width:100%" src="images/foro/'.$element['imagen_tema'].'" title="'.$element['nombre'].'" /></a><br />
+				<h5>'.$element['nombre'].'</h5>
 			</div>';
 	endforeach; 
-	echo '</div>';
-
-	//enlaces de pagina siguiente y anterior
-	echo '<ul class="pager">
-					<li class="previous '.$anterior_disabled .'"><a href="'.$anterior_enlace.'">&larr; Entrada anterior</a></li>
-					<li class="next '.$siguiente_disabled .'"><a href="'.$siguiente_enlace.'">Entrada siguiente &rarr;</a></li>
-				</ul>';
-	}
 }?>
 
 	</div>
@@ -127,7 +127,7 @@ if (count($tema)>0){
 			searchBlog();
 
 			//ENTRADAS RECIENTES
-			echo '	<h4>Entradas recientes</h4>';
+			echo '	<h4>'.strTranslate("Last_blog").'</h4>';
 			$elements = $foro->getTemas(" AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
 			entradasBlog($elements);
 
@@ -135,11 +135,12 @@ if (count($tema)>0){
 			echo '<h4>Archivos</h4>';
 			$elements = $foro->getArchivoBlog();
 			archivoBlog($elements);
-
 			//CATEGORIAS
 			$elements = $foro->getCategorias(" AND ocio=1 ");
 			echo '<h4>Categorias</h4>';
-			categoriasBlog($elements);?>
+			categoriasBlog($elements);
+
+			?>
 		</div>
 	</div>
 </div>

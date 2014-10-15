@@ -64,7 +64,7 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 		else{
 				//SHOW DATA
 				echo '<table class="table">';
-				echo '<tr">';
+				echo '<tr>';
 				echo '<th width="20px">&nbsp;</th>';
 				echo '<th>&nbsp;Pregunta</th>';
 				echo '<th>&nbsp;Tipo</th>';

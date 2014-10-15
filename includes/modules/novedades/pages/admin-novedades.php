@@ -9,13 +9,14 @@ $session = new session();
 $perfiles_autorizados = array("admin");
 $session->AccessLevel($perfiles_autorizados);
 
-session::getFlashMessage( 'actions_message' ); 
-novedadesController::updateAction();
-
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Novedades</h1>
+		<?php 
+		session::getFlashMessage( 'actions_message' ); 
+		novedadesController::updateAction();
+		?>
 		<p>Introduce la novedad para hoy, podrá ser un texto, una imagen o un video. La novedad anterior será modificada por la nueva que introduzcas.</p>
 		<form id="formData" name="formData" method="post" enctype="multipart/form-data" action="" role="form">
 

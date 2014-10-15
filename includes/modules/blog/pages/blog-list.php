@@ -2,24 +2,22 @@
 
 addJavascripts(array(getAsset("foro")."js/foro-temas.js"));
 
-templateload("blog","foro");
-templateload("list","foro");
+templateload("blog","blog");
+templateload("list","blog");
 templateload("paginator","foro");	
 $foro = new foro();
 $mensaje="";
 $id_tema_parent="";
 $canal="";
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//	CENTRO		///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-echo '<div id="page-info"><img src="images/blog-logo.png" /><span>Blog de moda y últimas tendencias</span></div>';
-echo '<div class="row inset row-top">
-		<div class="col-md-9">';
+?>
+
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
+	<h1><?php echo strTranslate("Blog");?> de la comunidad</h1><hr />
 
 
-
-
+<?php
 if ($mensaje!=""){ErrorMsg($mensaje);}
 echo '<div class="message-form" id="alertas-mensajes" style="display: none"></div>';
   $titulo_page="";
@@ -77,12 +75,13 @@ ForoPaginator($pag,$reg,$total_reg,'blog-list&a='.$_REQUEST['a']."&m=".$_REQUEST
 
 
 echo '	</div>
-		<div class="col-md-3">';
+		<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">';
 //BUSCADOR
 searchBlog();
 		  
 //ENTRADAS RECIENTES
-echo '<h4>Entradas recientes</h4>';
+echo '<h4>'.strTranslate("Last_blog").'</h4>';
 $elements = $foro->getTemas(" AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
 entradasBlog($elements);
 
@@ -99,6 +98,7 @@ echo '<h4>Categorias</h4>';
 categoriasBlog($elements);
 
 echo '</div>
+	</div>
 	</div>';
  
 

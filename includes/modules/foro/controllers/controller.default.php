@@ -17,11 +17,25 @@ class foroController{
 		return $foro->getTemas(" AND id_tema=".$id." ");
 	}
 
-	public static function getLastTemasAction($limit = 3){
+	public static function getLastTemasAction($limit = 3, $filter=""){
 		$foro = new foro();
-		$filter = ($_SESSION['user_canal']!='admin' ? " AND t.canal='".$_SESSION['user_canal']."' " : "");
+		$filter .= ($_SESSION['user_canal']!='admin' ? " AND t.canal='".$_SESSION['user_canal']."' " : "");
 		return $foro->getLastTemas($filter, $limit);
 	}	
+
+	public static function insertCommentAction(){
+		if (isset($_POST['texto-comentario']) and $_POST['texto-comentario']!="" and ($_POST['id_tema']!="" or $_POST['id_tema']!=0)){
+			$foro = new foro();
+			if ($foro->InsertComentario($_POST['id_tema'],
+								$_POST['texto-comentario'],
+								$_SESSION['user_name'],
+								ESTADO_COMENTARIOS_FORO)){
+			session::setFlashMessage( 'actions_message', "Comentario insertado correctamente.", "alert alert-success");
+			} 
+			else{ session::setFlashMessage( 'actions_message', "Se ha producido un error en la inserción del comentario. Por favor, inténtalo más tarde.", "alert alert-danger");}    
+			redirectURL($_SERVER['REQUEST_URI']);
+		} 
+	}
 
 	public static function accesoForoAreaAction($id_area){
 		$acceso=1;

@@ -8,7 +8,7 @@
 * @param  string   	$descripcion_foro  	tema description
 * @param  int   	$ocio  				used for news, blog, ...
 */
-function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripcion_foro="",$ocio=0){
+function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripcion_foro="",$ocio=0, $id_area=0){
 
 	//INSERTAR TEMA
 	$foro = new foro();
@@ -20,7 +20,7 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 							$_POST['texto-descripcion'],
 							"",
 							$_SESSION['user_name'],
-							$canal,0,1)){
+							$canal,0,1, '', $_POST['id_area'],0,"")){
 			session::setFlashMessage( 'actions_message', "Tema insertado correctamente. Los nuevos foros se generan como últimas entradas.", "alert alert-success");
 		} 
 		else{ session::setFlashMessage( 'actions_message', "Se ha producido un error en la inserción del tema. Por favor, inténtalo más tarde.", "alert alert-danger");}		
@@ -46,6 +46,7 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 	<?php else: ?>
 			<input type="hidden" name="id_tema_parent" id="id_tema_parent" value="<?php echo $id_tema_parent;?>"/>
 			<input type="hidden" name="canal_tema" id="canal_tema" value="<?php echo $canal;?>"/>  
+			<input type="hidden" name="id_area" id="id_area" value="<?php echo $id_area;?>"/>  
 	<?php endif;?>	
 
 	<?php if ($ocio==1): ?>

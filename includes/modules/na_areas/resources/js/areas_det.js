@@ -6,11 +6,13 @@ jQuery(document).ready(function(){
 	});
 
 	$(".trigger-tarea").click(function(event) {
+		event.preventDefault();
 		var elem = $(this).next(".form-tareas");
 		elem.slideToggle();
 	});
 
-	$(".trigger-documentacion").click(function(event) {
+	$(".trigger-documentacion").click(function(e) {
+		e.preventDefault();
 		var elem = $(this).next(".documentacion-tareas");
 		elem.slideToggle();
 	});	

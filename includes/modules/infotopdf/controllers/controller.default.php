@@ -46,7 +46,7 @@ class infotopdfController{
 		}
 	}
 
-	public function getHTMLtoPDF(){
+	public static function getHTMLtoPDF(){
 		if (isset($_POST['id_info']) and $_POST['id_info']>0){
 			$info = new infotopdf();
 			global $ini_conf;

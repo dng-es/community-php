@@ -15,7 +15,7 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 
 
 		if($acceso==1){
-			echo '  <h1>'.$area[0]['area_nombre'].'</h1>
+			echo '  <h1>Formulario <small>'.$area[0]['area_nombre']." - ".$tarea[0]['tarea_titulo'].'</small></h1>
 				<p>'.$area[0]['area_descripcion'].'</p>
 				<hr />';
 
@@ -27,8 +27,8 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 				//obtener resultado de la valoracion
 				$valoracion = $na_areas->getFormulariosFinalizados(" AND user_tarea='".$_SESSION['user_name']."' AND id_tarea=".$id_tarea);
 				if (count($valoracion)>0){
-					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos']>=7){ $msg = "Enhorabuena, has conseguido un <b>".$valoracion[0]['puntos']."</b> en este curso y acumulado <b>".$area[0]['puntos']."</b> horas de vuelo.";}
-					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos']<7){ $msg = "Tu nota es de <b>".$valoracion[0]['puntos']."</b>,  no has conseguido superar el mínimo en este curso para conseguir horas de vuelo.";}
+					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos']>=7){ $msg = "Enhorabuena, has conseguido un <b>".$valoracion[0]['puntos']."</b> en este curso y acumulado <b>".$area[0]['puntos']."</b> ".strTranslate("APP_points").".";}
+					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos']<7){ $msg = "Tu nota es de <b>".$valoracion[0]['puntos']."</b>,  no has conseguido superar el mínimo en este curso para conseguir ".strTranslate("APP_points").".";}
 					if ($valoracion[0]['revision']==0){ $msg = "Tus respuestas serán revisadas por un tutor. Muy pronto podrás consultar la puntuación obtenida accediendo al curso.";}
 				}
 				echo '<div class="alert alert-info"><span class="fa fa-info-circle"></span> '.$msg.'</div>';
@@ -74,7 +74,7 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 				}
 				echo '</form>';
 				if ($finalizados==0){
-					echo '<br /><br /><div class="alert alert-warning">Asegúrate de haber contestado todas las preguntas correctamente antes de Finaliza tarea.</div>';
+					echo '<br /><br /><div class="alert alert-warning">Asegúrate de haber contestado todas las preguntas correctamente antes de Finalizar la tarea.</div>';
 				}
 			}
 		}

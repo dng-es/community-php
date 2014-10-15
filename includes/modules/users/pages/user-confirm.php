@@ -9,8 +9,9 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 	<div class="col-md-6">
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
-	<div class="col-md-6" style="border-left:1px solid #a1569d">
-		<h2><?php echo strTranslate("Confirmation");?></h2>
+	<div class="col-md-6 login-container">
+		<div class="col-md-12 noppading">
+		<h1><?php echo strTranslate("Confirmation");?></h1>
 		<?php
 		//CONFIRMAR USUARIO
 		if (isset($_POST['user-username']) and $_POST['user-username']!=""){
@@ -80,89 +81,101 @@ function ShowForm()
 		?>
 
 	  	<p><?php echo strTranslate("Confirm_data");?>:</p>
-  		<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-signin">
+  		<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
 			<input type="hidden" name="user-username" id="user-username" value="<?php echo $_SESSION['user_name'];?>">
-			<table border="0" cellpadding="2" cellspacing="0" class="Tam11">
-				<tr valign="top">
-					<td><label for="username-text"><?php echo strTranslate("Username");?>:</label></td>
-					<td>
-					  <input name="username-text" id="username-text" type="text" class="form-control" disabled="disabled" value="<?php echo $_SESSION['user_name'];?>" />
-					</td>
-				</tr>					
-				<tr valign="top">
-					<td><label for="user-nick"><?php echo strTranslate("Nick");?>:</label></td>
-					<td>
-					  <input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" value="<?php echo $user_nick;?>" />
-					  <span id="user-nick-alert" class="alert-message alert alert-danger"></span>
-					</td>
-				</tr>
-				<tr valign="top">
-					<td><label for="user-nombre"><?php echo strTranslate("Name");?>:</label></td>
-					<td>
-					  <input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" value="<?php echo $user_nombre;?>" />
-					  <span id="user-nombre-alert" class="alert-message alert alert-danger"></span>
-					</td>
-				</tr>
-				<tr valign="top">
-					<td><label for="user-apellidos"><?php echo strTranslate("Surname");?>:</label></td>
-					<td>
-					  <input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $user_apellidos;?>" />
-					  <span id="user-apellidos-alert" class="alert-message alert alert-danger"></span>
-					</td>
-				</tr>					
-				<tr valign="top">
-					<td><label for="user-date"><?php echo strTranslate("Born_date");?>:</label></td>
-					<td>
-						<div id="datetimepicker1" class="input-group date">
-							<input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" name="user-date"></input>
-							<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-						</div>
-						<span id="user-date-alert" class="alert-message alert alert-danger"></span>
-					</td>
-				</tr>
-				<tr valign="top">
-					<td><label for="user-email"><?php echo strTranslate("Email");?>:</label></td>
-					<td>
-					  <input maxlength="100" name="user-email" id="user-email" type="text" class="form-control" value="<?php echo $user_email;?>" />
-					  <span id="user-email-alert" class="alert-message alert alert-danger"></span>
-					</td>
-				</tr>
-				<tr valign="top">
-					<td><label for="user-pass"><?php echo strTranslate("Password");?>:</label></td>
-					<td>
-					  <input maxlength="100" name="user-pass" id="user-pass" type="password" class="form-control" value="<?php echo $user_pass;?>" />
-					  <span id="user-pass-alert" class="alert-message alert alert-danger"></span>
-					</td>
-				</tr>
-				<tr valign="top">
-					<td nowrap="nowrap"><label for="user-repass"><?php echo strTranslate("Password_re");?>:</label></td>
-					<td>
-					  <input maxlength="100" name="user-repass" id="user-repass" type="password" class="form-control" value="<?php echo $user_repass;?>" />
-					  <span id="user-repass-alert" class="alert-message alert alert-danger"></span>
-					</td>
-				</tr>
-				<tr valign="top">
-					<td><label for="nombre-fichero"><?php echo strTranslate("Picture");?>:</label></td>
-					<td>
-					  <input name="nombre-fichero" id="nombre-fichero" type="file"  class="btn btn-default" title="<?php echo strTranslate("Choose_file");?>" />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input id="user-declaracion" name="user-declaracion" type="checkbox" value="1" /> <?php echo strTranslate("Acept");?> 
-						<a href="#" id="declaracion-trigger"><?php echo strTranslate("Terms_and_conditions");?></a>.
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="username-text"><?php echo strTranslate("Username");?>:</label>
+				<div class="col-sm-8">
+					<input name="username-text" id="username-text" type="text" class="form-control" disabled="disabled" value="<?php echo $_SESSION['user_name'];?>" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="user-nick"><?php echo strTranslate("Nick");?>:</label>
+				<div class="col-sm-8">
+					<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" value="<?php echo $user_nick;?>" />
+					<span id="user-nick-alert" class="alert-message alert alert-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="user-nombre"><?php echo strTranslate("Name");?>:</label></td>
+				<div class="col-sm-8">
+					<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" value="<?php echo $user_nombre;?>" />
+					<span id="user-nombre-alert" class="alert-message alert alert-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="user-apellidos"><?php echo strTranslate("Surname");?>:</label></td>
+				<div class="col-sm-8">
+					<input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $user_apellidos;?>" />
+					<span id="user-apellidos-alert" class="alert-message alert alert-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group" style="display:none">
+				<label class="col-sm-4 control-label" for="user-date"><?php echo strTranslate("Born_date");?>:</label></td>
+				<div class="col-sm-8">
+					<div id="datetimepicker1" class="input-group date">
+						<input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" name="user-date"></input>
+						<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+				</div>
+				<span id="user-date-alert" class="alert-message alert alert-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="user-email"><?php echo strTranslate("Email");?>:</label></td>
+				<div class="col-sm-8">
+					<input maxlength="100" name="user-email" id="user-email" type="text" class="form-control" value="<?php echo $user_email;?>" />
+					<span id="user-email-alert" class="alert-message alert alert-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="user-pass"><?php echo strTranslate("Password");?>:</label></td>
+				<div class="col-sm-8">
+					<input maxlength="100" name="user-pass" id="user-pass" type="password" class="form-control" value="<?php echo $user_pass;?>" />
+					<span id="user-pass-alert" class="alert-message alert alert-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="user-repass"><?php echo strTranslate("Password_re");?>:</label></td>
+				<div class="col-sm-8">
+					<input maxlength="100" name="user-repass" id="user-repass" type="password" class="form-control" value="<?php echo $user_repass;?>" />
+					<span id="user-repass-alert" class="alert-message alert alert-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group" style="display:none">
+				<label class="col-sm-4 control-label" for="nombre-fichero"><?php echo strTranslate("Picture");?>:</label></td>
+				<div class="col-sm-8">
+					<input name="nombre-fichero" id="nombre-fichero" type="file"  class="btn btn-default" title="<?php echo strTranslate("Choose_file");?>" />
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<div class="checkbox">
+						<label>
+							<input id="user-declaracion" name="user-declaracion" type="checkbox" value="1" /> <?php echo strTranslate("Acept");?> 
+							<a href="#" id="declaracion-trigger"><?php echo strTranslate("Terms_and_conditions");?></a>.
+						</label>
 						<span id="user-declaracion-alert" class="alert-message alert alert-danger"></span>
-					</td>
-				</tr>					 					 
-				<tr>
-					<td colspan="2" align="center">
-					<br />
-					<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary btn-block"><?php echo strTranslate("Send_data");?></button>
-					</td>
-				</tr>
-			</table>
+					</div>
+				</div>
+			</div>					 					 
+			
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary"><?php echo strTranslate("Send_data");?></button>
+				</div>
+			</div>
 		</form>
 		<br />
+		</div>
 		</div>
 	</div>
 

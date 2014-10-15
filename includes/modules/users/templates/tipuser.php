@@ -12,7 +12,7 @@ function userTip($id,$user_data,$estrellas_print,$movil=0){
 					</td>
 					<td>
 					<span>
-					<span class="ficha-user-tip-info">Alias: <span>'.$user_data['nick'].'</span></span><br />
+					<span class="ficha-user-tip-info">'.strTranslate("Nick").': <span>'.$user_data['nick'].'</span></span><br />
 					<span class="ficha-user-tip-info">Nombre: <span>'.$user_data['name'].' '.$user_data['surname'].'</span></span><br />';
 			if ($user_data['user_date']!=''){
 				$dia=strftime(DATE_DAY,strtotime($user_data['user_date']));
@@ -35,7 +35,7 @@ function userTip($id,$user_data,$estrellas_print,$movil=0){
 				echo '<span class="ficha-user-tip-info">F.nacimiento: <span>'.$fecha_nacimiento.'</span></span><br />';}
 			//echo '	<span class="ficha-user-tip-info">Centro de trabajo: <span>'.$user_data['nombre_tienda'].'</span></span><br />';
 			//echo '	<span class="ficha-user-tip-info">Provincia: <span>'.$user_data['provincia'].'</span></span><br />';
-			echo '	<span class="ficha-user-tip-info">Puntos: <span>'.$user_data['puntos'].'</span></span><br />';
+			echo '	<span class="ficha-user-tip-info">'.ucfirst(strTranslate("APP_points")).': <span>'.$user_data['puntos'].'</span></span><br />';
 			// echo '	<span class="ficha-user-tip-info">&iquest;En que piensas?:</span>
 			// 		<span class="text-muted"><em>'.$user_data['user_comentarios'].'</em></span>';
 			echo '	</span>

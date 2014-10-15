@@ -17,10 +17,10 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
   	<div class="col-md-12"> 
   		<h1>Comunicaciones enviadas</h1>
 		<ul class="nav nav-pills navbar-default">
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> registros</a></li>
 			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
 			<li><a href="?page=user-lists">Mis listas de envío</a></li>
 		</ul>
-    	<p class="legend-table"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strTranslate("Items");?></p>
 		<div class="table-responsive">
 			<table class="table">
 				<tr>

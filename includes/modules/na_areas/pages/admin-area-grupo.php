@@ -21,9 +21,12 @@ $usuarios_area = $na_areas->getAreasUsers(" AND id_area=".$id_area." AND usernam
 //uauarios del grupo
 $usuarios_grupo = $na_areas->getGruposUsersUsuarios(" AND id_grupo=".$id_grupo." ");
 ?>
-<div id="page-info">Asignación de usuarios al grupo</div>
-<div class="row inset row-top">
+<div class="row row-top">
 	<div class="col-md-9">
+		<h1>Asignación de usuarios al grupo</h1>
+		<ul class="nav nav-pills navbar-default">     
+			<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver al área</a></li>
+		</ul>
 		<div class="row">
 			<div class="col-md-6">
 				<form id="formData" name="formData" method="post" action="">
@@ -57,12 +60,5 @@ $usuarios_grupo = $na_areas->getGruposUsersUsuarios(" AND id_grupo=".$id_grupo."
 		</div>
 	</div>
 
-	<div class="col-md-3">
-		<div class="panel panel-default">
-			<div class="panel-heading">Gestión de areas</div>
-			<div class="panel-body">
-			<p><a class="orange-color" href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver al área</a></p>
-			</div>
-		</div>
-	</div>
+	<?php menu::adminMenu();?>
 </div>

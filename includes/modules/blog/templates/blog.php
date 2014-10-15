@@ -30,15 +30,17 @@ function entradasBlog($elements){
 	endforeach;	
 }
 
-function searchBlog(){
-	echo '<form class="form-inline" role="form" action="?page=blog-list" method="post" id="form-blog">
-				<div class="form-group">
-					<label class="sr-only" for="find_reg">buscar</label>
-					<input class="form-control" id="find_reg" name="find_reg" placeholder="buscar en el blog">
-				</div>
-				<button type="submit" class="btn btn-default">Buscar</button>
-			</form>';
-}
+function searchBlog(){ ?>
+	<form role="form" action="?page=blog-list" method="post" id="form-blog">
+		<div class="input-group">
+			<label class="sr-only" for="find_reg">buscar</label>
+			<input class="form-control" id="find_reg" name="find_reg" placeholder="buscar en <?php echo strtolower(strTranslate("Blog"));?>">
+			<div class="input-group-btn">
+				<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+			</div>
+		</div>
+	</form>
+<?php }
 
 function categoriasBlog($elements){
 	echo '<ul class="lista-lateral">';

@@ -15,7 +15,9 @@ $media2=0;
 $media3=0;
 $pagina_excluidas = "'admin','informe-accesos','informe-participaciones', 'informe-puntuaciones','users','user','users-tiendas','cargas-users','admin-area','admin-message','Inicio sesion','admin-validacion-foro',
 					 'admin-messages','admin-message-proccess','admin-message-proccess-step1',
-					 'admin-areas','admin-area-revs','admin-area-form','admin-area-docs','admin-config','admin-page', 'admin-puntos','admin-mystery'";
+					 'admin-areas','admin-area-revs','admin-area-form','admin-area-docs','admin-config','admin-page', 'admin-puntos','admin-mystery','admin-validacion-fotos',
+					 'admin-campaigns-types','admin-campaigns','admin-infotopdf-doc','admin-intotopdf','admin-validacion-foto-temas','admin-cuestionarios','admin-cuestionario','admin-cuestionario-revs',
+					 'admin-videos','admin-premios','cargas-puntos-process','admin-pages','admin-novedades','admin-blog-new','admin-destacados','admin-validacion-foro-temas'";
 
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					 "js/bootstrap-datepicker.es.js", 
@@ -446,44 +448,49 @@ $informe5 = $output;
 				<form name="inf-accesos" id="inf-accesos" method="post" action="?page=<?php echo $_REQUEST['page'];?>" role="form" class="">
 					<input type="hidden" name="export_fechas" id="export_fechas" value="1" />
 
-					<label for="fecha_ini">Fecha inicio:</label>
-					<div id="datetimepicker1" class="input-group date">
-						<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_ini" class="form-control" name="fecha_ini" placeholder="Fecha inicio" value="<?php echo $fecha_ini;?>"></input>
-					<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+					<div class="row">
+						<div class="col-xs-6">
+							<label for="fecha_ini">Fecha inicio:</label>
+							<div id="datetimepicker1" class="input-group date">
+								<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_ini" class="form-control" name="fecha_ini" placeholder="Fecha inicio" value="<?php echo $fecha_ini;?>"></input>
+							<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+							</div>
+
+							<script>
+							jQuery(document).ready(function(){
+								$("#datetimepicker1").datetimepicker({
+								  language: "es-ES"
+								});
+							});
+							</script>
+						</div>
+						<div class="col-xs-6">
+							<label for="fecha_fin">Fecha fin:</label>
+							<div id="datetimepicker2" class="input-group date">
+								<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_fin" class="form-control" name="fecha_fin" placeholder="Fecha fin" value="<?php echo $fecha_fin;?>"></input>
+							<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+							</div>
+
+							<script>
+							jQuery(document).ready(function(){
+								$("#datetimepicker2").datetimepicker({
+								  language: "es-ES"
+								});
+							});
+							</script>
+						</div>
 					</div>
+			<span id="fecha-alert" class="alert-message alert alert-danger"></span>
 
-					<script>
-					jQuery(document).ready(function(){
-						$("#datetimepicker1").datetimepicker({
-						  language: "es-ES"
-						});
-					});
-					</script>
-
-					<label for="fecha_fin">Fecha fin:</label>
-					<div id="datetimepicker2" class="input-group date">
-						<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_fin" class="form-control" name="fecha_fin" placeholder="Fecha fin" value="<?php echo $fecha_fin;?>"></input>
-					<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-					</div>
-
-					<script>
-					jQuery(document).ready(function(){
-						$("#datetimepicker2").datetimepicker({
-						  language: "es-ES"
-						});
-					});
-					</script>
-					<span id="fecha-alert" class="alert-message alert alert-danger"></span>
-
-					<br />
-					<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
-					<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
-					<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', '?page=informe-accesos&act=del')" title="Vaciar registros" />Vaciar registros de accesos</a>
-					<br /><br />
-					<p>En los informes gráficos no se muestran los accesos al panel de administración.</p>
-					<hr />
-				</form>
-			</div>
+			<br />
+			<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
+			<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
+			<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', '?page=informe-accesos&act=del')" title="Vaciar registros" />Vaciar registros de accesos</a>
+			<br /><br />
+			<p>En los informes gráficos no se muestran los accesos al panel de administración.</p>
+			<hr />
+		</form>
+		</div>
   <?php
 
   echo '<div>';

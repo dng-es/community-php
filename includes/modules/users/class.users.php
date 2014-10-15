@@ -96,16 +96,14 @@ class users{
 		if ($motivo!=PUNTOS_ACCESO_SEMANA_MOTIVO and $motivo!=PUNTOS_FORO_SEMANA_MOTIVO and $motivo!='Puntos juego'){
 			self::sumarParticipacion($username,$motivo,$puntos);
 		}	
-		if ($username!='adminresponsables'){		
-			if (self::insertPuntuacion($username,$puntos,$motivo)){			
-				$Sql="UPDATE users SET
-					 puntos=puntos+".$puntos."
-					 WHERE username='".$username."'";
-				return connection::execute_query($Sql);
-			}
-			else { return false;}	
-			}
-		else { return true;}
+	
+		if (self::insertPuntuacion($username,$puntos,$motivo)){			
+			$Sql="UPDATE users SET
+				 puntos=puntos+".$puntos."
+				 WHERE username='".$username."'";
+			return connection::execute_query($Sql);
+		}
+		else { return false;}
 	}   
 	  
 	public static function sumarParticipacion($username,$motivo,$puntos=0){

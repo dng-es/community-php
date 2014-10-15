@@ -8,8 +8,8 @@ function showNovedades(){
 	if (count($elements['items'])>0){
 		?>
 		<section>
-			<h3><?php echo strTranslate("News");?></h3>
 			<?php foreach($elements['items'] as $element): ?>
+			<h3><?php echo strTranslate("News").($_SESSION['user_canal']=='admin' ? " ".$element['canal'] : "");?></h3>
 			<article>
 				<?php echo $element['cuerpo'];?>
 			</article>

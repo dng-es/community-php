@@ -14,6 +14,9 @@ class menu{
 			//SELECCION ULTIMO VIDEO
 			$filter_videos = ($_SESSION['user_canal']!='admin' ? " AND canal='".$_SESSION['user_canal']."' " : "");			
 			$id_video = connection::SelectMaxReg("id_file", "galeria_videos", $filter_videos." AND estado=1 ");
+
+			//SELECCION ULTIMO ID BLOG
+			$id_blog = connection::SelectMaxReg("id_tema", "foro_temas", " AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
 			?>
 
 			<nav class="navbar navbar-default" id="menu-main" role="navigation">
@@ -43,6 +46,7 @@ class menu{
 							<li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
 						</ul>
 					</li>
+					<li><a href="?page=blog&id=<?php echo $id_blog?>"><?php echo strTranslate("Blog")?></a></li>
 					<li><a href="?page=areas"><?php echo strTranslate("Na_areas")?></a></li>
 					<li><a href="?page=foro-subtemas&id=<?php echo $id_foro;?>"><?php echo strTranslate("Forums")?></a></li>
 					<li><a href="?page=user-info-all">Documentación</a></li>
@@ -53,6 +57,7 @@ class menu{
 					echo '<li class="hidden-md hidden-lg"><a href="?page=admin">'.strTranslate("Administration").'</a></li>';
 					}
 					?>
+					<li class="hidden-md hidden-lg"><a href="?page=mensajes"><?php echo strTranslate("Mailing_messages")?></a></li>
 					<li class="hidden-md hidden-lg"><a href="?page=logout"><?php echo strTranslate("Logout")?></a></li>
 				</ul>
 				</div><!-- /.navbar-collapse -->
@@ -76,7 +81,7 @@ class menu{
 
 			?>
 			<div class="row header-info">
-				<a href="?page=home"><img src="images/logo.png" id="header-info-logo" class="img-responsive" /></a>
+				<a href="?page=home"><img src="images/logo.png" id="header-info-logo" /></a>
 				<div id="user-info">
 					<div class="pull-right" style="width:75%">
 					<?php 

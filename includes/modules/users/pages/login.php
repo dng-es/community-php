@@ -33,7 +33,7 @@ addJavascripts(array(getAsset("users")."js/login.js"));
                 <p><?php echo strTranslate("Forgot_your_password");?> <a href="?page=remember" ><?php echo strTranslate("Click_here");?></a></p>
             </form>
 		</div>
-		<div class="col-md-12" style="border-top:1px solid #1d7493;padding-top:20px;margin-top:20px">
+		<div class="col-md-12 container-separator">
 			<p><?php echo strTranslate("If_not_registered");?>: <a href="?page=registration"><?php echo strTranslate("Register");?></a></p>
 		</div>
 	</div>

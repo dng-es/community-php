@@ -17,12 +17,12 @@ class na_areas{
 		return connection::getSQL($Sql);
 	}
  
-	  public function insertArea($nombre,$descripcion,$canal,$puntos=0,$limite_users=0, $estado = 0){
+	  public function insertArea($nombre,$descripcion,$canal,$puntos=0,$limite_users=0, $estado = 0, $registro=0){
 		$nombre = str_replace("'", "´", $nombre);
 		$descripcion = str_replace("'", "´", $descripcion);
-		$Sql="INSERT INTO na_areas (area_nombre,area_descripcion,area_canal,puntos,limite_users,estado) 
+		$Sql="INSERT INTO na_areas (area_nombre,area_descripcion,area_canal,puntos,limite_users,estado, registro) 
 			 VALUES
-			 ('".$nombre."','".$descripcion."','".$canal."',".$puntos.",".$limite_users.",".$estado.")";
+			 ('".$nombre."','".$descripcion."','".$canal."',".$puntos.",".$limite_users.",".$estado.",".$registro.")";
 		if (connection::execute_query($Sql)){
 			//si se crea el area creamos su foro general
 
@@ -34,13 +34,14 @@ class na_areas{
 		else { return false;}		   
 	  }  
 
-	  public function updateArea($id,$nombre,$descripcion,$canal,$puntos=0,$limite_users=0){
+	  public function updateArea($id,$nombre,$descripcion,$canal,$puntos=0,$limite_users=0,$registro=0){
 		$Sql="UPDATE na_areas SET 
 			 area_nombre='".$nombre."',
 			 area_descripcion='".$descripcion."', 
 			 area_canal='".$canal."', 
 			 puntos=".$puntos.", 
-			 limite_users=".$limite_users."  
+			 limite_users=".$limite_users.", 
+			 registro=".$registro."  
 			 WHERE id_area=".$id;
 		return connection::execute_query($Sql);
 	  }  

@@ -125,18 +125,6 @@ addJavascripts(array("js/jquery.numeric.js",
 					
 					<div class="row">
 						<div class="form-group col-md-4">
-						<label for="area_puntos"><?php echo ucfirst(strTranslate("APP_points"));?>:</label>
-						<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" />
-						<span id="puntos-alert" class="alert-message alert alert-danger"></span>
-						</div>  
-
-						<div class="form-group col-md-4">
-						<label for="area_limite">Límite de usuarios:</label>
-						<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" />
-						<span id="puntos-alert" class="alert-message alert alert-danger"></span>
-						</div>                    
-
-						<div class="form-group col-md-4">
 						<label for="area_canal">Canal:</label>
 						<select id="area_canal" name="area_canal" class="form-control">
 							<option value="">--selecciona el canal--</option>
@@ -144,6 +132,25 @@ addJavascripts(array("js/jquery.numeric.js",
 						</select>
 						<span id="canal-alert" class="alert-message alert alert-danger"></span>
 						</div>
+
+						<div class="form-group col-md-2">
+						<label for="area_puntos"><?php echo ucfirst(strTranslate("APP_points"));?>:</label>
+						<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" />
+						<span id="puntos-alert" class="alert-message alert alert-danger"></span>
+						</div>  
+
+						<div class="form-group col-md-2">
+						<label for="area_limite">Límite de usuarios:</label>
+						<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" />
+						<span id="puntos-alert" class="alert-message alert alert-danger"></span>
+						</div>  
+
+						<div class="form-group col-md-4">
+							<br />
+							<label checkbox-inline>
+								<input type="checkbox" id="area_registro"  name="area_registro" <?php echo $elements[0]['registro']==1 ? "checked" : "";?>> Permitir registro
+							</label>
+						</div>                    
 					</div>
 					
 					<div class="clearfix"></div>
@@ -160,10 +167,10 @@ addJavascripts(array("js/jquery.numeric.js",
 		if ($accion=='edit'){
 			$id_area = $elements[0]['id_area'];
 			$area_canal = $elements[0]['area_canal'];
-			//showGruposArea($id_area);
 			showTareasArea($id_area);
+			showForosArea($id_area);
+			showGruposArea($id_area);
 			showUsuariosArea($id_area,$area_canal);
-			//showForosArea($id_area);
 		}?>
 	</div>
 	<?php menu::adminMenu();?>
@@ -175,21 +182,20 @@ addJavascripts(array("js/jquery.numeric.js",
 function showUsuariosArea($id_area,$area_canal){
 	$na_areas = new na_areas;
 
-	// echo '<div class="panel panel-default">
-	//         <div class="panel-heading">Importar usuarios al curso</div>
-	//         <div class="panel-body">
-	//           <p>Los usuarios actuales serán reemplazados por los incluídos en el fichero. El fichero deberá contener una única columna con el nombre de usuario. 
-	//           La primera fila será considerada como encabezado y no será importada.</p>
-	//           <form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="?page=cargas-user-areas-process&id='.$id_area.'">
-	//             <input type="hidden" name="id_area" id="id_area" value="'.$id_area.'" />
-	//             <input type="hidden" name="area_canal" id="area_canal" value="'.$area_canal.'" />
-	//             <label for="nombre-fichero">fichero excel (.xls):</label> 
-	//             <input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
-	//             <button type="button" id="inputFile" name="inputFile" class="btn btn-primary">importar fichero</button>
-	//             <div id="fichero-alert" class="alert-message alert alert-danger alert alert-danger"></div>
-	//           </form>
-	//         </div>
-	//       </div>';
+	echo '<div class="panel panel-default">
+	        <div class="panel-heading">Importar usuarios al curso</div>
+	        <div class="panel-body">
+	          <p>Los usuarios actuales serán reemplazados por los incluídos en el fichero. El fichero <strong>Excel XLS</strong> deberá contener una única columna con el nombre de usuario. 
+	          La primera fila será considerada como encabezado y no será importada.</p>
+	          <form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="?page=cargas-user-areas-process&id='.$id_area.'">
+	            <input type="hidden" name="id_area" id="id_area" value="'.$id_area.'" />
+	            <input type="hidden" name="area_canal" id="area_canal" value="'.$area_canal.'" />
+	            <input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
+	            <button type="button" id="inputFile" name="inputFile" class="btn btn-primary">importar fichero</button>
+	            <div id="fichero-alert" class="alert-message alert alert-danger alert alert-danger"></div>
+	          </form>
+	        </div>
+	      </div>';
 
 	$elements=$na_areas->getAreasUsers(" AND id_area=".$id_area); 
 	echo '<div class="panel panel-default">
@@ -237,7 +243,7 @@ function showGruposArea($id_area){
 					<span id="grupo-alert" class="alert-message alert alert-danger"></span>
 				</div>
 				<button type="button" id="SubmitGrupo" name="SubmitGrupo" class="btn btn-primary">guardar grupo</button>
-				</form>';	
+				</form><br />';	
 	if (count($elements)>0){
 		echo '<table class="table table-striped">';
 		echo '	<tr>';
@@ -409,14 +415,14 @@ function showTareasArea($id_area){
 
 	$elements=$na_areas->getTareas(" AND id_area=".$id_area." AND activa<>2 "); 
 	echo '<div class="panel panel-default">
-					<div class="panel-heading">Evaluación del curso</div>
+					<div class="panel-heading">Tareas del curso</div>
 					<div class="panel-body">';
-	if (count($elements)==0){
+	//if (count($elements)==0){
 		echo '<p>Puedes crear nuevas tareas para el curso. Puedes crear una tarea de formulario.</p>
 			  <form action="?page=admin-area&act=edit&id='.$id_area.'" method="post" name="formNewTarea" id="formNewTarea" enctype="multipart/form-data" role=form" class="form-horizontal">
 				<input type="hidden" name="id_area_tarea" id="id_area_tarea" value="'.$id_area.'" />
 
-				<div class="form-group">
+				<div class="form-group row">
 					<label for="tarea_titulo" class="col-sm-2 control-label">Nombre:</label>
 					<div class="col-sm-10">
 						<input type="text" name="tarea_titulo" id="tarea_titulo" class="form-control" />
@@ -424,7 +430,7 @@ function showTareasArea($id_area){
 					</div>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group row">
 					<label for="tarea_descripcion" class="col-sm-2 control-label">Descripción:</label>
 					<div class="col-sm-10">
 						<textarea name="tarea_descripcion" id="tarea_descripcion" class="form-control" /></textarea>
@@ -432,7 +438,7 @@ function showTareasArea($id_area){
 					</div>
 				</div>
 
-				<div class="form-group" style="display:none">
+				<div class="form-group row">
 					<label for="fichero-tarea" class="col-sm-2 control-label">Fichero tarea:</label></td>
 					<div class="col-sm-10">
 						<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default" title="Seleccionar fichero" />
@@ -440,15 +446,16 @@ function showTareasArea($id_area){
 					</div>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group row">
 					<label for="tipo" class="col-sm-2 control-label">Tipo:</label>
 					<div class="col-sm-10">
 						<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> formulario
+						<input type="radio" id="tipo" name="tipo" value="fichero" /> fichero
 					</div>
 				</div>
 
 
-				<div class="form-group" style="display:none">
+				<div class="form-group row">
 					<div class="col-sm-offset-2 col-sm-10">
 						<div class="checkbox">
 							<label>
@@ -459,14 +466,14 @@ function showTareasArea($id_area){
 				</div>
 				
 
-				<div class="form-group">
+				<div class="form-group row">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="button" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary">Guardar tarea</button>
 					</div>
 				</div>
 
 			</form>';
-	}
+	//}
 	
 	if (count($elements)>0){
 		echo '<p>A continuación se muestran todas las tareas creadas en el curso. Puedes ver sus documentos asociados y revisiones.</p>';
@@ -568,29 +575,33 @@ function showTareasArea($id_area){
 	echo '</div></div>';
 }
 	
-function InsertData()
-{
+function InsertData(){
 	$na_areas = new na_areas();
+	$registro = (isset($_POST['area_registro']) and $_POST['area_registro']=="on") ? 1 : 0;
+
 	if ($na_areas->insertArea($_POST['area_nombre'],
 				$_POST['area_descripcion'],
 				$_POST['area_canal'],
 				$_POST['area_puntos'],
-				$_POST['area_limite'])) {
+				$_POST['area_limite'],
+				0,
+				$registro)) {
 		OkMsg(strTranslate("Insert_procesing"));
 		$id_area = connection::SelectMaxReg("id_area","na_areas","");
 		return $id_area;
 	}
 }
 
-function UpdateData()
-{
+function UpdateData(){
 	$na_areas = new na_areas();
+	$registro = (isset($_POST['area_registro']) and $_POST['area_registro']=="on") ? 1 : 0;
 	if ($na_areas->updateArea($_POST['id_area'],
 						$_POST['area_nombre'],
 						$_POST['area_descripcion'],
 						$_POST['area_canal'],
 						$_POST['area_puntos'],
-						$_POST['area_limite'])) {
+						$_POST['area_limite'],
+						$registro)) {
 				//modificar foro
 				$foro = new foro();
 				$foro->updateTemaArea($_POST['id_area'],

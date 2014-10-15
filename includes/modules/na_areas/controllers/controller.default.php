@@ -45,6 +45,7 @@ class na_areasController{
 
 	public static function uploadTareaAction(){
 		if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){
+			$na_areas = new na_areas();
 			if($na_areas->insertTareaUser($_POST['id_area'],$_POST['id_tarea'],$_SESSION['user_name'],$_FILES['nombre-fichero'])){
 				session::setFlashMessage( 'actions_message', "Fichero envíado correctamente.", "alert alert-success");
 			} 
@@ -163,6 +164,27 @@ class na_areasController{
 			$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
 		}
 		return $acceso;
+	}
+	public static function insertDocAction(){
+		if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){ 
+			$na_areas = new na_areas();
+			$mensaje = $na_areas->insertTareaDoc($_POST['id_tarea'],$_POST['tipo'],$_POST['nombre-documento'],$_FILES['nombre-fichero'],$_POST['documento-link']);
+			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-warning"); 
+			redirectURL($_SERVER['REQUEST_URI']);
+		}
+	}
+
+	public static function deleteDocAction(){
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { 
+			$na_areas = new na_areas();
+			if($na_areas->deleteTareaDoc($_REQUEST['idd'])){
+				session::setFlashMessage( 'actions_message', "Documento eliminado correctamente.", "alert alert-success"); 
+			}
+			else {
+				session::setFlashMessage( 'actions_message', "Error al eliminar el documento.", "alert alert-danger"); 
+			}
+			redirectURL("?page=admin-area-docs&a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
+		}
 	}
 
 	public static function adminMenu(){

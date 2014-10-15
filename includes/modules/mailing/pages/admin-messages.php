@@ -16,7 +16,7 @@ $elements = mailingController::getListAction(20);
   	<div class="col-md-9"> 
   		<h1>Comunicaciones enviadas</h1>
   		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>  
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> registros</a></li>  
 			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 		<table class="table">

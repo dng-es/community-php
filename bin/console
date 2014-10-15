@@ -103,7 +103,7 @@ function fileClassContent( $moduleName ){
 * @version 1.0
 *
 */
-class ".$moduleName." extends connection{
+class ".$moduleName."{
 
 	/**
 	 * Devuelve array con los registros

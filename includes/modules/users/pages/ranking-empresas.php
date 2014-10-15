@@ -41,12 +41,12 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">	
 			<h3>¿Cómo ganar <?php echo strTranslate("APP_points");?>?</h3>
-			<br />
-			<p><b><?php echo PUNTOS_ACCESO_SEMANA." ".strTranslate("APP_points");?> por...</b> entrar 1 vez a la semana en la comunidad<br /><br />
-			<b><?php echo PUNTOS_FORO_SEMANA." ".strTranslate("APP_points");?> por...</b> participar 1 vez por semana en los foros<br /><br />
-			<b><?php echo PUNTOS_VIDEO." ".strTranslate("APP_points");?> por...</b> subir un vídeo<br /><br />
-			<b><?php echo PUNTOS_FOTO." ".strTranslate("APP_points");?> por...</b> por subir una foto<br />
-			</p>
+			<ul class="list-unstyled">
+			<li><span class="text-primary"><?php echo PUNTOS_ACCESO_SEMANA." ".strTranslate("APP_points");?></span> por entrar 1 vez a la semana en la comunidad</li>
+			<li><span class="text-primary"><?php echo PUNTOS_FORO_SEMANA." ".strTranslate("APP_points");?></span> por participar 1 vez por semana en los foros</li>
+			<li><span class="text-primary"><?php echo PUNTOS_VIDEO." ".strTranslate("APP_points");?></span> por subir un vídeo</li>
+			<li><span class="text-primary"><?php echo PUNTOS_FOTO." ".strTranslate("APP_points");?></span> por por subir una foto</li>
+			</ul>
 			<a href="?page=ranking" class="btn btn-primary btn-block">Ir a ranking de usuarios</a>
 		</div>
 	</div>        

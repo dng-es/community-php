@@ -14,11 +14,17 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 
 $last_photo = fotosController::getListAction(1, " ORDER BY id_file DESC ");
 $last_video = videosController::getListAction(1, "");
-$last_foros = foroController::getLastTemasAction(4);
+$last_foros = foroController::getLastTemasAction(3, " AND t.id_area=0 AND ocio=0 ");
+$last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND id_tema_parent=0 ORDER BY id_tema DESC ");
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<p class="text-muted"><?php echo $_SESSION['name'];?>, bienvenid@ a la comunidad. <a href="?page=users-conn">[<?php echo strTranslate("Users_connected").": ".$users_conn;?>]</a></p>
+		<p class="text-muted">
+			<span class="fa-stack fa-lg">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-plug fa-stack-1x fa-inverse"></i>
+			</span>
+			<?php echo $_SESSION['name'];?>, bienvenid@ a la comunidad. <a href="?page=users-conn">[<?php echo strTranslate("Users_connected").": ".$users_conn;?>]</a></p>
 		<hr />
 		<div class="row">
 			<div class="col-md-12">
@@ -26,7 +32,33 @@ $last_foros = foroController::getLastTemasAction(4);
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-6">
+				<section>
+					<h3><?php echo strTranslate("Last_blog");?></h3>
+					<div class="video-preview-container">
+						<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>"><img class="video-preview" src="images/foro/<?php echo $last_blog['items'][0]['imagen_tema'];?>" /></a>
+						<div>
+							<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>"><?php echo $last_blog['items'][0]['nombre'];?></a><br />
+							<span><?php echo dateLong($last_blog['items'][0]['date_tema']);?></span>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-6">
+				<section>
+					<h3><?php echo strTranslate("Last_formus");?></h3>
+					<p>Descubre los últimos foros en los que los usuarios han participado.</p>
+					<ul class="list-funny">
+					<?php foreach($last_foros as $last_foro): ?>
+						<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
+						<li class="ellipsis"><a href="?page=foro-comentarios&id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
+					<?php endforeach; ?>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
 				<section>
 					<h3><?php echo strTranslate("Last_photos");?></h3>
 					<div class="video-preview-container">
@@ -39,7 +71,7 @@ $last_foros = foroController::getLastTemasAction(4);
 					</div>
 				</section>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<section>
 					<h3><?php echo strTranslate("Last_videos");?></h3>
 					<div class="video-preview-container">
@@ -50,17 +82,6 @@ $last_foros = foroController::getLastTemasAction(4);
 							<?php echo $last_video['items'][0]['nick'];?>
 						</div>
 					</div>
-				</section>
-			</div>
-			<div class="col-md-4">
-				<section>
-					<h3><?php echo strTranslate("Last_formus");?></h3>
-					<ul class="list-funny">
-					<?php foreach($last_foros as $last_foro): ?>
-						<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
-						<li><a href="?page=foro-comentarios&id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
-					<?php endforeach; ?>
-					</ul>
 				</section>
 			</div>
 		</div>

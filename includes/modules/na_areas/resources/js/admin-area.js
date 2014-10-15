@@ -4,7 +4,8 @@ jQuery(document).ready(function(){
 		event.preventDefault()
 		$(this).next("div .modal").modal();
 	});
-			 
+	
+	$('input[type=file]').bootstrapFileInput();	 
 	$("#area_puntos").numeric();
 	$("#area_limite").numeric();
 

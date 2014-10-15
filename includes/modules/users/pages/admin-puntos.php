@@ -1,5 +1,5 @@
 <?php
-addJavascripts(array(getAsset("users")."js/admin-puntos.js"));
+addJavascripts(array("js/bootstrap.file-input.js", getAsset("users")."js/admin-puntos.js"));
 
 //CONTROL NIVEL DE ACCESO
 $session = new session();
@@ -13,29 +13,33 @@ $session->AccessLevel($perfiles_autorizados);?>
 		Para sumar o restar puntos intruduce el usuario (no nick), el número de puntos y el motivo de la asignación.</p><br />
 
 		<form id="formData" name="formData" method="post" action="" role="form">
-		<table cellspacing="0" cellpadding="2px">
-				<tr><td valign="top"><label for="id_usuario">Usuario:</label></td>
-				<td>
-					<input type="text" name="id_usuario" id="id_usuario" class="form-control" />
-					<span id="id-usuario-alert" class="alert-message alert alert-danger"></span>
-				</td></tr>
-				<tr>
-			<td valign="top"><label for="num_huellas">Puntos:</label></td>
-				<td>
-					<input size="6" type="text" name="num_huellas" id="num_huellas" class="form-control" />
-					<span id="num-huellas-alert" class="alert-message alert alert-danger"></span>
-				</td></tr>
-				<tr><td valign="top"><label for="motivo_huellas">Motivo:</label></td>
-				<td>
-					<input type="text" name="motivo_huellas" id="motivo_huellas" class="form-control" />
-					<span id="motivo-huellas-alert" class="alert-message alert alert-danger"></span>
-				</td></tr>    
-			<tr><td colspan="2">
-				<br />
-				<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary">Asignar puntos</button></td></tr>
-		</table>
+			<label for="id_usuario">Usuario:</label>
+			<input type="text" name="id_usuario" id="id_usuario" class="form-control" />
+			<span id="id-usuario-alert" class="alert-message alert alert-danger"></span>
+
+			<label for="num_puntos">Puntos:</label>
+			<input size="6" type="text" name="num_puntos" id="num_puntos" class="form-control" />
+			<span id="num-huellas-alert" class="alert-message alert alert-danger"></span>
+
+			<label for="motivo_puntos">Motivo:</label>
+			<input type="text" name="motivo_puntos" id="motivo_puntos" class="form-control" />
+			<span id="motivo-huellas-alert" class="alert-message alert alert-danger"></span>
+
+			<br />
+			<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary">Asignar puntos al usuario</button>
 		</form>
-		<div id="resultado-huellas"></div>
+		<br />
+		<div id="resultado-puntos"></div>
+		<h2>Carga de fichero</h2>
+		<p>Selecciona un fichero Excel con los usuarios a  sumar o restar <?php echo strTranslate("APP_points");?>. 
+		El fichero deberá tener la estructura especificada, puedes descargar el fichero modelo pinchando <a href="docs/model_puntos.xls"><b>aquí</b></a>.</p>
+		<form id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="?page=cargas-puntos-process" role="form">
+			<label for="nombre-fichero">Selecciona el fichero excel (.xls): </label><br />
+			<input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
+			<span id="fichero-alert" class="alert-message"></span>
+			<input type="button" id="inputFile" name="inputFile" value="Importar fichero" class="btn btn-primary" />
+		</form>
+		<br />
 	</div>
 	<?php menu::adminMenu();?>
 </div>

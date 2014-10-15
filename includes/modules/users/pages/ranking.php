@@ -24,9 +24,9 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 				$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg");?>
 				<img src="<?php echo $foto;?>" style="width:100%" />
 				<h4>Posición <small><?php echo ($i+1);?></small></h4>
-				<p><?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?><br />
-				<?php echo $puntos[$i]['nombre_tienda'];?><br />
-				<?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></p>
+				<p><small><?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?><br />
+				<span class="text-muted"><?php echo $puntos[$i]['nombre_tienda'];?></span><br />
+				<span class="text-primary"><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></span></small></p>
 				<?php endif; ?>
 			</div>
 			<?php } ?>

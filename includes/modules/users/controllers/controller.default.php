@@ -137,8 +137,9 @@ class usersController{
 	 * @return 	array           			Array con datos
 	 */	
 	public static function userStatistics($username){
+		$users = new users();
 		$array_final = array();
-		$usuario = users::getUsers(" AND username='".$username."' ");
+		$usuario = $users->getUsers(" AND username='".$username."' ");
 		$last_access = ($usuario[0]['last_access']!= null ? strftime(DATE_TIME_FORMAT,strtotime($usuario[0]['last_access'])) : "sin accesos");
 		$array_final = array_merge($array_final, array("Último acceso" => $last_access));
 		$modules = getListModules();		

@@ -31,7 +31,7 @@ $pagina= $pages->getPages(" AND page_name='".$page_name."' "); ?>
 					echo '<p>URL de la página: <a href="'.$ini_conf['SiteUrl'].'?page=pagename&id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'?page=pagename&id='.$page_name.'</a></p>';
 				}
 			?>
-			<label for="texto_destacado">Contenido de la página:</label></td></tr>
+			<label for="page_content">Contenido de la página:</label></td></tr>
 			<textarea cols="40" rows="5" id="page_content" name="page_content"><?php echo $pagina[0]['page_content'];?></textarea>
 			<script type="text/javascript">
 				var editor=CKEDITOR.replace('page_content',{customConfig : 'config-page.js'});

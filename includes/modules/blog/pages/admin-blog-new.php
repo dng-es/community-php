@@ -3,7 +3,7 @@
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 "js/bootstrap.file-input.js", 
-					 getAsset("foro")."js/admin-blog-new.js"));
+					 getAsset("blog")."js/admin-blog-new.js"));
 
 //CONTROL NIVEL DE ACCESO
 $session = new session();
@@ -13,18 +13,19 @@ $session->AccessLevel($perfiles_autorizados);
 $accion=$_GET['act'];
 $accion1=$_GET['act1'];
 $id = 0;
-
-if ($accion=='edit'){ $id=$_GET['id'];}
-if ($accion=='edit' and $_GET['accion2']=='ok' and $accion1!="del"){ UpdateData();}
-elseif ($accion=='new' and $_GET['accion2']=='ok'){ $id=InsertData();$accion="edit";}
-
-$foro = new foro();
-$elements = array();
-$elements=$foro->getTemas(" AND id_tema=".$id." ");  
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
-		<h1>Entradas en el blog</h1>
+		<h1>Entrada en <?php echo strTranslate("Blog");?></h1>
+		<?php
+		if ($accion=='edit'){ $id=$_GET['id'];}
+		if ($accion=='edit' and $_GET['accion2']=='ok' and $accion1!="del"){ UpdateData();}
+		elseif ($accion=='new' and $_GET['accion2']=='ok'){ $id=InsertData();$accion="edit";}
+
+		$foro = new foro();
+		$elements = array();
+		$elements=$foro->getTemas(" AND id_tema=".$id." ");  
+		?>
 		<form id="formData" name="formData" method="post" enctype="multipart/form-data" action="?page=admin-blog-new&act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok" role="form">
 		<div class="col-md-9">
 
@@ -53,25 +54,7 @@ $elements=$foro->getTemas(" AND id_tema=".$id." ");
 							echo '<a target="_blank" href="?page=blog&id='.$id.'" title="ver entrada">Ver entrada</a><br />';
 							echo '<a href="?page=admin-blog-foro&id='.$id.'" title="comentario">Comentarios de la entrada ('.$num_comentarios.')</a><br />';
 						}
-					?>
-					<a href="?page=admin-blog" title="Exportar">Ir a todas las entradas</a><br />
-					<a href="?page=admin-blog-new&act=new" title="nuevo usuario">Crear nueva entrada</a>  
-					
-				</div>
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-heading">Etiquetas de la entrada</div>
-				<div class="panel-body">
-					<p>Introduce las etiquetas de la entrada:</p>
-					<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="<?php echo $elements[0]['tipo_tema'];?>" />
-					Etiquetas existentes: 
-					<?php
-						$categorias = $foro->getCategorias(" AND ocio=1 ");
-						foreach($categorias as $categoria):
-							echo '<a href="#">'.$categoria.'</a> ';
-						endforeach;
-						?>
+					?>					
 				</div>
 			</div>
 
@@ -87,6 +70,21 @@ $elements=$foro->getTemas(" AND id_tema=".$id." ");
 					<input type="file" name="imagen-tema" id="imagen-tema" class="btn btn-primary btn-block" title="seleccionar imágen" />
 				</div>
 			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Etiquetas</div>
+				<div class="panel-body">
+					<p>Introduce las etiquetas de la entrada:</p>
+					<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="<?php echo $elements[0]['tipo_tema'];?>" />
+					Etiquetas existentes: 
+					<?php
+						$categorias = $foro->getCategorias(" AND ocio=1 ");
+						foreach($categorias as $categoria):
+							echo '<a href="#">'.$categoria.'</a> ';
+						endforeach;
+						?>
+				</div>
+			</div>
 		</div>
 		</form>
 	</div>
@@ -97,14 +95,14 @@ $elements=$foro->getTemas(" AND id_tema=".$id." ");
 <?php 
 function UpdateData(){
 	$foro = new foro();
-	if ($foro->updateTema($_REQUEST['id'],$_POST['nombre'],$_POST['descripcion'],$_POST['etiquetas'],$_FILES['imagen-tema'])) {
+	if ($foro->updateTema($_REQUEST['id'],$_POST['nombre'],stripslashes($_POST['descripcion']),$_POST['etiquetas'],$_FILES['imagen-tema'])) {
 			OkMsg("Entrada modificada correctamente.");}
 }
 
 function InsertData(){
 	$foro = new foro();
-	if ($foro->InsertTema(0,$_POST['nombre'],$_POST['descripcion'],$_FILES['imagen-tema'],$_SESSION['username'],CANAL1,0,1,'',0,1,$_POST['etiquetas'])) {
+	if ($foro->InsertTema(0,$_POST['nombre'],stripslashes($_POST['descripcion']),$_FILES['imagen-tema'],$_SESSION['user_name'],CANAL1,0,1,'',0,1,$_POST['etiquetas'])) {
 			OkMsg("Entrada insertada correctamente.");}
-	return foro::SelectMaxReg("id_tema","foro_temas"," AND ocio=1 ");
+	return connection::SelectMaxReg("id_tema","foro_temas"," AND ocio=1 ");
 }
 ?>

@@ -20,7 +20,7 @@ class novedadesController{
 	public static function updateAction(){
 		if (isset($_POST['texto'])){
 			$novedades = new novedades();		
-			$cuerpo=$_POST['texto'];
+			$cuerpo = stripslashes($_POST['texto']);
 			$activo = ($_POST['activo']=="on" ? 1 : 0);
 			$canal = $_POST['canal'];
 
