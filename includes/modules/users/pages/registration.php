@@ -9,8 +9,8 @@ addJavascripts(array("js/bootstrap.file-input.js",
 	<div class="col-md-6">
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
-	<div class="col-md-6 login-container">
-		<div class="col-md-12 noppading">
+	<div class="row login-container">
+		<div class="col-md-12">
 		<?php
 		session::getFlashMessage( 'actions_message' );
 
@@ -195,6 +195,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
 					<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary"><?php echo strTranslate("Register");?></button>
+					<a href="?page=login" class="btn btn-default"><?php echo strTranslate("Identify_to_access");?></a>
 				</div>
 			</div>
 		</form>

@@ -6,13 +6,13 @@ addJavascripts(array(getAsset("users")."js/login.js"));
 	<div class="col-md-6">
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
-	<div class="col-md-6 login-container">
-		<div class="col-md-12 noppading">	            
-			<h1><?php echo strTranslate("Identify_to_access");?></h1>
+	<div class="row login-container">
+		<div class="col-md-12">	            
+			<h1 class="inset"><?php echo strTranslate("Identify_to_access");?></h1>
 			<?php session::getFlashMessage( 'actions_message' );?>
             <form method="post" action="" name="form-login" id="form-login" role="form" class="form-horizontal">          
                 <div class="row">
-	                <div class="col-md-6"> 
+	                <div class="col-md-5"> 
 		                <div class="form-group">
 						    <label for="form-login-user" class="col-sm-4 control-label"><?php echo strTranslate("Username");?></label>
 						    <div class="col-sm-8">
@@ -20,7 +20,7 @@ addJavascripts(array(getAsset("users")."js/login.js"));
 						    </div>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<div class="form-group">
 						    <label for="form-login-password" class="col-sm-4 control-label"><?php echo strTranslate("Password");?></label>
 						    <div class="col-sm-8">
@@ -28,13 +28,15 @@ addJavascripts(array(getAsset("users")."js/login.js"));
 						    </div>
 						</div>
 					</div>
+					<div class="col-md-2">
+                		<button type="submit" name="loginSubmit" id="loginSubmit" class="btn btn-primary btn-block"><?php echo strTranslate("Enter");?></button>
+					</div>
 				</div>
-                <button type="submit" name="loginSubmit" id="loginSubmit" class="btn btn-primary pull-right"><?php echo strTranslate("Enter");?></button>
-                <p><?php echo strTranslate("Forgot_your_password");?> <a href="?page=remember" ><?php echo strTranslate("Click_here");?></a></p>
             </form>
 		</div>
-		<div class="col-md-12 container-separator">
-			<p><?php echo strTranslate("If_not_registered");?>: <a href="?page=registration"><?php echo strTranslate("Register");?></a></p>
+        <div class="col-md-12 container-separator">
+       		<?php echo strTranslate("Forgot_your_password");?> <a href="?page=remember" ><?php echo strTranslate("Click_here");?></a>. <br />
+			<?php echo strTranslate("If_not_registered");?> <a href="?page=registration"><?php echo strTranslate("Register");?></a><br /><br />
 		</div>
 	</div>
 </div>

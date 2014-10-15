@@ -35,30 +35,30 @@ class menu{
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="?page=video&id=<?php echo $id_video;?>"><?php echo strTranslate("Videos")?></a></li>
-					<li><a href="?page=fotos"><?php echo strTranslate("Photos")?></a></li>
-					<li><a href="?page=user-infotopdf-all">Impresos PDF</a></li>
+					<li><a href="?page=video&id=<?php echo $id_video;?>"><i class="fa fa-video-camera visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Videos")?></a></li>
+					<li><a href="?page=fotos"><i class="fa fa-picture-o visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Photos")?></a></li>
+					<li><a href="?page=user-infotopdf-all"><i class="fa fa-file-pdf-o visible-xs-inline-block text-primary"></i> Impresos PDF</a></li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false">Envío emails <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="fa fa-envelope-o visible-xs-inline-block text-primary"></i> Envío emails <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="?page=user-templates">Ver todas las comunicaciones</a></li>
 							<li><a href="?page=user-lists">Mis listas de envío</a></li>
 							<li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
 						</ul>
 					</li>
-					<li><a href="?page=blog&id=<?php echo $id_blog?>"><?php echo strTranslate("Blog")?></a></li>
-					<li><a href="?page=areas"><?php echo strTranslate("Na_areas")?></a></li>
-					<li><a href="?page=foro-subtemas&id=<?php echo $id_foro;?>"><?php echo strTranslate("Forums")?></a></li>
-					<li><a href="?page=user-info-all">Documentación</a></li>
-					<li><a href="?page=ranking">Ranking</a></li>
+					<li><a href="?page=blog&id=<?php echo $id_blog?>"><i class="fa fa-globe visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Blog")?></a></li>
+					<li><a href="?page=areas"><i class="fa fa-bookmark visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Na_areas")?></a></li>
+					<li><a href="?page=foro-subtemas&id=<?php echo $id_foro;?>"><i class="fa fa-comment visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Forums")?></a></li>
+					<li><a href="?page=user-info-all"><i class="fa fa-file visible-xs-inline-block text-primary"></i> Documentación</a></li>
+					<li><a href="?page=ranking"><i class="fa fa-trophy visible-xs-inline-block text-primary"></i> Ranking</a></li>
 
-					<li class="hidden-md hidden-lg"><a href="?page=user-perfil"><?php echo strTranslate("My_profile")?></a></li>
+					<li class="hidden-md hidden-lg"><a href="?page=user-perfil"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php echo strTranslate("My_profile")?></a></li>
 					<?php if ($_SESSION['user_perfil']=='admin'){
-					echo '<li class="hidden-md hidden-lg"><a href="?page=admin">'.strTranslate("Administration").'</a></li>';
+					echo '<li class="hidden-md hidden-lg"><a href="?page=admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
 					}
 					?>
-					<li class="hidden-md hidden-lg"><a href="?page=mensajes"><?php echo strTranslate("Mailing_messages")?></a></li>
-					<li class="hidden-md hidden-lg"><a href="?page=logout"><?php echo strTranslate("Logout")?></a></li>
+					<li class="hidden-md hidden-lg"><a href="?page=mensajes"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Mailing_messages")?></a></li>
+					<li class="hidden-md hidden-lg"><a href="?page=logout"><i class="fa fa-lock visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Logout")?></a></li>
 				</ul>
 				</div><!-- /.navbar-collapse -->
 				</div><!-- /.container-fluid -->

@@ -6,7 +6,7 @@ addJavascripts(array(getAsset("users")."js/remember.js"));
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
 	<div class="col-md-6 login-container">
-		<div class="col-md-12 noppading">
+		<div class="row noppading">
 			<h1><?php echo strTranslate("Recover_password");?></h1>            
 			<?php
 			session::getFlashMessage( 'actions_message' ); 
@@ -17,11 +17,10 @@ addJavascripts(array(getAsset("users")."js/remember.js"));
 				<input type="text" name="form-lostpw-user" id="form-lostpw-user" class="form-control" placeholder="<?php echo strTranslate("Username");?>" required autofocus />
 				<br />
 				<button type="submit" name="rememberSubmit" id="rememberSubmit" class="btn btn-primary"><?php echo strTranslate("Recover_password");?></button>
+				<a href="?page=login" class="btn btn-default"><?php echo strTranslate("Identify_to_access");?></a>
 			</form>		
 		</div>
-		<div class="col-md-12" style="border-top:1px solid #1d7493;padding-top:20px;margin-top:20px">
-			<p><?php echo strTranslate("If_not_registered");?>: <a  href="?page=registration"><?php echo strTranslate("Register");?></a> - 
-			<a id="back-link" href="?page=login"><?php echo strTranslate("Go_back");?></a></p>
-		</div>
+		<br /><br />
+		<p><?php echo strTranslate("If_not_registered");?> <a  href="?page=registration"><?php echo strTranslate("Register");?></a></p>
 	</div>
 </div>

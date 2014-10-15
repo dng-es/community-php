@@ -11,7 +11,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 	</div>
 	<div class="col-md-6 login-container">
 		<div class="col-md-12 noppading">
-		<h1><?php echo strTranslate("Confirmation");?></h1>
+		<h1><?php echo strTranslate("Confirm_data");?></h1>
 		<?php
 		//CONFIRMAR USUARIO
 		if (isset($_POST['user-username']) and $_POST['user-username']!=""){
@@ -25,10 +25,12 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 										   $_FILES['nombre-fichero'],
 										   $_POST['user-piensas'],
 										   $_POST['user-date']);
-			if ($confirmar==1){
-				echo '<p>'.strTranslate("Confirmation_message").' <a href="?page=login" class="comunidad-color">'.strTranslate("Click_here").'</a>.</p>';	
-				echo '</div>';
-			}
+			if ($confirmar==1){ ?>
+				<p><?php echo strTranslate("Confirmation_message");?> .</p>
+				<br />
+				<a href="?page=login" class="btn btn-primary"><?php echo strTranslate("Identify_to_access");?></a>
+				</div>
+			<?php }
 			elseif ($confirmar==2) {
 				ErrorMsg('<p>'.strTranslate("Error_procesing").'.</p>');
 				ShowForm();
@@ -57,7 +59,7 @@ function ShowForm()
 
 	if ($usuario[0]['confirmed']==1) {
 		echo '<div class="alert alert-warning">El usuario ya esta confirmado.
-			Para acceder a la comunidad pincha <a href="?page=login" class="comunidad-color">aqu&iacute;</a>.</div>';
+			Para acceder a la comunidad pincha <a href="?page=login" class="comunidad-color">aquí</a>.</div>';
 	}
 	else {
 		if (isset($_POST['user-nombre'])) {
@@ -80,7 +82,6 @@ function ShowForm()
 
 		?>
 
-	  	<p><?php echo strTranslate("Confirm_data");?>:</p>
   		<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
 			<input type="hidden" name="user-username" id="user-username" value="<?php echo $_SESSION['user_name'];?>">
 			<div class="form-group">

@@ -57,7 +57,9 @@ if ($id_video > 0): ?>
 				echo '<div class="video-preview-container"><a href="?page=video&id='.$element['id_file'].'&pag='.$pagina_sig.'"><img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="video-preview" /></a>
 							<div><a href="?page=video&id='.$element['id_file'].'&pag='.$pagina_sig.'">'.$element['titulo'].'</a><br />
 								 <span>'.dateLong($element['date_video']).'</span><br />
-								 '.$element['nick'].'</div></div>';
+								 '.$element['nick'].'
+							</div>
+						</div>';
 			endforeach;			
 			?>
 			<?php if (($num_videos*$pagina_sig) < $elements['total_reg']): ?>
