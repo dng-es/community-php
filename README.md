@@ -153,7 +153,6 @@ Sesiones
 Manejo de cadenas
 * [createRandomPassword] (#createrandompassword)
 * [getDataFormat] (#getDataFormat)
-* [dateMont] (#dateMonth)
 * [NormalizeText] (#normalizetext)
 * [strTranslate] (#strtranslate)
 * [shortText] (#shorttext)
@@ -192,13 +191,6 @@ Devuelve una fecha con el formato especificado (DAY, MONTH, MONTH_LONG, YEAR, SH
 ```php 
 getDataFormat('2014-01-14', 'LONG');
 //mostrará -> 14 de Enero 2014
-```
-
-### dateMonth
-Devuelve el mes con texto de una fecha. Uso: 
-```php 
-dateMonth('2014-01-14');
-//mostrará -> Enero
 ```
 
 ### exportCsv

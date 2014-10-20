@@ -41,15 +41,6 @@ function shortText($text_html,$num_car){
 }
 
 /**
- * Devuelve el mes con texto de una fecha
- * @param  	date 		$fecha 			Fecha a obtener el mes
- * @return 	string        				Mes en texto
- */
-function dateMonth($fecha){
-	return strftime("%B",mktime(0, 0, 0, strftime(DATE_MONTH,strtotime($fecha)), 1, 2000));
-}
-
-/**
  * Devuelve una fecha formateada con el mes con texto
  * @param  	date 		$date 			Fecha a dar formato
  * @param  	string 		$format 		Formato de salida
