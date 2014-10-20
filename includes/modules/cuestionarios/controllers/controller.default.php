@@ -198,13 +198,13 @@ class cuestionariosController{
 
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => "Cuestionarios",
-							"LabelItem" => "Listado de cuestionarios",
+							"LabelSection" => strTranslate("Forms"),
+							"LabelItem" => strTranslate("Forms_list"),
 							"LabelUrl" => 'admin-cuestionarios',
 							"LabelPos" => 2),
 					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> 'Cuestionarios',
-							"LabelItem"=> 'Nuevo cuestionario',
+							"LabelSection"=> strTranslate("Forms"),
+							"LabelItem"=> strTranslate("New_form"),
 							"LabelUrl"=>'admin-cuestionario',
 							"LabelPos" => 1));	
 	}	

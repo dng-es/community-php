@@ -6,21 +6,18 @@ templateload("blog","blog");
 templateload("list","blog");
 templateload("paginator","foro");	
 $foro = new foro();
-$mensaje="";
-$id_tema_parent="";
-$canal="";
+$id_tema_parent = "";
+$canal = "";
 
 ?>
 
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-	<h1><?php echo strTranslate("Blog");?> de la comunidad</h1><hr />
+	<h1><?php echo strTranslate("Blog");?></h1><hr />
 
 
 <?php
-if ($mensaje!=""){ErrorMsg($mensaje);}
-echo '<div class="message-form" id="alertas-mensajes" style="display: none"></div>';
-  $titulo_page="";
+$titulo_page="";
 
 //OBTENER SUBTEMAS DE FORO
 $reg = 10;
@@ -86,7 +83,7 @@ $elements = $foro->getTemas(" AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMI
 entradasBlog($elements);
 
 //ARCHIVOS BLOG
-echo '<h4>Archivos</h4>
+echo '<h4>'.strTranslate("Files").'</h4>
 	  <div class="lateral-container">';
 $elements = $foro->getArchivoBlog();
 archivoBlog($elements);
@@ -94,7 +91,7 @@ echo '</div>';
 
 //CATEGORIAS
 $elements = $foro->getCategorias(" AND ocio=1 ");
-echo '<h4>Categorias</h4>';
+echo '<h4>'.strTranslate("Categories").'</h4>';
 categoriasBlog($elements);
 
 echo '</div>

@@ -273,9 +273,8 @@ class users{
 		include_once ("includes/core/class.resizeimage.php");
 		$max_size=1000000;
 		$path_archivo = "images/usuarios/";
-		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-		$nombre_archivo = NormalizeText($nombre_archivo);
-		$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
+		$ext = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
+		$nombre_archivo = time().".".$ext;
 		$tamano_archivo = $fichero['size'];
 		$max_size_kb = $max_size/1000;
 		//compruebo si las características del archivo son las que deseo		

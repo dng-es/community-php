@@ -11,7 +11,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1><?php echo strTranslate("Blog");?> de la comunidad</h1><hr />
+		<h1><?php echo strTranslate("Blog");?></h1><hr />
 
 <?php
 $foro = new foro();
@@ -55,7 +55,7 @@ $num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$id_tema." ")
 
 echo '<h2>'.$tema[0]['nombre'].'</h2>
 	<p class="legend">
-		<span class="text-muted">'.dateLong($tema[0]['date_tema']).'</span>
+		<span class="text-muted">'.getDateFormat($tema[0]['date_tema'], "LONG").'</span>
 		<span class="fa fa-comment"></span> '.$total_reg.' comentarios 
 		<span class="fa fa-eye"></span> '.$num_visitas.' visitas</span>
 	</p>
@@ -102,7 +102,12 @@ if (count($tema)>0){
 	else {Paginator($pag,$reg,$total_reg,'blog&id='.$id_tema,'comentarios',$find_reg,10,"selected-foro");}
 
 	//ENTRADAS SIMILARES
-	echo '<h4>También te puede interesar</h4><hr />';
+	echo '<h4>
+		<span class="fa-stack fa-lg text-muted">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+		</span>
+		También te puede interesar</h4><hr />';
 	$filtro_etiquetas = "";
 	$etiquetas = explode(",",$tema[0]['tipo_tema']);
 	foreach($etiquetas as $etiqueta):
@@ -132,12 +137,12 @@ if (count($tema)>0){
 			entradasBlog($elements);
 
 			//ARCHIVO BLOG
-			echo '<h4>Archivos</h4>';
+			echo '<h4>'.strTranslate("Files").'</h4>';
 			$elements = $foro->getArchivoBlog();
 			archivoBlog($elements);
 			//CATEGORIAS
 			$elements = $foro->getCategorias(" AND ocio=1 ");
-			echo '<h4>Categorias</h4>';
+			echo '<h4>'.strTranslate("Categories").'</h4>';
 			categoriasBlog($elements);
 
 			?>

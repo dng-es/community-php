@@ -111,7 +111,7 @@ addJavascripts(array("js/jquery.numeric.js",
 					<div class="form-group col-md-12">
 					<label for="area_nombre">Nombre:</label>
 					<input class="form-control" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"/>
-					<span id="nombre-alert" class="alert-message alert alert-danger"></span>
+					<span id="nombre-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 					</div>
 					</div>
 
@@ -119,7 +119,7 @@ addJavascripts(array("js/jquery.numeric.js",
 					<div class="form-group col-md-12">
 					<label for="area_descripcion">Descripcion:</label>
 					<textarea class="form-control" id="area_descripcion" name="area_descripcion"><?php echo $area_descripcion;?></textarea>
-					<span id="descripcion-alert" class="alert-message alert alert-danger"></span>
+					<span id="descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 					</div>
 					</div>
 					
@@ -130,19 +130,19 @@ addJavascripts(array("js/jquery.numeric.js",
 							<option value="">--selecciona el canal--</option>
 							<?php ComboCanales($area_canal);?>
 						</select>
-						<span id="canal-alert" class="alert-message alert alert-danger"></span>
+						<span id="canal-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 						</div>
 
 						<div class="form-group col-md-2">
 						<label for="area_puntos"><?php echo ucfirst(strTranslate("APP_points"));?>:</label>
 						<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" />
-						<span id="puntos-alert" class="alert-message alert alert-danger"></span>
+						<span id="puntos-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 						</div>  
 
 						<div class="form-group col-md-2">
 						<label for="area_limite">Límite de usuarios:</label>
 						<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" />
-						<span id="puntos-alert" class="alert-message alert alert-danger"></span>
+						<span id="limite-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 						</div>  
 
 						<div class="form-group col-md-4">
@@ -228,37 +228,38 @@ function showUsuariosArea($id_area,$area_canal){
 function showGruposArea($id_area){
 	$na_areas = new na_areas;
 
-	$elements=$na_areas->getGruposUsers(" AND id_area=".$id_area); 
-	echo '<div class="panel panel-default">
-			<div class="panel-heading">Grupos de usuarios en el curso</div>
-			<div class="panel-body">
-				<p>puedes crear nuevos grupos en el curso. 
-				Para ver los usuarios pertenecientes al grupo o editar sus miembros haz click sobre el nombre.
-				</p>
-				<form action="" method="post" name="formNewGrupo" id="formNewGrupo" role="form" class="form-inline">
-				<div class="form-group">
-					<input type="hidden" name="id_area_grupo" id="id_area_grupo" value="'.$id_area.'" />
-					<label class="sr-only" for="grupo_nombre">Nuevo grupo:</label> 
-					<input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control" placeholder="nombre del nuevo grupo" />
-					<span id="grupo-alert" class="alert-message alert alert-danger"></span>
-				</div>
-				<button type="button" id="SubmitGrupo" name="SubmitGrupo" class="btn btn-primary">guardar grupo</button>
-				</form><br />';	
-	if (count($elements)>0){
-		echo '<table class="table table-striped">';
-		echo '	<tr>';
-		echo '	<th>Nombre del grupo</th>';
-		echo '	</tr>';		
-		foreach($elements as $element):
-			echo '<tr>';          
-			echo '<td><a href="?page=admin-area-grupo&a='.$id_area.'&g='.$element['id_grupo'].'">'.$element['grupo_nombre'].'</a></td>';
-			echo '</tr>';   
-		endforeach;
-		echo '</table>';
-	}
-	echo '</div>
-	</div>';
-}
+	$elements=$na_areas->getGruposUsers(" AND id_area=".$id_area); ?>
+	<div class="panel panel-default">
+		<div class="panel-heading">Grupos de usuarios en el curso</div>
+		<div class="panel-body">
+			<p>puedes crear nuevos grupos en el curso. 
+			Para ver los usuarios pertenecientes al grupo o editar sus miembros haz click sobre el nombre.
+			</p>
+			<form action="" method="post" name="formNewGrupo" id="formNewGrupo" role="form" class="form-inline">
+			<div class="form-group">
+				<input type="hidden" name="id_area_grupo" id="id_area_grupo" value="<?php echo $id_area;?>" />
+				<label class="sr-only" for="grupo_nombre">Nuevo grupo:</label> 
+				<input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control" placeholder="nombre del nuevo grupo" />
+				<span id="grupo-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+			</div>
+			<button type="button" id="SubmitGrupo" name="SubmitGrupo" class="btn btn-primary">guardar grupo</button>
+			</form>
+			<br />
+			<?php if (count($elements)>0): ?>
+				<table class="table table-striped">
+					<tr>
+						<th>Nombre del grupo</th>
+					</tr>
+					<?php foreach($elements as $element):
+						echo '<tr>';          
+						echo '<td><a href="?page=admin-area-grupo&a='.$id_area.'&g='.$element['id_grupo'].'">'.$element['grupo_nombre'].'</a></td>';
+						echo '</tr>';   
+					endforeach;?>
+				</table>
+			<?php endif; ?>
+		</div>
+	</div>
+<?php }
 
 function showForosArea($id_area){
 	$na_areas = new na_areas;
@@ -401,7 +402,7 @@ function getForoPendientes($id_area)
 			echo '<td>'.$responsables.'</td>';
 			echo '<td>'.$element['user_comentario'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
-			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_comentario'])).'</td>'; 
+			echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>'; 
 			echo '<td>'.$element['nombre'].'</td>';
 			echo '<td>'.$element['tipo_tema'].'</td>';    
 			echo '</tr>';   
@@ -412,21 +413,20 @@ function getForoPendientes($id_area)
 
 function showTareasArea($id_area){
 	$na_areas = new na_areas;
-
-	$elements=$na_areas->getTareas(" AND id_area=".$id_area." AND activa<>2 "); 
-	echo '<div class="panel panel-default">
-					<div class="panel-heading">Tareas del curso</div>
-					<div class="panel-body">';
-	//if (count($elements)==0){
-		echo '<p>Puedes crear nuevas tareas para el curso. Puedes crear una tarea de formulario.</p>
-			  <form action="?page=admin-area&act=edit&id='.$id_area.'" method="post" name="formNewTarea" id="formNewTarea" enctype="multipart/form-data" role=form" class="form-horizontal">
-				<input type="hidden" name="id_area_tarea" id="id_area_tarea" value="'.$id_area.'" />
+	$elements = $na_areas->getTareas(" AND id_area=".$id_area." AND activa<>2 ");
+	?>
+	<div class="panel panel-default">
+		<div class="panel-heading">Tareas del curso</div>
+		<div class="panel-body">
+			<p>Puedes crear nuevas tareas para el curso. Puedes crear una tarea de formulario.</p>
+			<form action="?page=admin-area&act=edit&id=<?php echo $id_area;?>" method="post" name="formNewTarea" id="formNewTarea" enctype="multipart/form-data" role="form" class="form-horizontal">
+				<input type="hidden" name="id_area_tarea" id="id_area_tarea" value="<?php echo $id_area;?>" />
 
 				<div class="form-group row">
 					<label for="tarea_titulo" class="col-sm-2 control-label">Nombre:</label>
 					<div class="col-sm-10">
 						<input type="text" name="tarea_titulo" id="tarea_titulo" class="form-control" />
-						<span id="tarea-titulo-alert" class="alert-message alert alert-danger"></span>
+						<span id="tarea-titulo-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 					</div>
 				</div>
 
@@ -434,7 +434,7 @@ function showTareasArea($id_area){
 					<label for="tarea_descripcion" class="col-sm-2 control-label">Descripción:</label>
 					<div class="col-sm-10">
 						<textarea name="tarea_descripcion" id="tarea_descripcion" class="form-control" /></textarea>
-						<span id="tarea-descripcion-alert" class="alert-message alert alert-danger"></span>
+						<span id="tarea-descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 					</div>
 				</div>
 
@@ -442,7 +442,7 @@ function showTareasArea($id_area){
 					<label for="fichero-tarea" class="col-sm-2 control-label">Fichero tarea:</label></td>
 					<div class="col-sm-10">
 						<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default" title="Seleccionar fichero" />
-						<span id="fichero-tarea-alert" class="alert-message alert alert-danger"></span>
+						<span id="fichero-tarea-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_file");?></span>
 					</div>
 				</div>
 
@@ -454,7 +454,6 @@ function showTareasArea($id_area){
 					</div>
 				</div>
 
-
 				<div class="form-group row">
 					<div class="col-sm-offset-2 col-sm-10">
 						<div class="checkbox">
@@ -464,18 +463,15 @@ function showTareasArea($id_area){
 						</div>
 					</div>
 				</div>
-				
 
 				<div class="form-group row">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="button" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary">Guardar tarea</button>
 					</div>
 				</div>
-
-			</form>';
-	//}
+			</form>
 	
-	if (count($elements)>0){
+	<?php if (count($elements)>0){
 		echo '<p>A continuación se muestran todas las tareas creadas en el curso. Puedes ver sus documentos asociados y revisiones.</p>';
 		echo '<table class="table">';
 		echo '<tr>';
@@ -565,7 +561,7 @@ function showTareasArea($id_area){
 		//           <label style="display:block;margin:10px 0" for="edit-desc">Descripción: </label>
 		//           <input type="hidden" name="edit-id-tarea" id="edit-id-tarea" value="" />
 		//           <textarea type="text" name="edit-desc" id="edit-desc" class="form-control" style="height:100px;width:98%" /></textarea>
-		//           <span id="edit-desc-alert" class="alert-message alert alert-danger"></span>
+		//           <span id="edit-desc-alert" class="alert-message alert alert-danger">'.strTranslate("Required_field").'</span>
 		//         </form>
 		//       </div>';
 	}

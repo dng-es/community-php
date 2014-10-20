@@ -66,6 +66,8 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 				
 				if ($total_reg==0){ echo '<div class="alert alert-warning">Todavía no se han insertado comentarios en este foro.</div>';}
 				else {Paginator($pag,$reg,$total_reg,'foro-comentarios','comentarios',$find_reg,10,"selected-foro");}
+
+				echo '<br />';
 			}
 		}
 		?> 

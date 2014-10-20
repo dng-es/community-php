@@ -46,7 +46,7 @@ $pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_fi
 				echo '<td>'.$element['id_comentario'].'</td>';
 				echo '<td><em class="legend">'.$element['comentario'].'</em></td>';
 				echo '<td>'.$element['user_comentario'].'</td>';
-				echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_comentario'])).'</td>';		
+				echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>';		
 				echo '</tr>';   
 		  endforeach;
 		  echo '</table><br />';	

@@ -12,7 +12,7 @@ $elements = usersPuntuacionesController::getListAction(100);
 	<div class="col-md-9">	
 		<h1>Informe de puntuaciones</h1>
 		<ul class="nav nav-pills navbar-default">   
-			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>   
+			<li class="disabled"><a href="#"><?php echo strTranslate("Items");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>   
 			<li><a href="?page=informe-participaciones">Informe de participaciones</a></li>
 			<li><a href="?page=informe-accesos">Informe de accesos</a></li>
 			<li><a href="?page=<?php echo $_REQUEST['page'].'&export=true';?>">Exportar CSV</a></li>
@@ -32,7 +32,7 @@ $elements = usersPuntuacionesController::getListAction(100);
 					<td><?php echo $element['nick'];?></td>
 					<td><?php echo $element['puntuacion_puntos'];?></td>
 					<td><?php echo $element['puntuacion_motivo'];?></td>
-					<td><?php echo strftime(DATE_TIME_FORMAT,strtotime($element['puntuacion_date']));?></td>
+					<td><?php echo getDateFormat($element['puntuacion_date'], "DATE_TIME");?></td>
 					</tr>
 				<?php endforeach; ?>
 			</table>

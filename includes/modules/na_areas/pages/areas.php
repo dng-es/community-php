@@ -1,6 +1,6 @@
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1>Cursos de formación</h1>
+		<h1 class="inset"><?php echo strTranslate("Na_areas");?></h1>
 		<?php 
 		session::getFlashMessage( 'actions_message' );
 		na_areasController::apuntarseAction();
@@ -13,24 +13,23 @@
 				<?php if ($i==0) echo '<div class="row">';?>
 				<div class="col-md-6">
 					<div class="col-md-12 section">
-						<section>
-
-							
+						<section>					
+							<h4 class="ellipsis"><?php echo $element['area_nombre'];?></h4>
 							<?php if ($acceso == 1): 
-								echo '<a href="?page=areas_det&id='.$element['id_area'].'" class="btn btn-default btn-xs" style="position: absolute; right:-5px; top:10px;"><i class="fa fa-share"></i> Accede al curso</a>';
+								echo '<a href="?page=areas_det&id='.$element['id_area'].'" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Accede al curso</a>';
 							else:
 								if ($element['registro']==1){
 									// verificar que no se haya elcanzado el límite de usuarios
 									$total_users = connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." ");
 									if ($total_users < $element['limite_users']):
-										echo '<a href="?page=areas&id='.$element['id_area'].'" class="btn btn-default btn-xs" style="position: absolute; right:-5px; top:10px;"><i class="fa fa-pencil"></i> Inscribirse en el curso</a>';
+										echo '<a href="?page=areas&id='.$element['id_area'].'" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Inscribirse en el curso</a>';
 									else:
-										echo '<span class="btn btn-default btn-xs" style="position: absolute; right:-5px; top:10px;"><i class="fa fa-times"></i> Inscripción cerrada</span>';
+										echo '<span class="btn btn-default btn-xs"><i class="fa fa-times"></i> Inscripción cerrada</span>';
 									endif;
 								}
 							endif; ?>
 							<br />
-							<h4 class="ellipsis"><?php echo $element['area_nombre'];?></h4>
+							<br />
 							<p><?php echo $element['area_descripcion'];?></p>
 						</section>
 					</div>

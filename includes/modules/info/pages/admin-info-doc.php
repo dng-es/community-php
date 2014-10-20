@@ -28,7 +28,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 					<input type="hidden" name="id" value="<?php echo $id;?>" />
 					<label>Titulo del documento:</label>
 					<input class="form-control" type="text" id="info_title" name="info_title" value="<?php echo $elements[0]['titulo_info'];?>" />
-					<span id="title-alert" class="alert-message"></span>
+					<span id="title-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 					<label>Canal del documento:</label>
 					<select name="info_canal" id="info_canal" class="form-control">
 					<option tp="1" value="todos" <?php if ($elements[0]['canal_info']=='todos'){ echo ' selected="selected" ';}?>>todos los canales</option>
@@ -70,7 +70,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 					 
 					<span id="file-alert" class="alert-message"></span>
 					<br /><br />
-					<input type="button" name="SubmitData" id="SubmitData" class="btn btn-primary pull-right" value="Guardar documentación" />
+					<input type="button" name="SubmitData" id="SubmitData" class="btn btn-primary pull-right" value="<?php echo strTranslate("Save");?>" />
 				</form>	
 			</div>
 		</div>

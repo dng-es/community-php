@@ -11,10 +11,10 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 ?>
 <div class="row inset row-top">
   	<div class="col-md-12"> 
-  		<h1>Mis listas de envío</h1>
+  		<h1><?php echo strTranslate("Mailing_lists")?></h1>
 		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> registros</a></li>  
-			<li><a href="?page=user-list&act=new">Nueva lista</a></li>
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
+			<li><a href="?page=user-list&act=new"><?php echo strTranslate("New_list")?></a></li>
 			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
 			<li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
 		</ul>
@@ -41,7 +41,7 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 					</td>
 					<?php			
 					echo '<td>'.$element['name_list'].'</td>';
-					echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_list'])).'</td>';
+					echo '<td>'.getDateFormat($element['date_list'], "SHORT").'</td>';
 					echo '<td><span class="label label-success">'.$total_emails.'</span></td>'; 
 					?>
 					</tr> 

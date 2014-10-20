@@ -15,7 +15,7 @@ $num_canales = usersController::getCanalesAction();
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
-					<div class="panel-heading"><h3 class="panel-title">Resumen general <small><i class="fa fa-pie-chart pull-right text-muted"></i></small></h3></div>
+					<div class="panel-heading"><h3 class="panel-title"><?php echo strTranslate("Overview");?> <small><i class="fa fa-pie-chart pull-right text-muted"></i></small></h3></div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
 							<dt>Total usuarios activos</dt>
@@ -37,7 +37,7 @@ $num_canales = usersController::getCanalesAction();
 						<dl class="dl-horizontal">
 							<dt>Accesos</dt>
 							<dd><a href="?page=informe-accesos"><?php echo strTranslate("Go_to");?></a></dd>
-							<dt>Puntuaciones</dt>
+							<dt><?php echo ucfirst(strTranslate("APP_points"));?></dt>
 							<dd><a href="?page=informe-puntuaciones"><?php echo strTranslate("Go_to");?></a></dd>
 							<dt>Participaciones</dt>
 							<dd><a href="?page=informe-participaciones"><?php echo strTranslate("Go_to");?></a></dd>

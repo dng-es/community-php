@@ -13,7 +13,7 @@ function addMensaje(){ ?>
 				<form id="message-form" name="message-form" action="" method="post">
 					<input type="hidden" name="remitente-comentario" id="remitente-comentario" value="<?php echo $_SESSION['user_name'];?>" />
 				 	<div class="form-group">
-					 	<label for="nick-comentario">Destinatario / <?php echo strTranslate("Nick");?>:</label>
+					 	<label for="nick-comentario"><?php echo strTranslate("Mailing_recipient");?> / <?php echo strTranslate("Nick");?>:</label>
 						<input maxlength="100" name="nick-comentario" id="nick-comentario" type="text" class="form-control" value="" />
 					</div>
 					<div class="form-group">

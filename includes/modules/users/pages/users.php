@@ -23,10 +23,10 @@ $elements = usersController::getListAction(35);
 	<div class="col-md-9">
 		<h1>Alta y modificación de usuarios</h1>
 		<ul class="nav nav-pills navbar-default">       
-			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 			<li><a href="?page=user"><?php echo strTranslate("New_user");?></a></li>
-			<li><a href="?page=<?php echo $_REQUEST['page'].'&export=true';?>"><?php echo strTranslate("Export");?> CSV</a></li>
-			<li><a href="?page=<?php echo $_REQUEST['page'].'&export_s=true';?>">Exportar estadísticas CSV</a></li>
+			<li><a href="?page=<?php echo $_REQUEST['page'].'&export=true';?>"><?php echo strTranslate("Export");?></a></li>
+			<li><a href="?page=<?php echo $_REQUEST['page'].'&export_s=true';?>">Exportar estadísticas</a></li>
 			<div class="pull-right">
 				<?php echo SearchForm($elements['reg'],"?page=users","searchForm","buscar usuario","Buscar","","navbar-form navbar-left");?>	
 			</div>

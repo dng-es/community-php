@@ -43,7 +43,7 @@ $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 	<div class="col-md-9">
 		<h1><?php echo strTranslate("Video_validation");?></h1>
 		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#">Total <b><?php echo count($pendientes);?></b> registros. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por video: <b><?php echo PUNTOS_VIDEO;?></b></a></li>      
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por video: <b><?php echo PUNTOS_VIDEO;?></b></a></li>      
 		</ul>
 		<?php foreach($pendientes as $element):	  		
 			$convertido = ((file_exists(PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4')) ? true : false);			
@@ -71,7 +71,7 @@ $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 			else { playVideo("VideoPendiente".$element['id_file'],PATH_VIDEOS_TEMP.$element['name_file'],165,100);}
 			echo '	</div>
 				  	<div class="video-info">
-						<b>'.strTranslate("Date").':</b> '.strftime(DATE_FORMAT_SHORT,strtotime($element['date_video'])).'
+						<b>'.strTranslate("Date").':</b> '.getDateFormat($element['date_video'], "SHORT").'
 						<b>'.strTranslate("User").':</b> '.$element['user_add'].' 
 						<b>Canal:</b> '.$element['canal'].' 
 						<b>'.strTranslate("Title").':</b> '.$element['titulo'].'

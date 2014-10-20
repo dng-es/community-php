@@ -8,43 +8,44 @@ addJavascripts(array("js/jquery.numeric.js", getAsset("cuestionarios")."js/admin
 
 cuestionariosController::ExportFormUserAction();
 cuestionariosController::ExportFormAllAction();
+
+//OBTENER DATOS DEL CUESTIONARIO
+$cuestionarios = new cuestionarios();
+$id_cuestionario =$_REQUEST['id'];
+$cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 ?>
 
 <div class="row row-top">
 	<div class="col-md-9">
+		<h1>Revisiones cuestionario <small><?php echo $cuestionario[0]['nombre'];?></small></h1>
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		cuestionariosController::RevisarFormAction(); 
 		cuestionariosController::FinalizacionDeleteAction(); 
-
-		//OBTENER DATOSL CUESTIONARIO
-		$cuestionarios = new cuestionarios();
-		$id_cuestionario =$_REQUEST['id'];
-		$cuestionario=cuestionariosController::getItemAction($id_cuestionario);
+		$filtro = " AND id_cuestionario=".$id_cuestionario." ORDER BY user_tarea";
+		$revisiones = $cuestionarios->getFormulariosFinalizados($filtro);   
 		?>
-		<h1>Revisiones cuestionario <small><?php echo $cuestionario[0]['nombre'];?></small></h1>
-		<ul class="nav nav-pills navbar-default">      
+		<ul class="nav nav-pills navbar-default">
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($revisiones);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
 			<li><a href="?page=admin-cuestionarios">Volver al listado</a></li>
 			<li><a href="?page=admin-cuestionario-revs&t3=1&id=<?php echo $id_cuestionario;?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 		
-		<?php revisionesFormulario($id_cuestionario,$id_grupo);?>
-	</div>
-	<?php menu::adminMenu();?>
-</div>
+		<?php
 
-<?php
-function revisionesFormulario($id_cuestionario,$id_grupo){
-		$cuestionarios = new cuestionarios();
-		$users = new users();
-		$filtro = " AND id_cuestionario=".$id_cuestionario." ORDER BY user_tarea";
-		$revisiones = $cuestionarios->getFormulariosFinalizados($filtro);   
 
 		if (count($revisiones)==0){
 			echo '<div class="tareas-row">Los usuarios todavia no han finalizado lel cuestionario.</div>';
 		}
 		else{
-			echo '<table class="table">';
+			echo '<table class="table">
+					<tr>
+						<th width="70px"></th>
+						<th>'.strTranslate("User").'</th>
+						<th>Puntuación</th>
+						<th>'.strTranslate("Date").'</th>
+						<th>Respuestas</th>
+					</tr>';
 			foreach($revisiones as $revision):
 				if ($revision['revision']==1){
 					$imagen_revision='<i class="fa fa-check icon-ok"></i>';
@@ -60,7 +61,7 @@ function revisionesFormulario($id_cuestionario,$id_grupo){
 				}
 								
 				echo '<tr>';        
-				echo '<td width="70px"><span span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar la finalización del cuestionario?\',
+				echo '<td><span span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar la finalización del cuestionario?\',
 						\'?page=admin-cuestionario-revs&act_f=del&id='.$id_cuestionario.'&ut='.$revision['user_tarea'].'\')" 
 						title="Eliminar finalizacion" /></span>
 
@@ -77,7 +78,7 @@ function revisionesFormulario($id_cuestionario,$id_grupo){
 							'.$btn.'
 						</form>
 					</td>';
-				echo '<td>('.strftime(DATE_TIME_FORMAT,strtotime($revision['date_finalizacion'])).')</td>';
+				echo '<td>('.getDateFormat($revision['date_finalizacion'], "DATE_TIME").')</td>';
 				echo '<td><a href="#" onclick="createDialog('.$id_cuestionario.',\''.$revision['user_tarea'].'\')">ver respuestas</a></td>';       
 				echo '</tr>';
 			endforeach;
@@ -103,5 +104,8 @@ function revisionesFormulario($id_cuestionario,$id_grupo){
 					<div id="dialog-info"></div>
 				</div>';
 		}  
-}
 ?>
+
+	</div>
+	<?php menu::adminMenu();?>
+</div>

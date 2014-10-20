@@ -16,7 +16,7 @@ usersTiendasController::exportListAction();
 		$elements = usersTiendasController::getListAction(15);
 		?>
 		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>       
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>       
 			<div class="pull-right">
 				<?php SearchForm($reg,"?page=users-tiendas","searchForm","buscar tienda","Buscar","","navbar-form navbar-left");?>
 			</div>

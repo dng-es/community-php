@@ -4,7 +4,7 @@ $base_dir = str_replace('modules/mailing/pages', '', realpath(dirname(__FILE__))
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/class.configuration.php");
 include_once($base_dir . "core/constants.php");
-include_once($base_dir . "core/functions.php");
+include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/mailing/class.mailing.php");
 include_once($base_dir . "modules/mailing/templates/emailfooter.php");

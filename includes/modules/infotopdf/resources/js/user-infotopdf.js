@@ -1,6 +1,4 @@
-// JavaScript Document
 jQuery(document).ready(function(){
-
 	$(".numeric").numeric();
 
 	$("#datetimepicker1").datetimepicker({
@@ -11,6 +9,4 @@ jQuery(document).ready(function(){
 		var resultado_ok = true;
 		return resultado_ok;
 	});
-
-	
 });

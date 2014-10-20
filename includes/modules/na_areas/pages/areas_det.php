@@ -115,7 +115,7 @@ function printTareas($id_area){
 				echo '<p>
 						<a class="user-file text-muted" target="_blank" href="docs/showfile.php?t=1&file='.$archivo['file_tarea'].'">
 						<span class="fa fa-download"></span>
-						 subido el '.strftime(DATE_FORMAT_SHORT,strtotime($archivo['fecha_tarea'])).'</a>
+						 subido el '.getDateFormat($archivo['fecha_tarea'], "SHORT").'</a>
 					</p>';
 			endforeach;
 		}

@@ -51,11 +51,41 @@ function dateMonth($fecha){
 
 /**
  * Devuelve una fecha formateada con el mes con texto
- * @param  	date 		$fecha 			Fecha a dar formato
+ * @param  	date 		$date 			Fecha a dar formato
+ * @param  	string 		$format 		Formato de salida
  * @return 	string        				Fecha formateada
  */
-function dateLong($fecha){
-	return strftime(DATE_DAY,strtotime($fecha)).' de '.ucfirst(dateMonth($fecha)).' '.strftime(DATE_YEAR,strtotime($fecha));
+function getDateFormat($date, $format){
+	include(dirname(__FILE__)."/../languages/".(isset($_SESSION['language']) ? $_SESSION['language'] : $ini_conf['language'])."/options.php");
+	switch ($format) {
+		case 'DAY':
+			return strftime($DATE_DAY,strtotime($date));
+			break;
+		case 'MONTH':
+			return strftime($DATE_MONTH,strtotime($date));
+			break;
+		case 'MONTH_LONG':
+			return strftime($DATE_MONTH_LONG,strtotime($date));
+			break;
+		case 'YEAR':
+			return strftime($DATE_YEAR,strtotime($date));
+			break;
+		case 'SHORT':
+			return strftime($DATE_FORMAT_SHORT,strtotime($date));
+			break;
+		case 'LONG':
+			return strftime($DATE_FORMAT_LONG,strtotime($date));
+			break;
+		case 'TIME':
+			return strftime($TIME_FORMAT,strtotime($date));
+			break;
+		case 'DATE_TIME':
+			return strftime($DATE_TIME_FORMAT,strtotime($date));
+			break;
+		default:
+			return $date;
+			break;
+	}
 }
 
 /**

@@ -140,7 +140,7 @@ class usersController{
 		$users = new users();
 		$array_final = array();
 		$usuario = $users->getUsers(" AND username='".$username."' ");
-		$last_access = ($usuario[0]['last_access']!= null ? strftime(DATE_TIME_FORMAT,strtotime($usuario[0]['last_access'])) : "sin accesos");
+		$last_access = ($usuario[0]['last_access']!= null ? getDateFormat($usuario[0]['last_access'], "DATE_TIME") : "sin accesos");
 		$array_final = array_merge($array_final, array("Último acceso" => $last_access));
 		$modules = getListModules();		
 		foreach($modules as $module):

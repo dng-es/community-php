@@ -16,7 +16,10 @@ function commentForo($comentario_foro,$destino="foro-comentarios"){
 	<div class="media media-comment">
 		<?php userFicha($comentario_foro); ?>
 		<div class="media-body">
-			<p><b><?php echo $comentario_foro['nick']; ?></b> <?php echo strTranslate("says");?>: (<?php echo strftime(DATE_FORMAT_SHORT,strtotime($comentario_foro['date_comentario'])); ?>)</p>
+			<p>
+				<span class="text-primary"><small><?php echo $comentario_foro['nick']; ?></small></span><br />
+				<span class="text-muted"><small><?php echo getDateFormat($comentario_foro['date_comentario'], "LONG")." ".getDateFormat($comentario_foro['date_comentario'], "TIME"); ?></small></span>
+			</p>
 			<p><?php echo $comentario_foro['comentario'];?></p>
 			
 			<div class="comment-reply">

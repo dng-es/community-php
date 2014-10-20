@@ -42,8 +42,8 @@ $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." 
 	<div class="col-md-9">
 		<h1>Comentarios en <?php echo strTranslate("Blog");?></h1>
 		<ul class="nav nav-pills navbar-default">       
-			<li class="disabled"><a href="#">Total <b><?php echo count($pendientes);?></b> registros</a></li>
-			<li><a href="?page=admin-blog-new&act=edit&id=<?php echo $_REQUEST['id'];?>">Editar entrada</a></li>
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+			<li><a href="?page=admin-blog-new&act=edit&id=<?php echo $_REQUEST['id'];?>"><?php echo strtolower(strTranslate("Edit"));?></a></li>
 			<li><a href="?page=blog&id=<?php echo $_REQUEST['id'];?>">Ver entrada</a></li>
 		</ul>
 		<?php if (count($pendientes)==0): ?>
@@ -69,7 +69,7 @@ $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." 
 					echo '<td>'.$element['id_comentario'].'</td>';
 					echo '<td><em class="legend">'.$element['comentario'].'</em></td>';
 					echo '<td>'.$element['user_comentario'].'</td>';
-					echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_comentario'])).'</td>';		
+					echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>';		
 					echo '<tr>';   
 			  endforeach;?>
 			</table>

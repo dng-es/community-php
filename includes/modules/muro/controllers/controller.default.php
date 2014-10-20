@@ -52,8 +52,8 @@ class muroController{
 
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => 'Muro',
-							"LabelItem" => 'Comentarios en el muro',
+							"LabelSection" => strTranslate("Wall"),
+							"LabelItem" => strTranslate("Comments_on_wall"),
 							"LabelUrl" => 'admin-validacion-muro',
 							"LabelPos" => 1));	
 	}	

@@ -30,28 +30,28 @@ $modules = configurationController::getListModulesAction();
 							<td width="30%" valign="top"><label for="site-name">Nombre del sitio:</label></td>
 							<td width="70%">
 								<input type="text" class="form-control" maxlength="250" Size="40" id="site-name" name="site-name" value="<?php echo $elements[0]['SiteName'];?>"/> 
-								<span id="site-name-alert" class="alert-message alert alert-danger"></span>	     
+								<span id="site-name-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>	     
 						</td>
 						</tr> 
 						<tr>
 							<td width="30%" valign="top"><label for="site-name">URL del sitio (con http://):</label></td>
 							<td width="70%">
 								<input type="text" class="form-control" maxlength="250" Size="40" id="site-url" name="site-url" value="<?php echo $elements[0]['SiteUrl'];?>"/> 
-								<span id="site-url-alert" class="alert-message alert alert-danger"></span>	     
+								<span id="site-url-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>	     
 						</td>
 						</tr> 				 
 						<tr>
 							<td width="30%" valign="top"><label for="email-contact">Email de contacto:</label></td>
 							<td width="70%">
 								<input type="text" class="form-control" maxlength="250" Size="40" id="email-contact" name="email-contact" value="<?php echo $elements[0]['ContactEmail'];?>"/> 
-								<span id="email-contact-alert" class="alert-message alert alert-danger"></span>	     
+								<span id="email-contact-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_email");?></span>	     
 						</td>
 						</tr>
 						<tr>
 							<td width="30%" valign="top"><label for="email-contact">Email comunicaciones:</label></td>
 							<td width="70%">
 								<input type="text" class="form-control" maxlength="250" Size="40" id="email-mailing" name="email-mailing" value="<?php echo $elements[0]['MailingEmail'];?>"/> 
-								<span id="email-mailing-alert" class="alert-message alert alert-danger"></span>	     
+								<span id="email-mailing-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_email");?></span>	     
 						</td>
 						</tr>					
 						<tr>

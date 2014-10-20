@@ -6,7 +6,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 					 getAsset("users")."js/user-confirm.js"));
 ?>
 <div id="confirm-container" class="row">			
-	<div class="col-md-6">
+	<div class="col-md-5">
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
 	<div class="col-md-6 login-container">

@@ -6,6 +6,7 @@ addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js",
 
 templateload("reply","muro");
 templateload("show","novedades");
+templateload("panels","destacados");
 
 //usuarios conectados
 $filtroCanal= ($_SESSION['user_canal']!="admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') " : "");
@@ -14,18 +15,22 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 
 $last_photo = fotosController::getListAction(1, " ORDER BY id_file DESC ");
 $last_video = videosController::getListAction(1, "");
-$last_foros = foroController::getLastTemasAction(3, " AND t.id_area=0 AND ocio=0 ");
+$last_foros = foroController::getLastTemasAction(4, " AND t.id_area=0 AND ocio=0 ");
 $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND id_tema_parent=0 ORDER BY id_tema DESC ");
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
+		<div class="row">
+		<div class="col-md-12">
 		<p class="text-muted">
 			<span class="fa-stack fa-lg">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-plug fa-stack-1x fa-inverse"></i>
 			</span>
-			<?php echo $_SESSION['name'];?>, bienvenid@ a la comunidad. <a href="?page=users-conn">[<?php echo strTranslate("Users_connected").": ".$users_conn;?>]</a></p>
-		<hr />
+			<?php echo $_SESSION['name'];?>, <?php echo strTranslate("Wellcome_to");?> <?php echo $ini_conf['SiteName'];?>. <a href="?page=users-conn">[<?php echo strTranslate("Users_connected").": ".$users_conn;?>]</a>
+		</p>
+		</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<?php showNovedades();?>
@@ -34,14 +39,8 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 		<div class="row">
 			<div class="col-md-6">
 				<section>
-					<h3><?php echo strTranslate("Last_blog");?></h3>
-					<div class="video-preview-container">
-						<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>"><img class="video-preview" src="images/foro/<?php echo $last_blog['items'][0]['imagen_tema'];?>" /></a>
-						<div>
-							<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>"><?php echo $last_blog['items'][0]['nombre'];?></a><br />
-							<span><?php echo dateLong($last_blog['items'][0]['date_tema']);?></span>
-						</div>
-					</div>
+					<h3><?php echo strTranslate("Highlights");?></h3>
+					<?php PanelLastDestacado();?>
 				</section>
 			</div>
 			<div class="col-md-6">
@@ -58,28 +57,40 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<section>
 					<h3><?php echo strTranslate("Last_photos");?></h3>
 					<div class="video-preview-container">
 						<a href="?page=fotos"><img class="video-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" /></a>
 						<div>
 							<a href="?page=fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
-							<span><?php echo dateLong($last_photo['items'][0]['date_foto']);?></span><br />
+							<span><?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></span><br />
 							<?php echo $last_photo['items'][0]['nick'];?>
 						</div>
 					</div>
 				</section>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<section>
 					<h3><?php echo strTranslate("Last_videos");?></h3>
 					<div class="video-preview-container">
 						<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>"><img class="video-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" /></a>
 						<div>
 							<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>"><?php echo $last_video['items'][0]['titulo'];?></a><br />
-							<span><?php echo dateLong($last_video['items'][0]['date_video']);?></span><br />
+							<span><?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></span><br />
 							<?php echo $last_video['items'][0]['nick'];?>
+						</div>
+					</div>
+				</section>
+			</div>			
+			<div class="col-md-4">
+				<section>
+					<h3><?php echo strTranslate("Last_blog");?></h3>
+					<div class="video-preview-container">
+						<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>"><img class="video-preview" src="images/foro/<?php echo $last_blog['items'][0]['imagen_tema'];?>" /></a>
+						<div>
+							<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>"><?php echo $last_blog['items'][0]['nombre'];?></a><br />
+							<span><?php echo getDateFormat($last_blog['items'][0]['date_tema'], "LONG");?></span>
 						</div>
 					</div>
 				</section>

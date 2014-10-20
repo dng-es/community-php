@@ -63,7 +63,7 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario);
 			if ($finalizados==0){
 				echo '<br /><button id="SubmitForm" class="btn btn-primary" type="button">Guardar respuestas</button>';
 				if (count($respuesta_user)>0){
-					echo ' <button id="FinalizarForm" class="btn btn-primary" type="button">Finalizar cuestionario</button>';
+					echo ' <button id="FinalizarForm" onClick="Confirma(\'¿Seguro que desea finalizar el cuestionario?.\nRecuerda  que previamente tienes que guardar tus respuestas.\',\'?page=cuestionario&id='.$id_cuestionario.'&d=1\')" class="btn btn-primary" type="button">Finalizar cuestionario</button>';
 				}
 			}
 			echo '</form>';

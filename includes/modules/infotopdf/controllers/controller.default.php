@@ -80,12 +80,12 @@ class infotopdfController{
 
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => "Documentación PDF",
+							"LabelSection" => strTranslate("Infotopdf_Documents"),
 							"LabelItem" => "Nuevo documento",
 							"LabelUrl" => 'admin-infotopdf-doc&act=new',
 							"LabelPos" => 1),
 					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> "Documentación PDF",
+							"LabelSection"=> strTranslate("Infotopdf_Documents"),
 							"LabelItem"=> "Listado de documentos",
 							"LabelUrl"=>'admin-infotopdf',
 							"LabelPos" => 2));	

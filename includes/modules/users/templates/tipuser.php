@@ -15,23 +15,9 @@ function userTip($id,$user_data,$estrellas_print,$movil=0){
 					<span class="ficha-user-tip-info">'.strTranslate("Nick").': <span>'.$user_data['nick'].'</span></span><br />
 					<span class="ficha-user-tip-info">Nombre: <span>'.$user_data['name'].' '.$user_data['surname'].'</span></span><br />';
 			if ($user_data['user_date']!=''){
-				$dia=strftime(DATE_DAY,strtotime($user_data['user_date']));
-				switch(strftime(DATE_MONTH,strtotime($user_data['user_date']))) {
-				  case 1: $mes="Enero"; break;
-				  case 2: $mes="Febrero"; break;
-				  case 3: $mes="Marzo"; break;
-				  case 4: $mes="Abril"; break;
-				  case 5: $mes="Mayo"; break;
-				  case 6: $mes="Junio"; break;
-				  case 7: $mes="Julio"; break;
-				  case 8: $mes="Agosto"; break;
-				  case 9: $mes="Septiembre"; break;
-				  case 10: $mes="Octubre"; break;
-				  case 11: $mes="Noviembre"; break;
-				  case 12: $mes="Diciembre"; break;
-				  default: $mes="Enero";
-			   } 
-			   $fecha_nacimiento=$dia." de ".$mes;
+				$dia = getDateFormat($user_data['user_date'], "DAY");
+				$mes = getDateFormat($user_data['user_date'], "MONTH_LONG");		
+				$fecha_nacimiento=$dia." de ".$mes;
 				echo '<span class="ficha-user-tip-info">F.nacimiento: <span>'.$fecha_nacimiento.'</span></span><br />';}
 			//echo '	<span class="ficha-user-tip-info">Centro de trabajo: <span>'.$user_data['nombre_tienda'].'</span></span><br />';
 			//echo '	<span class="ficha-user-tip-info">Provincia: <span>'.$user_data['provincia'].'</span></span><br />';

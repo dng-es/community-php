@@ -14,7 +14,7 @@ function ForoList($sub_tema)
 				<p>'.$descripcion.'</p>
 				<div class="contador-foro">
 					<span class="icon-calendar-empty menuicon-foros" title="fecha"></span>
-					<span class="contador-foro-counter">'.strftime(DATE_FORMAT_SHORT,strtotime($sub_tema['date_tema'])).'</span>
+					<span class="contador-foro-counter">'.getDateFormat($sub_tema['date_tema'], 'SHORT').'</span>
 					<span class="icon-comment-alt menuicon-foros" title="comentarios en el foro"></span>
 					<span class="contador-foro-counter">'.$num_comentarios.'</span> 
 					<span class="icon-eye-open menuicon-foros" title="visitas al foro"></span>

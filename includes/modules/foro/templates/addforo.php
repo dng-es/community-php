@@ -58,7 +58,7 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 			<label for="texto-descripcion" class="sr-only"><?php echo $title_desc;?></label>
 			<textarea id="texto-descripcion" name="texto-descripcion" class="form-control" placeholder="<?php echo strTranslate('Description');?>"></textarea>
 			<input type="hidden" value="<?php $ocio;?>" name="ocio" id="ocio" />
-			<span id="alertas-mensajes" class="alert-message alert alert-danger"></span>
+			<span id="alertas-mensajes" class="alert-message alert alert-danger"><?php echo strTranslate("Required_all_fields");?></span>
 			<button type="submit" id="tema-submit" name="tema-submit" class="btn btn-primary btn-block"><?php echo $title_btn;?></button>
 		</form>
 	</div>

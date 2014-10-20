@@ -6,10 +6,10 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					 getAsset("users")."js/registration.js"));
 ?>
 <div id="confirm-container" class="row">			
-	<div class="col-md-6">
+	<div class="col-md-5">
 		<img src="images/logo01.png" class="responsive login-img" />
 	</div>
-	<div class="row login-container">
+	<div class="col-md-6 login-container">
 		<div class="col-md-12">
 		<?php
 		session::getFlashMessage( 'actions_message' );

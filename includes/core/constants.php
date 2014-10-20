@@ -10,7 +10,7 @@ $site_config=$configuration->getConfigIni("");
 $ini_conf = array_merge($ini_conf, $site_config);
 
 //LOCALE, DATE AND TIME DEFINITIONS
-include($base_dir_config."/../languages/".$ini_conf['language']."/options.php");
+//include($base_dir_config."/../languages/".(isset($_SESSION['language']) ? $_SESSION['language'] : $ini_conf['language'])."/options.php");
 
 //PAGINAS EN LAS QUE EL USUARIO NO ES NECESARIO QUE ESTE LOGUEADO
 $paginas_free = array("login","user-confirm","logout","contact-free","declaracion","policy","404","remember","registration","registration-confirm","unsuscribe");

@@ -21,7 +21,7 @@ $total_reg = connection::countReg("galeria_videos",$filtro);
 	<div class="col-md-9">
 		<h1><?php echo strTranslate("Video_list");?></h1>
 		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#">Total <b><?php echo $total_reg;?></b> registros.</a></li>      
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $total_reg;?></b> <?php echo strtolower(strTranslate("Items"));?>.</a></li>      
 		</ul>
 		<?php
 		//EXPORT EXCEL - SHOW AND GENERATE
@@ -53,7 +53,7 @@ $total_reg = connection::countReg("galeria_videos",$filtro);
 				 </td>';
 						
 			echo '<td>'.$element['titulo'].'</td>';
-			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_video'])).'</td>';
+			echo '<td>'.getDateFormat($element['date_video'], "SHORT").'</td>';
 			echo '<td>'.$element['user_add'].'</td>';
 			echo '<td>';
 	   	if ($num_comentarios==0){ echo $num_comentarios;}

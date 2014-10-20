@@ -79,7 +79,7 @@ $session->AccessLevel($perfiles_autorizados);
 							</td>
 							<td><?php echo $element['id_file'];?></td>
 							<td><a href="#" data-img="<?php echo $element['name_file'];?>" class="abrir-modal"><?php echo $element['titulo'];?></a></td>
-							<td><?php echo strftime(DATE_FORMAT_SHORT,strtotime($element['date_foto']));?></td>
+							<td><?php echo getDateFormat($element['date_foto'], "SHORT");?></td>
 							<td><?php echo $element['user_add'];?></td>
 							<td><?php echo $element['fotos_puntos'];?></td>
 							<td><?php echo $num_comentarios>0 ? '<a href="?page=admin-fotos-comentarios&id='.$element['id_file'].'&ida='.$id.'">'.$num_comentarios.'</a>' : $num_comentarios; ?></td>

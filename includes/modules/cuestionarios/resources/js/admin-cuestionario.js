@@ -2,11 +2,11 @@ jQuery(document).ready(function(){
 	$(".area-detalle").wrapInner("<div class='area-detalle-out' />");
 
 	$("#SubmitData").click(function(evento){  
-	   $(".alert-message").html("").css("display","none");	   	      
+	   $(".alert-message").css("display","none");	   	      
 	   var form_ok=true;   
 		if (jQuery.trim($("#pregunta_texto").val())=="") 
 		{
-			 $("#pregunta-alert").html("Debes insertar algo de texto.").fadeIn().css("display","block");
+			 $("#pregunta-alert").fadeIn().css("display","block");
 			 form_ok=false;
 		}
 		if (form_ok) 
@@ -19,11 +19,9 @@ jQuery(document).ready(function(){
 		var tipo = $("#pregunta_tipo").val();
 		if (tipo=="texto"){
 			$("#container-respuestas").hide();
-			$("#SubmitData .ui-button-text").text("agregar pregunta");
 		}
 		else{
 			$("#container-respuestas").show();
-			$("#SubmitData .ui-button-text").text("agregar pregunta y respuestas");
 		}
 	});
 

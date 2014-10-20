@@ -20,7 +20,7 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 	<div class="col-md-9">
 		<h1>Temas en los foros</h1>
 		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>      
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>      
 		</ul>
 		<div class="table-responsive">
 			<table class="table">

@@ -458,12 +458,12 @@ class mailingController{
 	 */	
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => 'Comunicaciones Email',
+							"LabelSection" => strTranslate("Massive_Mailing"),
 							"LabelItem" => 'Comunicaciones enviadas',
 							"LabelUrl" => 'admin-messages',
 							"LabelPos" => 1),
 					  array("LabelHeader" => 'Modules',
-							"LabelSection" => 'Comunicaciones Email',
+							"LabelSection" => strTranslate("Massive_Mailing"),
 							"LabelItem" => 'Plantillas de comunicaciones',
 							"LabelUrl" => 'admin-templates',
 							"LabelPos" => 2));	

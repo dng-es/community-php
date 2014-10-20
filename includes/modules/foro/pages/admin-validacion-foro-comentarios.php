@@ -14,7 +14,7 @@ $elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY
 	<div class="col-md-9">
 		<h1>Comentarios en los foros</h1>
 			<ul class="nav nav-pills navbar-default"> 
-				<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_FORO;?></b></a></li>      
+				<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_FORO;?></b></a></li>      
 			</ul>
 			<div class="table-responsive">
 				<table class="table">
@@ -54,7 +54,7 @@ $elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY
 					</td>';
 					echo '<td>'.$element['user_comentario'].'</td>';
 					echo '<td>'.$element['canal'].'</td>';
-					echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_comentario'])).'</td>';	
+					echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>';	
 					echo '<td>'.$element['nombre'].'</td>';		
 					echo '</tr>';   
 				endforeach;?>

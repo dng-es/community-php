@@ -11,7 +11,7 @@ $elements = infotopdfController::getListAction(20);
 	<div class="col-md-9">
 		<h1>Gestión de documentos PDF</h1>
 		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>      
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>      
 			<li><a href="?page=admin-infotopdf-doc&act=new">Nuevo documento</a></li>
 		</ul>
 		<div class="table-responsive">

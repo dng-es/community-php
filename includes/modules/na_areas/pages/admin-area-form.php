@@ -86,14 +86,14 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 				echo '</table>';
 		}  
 		//INSERTAR NUEVA PREGUNTA
-		echo '<h3>Insertar nueva pregunta</h3>';
-
-		echo '<div class="area-detalle">
-		<form id="formData" name="formData" method="post" action="?page=admin-area-form&act=new&amp;id='.$id_tarea.'&amp;a='.$id_area.'">
+		?>
+		<h3>Insertar nueva pregunta</h3>
+		<div class="area-detalle">
+		<form id="formData" name="formData" method="post" action="?page=admin-area-form&act=new&amp;id=<?php echo $id_tarea;?>&amp;a=<?php echo $id_area;?>">
 		<table cellspacing="0" cellpadding="2px" class="Tam11">
 			<tr><td valign="top" width="150px">Pregunta:</td><td>
 			<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
-			<span id="pregunta-alert" class="alert-message alert alert-danger"></span>
+			<span id="pregunta-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 			</td></tr>
 			<tr><td valign="top">Tipo de pregunta:</td><td>
 			<select id="pregunta_tipo" name="pregunta_tipo" class="form-control">
@@ -109,10 +109,9 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 			</div>
 			</td></tr>    
 			<tr><td colspan="2">
-				<a href="?page=areas_form&id='.$id_tarea.'" target="_blank" id="ver-formulario" class="btn btn-primary">ver formulario</a>
+				<a href="?page=areas_form&id=<?php echo $id_tarea;?>" target="_blank" id="ver-formulario" class="btn btn-primary">ver formulario</a>
 				<div id="SubmitData" name="SubmitData" class="btn btn-primary" style="float:right">agregar pregunta</div></td></tr>
 		</table>
 		</form>
-		</div>';
-}
-?>
+		</div>
+<?php } ?>

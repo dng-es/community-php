@@ -74,13 +74,13 @@ class infoController{
 
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => "Documentación",
-							"LabelItem" => "Nuevo documento",
+							"LabelSection" => strTranslate("Info_Documents"),
+							"LabelItem" => strTranslate("Info_Documents_new"),
 							"LabelUrl" => 'admin-info-doc&act=new',
 							"LabelPos" => 1),
 					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> "Documentación",
-							"LabelItem"=> "Listado de documentos",
+							"LabelSection"=> strTranslate("Info_Documents"),
+							"LabelItem"=> strTranslate("Info_Documents_list"),
 							"LabelUrl"=>'admin-info',
 							"LabelPos" => 2));	
 	}		

@@ -1,6 +1,6 @@
 <?php
 include_once("includes/constants.php");
-include_once("includes/core/functions.php");
+include_once("includes/core/functions.core.php");
 include_once("includes/core/class.connection.php");
 include_once("includes/core/class.session.php");
 include_once("includes/users/class.users.php");	

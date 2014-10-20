@@ -18,7 +18,7 @@ jQuery(document).ready(function(){
 		var id = $(this).data("id"),
 			message_title = "Fwd: " + jQuery.trim($("#" + id).html()),
 			message_nick = jQuery.trim($("#message-nick-" + id).html()),		
-			message = message_nick + " escribió: \n-------------------------------\n" + jQuery.trim($("#message-body-" + id).html());
+			message = message_nick + " : \n-------------------------------\n" + jQuery.trim($("#message-body-" + id).html());
 		$("#texto-comentario").val(message);
 		$("#asunto-comentario").val(message_title);
 		$('#new_mensaje').modal();
@@ -28,7 +28,7 @@ jQuery(document).ready(function(){
 		var id = $(this).data("id"),
 			message_title = "Re: " + jQuery.trim($("#" + id).html()),
 			message_nick = jQuery.trim($("#message-nick-" + id).html()),		
-			message = message_nick + " escribió: \n-------------------------------\n" + jQuery.trim($("#message-body-" + id).html());
+			message = message_nick + " : \n-------------------------------\n" + jQuery.trim($("#message-body-" + id).html());
 		$("#texto-comentario").val(message);
 		$("#asunto-comentario").val(message_title);
 		$("#nick-comentario").val(message_nick);

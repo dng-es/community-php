@@ -7,7 +7,7 @@ function showComentarioPromocion($comentario_muro,$id_promocion,$votaciones=true
 	$respuestas=users::countReg("muro_comentarios"," AND id_comentario_id=".$comentario_muro['id_comentario']." AND estado=1 ");
 	echo '<div class="media">';
 	userFicha($comentario_muro,$movil);
-	echo '	<p><b>'.$comentario_muro['nick'].'</b> dice: ('.strftime(DATE_FORMAT_SHORT,strtotime($comentario_muro['date_comentario'])).')</p>
+	echo '	<p><b>'.$comentario_muro['nick'].'</b> dice: ('.getDateFormat($comentario_muro['date_comentario'], "SHORT").')</p>
 				<p>'.$comentario_muro['comentario'].'</p>';
 				
 				//SOLO SI SE PERMITEN VOTACIONES SE MUESTRA EL LINK PARA VOTAR

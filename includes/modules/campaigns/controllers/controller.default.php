@@ -168,18 +168,18 @@ class campaignsController{
 
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => "Campañas",
-							"LabelItem" => "Nueva campaña",
+							"LabelSection" => strTranslate("Campaigns"),
+							"LabelItem" => strTranslate("New_campaign"),
 							"LabelUrl" => 'admin-campaign&act=new',
 							"LabelPos" => 1),
 					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> "Campañas",
-							"LabelItem"=> "Listado de campañas",
+							"LabelSection"=> strTranslate("Campaigns"),
+							"LabelItem"=> strTranslate("Campaigns_list"),
 							"LabelUrl"=>'admin-campaigns',
 							"LabelPos" => 2),
 					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> "Campañas",
-							"LabelItem"=> "Tipos de campañas",
+							"LabelSection"=> strTranslate("Campaigns"),
+							"LabelItem"=> strTranslate("Campaign_types"),
 							"LabelUrl"=>'admin-campaigns-types',
 							"LabelPos" => 3));	
 	}			

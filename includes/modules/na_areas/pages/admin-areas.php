@@ -48,7 +48,7 @@ $elements=$na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 	<div class="col-md-9">
 		<h1><?php echo strTranslate("Na_areas_list");?></h1>
 		<ul class="nav nav-pills navbar-default">     
-			<li class="disabled"><a href="#">Total <b><?php echo $total_reg;?></b> registros</a></li>    
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $total_reg;?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>    
 			<li><a href="?page=admin-area&act=new"><?php echo strTranslate("Na_areas_new");?></a></li>
 			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q=<?php echo $find_text;?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
@@ -89,7 +89,7 @@ $elements=$na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 				</td>						
 				<td><?php echo $element['area_nombre'];?></td>
 				<td><?php echo $element['area_canal'];?></td>
-				<td><?php echo strftime(DATE_FORMAT_SHORT,strtotime($element['area_fecha'])).'</td>';?>
+				<td><?php echo getDateFormat($element['area_fecha'], "SHORT").'</td>';?>
 				</tr>
 		<?php endforeach; ?>
 		</table>

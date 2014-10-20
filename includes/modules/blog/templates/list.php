@@ -23,7 +23,7 @@ function ForoList($sub_tema,$destino = "foro-comentarios")
 			<p><?php echo $descripcion;?></p>
 		</div>
 		<div class="panel-footer">
-			<span class="text-muted"><?php echo dateLong($sub_tema['date_tema']);?></span>
+			<span class="text-muted"><?php echo getDateFormat($sub_tema['date_tema'], "LONG");?></span>
 			<span class="fa fa-comment" title="comentarios en el foro"></span>
 			<span class="contador-foro-counter"><?php echo $num_comentarios;?></span> <?php echo strTranslate("Comments");?> 
 			<span class="fa fa-eye" title="visitas al foro"></span> 

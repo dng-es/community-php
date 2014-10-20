@@ -16,7 +16,7 @@ $elements = mailingController::getListAction(20);
   	<div class="col-md-9"> 
   		<h1>Comunicaciones enviadas</h1>
   		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> registros</a></li>  
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
 			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 		<table class="table">
@@ -41,7 +41,7 @@ $elements = mailingController::getListAction(20);
 				<?php			
 				echo '<td>'.$element['message_subject'].'</td>';
 				echo '<td><a href="?page=admin-message-proccess&id='.$element['id_message'].'" class="label '.$estado.'">'.$element['message_status'].'</a></td>';
-				echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_add'])).'</td>';
+				echo '<td>'.getDateFormat($element['date_add'], "SHORT").'</td>';
 				echo '<td><span class="label">'.$element['total_messages'].'</span></td>'; 
 				echo '<td><span class="label">'.$element['total_send'].'</span></td>';
 				echo '<td><span class="label'.($element['total_pending']>0 ? " label-danger" : "").'">'.$element['total_pending'].'</span></td>';

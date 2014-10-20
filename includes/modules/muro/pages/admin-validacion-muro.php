@@ -14,7 +14,7 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 	<div class="col-md-9">
 		<h1>Validación de comentarios del muro</h1>
 		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_MURO;?></b></a></li>      
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_MURO;?></b></a></li>      
 		</ul>
 		<table class="table">
 		<tr>
@@ -54,7 +54,7 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 			echo '<td>'.$element['tipo_muro'].'</td>';
 			echo '<td>'.$element['user_comentario'].'</td>';
 			echo '<td>'.$element['canal_comentario'].'</td>';
-			echo '<td>'.strftime(DATE_TIME_FORMAT,strtotime($element['date_comentario'])).'</td>';			
+			echo '<td>'.getDateFormat($element['date_comentario'], "DATE_TIME").'</td>';			
 			echo '</tr>';   
 		endforeach;
 		echo '</table><br />';

@@ -56,7 +56,7 @@ function showVideoGaleria($file_galeria,$rating=true,$id_promocion=0){
 			<div>
 				<?php 
 				echo '<a id="a'.$file_galeria['id_file'].'" href="$a'.$file_galeria['id_file'].'Tip?width=350" class="betterTip comunidad-color" title="Datos del usuario <em>'.$file_galeria['nick'].'</em>">
-				<b>'.$nick.'</b> - '.strftime(DATE_FORMAT_SHORT,strtotime($file_galeria['date_video'])).'</a>';							
+				<b>'.$nick.'</b> - '.getDateFormat($file_galeria['date_video'], "SHORT").'</a>';							
 				userTip($file_galeria['id_file'],$file_galeria,userEstrellas($file_galeria['participaciones']),0);
 				?>			
 			</div>

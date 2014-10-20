@@ -27,16 +27,13 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 
 <div class="row row-top">
 	<div class="col-md-9">
-		<h1>Revisiones</h1>
-		<p>Tarea: <?php echo $tarea[0]['tarea_titulo'];?></p>
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">       
-					<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver al curso</a></li>
-					<li><a href="?page=admin-area-revs&t3=1&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>"><?php echo strTranslate("Export");?></a></li>
-				</ul>
-			</div>
-		</nav>
+		<h1>Revisiones <small><?php echo $tarea[0]['tarea_titulo'];?></small></h1>
+
+		<ul class="nav nav-pills navbar-default">
+			<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver al curso</a></li>
+			<li><a href="?page=admin-area-revs&t3=1&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>"><?php echo strTranslate("Export");?></a></li>
+		</ul>
+
 		<?php 
 		//DESCARGAR FICHERO USUARIO-FICHEROS
 		if (isset($_REQUEST['t2']) and $_REQUEST['t2']=="1"){
@@ -145,7 +142,7 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 				echo '<tr>';      
 				echo '<td>a href="?page=mensajes&n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a>';  
 				echo '<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a></td>';
-				echo '<td>('.strftime(DATE_TIME_FORMAT,strtotime($revision['fecha_tarea'])).')</td>';
+				echo '<td>('.getDateFormat($revision['fecha_tarea'], "DATE_TIME").')</td>';
 				echo '<td><a href="docs/showfile.php?t=1&file='.$revision['file_tarea'].'" target="_blank">descargar</a></td>';
 				echo '<td style="width: 80px; text-align: center">'.$revision['canal'].'</td>';
 				echo '<td>'.$revision['nombre_grupo'].'</td>';
@@ -169,7 +166,14 @@ function revisionesFormulario($id_tarea,$id_area,$id_grupo){
 			echo '<div class="tareas-row">Los usuarios todavia no han finalizado los formularios para esta tarea.</div>';
 		}
 		else{
-			echo '<table class="table">';
+			echo '<table class="table">
+					<tr>
+						<th width="70px"></th>
+						<th>'.strTranslate("User").'</th>
+						<th>Puntuación</th>
+						<th>'.strTranslate("Date").'</th>
+						<th>Respuestas</th>
+					</tr>';
 			foreach($revisiones as $revision):
 				if ($revision['revision']==1){
 					$imagen_revision='<i class="fa fa-check icon-ok"></i>';
@@ -204,7 +208,7 @@ function revisionesFormulario($id_tarea,$id_area,$id_grupo){
 							'.$btn.'
 						</form>
 					</td>';
-				echo '<td>('.strftime(DATE_TIME_FORMAT,strtotime($revision['date_finalizacion'])).')</td>';
+				echo '<td>('.getDateFormat($revision['date_finalizacion'], "DATE_TIME").')</td>';
 				echo '<td><a href="#" onclick="createDialog('.$id_tarea.',\''.$revision['user_tarea'].'\')">ver respuestas</a></td>';       
 				echo '</tr>';
 			endforeach;

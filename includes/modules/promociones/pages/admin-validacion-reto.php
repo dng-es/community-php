@@ -173,7 +173,7 @@ function getVideosRetoPendientes($id_promocion)
 			else { playVideo("VideoRetoPendiente".$element['id_file'],PATH_VIDEOS_TEMP.$element['name_file'],165,100);}
 			echo '	</div>
 					<div class="video-info">
-						<b>fecha:</b> '.strftime(DATE_FORMAT_SHORT,strtotime($element['date_video'])).'
+						<b>fecha:</b> '.getDateFormat($element['date_video'], "SHORT").'
 						<b>usuario:</b> '.$element['user_add'].' 
 						<b>canal:</b> '.$element['canal'].' 
 						<b>titulo:</b> '.$element['titulo'].'
@@ -208,7 +208,7 @@ function getVideosRetoValidados($id_promocion)
 			playVideo("VideoRetoPendiente".$element['id_file'],PATH_VIDEOS.$element['name_file'],165,100);				   		  
 			echo ' </div>
 				   <div class="video-info">
-						<b>fecha:</b> '.strftime(DATE_FORMAT_SHORT,strtotime($element['date_video'])).'
+						<b>fecha:</b> '.getDateFormat($element['date_video'], "SHORT").'
 						<b>usuario:</b> '.$element['user_add'].' 
 						<b>canal:</b> '.$element['canal'].' 
 						<b>titulo:</b> '.$element['titulo'].'
@@ -270,7 +270,7 @@ function getFotosRetoPendientes($id_promocion)
 			echo '<td>'.$element['user_add'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
 			echo '<td><a href="#" class="abrir-modal" title="MensajeFoto'.$element['id_file'].'">'.$element['titulo'].'</a></td>';
-			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['f.date_foto'])).'</td>';			
+			echo '<td>'.getDateFormat($element['f.date_foto'], "SHORT").'</td>';			
 			echo '</tr>';   
 	  endforeach;
 	  echo '</table>
@@ -319,7 +319,7 @@ function getFotosRetoValidados($id_promocion)
 			echo '<td>'.$element['user_add'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
 			echo '<td><a href="#" class="abrir-modal" title="MensajeFoto'.$element['id_file'].'">'.$element['titulo'].'</a></td>';
-			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['f.date_foto'])).'</td>';			
+			echo '<td>'.getDateFormat($element['f.date_foto'], "SHORT").'</td>';			
 			echo '</tr>';   
 	  endforeach;
 	  echo '</table>
@@ -374,7 +374,7 @@ function getRetoPendientes($nombre_muro)
 			echo '<td>'.$element['tipo_muro'].'</td>';
 			echo '<td>'.$element['user_comentario'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
-			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_comentario'])).'</td>';			
+			echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>';			
 			echo '</tr>';   
 	  endforeach;
 	  echo '</table>
@@ -423,7 +423,7 @@ function getRetoValidados($nombre_muro)
 			echo '<td>'.$element['tipo_muro'].'</td>';
 			echo '<td>'.$element['user_comentario'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
-			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_comentario'])).'</td>';			
+			echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>';			
 			echo '</tr>';   
 	  endforeach;
 	  echo '</table>

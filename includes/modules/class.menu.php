@@ -37,19 +37,19 @@ class menu{
 				<ul class="nav navbar-nav">
 					<li><a href="?page=video&id=<?php echo $id_video;?>"><i class="fa fa-video-camera visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Videos")?></a></li>
 					<li><a href="?page=fotos"><i class="fa fa-picture-o visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Photos")?></a></li>
-					<li><a href="?page=user-infotopdf-all"><i class="fa fa-file-pdf-o visible-xs-inline-block text-primary"></i> Impresos PDF</a></li>
+					<li><a href="?page=user-infotopdf-all"><i class="fa fa-file-pdf-o visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Infotopdf_Documents")?></a></li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="fa fa-envelope-o visible-xs-inline-block text-primary"></i> Envío emails <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="fa fa-envelope-o visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Massive_Mailing")?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="?page=user-templates">Ver todas las comunicaciones</a></li>
-							<li><a href="?page=user-lists">Mis listas de envío</a></li>
+							<li><a href="?page=user-lists"><?php echo strTranslate("Mailing_lists")?></a></li>
 							<li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
 						</ul>
 					</li>
 					<li><a href="?page=blog&id=<?php echo $id_blog?>"><i class="fa fa-globe visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Blog")?></a></li>
 					<li><a href="?page=areas"><i class="fa fa-bookmark visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Na_areas")?></a></li>
 					<li><a href="?page=foro-subtemas&id=<?php echo $id_foro;?>"><i class="fa fa-comment visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Forums")?></a></li>
-					<li><a href="?page=user-info-all"><i class="fa fa-file visible-xs-inline-block text-primary"></i> Documentación</a></li>
+					<li><a href="?page=user-info-all"><i class="fa fa-file visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Info_Documents")?></a></li>
 					<li><a href="?page=ranking"><i class="fa fa-trophy visible-xs-inline-block text-primary"></i> Ranking</a></li>
 
 					<li class="hidden-md hidden-lg"><a href="?page=user-perfil"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php echo strTranslate("My_profile")?></a></li>
@@ -175,8 +175,8 @@ class menu{
 
 		?>
 		<div class="col-md-3" id="admin-panel">
-			<h2><a href="?page=admin">Ir al Panel Principal</a></h2>
-			<h3>Gestión de contenidos</h3>
+			<h2><a href="?page=admin"><?php echo strTranslate("Go_to_main_panel");?></a></h2>
+			<h3><?php echo strTranslate("Content_manager");?></h3>
 			<ul>
 				<?php self::getMenuSection("Modules", $array_final);?>
 			</ul>

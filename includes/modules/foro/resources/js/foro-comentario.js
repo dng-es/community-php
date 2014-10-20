@@ -12,23 +12,17 @@ jQuery(document).ready(function(){
 	$(".comment-info .label").tooltip({placement:"bottom"});
 	
 	$("#coment-form").submit(function(evento){
-	   $("#alertas-foro").html("").css("display","none");
+	   $("#alertas-foro").css("display","none");
 	   
-	   var resultado_ok=true;   
-	   var texto_alerta="";    
-		if ($('#texto-comentario').val()=="")
-		{
-			 texto_alerta += "Inserta el comentario. ";
+	   var resultado_ok=true;     
+		if ($('#texto-comentario').val()==""){
 			 resultado_ok=false;
 		}
-		if (document.getElementById('texto-comentario').value.length>600)
-		{
-			 texto_alerta += "Máximo 600 caracteres.";
+		if (document.getElementById('texto-comentario').value.length>600){
 			 resultado_ok=false;
 		}		
-		if (resultado_ok==false) 
-		{		
-			 $("#alertas-foro").html(texto_alerta).fadeIn().css("display","block");
+		if (resultado_ok==false) {		
+			 $("#alertas-foro").fadeIn().css("display","block");
 			 return false;
 		}			
 	});

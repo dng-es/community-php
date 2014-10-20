@@ -152,7 +152,7 @@ Sesiones
 
 Manejo de cadenas
 * [createRandomPassword] (#createrandompassword)
-* [dateLong] (#datelong)
+* [getDataFormat] (#getDataFormat)
 * [dateMont] (#dateMonth)
 * [NormalizeText] (#normalizetext)
 * [strTranslate] (#strtranslate)
@@ -187,10 +187,10 @@ createRandomPassword(7);
 //especificando los caracteres aleatorios
 createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
 ```
-### dateLong
-Devuelve una fecha formateada con el mes con texto. Uso: 
+### getDataFormat
+Devuelve una fecha con el formato especificado (DAY, MONTH, MONTH_LONG, YEAR, SHORT, LONG, TIME, DATE_TIME). Uso: 
 ```php 
-dateLong('2014-01-14');
+getDataFormat('2014-01-14', 'LONG');
 //mostrará -> 14 de Enero 2014
 ```
 

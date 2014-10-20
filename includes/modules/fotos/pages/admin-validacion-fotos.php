@@ -30,7 +30,7 @@ $albumes = $fotos->getFotosAlbumes(" ORDER BY nombre_album");?>
 	<div class="col-md-9">	
 		<h1>Validación de fotos</h1>
 		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#">Total <b><?php echo count($pendientes);?></b> registros. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b></a></li>      
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b></a></li>      
 		</ul>
 		<table class="table">
 		<tr>
@@ -75,7 +75,7 @@ $albumes = $fotos->getFotosAlbumes(" ORDER BY nombre_album");?>
 					</div><!-- /.modal -->
 
 				 </td>';
-			echo '<td>'.strftime(DATE_FORMAT_SHORT,strtotime($element['date_foto'])).'</td>';			
+			echo '<td>'.getDateFormat($element['date_foto'], "SHORT").'</td>';			
 			echo '</tr>';   
 		endforeach;?>
 		</table><br />	

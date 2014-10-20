@@ -34,7 +34,7 @@ if ($id_video > 0): ?>
 		<?php playVideo("VideoGaleria".$id_video,PATH_VIDEOS.$video['name_file'],100,100, "bottom", false, $id_video);?>
 		<h3><?php echo $video['titulo'];?>
 		<small>
-		<span class="legend"><?php echo strTranslate("uploaded_by");?> <b><?php echo $video['nick'];?></b> - <span><?php echo dateLong($video['date_video']);?></span>
+		<span class="legend"><?php echo strTranslate("uploaded_by");?> <b><?php echo $video['nick'];?></b> - <span><?php echo getDateFormat($video['date_video'], "LONG");?></span>
 		 - <b>Reproducciones</b> : <?php echo $video['views'];?> 
 		 - <a href="?page=video&id=<?php echo $video['id_file'].'&idvv='.$video['id_file'];?>"><i class="fa fa-heart"></i> <?php echo $video['videos_puntos'];?></a>
 		</span>
@@ -56,7 +56,7 @@ if ($id_video > 0): ?>
 			foreach($elements['items'] as $element):
 				echo '<div class="video-preview-container"><a href="?page=video&id='.$element['id_file'].'&pag='.$pagina_sig.'"><img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="video-preview" /></a>
 							<div><a href="?page=video&id='.$element['id_file'].'&pag='.$pagina_sig.'">'.$element['titulo'].'</a><br />
-								 <span>'.dateLong($element['date_video']).'</span><br />
+								 <span>'.getDateFormat($element['date_video'], "LONG").'</span><br />
 								 '.$element['nick'].'
 							</div>
 						</div>';

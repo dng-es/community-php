@@ -32,9 +32,9 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 	<div class="col-md-9">
 		<h1>Entradas en <?php echo strTranslate("Blog");?></h1>
 		<ul class="nav nav-pills navbar-default">       
-			<li class="disabled"><a href="#">Total <b><?php echo count($elements);?></b> registros</a></li>
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($elements);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 			<li><a href="?page=admin-blog-new&act=new">Nueva entrada</a></li>
-			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q=<?php echo $find_text;?>"><?php echo strTranslate("Export");?> CSV</a></li>
+			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q=<?php echo $find_text;?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 
 		<div class="table-responsive">
@@ -62,7 +62,7 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 					 </td>';
 							
 				echo '<td>'.$element['nombre'].'</td>';
-				echo '<td><em class="legend">'.dateLong($element['date_tema']).'</em><br />';
+				echo '<td><em class="legend">'.getDateFormat($element['date_tema'], "LONG").'</em><br />';
 				echo $element['user'].'</td>';
 				echo '<td>'.$num_visitas.'</td>';
 				echo '<td>';

@@ -13,7 +13,7 @@ $session->AccessLevel($perfiles_autorizados);
 		$elements = fotosAlbumController::getListAction(20, " AND activo=1 ORDER BY nombre_album ");
 		?>
 		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#">Total <b><?php echo $elements['total_reg'];?></b> registros</a></li>      
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>      
 			<li><a href="?page=admin-albumes-new&act=new"><?php echo strTranslate("New_album");?></a></li>
 		</ul>
 		<table class="table">
@@ -39,7 +39,7 @@ $session->AccessLevel($perfiles_autorizados);
 				 </td>';
 						
 			echo '<td>'.$element['nombre_album'].'</td>';
-			echo '<td>'.strftime(DATE_FORMAT_SHORT, strtotime($element['date_album'])).'</td>';
+			echo '<td>'.getDateFormat($element['date_album'], "SHORT").'</td>';
 			echo '<td>'.$element['username_album'].'</td>';
 			echo '<td>'.$num_fotos.'</td>';
 			echo '</tr>';   
