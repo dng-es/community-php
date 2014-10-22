@@ -47,6 +47,7 @@ function shortText($text_html,$num_car){
  * @return 	string        				Fecha formateada
  */
 function getDateFormat($date, $format){
+	global $ini_conf;
 	include(dirname(__FILE__)."/../languages/".(isset($_SESSION['language']) ? $_SESSION['language'] : $ini_conf['language'])."/options.php");
 	switch ($format) {
 		case 'DAY':

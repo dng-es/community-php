@@ -212,7 +212,7 @@ class session {
 		global $ini_conf;
 		if (isset($_REQUEST['lan']) and $_REQUEST['lan']!="") $_SESSION['language'] = $_REQUEST['lan'];
 		include(dirname(__FILE__)."/../languages/".(isset($_SESSION['language']) ? $_SESSION['language'] : $ini_conf['language'])."/options.php");
-		setlocale(LC_ALL, $LANGUAGE_DEFAULT);
+		setlocale(LC_ALL, $LANGUAGE_LOCALE);
 		date_default_timezone_set($LANGUAGE_TIMEZONE);
 	}
 }

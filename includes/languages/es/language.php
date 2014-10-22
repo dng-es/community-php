@@ -1,5 +1,6 @@
 <?php
 APP_points = "puntos"
+APP_shares = "participaciones"
 Wellcome_to = "bienvenid@ a"
 Hello = "Hola"
 Home = "Inicio"

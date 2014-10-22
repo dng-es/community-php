@@ -1,5 +1,6 @@
 <?php
 APP_points = "points"
+APP_shares = "shares"
 Wellcome_to = "wellcome to"
 Hello = "Hello"
 Home = "Home"

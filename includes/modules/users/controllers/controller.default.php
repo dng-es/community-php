@@ -90,15 +90,27 @@ class usersController{
 		}
 	}
 
-	public static function getPerfilAction(){
-		if ($_SESSION['user_name']!=""){
+	public static function getPerfilAction($username, $filter=""){
+		if ( $username != "" ){
 			$users = new users();
-			$plantilla = $users->getUsers(" AND username='".$_SESSION['user_name']."' ");
+			$plantilla = $users->getUsers(" AND username='".$username."' ".$filter);
 			$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto']=="" ? "user.jpg" : $plantilla[0]['foto']);
 			$plantilla[0]["user_foto"] = $user_foto;
 			return $plantilla[0];	
 		}	
-	}	
+	}
+
+	public static function getPublicPerfilAction($nick, $filter=""){
+		if ( $nick != "" ){
+			$users = new users();
+			$plantilla = $users->getUsers(" AND nick='".$nick."' ".$filter);
+			if (count($plantilla)>0){
+				$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto']=="" ? "user.jpg" : $plantilla[0]['foto']);
+				$plantilla[0]["user_foto"] = $user_foto;
+				return $plantilla[0];
+			}		
+		}	
+	}		
 
 	public static function updatePerfilAction(){
 		$users = new users();
@@ -141,7 +153,7 @@ class usersController{
 		$array_final = array();
 		$usuario = $users->getUsers(" AND username='".$username."' ");
 		$last_access = ($usuario[0]['last_access']!= null ? getDateFormat($usuario[0]['last_access'], "DATE_TIME") : "sin accesos");
-		$array_final = array_merge($array_final, array("Último acceso" => $last_access));
+		$array_final = array_merge($array_final, array(strTranslate("Last_access") => $last_access));
 		$modules = getListModules();		
 		foreach($modules as $module):
 			$moduleClass = $module['folder']."Controller";

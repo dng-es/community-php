@@ -15,6 +15,7 @@ session::ValidateSessionAjax();
 $fotos=new fotos();
 $pagina = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1 );
 $filtro_album = ((isset($_REQUEST['id']) and $_REQUEST['id']>0) ? " AND id_album=".$_REQUEST['id']." " : "" );
-$elements = fotosController::getListAction(18, $filtro_album." AND estado=1 ORDER BY id_file DESC ");
+$filtro_nick = ((isset($_REQUEST['n']) and $_REQUEST['n']!="") ? " AND nick='".urldecode($_REQUEST['n'])."' " : "" );
+$elements = fotosController::getListAction(18, $filtro_album.$filtro_nick." AND estado=1 ORDER BY id_file DESC ");
 galleryPhotos($elements['items'],true,0,4);
 ?>

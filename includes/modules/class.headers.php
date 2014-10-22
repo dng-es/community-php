@@ -26,9 +26,8 @@ class headers{
 			<title><?php echo $Title;?></title>
 			<link rel="shortcut icon" href="favicon.ico">
 			<link rel="icon" type="image/ico"  href="favicon.ico" >		
-
 			<link href="css/styles.css" rel="stylesheet"> 
-			
+		
 			<script type="text/javascript" src="js/main.min.js"></script>
 
 			<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

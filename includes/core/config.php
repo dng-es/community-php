@@ -25,7 +25,7 @@ db = "comunidad"
 sql_connector = "mysqli"
 
 ;DEFAULT LANGUAGE
-language = "en"
+language = "es"
 language_selector = true
 
 ;DEBUG OPTIONS. Poner 0 en servidores de producción. 1 salida por pantallas. 2 salida fichero error

@@ -405,12 +405,17 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		overflow:hidden;	
 	}
 }
+.stars-big .stars-user {
+	font-size: 30px;
+}
 .stars-user {
 	display: inline-block;
 	font-size: 10px;
 	line-height:10px;
 	margin: 0px 1px 0px 0px;
 	padding: 0px 0px 0px 0px;
+
+
 }
 .star-on {
 	@extend .stars-user;
@@ -460,10 +465,14 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .panel-muro{
 	background-color:#fff;
 	font-size: $font-size-community - 2;
+	height: 495px;
 	.ver-mas{
 		background-color:$panels-color;
 		border-top: 1px solid #f0f0f0;
 		font-size: $font-size-community;
+	}
+	@media screen and (max-width: $break-medium) {
+		height: auto;
 	}
 }
 #muro-home{
@@ -1091,12 +1100,6 @@ table th {
 /*Fin Areas de trabajo*/
 
 /*Blog*/
-#form-blog{
-	margin-top: 30px;
-	@media screen and (max-width: $break-medium) {
-		margin:0;
-	}
-}
 .blog-recientes{
 	clear:both;
 	font-size: 12px;
@@ -1427,7 +1430,7 @@ table th {
 #photos {
 	background-color:transparent;
 	text-align:center;
-	padding:10px 5%;
+	padding:10px 0%;
 	display: flex;
 	display: -webkit-flex;
 	flex-flow: row wrap;

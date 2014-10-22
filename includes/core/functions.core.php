@@ -44,19 +44,19 @@ function pageRouter($page){
 /**
 * Used in __autoload() to correctly load classes
 *
-* @param 	string 		$dir 		module path
-* @param 	string 		$module 	module name to load
-* @return 	string 		$dir_final 	full path folder
+* @param 	string 		$dir 			module path
+* @param 	string 		$modulename 	module name to load
+* @return 	string 		$dir_final 		full path folder
 */
-function dirCarga($dir, $module){
+function dirCarga($dir, $modulename){
 	$pos = strrpos( $dir , "\\" );
 	if ($pos === false){
 		//linux
-		$dir_final = str_replace("includes/core", "includes",  $dir .$module);
+		$dir_final = str_replace("includes/core", "includes",  $dir .$modulename);
 	}
 	else{
 		//windows
-		$dir_final = str_replace("includes\\core", "includes", $dir . str_replace("/", "\\\\", $module));       
+		$dir_final = str_replace("includes\\core", "includes", $dir . str_replace("/", "\\\\", $modulename));       
 	}
 	return $dir_final;
 }
@@ -135,12 +135,28 @@ function getListModules(){
 }
 
 /**
- * Obtiene todos los modulos instalados
- * @return 	array 		Array con los modulos instalados
+ * Devulve si un formulario existe
+ *
+ * @param 	string 		$modulename 		Nombre del modulo a buscar 
+ * @return 	boolean 						Resultado de la busqueda
  */
-function getModuleConfig($module){
+function getModuleExist($modulename){
+	$folders = FileSystem::showDirFolders(__DIR__."/../modules/");
+	foreach($folders as $folder):
+		if ($folder == $modulename) return true;
+	endforeach;	
+	return false;	
+}
+
+/**
+ * Obtiene todos los modulos instalados
+ *
+ * @param 	string 		$modulename 		Nombre del modulo a buscar
+ * @return 	array 							Array con los modulos instalados
+ */
+function getModuleConfig($modulename){
 	$config_params = array();
-	$file = __DIR__."/../modules/".$module."/config.php";
+	$file = __DIR__."/../modules/".$modulename."/config.php";
 	if (file_exists($file)){
 		$config_params = parse_ini_file($file);
 	}	

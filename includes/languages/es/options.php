@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////////////////////////
 // LOCALE, DATE AND TIME DEFINITIONS
 ///////////////////////////////////////////////////////////////////////////////////
-$LANGUAGE_DEFAULT = 'es_ES.UTF-8';
+$LANGUAGE_LOCALE = 'es_ES.UTF-8';
 $LANGUAGE_TIMEZONE = 'Europe/Madrid';
 $DATE_MONTH = '%m';  // this is used for strftime()
 $DATE_MONTH_LONG = '%B';  // this is used for strftime()

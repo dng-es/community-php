@@ -17,7 +17,7 @@ function videoComment($comentario, $destino = "videos-comentarios"){?>
 	<div class="media media-comment">
 		<?php userFicha($comentario);?>
 		<p>
-			<span class="text-primary"><small><?php echo $comentario['nick'];?></small></span><br />
+			<a href="?page=profile&n=<?php echo $comentario['nick']; ?>"><small><?php echo $comentario['nick'];?></small></a><br />
 			<span class="text-muted"><small><?php echo getDateFormat($comentario['date_comentario'], "LONG")." ".getDateFormat($comentario['date_comentario'], "TIME"); ?></small></span>
 		</p>
 		<p><a name="comentario-id-'.$comentario['id_comentario'].'" id="comentario-id-'.$comentario['id_comentario'].'"></a></p>

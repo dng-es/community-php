@@ -12,7 +12,7 @@ function playVideo($id_contenedor,$nombre_video,$ancho_video,$alto_video,$contro
 		}); 
 
 		//REGISTRO DE VISUALIZACION
-		jwplayer().onPlay(function(){
+		jwplayer("<?php echo $id_contenedor;?>").onComplete(function(){
 			$.ajax({
 				type : "POST",
 				url : "includes/modules/videos/pages/videos-process.php",
@@ -21,7 +21,7 @@ function playVideo($id_contenedor,$nombre_video,$ancho_video,$alto_video,$contro
 		})
 
 		//BOTON PARA DESCARGAR EL VIDEO
-		/*jwplayer().addButton(
+		/*jwplayer("<?php echo $id_contenedor;?>").addButton(
 			//This portion is what designates the graphic used for the button
 			"images/download.png",
 			//This portion determines the text that appears as a tooltip

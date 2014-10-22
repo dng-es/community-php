@@ -449,7 +449,7 @@ class mailingController{
 	 */
 	public function userModuleStatistis($username){
 		$num = connection::countReg("mailing_messages"," AND username_add='".$username."' ");
-		return array('Mailing masivos' => $num);
+		return array(strTranslate('Massive_Mailing') => $num);
 	}
 
 	/**

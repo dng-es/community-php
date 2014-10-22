@@ -6,6 +6,8 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					"js/bootstrap-datepicker.es.js", 
 					getAsset("users")."js/user-perfil.js"));
 
+templateload("tipuser","users");
+
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
@@ -13,11 +15,11 @@ addJavascripts(array("js/bootstrap.file-input.js",
 	<?php
 	session::getFlashMessage( 'actions_message' ); 
 	usersController::updatePerfilAction();
-	$usuario = usersController::getPerfilAction();
+	$usuario = usersController::getPerfilAction($_SESSION['user_name']);
 	?>
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs">
-		<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab">Datos generales</a></li>
+		<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
 		<li <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' class="active"' : '');?>><a href="#statistics" data-toggle="tab"><?php echo strTranslate("Statistics");?></a></li>
 	</ul>	
 	
@@ -29,15 +31,15 @@ addJavascripts(array("js/bootstrap.file-input.js",
 						<input type="hidden" name="user-username" id="user-username" value="<?php echo $_SESSION['user_name'];?>">
 						
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-empresa"><?php echo strTranslate("Group_user");?>:</label>
-								<div class="col-sm-10">
-								  <input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
-								</div>
-							</div>
-							<div class="form-group">
 								<label class="col-sm-2 control-label" for="username-text"><?php echo strTranslate("Username");?>:</label>
 								<div class="col-sm-10">
 								  <input type="text" name="username-text" id="username-text" class="form-control" disabled="disabled" value="<?php echo $_SESSION['user_name'];?>" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="user-empresa"><?php echo strTranslate("Group_user");?>:</label>
+								<div class="col-sm-10">
+								  <input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -130,14 +132,19 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		</div>
 		<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="statistics">
 			<br />
-			<p>No hay estadísticas activas</p>
-			<br /><br /><br /><br />
+			<p>Estadísticas de uso de la comunidad por el usuario <b><?php echo $usuario['username'];?></b></p>
+			<table class="table">
+				<tr><td><label><?php echo strTranslate("Date_add");?></label></td><td><?php echo $usuario['date_add'];?></td></tr>
+				<tr><td><label><?php echo ucfirst(strTranslate("Last_access"));?></label></td><td><?php echo getDateFormat($usuario['last_access'], "DATE_TIME");?></td></tr>
+				<tr><td><label><?php echo ucfirst(strTranslate("APP_points"));?></label></td><td><?php echo $usuario['puntos'];?></td></tr>
+			</table>
 		</div>
 	</div>
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" />  
+			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" /> 
+			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div><br />
 			<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
 		</div>
 	</div>
