@@ -294,12 +294,12 @@ class usersController{
 							"LabelPos" => 4),
 					  array("LabelHeader"=> 'Tools',
 							"LabelSection"=> strTranslate("Reports"),
-							"LabelItem" => 'Informe puntuaciones',
+							"LabelItem" => ucfirst(strTranslate("APP_points")),
 							"LabelUrl" => 'informe-puntuaciones',
 							"LabelPos" => 2),
 					  array("LabelHeader" => 'Tools',
 							"LabelSection" => strTranslate("Reports"),
-							"LabelItem" => 'Informe de participaciones',
+							"LabelItem" => ucfirst(strTranslate("APP_shares")),
 							"LabelUrl" => 'informe-participaciones',
 							"LabelPos" => 3));	
 	}	

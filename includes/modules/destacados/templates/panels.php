@@ -8,13 +8,15 @@ function PanelLastDestacado(){
 	$destacado=$destacados->getDestacados($filtro_destacado);
 	$destacado_file=$destacados->getDestacadosFile(" AND d.activo=1 ".$filtro_destacado,$destacado[0]['destacado_tipo']);   
 	?>
-	<div class="video-preview-container">
+	<div class="media-preview-container">
 		<?php
 		if ($destacado[0]['destacado_tipo']=='foto') {
-			echo '<a target="_blank" href="docs/fotos/'.$destacado_file[0]['name_file'].'"><img src="docs/fotos/'.$destacado_file[0]['name_file'].'" class="video-preview" /></a>';
+			echo '<a target="_blank" href="docs/fotos/'.$destacado_file[0]['name_file'].'">
+				  <img src="docs/fotos/'.$destacado_file[0]['name_file'].'" class="media-preview" alt="'.$destacado_file[0]['titulo'].'" /></a>';
 		}
 		elseif ($destacado[0]['destacado_tipo']=='video') { 
-			echo '<a href="?page=video&id='.$destacado_file[0]['id_file'].'"><img src="'.PATH_VIDEOS.$destacado_file[0]['name_file'].'.jpg" class="video-preview" /></a>';
+			echo '<a href="?page=video&id='.$destacado_file[0]['id_file'].'">
+			<img src="'.PATH_VIDEOS.$destacado_file[0]['name_file'].'.jpg" class="media-preview" alt="'.$destacado_file[0]['titulo'].'" /></a>';
 		}
 		?>
 		<div>

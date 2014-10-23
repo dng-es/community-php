@@ -6,22 +6,21 @@ function archivoBlog($elements){
 			    <span class="caret"></span>
 			    <span class="sr-only">Toggle Dropdown</span>
 			  </button>
-			  <ul class="dropdown-menu" role="menu">';
+			  <ul class="dropdown-menu" style="width:96%" role="menu">';
 				foreach($elements as $element):
 					$nombre=strftime("%B",mktime(0, 0, 0, $element['mes'], 1, 2000));
 					//echo '<option value="'.$element['mes'].','.$element['ano'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</option>';
 					echo '<li><a href="?page=blog-list&a='.$element['ano'].'&m='.$element['mes'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</a></li>';
 				endforeach;
 	echo ' 	  </ul>
-		  </div>';	
+		  </div>';
 }
 
 function entradasBlog($elements){
 	foreach($elements as $element):		
-		echo '<div class="blog-recientes">
-				<div class="modal-img-container">
-					<a href="?page=blog&id='.$element['id_tema'].'"><img src="images/foro/'.$element['imagen_tema'].'" title="'.$element['nombre'].'" /></a>
-				</div>
+		echo '<div class="media-preview-container">
+				<a href="?page=blog&id='.$element['id_tema'].'">
+				<img src="images/foro/'.$element['imagen_tema'].'" class="media-preview" alt="'.$element['nombre'].'" /></a>
 				<div>
 					<a href="?page=blog&id='.$element['id_tema'].'">'.$element['nombre'].'</a><br />
 					<span>'.getDateFormat($element['date_tema'], "LONG").'</span>

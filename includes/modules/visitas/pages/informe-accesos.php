@@ -442,7 +442,7 @@ $informe5 = $output;
 
 	<div class="row row-top">
 		<div class="col-md-9">
-			<h1>Accesos a la aplicación</h1>
+			<h1><?php echo strTranslate("Report");?> <small><?php echo strTranslate("Visits");?></small></h1>
 			<div class="col-md-12">
   				<p>Puedes filtrar los informes de acceso por fechas:</p>
 				<form name="inf-accesos" id="inf-accesos" method="post" action="?page=<?php echo $_REQUEST['page'];?>" role="form" class="">

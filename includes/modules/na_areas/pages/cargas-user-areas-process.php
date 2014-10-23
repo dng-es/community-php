@@ -77,7 +77,7 @@ function volcarMySQL($data){
 		$username=trim($data->sheets[0]['cells'][$fila][1]);
 		if ($username!=""){
 			//VERIFICAR QUE EXISTA EL USUARIO Y PERTENEZCA AL CANAL DEL AREA
-			if (users::countReg("users"," AND TRIM(UCASE(username))=TRIM('".strtoupper($username)."') AND canal='".$area_canal."' ")==1)
+			if (users::countReg("users"," AND TRIM(UCASE(username))=TRIM('".strtoupper($username)."') AND (canal='".$area_canal."' OR canal='admin') ")==1)
 			{			
 				if ($na_areas->insertUserArea($id_area,$username)) {
 				    $contador++;

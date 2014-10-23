@@ -557,6 +557,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 /*Fin Muro*/
 
 .panel-interior{
+	@extend .full-height;
 	background-color: $panels-color;
 	color: $panels-color-text;
 	overflow: hidden;
@@ -745,7 +746,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .video-preview-lateral{
 	padding: 15px 15px 0 15px;
 }
-.video-preview-container{
+.media-preview-container{
 	clear: both;
 	margin-bottom: 15px;
 	overflow: hidden;
@@ -762,11 +763,11 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 			font-size: 14px
 		}
 	}
-}
-.video-preview{
-	float: left;
-	margin-right: 5%;
-	width: 35%;
+	.media-preview{
+		float: left;
+		margin-right: 5%;
+		width: 35%;
+	}
 }
 #form-video-comment{
 	background-color:$panels-color;
@@ -1080,12 +1081,11 @@ table th {
 	font-size: $font-size-community - 2;
 	height:150px;
 	margin: 10px;
-	text-align:center;
 	padding:15px;
 	width:20%;
 	i{
 		display:block;
-		font-size:70px;
+		font-size:90px;
 		margin-bottom: 10px;
 		@media screen and (max-width: $break-medium) {
 			font-size:20px;
@@ -1100,41 +1100,6 @@ table th {
 /*Fin Areas de trabajo*/
 
 /*Blog*/
-.blog-recientes{
-	clear:both;
-	font-size: 12px;
-	line-height: 14px;
-	margin-bottom:20px;
-	margin-right:30px;
-	overflow: hidden;
-	div {
-		margin-right: 15px
-	}
-	span {
-		color: #999
-	}
-	@media screen and (max-width: $break-medium) {
-		font-size: 16px;
-		line-height: 18px
-	}	
-}
-.modal-img-container-info{
-	color: #666;
-	float: left;
-	font-size: 12px;
-	margin-right: 25px;
-	width: 85px;
-	.modal-img-container{
-		border:0;
-		height: 85px;
-		margin-bottom: 15px;
-		width: 85px;
-		img{
-			min-height: 85px;
-			width: 85px;
-		}
-	}
-}
 .blog-similares{
 	margin: 20px 0 40px 40px;
 	padding-top: 20px;
@@ -1176,7 +1141,8 @@ table th {
 /*Fin de blog*/
 
 /*Bootstrap*/
-[class*="col-"]{margin-bottom: -99999px !important;padding-bottom: 99999px !important;}
+//[class*="col-"]{margin-bottom: -99999px !important;padding-bottom: 99999px !important;}
+.full-height{margin-bottom: -99999px !important;padding-bottom: 99999px !important;}
 .row{overflow: hidden;}
 .bootstrap-datetimepicker-widget{background-color:$color1 !important}
 .bootstrap-datetimepicker-widget thead tr:first-child th:hover{ background-color:$color2 !important; color:$color1}
@@ -1215,19 +1181,6 @@ table th {
 /*Fin bootstrap*/
 
 /*Ventana modal Bootstrap*/
-.modal-img-container{
-	border: 1px solid #ccc;
-	float: left;
-	height: 65px;
-	margin: 3px;
-	overflow: hidden;
-	width: 65px; 
-	img{
-		width: 65px;
-		min-height: 65px;
-		cursor:pointer;
-	}
-}
 .modal.modal-wide .modal-dialog {
 	width: 50%;
 	@media screen and (max-width: $break-medium) {
@@ -1351,6 +1304,7 @@ table th {
 
 /*Panel de administración*/
 #admin-panel{
+	@extend .full-height;
 	background-color:$panels-color;
 	color:$panels-color-text;
 	font-size:13px;
@@ -1459,7 +1413,8 @@ table th {
 		img{
 			
 			height: 180px;
-			width: auto;	
+			//width: auto;
+			
 			@media screen and (max-width: $break-medium) {
 				height: auto;
 				width: 100%;

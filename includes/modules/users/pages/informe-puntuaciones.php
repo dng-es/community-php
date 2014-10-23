@@ -10,12 +10,12 @@ $elements = usersPuntuacionesController::getListAction(100);
 ?>
 <div class="row row-top">
 	<div class="col-md-9">	
-		<h1>Informe de puntuaciones</h1>
+		<h1><?php echo strTranslate("Report");?> <small><?php echo strTranslate("APP_points");?></small></h1>
 		<ul class="nav nav-pills navbar-default">   
 			<li class="disabled"><a href="#"><?php echo strTranslate("Items");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>   
-			<li><a href="?page=informe-participaciones">Informe de participaciones</a></li>
-			<li><a href="?page=informe-accesos">Informe de accesos</a></li>
-			<li><a href="?page=<?php echo $_REQUEST['page'].'&export=true';?>">Exportar CSV</a></li>
+			<li><a href="?page=informe-participaciones"><?php echo strTranslate("Report");?> <?php echo strTranslate("APP_shares");?></a></li>
+			<li><a href="?page=informe-accesos"><?php echo strTranslate("Report");?> <?php echo strtolower(strTranslate("Visits"));?></a></li>
+			<li><a href="?page=<?php echo $_REQUEST['page'].'&export=true';?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 		<div class="table-responsive">
 			<table class="table">

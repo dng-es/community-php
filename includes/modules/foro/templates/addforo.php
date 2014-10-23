@@ -21,7 +21,7 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 							"",
 							$_SESSION['user_name'],
 							$canal,0,1, '', $_POST['id_area'],0,"")){
-			session::setFlashMessage( 'actions_message', "Tema insertado correctamente. Los nuevos foros se generan como últimas entradas.", "alert alert-success");
+			session::setFlashMessage( 'actions_message', "Tema insertado correctamente.", "alert alert-success");
 		} 
 		else{ session::setFlashMessage( 'actions_message', "Se ha producido un error en la inserción del tema. Por favor, inténtalo más tarde.", "alert alert-danger");}		
 		redirectURL($_SERVER['REQUEST_URI']);

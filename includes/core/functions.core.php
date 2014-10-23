@@ -156,9 +156,9 @@ function getModuleExist($modulename){
  */
 function getModuleConfig($modulename){
 	$config_params = array();
-	$file = __DIR__."/../modules/".$modulename."/config.php";
+	$file = __DIR__."/../modules/".$modulename."/config.yaml";
 	if (file_exists($file)){
-		$config_params = parse_ini_file($file);
+		$config_params = readYml($file);
 	}	
 	return $config_params;	
 }
@@ -219,5 +219,16 @@ function addJavascripts($scripts){
 function addCss($scripts){
 	global $scripts_css;
 	$scripts_css = $scripts;
+}
+
+/**
+* Load templates
+*
+* @param 	string 		$template 		template name
+* @param 	string 		$classname 		class name where template is placed
+*/
+function readYml($file){
+	require_once(dirname(__FILE__).'/spyc-0.5/spyc.php'); 
+	return Spyc::YAMLLoad($file); 
 }
 ?>

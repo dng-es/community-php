@@ -71,6 +71,7 @@ Go_to = "Ir a"
 Go_back = "Volver atrás"
 Visits = "Visitas"
 Reports ="Informes"
+Reports ="Informe"
 Overview = "Resumen general"
 Characters = "Caracteres";
 404_page_not_found ="Página no encontrada"

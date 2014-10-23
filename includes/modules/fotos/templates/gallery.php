@@ -14,7 +14,8 @@ function showFotoGaleria($file_galeria, $rating=true, $reto=0, $pagina = "fotos"
 	$nick = ($file_galeria['nick']=="" ? "(sin nick)" : $file_galeria['nick']);
 	
 	echo '<div>
-			<a href="#" data-id="'.$file_galeria['id_file'].'" class="trigger-foto-comments"><img src="'.PATH_FOTOS.$file_galeria['name_file'].'" /></a>
+			<a href="#" data-id="'.$file_galeria['id_file'].'" class="trigger-foto-comments">
+			<img src="'.PATH_FOTOS.$file_galeria['name_file'].'" alt="'.$file_galeria['titulo'].'" /></a>
 			<div class="photo-info">
 				<span>'.$num_comentarios.' <i class="fa fa-comment"></i></span>
 				<p><a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="pantalla completa" ><i class="fa fa-desktop"></i></a> '.$titulo.' </p>

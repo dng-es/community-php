@@ -35,11 +35,11 @@ $num_canales = usersController::getCanalesAction();
 					<div class="panel-heading"><h3 class="panel-title"><?php echo strTranslate("Reports");?> <small><i class="fa fa-file pull-right text-muted"></i></small></h3></div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
-							<dt>Accesos</dt>
+							<dt><?php echo strTranslate("Visits_title");?></dt>
 							<dd><a href="?page=informe-accesos"><?php echo strTranslate("Go_to");?></a></dd>
 							<dt><?php echo ucfirst(strTranslate("APP_points"));?></dt>
 							<dd><a href="?page=informe-puntuaciones"><?php echo strTranslate("Go_to");?></a></dd>
-							<dt>Participaciones</dt>
+							<dt><?php echo ucfirst(strTranslate("APP_shares"));?></dt>
 							<dd><a href="?page=informe-participaciones"><?php echo strTranslate("Go_to");?></a></dd>
 							<dt><?php echo strTranslate("Users_list");?></dt>
 							<dd><a href="?page=users&export=true"><?php echo strTranslate("Export");?> CSV</a></dd>

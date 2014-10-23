@@ -38,7 +38,7 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div class="col-md-12 section">
+				<div class="col-md-12 section full-height">
 					<section>
 						<h3><?php echo strTranslate("Highlights");?></h3>
 						<?php PanelLastDestacado();?>
@@ -46,7 +46,7 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="col-md-12 section">
+				<div class="col-md-12 section full-height">
 					<section>
 						<h3><?php echo strTranslate("Last_formus");?></h3>
 						<p>Descubre los últimos foros en los que los usuarios han participado.</p>
@@ -62,12 +62,12 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 		</div>
 		<br />
 		<div class="row">
-			<div class="col-md-4">
-				<div class="col-md-12 section">
+			<div class="col-md-4 ">
+				<div class="col-md-12 section full-height">
 					<section>
 						<h3><?php echo strTranslate("Last_photos");?></h3>
-						<div class="video-preview-container">
-							<a href="?page=fotos"><img class="video-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" /></a>
+						<div class="media-preview-container">
+							<a href="?page=fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
 							<div>
 								<a href="?page=fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
 								<span><?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></span><br />
@@ -78,11 +78,12 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="col-md-12 section">
+				<div class="col-md-12 section full-height">
 					<section>
 						<h3><?php echo strTranslate("Last_videos");?></h3>
-						<div class="video-preview-container">
-							<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>"><img class="video-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" /></a>
+						<div class="media-preview-container">
+							<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>">
+							<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo $last_video['items'][0]['titulo'];?>" /></a>
 							<div>
 								<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>"><?php echo $last_video['items'][0]['titulo'];?></a><br />
 								<span><?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></span><br />
@@ -93,11 +94,12 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 				</div>
 			</div>			
 			<div class="col-md-4">
-				<div class="col-md-12 section">
+				<div class="col-md-12 section full-height">
 					<section>
 						<h3><?php echo strTranslate("Last_blog");?></h3>
-						<div class="video-preview-container">
-							<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>"><img class="video-preview" src="images/foro/<?php echo $last_blog['items'][0]['imagen_tema'];?>" /></a>
+						<div class="media-preview-container">
+							<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>">
+							<img class="media-preview" src="images/foro/<?php echo $last_blog['items'][0]['imagen_tema'];?>" alt="<?php echo $last_blog['items'][0]['nombre'];?>" /></a>
 							<div>
 								<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>"><?php echo $last_blog['items'][0]['nombre'];?></a><br />
 								<span><?php echo getDateFormat($last_blog['items'][0]['date_tema'], "LONG");?></span>

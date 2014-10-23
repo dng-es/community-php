@@ -33,10 +33,10 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 
 			<?php printTareas($id_area);
 
-			if ($module_config['forums']==true){
+			if ($module_config['options']['forums']==true){
 				//mostrar foros del area
 				$id_tema_parent = connection::SelectMaxReg("id_tema","foro_temas"," AND id_tema_parent=0 AND id_area=".$id_area." ");
-				$filtro=" AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ";
+				$filtro=" AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ORDER BY id_tema DESC ";
 				if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
 				
 				$elements = foroController::getListTemasAction(3, $filtro);
@@ -59,9 +59,9 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 			<?php
-			if ($module_config['forums']==true){
+			if ($module_config['options']['forums']==true){
 				//BANNER CREAR TEMA
-				PanelSubirTemaForo($id_tema_parent,$elements['items'][0]['canal'], false, "", 0, $id_area);
+				PanelSubirTemaForo($id_tema_parent,$area[0]['area_canal'], false, "", 0, $id_area);
 			}
 			?>
 			<br /><p>Pincha <a href="?page=areas">aquí</a> para volver a todos los cursos</p>
@@ -134,61 +134,41 @@ function printTareas($id_area){
 
 function documentosTarea($id_tarea){
 	$na_areas = new na_areas();
-	//FICHEROS
-	$total_docs = connection::countReg("na_tareas_documentos", " AND id_tarea=".$id_tarea." ");
-	if ($total_docs==0):
+
+	$documentos = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
+	if (count($documentos)==0){
 		echo '<p class="text-muted">No existen documentos para la tarea</p>';
-	else:
-		$documentos = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." AND documento_tipo='fichero' ");
-		if (count($documentos)>0){
-			//echo '<h5>Ficheros</h5>';
-			foreach($documentos as $documento):
-					echo '<div class="panel-documentos">
-							<a target="_blank" href="docs/showfile.php?t=1&file='.$documento['documento_file'].'">
-							<i class="fa fa-file"></i>
-							'.$documento['documento_nombre'].'</a>
-						  </div>';
-			endforeach;
-		}
-		//ENLACES
-		$documentos = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." AND documento_tipo='enlace' ");
-		if (count($documentos)>0){
-			//echo '<h5>Enlaces</h5>';
-			foreach($documentos as $documento):
-					echo '<div class="panel-documentos">					
-							<a target="_blank" href="'.$documento['documento_file'].'">
-							<i class="fa fa-globe"></i>
-							'.$documento['documento_nombre'].'</a>
-							<div style="clear:both"></div>
-						  </div>';
-			endforeach;
-		}	
-
-		//echo '<br />';
-		//VIDEOS
-		$documentos = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." AND documento_tipo='video' ");
-		if (count($documentos)>0){
-			//echo '<h5>Videos</h5>';
-			foreach($documentos as $documento):
-				echo '<div class="panel-documentos">';				  
-				playVideo("video".$documento['id_documento'],PATH_VIDEOS.$documento['documento_file'],240,180); 
-				echo '<p>'.$documento['documento_nombre'].'</p>';
+	}
+	else {
+		//echo '<h5>Ficheros</h5>';
+		foreach($documentos as $documento):
+				echo '<div class="panel-documentos">';
+				switch ($documento['documento_tipo']) {
+					case 'fichero':
+						echo '<p class="text-center">
+								<a target="_blank" href="docs/showfile.php?t=1&file='.$documento['documento_file'].'">
+								<i class="fa fa-file"></i> '.$documento['documento_nombre'].'</a>
+							</p>';		
+						break;
+					case 'enlace':
+						echo '<p class="text-center">
+								<a target="_blank" href="'.$documento['documento_file'].'">
+								<i class="fa fa-globe"></i>
+								'.$documento['documento_nombre'].'</a>
+							</p>';
+						break;
+					case 'video':
+						playVideo("video".$documento['id_documento'],PATH_VIDEOS.$documento['documento_file'],240,180,'bottom',false,0); 
+						echo '<p class="text-center">'.$documento['documento_nombre'].'</p>';
+						break;					
+					case 'podcast':
+						playVideo("podcast".$documento['id_documento'],"docs/audio/".$documento['documento_file'],240,24,'bottom',false,0); 
+						echo '<p class="text-center">'.$documento['documento_nombre'].'</p>';
+						break;
+				}
 				echo '</div>';
-			endforeach;
-		}	
-
-		//PODCAST
-		$documentos = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." AND documento_tipo='podcast' ");
-		if (count($documentos)>0){
-			//echo '<h5>Audio</h5>';
-			foreach($documentos as $documento):
-				echo '<div class="panel-documentos">';				  
-				playVideo("podcast".$documento['id_documento'],"docs/audio/".$documento['documento_file'],240,24,'bottom'); 
-				echo '<p>'.$documento['documento_nombre'].'</p>';
-				echo '</div>';
-			endforeach;
-		}
-		echo '<div class="clearfix"></div>';
-	endif;
+		endforeach;
+	}
+	echo '<div class="clearfix"></div>';
 }
 ?>

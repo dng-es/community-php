@@ -15,7 +15,6 @@ addJavascripts(array(getAsset("mensajes")."js/mensajes.js",
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1><?php echo strTranslate("User_profile");?></h1>
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		mensajesController::createAction();
@@ -24,6 +23,7 @@ addJavascripts(array(getAsset("mensajes")."js/mensajes.js",
 		$usuario = usersController::getPublicPerfilAction($nick, $filter);
 		?>
 	<!-- Nav tabs -->
+		<h1><?php echo strTranslate("User_profile");?> <small><?php echo $usuario['nick'];?></small></h1>
 		<ul class="nav nav-tabs">
 			<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
 			<?php if(getModuleExist("fotos")): ?>
@@ -121,7 +121,9 @@ addJavascripts(array(getAsset("mensajes")."js/mensajes.js",
 
 					<?php
 					foreach($videos['items'] as $element):
-					echo '<div class="video-preview-container col-md-4 inset"><a href="?page=video&id='.$element['id_file'].'&pag='.$pagina_sig.'"><img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="video-preview" /></a>
+					echo '<div class="media-preview-container col-md-4 inset">
+								<a href="?page=video&id='.$element['id_file'].'&pag='.$pagina_sig.'">
+								<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.$element['titulo'].'" /></a>
 								<div><a href="?page=video&id='.$element['id_file'].'">'.$element['titulo'].'</a><br />
 									 <span>'.getDateFormat($element['date_video'], "LONG").'</span><br />
 									 '.$element['nick'].'

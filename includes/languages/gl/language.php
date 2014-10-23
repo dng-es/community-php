@@ -70,6 +70,7 @@ Vote_comment = "Votar el comentario"
 Go_to = "Ir a"
 Go_back = "Volver atrás"
 Reports ="Informes"
+Report ="Informe"
 Overview = "Resumen general"
 Visits = "Visitas"
 Characters = "Caracteres";

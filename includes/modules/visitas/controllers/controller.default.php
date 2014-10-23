@@ -25,7 +25,7 @@ class visitasController{
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Tools',
 							"LabelSection" => strTranslate("Reports"),
-							"LabelItem" => 'Accesos a la comunidad',
+							"LabelItem" => strTranslate("Visits_title"),
 							"LabelUrl" => 'informe-accesos',
 							"LabelPos" => 1));	
 	}	

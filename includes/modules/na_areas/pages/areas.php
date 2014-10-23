@@ -12,7 +12,7 @@
 			<?php if ($acceso==1 or $element['registro']==1) : ?>
 				<?php if ($i==0) echo '<div class="row">';?>
 				<div class="col-md-6">
-					<div class="col-md-12 section">
+					<div class="col-md-12 section full-height">
 						<section>					
 							<h4 class="ellipsis"><?php echo $element['area_nombre'];?></h4>
 							<?php if ($acceso == 1): 

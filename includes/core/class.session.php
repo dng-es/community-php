@@ -146,7 +146,7 @@ class session {
 	*/
 	public static function destroySession( $url='login' ){
 		$users = new users();
-		$users->deleteUserConn($_SESSION['user_name']);
+		if (isset($_SESSION['user_name'])) $users->deleteUserConn($_SESSION['user_name']);
 		session_unset();
 		session_destroy();		
 		self::setUrlSession();

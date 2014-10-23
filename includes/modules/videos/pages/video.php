@@ -54,7 +54,9 @@ if ($id_video > 0): ?>
 		<div class="video-preview-lateral">
 			<?php	
 			foreach($elements['items'] as $element):
-				echo '<div class="video-preview-container"><a href="?page=video&id='.$element['id_file'].'&pag='.$pagina_sig.'"><img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="video-preview" /></a>
+				echo '<div class="media-preview-container">
+							<a href="?page=video&id='.$element['id_file'].'&pag='.$pagina_sig.'">
+							<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.$element['titulo'].'" /></a>
 							<div><a href="?page=video&id='.$element['id_file'].'&pag='.$pagina_sig.'">'.$element['titulo'].'</a><br />
 								 <span>'.getDateFormat($element['date_video'], "LONG").'</span><br />
 								 '.$element['nick'].'
