@@ -37,6 +37,7 @@
 - amCharts: (js/libs/amcharts) Javascript. Generación de gráficos
 - JWPlayer: (js/libs/jwplayer) Javascript. Reproductor de video
 - SwiftMailer: (includes/core/Swift-5.1.0) php. Envío de emials
+- gpyc: (includes/core/gpyc-0.5) php. Lectura y escritura de YAML
 - Zipfile: (includes/core/class.zipfile.php) php. Clase para generación de ficheros ZIP
 - resizeImage: (includes/core/class.resizeimage.php) php. Clase para generar miniaturas de imágenes
 
