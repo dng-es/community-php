@@ -222,13 +222,25 @@ function addCss($scripts){
 }
 
 /**
-* Load templates
+* Read YAML
 *
-* @param 	string 		$template 		template name
-* @param 	string 		$classname 		class name where template is placed
+* @param 	string 		$file 		Complete name file, path included
+* @return 	boolean 				Result
 */
 function readYml($file){
 	require_once(dirname(__FILE__).'/spyc-0.5/spyc.php'); 
 	return Spyc::YAMLLoad($file); 
+}
+/**
+* Write YAML
+*
+* @param 	array 		$data 		Data to include in given file
+* @param 	string 		$file 		Complete name file, path included
+* @return 	boolean 				Result
+*/
+function writeYml($data, $file){
+	require_once(dirname(__FILE__).'/spyc-0.5/spyc.php'); 
+	$yaml = Spyc::YAMLDump($data,4,60); 
+	return FileSystem::createFile( $file, $yaml );
 }
 ?>

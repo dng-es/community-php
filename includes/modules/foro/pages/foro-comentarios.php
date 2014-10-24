@@ -16,6 +16,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 		session::getFlashMessage( 'actions_message' );
 		foroController::createRespuestaAction();
 		foroController::votarAction();
+		$module_config = getModuleConfig("foro");
 
 		$foro = new foro();
 
@@ -39,7 +40,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 				
 			if (count($tema)>0){			
 				//PAGINATOR
-				$reg = 5;
+				$reg = $module_config['options']['comments_per_page'];
 				$pag = 1;
 				$inicio = 0;
 				if (isset($_GET["pag"]) and $_GET["pag"]!="") {

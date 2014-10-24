@@ -16,6 +16,7 @@ $canal="";
 
 		<?php
 		session::getFlashMessage( 'actions_message' ); 	
+		$module_config = getModuleConfig("foro");
 
 		$id_tema_parent = $_REQUEST['id'];
 		//OBTENCION DE LOS TEMAS DEL FORO
@@ -28,7 +29,7 @@ $canal="";
 		if (isset($id_tema_parent) and $id_tema_parent!=""){
 		//OBTENER SUBTEMAS DE FORO
 		$filtro_subtemas = " AND t.id_tema_parent=".$temas[0]['id_tema']." AND t.activo=1 AND t.ocio=0 "; 
-		$reg = 4;
+		$reg = $module_config['options']['forums_per_page'];
 		$marca = 0;
 		$find_tipo = "";
 		$find_reg = "";

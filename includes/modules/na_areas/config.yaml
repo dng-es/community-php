@@ -1,7 +1,6 @@
+---
 options:
-	forums: true
-	tasks_file: true
-	tasks_form: true
-security:
-	- { page: admin-area, role: admin }
-	- { page: admin-areas, role: admin }
+    forums: true
+    forums_per_page: 6
+    file_tasks: true
+    form_tasks: true

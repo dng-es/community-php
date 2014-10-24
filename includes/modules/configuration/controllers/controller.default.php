@@ -67,9 +67,14 @@ class configurationController{
 	public static function adminMenu(){
 		return array( array("LabelHeader" => 'Tools',
 							"LabelSection" => strTranslate("Configuration"),
-							"LabelItem" => 'Datos generales',
+							"LabelItem" => strTranslate("Main_data"),
 							"LabelUrl" => 'admin-config',
-							"LabelPos" => 1));	
+							"LabelPos" => 1),
+						array("LabelHeader" => 'Tools',
+							"LabelSection" => strTranslate("Configuration"),
+							"LabelItem" => strTranslate("Modules_settings"),
+							"LabelUrl" => 'admin-modules',
+							"LabelPos" => 2));	
 	}	
 }
 ?>

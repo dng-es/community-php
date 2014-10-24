@@ -79,10 +79,13 @@
 		* @param 	string 			$fileName 			File name
 		* @param 	string 			$fileContent		File content
 		*/	
-		function createFile( $fileName, $fileContent ){
-			$fp = fopen($fileName, 'w');
-			fwrite($fp, $fileContent);
-			fclose($fp);
+		public static function createFile( $fileName, $fileContent ){
+			$fp = fopen($fileName, 'w+');
+			if (fwrite($fp, $fileContent)){
+				fclose($fp);
+				return true;
+			}
+			else return false;
 		}	
 
 		/**

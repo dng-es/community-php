@@ -1,7 +1,7 @@
 <?php
 /**
 * @Manage cuestionarios
-* @author [author] <[email]>
+* @author David Noguera Gutierrez
 * @version 1.0
 *
 */

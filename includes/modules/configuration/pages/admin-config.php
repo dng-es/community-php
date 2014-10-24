@@ -13,14 +13,9 @@ $modules = configurationController::getListModulesAction();
 <div class="row  row-top">
 	<div class="col-md-9">
 		<h1>Configuración de la comunidad</h1>
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs">
-		  <li class="active"><a href="#general" data-toggle="tab">Datos generales</a></li>
-		  <li><a href="#modulos" data-toggle="tab">Módulos activos</a></li>
-		</ul>		
+	
 		
-		<div class="tab-content">
-				<div class="tab-pane fade in active" id="general">
+
 					<br />
 				<P>Datos generales de la Web.</P>
 				<form enctype="multipart/form-data" id="formData" name="formData" method="post" action="">
@@ -117,21 +112,7 @@ $modules = configurationController::getListModulesAction();
 				</form>
 			</div>
 
-			<div class="tab-pane fade" id="modulos">
-				<br />
-				<P>A continuación se muestran todos los módulos instalados</P>
-				<table class="table">
-					<tr><th>Módulo</th><th>Descripción</th></tr>
-				<?php foreach($modules as $module):				
-						echo '<tr>
-						<td>'.$module['folder'].'</td>
-						<td class="legend">'.$module['ann'].'</td>
-						</tr>';
-					endforeach;
-				?>
-				</table>
-			</div>
-		</div>
-	</div>
+			
+
 	<?php menu::adminMenu();?>
 </div>

@@ -39,7 +39,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 				$filtro=" AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ORDER BY id_tema DESC ";
 				if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
 				
-				$elements = foroController::getListTemasAction(3, $filtro);
+				$elements = foroController::getListTemasAction($module_config['options']['forums_per_page'], $filtro);
 
 				echo '<h2>'.strTranslate("Forums").'</h2>';
 				if ($elements['total_reg']==0) echo '<div class="alert alert-warning">No hay foros creados.</div>';
