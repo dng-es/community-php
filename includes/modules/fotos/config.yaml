@@ -1,0 +1,8 @@
+---
+options:
+    allow_uploads: true
+    allow_comments: true
+security:
+    - 
+        page: ^admin
+        role: admin

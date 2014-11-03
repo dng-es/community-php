@@ -21,7 +21,6 @@ session::ValidateSessionAjax();
 
 if (isset($_REQUEST['module']) and $_REQUEST['module']!=""){
 	$module_config = getModuleConfig($_REQUEST['module']);
-
 	if (isset($module_config['options'])): ?>
 		<form method="post" action="" role="form" class="form-horizontal" name="configForm" id="configForm">
 			<input type="hidden" name="modulename" id="modulename" value="<?php echo $_REQUEST['module'];?>" />
@@ -75,7 +74,7 @@ if (isset($_REQUEST['module']) and $_REQUEST['module']!=""){
 			<?php endforeach;?>
 			
 			<div class="modal-footer">
-				<div id="configForm-result" class="text-danger pull-left"></div>
+				<div id="configForm-result" class="pull-left"></div>
 				<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo strTranslate("Close");?></button>
 				<button type="submit" class="btn btn-primary pull-right"><?php echo strTranslate("Save");?></button>
 			</div>

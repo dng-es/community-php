@@ -35,7 +35,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 
 
 		if (count($revisiones)==0){
-			echo '<div class="tareas-row">Los usuarios todavia no han finalizado lel cuestionario.</div>';
+			echo '<br /><div class="tareas-row alert alert-warning">Los usuarios todavia no han finalizado el cuestionario.</div>';
 		}
 		else{
 			echo '<table class="table">

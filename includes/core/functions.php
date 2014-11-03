@@ -269,83 +269,57 @@ function validateNifCifNie($cif) {
 	}
 	//si todavia no se ha verificado devuelve error
 	return 0;
-}
-
-/**
- * Exporta a Excel XLS un array. Genera un fichero en el sistema de archivos
- * @param 	string 		$path       	Ruta a donde se va a generar el fichero
- * @param 	string 		$name_file  	Nombre del fichero a generar
- * @param 	array 		$array_data 	Datos a exportar
- * @param 	string 		$file_ext   	Extensión del fichero a generar (XLS)
- */
-function ExportExcel ($path,$name_file,$array_data,$file_ext ="xls"){
-	//tep_set_time_limit(0);
-    $backup_file = $name_file.'.'.$file_ext;
-    $fp = fopen($path.$backup_file, 'w');
-	$array_headers=$array_data[0];
-	fputs($fp,'<table><tr bgcolor="#f0f0f0">');
-	array_walk_recursive($array_headers, 'ExportExcelHeaders',$fp);
-	fputs($fp,"</tr>");
-	foreach($array_data as $indice=>$elemento)
-	{
-		fputs($fp,'<tr>');
-		foreach($elemento as $clave=>$valor)
-		{
-			$cadena=ereg_replace('[[:space:]]+',' ',$array_data[$indice][$clave]);
-			fputs($fp,'<td><font  face="Arial, Helvetica, sans-serif">'.$cadena.'</font></td>');            
-		}
-		fputs($fp,'</tr>');
-	} 
-	fputs($fp,'</table>');	
-	fclose($fp);
-	//header ("Location: ".$path.$backup_file);	
-	echo '<a href="'.$path.$backup_file.'" target="_blank" class="btn btn-primary" style="margin:0 0 10px 0">Descargar fichero</a> ';
-}
-
-/**
- * Pinta la el titulo de una columna. Empleada por ExportExcel()
- * @param 	array 		$elemento 		Array Item
- * @param 	int 		$clave    		Key array item
- * @param 	file 		$fp       		Fichero donde se escribe
- */
-function ExportExcelHeaders($elemento, $clave,$fp){
-    $cadena = '<td><font  face="Arial, Helvetica, sans-serif" color="#0000CC">'.$clave.'</font></td>';
-	fputs($fp,$cadena);
-}
-
-/**
- * Exporta a CSV un array
- * @param  	array 		$registros 		Array con registros a exportar
- * @param  	string 		$file_name 		Nombre del fichero a exportar
- */
-function exportCsv($registros, $file_name = "file") {
-	set_time_limit(0);
-
-	$salida_cvs = "";
-	if (count($registros)>0){
-		//encabezados
-		$keys = array_keys($registros[0]);		 
-		foreach($keys as $value) {
-		    $salida_cvs .= strtoupper($value) . ";";
-		}		
-		$salida_cvs .= "\n";    
-		
-		foreach($registros as $registro):
-			$keys = array_keys($registro);		 
-			foreach($keys as $value) {
-			    $salida_cvs .= str_replace(";", ".",strip_tags(str_replace("<br />"," || ",nl2br($registro[$value])))) . ";";
-			}
-			$salida_cvs .= "\n";		
-		endforeach;
-	}
-	
-	header("Content-type: application/vnd.ms-excel; charset=utf-8");
-	header("Content-disposition: csv" . date("Y-m-d") . ".csv");
-	header( "Content-disposition: filename=" . $file_name.date("Y-m-d") . ".csv");
-	print "\xEF\xBB\xBF";
-	print $salida_cvs;
-	exit;
 }	
+
+/**
+ * Convierte un array a formato csv
+ * @param  array  $array 	Array a procesar
+ * @return         			Array en formato cvs
+ *
+ * Usage: primero se envian las cabeceras para descarga
+ * 
+ * 		download_send_headers("data_export_" . date("Y-m-d") . ".csv");
+ *		echo array2csv($elements_exp);
+ *		die();
+ *		
+ */
+function array2csv(array &$array) {
+	if (count($array) == 0) {
+		return null;
+	}
+	ob_start();
+	$df = fopen("php://output", 'w');
+	fputcsv($df, array_keys(reset($array)));
+	foreach ($array as $row) {
+		foreach(array_keys($row) as $key){
+			$row[$key] = iconv("UTF-8", "Windows-1252", $row[$key]);
+		}
+		fputcsv($df, $row, ";");
+	}
+	fclose($df);
+	return ob_get_clean();
+}
+
+/**
+ * Envia cabeceras para descarga
+ * @param  string $filename Nombre del archivo que se va a descargar
+ */
+function download_send_headers($filename) {
+	// disable caching
+	$now = gmdate("D, d M Y H:i:s");
+	header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+	header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
+	header("Last-Modified: {$now} GMT");
+
+	// force download  
+	header("Content-Type: application/force-download");
+	header("Content-Type: application/octet-stream");
+	header("Content-Type: application/download");
+
+	// disposition / encoding on response body
+	header("Content-Disposition: attachment;filename={$filename}");
+	header("Content-Transfer-Encoding: binary");
+}
 
 /**
  * Genera una cadena aleatoria segun el patron definido en $chars

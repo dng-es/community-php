@@ -17,8 +17,10 @@ $pagina_excluidas = "'admin','informe-accesos','informe-participaciones', 'infor
 					 'admin-messages','admin-message-proccess','admin-message-proccess-step1',
 					 'admin-areas','admin-area-revs','admin-area-form','admin-area-docs','admin-config','admin-page', 'admin-puntos','admin-mystery','admin-validacion-fotos',
 					 'admin-campaigns-types','admin-campaigns','admin-infotopdf-doc','admin-intotopdf','admin-validacion-foto-temas','admin-cuestionarios','admin-cuestionario','admin-cuestionario-revs',
-					 'admin-videos','admin-premios','cargas-puntos-process','admin-pages','admin-novedades','admin-blog-new','admin-destacados','admin-validacion-foro-temas'";
-
+					 'admin-videos','admin-premios','cargas-puntos-process','admin-pages','admin-novedades','admin-blog-new','admin-destacados','admin-validacion-foro-temas',
+					 'admin-blog-foro','admin-modules','admin-campaign','admin-validacion-foro-comentarios','admin-blog','admin-templates','admin-validacion-videos',
+					 'cargas-horas-process','admin-fotos-comentarios','admin-info','admin-info-doc'";
+					 
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					 "js/bootstrap-datepicker.es.js", 
 					 "js/libs/amcharts/amcharts.js"));

@@ -73,7 +73,7 @@ $canal="";
 			ForoSearch($reg,'?page=foro-subtemas&id='.$id_tema_parent,$find_reg,$marca,$find_tipo);
 
 			//BANNER CREAR TEMA
-			PanelSubirTemaForo($id_tema_parent,$temas[0]['canal']);
+			if ($module_config['options']['allow_new']==true or $_SESSION['user_perfil']=='admin') PanelSubirTemaForo($id_tema_parent,$temas[0]['canal']);
 			?>
 		</div>
 	</div>

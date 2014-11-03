@@ -18,7 +18,9 @@ class usersParticipacionesController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 			$users = new users();
 			$elements = $users->getParticipaciones(" ORDER BY participacion_date DESC ");
-			exportCsv($elements, "participaciones");
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}	
 	}	
 	

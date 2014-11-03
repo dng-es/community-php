@@ -51,8 +51,10 @@ class foro{
 	}
 
 	  public function InsertTema($id_tema_parent,$nombre,$descripcion,$imagen_tema,$user,$canal,$responsables,$activo,$itinerario='',$id_area=0,$ocio=0,$tipo = ""){
-		$nombre=nl2br(str_replace("'","´",$nombre));
-		$descripcion=nl2br(str_replace("'","´",$descripcion));
+		if ($ocio==0){
+			$nombre=nl2br(str_replace("'","´",$nombre));
+			$descripcion=nl2br(str_replace("'","´",$descripcion));
+		}
 
 	  	if (isset($imagen_tema['name']) and $imagen_tema['name']!=""){ 
 	  		$imagen_tema = self::insertTemaFoto($imagen_tema);

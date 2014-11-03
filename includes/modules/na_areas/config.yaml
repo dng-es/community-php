@@ -2,5 +2,7 @@
 options:
     forums: true
     forums_per_page: 6
-    file_tasks: true
-    form_tasks: true
+security:
+    - 
+        page: ^admin
+        role: admin

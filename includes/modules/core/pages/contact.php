@@ -1,11 +1,13 @@
 <?php
+$base_dir = str_replace('modules/core/pages', '', realpath(dirname(__FILE__))) ;
+include_once($base_dir . "modules/class.headers.php");
 
 addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact.js"));
 
 ?>
-<div id="page-info"><?php echo strTranslate("Contact");?></div>
-<div class="row inset row-top">
-	<div class="col-md-8">
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
+		<h1><?php echo strTranslate("Contact");?></h1>
 		<?php 
 		//MESSAGES
 		session::getFlashMessage( 'actions_message' );
@@ -21,5 +23,10 @@ addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact.js")
 			<br /><br />
 			<button type="submit" class="btn btn-primary" id="EnviarForm" value="Enviar"><?php echo strTranslate("Send");?></button>
 		</form>
+	</div>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+
+		</div>
 	</div>
 </div>

@@ -12,7 +12,7 @@ session::ValidateSessionAjax();
 //modificar configuracion del modulo
 if (isset($_POST['modulename']) and $_POST['modulename']!=""){
 
-	$options = "";
+	$module_config = getModuleConfig($_POST['modulename']);
 	foreach(array_keys($_POST) as $element):
 		if ($element != 'modulename' and substr($element, (strlen($element)-7), strlen($element))=="_typeof"){	
 			$form_field = substr($element, 0, strlen($element)-7);
@@ -31,24 +31,14 @@ if (isset($_POST['modulename']) and $_POST['modulename']!=""){
 		}
 	endforeach;
 
-
-/*	$array[] = 'Sequence item';
-	$array['The Key'] = 'Mapped value';
-	$array[] = array('A sequence','of a sequence');
-	$array[] = array('first' => 'A sequence','second' => 'of mapped values');
-	$array['Mapped'] = array('A sequence','which is mapped');
-	$array['A Note'] = 'What if your text is too long?';
-	$array['Another Note'] = 'If that is the case, the dumper will probably fold your text by using a block.  Kinda like this.';
-	$array['The trick?'] = 'The trick is that we overrode the default indent, 2, to 4 and the default wordwrap, 40, to 60.';
-	$array['Old Dog'] = "And if you want\n to preserve line breaks, \ngo ahead!";
-	$array['key:withcolon'] = "Should support this to";*/
+	$module_config['options'] = $array['options'];
 
 	$file = $base_dir . "modules/".$_POST['modulename']."/config.yaml";
-	if (writeYml($array, $file)){
-		echo 'Datos guardados correctamente';
+	if (writeYml($module_config, $file)){
+		echo '<span class="text-success"><i class="fa fa-info-circle"></i> Datos guardados correctamente</span>';
 	}
 	else{
-		echo 'Error al guardar datos';
+		echo '<span class="text-danger"><i class="fa fa-warning"></i> Error al guardar datos</span>';
 	}
 }
 ?>

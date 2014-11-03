@@ -1,5 +1,4 @@
 <?php
-include_once(__DIR__ . "/../../mailing/templates/emailfooter.php");
 
 class infoController{
 	public static function getListAction($reg = 0, $filter=""){

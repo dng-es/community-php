@@ -7,15 +7,19 @@ $session->AccessLevel($perfiles_autorizados);
 //EXPORT REGS.
 if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 	$na_areas = new na_areas();
-	$elements=$na_areas->getAreas(" AND estado=1");
-	exportCsv($elements);
+	$elements = $na_areas->getAreas(" AND estado=1");
+	download_send_headers("data_" . date("Y-m-d") . ".csv");
+	echo array2csv($elements);
+	die();
 } 
 
 //DESCARGAR USUARIOS DEL AREA
 if ((isset($_REQUEST['id']) and $_REQUEST['id']!="") and !isset($_REQUEST['act'])){
 	$na_areas = new na_areas();
 	$elements = $na_areas->getAreasUsers(" AND id_area=".$_REQUEST['id']);
-	exportCsv($elements);
+	download_send_headers("data_" . date("Y-m-d") . ".csv");
+	echo array2csv($elements);
+	die();
 }
 
 //CAMBIAR ESTADO

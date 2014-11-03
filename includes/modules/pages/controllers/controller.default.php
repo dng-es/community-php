@@ -60,17 +60,7 @@ class pagesController{
 	 * @return 	array           			Array con datos
 	 */	
 	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Tools',
-							"LabelSection" => strTranslate("Configuration"),
-							"LabelItem" => 'Política de privacidad',
-							"LabelUrl" => 'admin-page&p=policy',
-							"LabelPos" => 2),
-					  array("LabelHeader"=>'Tools',
-							"LabelSection"=>strTranslate("Configuration"),
-							"LabelItem"=>'Derechos y responsabilidades',
-							"LabelUrl"=>'admin-page&p=declaracion',
-							"LabelPos" => 3),
-					  array("LabelHeader"=>'Tools',
+		return array( array("LabelHeader"=>'Tools',
 							"LabelSection"=>strTranslate("Pages"),
 							"LabelItem"=>strTranslate("New_page"),
 							"LabelUrl"=>'admin-page',

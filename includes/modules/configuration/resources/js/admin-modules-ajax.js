@@ -22,7 +22,7 @@ jQuery(document).ready(function(){
 				data: $('#configForm').serialize(),
 				// Mostramos un mensaje con la respuesta de PHP
 				success: function(data) {
-					$('#configForm-result').html(data).show();
+					$('#configForm-result').html(data).fadeIn();
 				}
 			}) 
 		}					

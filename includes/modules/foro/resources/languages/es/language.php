@@ -10,4 +10,5 @@ Last_formus = "Últimos foros"
 forums_per_page = "Foros por página"
 comments_per_page = "Comentarios por página"
 forums = "Foros"
+allow_new = "Permitir crear foros"
 ?>

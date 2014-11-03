@@ -23,7 +23,7 @@ include_once($base_dir . "modules/users/class.users.php");
 		$reg=10;
 		$inicio = ($pagina - 1) * $reg;
 		$users = new users();
-		if ($_SESSION['user_canal']==CANAL1 or $_SESSION['user_canal']==CANAL2){$filtroCanal=" AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') ";}
+		if ($_SESSION['user_canal']!='admin'){$filtroCanal=" AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') ";}
 		else{$filtroCanal="";}
 		$users_conn = $users->getUsers(" LIMIT ".$inicio.",".$reg);  
 		//$users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);

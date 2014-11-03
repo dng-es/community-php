@@ -14,7 +14,9 @@ class visitasController{
 			$fecha_ini = $_POST['fecha_ini'];
 			$fecha_fin = $_POST['fecha_fin'];
 			$elements = $visitas->getVisitasInformes(" AND fecha BETWEEN '".$fecha_ini." 00:00:00' AND '".$fecha_fin." 23:59:59' ORDER BY fecha DESC ");
-			exportCsv($elements, "accesos");
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}
 	}
 

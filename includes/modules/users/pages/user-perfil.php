@@ -31,13 +31,13 @@ templateload("tipuser","users");
 						<input type="hidden" name="user-username" id="user-username" value="<?php echo $_SESSION['user_name'];?>">
 						
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="username-text"><?php echo strTranslate("Username");?>:</label>
+								<label class="col-sm-2 control-label" for="username-text"><?php echo strTranslate("Username");?></label>
 								<div class="col-sm-10">
 								  <input type="text" name="username-text" id="username-text" class="form-control" disabled="disabled" value="<?php echo $_SESSION['user_name'];?>" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-empresa"><?php echo strTranslate("Group_user");?>:</label>
+								<label class="col-sm-2 control-label" for="user-empresa"><?php echo strTranslate("Group_user");?></label>
 								<div class="col-sm-10">
 								  <input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
 								</div>
@@ -50,21 +50,21 @@ templateload("tipuser","users");
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-nombre"><?php echo strTranslate("Name");?>:</label>
+								<label class="col-sm-2 control-label" for="user-nombre"><?php echo strTranslate("Name");?></label>
 								<div class="col-sm-10">
 								  <input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" value="<?php echo $usuario['name'];?>" />
 								  <span id="user-nombre-alert" class="alert-message alert alert-danger"></span>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-apellidos"><?php echo strTranslate("Surname");?>:</label>
+								<label class="col-sm-2 control-label" for="user-apellidos"><?php echo strTranslate("Surname");?></label>
 								<div class="col-sm-10">
 								  <input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $usuario['surname'];?>" />
 								  <span id="user-apellidos-alert" class="alert-message alert alert-danger"></span>
 								</div>
 							</div>					
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-date"><?php echo strTranslate("Born_date");?>:</label>
+								<label class="col-sm-2 control-label" for="user-date"><?php echo strTranslate("Born_date");?></label>
 								<div class="col-sm-10">
 
 									  <div id="datetimepicker1" class="input-group date">
@@ -91,28 +91,28 @@ templateload("tipuser","users");
 							</div>
 							
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-email">Email:</label>
+								<label class="col-sm-2 control-label" for="user-email">Email</label>
 								<div class="col-sm-10">
 								  <input maxlength="100" name="user-email" id="user-email" type="text" class="form-control" value="<?php echo $usuario['email'];?>" />
 								  <span id="user-email-alert" class="alert-message alert alert-danger"></span>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-pass"><?php echo strTranslate("Password");?>:</label>
+								<label class="col-sm-2 control-label" for="user-pass"><?php echo strTranslate("Password");?></label>
 								<div class="col-sm-10">
 								  <input maxlength="100" name="user-pass" id="user-pass" type="password" class="form-control" value="<?php echo $usuario['user_password'];?>" />
 								  <span id="user-pass-alert" class="alert-message alert alert-danger"></span>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-repass"><?php echo strTranslate("Password_re");?>:</label>
+								<label class="col-sm-2 control-label" for="user-repass"><?php echo strTranslate("Password_re");?></label>
 								<div class="col-sm-10">
 								  <input maxlength="100" name="user-repass" id="user-repass" type="password" class="form-control" value="<?php echo $usuario['user_password'];?>" />
 								  <span id="user-repass-alert" class="alert-message alert alert-danger"></span>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-comentarios"><?php echo strTranslate("Address");?>:</label>
+								<label class="col-sm-2 control-label" for="user-comentarios"><?php echo strTranslate("what_do_you_think");?></label>
 								<div class="col-sm-10">
 								  <textarea name="user-comentarios" id="user-comentarios" class="form-control"><?php echo $usuario['user_comentarios'];?></textarea>
 								  <span id="user-comentarios-alert" class="alert-message alert alert-danger"></span>

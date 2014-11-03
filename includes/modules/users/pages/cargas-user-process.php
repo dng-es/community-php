@@ -50,23 +50,18 @@ function volcarMySQL($data) {
 	$contador_baja=0;
 	$mensaje_baja="";
 		
-    for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1)
-	{
+    for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1) {
 		$username=trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
-		$user_pass=$data->sheets[0]['cells'][$fila][1];
+		$user_pass=$username;
 		$nombre=str_replace("'","´",$data->sheets[0]['cells'][$fila][4]);
 		$surname=str_replace("'","´",$data->sheets[0]['cells'][$fila][2]." ".$data->sheets[0]['cells'][$fila][3]);
 		$empresa=str_replace("'","´",$data->sheets[0]['cells'][$fila][5]);	
 		$user_email=$data->sheets[0]['cells'][$fila][6];
 		$telefono_user=$data->sheets[0]['cells'][$fila][7];
 		$perfil=strtolower($data->sheets[0]['cells'][$fila][8]);
-		$responsable="";
-		$territorio="";
-		$provincia="";
-		$sfid="";
+
 		
-		if ($perfil==""){$perfil="usuario";}
-		       
+		if ($perfil==""){$perfil="usuario";}	       
 		if ($perfil=='admin') {$canal='admin';}
 		elseif ($perfil=='formador') {$canal='formador';}
 		else { $canal="comercial";}
@@ -74,19 +69,16 @@ function volcarMySQL($data) {
 		if ($username!=""){
 			//VERIFICAR QUE EXISTA EL USUARIO
 			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ")==0) {			
-				if ($users->insertUser($username, $user_pass, $user_email, $nombre, 0, 0, $responsable, $empresa,
-							$territorio, $canal, $perfil, $telefono_user,  $provincia, $sfid,$surname)) {
+				if ($users->insertUser($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user,$surname,0)) {
 				$contador++;
 				$mensaje.=$contador." - ".$username." insertado correctamente.<br />";		
-				}
-							
+				}					
 			}
-			// else
-			// {
+			// else {
 			// 	//EN CASO DE QUE YA EXISTA SE HABILITA
 			// 	if ($users->disableUser($username,0)) {
 			// 	$contador_ko++;	
-			// 	$mensaje_ko.='<span class="comunidad-color">'.$contador_ko.' - '.$username.' no se ha insertado porque ya existia.</span><br />';				
+			// 	$mensaje_ko.='<span>'.$contador_ko.' - '.$username.' no se ha insertado porque ya existia.</span><br />';				
 			// 	}
 			// }
 		}
@@ -107,12 +99,12 @@ function volcarMySQL($data) {
 	// if ($encontrado==false){
 	// 	$users->disableUser($element['username'],1);
 	// 	$contador_baja++;	
-	// 	$mensaje_baja.='<span class="comunidad-color">'.$contador_baja.' - '.$element['username'].' se ha dado de baja.</span><br />';
+	// 	$mensaje_baja.='<span>'.$contador_baja.' - '.$element['username'].' se ha dado de baja.</span><br />';
 	// }
  //  endforeach;
    
-  echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atr&aacute;s</a> | </p>
-	   <p>El proceso de importaci&oacute;n ha finalizado con &eacute;xito</p>';
+  echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a> | </p>
+	   <p>El proceso de importación ha finalizado con éxito</p>';
   if ($contador>0) { echo '<p>los siguientes usuarios han sido dados de alta: ('.$contador.')</p>'.$mensaje;}
   //if ($contador_ko>0) { echo '<p>los siguientes usuarios no fueron insertados porque ya estaban dados de alta: ('.$contador_ko.')</p>'.$mensaje_ko;}
   //if ($contador_baja>0) { echo '<p>los siguientes usuarios han sido dados de baja: ('.$contador_baja.')</p>'.$mensaje_baja;}  

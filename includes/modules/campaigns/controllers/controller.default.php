@@ -30,7 +30,9 @@ class campaignsController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 			$campaigns = new campaigns();
 			$elements = $campaigns->getCampaigns(" AND active=1 ORDER BY name_campaign DESC ");
-			exportCsv($elements, "campaigns");
+			download_send_headers("campaigns_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}	
 	}	
 

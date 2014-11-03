@@ -9,6 +9,8 @@ include_once($base_dir . "modules/users/class.users.php");
 include_once($base_dir . "modules/fotos/class.fotos.php");
 include_once($base_dir . "modules/users/templates/tipuser.php");
 include_once($base_dir . "modules/fotos/templates/gallery.php");
+
+$module_config = getModuleConfig("fotos");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,6 +22,7 @@ include_once($base_dir . "modules/fotos/templates/gallery.php");
 </head>
 <body>
 <?php
+
 
 session::ValidateSessionAjax();
 
@@ -33,7 +36,8 @@ $files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
 ?>
 <div class="row">
 	<div class="col-md-12">
-		<?php showFotoModal($files_galeria[0],true,0,0);?>	
+		<?php showFotoModal($files_galeria[0],true,0,0);?>
+		<?php if ($module_config['options']['allow_comments']==true): ?>
 		<form action="" method="post" role="form" id="form-comentario-fotos" name="form-comentario-fotos" class="panel-interior">
 			<h5><?php echo strTranslate("Photo_comment_new");?></h5>
 			<input type="hidden" name="id_file" id="id_file" value="<?php echo $files_galeria[0]['id_file'];?>" />
@@ -43,6 +47,7 @@ $files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
 		</form>
 		<div id="respuestas-result" class="alert-message alert alert-success"></div>
 		<div id="respuestas-textos"></div>
+		<?php endif; ?>
 	</div>
 </div>
 </body>

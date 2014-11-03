@@ -48,11 +48,11 @@ jQuery(document).ready(function(){
 			 $("#user-repass-alert").html("Las contrase&ntilde;as no coinciden.").fadeIn().css("display","block");
 			 resultado_ok=false;
 	   }  	   		
-	   if (jQuery.trim($("#user-comentarios").val())=="") 
+/*	   if (jQuery.trim($("#user-comentarios").val())=="") 
 	   {
 			 $("#user-comentarios-alert").html("Debes intruducir algo de texto.").fadeIn().css("display","block");
 			 resultado_ok=false;
-	   }	
+	   }*/	
 	   return resultado_ok;
 	});
 

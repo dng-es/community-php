@@ -15,6 +15,8 @@ if ($id_video > 0): ?>
 	<div class="col-md-8 col-lg-9 inset">
 		
 		<?php
+		$module_config = getModuleConfig("videos");
+
 		templateload("gallery","videos");
 		templateload("addfile","videos");
 		templateload("addcomment","videos");
@@ -40,10 +42,12 @@ if ($id_video > 0): ?>
 		</span>
 		</small>
 		</h3>
+		<?php if ($module_config['options']['allow_comments']==true): ?>
 		<?php addVideoComment($id_video);?>
 		<br />
 		<?php videoCommentGallery($comments['items'], "video&id=".$id_video."&pag2=".$pagina_com);?>
 		<?php Paginator($comments['pag'],$comments['reg'],$comments['total_reg'],$_REQUEST['page']."&id=".$id_video,'',$comments['find_reg'], 10, "", "pag2");?>
+		<?php endif; ?>
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">

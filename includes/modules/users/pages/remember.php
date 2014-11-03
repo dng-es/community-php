@@ -1,4 +1,7 @@
 <?php
+$base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) ;
+include_once($base_dir . "modules/class.headers.php");
+
 addJavascripts(array(getAsset("users")."js/remember.js"));
 ?>
 <div class="row" id="login-container-deg">

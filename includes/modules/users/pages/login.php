@@ -1,6 +1,8 @@
 <?php
 usersController::loginRedirectAction(); 
 addJavascripts(array(getAsset("users")."js/login.js"));
+
+$module_config = getModuleConfig("users");
 ?>
 <div class="row" id="login-container-deg">
 	<div class="col-md-5">
@@ -34,7 +36,8 @@ addJavascripts(array(getAsset("users")."js/login.js"));
         </form>
         <div class="container-separator">
        		<?php echo strTranslate("Forgot_your_password");?> <a href="?page=remember" ><?php echo strTranslate("Click_here");?></a>. <br />
-			<?php echo strTranslate("If_not_registered");?> <a href="?page=registration"><?php echo strTranslate("Register");?></a><br /><br />
+			<?php if ($module_config['options']['allow_registration']===true)  echo strTranslate("If_not_registered") .' <a href="?page=registration">'.strTranslate("Register").'</a>';?>
+			<br /><br />
 		</div>
 	</div>
 </div>

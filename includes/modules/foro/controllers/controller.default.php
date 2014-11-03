@@ -101,7 +101,9 @@ class foroController{
 			$foro = new foro(); 
 			$elements_exp=$foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['id']." ");
 			$file_name='exported_file'.date("YmdGis");
-			exportCsv($elements_exp, "comentarios");
+			download_send_headers("comments_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements_exp);
+			die();
 		}		
 	}
 

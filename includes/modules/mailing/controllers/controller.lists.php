@@ -35,7 +35,9 @@ class mailingListsController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 			$mailing = new mailing();
 			$elements = $mailing->getLists($filtro . " AND activo=1 ORDER BY name_list DESC ");
-			exportCsv($elements, "listas");
+			download_send_headers("listas_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}	
 	}	
 
@@ -43,7 +45,9 @@ class mailingListsController{
 		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm']==true) {
 			$mailing = new mailing();
 			$elements = $mailing->getListsUsers($filtro." AND id_list=".$_REQUEST['id']);
-			exportCsv($elements,"emails");
+			download_send_headers("emails_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}
 	}	
 

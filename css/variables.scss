@@ -1,0 +1,14 @@
+$color1 : #da1e48;	//color principal
+//$color2 : lighten($color1, 55%);	//color claro
+$color2 : #f0f0f0;
+$color3 : darken($color1, 10%);	//color oscuro o de contraste respecto el color principal
+
+$font-size-community: 14px;
+$border-def: 0px;
+$panels-color: #f0f0f0;
+$panels-color-text: #666;
+$app_width : 80%;
+
+$break-small: 768px;
+$break-medium: 992px;
+$break-large: 1200px;

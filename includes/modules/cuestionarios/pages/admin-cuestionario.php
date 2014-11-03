@@ -41,7 +41,7 @@ $session->AccessLevel($perfiles_autorizados);
 			<br />
 			<?php
 			if ($id_cuestionario!=""){
-				echo '<p>'.strTranslate("Form").' URL: <a href="http://'.$ini_conf['SiteUrl'].'?page=cuestionario&id='.$id_cuestionario.'" target="_blank">http://'.$ini_conf['SiteUrl'].'?page=cuestionario&id='.$id_cuestionario.'</a></p>';
+				echo '<p>'.strTranslate("Form").' URL: <a href="http://'.$ini_conf['SiteUrl'].'/?page=cuestionario&id='.$id_cuestionario.'" target="_blank">http://'.$ini_conf['SiteUrl'].'/?page=cuestionario&id='.$id_cuestionario.'</a></p>';
 			}
 			?>
 			<label for="descripcion"><?php echo strTranslate("Description");?>:</label></td></tr>

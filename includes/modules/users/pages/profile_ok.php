@@ -43,23 +43,23 @@ addJavascripts(array(getAsset("mensajes")."js/mensajes.js",
 						<?php if (count($usuario)>0): ?>
 						<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-nick"><?php echo strTranslate("Nick");?>:</label>
+								<label class="col-sm-2 control-label" for="user-nick"><?php echo strTranslate("Nick");?></label>
 								<div class="col-sm-4">
 								  <input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['nick'];?>" />
 								</div>
-								<label class="col-sm-1 control-label" for="user-nick"><?php echo ucfirst(strTranslate("APP_points"));?>:</label>
+								<label class="col-sm-1 control-label" for="user-nick"><?php echo ucfirst(strTranslate("APP_points"));?></label>
 								<div class="col-sm-5">
 								  <input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['puntos'];?>" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-nombre"><?php echo strTranslate("Name");?>:</label>
+								<label class="col-sm-2 control-label" for="user-nombre"><?php echo strTranslate("Name");?></label>
 								<div class="col-sm-10">
 								  <input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['name'];?> <?php echo $usuario['surname'];?>" />
 								</div>
 							</div>					
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-date"><?php echo strTranslate("Born_date");?>:</label>
+								<label class="col-sm-2 control-label" for="user-date"><?php echo strTranslate("Born_date");?></label>
 								<div class="col-sm-4">
 									  <div id="datetimepicker1" class="input-group date">
 									    <input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" disabled="disabled" name="user-date"value="<?php echo ($usuario['user_date']!=null ? getDateFormat($usuario['user_date'], 'SHORT') : '');?>"></input>
@@ -67,13 +67,13 @@ addJavascripts(array(getAsset("mensajes")."js/mensajes.js",
 									  </div>
 								</div>
 
-								<label class="col-sm-1 control-label" for="user-empresa"><?php echo strTranslate("Group_user");?>:</label>
+								<label class="col-sm-1 control-label" for="user-empresa"><?php echo strTranslate("Group_user");?></label>
 								<div class="col-sm-5">
 								  <input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
 								</div>
 							</div>					
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-comentarios"><?php echo strTranslate("Address");?>:</label>
+								<label class="col-sm-2 control-label" for="user-comentarios"><?php echo strTranslate("what_do_you_think");?></label>
 								<div class="col-sm-10">
 								  <textarea name="user-comentarios" id="user-comentarios" class="form-control" disabled="disabled"><?php echo $usuario['user_comentarios'];?></textarea>
 								</div>

@@ -9,7 +9,10 @@
 	watch: {
 		compass: {
 			files: ['../css/*.{scss,sass}'],
-			tasks: ['compass:prod']
+			tasks: ['compass:prod'],
+			options: {
+				livereload: true,
+			}
 		},
 		js: {
 			files: ['../js/libs/*.js'],

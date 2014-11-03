@@ -25,7 +25,9 @@ class usersTiendasController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 			$users = new users();
 			$elements=$users->getTiendas("");
-			exportCsv($elements);
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}
 	}	
 

@@ -32,31 +32,32 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 		</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-5">
 				<?php showNovedades();?>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<div class="col-md-12 section full-height">
-					<section>
-						<h3><?php echo strTranslate("Highlights");?></h3>
-						<?php PanelLastDestacado();?>
-					</section>
+			<div class="col-md-7">
+				<div class="row">
+					<div class="col-md-12 section">
+						<section>
+							<h3><?php echo strTranslate("Highlights");?></h3>
+							<?php PanelLastDestacado();?>
+						</section>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="col-md-12 section full-height">
-					<section>
-						<h3><?php echo strTranslate("Last_formus");?></h3>
-						<p>Descubre los últimos foros en los que los usuarios han participado.</p>
-						<ul class="list-funny">
-						<?php foreach($last_foros as $last_foro): ?>
-							<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
-							<li class="ellipsis"><a href="?page=foro-comentarios&id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
-						<?php endforeach; ?>
-						</ul>
-					</section>
+				<br />
+				<div class="row">
+					<div class="col-md-12 section full-height">
+						<section>
+							<h3><?php echo strTranslate("Last_formus");?></h3>
+							<p>Descubre los últimos foros en los que los usuarios han participado.</p>
+							<ul class="list-funny">
+							<?php foreach($last_foros as $last_foro): ?>
+								<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
+								<li class="ellipsis"><a href="?page=foro-comentarios&id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
+							<?php endforeach; ?>
+							</ul>
+						</section>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -4,10 +4,19 @@ $session = new session();
 $perfiles_autorizados = array("admin");
 $session->AccessLevel($perfiles_autorizados);
 
+
 $videos = new videos();  
 $find_reg = "";
 $filtro = " AND estado=1 ORDER BY id_file DESC";
 if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $videos->cambiarEstado($_REQUEST['id'],2);}
+
+//EXPORT EXCEL - SHOW AND GENERATE
+if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+	$elements = $videos->getVideos($filtro);
+	download_send_headers("data_" . date("Y-m-d") . ".csv");
+	echo array2csv($elements);
+	die();
+}
 
 //SHOW PAGINATOR
 $reg = 35;
@@ -21,15 +30,10 @@ $total_reg = connection::countReg("galeria_videos",$filtro);
 	<div class="col-md-9">
 		<h1><?php echo strTranslate("Video_list");?></h1>
 		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $total_reg;?></b> <?php echo strtolower(strTranslate("Items"));?>.</a></li>      
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $total_reg;?></b> <?php echo strtolower(strTranslate("Items"));?>.</a></li>
+			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 		<?php
-		//EXPORT EXCEL - SHOW AND GENERATE
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
-			$elements=$videos->getVideos($filtro);
-			$file_name='exported_file'.date("YmdGis");
-			ExportExcel('./docs/export/',$file_name,$elements);
-		}
 
 		//SHOW DATA
 		$elements=$videos->getVideos($filtro.' LIMIT '.$inicio.','.$reg);

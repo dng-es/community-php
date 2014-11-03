@@ -48,12 +48,11 @@ class videos{
 
 	public function insertFile($fichero,$path_archivo,$canal,$titulo,$id_promocion=0,$formacion=0,$tipo_video="",$movil=0){
 		global  $videos_types;
-		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-		$nombre_archivo=NormalizeText($nombre_archivo);			
+		$ext = substr($fichero['name'], strrpos($fichero['name'],".") + 1);
+		$nombre_archivo = time().'.'.$ext;
 		$tipo_archivo = $fichero['type'];
 		$tamano_archivo = $fichero['size'];
-		$ext = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
-		if (!(in_array($ext, $videos_types) && ($tamano_archivo <= MAX_SIZE_VIDEOS))) {
+		if (!(in_array(strtoupper($ext), $videos_types) && ($tamano_archivo <= MAX_SIZE_VIDEOS))) {
 			return 0;
 		}
 		else{

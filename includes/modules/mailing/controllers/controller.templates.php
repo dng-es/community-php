@@ -31,7 +31,9 @@ class mailingTemplatesController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 			$mailing = new mailing();
 			$elements = $mailing->getTemplates(" AND activo=1 ORDER BY template_name DESC ");
-			exportCsv($elements, "templates");
+			download_send_headers("templates_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}	
 	}	
 

@@ -5,14 +5,16 @@ session::AccessLevel($perfiles_autorizados);
 
 session::getFlashMessage( 'actions_message' ); 
 pagesController::deleteAction();
-$elements = pagesController::getListAction(3);
+$elements = pagesController::getListAction(8);
+
+
 ?>
 
 <div class="row row-top">
 	<div class="col-md-9">
 		<h1>Gestion de páginas</h1>
 		<ul class="nav nav-pills navbar-default">      
-			<li class="disabled"><a href="#"><?php echo strtolower(strTranslate("Total"));?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 			<li><a href="?page=admin-page"><?php echo strTranslate("New_page");?></a></li>
 		</ul>
 
@@ -20,7 +22,8 @@ $elements = pagesController::getListAction(3);
 		<table class="table">
 		<tr>
 		<th width="40px">&nbsp;</th>
-		<th>Nombre</th>
+		<th><?php echo strTranslate("Name");?></th>
+		<th>URL</th>
 		</tr>		
 		<?php foreach($elements['items'] as $element): ?>
 			<tr>
@@ -34,6 +37,7 @@ $elements = pagesController::getListAction(3);
 				</span>
 			</td>						
 			<td><?php echo $element['page_name'];?></td>
+			<td><a href="<?php echo $ini_conf['SiteUrl'].'?page=pagename&id='.$element['page_name'];?>" target="_blank"><?php echo $ini_conf['SiteUrl'];?>?page=pagename&id=<?php echo $element['page_name'];?></a></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>

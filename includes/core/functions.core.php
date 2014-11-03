@@ -78,7 +78,7 @@ function templateload($template,$classname){
 */
 function __autoload($classname){    
 	global $ini_conf;
-	if ($classname == "connection" || $classname == "session" || $classname == "FileSystem"){
+	if ($classname == "connection" || $classname == "session" || $classname == "FileSystem" || $classname == "tpl"){
 		include_once (dirname(__FILE__) ."/class.".strtolower($classname).".php");
 	}
 	elseif ($classname == "debugger") {

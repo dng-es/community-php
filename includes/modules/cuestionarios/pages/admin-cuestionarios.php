@@ -10,6 +10,7 @@ session::AccessLevel($perfiles_autorizados);
 		<?php
 		session::getFlashMessage( 'actions_message' ); 
 		cuestionariosController::deleteAction();
+		cuestionariosController::cloneAction();
 		$elements = cuestionariosController::getListAction(5, " AND activo=1 ");
 		?>
 		<ul class="nav nav-pills navbar-default">      
@@ -39,6 +40,9 @@ session::AccessLevel($perfiles_autorizados);
 				<a title="<?php echo strTranslate("Show");?>" target="_blank" href="?page=cuestionario&id=<?php echo $element['id_cuestionario'];?>">
 					<i class="fa fa-share icon-table"></i>
 				</a>
+				<span class="fa fa-copy icon-table" title="<?php echo strTranslate("Clone_item");?>"
+					onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_clone");?>', '?page=admin-cuestionarios&act=clone&id=<?php echo $element['id_cuestionario'];?>')">
+				</span>
 			</td>						
 			<td><?php echo $element['nombre'];?></td>
 			<td><?php echo $element['descripcion'];?></td>

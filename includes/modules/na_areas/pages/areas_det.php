@@ -36,7 +36,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 			if ($module_config['options']['forums']==true){
 				//mostrar foros del area
 				$id_tema_parent = connection::SelectMaxReg("id_tema","foro_temas"," AND id_tema_parent=0 AND id_area=".$id_area." ");
-				$filtro=" AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ORDER BY id_tema DESC ";
+				$filtro=" AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ";
 				if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
 				
 				$elements = foroController::getListTemasAction($module_config['options']['forums_per_page'], $filtro);
@@ -112,11 +112,8 @@ function printTareas($id_area){
 			}
 			//PARA CADA TAREA SE OBTIENEN LOS FICHEROS SUBIDOS POR EL USUARIO
 			foreach($archivos as $archivo):
-				echo '<p>
-						<a class="user-file text-muted" target="_blank" href="docs/showfile.php?t=1&file='.$archivo['file_tarea'].'">
-						<span class="fa fa-download"></span>
-						 subido el '.getDateFormat($archivo['fecha_tarea'], "SHORT").'</a>
-					</p>';
+				echo '<br /><a class="user-file text-muted" target="_blank" href="docs/showfile.php?t=1&file='.$archivo['file_tarea'].'">
+						<span class="fa fa-download"></span> subido el '.getDateFormat($archivo['fecha_tarea'], "SHORT").'</a>';
 			endforeach;
 		}
 		elseif ($element['tipo']=='formulario'){ 

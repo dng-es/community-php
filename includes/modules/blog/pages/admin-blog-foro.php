@@ -25,10 +25,12 @@ header("Location: ?page=admin-blog-foro&id=".$_REQUEST['idt']);
 
 //EXPORT EXCEL - SHOW AND GENERATE
 if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
-  $foro = new foro(); 
-  $elements_exp=$foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['id']." ");
-  $file_name='exported_file'.date("YmdGis");
-  ExportExcel('./docs/export/',$file_name,$elements_exp);}    
+	$foro = new foro(); 
+	$elements_exp=$foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['id']." ");
+  	download_send_headers("data_" . date("Y-m-d") . ".csv");
+	echo array2csv($elements_exp);
+	die();
+}    
 
 if (isset($_POST['tipo_search']) and $_POST['tipo_search']!="") {$filtro_temas.=" AND tipo_tema LIKE '%".$_POST['tipo_search']."%' ";$find_tipo=$_POST['tipo_search'];}
 

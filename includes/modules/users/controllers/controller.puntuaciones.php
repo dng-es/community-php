@@ -19,7 +19,9 @@ class usersPuntuacionesController{
 			$users = new users(); 
 			$filtro =" AND puntuacion_puntos<>0 ";
 			$elements = $users->getPuntuaciones($filtro." ORDER BY puntuacion_date DESC ");
-			exportCsv($elements, "puntuaciones");
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}	
 	}	
 	

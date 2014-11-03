@@ -27,7 +27,7 @@ $modules = configurationController::getListModulesAction();
 				$module_config = getModuleConfig($module['folder']);	
 				echo '<tr>
 				<td>'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger" href="#" title="'.strTranslate("Configuration").'"><i class="fa fa-gear"></i></a>' : '<i class="fa fa-gear disabled"></i>').'</td>
-				<td>'.$module['folder'].'</td>
+				<td>'.strTranslate(ucfirst($module['folder'])).'</td>
 				<td class="legend">'.$module['ann'].'</td>
 				</tr>';
 			endforeach;

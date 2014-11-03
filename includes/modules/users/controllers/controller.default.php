@@ -49,7 +49,9 @@ class usersController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 			$users = new users();
 			$elements = $users->getUsers("");
-			exportCsv($elements, "usuarios");
+			download_send_headers("users_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}  		
 	}	
 
@@ -63,7 +65,9 @@ class usersController{
 				$usuario = array_merge($usuario, self::userStatistics($element['username']));
 				array_push($usuarios, $usuario);
 			endforeach;
-			exportCsv($usuarios, "estadisticas");
+			download_send_headers("statistics" . date("Y-m-d") . ".csv");
+			echo array2csv($usuarios);
+			die();
 		}  		
 	}
 
@@ -167,16 +171,30 @@ class usersController{
 
 	public static function recoverPasswordAction(){
 		if (isset($_POST['form-lostpw-user'])){
+			global $ini_conf;
 			$users = new users();
 			$user = $users->getUsers(" AND username='".$_POST['form-lostpw-user']."'");
 
+
 			if ($user[0]['user_password'] <> ''){
 				$asunto = strtoupper($ini_conf['SiteName']).': '.strTranslate("Recover_credentials");
-				$cuerpo_mensaje = strTranslate("Your_details_access").' '.$ini_conf['SiteName'].':
-				'.strTranslate("Username").': '.$_POST['form-lostpw-user'].'
-				'.strTranslate("Password").': '.$user[0]['user_password'];	
+				$message_from = array($ini_conf['ContactEmail'] => $ini_conf['SiteName']);
+				$message_to = array($user[0]['email']);
 
-				if (SendEmail($ini_conf['ContactEmail'],$user[0]['email'],$asunto,$cuerpo_mensaje,0)) {
+				$template = new tpl("remember", "users");
+				$template->setVars(array(
+				        "title_email" => strTranslate("Recover_password"),
+				        "text_email" => strTranslate("Your_details_access").' '.$ini_conf['SiteName'],
+				        "label_username" => strTranslate("Username"),
+				        "field_username" => $_POST['form-lostpw-user'],
+				        "label_userpassword" => strTranslate("Password"),
+				        "field_userpassword" => $user[0]['user_password']
+				));
+
+				$cuerpo_mensaje = $template->getTpl();
+
+				//if (SendEmail($ini_conf['ContactEmail'],$user[0]['email'],$asunto,$cuerpo_mensaje,0)) {
+				if (messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp')) {
 					session::setFlashMessage( 'actions_message', strTranslate("Recover_password_alert"), "alert alert-success");
 				}
 				else { session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");}

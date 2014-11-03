@@ -101,6 +101,34 @@ class cuestionariosController{
 		}
 	}	
 
+	public static function cloneAction(){
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='clone') {
+			$cuestionarios = new cuestionarios();
+			//datos del cuestionario original
+			$cuestionario = self::getItemAction($_REQUEST['id']);
+			if ($cuestionarios->insertCuestionarios($cuestionario[0]['nombre']." - Clon", $cuestionario[0]['descripcion'], $cuestionario[0]['checklist'])) {
+				$id_cuestionario = connection::SelectMaxReg("id_cuestionario","cuestionarios","");
+				//
+				$preguntas = $cuestionarios->getPreguntas(" AND id_cuestionario=".$_REQUEST['id']." ");
+				foreach($preguntas as $pregunta):
+					//insertar nueva pregunta
+					$cuestionarios->insertPregunta($id_cuestionario,$pregunta['pregunta_texto'],$pregunta['pregunta_tipo']);
+					$id_pregunta = connection::SelectMaxReg("id_pregunta","cuestionarios_preguntas","");
+					$respuestas = $cuestionarios->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." ");
+					//insertar respuestas de la pregunta
+					foreach($respuestas as $respuesta):
+						$cuestionarios->insertPreguntaRespuesta($id_pregunta,$respuesta['respuesta_texto']);
+					endforeach;
+				endforeach;
+				session::setFlashMessage( 'actions_message', "Registro clonado correctamente", "alert alert-success");
+			}
+			else{
+				session::setFlashMessage( 'actions_message', "Error al clonar el registro.", "alert alert-danger");
+			}
+			redirectURL("?page=admin-cuestionarios");
+		}
+	}	
+
 	public static function saveFormAction(){
 	    if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario']!=""){
 			$cuestionarios = new cuestionarios();
@@ -170,7 +198,9 @@ class cuestionariosController{
 		if (isset($_REQUEST['t']) and $_REQUEST['t']!=""){
 			$cuestionarios = new cuestionarios();
 			$elements=$cuestionarios->getRespuestasUserAdmin(" AND p.id_cuestionario=".$_REQUEST['id']." and r.respuesta_user='".$_REQUEST['t']."' ");
-			exportCsv($elements);
+			download_send_headers("data_export_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}
 	}
 
@@ -192,7 +222,9 @@ class cuestionariosController{
 				endforeach;    
 				array_push($final, $element);
 			endforeach;
-			exportCsv($final);
+			download_send_headers("data_export_" . date("Y-m-d") . ".csv");
+			echo array2csv($final);
+			die();
 		}
 	}		
 

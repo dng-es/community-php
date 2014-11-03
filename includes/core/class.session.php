@@ -199,7 +199,7 @@ class session {
 	*/
 	public static function AccessLevel($perfiles_autorizados){
 		if (in_array($_SESSION['user_perfil'], $perfiles_autorizados)==false and $_SESSION['user_perfil']!='admin'){
-			ErrorMsg("Acceso denegado.");
+			ErrorMsg(strTranslate("Access_denied"));
 			die();
 		}
 	}

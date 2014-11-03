@@ -338,7 +338,9 @@ class mailingController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 			$mailing = new mailing();
 			$elements = $mailing->getMessages($filtro);
-			exportCsv($elements, "mensajes");
+			download_send_headers("messages_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		} 
 	}
 
@@ -346,7 +348,9 @@ class mailingController{
 		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm']==true) {
 			$mailing = new mailing();
 			$elements = $mailing->getMessagesUsers($filtro." AND id_message=".$_REQUEST['id']);
-			exportCsv($elements,"mensajes");
+			download_send_headers("messages_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}
 	}
 
@@ -354,7 +358,9 @@ class mailingController{
 		if (isset($_REQUEST['exp']) and $_REQUEST['exp']=='links') {
 			$mailing = new mailing();
 			$elements = $mailing->getMessageLinkUserExport($filtro." AND l.id_message=".$_REQUEST['id']);
-			exportCsv($elements,"mensajes");
+			download_send_headers("messages_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}
 	}			
 

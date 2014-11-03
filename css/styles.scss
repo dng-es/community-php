@@ -1,21 +1,6 @@
 @import "compass/css3";
 
-/*SASS VARIABLES*/
-$color1 : #da1e48;	//color principal
-//$color2 : lighten($color1, 55%);	//color claro
-$color2 : #f0f0f0;
-$color3 : darken($color1, 10%);	//color oscuro o de contraste respecto el color principal
-
-$font-size-community: 14px;
-$border-def: 0px;
-$panels-color: #f0f0f0;
-$panels-color-text: #666;
-$app_width : 80%;
-
-$break-small: 768px;
-$break-medium: 992px;
-$break-large: 1200px;
-/*SASS VARIABLES*/
+@import './variables.scss';
 
 @font-face {
     font-family: 'Community-Font';
@@ -123,6 +108,13 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	background-color: lighten($color2, 2%);
 	@include border-radius($border-def);
 	position: relative;
+	section{
+		margin-bottom: 0;
+	}
+
+	section .media-preview-container{
+		margin-bottom: 5px;
+	}	
 }
 #header-container{
 	background-color: $panels-color;
@@ -265,7 +257,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	position: relative;
 	text-align: center;
 	width: 100%;
-	z-index:-1;
+	z-index:100;
 	a{
 		color:#666;
 		&:hover{
@@ -277,6 +269,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	}
 }
 .lateral-container{
+	@extend .full-height;
 	background-color: $panels-color;
 	border-left: 0px solid #bebebe;
 	color: $panels-color-text;
@@ -285,6 +278,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	@media screen and (max-width: $break-medium) {
 		background-color: transparent;
 		border-left: 0;
+		color:#666;
 	}
 }
 .comunidad-color{
@@ -519,7 +513,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	cursor: pointer
 }
 .ajax-load{
-	color:#9B577A;
+	color:$color1;
 	font-size: 50px;
 	margin-top: 30px;
 	@media screen and (max-width: $break-medium) {
@@ -530,19 +524,21 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .ver-mas{
 	background-color: transparent;
 	border-top:0px solid #ccc;
+	font-family:'Community-Font','Arial';
 	height: 45px;
 	padding: 10px 20px;
 	text-align: right;	
 	a{
 		color:#666;
+		font-size: $font-size-community + 2;
 		outline:none;
 		@include transition(all, 0.3s, ease);
 		&:hover{
 			color:#333;
-			font-size: 16px;
+			font-size: $font-size-community + 4;
 			span{
 				color:$color1;
-				font-size: 22px
+				font-size: 24px
 			}
 		}
 		span{
@@ -557,7 +553,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 /*Fin Muro*/
 
 .panel-interior{
-	@extend .full-height;
+	//@extend .full-height;
 	background-color: $panels-color;
 	color: $panels-color-text;
 	overflow: hidden;
@@ -1142,7 +1138,14 @@ table th {
 
 /*Bootstrap*/
 //[class*="col-"]{margin-bottom: -99999px !important;padding-bottom: 99999px !important;}
-.full-height{margin-bottom: -99999px !important;padding-bottom: 99999px !important;}
+.full-height{
+	margin-bottom: -99999px !important;
+	padding-bottom: 99999px !important;
+	@media screen and (max-width: $break-medium) {
+		margin-bottom: 15px !important;
+		padding-bottom: 15px !important;
+	}
+}
 .row{overflow: hidden;}
 .bootstrap-datetimepicker-widget{background-color:$color1 !important}
 .bootstrap-datetimepicker-widget thead tr:first-child th:hover{ background-color:$color2 !important; color:$color1}
@@ -1310,6 +1313,7 @@ table th {
 	font-size:13px;
 	padding: 15px;
 	right: 0;
+	z-index: 101;
 	h2{
 		color:#a9a9a9 !important;
 		font-size:16px;

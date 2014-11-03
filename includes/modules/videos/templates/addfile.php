@@ -1,5 +1,8 @@
 <?php
-function PanelSubirVideo($id_promocion = 0){ ?>
+function PanelSubirVideo($id_promocion = 0){ 
+	$module_config = getModuleConfig("videos");
+	if ($module_config['options']['allow_uploads']==true or $_SESSION['user_perfil']=='admin'){
+	?>
 	<h4><?php echo strTranslate("Upload_video");?></h4>
 	<p><?php echo strTranslate("Upload_video_formats_allowed");?> <b>MP4, MOV, AVI, 3GP, WMV</b>. <?php echo strTranslate("Upload_video_max_size_allowed");?> <b><?php echo MAX_SIZE_VIDEOS_KB;?> Kb</b>.</p>
 	<form id="video-form" name="video-form" action="" method="post" enctype="multipart/form-data" role="form" >
@@ -18,4 +21,5 @@ function PanelSubirVideo($id_promocion = 0){ ?>
 		<div class="alert alert-danger" id="alertas-participa" style="display: none"></div>
 		<button type="submit" class="btn btn-primary btn-block" id="video-submit" name="video-submit"><?php echo strTranslate("Send_video");?></button>
 	</form>		
+	<?php } ?>
 <?php } ?>

@@ -16,6 +16,15 @@ if (isset($_REQUEST['t']) and $_REQUEST['t']!="") na_areasController::ExportForm
 //EXPORT REVS
 if (isset($_REQUEST['t3']) and $_REQUEST['t3']=="1") na_areasController::ExportFormAllAction();
 
+//DESCARGAR FICHERO USUARIO-FICHEROS
+if (isset($_REQUEST['t2']) and $_REQUEST['t2']=="1"){
+	$na_areas = new na_areas();
+	$elements = $na_areas->getTareasUserExport($_REQUEST['id'],$_REQUEST['a']);
+	download_send_headers("data_" . date("Y-m-d") . ".csv");
+	echo array2csv($elements);
+	die();
+}
+
 addJavascripts(array("js/jquery.numeric.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
 //OBTENER DATOS DE LA TAREA
@@ -34,44 +43,7 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 			<li><a href="?page=admin-area-revs&t3=1&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 
-		<?php 
-		//DESCARGAR FICHERO USUARIO-FICHEROS
-		if (isset($_REQUEST['t2']) and $_REQUEST['t2']=="1"){
-			$na_areas = new na_areas();
-			$elements=$na_areas->getTareasUserExport($_REQUEST['id'],$_REQUEST['a']);
-			$file_name='exported_file'.date("YmdGis");
-			ExportExcel ("./docs/export/",$file_name,$elements,"xls",1);
-		} 
-
-		//DESCARGAR FICHERO USUARIO-FICHEROS
-		// if (isset($_REQUEST['t3']) and $_REQUEST['t3']=="1"){
-		//   $na_areas = new na_areas();
-		//   $elements=$na_areas->getFormulariosFinalizados(" AND id_tarea=".$_REQUEST['id']." ORDER BY user_tarea"); 
-		//   $file_name='exported_file'.date("YmdGis");
-
-		//   $final = array();
-		//   foreach($elements as $element):
-		//     //nombre del grupo
-		//     $nombre_grupo='';
-		//     if (count($grupos=$na_areas->getUsuarioGrupoTarea($_REQUEST['id'],$_REQUEST['a']," AND grupo_username='".$element['user_tarea']."' "))>0){
-		//        $nombre_grupo=$grupos[0]['grupo_nombre'];}
-		//     $element['nombre_grupo']=$nombre_grupo;
-
-		//     //respuestas del usuario
-		//     $respuestas = $na_areas -> getFormulariosFinalizadosRespuestas($element['id_tarea'],$element['user_tarea']);
-		//     $i=1;
-		//     foreach($respuestas as $respuesta):
-		//       $pregunta_texto="pregunta".$i;
-		//       $element[$pregunta_texto]=$respuesta['respuesta_valor'];
-		//       $i++;
-		//     endforeach;    
-		//     array_push($final, $element);
-		//   endforeach;
-			
-
-		//   ExportExcel ("./docs/export/",$file_name,$final,"xls",1);
-		// }
-		
+		<?php 		
 		//VALIDAR REVISIONES FICHEROS
 		if ( isset($_REQUEST['act']) and $_REQUEST['act']=='rev_ok' ){
 			$id_tarea_user=$_REQUEST['idr'];

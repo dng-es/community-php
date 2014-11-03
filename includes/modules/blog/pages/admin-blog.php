@@ -23,9 +23,11 @@ $total_reg = connection::countReg("foro_temas",$filtro);
 
 //EXPORT EXCEL - SHOW AND GENERATE
 if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
-	$elements=$foro->getTemas($filtro);
-	$file_name='exported_file'.date("YmdGis");
-	ExportExcel('./docs/export/',$file_name,$elements);}
+	$elements = $foro->getTemas($filtro);
+	download_send_headers("data_" . date("Y-m-d") . ".csv");
+	echo array2csv($elements);
+	die();
+}
 
 $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 <div class="row row-top">

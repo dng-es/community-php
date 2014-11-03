@@ -85,7 +85,9 @@ class na_areasController{
 	public static function ExportFormUserAction(){
 		$na_areas = new na_areas();
 		$elements=$na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".$_REQUEST['id']." and r.respuesta_user='".$_REQUEST['t']."' ");
-		exportCsv($elements);
+		download_send_headers("data_" . date("Y-m-d") . ".csv");
+		echo array2csv($elements);
+		die();
 	}
 
 	public static function ExportFormAllAction(){
@@ -112,7 +114,9 @@ class na_areasController{
 			endforeach;    
 			array_push($final, $element);
 		endforeach;
-		exportCsv($final);
+		download_send_headers("data_" . date("Y-m-d") . ".csv");
+		echo array2csv($final);
+		die();
 	}	
 
 	public static function saveFormAction(){

@@ -15,9 +15,12 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 
 <?php
 $foro = new foro();
+$module_config = getModuleConfig("blog");						
+
 session::getFlashMessage( 'actions_message' );	
 foroController::createRespuestaAction();
-foroController::votarAction();								
+foroController::votarAction();		
+
 
 //OBTENCION DE LOS DATOS DEL FORO 
 $filtro_tema = "";
@@ -55,9 +58,11 @@ $num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$id_tema." ")
 
 echo '<h2>'.$tema[0]['nombre'].'</h2>
 	<p class="legend">
-		<span class="text-muted">'.getDateFormat($tema[0]['date_tema'], "LONG").'</span>
-		<span class="fa fa-comment"></span> '.$total_reg.' comentarios 
-		<span class="fa fa-eye"></span> '.$num_visitas.' visitas</span>
+		<span class="text-muted">'.getDateFormat($tema[0]['date_tema'], "LONG").'</span> ';
+
+if ($module_config['options']['allow_comments']==true ) echo '<span class="fa fa-comment"></span> '.$total_reg.' '.strTranslate("Comments").' ';
+
+echo ' <span class="fa fa-eye"></span> '.$num_visitas.' '.strTranslate("Visits").'</span>
 	</p>
 	'.$tema[0]['descripcion'];
 
@@ -73,33 +78,38 @@ if (count($siguiente)!=1){$siguiente_disabled = "disabled";$siguiente_enlace="#"
 else{$siguiente_enlace='?page=blog&id='.$siguiente[0]['id_tema'];}
 
 //enlaces de pagina siguiente y anterior
-echo '<hr /><ul class="pager">
-				<li class="previous '.$anterior_disabled .'"><a href="'.$anterior_enlace.'">&larr; Entrada anterior</a></li>
-				<li class="next '.$siguiente_disabled .'"><a href="'.$siguiente_enlace.'">Entrada siguiente &rarr;</a></li>
-			</ul>';
+echo '<hr />
+	<ul class="pager">
+		<li class="previous '.$anterior_disabled .'"><a href="'.$anterior_enlace.'">&larr; Entrada anterior</a></li>
+		<li class="next '.$siguiente_disabled .'"><a href="'.$siguiente_enlace.'">Entrada siguiente &rarr;</a></li>
+	</ul>
+	<hr />';
 }    
 
 
 if (count($tema)>0){	
 	//INSERTAR VISITA EN EL FORO
 	$foro->insertVisita($_SESSION['user_name'],$id_tema,0);
-	//INSERTAR NUEVOS COMENTARIOS EN EL BLOG
 
-	echo '<div class="clearfix"></div><div class="panel-interior">';
-	echo '<br /><label>¿Qué piensas de este artículo? déjanos tu comentario</label>';
-	addForoComment($id_tema);
-	echo '</div>';
-	
-	echo '<div class="panel-container-foro">';
-	$filtro_comentarios.= " ORDER BY date_comentario DESC";
-	$comentarios_foro = $foro->getComentarios($filtro_comentarios.' LIMIT '.$inicio.','.$reg); 
-	foreach($comentarios_foro as $comentario_foro):
-		commentForo($comentario_foro,"blog");
-	endforeach;	
-	echo '</div><br />';
-	
-	if ($total_reg==0){ echo '<div class="alert alert-warning">Todavía no se han insertado comentarios en esta entrada.</div>';}
-	else {Paginator($pag,$reg,$total_reg,'blog&id='.$id_tema,'comentarios',$find_reg,10,"selected-foro");}
+	if ($module_config['options']['allow_comments']==true){
+		//INSERTAR NUEVOS COMENTARIOS EN EL BLOG
+
+		echo '<div class="clearfix"></div><div class="panel-interior">';
+		echo '<br /><label>¿Qué piensas de este artículo? déjanos tu comentario</label>';
+		addForoComment($id_tema);
+		echo '</div>';
+		
+		echo '<div class="panel-container-foro">';
+		$filtro_comentarios.= " ORDER BY date_comentario DESC";
+		$comentarios_foro = $foro->getComentarios($filtro_comentarios.' LIMIT '.$inicio.','.$reg); 
+		foreach($comentarios_foro as $comentario_foro):
+			commentForo($comentario_foro,"blog");
+		endforeach;	
+		echo '</div><br />';
+		
+		if ($total_reg==0){ echo '<div class="alert alert-warning">Todavía no se han insertado comentarios en esta entrada.</div>';}
+		else {Paginator($pag,$reg,$total_reg,'blog&id='.$id_tema,'comentarios',$find_reg,10,"selected-foro");}
+	}
 
 	//ENTRADAS SIMILARES
 	echo '<h4>

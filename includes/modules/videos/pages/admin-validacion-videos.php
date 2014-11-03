@@ -39,7 +39,7 @@ session::AccessLevel($perfiles_autorizados);
 
 $videos = new videos();
 $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
-<div class="row inset row-top">
+<div class="row row-top">
 	<div class="col-md-9">
 		<h1><?php echo strTranslate("Video_validation");?></h1>
 		<ul class="nav nav-pills navbar-default"> 
@@ -47,34 +47,33 @@ $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 		</ul>
 		<?php foreach($pendientes as $element):	  		
 			$convertido = ((file_exists(PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4')) ? true : false);			
-			echo '<div class="col-md-3">';
-	 		echo '<div class="btn-group">';			
-			if ($convertido==true){  			
-				echo '	<a class="btn btn-default" href="#" onClick="Confirma(\'¿Seguro que desea validar el vídeo?\',
-						\'?page=admin-validacion-videos&act=video_ok&id='.$element['id_file'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" 
-						title="validar video" /><span>validar video</span></a>
-						
-						<a class="btn btn-default" href="#" onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'?\',
-						\'?page=admin-validacion-videos&act=video_ko&id='.$element['id_file'].'&u='.$element['user_add'].'\')" 
-						title="eliminar video" />eliminar video</a>';
-			}
-			else{
-				echo '<a class="btn btn-default" href="#" 
-					  onClick="Confirma(\'¿Seguro que desea convertir el vídeo?, el proceso puede durar varios minutos.\',
-					  \'?page=admin-validacion-videos&act=video_conv&id='.$element['id_file'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" 
-					  title="convertir video" />convertir video</a>';
-			}								
-			echo '<a class="btn btn-default" href="?page=admin-validacion-videos&exp='.$element['name_file'].'" title="descargar vídeo">descargar vídeo</a>';			
-			echo '</div>
-				  <div class="video-content">';
+			echo '<div class="col-md-4"><br />';
 			if ($convertido==true){ playVideo("VideoConvertido".$element['id_file'],PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4',165,100);}
 			else { playVideo("VideoPendiente".$element['id_file'],PATH_VIDEOS_TEMP.$element['name_file'],165,100);}
+		
+			if ($convertido==true){  			
+				echo '	<a class="" href="#" onClick="Confirma(\'¿Seguro que desea validar el vídeo?\',
+						\'?page=admin-validacion-videos&act=video_ok&id='.$element['id_file'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" 
+						title="validar video" /><span><i class="fa fa-check"></i> validar video</span></a> - 
+						
+						<a class="" href="#" onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'?\',
+						\'?page=admin-validacion-videos&act=video_ko&id='.$element['id_file'].'&u='.$element['user_add'].'\')" 
+						title="eliminar video" /><i class="fa fa-can"></i> eliminar</a>';
+			}
+			else{
+				echo '<a class="" href="#" 
+					  onClick="Confirma(\'¿Seguro que desea convertir el vídeo?, el proceso puede durar varios minutos.\',
+					  \'?page=admin-validacion-videos&act=video_conv&id='.$element['id_file'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" 
+					  title="convertir video" /><i class="fa fa-video-camera"></i> convertir</a>';
+			}								
+			echo ' - <a class="" href="?page=admin-validacion-videos&exp='.$element['name_file'].'" title="descargar vídeo"><i class="fa fa-download"></i> descargar</a>';			
+			echo '<div class="video-content">';
 			echo '	</div>
 				  	<div class="video-info">
-						<b>'.strTranslate("Date").':</b> '.getDateFormat($element['date_video'], "SHORT").'
-						<b>'.strTranslate("User").':</b> '.$element['user_add'].' 
-						<b>Canal:</b> '.$element['canal'].' 
-						<b>'.strTranslate("Title").':</b> '.$element['titulo'].'
+						<small>'.$element['titulo'].'<br />
+						'.$element['user_add'].' - '.$element['canal_file'].' - 
+						<span class="text-muted">'.getDateFormat($element['date_video'], "SHORT").'</span>
+						</small>
 				  	</div>'; 
 			echo '</div>';				  
 		endforeach;?>
