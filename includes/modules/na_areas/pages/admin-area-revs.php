@@ -17,21 +17,18 @@ if (isset($_REQUEST['t']) and $_REQUEST['t']!="") na_areasController::ExportForm
 if (isset($_REQUEST['t3']) and $_REQUEST['t3']=="1") na_areasController::ExportFormAllAction();
 
 //DESCARGAR FICHERO USUARIO-FICHEROS
-if (isset($_REQUEST['t2']) and $_REQUEST['t2']=="1"){
-	$na_areas = new na_areas();
-	$elements = $na_areas->getTareasUserExport($_REQUEST['id'],$_REQUEST['a']);
-	download_send_headers("data_" . date("Y-m-d") . ".csv");
-	echo array2csv($elements);
-	die();
-}
+if (isset($_REQUEST['t2']) and $_REQUEST['t2']=="1") na_areasController::ExportFileUserAction();
+
+//VALIDAR REVISIONES FICHEROS
+if ( isset($_REQUEST['act']) and $_REQUEST['act']=='rev_ok' ) na_areasController::validateRevAction();
 
 addJavascripts(array("js/jquery.numeric.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
 //OBTENER DATOS DE LA TAREA
 $na_areas = new na_areas();
-$id_area=$_REQUEST['a'];
-$id_tarea=$_REQUEST['id'];
-$tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
+$id_area = $_REQUEST['a'];
+$id_tarea = $_REQUEST['id'];
+$tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 ?>
 
 <div class="row row-top">
@@ -43,12 +40,7 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 			<li><a href="?page=admin-area-revs&t3=1&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 
-		<?php 		
-		//VALIDAR REVISIONES FICHEROS
-		if ( isset($_REQUEST['act']) and $_REQUEST['act']=='rev_ok' ){
-			$id_tarea_user=$_REQUEST['idr'];
-			$na_areas->RevisarTareaUser($id_tarea_user,$_SESSION['user_name']);
-		} 
+		<?php
 
 		if (count($tarea)==1){  
 

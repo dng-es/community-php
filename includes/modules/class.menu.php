@@ -29,7 +29,7 @@ class menu{
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="?page=home"><i class="fa fa-home"></i> <?php echo strTranslate("Home")?></a>
+				<a class="navbar-brand" href="?page=home"><i class="fa fa-home"></i></a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -130,6 +130,33 @@ class menu{
 		echo '</ul>';
 	}
 
+	static function getAdminPanels($array_final){
+
+					$header_name = "";
+					foreach($array_final as $elem):	
+						if($header_name!="" and $header_name!=$elem['LabelSection']){
+							echo '</dl></div>
+								</div>
+							</div>';
+						}
+
+						if ($header_name!=$elem['LabelSection']){
+							$header_name = $elem['LabelSection'];
+							echo '<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title">'.$header_name.'<small><i class="fa fa-file pull-right text-muted"></i></small></h3></div>
+				<div class="panel-body">
+					<dl class="dl-horizontal">';
+						}
+						echo '<dt>'.$elem['LabelItem'].'</dt>
+							<dd><a href="?page='.$elem['LabelUrl'].'">'.$elem['LabelUrlText'].'</a></dd>';
+					endforeach;
+							echo '</dl></div>
+								</div>
+							</div>';
+	
+	}
+
 	/**
 	* Print language selector
 	*
@@ -155,38 +182,66 @@ class menu{
 	static function adminMenu(){
 		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']='admin'){ 
 
-		$array_final = array();
-		$modules = getListModules();		
-		foreach($modules as $module):
-			$moduleClass = $module['folder']."Controller";
-			$instance = new $moduleClass();
-			if (method_exists($instance, "adminMenu")) {
-		        $array_final = array_merge($array_final, $instance->adminMenu());
-		    }
-		endforeach;
-		
-		foreach ($array_final as $clave => $fila) {
-		    $principal[$clave] = $fila['LabelHeader'];
-		    $seccion[$clave] = $fila['LabelSection'];
-		    $posicion[$clave] = $fila['LabelPos'];
-		}
+			$array_final = array();
+			$modules = getListModules();		
+			foreach($modules as $module):
+				$moduleClass = $module['folder']."Controller";
+				$instance = new $moduleClass();
+				if (method_exists($instance, "adminMenu")) {
+			        $array_final = array_merge($array_final, $instance->adminMenu());
+			    }
+			endforeach;
+			
+			foreach ($array_final as $clave => $fila) {
+				$principal[$clave] = $fila['LabelHeader'];
+				$seccion[$clave] = $fila['LabelSection'];
+				$posicion[$clave] = $fila['LabelPos'];
+			}
 
-		array_multisort($principal, SORT_ASC, $seccion, SORT_ASC, $posicion, SORT_ASC, $array_final);
+			array_multisort($principal, SORT_ASC, $seccion, SORT_ASC, $posicion, SORT_ASC, $array_final);
 
-		?>
-		<div class="col-md-3" id="admin-panel">
-			<h2><a href="?page=admin"><?php echo strTranslate("Go_to_main_panel");?></a></h2>
-			<h3><?php echo strTranslate("Content_manager");?></h3>
-			<ul>
-				<?php self::getMenuSection("Modules", $array_final);?>
-			</ul>
-			<h3><?php echo strTranslate("Tools");?></h3>
-			<ul>
-				<?php self::getMenuSection("Tools", $array_final);?>
-			</ul>
-			<br />
-		</div>
-		<?php
+			?>
+			<div class="col-md-3" id="admin-panel">
+				<h2><a href="?page=admin"><?php echo strTranslate("Go_to_main_panel");?></a></h2>
+				<h3><?php echo strTranslate("Content_manager");?></h3>
+				<ul>
+					<?php self::getMenuSection("Modules", $array_final);?>
+				</ul>
+				<h3><?php echo strTranslate("Tools");?></h3>
+				<ul>
+					<?php self::getMenuSection("Tools", $array_final);?>
+				</ul>
+				<br />
+			</div>
+			<?php
 		}
 	}	
+
+	/**
+	* Print administration menu
+	*
+	*/
+	static function adminPanels(){
+		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']='admin'){ 
+			$array_final = array();
+			$modules = getListModules();		
+			foreach($modules as $module):
+				$moduleClass = $module['folder']."Controller";
+				$instance = new $moduleClass();
+				if (method_exists($instance, "adminPanels")) {
+			        $array_final = array_merge($array_final, $instance->adminPanels());
+			    }
+			endforeach;
+			
+			foreach ($array_final as $clave => $fila) {
+				$seccion[$clave] = $fila['LabelSection'];
+				$posicion[$clave] = $fila['LabelPos'];
+			}
+
+			array_multisort($seccion, SORT_ASC, $posicion, SORT_ASC, $array_final);
+			self::getAdminPanels($array_final);
+		}
+	}		
+
+	
 }?>

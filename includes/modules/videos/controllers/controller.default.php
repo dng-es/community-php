@@ -190,5 +190,20 @@ class videosController{
 							"LabelUrl"=>'admin-validacion-videos',
 							"LabelPos" => 2));	
 	}	
+
+	public static function adminPanels(){
+		$num_pending = connection::countReg("galeria_videos"," AND estado=0 ");
+		$num_pending = ($num_pending > 0 ? '<span class="label label-warning">'.$num_pending.'</span>' : $num_pending);
+		return array( array("LabelSection"=> strTranslate("Videos"),
+							"LabelItem"=> strTranslate("Videos_pending"),
+							"LabelUrlText"=> $num_pending,
+							"LabelUrl"=>'admin-validacion-videos',
+							"LabelPos" => 2),
+					array("LabelSection"=> strTranslate("Videos"),
+							"LabelItem"=> strTranslate("Video_list"),
+							"LabelUrlText"=> strTranslate("Go_to"),
+							"LabelUrl"=>'admin-videos',
+							"LabelPos" => 1));	
+	}	
 }
 ?>

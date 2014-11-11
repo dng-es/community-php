@@ -9,7 +9,7 @@
 	<tr>
 		<td>
 			<br />
-			<p>Para confirmar tu registro en {SiteName']} haz click en el siguiente enlace: <a href="{SiteUrl}/{registration_link}">{SiteUrl}/{registration_link}</a>.</p>
+			<p>Para confirmar tu registro en <b>{SiteName}</b> haz click en el siguiente enlace: <a href="{SiteUrl}/{registration_link}">{SiteUrl}/{registration_link}</a>.</p>
 		</td>
 	</tr>
 	<tr>

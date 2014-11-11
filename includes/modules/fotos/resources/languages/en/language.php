@@ -35,4 +35,5 @@ Order_photos_by_votes = "Order photos by votes"
 New_album = "New album"
 Photo_albums = "Photo albums"
 Last_photos = "Last photos"
+Photos_pending = "Photos pending"
 ?>

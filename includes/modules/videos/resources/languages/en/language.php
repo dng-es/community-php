@@ -33,4 +33,5 @@ Video_title = "Título del vídeo"
 Order_videos_by_date = "Order videos by date"
 Order_videos_by_votes = "Order videos by votes"
 Last_videos = "Last videos"
+Videos_pending = "Videos pending"
 ?>

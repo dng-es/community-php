@@ -15,20 +15,20 @@ class headers{
 		<!DOCTYPE html>
 		<html lang="es">
 			<head>
-			<meta charset="utf-8">
-	    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	    	<meta name="viewport" content="width=device-width, initial-scale=1">
-			<meta name="description" content="<?php echo $ini_conf['SiteDesc'];?>" />
-			<meta NAME="Subject" CONTENT="<?php echo $Subject;?>" />
-			<meta NAME="Keywords" CONTENT="<?php echo $Key_Words;?>" />
-			<meta name="copyright" CONTENT="Copyright(c) 2014 by Grass Roots Spain" />
-			<meta name="robots" content="noarchive" />
-			<title><?php echo $Title;?></title>
-			<link rel="shortcut icon" href="favicon.ico">
-			<link rel="icon" type="image/ico"  href="favicon.ico" >		
-			<link href="css/styles.css" rel="stylesheet"> 
-		
-			<script type="text/javascript" src="js/main.min.js"></script>
+				<meta charset="utf-8">
+		    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    	<meta name="viewport" content="width=device-width, initial-scale=1">
+				<meta name="description" content="<?php echo $ini_conf['SiteDesc'];?>" />
+				<meta NAME="Subject" CONTENT="<?php echo $Subject;?>" />
+				<meta NAME="Keywords" CONTENT="<?php echo $Key_Words;?>" />
+				<meta name="copyright" CONTENT="Copyright(c) 2014 by Grass Roots Spain" />
+				<meta name="robots" content="noarchive" />
+				<title><?php echo $Title;?></title>
+				<link rel="shortcut icon" href="favicon.ico">
+				<link rel="icon" type="image/ico"  href="favicon.ico" >		
+				<link href="css/styles.css" rel="stylesheet"> 
+			
+				<script type="text/javascript" src="js/main.min.js"></script>
 
 			<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 			<!--[if lt IE 9]>

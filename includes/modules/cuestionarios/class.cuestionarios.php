@@ -30,10 +30,11 @@ class cuestionarios{
 	/**
 	 * Elimina registro en cuestionarios
 	 * @param  int 		$id 		Id registro a eliminar
+	 * @param  int 		$activo 	Estado del registro
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function deleteCuestionarios($id){
-		$Sql="UPDATE cuestionarios SET activo=0 WHERE id_cuestionario=".$id;
+	public function deleteCuestionarios($id, $activo){
+		$Sql="UPDATE cuestionarios SET activo=".$activo." WHERE id_cuestionario=".$id;
 		return connection::execute_query($Sql);
 	}
 

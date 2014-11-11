@@ -6,10 +6,11 @@ $session->AccessLevel($perfiles_autorizados);
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
-		<h1>Albumes de fotos</h1>
+		<h1><?php echo strTranslate("Photo_albums");?></h1>
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		fotosAlbumController::deleteAction();
+		fotosAlbumController::downloadAction();
 		$elements = fotosAlbumController::getListAction(20, " AND activo=1 ORDER BY nombre_album ");
 		?>
 		<ul class="nav nav-pills navbar-default"> 
@@ -19,20 +20,23 @@ $session->AccessLevel($perfiles_autorizados);
 		<table class="table">
 			<tr>
 				<th width="40px"></th>
-				<th>Álbum</th>
+				<th><?php echo strTranslate("Name");?></th>
 				<th><?php echo strTranslate("Date");?></th>
 				<th><?php echo strTranslate("User");?></th>
 				<th><?php echo strTranslate("Photos");?></th>
 			</tr>
 			<?php foreach($elements['items'] as $element):
-			$num_fotos = connection::countReg("galeria_fotos", "AND estado=1 AND id_album=".$element['id_album']." ");
-			echo '<tr>';
-			echo '<td nowrap="nowrap">
-					<span class="fa fa-edit icon-table" title="Ver/editar album"
-						onClick="location.href=\'?page=admin-albumes-new&act=edit&id='.$element['id_album'].'\'">
+			$num_fotos = connection::countReg("galeria_fotos", "AND estado=1 AND id_album=".$element['id_album']." "); ?>
+			<tr>
+			<td nowrap="nowrap">
+					<span class="fa fa-edit icon-table" title="<?php echo strTranslate("Edit");?>"
+						onClick="location.href='?page=admin-albumes-new&act=edit&id=<?php echo $element['id_album'];?>'">
 					</span>
+			
+					<a href="?page=admin-albumes&export=true&id=<?php echo $element['id_album'];?>" class="fa fa-download icon-table" title="<?php echo strTranslate("Download");?>"></a>
 					
-					<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'"
+			<?php	
+			echo '		<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'"
 						onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',
 						\'?page=admin-albumes&pag='.$elements['pag'].'&act=del&id='.$element['id_album'].'\')">
 					</span>

@@ -607,6 +607,29 @@ function fileToZip($filename, $path){
 }
 
 /**
+ * Comprime a zip el fichero especificado por $filename alojado en la ruta $path
+ * @param  string 		$array_files   	Array con archivos a comprimir (ruta completa). $array_files[$i][0]=>PATH; $array_files[$i][1]=>NAME_FILE
+ * @return          					resultado de la verificacion
+ */
+function filesToZip($array_files){
+	set_time_limit(0);
+	ini_set("memory_limit","-1");
+	require_once ("class.zipfile.php");
+	$zipfile = new zipfile();
+
+	for ($i = 0; $i <= count($array_files); $i++) {
+		if (file_exists($array_files[$i][0].$array_files[$i][1])){
+			$zipfile->add_file(implode("",file($array_files[$i][0].$array_files[$i][1])), $array_files[$i][1]);
+		}
+	}
+
+	header("Content-type: application/octet-stream");
+	header("Content-disposition: attachment; filename=downloads.zip");
+	echo $zipfile->file();
+}
+
+
+/**
  * Limpia URL. Función de PhpList
  * @param  string $url               URL a limpiar
  * @param  array  $disallowed_params 

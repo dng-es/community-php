@@ -21,8 +21,11 @@ $elements = infoController::getListAction(20);
 					<th><?php echo strTranslate("Name");?></th>
 					<th><?php echo strTranslate("Type");?></th>
 					<th><?php echo strTranslate("Campaign");?></th>
+					<th>Descargable</th>
 				</tr>
-				<?php foreach($elements['items'] as $element): ?>
+				<?php foreach($elements['items'] as $element): 
+				$enlace = ($element['download']==1 ? '?page=user-info&id='.$element['id_info'].'&exp='.$element['file_info'] : $element['file_info']);
+				?>
 				<tr>
 					<td nowrap="nowrap">
 						  <a href="?page=admin-info-doc&act=edit&id=<?php echo $element['id_info'];?>" title="<?php echo strTranslate("Edit");?>">
@@ -30,9 +33,10 @@ $elements = infoController::getListAction(20);
 						  <a href="#" onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', '?page=admin-info&pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>')" 
 						  title="<?php echo strTranslate("Delete");?>" /><span class="fa fa-ban icon-table"></span></a>
 					   </td>     
-					<td><a target="_blank" href="docs/showfile.php?file=<?php echo $element['file_info'];?>"><?php echo $element['titulo_info'];?></a></td>
+					<td><a target="_blank" href="<?php echo $enlace;?>"><?php echo $element['titulo_info'];?></a></td>
 					<td><?php echo $element['tipo'];?></td>
 					<td><?php echo $element['campana'];?></td>
+					<td><span class="label<?php echo ($element['download']==0 ? " label-warning" : " label-success");?>"><?php echo ($element['download']==1 ? "Sí" : "No");?></span></td>
 				</tr>   
 				<?php endforeach;  ?>
 			</table>

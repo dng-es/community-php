@@ -35,4 +35,5 @@ Order_photos_by_votes = "Ordenar fotos por votaciones"
 New_album = "Nuevo álbum"
 Photo_albums = "Álbumes de fotos"
 Last_photos = "Últimas fotos"
+Photos_pending = "Fotos pendientes"
 ?>

@@ -2,7 +2,10 @@
 table{
 	thead{
 		background-color: $color1;
-		color: #fff;
+		h1{
+			color: #fff;
+			font-size:26px;
+		}
 	}
 	border-spacing: 10px;
 	border-collapse: separate;

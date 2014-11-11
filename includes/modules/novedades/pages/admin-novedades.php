@@ -12,21 +12,20 @@ $session->AccessLevel($perfiles_autorizados);
 ?>
 <div class="row row-top">
 	<div class="col-md-9">
-		<h1>Novedades</h1>
+		<h1><?php echo strTranslate("News_update");?></h1>
 		<?php 
 		session::getFlashMessage( 'actions_message' ); 
 		novedadesController::updateAction();
 		?>
-		<p>Introduce la novedad para hoy, podrá ser un texto, una imagen o un video. La novedad anterior será modificada por la nueva que introduzcas.</p>
 		<form id="formData" name="formData" method="post" enctype="multipart/form-data" action="" role="form">
 
-			<label>Canal:</label>
+			<label><?php echo strTranslate("Channel");?>:</label>
 			<select name="canal" id="canal" class="form-control">
 			<?php ComboCanales();?>
 			</select>
 
 			<label checkbox-inline>
-				<input type="checkbox" id="activo"  name="activo" checked="checked"> Activa
+				<input type="checkbox" id="activo"  name="activo" checked="checked"> <?php echo strTranslate("Active");?>
 			</label>
 			
 			<textarea cols="40" rows="5" name="texto"></textarea>
@@ -35,7 +34,7 @@ $session->AccessLevel($perfiles_autorizados);
 				CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 			</script>
 			<br />	
-			<input type="submit" name="SubmitData" class="btn btn-primary" value="Guardar datos" />
+			<input type="submit" name="SubmitData" class="btn btn-primary" value="<?php echo strTranslate("Save_data");?>" />
 			<br /><br />
 		</form>	
 	</div>

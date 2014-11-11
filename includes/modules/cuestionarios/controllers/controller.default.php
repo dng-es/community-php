@@ -91,11 +91,11 @@ class cuestionariosController{
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
 			$cuestionarios = new cuestionarios();
-			if ($cuestionarios->deleteCuestionarios($_REQUEST['id'])) {
-				session::setFlashMessage( 'actions_message', "Registro eliminado correctamente", "alert alert-success");
+			if ($cuestionarios->deleteCuestionarios($_REQUEST['id'], $_REQUEST['e'])) {
+				session::setFlashMessage( 'actions_message', "Estado modificado correctamente", "alert alert-success");
 			}
 			else{
-				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
+				session::setFlashMessage( 'actions_message', "Error al modificar estado.", "alert alert-danger");
 			}
 			redirectURL("?page=admin-cuestionarios");
 		}

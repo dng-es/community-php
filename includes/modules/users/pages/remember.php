@@ -3,6 +3,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 include_once($base_dir . "modules/class.headers.php");
 
 addJavascripts(array(getAsset("users")."js/remember.js"));
+$module_config = getModuleConfig("users");
 ?>
 <div class="row" id="login-container-deg">
 	<div class="col-md-5">
@@ -25,7 +26,9 @@ addJavascripts(array(getAsset("users")."js/remember.js"));
 			</div>
 		</form>		
 		<div class="container-separator">
-			<?php echo strTranslate("If_not_registered");?> <a  href="?page=registration"><?php echo strTranslate("Register");?></a>
+			<?php if ($module_config['options']['allow_registration']===true) :
+				echo strTranslate("If_not_registered");?> <a  href="?page=registration"><?php echo strTranslate("Register");?></a>
+			<?php endif;?>
 		</div>
 	</div>
 </div>

@@ -36,8 +36,8 @@ class novedadesController{
 
 	public static function adminMenu(){
 		return array( array("LabelHeader"=>'Modules',
-							"LabelSection"=> "Novedades",
-							"LabelItem"=> "Actualizar novedades",
+							"LabelSection"=> strTranslate("News"),
+							"LabelItem"=> strTranslate("News_update"),
 							"LabelUrl"=>'admin-novedades',
 							"LabelPos" => 1));	
 	}	

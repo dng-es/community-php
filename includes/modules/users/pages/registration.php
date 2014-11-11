@@ -33,15 +33,13 @@ if ($module_config['options']['allow_registration']===true):
 
 			if ($confirmar==1){
 				$subject_mail = "Alta de usuario en ".$ini_conf['SiteName'];;
-				$body_mail = ' Para confirmar tu registro en '.$ini_conf['SiteName'].' haz click en el siguiente enalce: '.$ini_conf['SiteUrl'].'/?page=registration-confirm&a='.sha1($_POST['username-text']).'&b='.sha1($_POST['user-email']).'&c='.sha1($_POST['user-pass']).'';
-				
 				$template = new tpl("registration", "users");
 				$template->setVars(array(
 				        "title_email" => strTranslate("Registration"),
 				        "registration_link" => '?page=registration-confirm&a='.sha1($_POST['username-text']).'&b='.sha1($_POST['user-email']).'&c='.sha1($_POST['user-pass'])
 				));
 
-				$cuerpo_mensaje = $template->getTpl();
+				$body_mail = $template->getTpl();
 
 				//SendEmail($ini_conf['ContactEmail'],$_POST['user-email'],$subject_mail,$body_mail,0,$ini_conf['SiteName']);
 				messageProcess($subject_mail, array($ini_conf['MailingEmail'] => $ini_conf['SiteName']), array($_POST['user-email']), $body_mail, null);

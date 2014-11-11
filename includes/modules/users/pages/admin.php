@@ -14,7 +14,7 @@ $num_canales = usersController::getCanalesAction();
 		<br />
 		<div class="row">
 			<div class="col-md-6">
-				<div class="panel panel-default">
+				<div class="panel panel-primary">
 					<div class="panel-heading"><h3 class="panel-title"><?php echo strTranslate("Overview");?> <small><i class="fa fa-pie-chart pull-right text-muted"></i></small></h3></div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
@@ -47,6 +47,12 @@ $num_canales = usersController::getCanalesAction();
 					</div>
 				</div>								
 			</div>
+		</div>
+		<div class="row">	
+			<?php
+			//mostrar información sobre otros módulos activos
+			menu::adminPanels();
+			?>
 		</div>
 	</div>
 	<?php menu::adminMenu();?>

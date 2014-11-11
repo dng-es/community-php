@@ -90,6 +90,20 @@ class na_areasController{
 		die();
 	}
 
+	public static function ExportFileUserAction(){
+		$na_areas = new na_areas();
+		$elements = $na_areas->getTareasUserExport($_REQUEST['id'],$_REQUEST['a']);
+		download_send_headers("data_" . date("Y-m-d") . ".csv");
+		echo array2csv($elements);
+		die();
+	}
+
+	public static function validateRevAction(){
+		$na_areas = new na_areas();
+		$id_tarea_user = $_REQUEST['idr'];
+		$na_areas->RevisarTareaUser($id_tarea_user,$_SESSION['user_name']);
+	}	
+
 	public static function ExportFormAllAction(){
 		$na_areas = new na_areas();
 		$elements=$na_areas->getFormulariosFinalizados(" AND id_tarea=".$_REQUEST['id']." ORDER BY user_tarea"); 
@@ -169,6 +183,7 @@ class na_areasController{
 		}
 		return $acceso;
 	}
+	
 	public static function insertDocAction(){
 		if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){ 
 			$na_areas = new na_areas();

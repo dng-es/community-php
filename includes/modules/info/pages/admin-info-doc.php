@@ -53,6 +53,14 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 					?>
 					</select>		
 					<br />
+
+					<label checkbox-inline>
+						<input type="checkbox" id="download"  name="disabled_user" <?php echo $elements[0]['download']==1 ? "checked" : "";?>> Fichero descargable
+					</label>
+
+					<label>(si no marcas esta opción introducir URL del documento):</label>
+					<input class="form-control" type="text" id="info_url" name="info_url" value="<?php echo $elements[0]['download']==1 ? "" : $elements[0]['titulo_info'];?>" />
+
 					<div class="row">
 						<div class="col-md-6">
 							<label>Selecciona el documento:</label><br />
@@ -61,7 +69,8 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 						<div class="col-md-6">
 						<?php
 						if ($elements[0]['file_info']!=""){ 
-						  	echo '<a target="_blank" href="docs/showfile.php?file='.$elements[0]['file_info'].'">Ver documento actual</a>';
+							$enlace = ($elements[0]['download']==1 ? 'docs/showfile.php?file='.$elements[0]['file_info'] : $elements[0]['file_info']);
+						  	echo '<a target="_blank" href="'.$enlace.'">Ver documento actual</a>';
 						}
 
 						?>
