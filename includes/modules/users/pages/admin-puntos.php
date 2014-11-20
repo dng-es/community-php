@@ -1,14 +1,14 @@
 <?php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("users")."js/admin-puntos.js"));
-
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);?>
-
+?>
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Asignación de puntos</h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Users");?></a></li>
+			<li class="active">Asignación de puntos</li>
+		</ol>
 		<p>Puedes asignar puntos a los usuarios, tambien puedes restarles puntos introducciendo un valor negativo. 
 		Para sumar o restar puntos intruduce el usuario (no nick), el número de puntos y el motivo de la asignación.</p><br />
 
@@ -33,7 +33,7 @@ $session->AccessLevel($perfiles_autorizados);?>
 		<h2>Carga de fichero</h2>
 		<p>Selecciona un fichero Excel con los usuarios a  sumar o restar <?php echo strTranslate("APP_points");?>. 
 		El fichero deberá tener la estructura especificada, puedes descargar el fichero modelo pinchando <a href="docs/model_puntos.xls"><b>aquí</b></a>.</p>
-		<form id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="?page=cargas-puntos-process" role="form">
+		<form id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="?page=admin-cargas-puntos-process" role="form">
 			<label for="nombre-fichero">Selecciona el fichero excel (.xls): </label><br />
 			<input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
 			<span id="fichero-alert" class="alert-message"></span>

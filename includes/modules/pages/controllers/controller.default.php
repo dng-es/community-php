@@ -53,23 +53,6 @@ class pagesController{
 			}
 			redirectURL("?page=admin-pages");
 		}
-	}	
-
-	/**
-	 * Elementos para el menu de administración
-	 * @return 	array           			Array con datos
-	 */	
-	public static function adminMenu(){
-		return array( array("LabelHeader"=>'Tools',
-							"LabelSection"=>strTranslate("Pages"),
-							"LabelItem"=>strTranslate("New_page"),
-							"LabelUrl"=>'admin-page',
-							"LabelPos" => 1),
-					  array("LabelHeader"=>'Tools',
-							"LabelSection"=>strTranslate("Pages"),
-							"LabelItem"=>strTranslate("Pages_list"),
-							"LabelUrl"=>'admin-pages',
-							"LabelPos" => 2));	
-	}	
+	}
 }
 ?>

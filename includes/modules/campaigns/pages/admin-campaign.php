@@ -1,10 +1,5 @@
 <?php
-
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("campaigns")."js/admin-campaign.js"));
-
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
 
 session::getFlashMessage( 'actions_message' ); 
 campaignsController::createAction();
@@ -13,8 +8,13 @@ $plantilla = campaignsController::getItemAction();
 
 ?>
 <div class="row row-top">	
-	<div class="col-md-9">
-		<h1><?php echo strTranslate("Edit");?> <?php echo strTranslate("Campaign");?></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Campaigns");?></a></li>
+			<li class="active"><?php echo strTranslate("Edit");?> <?php echo strTranslate("Campaign");?></li>
+		</ol>
 		<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
 			<input type="hidden" name="id_campaign" id="id_campaign" value="<?php echo $plantilla['id_campaign'];?>" />
 			

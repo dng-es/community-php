@@ -71,18 +71,18 @@ jQuery(document).ready(function(){
 	//desplegar menu administración activo
 	$(".module-admin-item li a.active").closest(".module-admin-item").show();
 
-	$(window).scroll(function() {
+/*	$(window).scroll(function() {
 		var screenWidth = $(window).width();
 		if (screenWidth>991){
 			//console.log($("#admin-panel").offset().top);
 			//console.log(screenWidth);
 			if ($(window).scrollTop() > ($('#container-main').outerHeight()) - ($('#container-content').outerHeight() + $('.footer').outerHeight())){
 				//console.log("ENTRA: " + $(window).scrollTop() + " PAGE: " + $('#container-main').outerHeight() + " CONTENT: " + $('#container-content').outerHeight());
-				$("#admin-panel").css({"position": "fixed","top" : 0, "right": "-11px"});
+				$("#admin-panel").css({"position": "fixed","top" : 0, "right": 0});
 			} else {
 				//console.log("NO ENTRA: " + $(window).scrollTop() + " PAGE: " + $('#container-main').outerHeight() + " CONTENT: " + $('#container-content').outerHeight());
 				$("#admin-panel").css({"position": "relative","top" : 0, "right": 0});
 			}
 		}
-	});
+	});*/
 });

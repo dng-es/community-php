@@ -4,10 +4,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					 "js/libs/ckfinder/ckfinder.js", 
 					 getAsset("pages")."js/admin-page.js"));
 
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 session::getFlashMessage( 'actions_message' ); 
 pagesController::createAction();
 pagesController::updateAction();
@@ -18,8 +14,14 @@ $pages = new pages();
 $pagina= $pages->getPages(" AND page_name='".$page_name."' "); ?>
 	
 <div class="row row-top">	
-	<div class="col-md-9">
-		<h1>Edición de páginas</h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Pages");?></a></li>
+			<li><a href="?page=admin-pages"><?php echo strTranslate("Pages_list");?></a></li>
+			<li class="active"><?php echo strTranslate("Edit");?> <?php echo strTranslate("Pages");?></li>
+		</ol>
 		<form id="formData" name="formData" method="post" action="" role="form">
 			<input type="hidden" name="page_name" id="page_name" value="<?php echo $page_name;?>" />
 

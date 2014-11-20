@@ -1,7 +1,6 @@
 <?php
 
 addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js", 
-					 getAsset("users")."js/users-conn-ajax.js", 
 					 getAsset("core")."js/home.js"));
 
 templateload("reply","muro");
@@ -71,8 +70,7 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 							<a href="?page=fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
 							<div>
 								<a href="?page=fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
-								<span><?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></span><br />
-								<?php echo $last_photo['items'][0]['nick'];?>
+								<span><?php echo $last_photo['items'][0]['nick'];?> - <?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></span><br />
 							</div>
 						</div>
 					</section>
@@ -87,8 +85,7 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 							<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo $last_video['items'][0]['titulo'];?>" /></a>
 							<div>
 								<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>"><?php echo $last_video['items'][0]['titulo'];?></a><br />
-								<span><?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></span><br />
-								<?php echo $last_video['items'][0]['nick'];?>
+								<span><?php echo $last_video['items'][0]['nick'];?> - <?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></span><br />
 							</div>
 						</div>
 					</section>
@@ -115,7 +112,13 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 		<div id="muro-insert">
 			<form id="muro-form" name="coment-form" action="" method="post" role="form">
 				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />   
-				<h4><?php echo strTranslate("New_comment_on_wall");?></h4>
+				<h4>
+					<span class="fa-stack fa-sx">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-comment fa-stack-1x fa-inverse"></i>
+					</span>
+					<?php echo strTranslate("New_comment_on_wall");?>
+				</h4>
 				<textarea maxlength="160" class="form-control" id="texto-comentario" name="texto-comentario"></textarea>
 				<?php if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'):?>
 				<select name="canal_comentario" id="canal_comentario" class="form-control">

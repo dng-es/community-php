@@ -8,6 +8,11 @@ class usersController{
   		}
 	}
 
+	public static function getUserPermissions($username, $filter = ""){
+		$users = new users();
+  		return $users->getUsersPermisions(" AND username='".$username."' ".$filter);
+	}
+
 	public static function getListAction($reg = 0){
 		$users = new users();
 		$filtro = "";
@@ -90,7 +95,7 @@ class usersController{
 			}
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
 			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
-			redirectURL("?page=users&pag=".$pag."&f=".$find_reg);
+			redirectURL("?page=admin-users&pag=".$pag."&f=".$find_reg);
 		}
 	}
 
@@ -146,28 +151,6 @@ class usersController{
 			return self::userStatistics($_GET['id']);
 		}
 	}		
-
-	/**
-	 * Estadisticas de uso de la comunidad de un usuario. Utilizada en ficha de usuario y exportar (exportStatisticsAction())
-	 * @param  	string 		$username 		Usuario del que se desean obtener estadísticas
-	 * @return 	array           			Array con datos
-	 */	
-	public static function userStatistics($username){
-		$users = new users();
-		$array_final = array();
-		$usuario = $users->getUsers(" AND username='".$username."' ");
-		$last_access = ($usuario[0]['last_access']!= null ? getDateFormat($usuario[0]['last_access'], "DATE_TIME") : "sin accesos");
-		$array_final = array_merge($array_final, array(strTranslate("Last_access") => $last_access));
-		$modules = getListModules();		
-		foreach($modules as $module):
-			$moduleClass = $module['folder']."Controller";
-			$instance = new $moduleClass();
-			if (method_exists($instance, "userModuleStatistis")) {
-		        $array_final = array_merge($array_final, $instance->userModuleStatistis($username));
-		    }
-		endforeach;
-		return $array_final;
-	}
 
 	public static function recoverPasswordAction(){
 		if (isset($_POST['form-lostpw-user'])){
@@ -237,12 +220,12 @@ class usersController{
 							$registered
 							)) {
 					session::setFlashMessage( 'actions_message', "Usuario insertado correctamente.", "alert alert-success");
-					redirectURL("?page=user&id=".$_POST['username']);
+					redirectURL("?page=admin-user&id=".$_POST['username']);
 				}
 			}
 			else { 
 				session::setFlashMessage( 'actions_message', "El usuario ya existe.", "alert alert-warning");
-				redirectURL("?page=user");
+				redirectURL("?page=admin-user");
 			}		
 		}
 	}
@@ -270,7 +253,7 @@ class usersController{
 			else { 
 				session::setFlashMessage( 'actions_message', "Se ha producido algun error durante la modificacion de los datos.", "alert alert-danger");}
 
-			redirectURL("?page=user&id=".$_POST['id_username']);
+			redirectURL("?page=admin-user&id=".$_POST['id_username']);
 		}
 	}	
 
@@ -281,46 +264,65 @@ class usersController{
 				session::setFlashMessage( 'actions_message', "foto borrada correctamente.", "alert alert-success");}
 			else { 
 				session::setFlashMessage( 'actions_message', "No se ha podido eliminar la foto.", "alert alert-danger");}
-			redirectURL("?page=user&id=".$_REQUEST['id']);
+			redirectURL("?page=admin-user&id=".$_REQUEST['id']);
 		}
 	}
 
+	public static function updatePermissionsAction(){
+		if (isset($_POST['user_permission']) and $_POST['user_permission']!=""){
+			foreach(array_keys($_POST) as $permission):
+				if ($permission!="user_permission"){
+					//detectar permisos de editar
+					if (strrpos($permission, "edit_")===0){
+						$permission_name = substr($permission, 5);
+						$permission_type = "edit";
+						$permission_value = $_POST[$permission];
+						self::updatePermissionAction($_POST['user_permission'], $permission_name, $permission_type, $permission_value);
+					}
+
+					//detectar permisos de ver/view
+					if (strrpos($permission, "view_")===0){
+						$permission_name = substr($permission, 5);
+						$permission_type = "view";
+						$permission_value = $_POST[$permission];
+						self::updatePermissionAction($_POST['user_permission'], $permission_name, $permission_type, $permission_value);
+					}
+				}
+			endforeach;
+			session::setFlashMessage( 'actions_message', "Permisos actualizados.", "alert alert-success");
+			redirectURL("?page=admin-user&t=2&id=".$_POST['user_permission']);
+		}
+	}
+
+	public static function updatePermissionAction($username, $permission_name, $permission_type, $permission_value){
+		$users = new users();
+		$users->deleteUserPermission($username, $permission_name, $permission_type);
+		$users->insertUserPermission($username, $permission_name, $permission_type, $permission_value);
+	}
+
 	/**
-	 * Elementos para el menu de administración
+	 * Estadisticas de uso de la comunidad de un usuario. Utilizada en ficha de usuario y exportar (exportStatisticsAction())
+	 * @param  	string 		$username 		Usuario del que se desean obtener estadísticas
 	 * @return 	array           			Array con datos
 	 */	
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Tools',
-							"LabelSection" => strTranslate("Users"),
-							"LabelItem" => strTranslate("Users_list"),
-							"LabelUrl" => 'users',
-							"LabelPos" => 1),
-					  array("LabelHeader" => 'Tools',
-							"LabelSection" => strTranslate("Users"),
-							"LabelItem" => strTranslate("Users_import"),
-							"LabelUrl" => 'cargas-users',
-							"LabelPos" => 2),
-					  array("LabelHeader" => 'Tools',
-							"LabelSection"=> strTranslate("Users"),
-							"LabelItem"=> 'Asignación de puntos',
-							"LabelUrl"=> 'admin-puntos',
-							"LabelPos" => 3),
-					  array("LabelHeader"=> 'Tools',
-							"LabelSection"=> strTranslate("Users"),
-							"LabelItem"=> strTranslate("Users_groups_list"),
-							"LabelUrl"=> 'users-tiendas',
-							"LabelPos" => 4),
-					  array("LabelHeader"=> 'Tools',
-							"LabelSection"=> strTranslate("Reports"),
-							"LabelItem" => ucfirst(strTranslate("APP_points")),
-							"LabelUrl" => 'informe-puntuaciones',
-							"LabelPos" => 2),
-					  array("LabelHeader" => 'Tools',
-							"LabelSection" => strTranslate("Reports"),
-							"LabelItem" => ucfirst(strTranslate("APP_shares")),
-							"LabelUrl" => 'informe-participaciones',
-							"LabelPos" => 3));	
+	public static function userStatistics($username){
+		$users = new users();
+		$array_final = array();
+		$usuario = $users->getUsers(" AND username='".$username."' ");
+		$last_access = ($usuario[0]['last_access']!= null ? getDateFormat($usuario[0]['last_access'], "DATE_TIME") : "sin accesos");
+		$array_final = array_merge($array_final, array(strTranslate("Last_access") => $last_access));
+		$modules = getListModules();		
+		foreach($modules as $module):
+			if (file_exists(__DIR__."/../../".$module['folder']."/".$module['folder'].".php")){
+				include_once (__DIR__."/../../".$module['folder']."/".$module['folder'].".php");
+				$moduleClass = $module['folder']."Core";
+				$instance = new $moduleClass();
+				if (method_exists($instance, "userModuleStatistis")) {
+					$array_final = array_merge($array_final, $instance->userModuleStatistis($username));
+				}
+			}
+		endforeach;
+		return $array_final;
 	}	
-
 }
 ?>

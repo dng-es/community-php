@@ -1,12 +1,12 @@
 <?php
 $base_dir = str_replace('modules/fotos/pages', '', realpath(dirname(__FILE__))) ;
 include_once($base_dir . "core/class.connection.php");
-include_once($base_dir . "modules/configuration/class.configuration.php");
+include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/class.session.php");
-include_once($base_dir . "modules/users/class.users.php");
-include_once($base_dir . "modules/fotos/class.fotos.php");
+include_once($base_dir . "modules/users/classes/class.users.php");
+include_once($base_dir . "modules/fotos/classes/class.fotos.php");
 include_once($base_dir . "modules/users/templates/tipuser.php");
 include_once($base_dir . "modules/fotos/templates/gallery.php");
 
@@ -39,7 +39,7 @@ $files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
 		<?php showFotoModal($files_galeria[0],true,0,0);?>
 		<?php if ($module_config['options']['allow_comments']==true): ?>
 		<form action="" method="post" role="form" id="form-comentario-fotos" name="form-comentario-fotos" class="panel-interior">
-			<h5><?php echo strTranslate("Photo_comment_new");?></h5>
+			<h4><?php echo strTranslate("Photo_comment_new");?></h4>
 			<input type="hidden" name="id_file" id="id_file" value="<?php echo $files_galeria[0]['id_file'];?>" />
 			<textarea class="form-control" name="respuesta-texto" id="respuesta-texto"></textarea>
 			<button type="submit" class="btn btn-primary btn-block"><?php echo strTranslate("Send");?></button>

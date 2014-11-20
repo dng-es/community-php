@@ -1,12 +1,12 @@
 <?php
 $base_dir = str_replace('modules/fotos/pages', '', realpath(dirname(__FILE__))) ;
 include_once($base_dir . "core/class.connection.php");
-include_once($base_dir . "modules/configuration/class.configuration.php");
+include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/class.session.php");
-include_once($base_dir . "modules/users/class.users.php");
-include_once($base_dir . "modules/fotos/class.fotos.php");
+include_once($base_dir . "modules/users/classes/class.users.php");
+include_once($base_dir . "modules/fotos/classes/class.fotos.php");
 include_once($base_dir . "modules/users/templates/tipuser.php");
 include_once($base_dir . "modules/fotos/templates/comment.php");
 

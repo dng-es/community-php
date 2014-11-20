@@ -130,40 +130,6 @@ class foroController{
 			session::setFlashMessage( 'actions_message', $foro->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']), "alert alert-success");
 			redirectURL("?page=".$_GET['page']."&id=".$_GET['id']."&pag=".$page_num);
 		}
-	}
-
-	/**
-	 * Para mostrar estadisticas de uso del modulo por parte de un usuario
-	 * @param  	string 		$username 		Id usuario a mostrar información
-	 * @return 	array           			Array con resultados
-	 */
-	public function userModuleStatistis($username){
-		$num = connection::countReg("foro_comentarios"," AND user_comentario='".$username."' ");
-		$num_temas = connection::countReg("foro_temas"," AND user='".$username."' ");
-		$num_votaciones = connection::countReg("foro_comentarios_votaciones"," AND user_votacion='".$username."' ");
-		$num_visitas = connection::countReg("foro_visitas"," AND username='".$username."' ");
-
-		return array('Comentarios en los foros' => $num,
-					 'Temas creados en los foros' => $num_temas,
-					 'Votaciones realizadas en los foros' => $num_votaciones,
-					 'Visitas en los foros' => $num_visitas);	
-	}	
-
-	/**
-	 * Elementos para el menu de administración
-	 * @return 	array           			Array con datos
-	 */	
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate('Forums'),
-							"LabelItem" => 'Temas en los foros',
-							"LabelUrl" => 'admin-validacion-foro-temas',
-							"LabelPos" => 1),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=>strTranslate('Forums'),
-							"LabelItem"=>'Comentarios en los foros',
-							"LabelUrl"=>'admin-validacion-foro-comentarios',
-							"LabelPos" => 2));	
 	}		
 }
 ?>

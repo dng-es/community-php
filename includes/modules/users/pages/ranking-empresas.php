@@ -12,7 +12,11 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1>Ranking empresas</h1>
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Rankings");?></a></li>
+			<li class="active">Ranking de empresas</li>
+		</ol>
 		<div class="row">
 			<div class="col-md-12 container-fade">
 				<p>Cada una de tus aportaciones ayuda a tu empresa a acumular <?php echo strTranslate("APP_points");?>. ¿Cuántos <?php echo strTranslate("APP_points");?>, tenéis? 

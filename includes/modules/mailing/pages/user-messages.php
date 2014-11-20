@@ -13,9 +13,13 @@ mailingController::exportLinksAction(" AND username_add='".$_SESSION['user_name'
 
 $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION['user_name']."' ");
 ?>
-<div class="row inset row-top">
-  	<div class="col-md-12"> 
-  		<h1>Comunicaciones enviadas</h1>
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
+  		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Massive_Mailing");?></a></li>
+			<li class="active">Mis comunicaciones enviadas</li>
+		</ol>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
@@ -71,5 +75,17 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 			</table>
 		</div>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+	</div>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+				</span> 
+				Mis comunicaciones enviadas</h4>
+			<p>Estas son tus comunicaciones enviadas.</p>
+			<p class="text-center"><i class="fa fa-envelope-o fa-big"></i></p>
+		</div>
 	</div>
 </div>

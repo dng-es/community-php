@@ -1,8 +1,4 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 //EXPORT CSV
 mailingController::exportListAction();
 
@@ -13,8 +9,13 @@ $elements = mailingController::getListAction(20);
 
 ?>
 <div class="row row-top">
-  	<div class="col-md-9"> 
-  		<h1>Comunicaciones enviadas</h1>
+  	<div class="col-md-9 inset"> 
+  		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Massive_Mailing");?></a></li>
+			<li class="active">Comunicaciones enviadas</li>
+		</ol>
   		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
 			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?></a></li>

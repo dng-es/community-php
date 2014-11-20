@@ -11,12 +11,16 @@ templateload("tipuser","users");
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-	<h1><?php echo strTranslate("My_profile");?></h1>
-	<?php
-	session::getFlashMessage( 'actions_message' ); 
-	usersController::updatePerfilAction();
-	$usuario = usersController::getPerfilAction($_SESSION['user_name']);
-	?>
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li class="active"><?php echo strTranslate("My_profile");?></li>
+		</ol>
+
+		<?php
+		session::getFlashMessage( 'actions_message' ); 
+		usersController::updatePerfilAction();
+		$usuario = usersController::getPerfilAction($_SESSION['user_name']);
+		?>
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs">
 		<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
@@ -133,7 +137,7 @@ templateload("tipuser","users");
 		<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="statistics">
 			<br />
 			<p>Estadísticas de uso de la comunidad por el usuario <b><?php echo $usuario['username'];?></b></p>
-			<table class="table">
+			<table class="table table-striped">
 				<tr><td><label><?php echo strTranslate("Date_add");?></label></td><td><?php echo $usuario['date_add'];?></td></tr>
 				<tr><td><label><?php echo ucfirst(strTranslate("Last_access"));?></label></td><td><?php echo getDateFormat($usuario['last_access'], "DATE_TIME");?></td></tr>
 				<tr><td><label><?php echo ucfirst(strTranslate("APP_points"));?></label></td><td><?php echo $usuario['puntos'];?></td></tr>

@@ -1,8 +1,4 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-// $perfiles_autorizados = array("admin");
-// session::AccessLevel($perfiles_autorizados);
-
 //EXPORT CSV
 mailingController::exportMessageAction(" AND id_message IN (SELECT id_message FROM mailing_messages WHERE username_add='".$_SESSION['user_name']."') ");
 

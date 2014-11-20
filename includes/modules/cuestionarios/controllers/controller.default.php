@@ -226,19 +226,6 @@ class cuestionariosController{
 			echo array2csv($final);
 			die();
 		}
-	}		
-
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate("Forms"),
-							"LabelItem" => strTranslate("Forms_list"),
-							"LabelUrl" => 'admin-cuestionarios',
-							"LabelPos" => 2),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> strTranslate("Forms"),
-							"LabelItem"=> strTranslate("New_form"),
-							"LabelUrl"=>'admin-cuestionario',
-							"LabelPos" => 1));	
-	}	
+	}
 }
 ?>

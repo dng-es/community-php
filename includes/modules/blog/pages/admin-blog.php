@@ -1,10 +1,4 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
-
-include_once ("includes/users/class.users.php");
 $foro = new foro();
 $filtro = " AND ocio=1 AND activo=1 ";
 if (isset($_POST['find_reg'])) {$filtro.=" AND nombre LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
@@ -16,7 +10,7 @@ if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $foro->cambiarEstadoT
 //SHOW PAGINATOR
 $reg = 15;
 if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
-if (!$pag) { $inicio = 0; $pag = 1;}
+if (!isset($pag)) { $inicio = 0; $pag = 1;}
 else { $inicio = ($pag - 1) * $reg;}
 $total_reg = connection::countReg("foro_temas",$filtro);
 
@@ -31,12 +25,17 @@ if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 
 $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Entradas en <?php echo strTranslate("Blog");?></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Blog");?></a></li>
+			<li class="active"><?php echo strTranslate("Posts_list");?></li>
+		</ol>
 		<ul class="nav nav-pills navbar-default">       
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($elements);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="?page=admin-blog-new&act=new">Nueva entrada</a></li>
-			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q=<?php echo $find_text;?>"><?php echo strTranslate("Export");?></a></li>
+			<li><a href="?page=admin-blog-new">Nueva entrada</a></li>
+			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 
 		<div class="table-responsive">
@@ -54,7 +53,7 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 				echo '<tr>';
 				echo '<td nowrap="nowrap">
 						<span class="fa fa-edit icon-table" title="Ver/editar entrada"
-							onClick="location.href=\'?page=admin-blog-new&act=edit&id='.$element['id_tema'].'\'">
+							onClick="location.href=\'?page=admin-blog-new&id='.$element['id_tema'].'\'">
 						</span>
 						
 						<span class="fa fa-ban icon-table" title="Eliminar"
@@ -75,7 +74,7 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 			endforeach;?>
 			</table>
 		</div>
-		<?php Paginator($pag,$reg,$total_reg,'admin-blog','Entradas',$find_reg);?>
+		<?php Paginator($pag,$reg,$total_reg,'admin-blog','Entradas',"");?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

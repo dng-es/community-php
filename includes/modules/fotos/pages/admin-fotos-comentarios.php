@@ -1,8 +1,4 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 $fotos = new fotos(); 
 $users = new users();
 
@@ -19,7 +15,12 @@ $pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_fi
 
 <div class="row row-top">
 	<div class="col-md-9">
-		<h1>Comentarios en la foto</h1>
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Photos");?></a></li>
+			<li class="active"><?php echo strTranslate("Comments_in_photos");?></li>
+		</ol>
 		<?php if (count($pendientes)==0){
 			echo '<div class="alert alert-warning">No hay comentarios en la foto</div>';
 		}

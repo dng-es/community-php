@@ -11,9 +11,12 @@ $canal="";
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1><?php echo strTranslate("Forums");?></h1>
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li class="active"><?php echo strTranslate("Forums");?></li>
+		</ol>
 		<p><?php echo strTranslate("Forums_title");?></p>
-
+		
 		<?php
 		session::getFlashMessage( 'actions_message' ); 	
 		$module_config = getModuleConfig("foro");

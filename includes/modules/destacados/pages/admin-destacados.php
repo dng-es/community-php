@@ -1,19 +1,17 @@
 <?php
-
 addJavascripts(array(getAsset("destacados")."js/admin-destacados.js", "js/jquery.numeric.js"));
-
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
 
 session::getFlashMessage( 'actions_message' );
 destacadosController::updateAction();		
 ?>
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1><?php echo strTranslate("Edit");?> <?php echo strTranslate("Highlights");?></h1>
-		<hr /><br />
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Highlights");?></a></li>
+			<li class="active"><?php echo strTranslate("Edit");?> <?php echo strTranslate("Highlights");?></b></li>
+		</ol>
 		<form id="formData" name="formData" method="post" action="" role="form" class="form-horizontal">
 
 			<div class="form-group">

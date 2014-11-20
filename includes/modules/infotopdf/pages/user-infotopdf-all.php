@@ -3,6 +3,10 @@ $elements = infotopdfController::getListAction(20);
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li class="active"><?php echo strTranslate("Infotopdf_Documents");?></li>
+		</ol>
 		<?php 
 		$columna = 1;
 		foreach($elements['items'] as $element): 
@@ -29,8 +33,14 @@ $elements = infotopdfController::getListAction(20);
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			<h3>Comunicaciones impresas</h3>
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-file fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Infotopdf_Documents");?></h4>
 			<p>Puedes pesonalizar y descargar en PDF las comunicaciones</p>
+			<p class="text-center"><i class="fa fa-file-pdf-o fa-big"></i></p>
 		</div>
 	</div>
 </div>

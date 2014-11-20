@@ -14,7 +14,11 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1>Ranking usuarios</h1>
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Rankings");?></a></li>
+			<li class="active">Ranking usuarios</li>
+		</ol>
 		<p>Cada una de tus aportaciones te ayudan a acumular puntos. ¿Cuántos puntos tienes?, ¿estás entre los primeros? descúbrelo en este ranking:</p><br />
 
 		<div class="row container-fade">

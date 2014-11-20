@@ -35,7 +35,13 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 	?>
 	<script language="JavaScript" src="<?php echo getAsset("foro");?>js/foro-subtemas.js"></script>
 	<div id="banner-foros-form">
-		<h4><?php echo $title_add;?></h4>
+		<h4>
+			<span class="fa-stack fa-sx">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-share-alt fa-stack-1x fa-inverse"></i>
+			</span>
+			<?php echo $title_add;?>
+		</h4>
 		<p><?php echo $title_add_desc;?></p>
 		<form id="tema-form" name="tema-form" action="" method="post" enctype="multipart/form-data" role="form">
 	<?php if ($show_canales): ?>

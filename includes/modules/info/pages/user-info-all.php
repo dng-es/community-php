@@ -3,7 +3,10 @@ $elements = infoController::getListAction(20);
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1><?php echo strTranslate("Info_Documents");?></h1>
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li class="active"><?php echo strTranslate("Info_Documents");?></li>
+		</ol>
 		<div class="table-responsive">
 			<table class="table">
 				<tr>
@@ -29,6 +32,15 @@ $elements = infoController::getListAction(20);
 
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-file fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Info_Documents");?>
+			</h4>
+			<p>Documentos de apoyo listos para descargar.</p>
+			<p class="text-center"><i class="fa fa-file-o fa-big"></i></p>
 		</div>	
 	</div>
 </div>

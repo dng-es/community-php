@@ -2,12 +2,7 @@
 
 addJavascripts(array(getAsset("na_areas")."js/admin-area-form.js"));
 
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
 $na_areas = new na_areas();
-
 $id_area=$_REQUEST['a'];
 $id_tarea=$_REQUEST['id'];
 
@@ -16,10 +11,16 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Formulario</h1>
-		Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
-		<a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>" class="comunidad-color">Volver a la gestión del curso</a>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Na_areas");?></a></li>
+			<li><a href="?page=admin-areas"><?php echo strTranslate("Na_areas_list");?></a></li>
+			<li class="active"><?php echo strTranslate("Form");?></li>
+		</ol>
+		<p>Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
+		<a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>" class="comunidad-color">Volver a la gestión del curso</a></p>
 
 		<?php
 		//ELIMINAR PREGUNTA

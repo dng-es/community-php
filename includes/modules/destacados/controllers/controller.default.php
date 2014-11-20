@@ -10,18 +10,6 @@ class destacadosController{
 				redirectURL($_SERVER['REQUEST_URI']);
 			}
 		}
-	}
-
-	/**
-	 * Elementos para el menu de administración
-	 * @return 	array           			Array con datos
-	 */	
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate("Highlights"),
-							"LabelItem" => 'Establecer destacado',
-							"LabelUrl" => 'admin-destacados',
-							"LabelPos" => 1));	
 	}	
 }
 ?>

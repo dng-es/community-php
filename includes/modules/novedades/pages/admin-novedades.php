@@ -3,16 +3,15 @@
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 getAsset("novedades")."js/admin-novedades.js"));
-
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
-
 ?>
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1><?php echo strTranslate("News_update");?></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("News");?></a></li>
+			<li class="active"><?php echo strTranslate("News_update");?></li>
+		</ol>
 		<?php 
 		session::getFlashMessage( 'actions_message' ); 
 		novedadesController::updateAction();

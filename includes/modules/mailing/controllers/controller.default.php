@@ -446,33 +446,6 @@ class mailingController{
 		}
 
 		return $htmlmessage;
-	}	
-
-	/**
-	 * Para mostrar estadisticas de uso del modulo por parte de un usuario
-	 * @param  	string 		$username 		Id usuario a mostrar información
-	 * @return 	array           			Array con resultados
-	 */
-	public function userModuleStatistis($username){
-		$num = connection::countReg("mailing_messages"," AND username_add='".$username."' ");
-		return array(strTranslate('Massive_Mailing') => $num);
-	}
-
-	/**
-	 * Elementos para el menu de administración
-	 * @return 	array           			Array con datos
-	 */	
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate("Massive_Mailing"),
-							"LabelItem" => 'Comunicaciones enviadas',
-							"LabelUrl" => 'admin-messages',
-							"LabelPos" => 1),
-					  array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate("Massive_Mailing"),
-							"LabelItem" => 'Plantillas de comunicaciones',
-							"LabelUrl" => 'admin-templates',
-							"LabelPos" => 2));	
 	}		
 }
 ?>

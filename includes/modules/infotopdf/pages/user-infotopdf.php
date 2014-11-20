@@ -23,6 +23,11 @@ $email = '';
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=user-infotopdf-all"><?php echo strTranslate("Infotopdf_Documents");?></a></li>
+			<li class="active"><?php echo $elements[0]['titulo_info'];?></li>
+		</ol>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
 			<div class="panel-body">
@@ -88,8 +93,15 @@ $email = '';
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			<h3>Comunicaciones impresas</h3>
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-file fa-stack-1x fa-inverse"></i>
+				</span>
+				Comunicaciones impresas
+			</h4>
 			<a href="?page=user-infotopdf-all" class="comunidad-color">Ir a todos los documentos</a>
+			<p class="text-center"><i class="fa fa-file-pdf-o fa-big"></i></p>
 		</div>
 	</div>
 </div>

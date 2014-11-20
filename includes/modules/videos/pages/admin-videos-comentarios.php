@@ -1,15 +1,16 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 session::getFlashMessage( 'actions_message' );
 videosController::validateCommentAction();	  
 ?>
-<div id="page-info"><?php echo strTranslate("Video_comments");?></div>
-<div class="row inset row-top">
-	<div class="col-md-9">
-	<?php getComentariosVideo();?>
+<div class="row row-top">
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Videos");?></a></li>
+			<li class="active"><?php echo strTranslate("Video_comments");?></li>
+		</ol>
+		<?php getComentariosVideo();?>
 	</div>
 	<div class="col-md-3">
 		<div class="panel panel-default">

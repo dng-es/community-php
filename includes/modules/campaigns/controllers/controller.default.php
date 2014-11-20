@@ -166,24 +166,6 @@ class campaignsController{
 			}
 			redirectURL("?page=admin-campaigns-types");
 		}
-	}	
-
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate("Campaigns"),
-							"LabelItem" => strTranslate("New_campaign"),
-							"LabelUrl" => 'admin-campaign&act=new',
-							"LabelPos" => 1),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> strTranslate("Campaigns"),
-							"LabelItem"=> strTranslate("Campaigns_list"),
-							"LabelUrl"=>'admin-campaigns',
-							"LabelPos" => 2),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> strTranslate("Campaigns"),
-							"LabelItem"=> strTranslate("Campaign_types"),
-							"LabelUrl"=>'admin-campaigns-types',
-							"LabelPos" => 3));	
 	}			
 }
 ?>

@@ -5,6 +5,12 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Mailing_messages");?></a></li>
+			<li class="active"><?php echo strTranslate("Mailing_sent");?></li>
+		</ol>
+
 		<?php
 		session::getFlashMessage( 'actions_message' ); 
 		mensajesController::createAction();
@@ -14,7 +20,6 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 		$mensajes = $mensajeria->getMensajesEnviados(" AND user_remitente='".$_SESSION['user_name']."' AND estado_remitente=0 ORDER BY date_mensaje DESC");
 		?>
 
-		<h2><?php echo strTranslate("Mailing_sent");?></h2>
 		<p><?php echo strTranslate("Mailing_messages");?>: <span id="contador-leidos"><?php echo count($mensajes);?></span> | 
 		<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message");?></a> | <a href="?page=mensajes"><?php echo strTranslate("Mailing_inbox");?></a></p>
 		<div class="table-responsive container-min">

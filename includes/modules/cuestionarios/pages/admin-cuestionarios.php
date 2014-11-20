@@ -1,17 +1,16 @@
-<?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-?>
-
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1><?php echo strTranslate("Forms_list");?></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Forms");?></a></li>
+			<li class="active"><?php echo strTranslate("Forms_list");?></li>
+		</ol>
 		<?php
 		session::getFlashMessage( 'actions_message' ); 
 		cuestionariosController::deleteAction();
 		cuestionariosController::cloneAction();
-		$elements = cuestionariosController::getListAction(5, " AND activo<>2 ");
+		$elements = cuestionariosController::getListAction(10, " AND activo<>2 ORDER BY nombre ");
 		?>
 		<ul class="nav nav-pills navbar-default">      
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>

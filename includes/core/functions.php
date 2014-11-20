@@ -673,4 +673,15 @@ function cleanUrl($url,$disallowed_params = array('PHPSESSID')) {
 	$uri .= !empty($parsed['fragment']) ? '#'.$parsed['fragment'] : '';
 	return $uri;
 }
+
+function arraycolumn($array, $column){
+	if (function_exists("array_column")){
+		return array_column($array, $column);
+	}
+	else{
+		$ret = array();
+		foreach ($array as $row) $ret[] = $row[$column];
+		return $ret;		
+	}
+}
 ?>

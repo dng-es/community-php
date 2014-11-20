@@ -78,15 +78,17 @@ function findPage($pagename){
 function createModuleStructure($moduleName){
 	$modulePath = "includes/modules/".$moduleName;
 	if ( !file_exists( $modulePath ) and !is_dir( $modulePath ) ):
-		mkdir ( $modulePath, 0700 );
-		mkdir ( $modulePath."/controllers", 0700 );
-		mkdir ( $modulePath."/pages", 0700 );
-		mkdir ( $modulePath."/templates", 0700 );
-		mkdir ( $modulePath."/resources", 0700 );
-		mkdir ( $modulePath."/resources/js", 0700 );
-		mkdir ( $modulePath."/resources/images", 0700 );
+		mkdir ( $modulePath, 0755 );
+		mkdir ( $modulePath."/classes", 0755 );
+		mkdir ( $modulePath."/controllers", 0755 );
+		mkdir ( $modulePath."/pages", 0755 );
+		mkdir ( $modulePath."/templates", 0755 );
+		mkdir ( $modulePath."/resources", 0755 );
+		mkdir ( $modulePath."/resources/js", 0755 );
+		mkdir ( $modulePath."/resources/images", 0755 );
 
-		FileSystem::createFile( $modulePath."/class.".$moduleName.".php", fileClassContent( $moduleName ) );
+		FileSystem::createFile( $modulePath."/".$moduleName.".php", fileModuleContent( $moduleName ) );
+		FileSystem::createFile( $modulePath."/classes/class.".$moduleName.".php", fileClassContent( $moduleName ) );
 		FileSystem::createFile( $modulePath."/controllers/controller.default.php", fileControllerContent( $moduleName ) );
 		return "\033[32mModule ".$moduleName." created\033[37m";
 	else:
@@ -94,9 +96,26 @@ function createModuleStructure($moduleName){
 	endif;
 }
 
+function fileModuleContent( $moduleName ){
+	$content = "<?php
+/**
+* @Manage ".$moduleName."
+* @author [author] <[email]>
+* @version 1.0
+*
+*/
+
+class ".$moduleName."Core {
+
+}
+?>";
+	return $content;
+}
+
 
 function fileClassContent( $moduleName ){
 	$content = "<?php
+
 /**
 * @Manage ".$moduleName."
 * @author [author] <[email]>

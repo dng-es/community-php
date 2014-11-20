@@ -1,10 +1,4 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
-	
-
 $na_areas = new na_areas();
 $id_area=$_REQUEST['a'];
 $id_tarea=$_REQUEST['id'];
@@ -30,8 +24,14 @@ $grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tar
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1 class="inset">Asignación de grupos a la tarea</h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Na_areas");?></a></li>
+			<li><a href="?page=admin-areas"><?php echo strTranslate("Na_areas_list");?></a></li>
+			<li class="active">Asignación de grupos a la tarea</li>
+		</ol>
 		<ul class="nav nav-pills navbar-default"> 
 			<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>"><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Go_back");?></a></li>
 		</ul>

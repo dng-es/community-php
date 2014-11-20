@@ -1,40 +1,36 @@
 <?php
 class blogController{
-	public static function createAction(){
-		
+	public static function getItemAction($id){
+		$foro = new foro();
+		return $foro->getTemas(" AND id_tema=".$id." ");
 	}
 
-	public static function updateAction(){
+	public static function createAction(){
+		if (isset($_POST['id']) and $_POST['id']==0){
+			$foro = new foro();
+			$id = 0;
+			if ($foro->InsertTema(0,$_POST['nombre'],stripslashes($_POST['descripcion']),$_FILES['imagen-tema'],$_SESSION['user_name'],CANAL1,0,1,'',0,1,$_POST['etiquetas'])) {
+				$id = connection::SelectMaxReg("id_tema","foro_temas"," AND ocio=1 ");		
+				session::setFlashMessage( 'actions_message', "Registro insertado correctamente", "alert alert-success");
+			}else{
+				session::setFlashMessage( 'actions_message', "Error al insertar registro", "alert alert-danger");
+			}
+			redirectURL("?page=admin-blog-new&id=".$id);		
+		}
 	
 	}
 
-/**
-	 * Para mostrar estadisticas de uso del modulo por parte de un usuario
-	 * @param  	string 		$username 		Id usuario a mostrar información
-	 * @return 	array           			Array con resultados
-	 */
-	public function userModuleStatistis($username){
-		$num = connection::countReg("foro_comentarios c LEFT JOIN foro_temas t ON c.id_tema=t.id_tema "," AND t.ocio=1 AND c.user_comentario='".$username."' ");
-
-
-		return array('Comentarios en los blogs' => $num);	
-	}	
-
-	/**
-	 * Elementos para el menu de administración
-	 * @return 	array           			Array con datos
-	 */	
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate('Blog'),
-							"LabelItem" => strTranslate("New_post"),
-							"LabelUrl" => 'admin-blog-new&act=new',
-							"LabelPos" => 1),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=>strTranslate('Blog'),
-							"LabelItem"=>strTranslate("Posts_list"),
-							"LabelUrl"=>'admin-blog',
-							"LabelPos" => 2));	
+	public static function updateAction(){
+		if (isset($_POST['id']) and $_POST['id']>0){
+			$foro = new foro();
+			if ($foro->updateTema($_POST['id'],$_POST['nombre'],stripslashes($_POST['descripcion']),$_POST['etiquetas'],$_FILES['imagen-tema'])) {
+				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
+			}	
+			else{
+				session::setFlashMessage( 'actions_message', "Error al modificar registro", "alert alert-danger");
+			}
+			redirectURL("?page=admin-blog-new&id=".$_POST['id']);
+		}
 	}			
 }
 ?>

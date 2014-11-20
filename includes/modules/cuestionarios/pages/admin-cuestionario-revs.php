@@ -1,9 +1,4 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
-
 addJavascripts(array("js/jquery.numeric.js", getAsset("cuestionarios")."js/admin-cuestionario-revs.js"));
 
 cuestionariosController::ExportFormUserAction();
@@ -16,8 +11,13 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Revisiones cuestionario <small><?php echo $cuestionario[0]['nombre'];?></small></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="?page=admin-cuestionarios"><?php echo strTranslate("Forms");?></a></li>
+			<li class="active">Revisiones <b><?php echo $cuestionario[0]['nombre'];?></b></li>
+		</ol>
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		cuestionariosController::RevisarFormAction(); 
@@ -26,8 +26,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 		$revisiones = $cuestionarios->getFormulariosFinalizados($filtro);   
 		?>
 		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($revisiones);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
-			<li><a href="?page=admin-cuestionarios">Volver al listado</a></li>
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($revisiones);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 			<li><a href="?page=admin-cuestionario-revs&t3=1&id=<?php echo $id_cuestionario;?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 		

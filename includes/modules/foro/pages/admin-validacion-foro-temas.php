@@ -4,10 +4,6 @@ foroController::exportTemasAction();
 
 addJavascripts(array(getAsset("foro")."js/admin-validacion-foro-temas.js"));
 
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 $filtro_temas = (isset($_POST['tipo_search']) and $_POST['tipo_search']!="") ? " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' " : "";
 $find_tipo = (isset($_POST['tipo_search']) and $_POST['tipo_search']!="") ? $_POST['tipo_search'] : "";
 
@@ -17,8 +13,13 @@ foroController::changeTipoAction();
 $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND activo=1 and itinerario='' ".$filtro_temas);?>
 
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Temas en los foros</h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Forums");?></a></li>
+			<li class="active">Temas en los foros</li>
+		</ol>
 		<ul class="nav nav-pills navbar-default"> 
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>      
 		</ul>

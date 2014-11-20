@@ -1,12 +1,16 @@
 <?php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-list.js"));
 ?>
-<div class="row inset row-top">
-	<div class="col-md-12">
-		<h1>Listas de envío</h1>
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Massive_Mailing");?></a></li>
+			<li><a href="?page=user-lists"><?php echo strTranslate("Mailing_lists")?></a></li>
+			<li class="active">Mi lista de envío</li>
+		</ol>
 		<ul class="nav nav-pills navbar-default">
-			<li><a href="?page=user-list&act=new">Nueva lista</a></li>
-			<li><a href="?page=user-lists">Ir a todas las listas</a></li>
+			<li><a href="?page=user-list&act=new"><?php echo strTranslate("New_list")?></a></li>
 			<li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
 		</ul>
 		<?php
@@ -38,5 +42,17 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 				</div>		
 			</div>		
 		</form>
+	</div>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Mailing_lists")?></h4>
+			<p>Estas son tus listas de envío.</p>
+			<p class="text-center"><i class="fa fa-envelope-o fa-big"></i></p>
+		</div>
 	</div>
 </div>

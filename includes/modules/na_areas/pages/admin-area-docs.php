@@ -2,12 +2,7 @@
 
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
 $na_areas = new na_areas();
-
 $id_area=$_REQUEST['a'];
 $id_tarea=$_REQUEST['id'];
 
@@ -17,8 +12,14 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Documentacion de la tarea <small><?php echo $tarea[0]['tarea_titulo'];?></small></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Na_areas");?></a></li>
+			<li><a href="?page=admin-areas"><?php echo strTranslate("Na_areas_list");?></a></li>
+			<li class="active">Documentacion de la tarea <b><?php echo $tarea[0]['tarea_titulo'];?></b></li>
+		</ol>
 		
 		<?php
 		session::getFlashMessage( 'actions_message' );

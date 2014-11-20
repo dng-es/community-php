@@ -85,8 +85,15 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-		<h4>Cursos de formación</h4>
-			<p>Pincha <a href="?page=areas_det&id=<?php echo $id_area;?>">aquí</a> para volver al curso</p>
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-bookmark fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Na_areas");?>
+			</h4>
+			<p>Pincha <a href="?page=areas_det&id=<?php echo $id_area;?>">aquí</a> para volver al curso.</p>
+			<p class="text-center"><i class="fa fa-mortar-board fa-big"></i></p>
 		</div>
 	</div>
 </div>

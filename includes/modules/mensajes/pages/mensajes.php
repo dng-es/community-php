@@ -5,7 +5,11 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 ?>  
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Mailing_messages");?></a></li>
+			<li class="active"><?php echo strTranslate("Mailing_inbox");?></li>
+		</ol>
 		<?php 
 		session::getFlashMessage( 'actions_message' );  
 		mensajesController::createNickAction();
@@ -17,7 +21,6 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 		$contador_no_leidos=connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 		?>
 
-		<h2><?php echo strTranslate("Mailing_inbox");?></h2>
 		<p><?php echo strTranslate("Mailing_messages");?>: <?php echo count($mensajes);?> (<?php echo strTranslate("Mailing_unread");?>: <span id="contador-no-leidos"><?php echo $contador_no_leidos;?></span>) | 
 		<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message");?></a> | <a href="?page=mensajes"><?php echo strTranslate("Refresh");?> <?php echo strtolower(strTranslate("Mailing_inbox"));?></a> | <a href="?page=mensajes_e"><?php echo strTranslate("Mailing_sent");?></a></p>
 		<div class="table-responsive container-min">

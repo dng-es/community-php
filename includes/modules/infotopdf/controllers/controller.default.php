@@ -76,19 +76,6 @@ class infotopdfController{
 			HTMLtoPDF($content, $html_content[0]['tipo']);
 		}
 	    
-	}	
-
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate("Infotopdf_Documents"),
-							"LabelItem" => "Nuevo documento",
-							"LabelUrl" => 'admin-infotopdf-doc&act=new',
-							"LabelPos" => 1),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> strTranslate("Infotopdf_Documents"),
-							"LabelItem"=> "Listado de documentos",
-							"LabelUrl"=>'admin-infotopdf',
-							"LabelPos" => 2));	
-	}	
+	}
 }
 ?>

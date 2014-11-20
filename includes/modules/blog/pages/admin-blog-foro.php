@@ -2,10 +2,6 @@
 
 addJavascripts(array(getAsset("blog")."js/admin-blog-foro.js"));
 
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 $foro = new foro(); 
 $users = new users();
 
@@ -41,11 +37,16 @@ $id_tema= $_REQUEST['id'];
 $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." ORDER BY id_comentario DESC");
 ?>
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Comentarios en <?php echo strTranslate("Blog");?></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Blog");?></a></li>
+			<li class="active">Comentarios en <?php echo strTranslate("Blog");?></li>
+		</ol>
 		<ul class="nav nav-pills navbar-default">       
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="?page=admin-blog-new&act=edit&id=<?php echo $_REQUEST['id'];?>"><?php echo strtolower(strTranslate("Edit"));?></a></li>
+			<li><a href="?page=admin-blog-new&id=<?php echo $_REQUEST['id'];?>"><?php echo strtolower(strTranslate("Edit"));?></a></li>
 			<li><a href="?page=blog&id=<?php echo $_REQUEST['id'];?>">Ver entrada</a></li>
 		</ul>
 		<?php if (count($pendientes)==0): ?>

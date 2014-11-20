@@ -11,7 +11,10 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1><?php echo strTranslate("Blog");?></h1><hr />
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li class="active"><?php echo strTranslate("Blog");?></li>
+		</ol>
 
 <?php
 $foro = new foro();
@@ -141,18 +144,38 @@ if (count($tema)>0){
 			//BUSCADOR
 			searchBlog();
 
-			//ENTRADAS RECIENTES
-			echo '	<h4>'.strTranslate("Last_blog").'</h4>';
+			?>
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Last_blog");?>
+			</h4>
+			<?php 
 			$elements = $foro->getTemas(" AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
 			entradasBlog($elements);
-
-			//ARCHIVO BLOG
-			echo '<h4>'.strTranslate("Files").'</h4>';
+			?>
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Files");?>
+			</h4>
+			<?php
 			$elements = $foro->getArchivoBlog();
 			archivoBlog($elements);
-			//CATEGORIAS
+			?>
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Categories");?>
+			</h4>
+			<?php
 			$elements = $foro->getCategorias(" AND ocio=1 ");
-			echo '<h4>'.strTranslate("Categories").'</h4>';
 			categoriasBlog($elements);
 
 			?>

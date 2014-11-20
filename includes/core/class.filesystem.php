@@ -39,6 +39,32 @@
 		}
 
 		/**
+		* Show all files within an existing folder
+		*
+		* @param 	string 			$dirname 			Folder to show folders
+		* @return 	boolean/array	returns false is $dirname is not a folder, otherwise returns an array of folder items
+		*/	
+		public static function showFilesFolder($dirname) {
+			$i = 0;
+			$arrayFolders = array();
+		   	if (is_dir($dirname)) {    //Operate on dirs only
+				if ($dh = opendir($dirname)) { 
+					while (($file = readdir($dh)) !== false) { 
+						if (!is_dir($dirname . $file) && $file!="." && $file!=".."){ 
+							$arrayFolders[$i] = $file;
+							$i++;
+						} 
+					} 
+					closedir($dh); 
+					sort($arrayFolders);
+					return $arrayFolders;
+				} 
+			}else{
+				return false;    //Return false if attempting to operate on a file
+			}
+		}		
+
+		/**
 		* Remove all files and folder from a given folder name
 		*
 		* @param 	string 			$dirname 			Folder to clean

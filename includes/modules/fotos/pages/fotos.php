@@ -12,7 +12,10 @@ addJavascripts(array("js/bootstrap.file-input.js",
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1 style="text-align:center"><?php echo strTranslate("Photo_gallery");?></h1>
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li class="active"><?php echo strTranslate("Photo_gallery");?></li>
+		</ol>
 		<?php 
 		session::getFlashMessage( 'actions_message' );
 		fotosController::voteAction();
@@ -30,9 +33,15 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		<div class="panel-interior">
 			<?php SearchPhoto("fotos","searchForm","Buscar foto por título","buscar", "", "", "get");?>
 			<?php PanelSubirFoto(0);?>
-			<hr />
-			<h4><?php echo strTranslate("Photo_albums");?></h4>
-			<ul>
+			<br />
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Photo_albums");?>
+			</h4>
+			<ul class="list-funny">
 			<?php foreach($albums['items'] as $album): ?>
 				<li><a href="?page=fotos&id=<?php echo $album['id_album'];?>"><?php echo $album['nombre_album'];?></a></li>
 			<?php endforeach;?>

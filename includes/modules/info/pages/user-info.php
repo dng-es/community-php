@@ -5,6 +5,11 @@ $elements = infoController::getItemAction($_GET['id']);
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=user-info-all"><?php echo strTranslate("Info_Documents");?></a></li>
+			<li class="active">Datos del documento</li>
+		</ol>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
 			<div class="panel-body">
@@ -29,8 +34,15 @@ $elements = infoController::getItemAction($_GET['id']);
 
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			<h3><?php echo strTranslate("Info_Documents");?></h3>
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-file fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Info_Documents");?>
+			</h4>
 			<p>Volver a <a href="?page=user-info-all" class="comunidad-color">todos los documentos</a></p>
+			<p class="text-center"><i class="fa fa-file-o fa-big"></i></p>
 		</div>
 	</div>
 </div>

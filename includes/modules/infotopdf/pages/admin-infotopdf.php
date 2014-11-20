@@ -1,14 +1,15 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 session::getFlashMessage( 'actions_message' ); 
 infotopdfController::deleteAction();
 $elements = infotopdfController::getListAction(20);
 ?>
 <div class="row row-top">
-	<div class="col-md-9">
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li class="active"><?php echo strTranslate("Infotopdf_Documents");?></li>
+		</ol>
 		<h1>Gestión de documentos PDF</h1>
 		<ul class="nav nav-pills navbar-default"> 
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>      

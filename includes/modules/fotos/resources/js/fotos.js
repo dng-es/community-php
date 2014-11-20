@@ -28,9 +28,19 @@ $(window).scroll(function(){
     }
 });
 
+/*$(window).on('load', function() {
+    $('.gallery-img').addClass(function() {
+        if (this.height === this.width) {
+            return 'square';
+        } else if (this.height > this.width) {
+            return 'tall';
+        } else {
+            return 'wide';
+        }
+    });
+});*/
 
 jQuery(document).ready(function(){
-	
 
 	BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
 

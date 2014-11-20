@@ -1,8 +1,4 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 addJavascripts(array(getAsset("configuration")."js/admin-modules.js"));
 
 session::getFlashMessage( 'actions_message' ); 
@@ -10,11 +6,15 @@ configurationController::updateAction();
 $elements = configurationController::getItemAction();
 $modules = configurationController::getListModulesAction();
 ?>
-<div class="row  row-top">
-	<div class="col-md-9">
-		<h1><?php echo strTranslate("Modules_settings");?></h1>	
-		<br />
-		<P>A continuación se muestran todos los módulos instalados</P>
+<div class="row row-top">
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Configuration");?></a></li>
+			<li class="active"><?php echo strTranslate("Modules_settings");?></li>
+		</ol>
+		<p>A continuación se muestran todos los módulos instalados</p>
 		<table class="table">
 			<tr>
 				<th width="40px"></th>

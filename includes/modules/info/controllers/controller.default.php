@@ -105,19 +105,6 @@ class infoController{
 		if (isset($_REQUEST['exp']) and $_REQUEST['exp']!=""){
 			fileToZip($_REQUEST['exp'], PATH_INFO);
 		}
-	}	
-
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate("Info_Documents"),
-							"LabelItem" => strTranslate("Info_Documents_new"),
-							"LabelUrl" => 'admin-info-doc&act=new',
-							"LabelPos" => 1),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> strTranslate("Info_Documents"),
-							"LabelItem"=> strTranslate("Info_Documents_list"),
-							"LabelUrl"=>'admin-info',
-							"LabelPos" => 2));	
 	}		
 }
 ?>

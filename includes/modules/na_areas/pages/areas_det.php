@@ -22,12 +22,15 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
   	if ( $acceso==1 ): ?>
 	<div class="row row-top">
 		<div class="col-md-8 col-lg-9 inset">
+			<ol class="breadcrumb">
+				<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+				<li><a href="?page=areas"><?php echo strTranslate("Na_areas");?></a></li>
+				<li class="active"><?php echo $area[0]['area_nombre'];?></li>
+			</ol>
 			<?php
 			session::getFlashMessage( 'actions_message' );	
 			na_areasController::uploadTareaAction();
 			?>
-
-			<h1><?php echo strTranslate("Na_areas");?> <small><?php echo $area[0]['area_nombre'];?></small></h1>
 			<p><?php echo $area[0]['area_descripcion'];?></p>
 			<div class="clearfix"></div>
 
@@ -65,6 +68,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 			}
 			?>
 			<br /><p>Pincha <a href="?page=areas">aquí</a> para volver a todos los cursos</p>
+			<p class="text-center"><i class="fa fa-mortar-board fa-big"></i></p>
 		</div>
 	</div>
 </div>

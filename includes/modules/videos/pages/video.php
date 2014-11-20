@@ -13,7 +13,10 @@ if ($id_video > 0): ?>
 
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li class="active"><?php echo strTranslate("Video_gallery");?></li>
+		</ol>
 		<?php
 		$module_config = getModuleConfig("videos");
 
@@ -32,7 +35,6 @@ if ($id_video > 0): ?>
 		$comments = videosController::getCommentsListAction(2000, " AND estado=1 AND id_file=".$id_video." ORDER BY id_comentario DESC ");
 		$elements = videosController::getListAction($num_videos, " AND estado=1 ");
 		?>
-		<h1><?php echo strTranslate("Video_gallery");?></h1>
 		<?php playVideo("VideoGaleria".$id_video,PATH_VIDEOS.$video['name_file'],100,100, "bottom", false, $id_video);?>
 		<h3><?php echo $video['titulo'];?>
 		<small>
@@ -54,8 +56,15 @@ if ($id_video > 0): ?>
 			<?php SearchForm(1000,"?page=video&id=".$id_video,"searchForm", strTranslate("Search_video_by_title"), strTranslate("Search"));?>
 			<?php PanelSubirVideo(0);?>
 			<div class="alert-message alert alert-danger" id="alertas-participa"></div>
-		</div>
-		<div class="video-preview-lateral">
+			<br />
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Last_videos");?>
+			</h4>
+			<br />
 			<?php	
 			foreach($elements['items'] as $element):
 				echo '<div class="media-preview-container">

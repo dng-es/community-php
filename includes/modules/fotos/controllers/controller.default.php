@@ -58,51 +58,6 @@ class fotosController{
 			session::setFlashMessage( 'actions_message', $message, "alert alert-warning");
 			redirectURL("?page=".$destination);
 		}		
-	}	
-
-	/**
-	 * Para mostrar estadisticas de uso del modulo por parte de un usuario
-	 * @param  	string 		$username 		Id usuario a mostrar información
-	 * @return 	array           			Array con resultados
-	 */
-	public function userModuleStatistis($username){
-		$num = connection::countReg("galeria_fotos"," AND user_add='".$username."' ");
-		$num_votaciones = connection::countReg("galeria_fotos_votaciones"," AND user_votacion='".$username."' ");
-		return array( strTranslate("Photo_uploads") => $num,
-					  strTranslate("Votes_in_photos") => $num_votaciones,);
-	}
-
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate("Photos"),
-							"LabelItem" => strTranslate("Photo_albums"),
-							"LabelUrl" => 'admin-albumes',
-							"LabelPos" => 2),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> strTranslate("Photos"),
-							"LabelItem"=> strTranslate("Photo_validation"),
-							"LabelUrl"=>'admin-validacion-fotos',
-							"LabelPos" => 3),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> strTranslate("Photos"),
-							"LabelItem"=> strTranslate("New_album"),
-							"LabelUrl"=>'admin-albumes-new',
-							"LabelPos" => 1));	
-	}	
-
-	public static function adminPanels(){
-		$num_pending = connection::countReg("galeria_fotos"," AND estado=0 ");
-		$num_pending = ($num_pending > 0 ? '<span class="label label-warning">'.$num_pending.'</span>' : $num_pending);
-		return array( array("LabelSection" => strTranslate("Photos"),
-							"LabelItem" => strTranslate("Photo_albums"),
-							"LabelUrlText"=> strTranslate("Go_to"),
-							"LabelUrl" => 'admin-albumes',
-							"LabelPos" => 1),
-					  array("LabelSection"=> strTranslate("Photos"),
-							"LabelItem"=> strTranslate("Photos_pending"),
-							"LabelUrlText"=> $num_pending,
-							"LabelUrl"=>'admin-validacion-fotos',
-							"LabelPos" => 2));	
 	}		
 }
 ?>

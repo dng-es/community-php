@@ -1,9 +1,4 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
-
 //DESCARGAR USUARIOS DEL AREA
 if (isset($_REQUEST['t']) and $_REQUEST['t']==1){
 	$na_areas = new na_areas();
@@ -31,8 +26,14 @@ addJavascripts(array("js/jquery.numeric.js",
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1 class="inset">Gestión de <?php echo strTranslate("Na_areas");?></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Na_areas");?></a></li>
+			<li><a href="?page=admin-areas"><?php echo strTranslate("Na_areas_list");?></a></li>
+			<li class="active"><?php echo strTranslate("Edit");?> <?php echo strTranslate("Na_areas");?></li>
+		</ol>
 		<div class="row">
 			<div class="col-md-12">
 				<?php
@@ -212,7 +213,7 @@ function showUsuariosArea($id_area,$area_canal){
 	        <div class="panel-body">
 	          <p>Los usuarios actuales serán reemplazados por los incluídos en el fichero. El fichero <strong>Excel XLS</strong> deberá contener una única columna con el nombre de usuario. 
 	          La primera fila será considerada como encabezado y no será importada.</p>
-	          <form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="?page=cargas-user-areas-process&id='.$id_area.'">
+	          <form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="?page=admin-cargas-user-areas-process&id='.$id_area.'">
 	            <input type="hidden" name="id_area" id="id_area" value="'.$id_area.'" />
 	            <input type="hidden" name="area_canal" id="area_canal" value="'.$area_canal.'" />
 	            <input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />

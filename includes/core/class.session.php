@@ -3,8 +3,11 @@ session_start();
 session::setLanguage();
 
 class session {    
+
+	public $user_permissions = array();
+	private $user_page_permission = array();
 	
-	public static function validateUserSession(){
+	public function validateUserSession(){
 		self::setUrlSession();
 	
 		if (isset($_POST['form-login-user'])) { self::createSession($_POST['form-login-user'],$_POST['form-login-password']);}
@@ -16,9 +19,60 @@ class session {
 				self::destroySession();
 			}
 			else {
-				$visitas = new visitas();
-				$visitas ->insertVisitas($_SESSION['user_name'],$page);  
+				//obtener permisos el usuario
+				$this->checkUserPermissions($_SESSION['user_name']);
+				//verificar acceso a la pagina
+				$this->setPagePermission($page, $_SESSION['user_name']);
+				$user_permissions = $this->checkPageTypePermission("view", $this->user_page_permission);
+
+				if ($this->checkPageViewPermission($page, $_SESSION['user_perfil'], $user_permissions)){
+					$visitas = new visitas();
+					$visitas ->insertVisitas($_SESSION['user_name'],$page);  
+				}
+				else{
+					ErrorMsg(strTranslate("Access_denied"));
+					die();
+				}
 			}
+		}
+	}
+
+	public function checkUserPermissions($username){
+		$this->user_permissions = usersController::getUserPermissions($username, "");
+	}
+
+	public function checkPagePermission($pagename, $username){
+		//return array_filter($this->user_permissions, function ($var){ global $page; return ($var['pagename']==$page);} );
+		return array_values(array_filter($this->user_permissions, function($arrayValue) use($pagename) { return $arrayValue['pagename'] == $pagename; } ));
+	}
+
+	public function setPagePermission($page, $username){
+		$this->user_page_permission = $this->checkPagePermission($page, $username);
+	}	
+
+
+	public function checkPageTypePermission($permission_type, $user_page_permission){
+		foreach($user_page_permission as $permission):
+			if ($permission['permission_type'] == $permission_type) return $permission;
+		endforeach;
+	}	
+
+	/**
+	 * Verifica el acceso a una pagina especifica según el usuaio y su perfil
+	 * @param  string $page        Página a verificar acceso
+	 * @param  string $user_perfil Perfil del usuario a verificar
+	 * @return boolean              Resultado de la comprobacion
+	 */
+	public function checkPageViewPermission($page, $user_perfil, $user_permissions){
+		if (count($user_permissions)>0){
+			if ($user_permissions['permission_type_value']==1) return true;
+			else return false;
+		}
+		else{
+			//verificar permiso por perfil. Si es admin se permite todo acceso
+			if ($user_perfil=='admin') return true;
+			elseif (strpos($page, 'admin')!==0) return true;
+			else return false;
 		}
 	}
 

@@ -1,17 +1,20 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
 
 addJavascripts(array("js/jquery.numeric.js", 
 					 "js/libs/ckeditor/ckeditor.js", 
-					 "js/bootstrap.file-input.js"
-					 getAsset("mailing")."js/admin-message.js"), 
+					 "js/bootstrap.file-input.js",
+					 getAsset("mailing")."js/admin-message.js", 
 					 getAsset("mailing")."js/admin-message-test.js"));
 ?>	
-<div class="row inset row-top">
-	<div class="col-md-8">
-		<h1>Envío de comunicaciones</h1>
+<div class="row row-top">
+	<div class="col-md-8 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Massive_Mailing");?></a></li>
+			<li><a href="?page=admin-messages">Comunicaciones enviadas</a></li>
+			<li class="active">Envío de comunicaciones</li>
+		</ol>
 		<?php
 		session::getFlashMessage( 'actions_message' );
 

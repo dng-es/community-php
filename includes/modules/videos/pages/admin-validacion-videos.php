@@ -33,15 +33,16 @@ if (isset($_REQUEST['act'])) {
 	header("Location: ?page=admin-validacion-videos"); 
 }
 
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 $videos = new videos();
 $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1><?php echo strTranslate("Video_validation");?></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Videos");?></a></li>
+			<li class="active"><?php echo strTranslate("Video_validation");?></li>
+		</ol>
 		<ul class="nav nav-pills navbar-default"> 
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por video: <b><?php echo PUNTOS_VIDEO;?></b></a></li>      
 		</ul>

@@ -1,10 +1,13 @@
 <?php
 $elements = mailingTemplatesController::getListAction(6, "activos");
 ?>
-<div class="row inset row-top">
-  	<div class="col-md-12"> 
-  		<h1>Plantillas de comunicaciones</h1>
-    	<p>Total <b><?php echo $elements['total_reg'];?></b> plantillas</p>
+<div class="row row-top">
+	<div class="col-md-8 col-lg-9 inset">
+  		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Massive_Mailing");?></a></li>
+			<li class="active">Plantillas de comunicaciones</li>
+		</ol>
     	<div class="row">
 			<?php 
 			$columna = 1;
@@ -22,10 +25,21 @@ $elements = mailingTemplatesController::getListAction(6, "activos");
 				if ($columna == 3){echo '</div>';$columna=0;}
 	     		$columna++;
 			endforeach;
-			if ($columna == 2){echo '</div>';}
+			if ($columna >2){echo '</div>';}
 			?>
 		</div>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
-</div>
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+		<div class="panel-interior">
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+				</span>
+				Plantillas de comunicaciones</h4>
+			<p>Puedes personalizar y enviar por email las comunicaciones. Crea tus listas de envío con los destinatarios de tu comunicaciones.</p>
+			<p class="text-center"><i class="fa fa-envelope-o fa-big"></i></p>
+		</div>
+	</div>
 </div>

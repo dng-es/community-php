@@ -1,12 +1,11 @@
-<?php
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
-?>
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1><?php echo strTranslate("Photo_albums");?></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Photos");?></a></li>
+			<li class="active"><?php echo strTranslate("Photo_albums");?></li>
+		</ol>
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		fotosAlbumController::deleteAction();

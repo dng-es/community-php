@@ -21,9 +21,9 @@ function PanelLastDestacado(){
 		?>
 		<div>
 			<p>
-				<big><a href="?page=<?php echo ($destacado[0]['destacado_tipo']=='foto' ? 'fotos' : 'video&id='.$destacado_file[0]['id_file']);?>"><?php echo $destacado_file[0]['destacado_texto'];?></a><br />
-				<span><?php echo getDateFormat($destacado[0]['destacado_fecha'], "LONG");?></span><br />
-				<?php echo $destacado_file[0]['nick'];?></big>
+				<big><a href="?page=<?php echo ($destacado[0]['destacado_tipo']=='foto' ? 'fotos' : 'video&id='.$destacado_file[0]['id_file']);?>"><?php echo $destacado_file[0]['destacado_texto'];?></a></big><br />
+				<span><?php echo $destacado_file[0]['nick'];?> - <?php echo getDateFormat($destacado[0]['destacado_fecha'], "LONG");?></span><br />
+				
 			</p>
 		</div>
 	</div>

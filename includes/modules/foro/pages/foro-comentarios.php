@@ -10,8 +10,6 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1><?php echo strTranslate("Forums");?></h1>
-
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		foroController::createRespuestaAction();
@@ -52,7 +50,12 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 				$total_reg = connection::countReg("foro_comentarios c",$filtro_comentarios);
 				$total_reg_resp = connection::countReg("foro_comentarios c"," AND c.id_tema=".$id_tema." AND estado=1 ");
 				$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$id_tema." ");
-
+				?>
+				<ol class="breadcrumb">
+					<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+					<li class="active"><?php echo strTranslate("Forums");?></li>
+				</ol>
+				<?php
 				echo '<h2>'.$tema[0]['nombre'].'</h2>
 					<p class="legend"><span class="fa fa-comment"></span> '.$total_reg_resp.' '.strTranslate("Comments").' <span class="fa fa-eye"></span> '.$num_visitas.' '.strTranslate("Visits").' <i class="fa fa-mail-reply"></i> <a href="?page='.$volver.'" title="'.strTranslate("Go_back").'">'.strTranslate("Go_back").'</a></p>
 					<p>'.$tema[0]['descripcion'].'</p>';
@@ -75,7 +78,13 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			<h4><?php echo strTranslate("Insert_comment_forum");?></h4>
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-share-alt fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Insert_comment_forum");?>
+			</h4>
 			<p><?php echo strTranslate("Insert_comment_forum_label");?></p>
 			<?php 
 

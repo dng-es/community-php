@@ -7,7 +7,11 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1><?php echo $cuestionario[0]['nombre'];?></h1>
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Forms");?></a></li>
+			<li class="active"><?php echo $cuestionario[0]['nombre'];?></li>
+		</ol>
 		<p><?php echo $cuestionario[0]['descripcion'];?></p>
 		<hr />
 		<?php
@@ -76,7 +80,15 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-bookmark fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Forms");?>
+			</h4>
+			<p>Demuestra lo que sabes!!</p>
+			<p class="text-center"><i class="fa fa-th-list fa-big"></i></p>
 		</div>
 	</div>
 </div>

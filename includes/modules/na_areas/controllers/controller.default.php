@@ -205,18 +205,5 @@ class na_areasController{
 			redirectURL("?page=admin-area-docs&a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
 		}
 	}
-
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
-							"LabelSection" => strTranslate("Na_areas"),
-							"LabelItem" => strTranslate("Na_areas_list"),
-							"LabelUrl" => 'admin-areas',
-							"LabelPos" => 2),
-					  array("LabelHeader"=>'Modules',
-							"LabelSection"=> strTranslate("Na_areas"),
-							"LabelItem"=> strTranslate("Na_areas_new"),
-							"LabelUrl"=>'admin-area&act=new',
-							"LabelPos" => 1));	
-	}
 }
 ?>

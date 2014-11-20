@@ -4,10 +4,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					 "js/bootstrap.file-input.js", 
 					 getAsset("mailing")."js/admin-template.js"));
 
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 session::getFlashMessage( 'actions_message' ); 
 mailingTemplatesController::createAction();
 mailingTemplatesController::updateAction();
@@ -15,8 +11,14 @@ $plantilla = mailingTemplatesController::getItemAction();
 
 ?>
 	<div class="row row-top">	
-		<div class="col-md-9">
-			<h1>Edición de plantillas</h1>
+		<div class="col-md-9 inset">
+			<ol class="breadcrumb">
+				<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+				<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+				<li><a href="#"><?php echo strTranslate("Massive_Mailing");?></a></li>
+				<li><a href="?page=admin-templates">Plantillas de comunicaciones</a></li>
+				<li class="active">Edición de plantillas</li>
+			</ol>
 			<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
 				<input type="hidden" name="id_template" id="id_template" value="<?php echo $plantilla['id_template'];?>" />
 				<div class="form-group">

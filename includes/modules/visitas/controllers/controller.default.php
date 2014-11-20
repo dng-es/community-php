@@ -1,13 +1,5 @@
 <?php
 class visitasController{
-	public static function createAction(){
-		
-	}
-
-	public static function updateAction(){
-
-	}
-
 	public static function exportAction(){
 		if (isset($_POST['export-stats']) and isset($_POST['fecha_ini'])){
 			$visitas = new visitas();
@@ -18,18 +10,6 @@ class visitasController{
 			echo array2csv($elements);
 			die();
 		}
-	}
-
-	/**
-	 * Elementos para el menu de administración
-	 * @return 	array           			Array con datos
-	 */	
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Tools',
-							"LabelSection" => strTranslate("Reports"),
-							"LabelItem" => strTranslate("Visits_title"),
-							"LabelUrl" => 'informe-accesos',
-							"LabelPos" => 1));	
 	}	
 }
 ?>

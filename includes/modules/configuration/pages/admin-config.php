@@ -1,24 +1,19 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 addJavascripts(array(getAsset("configuration")."js/admin-config.js"));
-
 ?>
 <div class="row  row-top">
-	<div class="col-md-9">
-		<h1>Configuración de la comunidad</h1>
-	
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Configuration");?></a></li>
+			<li class="active"><?php echo strTranslate("Main_data");?></li>
+		</ol>
 		<?php
 		session::getFlashMessage( 'actions_message' ); 
 		configurationController::updateAction();
 		$elements = configurationController::getItemAction();
-		$modules = configurationController::getListModulesAction();
 		?>
-
-		<br />
-		<P>Datos generales de la Web.</P>
 		<form enctype="multipart/form-data" id="formData" name="formData" method="post" action="">
 			<table class="table">
 				<tr><th>Variable</th><th>Valor</th></tr>

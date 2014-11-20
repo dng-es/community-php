@@ -1,9 +1,4 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
-
 //VALIDAR REVISIONES FORMULARIOS
 if ( isset($_POST['id_tarea_rev']) and $_POST['id_tarea_rev']!='' ) na_areasController::RevisarFormAction(); 
 
@@ -32,8 +27,14 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Revisiones <small><?php echo $tarea[0]['tarea_titulo'];?></small></h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Na_areas");?></a></li>
+			<li><a href="?page=admin-areas"><?php echo strTranslate("Na_areas_list");?></a></li>
+			<li class="active">Revisiones <b><?php echo $tarea[0]['tarea_titulo'];?></b></li>
+		</ol>
 
 		<ul class="nav nav-pills navbar-default">
 			<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver al curso</a></li>

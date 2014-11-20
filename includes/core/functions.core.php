@@ -102,7 +102,7 @@ function __autoload($classname){
 		include_once(dirCarga(dirname(__FILE__), "/modules/class.".$classname.".php"));
 	}
 	else{
-		include_once (dirCarga(dirname(__FILE__) , "/modules/".$classname."/class.".$classname.".php"));
+		include_once (dirCarga(dirname(__FILE__) , "/modules/".$classname."/classes/class.".$classname.".php"));
 	}
 }
 

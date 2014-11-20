@@ -4,15 +4,15 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					 "js/libs/ckfinder/ckfinder.js",
 					 "js/bootstrap.file-input.js", 
 					 getAsset("infotopdf")."js/admin-infotopdf-doc.js"));
-
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 ?>
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Gestión de documentos PDF</h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="?page=admin-infotopdf"><?php echo strTranslate("Infotopdf_Documents");?></a></li>
+			<li class="active"><?php echo strTranslate("Edit");?> <?php echo strTranslate("Infotopdf_Documents");?></li>
+		</ol>
 		<?php
 		$accion=$_GET['act'];
 		$id ='';

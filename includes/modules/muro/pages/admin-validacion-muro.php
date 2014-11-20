@@ -1,18 +1,19 @@
 <?php
 addJavascripts(array(getAsset("muro")."js/admin-validacion-muro.js"));
 
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 session::getFlashMessage( 'actions_message' );
 muroController::validateAction();
 muroController::cancelAction();			
 $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('principal','responsable') ORDER BY date_comentario DESC"); ?>
 
 <div class="row row-top">
-	<div class="col-md-9">
-		<h1>Validación de comentarios del muro</h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="#"><?php echo strTranslate("Wall");?></a></li>
+			<li class="active">Validación de comentarios del muro</li>
+		</ol>
 		<ul class="nav nav-pills navbar-default"> 
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_MURO;?></b></a></li>      
 		</ul>

@@ -7,7 +7,9 @@ $page = (isset($_REQUEST['page']) and $_REQUEST['page']!="") ? $_REQUEST['page']
 if ($page=='logout') {session::destroySession();}
 
 //LOGIN-SESSION
-session::validateUserSession();
+$session = new session();
+$session->validateUserSession();
+$user_permissions = $session->user_permissions;
 
 //OBTENER PAGINA SOLICITADA. SI NO SE ENCUENTRA SE MUESTRA LA PAGINA 404
 ob_start();

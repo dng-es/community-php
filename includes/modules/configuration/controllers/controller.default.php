@@ -58,23 +58,6 @@ class configurationController{
 			array_push($listModules, array("folder" => $folder['folder'], "ann" => $ann));		
 		endforeach;	
 		return $listModules;	
-	}
-
-	/**
-	 * Elementos para el menu de administración
-	 * @return 	array           			Array con datos
-	 */	
-	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Tools',
-							"LabelSection" => strTranslate("Configuration"),
-							"LabelItem" => strTranslate("Main_data"),
-							"LabelUrl" => 'admin-config',
-							"LabelPos" => 1),
-						array("LabelHeader" => 'Tools',
-							"LabelSection" => strTranslate("Configuration"),
-							"LabelItem" => strTranslate("Modules_settings"),
-							"LabelUrl" => 'admin-modules',
-							"LabelPos" => 2));	
 	}	
 }
 ?>

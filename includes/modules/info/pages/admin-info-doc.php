@@ -2,16 +2,17 @@
 
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-info-doc.js"));
 
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 $accion = (isset($_GET['act']) ? $_GET['act'] : "new");
 $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 ?>
 <div class="row row-top">
-	<div class="col-md-9">
-  		<h1>Gestión de documentos</h1>
+	<div class="col-md-9 inset">
+		<ol class="breadcrumb">
+			<li><a href="?page=home"><?php echo strTranslate("Home");?></a></li>
+			<li><a href="?page=admin"><?php echo strTranslate("Administration");?></a></li>
+			<li><a href="?page=admin-info"><?php echo strTranslate("Info_Documents");?></a></li>
+			<li class="active"><?php echo strTranslate("Edit");?> <?php echo strTranslate("Info_Document");?></li>
+		</ol>
 		<?php
 		session::getFlashMessage( 'actions_message' ); 
 		infoController::createAction();
