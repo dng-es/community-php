@@ -13,10 +13,10 @@
 host = "localhost"
 
 ;USER BBDD
-user = "root"
+user = "comunidad"
 
 ;PASSWORD BBDD
-pass = "AdminImagar"
+pass = "comunidad"
 
 ;BBDD
 db = "comunidad"
