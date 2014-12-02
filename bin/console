@@ -41,13 +41,14 @@ if (in_array($argv[1], array('--help', '-help', '-h', '-?'))) {
 function showModules(){	
 	global $public_html;
 	$folders = FileSystem::showDirFolders($public_html."/includes/modules/");
+	$console = new console();
 	echo "\n";
 	foreach($folders as $folder):
 		if ($folder <>"core"){
 			$annotations = FileSystem::getClassAnnotations($folder);
 			$annotation = $annotations[1];
 			$ann = isset($annotation[0]) ? $annotation[0] : "";
-			echo str_pad($folder, 30, ' ', STR_PAD_RIGHT).$ann."\n";		
+			echo  $console->getColoredString(str_pad($folder, 30, ' ', STR_PAD_RIGHT), "yellow"). $console->getColoredString($ann, "green")."\n";		
 		}
 	endforeach;
 }
