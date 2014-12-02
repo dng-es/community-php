@@ -9,10 +9,8 @@
 * [Referencia API] (#referencia-api)
 
 ## Instalación
+Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto de directorios y ficheros solo son necesarios para desarrollo.
 - Establecer configuración principal en el fichero: includes/core/config.php (<b>IMPORTANTE</b>: desactivar debug mode en servidores de producción o establecer salida a fichero de log)
-- Eliminar carpeta ./bin en servidores de produccción
-- Eliminar carpeta ./documentacion en servidores de produccción
-- Eliminar archivo README.md
 - Permisos de escritura en los directorios: images/usuarios, images/foro, images/mailing, docs/
 - Establecer configuración CKFinder: modificar $baseUrl y $baseDir en js/libs/CKFinder/config.php
 - Establecer configuración de la comunidad desde el panel de administración->Datos generales
@@ -49,16 +47,17 @@ Estructura general
 
 
     ├── bin                     - herramienta de consola
-    ├── css                     - Archivos CSS principales
-    ├── docs                    - directorio de almacenamiento de documentos
     ├── documentacion           - documentación sobre la comunidad
-    ├── images                  - directorio para imágenes
-    ├── includes
-    │   ├── core                - núcleo del sistema
-    │   ├── languajes           - archivos generales de traducciones
-    │   └── modules             - directorio que contiene todos los módulos
-    │
-    └── js                      - archivos javascript generales de la comunidad
+    └── httpdocs
+        ├── css                 - Archivos CSS principales
+        ├── docs                - directorio de almacenamiento de documentos
+        ├── images              - directorio para imágenes
+        ├── includes
+        │   ├── core            - núcleo del sistema
+        │   ├── languajes       - archivos generales de traducciones
+        │   └── modules         - directorio que contiene todos los módulos
+        │
+        └── js                  - archivos javascript generales de la comunidad
 
 
 Estructura de un módulo
