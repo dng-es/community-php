@@ -1,0 +1,8 @@
+---
+options:
+    forums: true
+    forums_per_page: 6
+security:
+    - 
+        page: ^admin
+        role: admin

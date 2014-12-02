@@ -1,0 +1,7 @@
+---
+options:
+    allow_registration: true
+security:
+    - 
+        page: ^admin
+        role: admin

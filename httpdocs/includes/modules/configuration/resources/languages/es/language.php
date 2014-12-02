@@ -1,0 +1,3 @@
+<?php
+Configuration = "Configuración"
+?>

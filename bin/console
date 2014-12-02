@@ -3,9 +3,9 @@
 
 set_time_limit(0);
 
-include_once(__DIR__."/../includes/core/class.filesystem.php");
-include_once(__DIR__."/../includes/core/functions.core.php");
-
+$public_html = __DIR__."/../httpdocs";
+include_once($public_html."/includes/core/class.filesystem.php");
+include_once($public_html."/includes/core/functions.core.php");
 
 
 $console = new Console();
@@ -39,7 +39,8 @@ if (in_array($argv[1], array('--help', '-help', '-h', '-?'))) {
 
 
 function showModules(){	
-	$folders = FileSystem::showDirFolders(__DIR__."/../includes/modules/");
+	global $public_html;
+	$folders = FileSystem::showDirFolders($public_html."/includes/modules/");
 	echo "\n";
 	foreach($folders as $folder):
 		if ($folder <>"core"){
@@ -52,12 +53,13 @@ function showModules(){
 }
 
 function findPage($pagename){	
-	$folders = FileSystem::showDirFolders(__DIR__."/../includes/modules/");
+	global $public_html;
+	$folders = FileSystem::showDirFolders($public_html."/includes/modules/");
 	echo "\n";
 	$exists = 0;
 	foreach($folders as $folder):
-		//echo __DIR__."/../includes/modules/".$folder."/pages/".$pagename.".php\n";
-		if (file_exists(__DIR__."/../includes/modules/".$folder."/pages/".$pagename.".php")){
+		//echo $public_html."/includes/modules/".$folder."/pages/".$pagename.".php\n";
+		if (file_exists($public_html."/includes/modules/".$folder."/pages/".$pagename.".php")){
 			$exists ++;
 			echo "Find it!! --> module: ".$folder." (includes/modules/".$folder."/pages/".$pagename.".php)\n";
 		}
@@ -76,7 +78,8 @@ function findPage($pagename){
 }
 
 function createModuleStructure($moduleName){
-	$modulePath = "includes/modules/".$moduleName;
+	global $public_html;
+	$modulePath = $public_html."/includes/modules/".$moduleName;
 	if ( !file_exists( $modulePath ) and !is_dir( $modulePath ) ):
 		mkdir ( $modulePath, 0755 );
 		mkdir ( $modulePath."/classes", 0755 );
