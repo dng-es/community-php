@@ -1,5 +1,5 @@
 # Community-php 
-> Comunidad de usuarios php5 y mysql. Ver módulos en includes/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
+> Comunidad de usuarios php5 y mysql. Ver módulos en app/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
 * [Instalación] (#instalación)
 * [Estructura de archivos y directorios] (#estructura-de-archivos-y-directorios)
@@ -10,7 +10,7 @@
 
 ## Instalación
 Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto de directorios y ficheros solo son necesarios para desarrollo.
-- Establecer configuración principal en el fichero: includes/core/config.php (<b>IMPORTANTE</b>: desactivar debug mode en servidores de producción o establecer salida a fichero de log)
+- Establecer configuración principal en el fichero: app/core/config.php (<b>IMPORTANTE</b>: desactivar debug mode en servidores de producción o establecer salida a fichero de log)
 - Permisos de escritura en los directorios: images/usuarios, images/foro, images/mailing, docs/
 - Establecer configuración CKFinder: modificar $baseUrl y $baseDir en js/libs/CKFinder/config.php
 - Establecer configuración de la comunidad desde el panel de administración->Datos generales
@@ -34,10 +34,10 @@ Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto
 - CKFinder: (js/libs/ckfinder) Javascript. Subida de archivos integrado en CKEditor
 - amCharts: (js/libs/amcharts) Javascript. Generación de gráficos
 - JWPlayer: (js/libs/jwplayer) Javascript. Reproductor de video
-- SwiftMailer: (includes/core/Swift-5.1.0) php. Envío de emials
-- gpyc: (includes/core/gpyc-0.5) php. Lectura y escritura de YAML
-- Zipfile: (includes/core/class.zipfile.php) php. Clase para generación de ficheros ZIP
-- resizeImage: (includes/core/class.resizeimage.php) php. Clase para generar miniaturas de imágenes
+- SwiftMailer: (app/core/Swift-5.1.0) php. Envío de emials
+- gpyc: (app/core/gpyc-0.5) php. Lectura y escritura de YAML
+- Zipfile: (app/core/class.zipfile.php) php. Clase para generación de ficheros ZIP
+- resizeImage: (app/core/class.resizeimage.php) php. Clase para generar miniaturas de imágenes
 
 
 ## Estructura de archivos y directorios
@@ -52,7 +52,7 @@ Estructura general
         ├── css                 - Archivos CSS principales
         ├── docs                - directorio de almacenamiento de documentos
         ├── images              - directorio para imágenes
-        ├── includes
+        ├── app
         │   ├── core            - núcleo del sistema
         │   ├── languajes       - archivos generales de traducciones
         │   └── modules         - directorio que contiene todos los módulos
@@ -111,13 +111,13 @@ php bin/console showmodules
 Tras ejecutar el comando se mostrarán todos los modulos instalados.
 
 ## Idiomas
-Soporte para idiomas implementado. Establecer idioma en includes/core/config.php. Los ficheros de traducciones se encuentran en includes/languages. Cada módulo cuenta con sus propios ficheros de traducciones en includes/modules/module_name/resources/languages.
+Soporte para idiomas implementado. Establecer idioma en app/core/config.php. Los ficheros de traducciones se encuentran en app/languages. Cada módulo cuenta con sus propios ficheros de traducciones en app/modules/module_name/resources/languages.
 
 ## Debug mode
-Se puede activar desde includes/core/config.php con la variable debug_app. Opciones:
+Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 - 0: debug mode desactivado
 - 1: debug mode activado, salida por pantalla.
-- 2: debug mode activado, salida a fichero log (includes/core/errors.log). Sólo se registrarán los errores Php y sql, no se mostrarán las sentencias sql ejecutadas con éxito.
+- 2: debug mode activado, salida a fichero log (app/core/errors.log). Sólo se registrarán los errores Php y sql, no se mostrarán las sentencias sql ejecutadas con éxito.
 
 **IMPORTANTE: desactivar debug mode en servidores de producción (debug_app = 0) o establecer salida a fichero de log (debug_app = 2).**
 

@@ -1,5 +1,5 @@
 <?php
-include_once ("includes/core/functions.core.php");
+include_once ("app/core/functions.core.php");
 
 $page = (isset($_REQUEST['page']) and $_REQUEST['page']!="") ? $_REQUEST['page'] : 'login';
 

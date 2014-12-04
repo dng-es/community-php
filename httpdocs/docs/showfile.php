@@ -1,11 +1,11 @@
 <?php
 $base_dir = str_replace('docs', '', realpath(dirname(__FILE__))) ;
-include_once($base_dir . "includes/core/class.connection.php");
-include_once($base_dir . "includes/modules/configuration/class.configuration.php");
-include_once($base_dir . "includes/core/constants.php");
-include_once($base_dir . "includes/core/functions.php");
-include_once($base_dir . "includes/core/class.session.php");
-include_once($base_dir . "includes/modules/users/class.users.php");
+include_once($base_dir . "app/core/class.connection.php");
+include_once($base_dir . "app/modules/configuration/class.configuration.php");
+include_once($base_dir . "app/core/constants.php");
+include_once($base_dir . "app/core/functions.php");
+include_once($base_dir . "app/core/class.session.php");
+include_once($base_dir . "app/modules/users/class.users.php");
 
 $res_app = 0;
 if (isset($_REQUEST['u']) and isset($_REQUEST['s'])){
