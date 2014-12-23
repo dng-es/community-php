@@ -37,7 +37,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			<input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $id_cuestionario;?>" />
 
 			<label for="nombre"><?php echo strTranslate("Name");?></label>
-			<input type="text" name="nombre" id ="nombre" class="form-control" value="<?php echo $cuestionario_nombre;?>" />
+			<input type="text" name="nombre" id ="nombre" class="form-control form-big" value="<?php echo $cuestionario_nombre;?>" />
 			<br />
 			<?php
 			if ($id_cuestionario!=""){

@@ -24,18 +24,16 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 				<p>Cada una de tus aportaciones ayuda a tu empresa a acumular <?php echo strTranslate("APP_points");?>. ¿Cuántos <?php echo strTranslate("APP_points");?>, tenéis? 
 				¿estáis entre los primeros? descúbrelo en este ranking:</p>
 				<h3><?php echo $puntos_empresa[0]['nombre_tienda'];?> <small><?php echo $puntos_empresa[0]['puntos_empresa']." ".strTranslate("APP_points");?></small> Posición <small><?php echo $posicion_empresa_user;?></small></h3>
-				<table class="table">
+				<table class="table table-striped">
 					<?php 	
 					//LOS 10 PRIMEROS DEL RANKING
 					//$total_empresas=$users->getTotalEmpresas();
-					//echo '	<p>Los mejores en el ranking, total de centros activos: '.$total_empresas.'</p>';
-					echo '<table class="table">';
 					for ($i=0;$i<=14;$i++){	
 						if (isset($puntos[$i])): ?>
 					<tr>
-						<td class="table-number"><?php echo ($i+1);?></td>
-						<td width="100%"><span class="color-ranking"><?php echo $puntos[$i]['nombre_tienda'];?></span><br />
-						<?php echo $puntos[$i]['puntos_empresa'].' '.strTranslate("APP_points");?>
+						<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i+1);?></small></i></td>
+						<td width="100%"><span class="color-ranking"><?php echo $puntos[$i]['nombre_tienda'];?></span>
+						<p class="text-muted"><?php echo $puntos[$i]['puntos_empresa'].' '.strTranslate("APP_points");?></p>
 						</td>
 					</tr>
 						<?php endif;

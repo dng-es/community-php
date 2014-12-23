@@ -18,7 +18,7 @@ $titulo_page="";
 
 		<?php
 		//OBTENER SUBTEMAS DE FORO
-		$reg = 2;
+		$reg = 10;
 		if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
 		if (!isset($pag)) { $inicio = 0; $pag = 1;}
 		else { $inicio = ($pag - 1) * $reg;}

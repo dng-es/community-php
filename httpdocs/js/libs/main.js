@@ -104,9 +104,10 @@ jQuery(document).ready(function(){
 	//desplegar menu administración activo
 	$(".module-admin-item li a.active").closest(".module-admin-item").show();
 
-/*	$(window).scroll(function() {
-		var screenWidth = $(window).width();
-		if (screenWidth>991){
+	$(window).scroll(function() {
+		var screenWidth = $(window).width(),
+			screenHeight = $(window).height();
+/*		if (screenWidth>991){
 			//console.log($("#admin-panel").offset().top);
 			//console.log(screenWidth);
 			if ($(window).scrollTop() > ($('#container-main').outerHeight()) - ($('#container-content').outerHeight() + $('.footer').outerHeight())){
@@ -116,6 +117,16 @@ jQuery(document).ready(function(){
 				//console.log("NO ENTRA: " + $(window).scrollTop() + " PAGE: " + $('#container-main').outerHeight() + " CONTENT: " + $('#container-content').outerHeight());
 				$("#admin-panel").css({"position": "relative","top" : 0, "right": 0});
 			}
+		}*/
+
+		if ($(this).scrollTop()) {
+			$('#toTop').fadeIn();
+		} else {
+			$('#toTop').fadeOut();
 		}
-	});*/
+	});
+
+	$("#toTop").click(function () {
+		$("html, body").animate({scrollTop: 0}, 1000);
+	});
 });

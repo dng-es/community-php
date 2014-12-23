@@ -1,11 +1,11 @@
 <?php
-$base_dir = str_replace('docs', '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace('/docs', '/', realpath(dirname(__FILE__))) ;
 include_once($base_dir . "app/core/class.connection.php");
-include_once($base_dir . "app/modules/configuration/class.configuration.php");
+include_once($base_dir . "app/modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "app/core/constants.php");
 include_once($base_dir . "app/core/functions.php");
 include_once($base_dir . "app/core/class.session.php");
-include_once($base_dir . "app/modules/users/class.users.php");
+include_once($base_dir . "app/modules/users/classes/class.users.php");
 
 $res_app = 0;
 if (isset($_REQUEST['u']) and isset($_REQUEST['s'])){
@@ -113,7 +113,8 @@ function mm_type($filename) {
             'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
         );
 
-        $ext = strtolower(array_pop(explode('.',$filename)));
+        $value = explode(".", $filename);
+        $ext = strtolower(array_pop($value));
         if (array_key_exists($ext, $mime_types)) {
             return $mime_types[$ext];
         }

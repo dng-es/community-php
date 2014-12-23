@@ -12,7 +12,7 @@ $elements = mailingTemplatesController::getListAction(20);
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
 			array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"#"),
-			array("ItemLabel"=>"Plantillas de comunicaciones", "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Mailing_templates"), "ItemClass"=>"active"),
 		));
 		?>		
 		<ul class="nav nav-pills navbar-default">     

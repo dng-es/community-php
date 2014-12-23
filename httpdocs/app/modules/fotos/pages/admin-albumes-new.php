@@ -30,7 +30,7 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 					<form id="formData" name="formData" method="post" action="" role="form">
 						<input type="hidden" name="id" value="<?php echo $id;?>" />
 						<label for="nombre">Nombre del album</label>
-						<input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo isset($album[0]) ? $album[0]['nombre_album'] : '';?>" placeholder="título del album" />
+						<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo isset($album[0]) ? $album[0]['nombre_album'] : '';?>" placeholder="título del album" />
 						<br />
 						<input type="submit" name="SubmitData" class="btn btn-primary" value="Guardar datos" />
 					</form>

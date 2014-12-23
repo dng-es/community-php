@@ -15,7 +15,12 @@ else{$pagina=1;}
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1>El muro</h1>
+		<?php
+		menu::breadcrumb(array(
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Wall"), "ItemClass"=>"active"),
+		));
+		?>
 		<span id="tipo_muro" data-val="<?php echo $nombre_muro;?>"></span>
 		<span id="pagina" data-val="<?php echo $pagina;?>"></span>
 		<div id="destino">

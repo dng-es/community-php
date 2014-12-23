@@ -25,12 +25,14 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 
 		<div class="row container-fade">
 			<?php for ($i=0;$i<=5;$i++){ ?>
-			<div class="col-md-2">
+			<div class="col-md-2 inset">
 				<?php if (isset($puntos[$i])):
 				$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg");?>
 				<img src="<?php echo $foto;?>" style="width:100%" />
-				<h4>Posición <small><?php echo ($i+1);?></small></h4>
-				<p><small><?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?><br />
+				<br />
+				<br />
+				<p class="text-center"><i class="fa fa-trophy fa-medium"><small><?php echo ($i+1);?></small></i></p>
+				<p class="text-center"><small><?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?><br />
 				<span class="text-muted"><?php echo $puntos[$i]['nombre_tienda'];?></span><br />
 				<span class="text-primary"><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></span></small></p>
 				<?php endif; ?>
@@ -40,7 +42,7 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 		<div class="row">
 			<div class="col-md-12">
 				<br /><br />
-				<table class="table">
+				<table class="table table-striped">
 					<?php
 					//LOS 10 PRIMEROS DEL RANKING
 					//$total_usuarios = connection::countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
@@ -50,11 +52,11 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 						if (isset($puntos[$i])):
 							$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg"); ?>
 							<tr>
-								<td class="table-number"><?php echo ($i+1);?></td>
-								<td><img src="<?php echo $foto;?>" width="50px" height="50px" /></td>
+								<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i+1);?></small></i></td>
+								<td width="50px"><img src="<?php echo $foto;?>" width="50px" height="50px" /></td>
 								<td>
-									<?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?><br />
-									<?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?>
+									<?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?>
+									<p class="text-muted"><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></p>
 								</td>
 								<td><?php $puntos[$i]['nombre_tienda'];?></td>
 							</tr>

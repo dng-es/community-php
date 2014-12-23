@@ -19,6 +19,13 @@
 				files: ['<%= public_html %>js/libs/*.js'],
 				tasks: ['uglify:prod']
 			}
+			/*, images:{
+				files: ['<%= public_html %>images/*.png', '<%= public_html %>images/*.gif','<%= public_html %>images/*.{jpg,jpeg}'],
+				tasks: ['imagemin'],
+                options: {
+                    spawn: false
+                }		
+			}*/
 		},
 
 		compass: {
@@ -77,6 +84,27 @@
 		   },
 		},	
 
+		imagemin: {                          // Task
+
+			jpg: {
+			      options: {
+			        progressive: true
+			      },
+			      files: [
+			        {
+			          // Set to true to enable the following options…
+			          expand: true,
+			          // cwd is 'current working directory'
+			          cwd: '../httpdocs/images/',
+			          src: ['*.jpg'],
+			          // Could also match cwd. i.e. project-directory/img/
+			          dest: '../httpdocs/images/build/',
+			          ext: '.jpg'
+			        }
+			      ]
+			    }
+		  }
+
 	});
  
 	// DEPENDENT PLUGINS =========================/
@@ -84,10 +112,11 @@
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-compass');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
 
 	// TASKS =====================================/
 
 	grunt.registerTask('default', []);
-	grunt.registerTask('prod', ['compass:prod', 'uglify:prod']);
-	grunt.registerTask('dev', ['compass:dev', 'uglify:dev']);
+	grunt.registerTask('prod', ['compass:prod', 'uglify:prod', 'images']);
+	grunt.registerTask('dev', ['compass:dev', 'uglify:dev', 'images']);
 };

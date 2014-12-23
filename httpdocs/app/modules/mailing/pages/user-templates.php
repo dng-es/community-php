@@ -7,7 +7,7 @@ $elements = mailingTemplatesController::getListAction(6, "activos");
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
 			array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"#"),
-			array("ItemLabel"=>"Plantillas de comunicaciones", "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Mailing_templates"), "ItemClass"=>"active"),
 		));
 		?>
     	<div class="row">

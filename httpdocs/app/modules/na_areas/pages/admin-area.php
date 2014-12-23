@@ -117,7 +117,7 @@ addJavascripts(array("js/jquery.numeric.js",
 							<div class="row">
 								<div class="form-group col-md-12">
 									<label for="area_nombre"><?php echo strTranslate("Name");?>:</label>
-									<input class="form-control" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"/>
+									<input class="form-control form-big" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"/>
 									<span id="nombre-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 								</div>
 							</div>
@@ -601,9 +601,11 @@ function InsertData(){
 function UpdateData(){
 	$na_areas = new na_areas();
 	$registro = (isset($_POST['area_registro']) and $_POST['area_registro']=="on") ? 1 : 0;
+	$nombre = sanitizeInput($_POST['area_nombre']);
+	$descripcion = sanitizeInput($_POST['area_descripcion']);
 	if ($na_areas->updateArea($_POST['id_area'],
-						$_POST['area_nombre'],
-						$_POST['area_descripcion'],
+						$nombre,
+						$descripcion,
 						$_POST['area_canal'],
 						$_POST['area_puntos'],
 						$_POST['area_limite'],
@@ -611,8 +613,8 @@ function UpdateData(){
 				//modificar foro
 				$foro = new foro();
 				$foro->updateTemaArea($_POST['id_area'],
-							$_POST['area_nombre'],
-							$_POST['area_descripcion'],
+							$nombre,
+							$descripcion,
 							$_POST['area_canal']);
 				OkMsg(strTranslate("Update_procesing"));}
 	else { ErrorMsg("Se ha producido algun error durante la modificacion de los datos.");}

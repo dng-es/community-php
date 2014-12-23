@@ -27,7 +27,7 @@ class mensajes{
 		$Sql="SELECT m.*,u.* FROM mensajes m
 			 JOIN users u ON u.username=m.user_destinatario WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	} 
+	}
 
 	/**
 	 * Inserta registro en mensajes
@@ -53,10 +53,10 @@ class mensajes{
 			else {return 2;}
 		}
 		else {return 3;}
-      }
+	}
 
 	/**
-	 * Elimina registro en mensajes
+	 * Elimina registro en mensajes recibidos
 	 * @param  int 		$id 		Id registro a eliminar
 	 * @return boolean 				Resultado de la SQL
 	 */
@@ -65,15 +65,25 @@ class mensajes{
 		return connection::execute_query($Sql);
 	}
 
+	/**
+	 * Elimina registro en mensajes enviados
+	 * @param  int 		$id 		Id registro a eliminar
+	 * @return boolean 				Resultado de la SQL
+	 */
     public function deleteMensajeEnviado($id){
 	  	$Sql="UPDATE mensajes SET estado_remitente=1 WHERE id_mensaje=".$id;
 		return connection::execute_query($Sql);
     }
-	  
+
+	/**
+	 * Actualiza el estado del mensaje a leido
+	 * @param  int 		$id 		Id registro a marcar como leido
+	 * @return boolean 				Resultado de la SQL
+	 */	  
 	public function leerMensaje($id){
 		//PRIMERO COMPROBAMOS QUE SEA EL DUEÑO DEL MENSAJE
 	  	$mensaje_data=$this->getMensajes(" AND id_mensaje=".$id." ");
-	  	if ($mensaje_data[0]['user_destinatario']==$_SESSION['user_name']){
+	  	if ($mensaje_data[0]['user_destinatario'] == $_SESSION['user_name']){
 			$Sql="UPDATE mensajes SET estado=1 WHERE id_mensaje=".$id;
 			return connection::execute_query($Sql);
 		}

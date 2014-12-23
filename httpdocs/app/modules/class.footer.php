@@ -46,6 +46,8 @@ class footer{
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+
+		<div id="toTop"><i class="fa fa-arrow-up"></i></div>
 	<?php
 	}
 

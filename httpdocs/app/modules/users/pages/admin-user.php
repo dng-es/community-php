@@ -18,7 +18,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 ?>
 	
 <div class="row row-top">
-	<div class="col-md-7 inset">
+	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
@@ -44,13 +44,13 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 		
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="general">
-			<br />	
+			<div class="col-md-9">	
 			<form id="formData" role="form" name="formData" method="post" action="">
 			<input type="hidden" name="level_user" value="3"/>
 			<input type="hidden" id="id_username" name="id_username" value="<?php echo $elements[0]['username'];?>" />
 			<table style="width:100%; border-spacing:5px; border-collapse: separate">
 			  <tr><td width="30%" valign="top"><label><?php echo strTranslate("Username");?>:</label></td><td width="70%">
-			  <input type="text" class="form-control<?php if (isset($_REQUEST['id']) and $_REQUEST['id']!="") {echo ' TextDisabled" readonly="readonly';}?>" Size="40" id="username" name="username" value="<?php echo $elements[0]['username'];?>"/>
+			  <input type="text" class="form-big form-control<?php if (isset($_REQUEST['id']) and $_REQUEST['id']!="") {echo ' TextDisabled" readonly="readonly';}?>" Size="40" id="username" name="username" value="<?php echo $elements[0]['username'];?>"/>
 			  <span id="user-alert" class="alert-message alert alert-danger"></span>
 			  </td></tr>
 			  <tr><td width="30%" valign="top"><label><?php echo strTranslate("Nick");?>:</label></td><td width="70%">
@@ -104,18 +104,25 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 			  <span id="email-alert" class="alert-message alert alert-danger"></span>
 			  </td></tr>
 			  <tr><td></td><td>
-			  	<br />
-				<label checkbox-inline>
-					<input type="checkbox" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed']==1 ? "checked" : "";?>> <?php echo strTranslate("Confirmed");?>
-				</label>
+			  	<div class="row">
+			  		<div class="col-md-4">
+						<label checkbox-inline>
+							<input type="checkbox" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed']==1 ? "checked" : "";?>> <?php echo strTranslate("Confirmed");?>
+						</label>
+					</div>
 
-				<label checkbox-inline>
-					<input type="checkbox" id="registered_user"  name="registered_user" <?php echo $elements[0]['registered']==1 ? "checked" : "";?>> <?php echo strTranslate("Registered");?>
-				</label>
+					<div class="col-md-4">
+						<label checkbox-inline>
+							<input type="checkbox" id="registered_user"  name="registered_user" <?php echo $elements[0]['registered']==1 ? "checked" : "";?>> <?php echo strTranslate("Registered");?>
+						</label>
+					</div>
 
-				<label checkbox-inline>
-					<input type="checkbox" id="disabled_user"  name="disabled_user" <?php echo $elements[0]['disabled']==1 ? "checked" : "";?>> <?php echo strTranslate("Disabled");?>
-				</label>
+					<div class="col-md-4">
+						<label checkbox-inline>
+							<input type="checkbox" id="disabled_user"  name="disabled_user" <?php echo $elements[0]['disabled']==1 ? "checked" : "";?>> <?php echo strTranslate("Disabled");?>
+						</label>
+					</div>
+				</div>
 			  <tr><td>&nbsp;</td><td>
 			  <br />
 			  <button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
@@ -123,6 +130,21 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 			  </td></tr>
 			</table>
 		</form>	
+		</div>
+		<div class="col-md-3 nopadding">
+			<br />
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php echo strTranslate("Picture");?></div>
+				<div class="panel-body nopadding">
+					  <img src="<?php echo PATH_USERS_FOTO.(($elements[0]['foto']=="") ? "user.jpg" : $elements[0]['foto']);?>" style="width:100%" class="responsive" /><br /><br />
+					<?php
+					echo '<div class="btn btn-primary btn-block" id="DeleteFoto" onClick="Confirma(\'¿Seguro que desea borrar la foto del usuario?\',
+						\'?page=admin-user&id='.$elements[0]['username'].'&f='.$elements[0]['foto'].'\')" 
+						title="'.strTranslate("Delete_photo").'" />'.strTranslate("Delete_photo").'</div>';
+					?>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div class="tab-pane fade" id="statistics">
@@ -231,22 +253,6 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 		<br />
 	</div>	
 	</div>			
-	</div>
-
-	<div class="col-md-2">
-		<br /><br />
-		<br /><br /><br />
-		<div class="panel panel-default">
-			<div class="panel-heading"><?php echo strTranslate("Picture");?></div>
-			<div class="panel-body">
-				  <img src="<?php echo PATH_USERS_FOTO.(($elements[0]['foto']=="") ? "user.jpg" : $elements[0]['foto']);?>" style="width:100%" class="responsive" /><br /><br />
-				<?php
-				echo '<div class="btn btn-primary btn-block" id="DeleteFoto" onClick="Confirma(\'¿Seguro que desea borrar la foto del usuario?\',
-					\'?page=admin-user&id='.$elements[0]['username'].'&f='.$elements[0]['foto'].'\')" 
-					title="'.strTranslate("Delete_photo").'" />'.strTranslate("Delete_photo").'</div>';
-				?>
-			</div>
-		</div>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

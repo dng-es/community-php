@@ -7,28 +7,28 @@
 */	
 class infotopdf{
  
-	  public function getInfo($filter = ""){
+	public function getInfo($filter = ""){
 	    $Sql="SELECT i.*,t.nombre_info AS tipo,c.name_campaign AS campana FROM infotopdf i 
 	    	  LEFT JOIN infotopdf_tipo t ON i.tipo_info=t.id_tipo 
 	    	  LEFT JOIN campaigns c ON i.id_campaign=c.id_campaign 
 	    	  WHERE 1=1 ".$filter;
 	    return connection::getSQL($Sql); 
-	  }
+	}
 
-	  public function getInfoTipos($filter = ""){
+	public function getInfoTipos($filter = ""){
 	    $Sql="SELECT * FROM infotopdf_tipo
 	    	  WHERE 1=1 ".$filter;
 	    return connection::getSQL($Sql);
-	  }	  
-	  
-	  public function deleteInfo($id,$documento){
+	}
+
+	public function deleteInfo($id,$documento){
 		unlink(PATH_INFO.$documento);
 		$Sql="DELETE FROM infotopdf
 			  WHERE id_info=".$id;
 		return connection::execute_query($Sql);
-      } 
+	}
 
-	  public function insertInfo($fichero,$titulo,$canal,$tipo,$id_campaign,$cuerpo_info){
+	public function insertInfo($fichero,$titulo,$canal,$tipo,$id_campaign,$cuerpo_info){
 		//SUBIR FICHERO
 		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
 		$nombre_archivo = strtolower($nombre_archivo);
@@ -45,9 +45,9 @@ class infotopdf{
 			if (connection::execute_query($Sql)){ return "";}
 			else { return "Ocurrió algún error al subir el contenido. No pudo guardarse 1.";}		   
 		}else{ return "Ocurrió algún error al subir el contenido. No pudo guardarse 2.";} 
-      }  
+    }
 
-      public function updateInfo($id,$document_file,$title,$canal,$tipo,$id_campaign,$cuerpo_info){
+    public function updateInfo($id,$document_file,$title,$canal,$tipo,$id_campaign,$cuerpo_info){
 		if ($document_file['name']!='') {
 			$nombre_archivo = time().'_'.str_replace(" ","_",$document_file['name']);
 			$nombre_archivo = strtolower($nombre_archivo);
@@ -60,7 +60,7 @@ class infotopdf{
 			else{ErrorMsg('Error al subir el documento.');return false;}
 		}
 		else {$SqlUpdate="";}
-		 
+
 		$Sql="UPDATE infotopdf SET
 			 titulo_info='".$title."',
 			 ".$SqlUpdate."
@@ -70,6 +70,6 @@ class infotopdf{
 			 id_campaign=".$id_campaign." 
 			 WHERE id_info=".$id;
 		return connection::execute_query($Sql);
-      }	 
+	}	 
 }
 ?>

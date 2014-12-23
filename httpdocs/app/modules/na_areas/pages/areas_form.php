@@ -1,4 +1,7 @@
 <?php
+$module_config = getModuleConfig("na_areas");
+$points_to_success = $module_config['options']['points_to_success'];
+
 addJavascripts(array(getAsset("na_areas")."js/areas_form.js"));
 $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] : 0);
 ?>
@@ -27,8 +30,8 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 				//obtener resultado de la valoracion
 				$valoracion = $na_areas->getFormulariosFinalizados(" AND user_tarea='".$_SESSION['user_name']."' AND id_tarea=".$id_tarea);
 				if (count($valoracion)>0){
-					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos']>=7){ $msg = "Enhorabuena, has conseguido un <b>".$valoracion[0]['puntos']."</b> en este curso y acumulado <b>".$area[0]['puntos']."</b> ".strTranslate("APP_points").".";}
-					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos']<7){ $msg = "Tu nota es de <b>".$valoracion[0]['puntos']."</b>,  no has conseguido superar el mínimo en este curso para conseguir ".strTranslate("APP_points").".";}
+					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos'] >= $points_to_success){ $msg = "Enhorabuena, has conseguido un <b>".$valoracion[0]['puntos']."</b> en este curso y acumulado <b>".$area[0]['puntos']."</b> ".strTranslate("APP_points").".";}
+					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos'] < $points_to_success){ $msg = "Tu nota es de <b>".$valoracion[0]['puntos']."</b>,  no has conseguido superar el mínimo en este curso para conseguir ".strTranslate("APP_points").".";}
 					if ($valoracion[0]['revision']==0){ $msg = "Tus respuestas serán revisadas por un tutor. Muy pronto podrás consultar la puntuación obtenida accediendo al curso.";}
 				}
 				echo '<div class="alert alert-info"><span class="fa fa-info-circle"></span> '.$msg.'</div>';

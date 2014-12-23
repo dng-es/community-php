@@ -25,14 +25,17 @@ class na_areasController{
 	}
 
 	public static function RevisarFormAction(){
+		$module_config = getModuleConfig("na_areas");
+		$points_to_success = $module_config['options']['points_to_success'];
+
 		$na_areas = new na_areas();
 		$user_tarea=$_POST['user_rev'];
 		$tarea_user = $_POST['id_tarea_rev'];
 		$id_area = $_POST['id_area_rev'];
 		$puntos = $_POST['puntos_rev'];
 		if ($na_areas->RevisarTareaFormUser($user_tarea,$tarea_user,$puntos,$_SESSION['user_name'])){
-			//sumar horas de vuelo si la puntuacion es mayor o igual que 7
-			if ($puntos>=7){
+			//sumar horas de vuelo si la puntuacion es mayor o igual que $points_to_success
+			if ($puntos >= $points_to_success){
 				//obtener datos del area
 				$area = $na_areas->getAreas(" AND id_area=".$id_area." ");
 				$users = new users();

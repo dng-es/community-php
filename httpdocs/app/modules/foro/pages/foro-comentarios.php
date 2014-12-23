@@ -11,6 +11,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
+		
 		session::getFlashMessage( 'actions_message' );
 		foroController::createRespuestaAction();
 		foroController::votarAction();

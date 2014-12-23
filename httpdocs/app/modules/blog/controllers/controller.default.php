@@ -22,8 +22,10 @@ class blogController{
 
 	public static function updateAction(){
 		if (isset($_POST['id']) and $_POST['id']>0){
-			$foro = new foro();
-			if ($foro->updateTema($_POST['id'],$_POST['nombre'],stripslashes($_POST['descripcion']),$_POST['etiquetas'],$_FILES['imagen-tema'])) {
+			$foro = new foro();	
+			$nombre = sanitizeInput($_POST['nombre']);
+			$descripcion = sanitizeInput(stripslashes($_POST['descripcion']));
+			if ($foro->updateTema($_POST['id'],$nombre,$descripcion,$_POST['etiquetas'],$_FILES['imagen-tema'])) {
 				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
 			}	
 			else{

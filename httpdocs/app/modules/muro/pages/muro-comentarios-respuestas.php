@@ -11,7 +11,12 @@ $comentario_muro = $muro->getComentarios($filtro_comentario);
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
-		<h1>Respuestas en el muro</h1>		
+		<?php
+		menu::breadcrumb(array(
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>"Respuestas en el muro", "ItemClass"=>"active"),
+		));
+		?>		
 		<section>
 			<b><?php echo $comentario_muro[0]['nick'];?> escribió:</b> <em><?php echo $comentario_muro[0]['comentario'];?></em>
 		</section>

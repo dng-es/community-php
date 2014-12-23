@@ -11,7 +11,7 @@ class infoCore{
 		if ($session->checkPageViewPermission("user-info-all", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-file",
 							"LabelItem" => strTranslate("Info_Documents"),
-							"LabelUrl" => '?page=user-info-all',
+							"LabelUrl" => '?page=info-campaigns',
 							"LabelTarget" => '_self',
 							"LabelPos" => 7));
 		}

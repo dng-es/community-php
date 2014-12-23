@@ -7,8 +7,9 @@ $elements = infoController::getItemAction($_GET['id']);
 	<div class="col-md-8 col-lg-9 inset">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemUrl"=>"?page=user-info-all"),
-			array("ItemLabel"=>"Datos del documento", "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemUrl"=>"?page=info-campaigns"),
+			array("ItemLabel"=>$elements[0]['campana'], "ItemUrl"=>"?page=user-info-all&id=".$elements[0]['id_campaign']),
+			array("ItemLabel"=>$elements[0]['titulo_info'], "ItemClass"=>"active"),
 		));?>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>

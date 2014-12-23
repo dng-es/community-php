@@ -17,15 +17,15 @@ $plantilla = mailingTemplatesController::getItemAction();
 				array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
 				array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
 				array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"#"),
-				array("ItemLabel"=>"Plantillas de comunicaciones", "ItemUrl"=>"?page=admin-templates"),
+				array("ItemLabel"=>strTranslate("Mailing_templates"), "ItemUrl"=>"?page=admin-templates"),
 				array("ItemLabel"=>"Edición de plantillas", "ItemClass"=>"active"),
 			));
 			?>
 			<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
 				<input type="hidden" name="id_template" id="id_template" value="<?php echo $plantilla['id_template'];?>" />
 				<div class="form-group">
-					<label for="template_name">Nombre de la plantilla</label>
-					<input type="text" name="template_name" id ="template_name" class="form-control" value="<?php echo $plantilla['template_name'];?>" />
+					<label for="template_name"><?php echo strTranslate("Name");?></label>
+					<input type="text" name="template_name" id ="template_name" class="form-control form-big" value="<?php echo $plantilla['template_name'];?>" />
 					<span id="nombre-alert" class="alert-message alert alert-danger"></span>
 				</div>
 

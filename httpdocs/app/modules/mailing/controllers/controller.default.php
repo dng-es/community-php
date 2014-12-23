@@ -107,6 +107,26 @@ class mailingController{
 				elseif($_POST['tipo-lista']=='lista'){
 					$respuesta_black = self::volcarLista($id_message, $_POST['id_list']);
 				}
+				elseif($_POST['tipo-lista']=='todos'){
+					$respuesta_black = true;
+					$users = new users();
+					$elements = $users->getUsers(" AND disabled=0 AND confirmed=1 ");
+				    foreach($elements as $element):
+						$username_email = trim(strtolower($element['email']));
+						$username = $element['username'];
+						//verificar es un email valido
+						if(validateEmail($username_email)){
+							//verificar no este mas de una vez
+							if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username_email."' ")==0){
+								//verificar no este en la lista negra
+								if (connection::countReg("mailing_blacklist"," AND email_black='".$username_email."' ")==0){
+									if ($username_email!="") $mailing->insertMessageUser($id_message, $username, $username_email);	
+								}
+								else{ $respuesta = true;}		
+							}
+						}
+				    endforeach;
+				}				
 	   
 
 				//actualizar total de emails a enviar

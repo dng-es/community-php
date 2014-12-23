@@ -18,9 +18,11 @@ jQuery(document).ready(function(){
 
 	$("#SubmitData").click(function(e){
 		e.preventDefault();
-		$("#formData")
-			.attr("action", "?page=user-message&id=" + $("#template_message").val() + "&accion2=ok")
-			.submit();
+		if (sendForm("send")){
+			$("#formData")
+				.attr("action", "?page=user-message&id=" + $("#template_message").val() + "&accion2=ok")
+				.submit();
+		}
 
 	});	
 

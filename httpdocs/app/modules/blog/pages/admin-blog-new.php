@@ -39,7 +39,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		<div class="col-md-9">
 
 			<label for="nombre" class="sr-only">Título de la entrada:</label>
-			<input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nombre;?>" placeholder="título de la entrada" />
+			<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo $nombre;?>" placeholder="título de la entrada" />
 			<label for="descripcion">Cuerpo de la entrada:</label>
 			<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>
 			<script type="text/javascript">

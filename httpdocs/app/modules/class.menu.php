@@ -98,7 +98,7 @@ class menu{
 				<div id="user-info">
 					<div class="pull-right" style="width:75%">
 					<?php 
-					echo '<img class="comment-mini-img" src="images/usuarios/'.$_SESSION['user_foto'].'" style="width:50px !important;height:55px !important;float:right;margin-left:10px" />';
+					echo '<a href="?page=user-perfil"><img src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
 					
 					echo '<p>';
 					echo ' <i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';

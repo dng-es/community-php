@@ -42,7 +42,7 @@ class muro{
 			return "Comentario insertado correctamente.";
 		}
 		else {return "Se ha producido un error en la inserción de su comentario. Por favor, inténtelo más tarde.";}
-	}	
+	}
 
 	public function responderComentarioMuro($usuario,$estado,$id_comentario_responder,$texto_comentario){
 		$comentario_original = self::getComentarios(" AND id_comentario=".$id_comentario_responder." ");

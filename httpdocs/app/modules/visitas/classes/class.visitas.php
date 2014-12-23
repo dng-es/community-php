@@ -6,13 +6,13 @@
 */	
 class visitas{
 	
-	function getVisitas($filter = ""){
+	public static function getVisitas($filter = ""){
 		$Sql="SELECT a.*,u.name,u.surname FROM accesscontrol a 
 			  JOIN users u ON u.username=a.username WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 	  
-	public function insertVisitas($username,$ruta,$movil=0){
+	public static function insertVisitas($username,$ruta,$movil=0){
 		$Sql = "insert into accesscontrol (username,webpage,movil,ip,agent,browser,platform) 
 				values ('".$username."','".$ruta."',".$movil.",'".$_SERVER['REMOTE_ADDR']."','".$_SERVER['HTTP_USER_AGENT']."','".getBrowser($_SERVER['HTTP_USER_AGENT'])."','".getPlatform($_SERVER['HTTP_USER_AGENT'])."');";
 		connection::execute_query($Sql);
@@ -24,32 +24,32 @@ class visitas{
 		return true;
 	}
 
-	public function deleteVisitas(){
+	public static function deleteVisitas(){
 		$Sql="DELETE FROM accesscontrol";
 		return connection::execute_query($Sql);
 	}	 	 
 
-	function getAccessPages($filter = ""){
+	public static function getAccessPages($filter = ""){
 		$Sql="SELECT COUNT(webpage) AS contador,DATE(fecha) AS fecha,YEAR(fecha) AS anio,MONTH(fecha) AS mes,DAY(fecha) AS dia FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY DATE(fecha) ";
 		return connection::getSQL($Sql);
 	}
 
-	function getAccessBrowser($filter = ""){
+	public static function getAccessBrowser($filter = ""){
 		$Sql="SELECT COUNT(webpage) AS contador,browser FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY browser ";
 		return connection::getSQL($Sql);
 	}	  
 
-	function getAccessPlatform($filter = ""){
+	public static function getAccessPlatform($filter = ""){
 		$Sql="SELECT COUNT(webpage) AS contador,platform FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY platform ";
 		return connection::getSQL($Sql);
 	}	  	  
 
-	function getAccessTopPages($filter = ""){
+	public static function getAccessTopPages($filter = ""){
 		$Sql="SELECT COUNT(webpage) AS contador,webpage FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY webpage ORDER BY webpage ";
 		return connection::getSQL($Sql);
 	}
 
-	function getVisitasInformes($filter = ""){
+	public static function getVisitasInformes($filter = ""){
 		$Sql="SELECT a.*,u.name,u.surname FROM accesscontrol a 
 			  JOIN users u ON u.username=a.username WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);

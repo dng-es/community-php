@@ -1,11 +1,13 @@
 <?php
-$elements = infoController::getListAction(20);
+$filtro = ((isset($_REQUEST['id']) and $_REQUEST['id']>0) ? " AND i.id_campaign=".$_REQUEST['id'] : "");
+$elements = infoController::getListAction(20, $filtro);
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemUrl"=>"?page=info-campaigns"),
+			array("ItemLabel"=>$elements['items'][0]['campana'], "ItemClass"=>"active"),
 		));?>
 		<div class="table-responsive">
 			<table class="table">

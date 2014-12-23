@@ -26,18 +26,12 @@ $plantilla = campaignsController::getItemAction();
 
 			<div class="form-group">
 				<label for="name_campaign"><?php echo strTranslate("Name");?>:</label>
-				<input type="text" name="name_campaign" id ="name_campaign" class="form-control" value="<?php echo $plantilla['name_campaign'];?>" />
+				<input type="text" name="name_campaign" id ="name_campaign" class="form-control form-big" value="<?php echo $plantilla['name_campaign'];?>" />
 				<span id="nombre-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 			</div>
 
 			<div class="form-group">
-				<label for="desc_campaign"><?php echo strTranslate("Description");?>:</label>
-				<textarea class="form-control" rows="8" id="desc_campaign" name="desc_campaign"><?php echo $plantilla['desc_campaign'];?></textarea>
-				<span id="descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
-			</div>
-
-			<div class="form-group">
-				<label>Tipo de campaña:</label>
+				<label><?php echo strTranslate("Type");?>:</label>
 				<select name="id_type" id="id_type" class="form-control">
 				<?php
 				$campaigns = new campaigns();
@@ -48,6 +42,13 @@ $plantilla = campaignsController::getItemAction();
 				?>
 				</select>
 			</div>
+
+			<div class="form-group">
+				<label for="desc_campaign"><?php echo strTranslate("Description");?>:</label>
+				<textarea class="form-control" rows="8" id="desc_campaign" name="desc_campaign"><?php echo $plantilla['desc_campaign'];?></textarea>
+				<span id="descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+			</div>
+
 
 			<div class="form-group">				
 				<div class="row">

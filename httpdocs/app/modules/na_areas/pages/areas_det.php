@@ -77,61 +77,63 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 
 <?php 
 function printTareas($id_area){
-  $na_areas = new na_areas();
-  $contador_tareas=0;
-  $elements = $na_areas->getTareas(" AND id_area=".$id_area." and activa=1 "); 
-  foreach($elements as $element):
-	//VERIFICAR SI ES UNA TAREA PARA UN GRUPO Y SI EL USUARIO PERTENECE O NO AL GRUPO
-	$acceso_grupo=1;
-	if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
-		if ($element['tarea_grupo']==1){
-			$acceso_grupo=count($na_areas->getUsersTareaGrupos($element['id_tarea'],$_SESSION['user_name']));
-		}
-	}
-  	if ($element['tarea_grupo']==0 or $acceso_grupo==1){
-  		$contador_tareas++;
-		echo '<div class="panel panel-default">
-			  <div class="panel-heading"><h4>'.$element['tarea_titulo'].'</h4></div>
-			  <div class="panel-body">
-			  <p>'.$element['tarea_descripcion'].'</p>';
-
-		echo '<a class="trigger-documentacion" href="#"><i class="fa fa-angle-double-right"></i> Documentación</a>
-				<div class="documentacion-tareas">';
-				documentosTarea($element['id_tarea']);
-		echo '</div>';
-		//SOLO SE PODRÁN SUBIR ARCHIVOS SI ES UNA TAREA DE SUBIDA DE FICHEROS
-		if ($element['tipo']=='fichero'){ 
-			if ($element['activa_links']==1){
-				$archivos = $na_areas->getTareasUser(" AND user_tarea='".$_SESSION['user_name']."' AND id_tarea=".$element['id_tarea']." AND id_area=".$id_area." ");
-				echo'<div><a target="_blank" href="docs/showfile.php?t=1&file='.$element['tarea_archivo'].'"><i class="fa fa-angle-double-right"></i> Descargar tarea</a></div>	
-					<div class="trigger-tarea"><a href="#"><i class="fa fa-angle-double-right"></i> Realizar tarea ('.count($archivos).')</a></div>		
-						<div class="form-tareas" id="subir-tarea-'.$element['id_tarea'].'">
-						    <form id="data-'.$element['id_tarea'].'" name="" action="" method="post" enctype="multipart/form-data" role="form">
-								<input type="hidden" name="id_tarea" value="'.$element['id_tarea'].'"/>
-								<input type="hidden" name="id_area" value="'.$id_area.'"/>
-								<input type="file" class="btn btn-default" name="nombre-fichero" id="nombre-fichero-'.$element['id_tarea'].'" title="Seleccionar archivo" /> 
-								<span id="fichero-comentario-alert-'.$element['id_tarea'].'" class="alert-message alert alert-danger"></span>
-								<button type="button" class="enviarButton btn btn-default btnfileTarea" id="'.$element['id_tarea'].'" name="'.$element['id_tarea'].'">Subir archivo</button>						
-							</form>
-						</div>';
+	$na_areas = new na_areas();
+	$contador_tareas = 0;
+	$elements = $na_areas->getTareas(" AND id_area=".$id_area." and activa=1 "); 
+	echo '<div class="row">';
+	foreach($elements as $element):
+		//VERIFICAR SI ES UNA TAREA PARA UN GRUPO Y SI EL USUARIO PERTENECE O NO AL GRUPO
+		$acceso_grupo = 1;
+		if ($_SESSION['user_perfil'] != 'admin' and $_SESSION['user_perfil'] != 'formador'){
+			if ($element['tarea_grupo'] == 1){
+				$acceso_grupo = count($na_areas->getUsersTareaGrupos($element['id_tarea'],$_SESSION['user_name']));
 			}
-			//PARA CADA TAREA SE OBTIENEN LOS FICHEROS SUBIDOS POR EL USUARIO
-			foreach($archivos as $archivo):
-				echo '<br /><a class="user-file text-muted" target="_blank" href="docs/showfile.php?t=1&file='.$archivo['file_tarea'].'">
-						<span class="fa fa-download"></span> subido el '.getDateFormat($archivo['fecha_tarea'], "SHORT").'</a>';
-			endforeach;
 		}
-		elseif ($element['tipo']=='formulario'){ 
-			echo'<p><a href="?page=areas_form&id='.$element['id_tarea'].'"><i class="fa fa-angle-double-right"></i> Acceder al formulario</a></p>';
+	  	if ($element['tarea_grupo'] == 0 or $acceso_grupo == 1){
+	  		$contador_tareas++;
+			echo '<div class="col-md-6"><div class="panel panel-default">
+				  <div class="panel-heading"><h3 class="panel-title">'.$element['tarea_titulo'].'</h3></div>
+				  <div class="panel-body">
+				  <p>'.$element['tarea_descripcion'].'</p>';
+
+			echo '<a class="trigger-documentacion" href="#"><i class="fa fa-angle-double-right"></i> Documentación</a>
+					<div class="documentacion-tareas">';
+					documentosTarea($element['id_tarea']);
+			echo '</div>';
+			//SOLO SE PODRÁN SUBIR ARCHIVOS SI ES UNA TAREA DE SUBIDA DE FICHEROS
+			if ($element['tipo'] == 'fichero'){ 
+				if ($element['activa_links'] == 1){
+					$archivos = $na_areas->getTareasUser(" AND user_tarea='".$_SESSION['user_name']."' AND id_tarea=".$element['id_tarea']." AND id_area=".$id_area." ");
+					echo'<div><a target="_blank" href="docs/showfile.php?t=1&file='.$element['tarea_archivo'].'"><i class="fa fa-angle-double-right"></i> Descargar tarea</a></div>	
+						<div class="trigger-tarea"><a href="#"><i class="fa fa-angle-double-right"></i> Realizar tarea ('.count($archivos).')</a></div>		
+							<div class="form-tareas" id="subir-tarea-'.$element['id_tarea'].'">
+								<form id="data-'.$element['id_tarea'].'" name="" action="" method="post" enctype="multipart/form-data" role="form">
+									<input type="hidden" name="id_tarea" value="'.$element['id_tarea'].'"/>
+									<input type="hidden" name="id_area" value="'.$id_area.'"/>
+									<input type="file" class="btn btn-default" name="nombre-fichero" id="nombre-fichero-'.$element['id_tarea'].'" title="Seleccionar archivo" /> 
+									<span id="fichero-comentario-alert-'.$element['id_tarea'].'" class="alert-message alert alert-danger"></span>
+									<button type="button" class="enviarButton btn btn-default btnfileTarea" id="'.$element['id_tarea'].'" name="'.$element['id_tarea'].'">Subir archivo</button>						
+								</form>
+							</div>';
+				}
+				//PARA CADA TAREA SE OBTIENEN LOS FICHEROS SUBIDOS POR EL USUARIO
+				foreach($archivos as $archivo):
+					echo '<br /><a class="user-file text-muted" target="_blank" href="docs/showfile.php?t=1&file='.$archivo['file_tarea'].'">
+							<span class="fa fa-download"></span> subido el '.getDateFormat($archivo['fecha_tarea'], "SHORT").'</a>';
+				endforeach;
+			}
+			elseif ($element['tipo']=='formulario'){ 
+				echo'<p><a href="?page=areas_form&id='.$element['id_tarea'].'"><i class="fa fa-angle-double-right"></i> Acceder al formulario</a></p>';
+			}
+
+			echo '</div></div>
+			</div>';
 		}
-
-
-		echo '</div></div>';
+	endforeach; 	
+	echo '</div>';
+	if ($contador_tareas==0){ 
+		//echo '<div class="alert alert-info"><i class="fa fa-info-circle"></i> No hay tareas activas.</div>';
 	}
-  endforeach; 	
-  if ($contador_tareas==0){ 
-  	//echo '<div class="alert alert-info"><i class="fa fa-info-circle"></i> No hay tareas activas.</div>';
-  }
 }
 
 function documentosTarea($id_tarea){

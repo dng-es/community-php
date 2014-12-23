@@ -692,9 +692,9 @@ function cleanUrl($url,$disallowed_params = array('PHPSESSID')) {
  * @param  mixed $column La columna de valores a devolver. Puede ser un interger o string
  * @return array         array de valores de la columna especificada
  */
-function arraycolumn($array, $column){
+function arraycolumn($array, $column, $index_key=null){
 	if (function_exists("array_column")){
-		return array_column($array, $column);
+		return array_column($array, $column, $index_key);
 	}
 	else{
 		$ret = array();

@@ -1,8 +1,3 @@
-<?php
-session::getFlashMessage( 'actions_message' ); 
-pagesController::deleteAction();
-$elements = pagesController::getListAction(8);
-?>
 <div class="row row-top">
 	<div class="col-md-9 inset">
 		<?php
@@ -12,6 +7,9 @@ $elements = pagesController::getListAction(8);
 			array("ItemLabel"=>strTranslate("Pages"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Pages_list"), "ItemClass"=>"active"),
 		));
+		session::getFlashMessage( 'actions_message' ); 
+		pagesController::deleteAction();
+		$elements = pagesController::getListAction(8);
 		?>
 		<ul class="nav nav-pills navbar-default">      
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>

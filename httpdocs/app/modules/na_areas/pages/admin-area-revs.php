@@ -86,8 +86,7 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 		$filtro.=" ORDER BY user_tarea";
 		$revisiones = $na_areas->getTareasUser($filtro); 
 		
-		echo '<h3>documentos enviados a la tarea</h3>';
-		echo '<p>pincha <a href="?page=admin-area-revs&t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
+		echo '<br /><p>pincha <a href="?page=admin-area-revs&t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
 
 		if (count($revisiones)==0){
 			echo '<div class="tareas-row">Los usuarios todavia no han enviado archivos para esta tarea.</div>';
@@ -106,7 +105,7 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 								\'?page=admin-area-revs&act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\')"';}
 								
 				echo '<tr>';      
-				echo '<td>a href="?page=mensajes&n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a>';  
+				echo '<td><a href="?page=mensajes&n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a> ';  
 				echo '<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a></td>';
 				echo '<td>('.getDateFormat($revision['fecha_tarea'], "DATE_TIME").')</td>';
 				echo '<td><a href="docs/showfile.php?t=1&file='.$revision['file_tarea'].'" target="_blank">descargar</a></td>';

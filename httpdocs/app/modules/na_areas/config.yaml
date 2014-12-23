@@ -2,6 +2,7 @@
 options:
     forums: true
     forums_per_page: 6
+    points_to_success: 7
 security:
     - 
         page: ^admin

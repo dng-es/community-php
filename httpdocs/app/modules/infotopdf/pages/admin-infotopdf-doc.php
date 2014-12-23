@@ -31,7 +31,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			<div class="panel-body">
 				<form id="formData" role="form" name="formData" method="post" enctype="multipart/form-data" action="?page=admin-infotopdf-doc&act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
 					<label>Titulo del documento:</label>
-					<input class="form-control" type="text" id="info_title" name="info_title" value="<?php echo $elements[0]['titulo_info'];?>" />
+					<input class="form-control form-big" type="text" id="info_title" name="info_title" value="<?php echo $elements[0]['titulo_info'];?>" />
 					<span id="title-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 					<label>Canal del documento:</label>
 					<select name="info_canal" id="info_canal" class="form-control">

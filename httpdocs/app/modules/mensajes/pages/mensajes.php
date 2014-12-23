@@ -26,7 +26,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 		<p><?php echo strTranslate("Mailing_messages");?>: <?php echo count($mensajes);?> (<?php echo strTranslate("Mailing_unread");?>: <span id="contador-no-leidos"><?php echo $contador_no_leidos;?></span>) | 
 		<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message");?></a> | <a href="?page=mensajes"><?php echo strTranslate("Refresh");?> <?php echo strtolower(strTranslate("Mailing_inbox"));?></a> | <a href="?page=mensajes_e"><?php echo strTranslate("Mailing_sent");?></a></p>
 		<div class="table-responsive container-min">
-			<table class="table">
+			<table class="table table-striped">
 			<?php foreach($mensajes as $mensaje):
 				if ($mensaje['estado']==0){$estilo_leido="MensajeNoLeido";$estilo_titulo="TituloNoleido ";}
 				else {$estilo_leido="";$estilo_titulo="";} ?>

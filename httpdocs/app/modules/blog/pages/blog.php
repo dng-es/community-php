@@ -119,7 +119,8 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-bell fa-stack-1x fa-inverse"></i>
 				</span>
-				También te puede interesar</h4><hr />';
+				También te puede interesar</h4>
+				<div class="row">';
 			$filtro_etiquetas = "";
 			$etiquetas = explode(",",$tema[0]['tipo_tema']);
 			foreach($etiquetas as $etiqueta):
@@ -129,11 +130,13 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 			$filtro_etiquetas = " AND (".$filtro_etiquetas.") AND id_tema<>".$tema[0]['id_tema']." ";
 			$elements = $foro->getTemas(" AND ocio=1 AND activo=1 ".$filtro_etiquetas." ORDER BY rand() DESC LIMIT 4 "); 
 			foreach($elements as $element):
-				echo '<div class="col-md-3">
-								<a href="?page=blog&id='.$element['id_tema'].'"><img style="width:100%" src="images/foro/'.$element['imagen_tema'].'" title="'.$element['nombre'].'" /></a><br />
-						<h5>'.$element['nombre'].'</h5>
+				echo '<div class="footer-section full-height">
+						<h4 class="ellipsis">'.$element['nombre'].'</h4>
+						<p class="text-primary"><small>'.getDateFormat($element['date_tema'], "LONG").'</small></p>
+						<a href="?page=blog&id='.$element['id_tema'].'"><img src="images/foro/'.$element['imagen_tema'].'" title="'.$element['nombre'].'" /></a><br />
 					</div>';
 			endforeach; 
+			echo '</div>';
 		}?>
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">

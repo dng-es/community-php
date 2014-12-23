@@ -28,19 +28,19 @@ jQuery(document).ready(function(){
 			resultado_ok=false;
 	   }
 
-	   if ($("#user-date").removeClass.val()!="" && esFechaValida($("#user-date").val())==false) {
+	   if ($("#user-date").removeClass("input-alert").val()!="" && esFechaValida($("#user-date").val())==false) {
 			$('#user-date').addClass("input-alert").attr("placeholder",$('#user-date').data("alert")).focus();
-			 resultado_ok=false;
+			resultado_ok=false;
 	   }
 
 	   if (jQuery.trim($("#user-pass").removeClass("input-alert").val())=="") {
 			$('#user-pass').addClass("input-alert").attr("placeholder",$('#user-pass').data("alert")).focus();
-			 resultado_ok=false;
+			resultado_ok=false;
 	   }
 
 	   if (jQuery.trim($("#user-repass").removeClass("input-alert").val())!=jQuery.trim($("#user-pass").val())) {
 	   		$('#user-repass').addClass("input-alert").attr("placeholder",$('#user-repass').data("alert")).focus();
-			 resultado_ok=false;
+			resultado_ok=false;
 	   }  	   		
 	
 	   return resultado_ok;

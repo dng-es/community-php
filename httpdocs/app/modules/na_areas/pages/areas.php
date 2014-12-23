@@ -30,9 +30,9 @@
 										// verificar que no se haya elcanzado el límite de usuarios
 										$total_users = connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." ");
 										if ($total_users < $element['limite_users']):
-											echo '<a href="?page=areas&id='.$element['id_area'].'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Inscribirse en el curso</a>';
+											echo '<a href="?page=areas&id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-pencil"></i> Inscribirse en el curso</a>';
 										else:
-											echo '<span class="btn btn-default btn-xs"><i class="fa fa-times"></i> Inscripción cerrada</span>';
+											echo '<span class="btn btn-default btn-xs pull-right"><i class="fa fa-times"></i> Inscripción cerrada</span>';
 										endif;
 									}
 								endif; ?>
