@@ -29,7 +29,6 @@ Para la creación de un entorno de desarrollo con <a target="_blank" href="https
 
 - GRUNT para la generación de ficheros CSS y JS (gruntfile.js esta en /bin)
 - La hoja de estilos .CSS esta creada con SASS y COMPASS (styles.scss)
-- Emplea Bootstrap v3.0.3 para la maquetación
 
 
 ### Librerias de terceros 
