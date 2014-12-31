@@ -115,47 +115,42 @@ addJavascripts(array("js/jquery.numeric.js",
 						<form role="form" id="formData" name="formData" method="post" action="?page=admin-area&act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
 							<input type="hidden" id="id_area" name="id_area" value="<?php echo $id;?>" />
 							<div class="row">
-								<div class="form-group col-md-12">
-									<label for="area_nombre"><?php echo strTranslate("Name");?>:</label>
-									<input class="form-control form-big" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"/>
-									<span id="nombre-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+								<div class="form-group col-md-12 nopadding">
+									<label for="area_nombre"><small><?php echo strTranslate("Name");?>:</small></label>
+									<input class="form-control form-big" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"  data-alert="<?php echo strTranslate("Required_field");?>" />
 								</div>
 							</div>
 
 							<div class="row">
-								<div class="form-group col-md-12">
-									<label for="area_descripcion"><?php echo strTranslate("Description");?>:</label>
-									<textarea class="form-control" id="area_descripcion" name="area_descripcion"><?php echo $area_descripcion;?></textarea>
-									<span id="descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+								<div class="form-group col-md-12 nopadding">
+									<label for="area_descripcion"><small><?php echo strTranslate("Description");?>:</small></label>
+									<textarea class="form-control" id="area_descripcion" name="area_descripcion" data-alert="<?php echo strTranslate("Required_field");?>"><?php echo $area_descripcion;?></textarea>
 								</div>
 							</div>
 							
 							<div class="row">
-								<div class="form-group col-md-4">
-									<label for="area_canal">Canal:</label>
-									<select id="area_canal" name="area_canal" class="form-control">
+								<div class="form-group col-md-4 nopadding">
+									<label for="area_canal"><small>Canal:</small></label>
+									<select id="area_canal" name="area_canal" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
 										<option value="">--selecciona el canal--</option>
 										<?php ComboCanales($area_canal);?>
 									</select>
-									<span id="canal-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 								</div>
 
-								<div class="form-group col-md-2">
-									<label for="area_puntos"><?php echo ucfirst(strTranslate("APP_points"));?>:</label>
-									<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" />
-									<span id="puntos-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+								<div class="form-group col-md-2 nopadding">
+									<label for="area_puntos"><small><?php echo ucfirst(strTranslate("APP_points"));?>:</small></label>
+									<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 								</div>  
 
-								<div class="form-group col-md-2">
-									<label for="area_limite">Límite de usuarios:</label>
-									<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" />
-									<span id="limite-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+								<div class="form-group col-md-2 nopadding">
+									<label for="area_limite"><small>Límite de usuarios:</small></label>
+									<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 								</div>  
 
 								<div class="form-group col-md-4">
 									<br />
 									<label checkbox-inline>
-										<input type="checkbox" id="area_registro"  name="area_registro" <?php echo $elements[0]['registro']==1 ? "checked" : "";?>> Permitir registro
+										<input type="checkbox" id="area_registro"  name="area_registro" <?php echo $elements[0]['registro']==1 ? "checked" : "";?>> <small>Permitir registro</small>
 									</label>
 								</div>                    
 							</div>
@@ -163,8 +158,8 @@ addJavascripts(array("js/jquery.numeric.js",
 							<div class="clearfix"></div>
 							<br />
 							<div class="row">
-								<div class="form-group col-md-12">
-									<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+								<div class="form-group col-md-12 nopadding">
+									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
 								</div>
 							</div>
 						</form>	

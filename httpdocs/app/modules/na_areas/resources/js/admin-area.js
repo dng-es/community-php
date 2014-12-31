@@ -17,38 +17,40 @@ jQuery(document).ready(function(){
 		createDialogTarea(id_tarea,desc_tarea,tit_tarea,trigger_edit);
 	});
 
-	$("#SubmitData").click(function(evento){  
-	   $(".alert-message").css("display","none");	   	      
-	   var form_ok=true;   
-		if (jQuery.trim($("#area_nombre").val())=="") {
-			 $("#nombre-alert").fadeIn().css("display","block");
-			 form_ok=false;
+	$("#formData").submit(function(evento){  	   	      
+	   var form_ok = true;   
+		if (jQuery.trim($("#area_nombre").removeClass("input-alert").val())=="") {
+			$('#area_nombre').addClass("input-alert").attr("placeholder",$('#area_nombre').data("alert")).focus();
+			 form_ok = false;
 		}
-		if (jQuery.trim($("#area_descripcion").val())=="") {
-			 $("#descripcion-alert").fadeIn().css("display","block");
-			 form_ok=false;
+		if (jQuery.trim($("#area_descripcion").removeClass("input-alert").val())=="") {
+			$('#area_descripcion').addClass("input-alert").attr("placeholder",$('#area_descripcion').data("alert")).focus();
+			 form_ok = false;
 		}
 
-		if (jQuery.trim($("#area_puntos").val())=="") {
-			 $("#puntos-alert").fadeIn().css("display","block");
-			 form_ok=false;
-		}		
-	
-		if (jQuery.trim($("#area_canal").val())=="") {
-			 $("#canal-alert").fadeIn().css("display","block");
-			 form_ok=false;
+		if (jQuery.trim($("#area_puntos").removeClass("input-alert").val())=="") {
+			$('#area_puntos').addClass("input-alert").attr("placeholder",$('#area_puntos').data("alert")).focus();
+			 form_ok = false;
 		}
-		if (form_ok) {
-			$("#formData").submit();
-		}		
+
+		if (jQuery.trim($("#area_limite").removeClass("input-alert").val())=="") {
+			$('#area_limite').addClass("input-alert").attr("placeholder",$('#area_limite').data("alert")).focus();
+			 form_ok = false;
+		}	
+	
+		if (jQuery.trim($("#area_canal").removeClass("input-alert").val())=="") {
+			$('#area_canal').addClass("input-alert").attr("placeholder",$('#area_canal').data("alert")).focus();
+			 form_ok = false;
+		}
+		return form_ok;
 	});
 
 	$("#SubmitGrupo").click(function(evento){  
 		$(".alert-message").css("display","none");	   	      
-		var form_ok=true;   
-		if (jQuery.trim($("#grupo_nombre").val())=="") {
+		var form_ok = true;   
+		if (jQuery.trim($("#grupo_nombre").val()) == "") {
 			 $("#grupo-alert").fadeIn().css("display","block");
-			 form_ok=false;
+			 form_ok = false;
 		}
 		if (form_ok) {
 			$("#formNewGrupo").submit();
@@ -57,18 +59,18 @@ jQuery(document).ready(function(){
 
 	$("#SubmitTarea").click(function(evento){  
 	   $(".alert-message").css("display","none");	   	      
-	   var form_ok=true;   
-		if (jQuery.trim($("#tarea_titulo").val())=="") {
+	   var form_ok = true;   
+		if (jQuery.trim($("#tarea_titulo").val()) == "") {
 			 $("#tarea-titulo-alert").fadeIn().css("display","block");
-			 form_ok=false;
+			 form_ok = false;
 		}
-		if (jQuery.trim($("#tarea_descripcion").val())=="") {
+		if (jQuery.trim($("#tarea_descripcion").val()) == "") {
 			 $("#tarea-descripcion-alert").fadeIn().css("display","block");
-			 form_ok=false;
+			 form_ok = false;
 		}	
-		if (jQuery.trim($("#fichero-tarea").val())=="" && $("#tipo:last").attr("checked")==true) {
+		if (jQuery.trim($("#fichero-tarea").val()) == "" && $("#tipo:last").attr("checked") == true) {
 			 $("#fichero-tarea-alert").fadeIn().css("display","block");
-			 form_ok=false;
+			 form_ok = false;
 		}	
 		if (form_ok) {
 			$("#formNewTarea").submit();

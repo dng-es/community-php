@@ -23,7 +23,7 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 		?>
 		<p>Cada una de tus aportaciones te ayudan a acumular puntos. ¿Cuántos puntos tienes?, ¿estás entre los primeros? descúbrelo en este ranking:</p><br />
 
-		<div class="row container-fade">
+<!-- 		<div class="row container-fade">
 			<?php for ($i=0;$i<=5;$i++){ ?>
 			<div class="col-md-2 inset">
 				<?php if (isset($puntos[$i])):
@@ -38,17 +38,17 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 				<?php endif; ?>
 			</div>
 			<?php } ?>
-		</div> 
+		</div>  -->
 		<div class="row">
 			<div class="col-md-12">
-				<br /><br />
+				<br />
 				<table class="table table-striped">
 					<?php
 					//LOS 10 PRIMEROS DEL RANKING
 					//$total_usuarios = connection::countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
 					//echo '	<p>Los mejores en el ranking, total de usuarios activos: '.$total_usuarios.'</p>';
 
-					for ($i=6;$i<=14;$i++){	
+					for ($i=0;$i<=14;$i++){	
 						if (isset($puntos[$i])):
 							$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg"); ?>
 							<tr>
@@ -56,7 +56,8 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 								<td width="50px"><img src="<?php echo $foto;?>" width="50px" height="50px" /></td>
 								<td>
 									<?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?>
-									<p class="text-muted"><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></p>
+									<p class="text-muted"><?php echo $puntos[$i]['nombre_tienda'];?><br />
+									<span><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></span></p>
 								</td>
 								<td><?php $puntos[$i]['nombre_tienda'];?></td>
 							</tr>

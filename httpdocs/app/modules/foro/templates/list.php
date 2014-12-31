@@ -18,16 +18,16 @@ function ForoList($sub_tema,$destino = "foro-comentarios")
 	else{$tipo_tema="";} ?>
 	
 	<div class="panel panel-default panel-comunidad" value="<?php echo $sub_tema['id_tema'];?>">
-		<div class="panel-body">
-			<h4><a href="?page=<?php echo $destino.'&id='.$sub_tema['id_tema'];?>"><?php echo $nombre;?></a></h4>
-			<p><?php echo $descripcion;?></p>
-		</div>
 		<div class="panel-footer">
+			<h4><a href="?page=<?php echo $destino.'&id='.$sub_tema['id_tema'];?>"><?php echo $nombre;?></a></h4>
 			<span class="fa fa-comment" title="comentarios en el foro"></span>
 			<span class="contador-foro-counter"><?php echo $num_comentarios;?></span> <?php echo strTranslate("Comments");?> 
 			<span class="fa fa-eye" title="visitas al foro"></span> 
 			<span class="contador-foro-counter"><?php echo $num_visitas;?></span> <?php echo strTranslate("Visits");?> 
 			<!--<span class="fa fa-tag"></span> Etiquetas: <?php echo $tipo_tema;?>-->
+		</div>
+		<div class="panel-body">
+			<p><?php echo $descripcion;?></p>
 		</div>
 	</div>
 <?php

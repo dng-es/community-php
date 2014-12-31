@@ -4,8 +4,10 @@ class usersTiendasController{
 	public static function getListAction($reg = 0, $filtro = ""){
 		$users = new users();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro = " AND nombre_tienda LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro = " AND nombre_tienda LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
+		if (isset($_POST['find_reg']) or isset($_REQUEST['f'])) {
+				$filtro = " AND nombre_tienda LIKE '%".$_POST['find_reg']."%' OR cod_tienda LIKE '%".$_POST['find_reg']."%' ";
+				$find_reg = (isset($_POST['find_reg']) ? $_POST['find_reg'] : $_REQUEST['f']);
+		}
 		$filtro .= " ORDER BY nombre_tienda";
 		$paginator_items = PaginatorPages($reg);
 		

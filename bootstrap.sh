@@ -2,18 +2,20 @@
 
 sudo yum update -y
 sudo yum install httpd -y
-#if ! [ -L /var/www ]; then
-#  sudo rm -rf /var/www
-#  sudo ln -fs /vagrant/httpdocs /var/www
-#fi
+if ! [ -L /var/www/html ]; then
+  sudo rm -rf /var/www/html
+  sudo ln -fs /vagrant/httpdocs /var/www/html
+fi
 
 #instalación MYSQL-SERVER
 sudo yum install mysql-server -y
 sudo service mysqld start
 if [ ! -f /var/log/databasesetup ];
 then
+    echo "CREATE USER 'comunidad'@'localhost' IDENTIFIED BY 'comunidad'" | mysql -u root
     echo "CREATE USER 'comunidad'@'%' IDENTIFIED BY 'comunidad'" | mysql -u root
     echo "CREATE DATABASE comunidad" | mysql -u root
+    echo "GRANT ALL ON comunidad.* TO 'comunidad'@'localhost'" | mysql -u root
     echo "GRANT ALL ON comunidad.* TO 'comunidad'@'%'" | mysql -u root
     echo "flush privileges" | mysql -u root
 
@@ -25,15 +27,10 @@ then
     fi
 fi
 
-
 # instalación PHP5
 sudo yum install php php-mysql -y
- 
  
 # iniciar servicios
 sudo service httpd start
 sudo service mysqld start
 sudo service iptables stop
-
-
-

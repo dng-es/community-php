@@ -387,6 +387,52 @@ class users{
 		return connection::execute_query($Sql);
 	}	
 
+	public function getUsuariosPerfilBaja($perfil, $campo){
+		$Sql="SELECT username, perfil 
+			FROM users WHERE perfil='".$perfil."' AND disabled=0 
+			AND username NOT IN (SELECT ".$campo." FROM users_tiendas WHERE activa=1) ";
+		return connection::getSQL($Sql); 
+	}
+
+	public function disableUsersTiendas($empresa){
+		$Sql="UPDATE users SET
+			 disabled=1,
+			 date_disabled=Now()
+			 WHERE empresa='".$empresa."' AND disabled=0 ";
+		return connection::execute_query($Sql);
+	}
+
+	public function updateJerarquiaUsers($username, $perfil, $empresa){
+		$Sql="UPDATE users SET
+			 perfil = '".$perfil."',
+			 empresa = '".$empresa."', 
+			 disabled=0 
+			 WHERE username='".$username."' ";
+		return connection::execute_query($Sql);
+	}	
+
+	public function insertTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa){
+		$Sql="INSERT INTO users_tiendas (cod_tienda, nombre_tienda, regional_tienda, responsable_tienda, tipo_tienda, direccion_tienda, cpostal_tienda, ciudad_tienda, provincia_tienda, telefono_tienda, email_tienda, activa) 
+			  VALUES ('".$cod_tienda."','".$nombre_tienda."','".$regional_tienda."','".$responsable_tienda."','".$tipo_tienda."','".$direccion_tienda."','". $cpostal_tienda."','". $ciudad_tienda."','". $provincia_tienda."','". $telefono_tienda."','". $email_tienda."',".$activa.")";
+		return connection::execute_query($Sql);
+	}
+
+	public function updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa){
+		$Sql="UPDATE users_tiendas SET 
+		nombre_tienda ='".$nombre_tienda."', 
+		regional_tienda ='".$regional_tienda."', 
+		responsable_tienda ='".$responsable_tienda."', 
+		tipo_tienda ='".$tipo_tienda."',
+		direccion_tienda = '".$direccion_tienda."',
+		cpostal_tienda = '".$cpostal_tienda."',
+		ciudad_tienda = '".$ciudad_tienda."',
+		provincia_tienda = '".$provincia_tienda."',
+		telefono_tienda = '".$telefono_tienda."',
+		email_tienda = '".$email_tienda."',		 
+		activa = ".$activa." 
+		WHERE cod_tienda='".$cod_tienda."'";
+		return connection::execute_query($Sql);
+	}
 	/////////////////////////////////////////////////////////////
 	/// FUNCIONES DE PERMISOS
 	/////////////////////////////////////////////////////////////
@@ -414,6 +460,6 @@ class users{
 		$Sql="DELETE FROM users_permissions  
 			WHERE username='".$username."' AND pagename='".$pagename."' AND permission_type='".$permission_type."' ";
 		return connection::execute_query($Sql); 
-	}		
+	}
 }
 ?>

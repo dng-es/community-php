@@ -1,23 +1,23 @@
 ﻿/*
  * CKFinder
  * ========
- * http://ckfinder.com
- * Copyright (C) 2007-2010, CKSource - Frederico Knabben. All rights reserved.
+ * http://cksource.com/ckfinder
+ * Copyright (C) 2007-2014, CKSource - Frederico Knabben. All rights reserved.
  *
- * The software, this file and its contents are subject to the CKFinder
+ * The software, this file, and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
- * modifying or distribute this file or part of its contents. The contents of
+ * modifying, or distributing this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  *
  */
 
 /**
- * @fileOverview Defines the {@link CKFinder.lang} object, for the Italian
- *		language. This is the base file for all translations.
-*/
+ * @fileOverview Defines the {@link CKFinder.lang} object for the Italian
+ *		language.
+ */
 
 /**
- * Constains the dictionary of language entries.
+ * Contains the dictionary of language entries.
  * @namespace
  */
 CKFinder.lang['it'] =
@@ -28,22 +28,23 @@ CKFinder.lang['it'] =
 	common :
 	{
 		// Put the voice-only part of the label in the span.
-		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>', // MISSING
-		confirmCancel	: 'Some of the options have been changed. Are you sure to close the dialog?', // MISSING
+		unavailable		: '%1<span class="cke_accessibility">, non disponibile</span>',
+		confirmCancel	: 'Alcune delle opzioni sono state cambiate. Sei sicuro di voler chiudere la finestra di dialogo?',
 		ok				: 'OK',
 		cancel			: 'Annulla',
-		confirmationTitle	: 'Confirmation', // MISSING
-		messageTitle	: 'Information', // MISSING
-		inputTitle		: 'Question', // MISSING
+		confirmationTitle	: 'Confermare',
+		messageTitle	: 'Informazione',
+		inputTitle		: 'Domanda',
 		undo			: 'Annulla',
 		redo			: 'Ripristina',
-		skip			: 'Skip', // MISSING
-		skipAll			: 'Skip all', // MISSING
-		makeDecision	: 'What action should be taken?', // MISSING
-		rememberDecision: 'Remember my decision' // MISSING
+		skip			: 'Ignora',
+		skipAll			: 'Ignora tutti',
+		makeDecision	: 'Che azione prendere?',
+		rememberDecision: 'Ricorda mia decisione'
 	},
 
 
+	// Language direction, 'ltr' or 'rtl'.
 	dir : 'ltr',
 	HelpLang : 'en',
 	LangCode : 'it',
@@ -74,31 +75,41 @@ CKFinder.lang['it'] =
 	FolderDelete	: 'Se sicuro di voler eliminare la cartella "%1"?',
 	FolderRenaming	: ' (Rinominando...)',
 	FolderDeleting	: ' (Eliminando...)',
+	DestinationFolder	: 'Cartella di destinazione',
 
 	// Files
 	FileRename		: 'Nuovo nome del file: ',
-	FileRenameExt	: 'Sei sicure di voler cambiare la estensione del file? Il file può risultare inusabile',
+	FileRenameExt	: 'Sei sicure di voler cambiare l\'estensione del file? Il file può risultare inutilizzabile.',
 	FileRenaming	: 'Rinominando...',
 	FileDelete		: 'Sei sicuro di voler eliminare il file "%1"?',
+	FilesDelete	: 'Sei sicuro di voler eliminare %1 file?',
 	FilesLoading	: 'Caricamento in corso...',
 	FilesEmpty		: 'Cartella vuota',
-	FilesMoved		: 'File %1 moved into %2:%3', // MISSING
-	FilesCopied		: 'File %1 copied into %2:%3', // MISSING
+	DestinationFile	: 'File di destinazione',
+	SkippedFiles	: 'Elenco file trascurati:',
 
 	// Basket
-	BasketFolder		: 'Basket', // MISSING
-	BasketClear			: 'Clear Basket', // MISSING
-	BasketRemove		: 'Remove from basket', // MISSING
-	BasketOpenFolder	: 'Open parent folder', // MISSING
-	BasketTruncateConfirm : 'Do you really want to remove all files from the basket?', // MISSING
-	BasketRemoveConfirm	: 'Do you really want to remove the file "%1" from the basket?', // MISSING
-	BasketEmpty			: 'No files in the basket, drag\'n\'drop some.', // MISSING
-	BasketCopyFilesHere	: 'Copy Files from Basket', // MISSING
-	BasketMoveFilesHere	: 'Move Files from Basket', // MISSING
+	BasketFolder		: 'Cestino',
+	BasketClear			: 'Svuota cestino',
+	BasketRemove		: 'Rimuove dal cestino',
+	BasketOpenFolder	: 'Apri cartella superiore',
+	BasketTruncateConfirm : 'Sei sicuro di voler svuotare il cestino?',
+	BasketRemoveConfirm	: 'Sei sicuro di voler rimuovere il file "%1" dal cestino?',
+	BasketRemoveConfirmMultiple	: 'Sei sicuro di voler rimuovere %1 file dal cestino?',
+	BasketEmpty			: 'Cestino vuoto, trascinare prima almeno un file.',
+	BasketCopyFilesHere	: 'Copia i file dal cestino',
+	BasketMoveFilesHere	: 'Muovi i file dal cestino',
 
-	BasketPasteErrorOther	: 'File %s error: %e', // MISSING
-	BasketPasteMoveSuccess	: 'The following files were moved: %s', // MISSING
-	BasketPasteCopySuccess	: 'The following files were copied: %s', // MISSING
+	// Global messages
+	OperationCompletedSuccess	: 'Operazione completata con successo.',
+	OperationCompletedErrors		: 'Operazione completata con errori.',
+	FileError				: '%s: %e', // MISSING
+
+	// Move and Copy files
+	MovedFilesNumber		: 'Numero di file spostati: %s.',
+	CopiedFilesNumber	: 'Numero di file copiati: %s.',
+	MoveFailedList		: 'I seguenti file non hanno potuto essere spostati:<br />%s',
+	CopyFailedList		: 'I seguenti file non hanno potuto essere copiati:<br />%s',
 
 	// Toolbar Buttons (some used elsewhere)
 	Upload		: 'Upload',
@@ -117,22 +128,24 @@ CKFinder.lang['it'] =
 	NewSubFolder	: 'Nuova Sottocartella',
 	Rename			: 'Rinomina',
 	Delete			: 'Elimina',
+	DeleteFiles		: 'Elimina i file',
 
-	CopyDragDrop	: 'Copia file qui',
-	MoveDragDrop	: 'Muove file qui',
+	CopyDragDrop	: 'Copia qui',
+	MoveDragDrop	: 'Sposta qui',
 
 	// Dialogs
 	RenameDlgTitle		: 'Rinomina',
 	NewNameDlgTitle		: 'Nuovo nome',
-	FileExistsDlgTitle	: 'Il file già esiste',
-	SysErrorDlgTitle : 'System error', // MISSING
+	FileExistsDlgTitle	: 'File già esistente',
+	SysErrorDlgTitle : 'Errore di Sistema',
 
-	FileOverwrite	: 'Sovrascrivere',
+	FileOverwrite	: 'Sovrascrivi',
 	FileAutorename	: 'Rinomina automaticamente',
+	ManuallyRename	: 'Rinomina manualmente',
 
 	// Generic
 	OkBtn		: 'OK',
-	CancelBtn	: 'Anulla',
+	CancelBtn	: 'Annulla',
 	CloseBtn	: 'Chiudi',
 
 	// Upload Panel
@@ -143,10 +156,23 @@ CKFinder.lang['it'] =
 	UploadBtnCancel		: 'Annulla',
 
 	UploadNoFileMsg		: 'Seleziona il file da caricare',
-	UploadNoFolder		: 'Seleziona il file prima di caricare.',
+	UploadNoFolder		: 'Seleziona la cartella prima di caricare.',
 	UploadNoPerms		: 'Non è permesso il caricamento di file.',
-	UploadUnknError		: 'Error sending the file.', // MISSING
+	UploadUnknError		: 'Errore nel caricamento del file.',
 	UploadExtIncorrect	: 'In questa cartella non sono permessi file con questa estensione.',
+
+	// Flash Uploads
+	UploadLabel			: 'File da caricare',
+	UploadTotalFiles	: 'File:',
+	UploadTotalSize		: 'Dimensione:',
+	UploadSend			: 'Upload',
+	UploadAddFiles		: 'Aggiungi file',
+	UploadClearFiles	: 'Elimina file',
+	UploadCancel		: 'Annulla il caricamento',
+	UploadRemove		: 'Rimuovi',
+	UploadRemoveTip		: 'Rimuove !f',
+	UploadUploaded		: '!n% caricato',
+	UploadProcessing	: 'Attendere...',
 
 	// Settings Panel
 	SetTitle		: 'Configurazioni',
@@ -154,13 +180,14 @@ CKFinder.lang['it'] =
 	SetViewThumb	: 'Anteprima',
 	SetViewList		: 'Lista',
 	SetDisplay		: 'Informazioni:',
-	SetDisplayName	: 'Nome del File',
+	SetDisplayName	: 'Nome del file',
 	SetDisplayDate	: 'Data',
 	SetDisplaySize	: 'Dimensione',
 	SetSort			: 'Ordina:',
 	SetSortName		: 'per Nome',
 	SetSortDate		: 'per Data',
 	SetSortSize		: 'per Dimensione',
+	SetSortExtension		: 'per Estensione',
 
 	// Status Bar
 	FilesCountEmpty : '<Nessun file>',
@@ -168,72 +195,82 @@ CKFinder.lang['it'] =
 	FilesCountMany	: '%1 file',
 
 	// Size and Speed
-	Kb				: '%1 kB',
-	KbPerSecond		: '%1 kB/s',
+	Kb				: '%1 KB',
+	Mb				: '%1 MB',
+	Gb				: '%1 GB',
+	SizePerSecond	: '%1/s',
 
 	// Connector Error Messages.
 	ErrorUnknown	: 'Impossibile completare la richiesta. (Errore %1)',
 	Errors :
 	{
-	 10 : 'Commando non valido.',
+	 10 : 'Comando non valido.',
 	 11 : 'Il tipo di risorsa non è stato specificato nella richiesta.',
 	 12 : 'Il tipo di risorsa richiesto non è valido.',
 	102 : 'Nome di file o cartella non valido.',
-	103 : 'Non è stato possibile completare la richiesta a causa di restrizioni di autorizazione.',
+	103 : 'Non è stato possibile completare la richiesta a causa di restrizioni di autorizzazione.',
 	104 : 'Non è stato possibile completare la richiesta a causa di restrizioni nei permessi del file system.',
 	105 : 'L\'estensione del file non è valida.',
-	109 : 'Richiesta invalida.',
+	109 : 'Richiesta non valida.',
 	110 : 'Errore sconosciuto.',
+	111 : 'È stato impossibile completare la richiesta a causa della dimensione finale del file.',
 	115 : 'Un file o cartella con lo stesso nome è già esistente.',
-	116 : 'Cartella non trovata. Prego aggiornare e riprovare.',
-	117 : 'File non trovato. Prego aggirnare la lista dei file e riprovare.',
-	118 : 'Source and target paths are equal.', // MISSING
-	201 : 'Un file con lo stesso nome è già disponibile. Il file caricato è stato rinominato in "%1".',
-	202 : 'File invalido',
+	116 : 'Cartella non trovata. Aggiornare e riprovare.',
+	117 : 'File non trovato. Aggiornare la lista dei file e riprovare.',
+	118 : 'I percorsi di origine e di destinazione sono uguali.',
+	201 : 'Un file con lo stesso nome è già presente. Il file caricato è stato rinominato in "%1".',
+	202 : 'File invalido.',
 	203 : 'File invalido. La dimensione del file eccede i limiti del sistema.',
 	204 : 'Il file caricato è corrotto.',
-	205 : 'Il folder temporario non è disponibile new server.',
-	206 : 'Upload annullato per motivi di sicurezza. Il file contiene dati in formatto HTML.',
-	207 : 'El fichero subido ha sido renombrado como "%1"',
-	300 : 'Moving file(s) failed.', // MISSING
-	301 : 'Copying file(s) failed.', // MISSING
-	500 : 'Questo programma è disabilitato per motivi di sicurezza. Prego contattare l\'amministratore del sistema e verificare le configurazioni di CKFinder.',
+	205 : 'Directory temporanea non disponibile sul server.',
+	206 : 'Caricamento annullato per motivi di sicurezza. Il file contiene dati in formato HTML.',
+	207 : 'Il file caricato è stato rinominato in "%1".',
+	300 : 'Non è stato possibile muovere i file.',
+	301 : 'Non è stato possibile copiare i file.',
+	500 : 'Questo programma è disabilitato per motivi di sicurezza. Contattare l\'amministratore del sistema e verificare le configurazioni di CKFinder.',
 	501 : 'Il supporto alle anteprime non è attivo.'
 	},
 
 	// Other Error Messages.
 	ErrorMsg :
 	{
-		FileEmpty		: 'Il nome del file non può essere vuoto',
-		FileExists		: 'File %s already exists', // MISSING
-		FolderEmpty		: 'Il nome della cartella non può essere vuoto',
+		FileEmpty		: 'Il nome del file non può essere vuoto.',
+		FileExists		: 'File %s già esistente.',
+		FolderEmpty		: 'Il nome della cartella non può essere vuoto.',
+		FolderExists	: 'Cartella %s già esistente.',
+		FolderNameExists	: 'Cartella già esistente.',
 
 		FileInvChar		: 'I seguenti caratteri non possono essere usati per comporre il nome del file: \n\\ / : * ? " < > |',
 		FolderInvChar	: 'I seguenti caratteri non possono essere usati per comporre il nome della cartella: \n\\ / : * ? " < > |',
 
-		PopupBlockView	: 'Non è stato possile aprire il file in una nuova finestra. Prego configurare il browser e disabilitare i blocchi delle popup.'
+		PopupBlockView	: 'Non è stato possile aprire il file in una nuova finestra. Configurare il browser e disabilitare il blocco delle popup.',
+		XmlError		: 'Non è stato possibile caricare la risposta XML dal server.',
+		XmlEmpty		: 'Non è stato possibile caricare la risposta XML dal server. La risposta è vuota.',
+		XmlRawResponse	: 'Risposta originale inviata dal server: %s'
 	},
 
 	// Imageresize plugin
 	Imageresize :
 	{
 		dialogTitle		: 'Ridimensiona %s',
-		sizeTooBig		: 'Cannot set image height or width to a value bigger than the original size (%size).', // MISSING
-		resizeSuccess	: 'Image resized successfully.', // MISSING
-		thumbnailNew	: 'Create new thumbnail', // MISSING
+		sizeTooBig		: 'Non è possibile usare valori di altezza e larghezza maggiori delle dimensioni originali (%size).',
+		resizeSuccess	: 'Immagine ridimensionata.',
+		thumbnailNew	: 'Crea una nuova thumbnail',
 		thumbnailSmall	: 'Piccolo (%s)',
 		thumbnailMedium	: 'Medio (%s)',
 		thumbnailLarge	: 'Grande (%s)',
 		newSize			: 'Nuove dimensioni',
 		width			: 'Larghezza',
 		height			: 'Altezza',
-		invalidHeight	: 'Invalid height.', // MISSING
-		invalidWidth	: 'Invalid width.', // MISSING
-		invalidName		: 'Invalid file name.', // MISSING
+		invalidHeight	: 'Altezza non valida.',
+		invalidWidth	: 'Larghezza non valida.',
+		invalidName		: 'Nome del file non valido.',
 		newImage		: 'Crea nuova immagine',
 		noExtensionChange : 'L\'estensione del file non può essere cambiata.',
-		imageSmall		: 'Source image is too small', // MISSING
-		contextMenuName	: 'Ridimensiona'
+		imageSmall		: 'L\'immagine originale è molto piccola.',
+		contextMenuName	: 'Ridimensiona',
+		lockRatio		: 'Blocca rapporto',
+		resetSize		: 'Reimposta dimensione'
 	},
 
 	// Fileeditor plugin
@@ -241,8 +278,35 @@ CKFinder.lang['it'] =
 	{
 		save			: 'Salva',
 		fileOpenError	: 'Non è stato possibile aprire il file.',
-		fileSaveSuccess	: 'File saved successfully.', // MISSING
+		fileSaveSuccess	: 'File salvato.',
 		contextMenuName	: 'Modifica',
 		loadingFile		: 'Attendere prego. Caricamento del file in corso...'
+	},
+
+	Maximize :
+	{
+		maximize : 'Massimizza',
+		minimize : 'Minimizza'
+	},
+
+	Gallery :
+	{
+		current : 'Immagine {current} di {total}'
+	},
+
+	Zip :
+	{
+		extractHereLabel	: 'Estrai qui',
+		extractToLabel		: 'Estrai come...',
+		downloadZipLabel	: 'Scarica come zip',
+		compressZipLabel	: 'Compremi in zip',
+		removeAndExtract	: 'Rimuovi esistente ed estrai',
+		extractAndOverwrite	: 'Estrai sovrascrivendo file esistenti',
+		extractSuccess		: 'File estratto con successo.'
+	},
+
+	Search :
+	{
+		searchPlaceholder : 'Ricerca'
 	}
 };

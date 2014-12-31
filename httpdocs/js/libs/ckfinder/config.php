@@ -184,6 +184,12 @@ maxSize is defined in bytes, but shorthand notation may be also used.
 Available options are: G, M, K (case insensitive).
 1M equals 1048576 bytes (one Megabyte), 1K equals 1024 bytes (one Kilobyte), 1G equals one Gigabyte.
 Example: 'maxSize' => "8M",
+
+==============================================================================
+ATTENTION: Flash files with `swf' extension, just like HTML files, can be used
+to execute JavaScript code and to e.g. perform an XSS attack. Grant permission
+to upload `.swf` files only if you understand and can accept this risk.
+==============================================================================
 */
 $config['DefaultResourceTypes'] = '';
 
@@ -199,8 +205,8 @@ $config['ResourceType'][] = Array(
 		'name' => 'Images',
 		'url' => $baseUrl . 'images',
 		'directory' => $baseDir . 'images',
-		'maxSize' => "16M",
-		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png,avi,iso,mp3',
+		'maxSize' => 0,
+		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
 		'deniedExtensions' => '');
 
 $config['ResourceType'][] = Array(
@@ -232,6 +238,13 @@ checked, not only the last part. In this way, uploading foo.php.rar would be
 denied, because "php" is on the denied extensions list.
 */
 $config['CheckDoubleExtension'] = true;
+
+/*
+Increases the security on an IIS web server.
+If enabled, CKFinder will disallow creating folders and uploading files whose names contain characters
+that are not safe under an IIS web server.
+*/
+$config['DisallowUnsafeCharacters'] = false;
 
 /*
 If you have iconv enabled (visit http://php.net/iconv for more information),
@@ -267,8 +280,9 @@ $config['HtmlExtensions'] = array('html', 'htm', 'xml', 'js');
 Folders to not display in CKFinder, no matter their location.
 No paths are accepted, only the folder name.
 The * and ? wildcards are accepted.
+".*" disallows the creation of folders starting with a dot character.
 */
-$config['HideFolders'] = Array(".svn", "CVS");
+$config['HideFolders'] = Array(".*", "CVS");
 
 /*
 Files to not display in CKFinder, no matter their location.
@@ -299,9 +313,23 @@ will be automatically converted to ASCII letters.
 */
 $config['ForceAscii'] = false;
 
+/*
+Send files using X-Sendfile module
+Mod X-Sendfile (or similar) is avalible on Apache2, Nginx, Cherokee, Lighttpd
+
+Enabling X-Sendfile option can potentially cause security issue.
+ - server path to the file may be send to the browser with X-Sendfile header
+ - if server is not configured properly files will be send with 0 length
+
+For more complex configuration options visit our Developer's Guide
+  http://docs.cksource.com/CKFinder_2.x/Developers_Guide/PHP
+*/
+$config['XSendfile'] = false;
+
 
 include_once "plugins/imageresize/plugin.php";
 include_once "plugins/fileeditor/plugin.php";
+include_once "plugins/zip/plugin.php";
 
 $config['plugin_imageresize']['smallThumb'] = '90x90';
 $config['plugin_imageresize']['mediumThumb'] = '120x120';

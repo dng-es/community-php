@@ -12,54 +12,38 @@ jQuery(document).ready(function(){
 		else{
 			$(this).next().val("0");
 		}
-	})
+	});	
 
 	$("#formData").submit(function(evento){  
-	   $(".alert-message").html("").css("display","none");	   	   
-	   
-	   var form_ok=true;   
-		if (jQuery.trim($("#username").val())=="") {
+		var form_ok=true;   
+		if (jQuery.trim($("#username").removeClass("input-alert").val()) == "") {
 			form_ok=false;
-			$("#user-alert").html("Debes insertar algo de texto.")
-			 				 .fadeIn()
-			 				 .css("display","block");
+			$("#username").addClass("input-alert").attr("placeholder",$('#username').data("alert")).focus();
 		}
-		if (jQuery.trim($("#user_password").val())=="") {
+		if (jQuery.trim($("#user_password").removeClass("input-alert").val()) == "") {
 			form_ok=false;
-			$("#pass-alert").html("Debes insertar algo de texto.")
-			 				 .fadeIn()
-			 				 .css("display","block");
+			$("#user_password").addClass("input-alert").attr("placeholder",$('#user_password').data("alert")).focus();
 		}
-		if (jQuery.trim($("#perfil_user").val())=="") {
+		if (jQuery.trim($("#perfil_user").removeClass("input-alert").val()) == "") {
 			form_ok=false;
-			$("#perfil-alert").html("Debes seleccionar un perfil.")
-			 				   .fadeIn()
-			 				   .css("display","block");
+			$("#perfil_user").addClass("input-alert").attr("placeholder",$('#perfil_user').data("alert")).focus();
 		}
 		
-		if (jQuery.trim($("#canal_user").val())=="" && ($("#perfil_user").val()=="usuario" || $("#perfil_user").val()=='responsable' )) {
+		if (jQuery.trim($("#canal_user").removeClass("input-alert").val()) == "" && ($("#perfil_user").val()=="usuario" || $("#perfil_user").val()=='responsable' )) {
 			form_ok=false;
-			$("#canal-alert").html("Debes seleccionar un canal.")
-			 				  .fadeIn()
-			 				  .css("display","block");
+			$("#canal_user").addClass("input-alert").attr("placeholder",$('#canal_user').data("alert")).focus();
 		}
-		if (jQuery.trim($("#empresa_user").val())=="") {
+		if (jQuery.trim($("#empresa_user").removeClass("input-alert").val())=="") {
 			form_ok=false;
-			$("#empresa-alert").html("Debes seleccionar un centro.")
-			 				   .fadeIn()
-			 				   .css("display","block");
+			$("#empresa_user").addClass("input-alert").attr("placeholder",$('#empresa_user').data("alert")).focus();
 		}	
-		if (jQuery.trim($("#name_user").val())=="") {
+		if (jQuery.trim($("#name_user").removeClass("input-alert").val())=="") {
 			form_ok=false;
-			$("#nombre-alert").html("Debes insertar algo de texto.")
-			 				   .fadeIn()
-			 				   .css("display","block");
+			$("#name_user").addClass("input-alert").attr("placeholder",$('#name_user').data("alert")).focus();
 		}	
-		if (validateEmail($("#email_user").val())==false){
+		if (validateEmail($("#email_user").removeClass("input-alert").val())==false){
 			form_ok=false;
-			$("#email-alert").html("Debes introducir un email válido.")
-			 				  .fadeIn()
-			 				  .css("display","block");
+			$("#email_user").addClass("input-alert").attr("placeholder",$('#email_user').data("alert")).focus();
 	    }
 		
 		return form_ok;		

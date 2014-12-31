@@ -40,7 +40,8 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 
 			<label for="nombre" class="sr-only">Título de la entrada:</label>
 			<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo $nombre;?>" placeholder="título de la entrada" />
-			<label for="descripcion">Cuerpo de la entrada:</label>
+			<br />
+			<label for="descripcion" class="sr-only">Cuerpo de la entrada:</label>
 			<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>
 			<script type="text/javascript">
 
@@ -50,7 +51,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			</script>
 			
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3 nopadding">
 			<div class="panel panel-default">
 				<div class="panel-heading">Entrada en el blog</div>
 				<div class="panel-body">
@@ -85,7 +86,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 				<div class="panel-body">
 					<p>Introduce las etiquetas de la entrada:</p>
 					<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="<?php echo $tipo_tema;?>" />
-					Etiquetas existentes: 
+					<br /><span class="text-muted">Etiquetas existentes: </span>
 					<?php
 						$foro = new foro();
 						$categorias = $foro->getCategorias(" AND ocio=1 ");

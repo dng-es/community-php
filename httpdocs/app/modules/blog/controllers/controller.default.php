@@ -33,6 +33,53 @@ class blogController{
 			}
 			redirectURL("?page=admin-blog-new&id=".$_POST['id']);
 		}
+	}
+
+	public static function get_resume($post){
+		$resume_array = self::get_extended($post);
+		if (strlen($resume_array['extended'])>0){
+			$resume = $resume_array['main'];
+		}
+		else{
+			$resume = strip_tags($post);
+			if (strlen($resume)>400) {$resume = substr($resume,0,400)."...";}
+		}
+		return $resume;
+	}
+
+	/**
+	 * WordPress - Get extended entry info (<!--more-->).
+	 *
+	 * There should not be any space after the second dash and before the word
+	 * 'more'. There can be text or space(s) after the word 'more', but won't be
+	 * referenced.
+	 *
+	 * The returned array has 'main', 'extended', and 'more_text' keys. Main has the text before
+	 * the <code><!--more--></code>. The 'extended' key has the content after the
+	 * <code><!--more--></code> comment. The 'more_text' key has the custom "Read More" text.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $post Post content.
+	 * @return array Post before ('main'), after ('extended'), and custom readmore ('more_text').
+	 */
+	public static function get_extended($post) {
+		//Match the new style more links
+		if ( preg_match('/<!--more(.*?)?-->/', $post, $matches) ) {
+			list($main, $extended) = explode($matches[0], $post, 2);
+			$more_text = $matches[1];
+		} else {
+			$main = $post;
+			$extended = '';
+			$more_text = '';
+		}
+
+		// ` leading and trailing whitespace
+		$main = preg_replace('/^[\s]*(.*)[\s]*$/', '\\1', $main);
+		$extended = preg_replace('/^[\s]*(.*)[\s]*$/', '\\1', $extended);
+		$more_text = preg_replace('/^[\s]*(.*)[\s]*$/', '\\1', $more_text);
+
+		return array( 'main' => $main, 'extended' => $extended, 'more_text' => $more_text );
 	}			
 }
 ?>

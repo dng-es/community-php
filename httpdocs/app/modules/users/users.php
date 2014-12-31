@@ -57,6 +57,14 @@ class usersCore{
 				"LabelPos" => 4,
 			)),
 			menu::addAdminMenu(array(
+				"PageName" => "admin-cargas-tiendas",
+				"LabelHeader" => "Tools",
+				"LabelSection" => strTranslate("Users"),
+				"LabelItem" => strTranslate("Groups_import"),
+				"LabelUrl" => "admin-cargas-tiendas",
+				"LabelPos" => 5,
+			)),
+			menu::addAdminMenu(array(
 				"PageName" => "admin-informe-puntuaciones",
 				"LabelHeader" => "Tools",
 				"LabelSection" => strTranslate("Reports"),

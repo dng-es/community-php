@@ -9,6 +9,8 @@ $KEYWORDS_META_PAGE =  'usuarios, palabras clave';
 $SUBJECT_META_PAGE = strTranslate("Users_list");
 $TITLE_META_PAGE = strTranslate("Users_list");
 
+addJavascripts(array(getAsset("users")."js/connect-as.js"));
+
 session::getFlashMessage( 'actions_message' ); 
 usersController::deleteAction();
 $elements = usersController::getListAction(35);
@@ -44,6 +46,7 @@ $elements = usersController::getListAction(35);
 				<th>Email</th>
 				<th><?php echo strTranslate("Confirmed");?></th>
 				<th><?php echo strTranslate("Disabled");?></th>
+				<th width="40px"></th>
 				</tr>	
 				<?php foreach($elements['items'] as $element):?>
 					<tr>
@@ -61,6 +64,7 @@ $elements = usersController::getListAction(35);
 					<td><?php echo $element['email'];?></td>
 					<td><span class="label<?php echo ($element['confirmed']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['confirmed']==1 ? "Sí" : "No");?></span></td>
 					<td><span class="label<?php echo ($element['disabled']==1 ? " label-danger" : " label-success");?>"><?php echo ($element['disabled']==0 ? "No" : "Sí");?></span></td>
+					<td><button type="button" class="btn btn-default btn-xs connect-as" title="<?php echo strTranslate("Connect_as");?>" data-u="<?php echo $element['username'];?>" data-p="<?php echo $element['user_password'];?>"><i class="fa fa-plug"></i></button></td>
 					</tr>  
 				<?php endforeach; ?>
 			</table>
