@@ -1,7 +1,7 @@
 # Community-php 
 > Comunidad de usuarios php5 y mysql. Ver módulos en app/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
-Se emplea SASS y Compass para la generación de hojas de estilos y GruntJs para unir y minificar ficheros *.css y *.js.
+> Se emplea SASS y Compass para la generación de hojas de estilos y GruntJs para unir y minificar ficheros *.css y *.js.
 
 * [Instalación] (#instalacion)
 * [Entorno desarrollo] (#entorno-desarrollo)
