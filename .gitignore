@@ -11,6 +11,7 @@ images/usuarios/*.*
 images/mailing/*
 images/banners/*.*
 /.project
+/.vagrant
 css/.sass-cache
 bin/.sass-cache
 bin/npm-debug.log
