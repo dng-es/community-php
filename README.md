@@ -2,6 +2,7 @@
 > Comunidad de usuarios php5 y mysql. Ver módulos en app/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
 * [Instalación] (#instalación)
+* [Entorno desarrollo] (#entorno-desarrollo)
 * [Estructura de archivos y directorios] (#estructura-de-archivos-y-directorios)
 * [Herramienta console] (#herramienta-console)
 * [Idiomas] (#idiomas)
@@ -15,6 +16,9 @@ Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto
 - Establecer configuración CKFinder: modificar $baseUrl y $baseDir en js/libs/CKFinder/config.php
 - Establecer configuración de la comunidad desde el panel de administración->Datos generales
 
+
+## Instalación
+Para la creación de un entorno de desarrollo con <a target="_blank" href="https://www.vagrantup.com/">Vagrant</a> emplear los archivos Vagrant y bootstrap.sh. Configurar correctamente rutas necesarias, ver <a href="#instalación">instalación</a>.
 
 ### Requisitos y dependencias
 - PHP 5.3 o superior.
