@@ -17,7 +17,7 @@ Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto
 - Establecer configuración de la comunidad desde el panel de administración->Datos generales
 
 
-## Instalación
+## Entorno desarrollo
 Para la creación de un entorno de desarrollo con <a target="_blank" href="https://www.vagrantup.com/">Vagrant</a> emplear los archivos Vagrant y bootstrap.sh. Configurar correctamente rutas necesarias, ver <a href="#instalación">instalación</a>.
 
 ### Requisitos y dependencias
