@@ -1,7 +1,7 @@
 # Community-php 
 > Comunidad de usuarios php5 y mysql. Ver módulos en app/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
-* [Instalación] (#instalación)
+* [Instalación] (#instalacion)
 * [Entorno desarrollo] (#entorno-desarrollo)
 * [Estructura de archivos y directorios] (#estructura-de-archivos-y-directorios)
 * [Herramienta console] (#herramienta-console)
@@ -18,7 +18,7 @@ Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto
 
 
 ## Entorno desarrollo
-Para la creación de un entorno de desarrollo con <a target="_blank" href="https://www.vagrantup.com/">Vagrant</a> emplear los archivos Vagrant y bootstrap.sh. Configurar correctamente rutas necesarias, ver <a href="#instalación">instalación</a>.
+Para la creación de un entorno de desarrollo con <a target="_blank" href="https://www.vagrantup.com/">Vagrant</a> emplear los archivos Vagrant y bootstrap.sh. Configurar correctamente rutas necesarias, ver <a href="#instalacion">instalación</a>.
 
 ### Requisitos y dependencias
 - PHP 5.3 o superior.
