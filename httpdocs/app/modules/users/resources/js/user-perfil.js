@@ -5,7 +5,6 @@ jQuery(document).ready(function(){
 	
 	//verificación datos del formulario
 	$("#confirm-form").submit(function(evento){
-	   $(".alert-message").html("").css("display","none");
 	   
 	   var resultado_ok=true;   
 	   if (validateEmail($("#user-email").removeClass("input-alert").val())==false) {

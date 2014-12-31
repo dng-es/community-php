@@ -39,7 +39,7 @@ templateload("na_areasuser","na_areas");
 					<input type="hidden" name="user-username" id="user-username" value="<?php echo $_SESSION['user_name'];?>">
 			  		<div class="row">
 			  		<div class="col-md-12">
-					<label class="ontrol-label" for="user-empresa"><small><?php echo strTranslate("Group_user");?></small></label>
+					<label class="control-label" for="user-empresa"><small><?php echo strTranslate("Group_user");?></small></label>
 					<input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
 					</div>
 					</div>
