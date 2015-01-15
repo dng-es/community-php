@@ -32,7 +32,7 @@ fi
 
 
 # install PHP5
-sudo apt-get install php5 libapache2-mod-php5 php5-mysql -y
+apt-get install php5 libapache2-mod-php5 php5-mysql -y
  
 # Restart Apache2
 sudo /etc/init.d/apache2 restart
@@ -41,3 +41,6 @@ sudo ln -s /etc/apache2/sites-available/fqdn.conf /etc/apache2/sites-enabled/fqd
  
 # Restart Apache2 again
 sudo /etc/init.d/apache2 restart
+
+# Install FFmpeg
+apt-get install ffmpeg -y

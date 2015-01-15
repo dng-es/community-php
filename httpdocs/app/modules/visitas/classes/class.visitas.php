@@ -13,6 +13,9 @@ class visitas{
 	}
 	  
 	public static function insertVisitas($username,$ruta,$movil=0){
+		//tiempo de la visita anterior
+		self::updateVisitaSeconds($username);
+
 		$Sql = "insert into accesscontrol (username,webpage,movil,ip,agent,browser,platform) 
 				values ('".$username."','".$ruta."',".$movil.",'".$_SERVER['REMOTE_ADDR']."','".$_SERVER['HTTP_USER_AGENT']."','".getBrowser($_SERVER['HTTP_USER_AGENT'])."','".getPlatform($_SERVER['HTTP_USER_AGENT'])."');";
 		connection::execute_query($Sql);
@@ -20,9 +23,18 @@ class visitas{
 		//puntuacion semanal
 		if(connection::countReg("accesscontrol"," AND username='".$username."' AND WEEK(fecha)=WEEK(NOW()) AND YEAR(fecha)=YEAR(NOW())")==1){
 		  users::sumarPuntos($username,PUNTOS_ACCESO_SEMANA,PUNTOS_ACCESO_SEMANA_MOTIVO);}
+
 		  
 		return true;
 	}
+
+	public static function updateVisitaSeconds($username){
+		//tiempo de la ultima visita
+		$id = connection::SelectMaxReg("id","accesscontrol"," AND username='".$username."' AND webpage<>'Inicio sesion' ");
+		$Sql = "UPDATE accesscontrol SET seconds = (TIMESTAMPDIFF(SECOND, fecha, NOW())) WHERE id=".$id;
+		connection::execute_query($Sql);		  
+		return true;
+	}		
 
 	public static function deleteVisitas(){
 		$Sql="DELETE FROM accesscontrol";

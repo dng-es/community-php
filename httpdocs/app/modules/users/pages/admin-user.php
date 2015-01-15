@@ -1,6 +1,6 @@
 <?php
 addJavascripts(array("js/jquery.geturlparam.js",
-					getAsset("users")."js/connect-as.js"),
+					getAsset("users")."js/connect-as.js",
 					getAsset("users")."js/admin-user.js"));
 
 $modules = getListModules(); 

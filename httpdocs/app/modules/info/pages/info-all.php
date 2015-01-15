@@ -45,7 +45,8 @@ infoController::getZipAction();
 								?>
 									<div class="row">
 										<div class="col-md-12">
-											<h5><a title="<?php echo strTranslate("Download_file");?>" <?php echo $enlace;?> ><i class="fa fa-file"></i> <?php echo $elements_info['titulo_info'];?></a><br /><small><?php echo $elements_info['tipo']; ?> - <?php echo getDateFormat($elements_info['date_info'], "LONG"); ?></small></h5>
+											<h5><a title="<?php echo strTranslate("Download_file");?>" <?php echo $enlace;?> >
+												<i class="fa fa-file-o"></i> <?php echo $elements_info['titulo_info'];?></a><br /><small><?php echo $elements_info['tipo']; ?> - <?php echo getDateFormat($elements_info['date_info'], "LONG"); ?></small></h5>
 										</div>
 									</div>
 								<?php endforeach;?>

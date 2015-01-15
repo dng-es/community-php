@@ -293,7 +293,7 @@ function array2csv(array &$array) {
 	}
 	ob_start();
 	$df = fopen("php://output", 'w');
-	fputcsv($df, array_keys(reset($array)));
+	fputcsv($df, array_keys(reset($array)), ";");
 	foreach ($array as $row) {
 		foreach(array_keys($row) as $key){
 			$row[$key] = iconv("UTF-8", "Windows-1252", $row[$key]);
