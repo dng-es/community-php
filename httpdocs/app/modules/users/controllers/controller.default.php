@@ -134,13 +134,13 @@ class usersController{
 										   $_POST['user-comentarios'],
 										   $_POST['user-date']);
 			if ($confirmar == 1){
-				session::setFlashMessage( 'actions_message', "Tus datos se han modificado correctamente.", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ok"), "alert alert-success");
 			}
 			elseif ($confirmar == 2) {
-				session::setFlashMessage( 'actions_message', "Se ha producido algun error al modificar tus datos.", "alert alert-danger");
+				session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ko"), "alert alert-danger");
 			}
 			elseif ($confirmar == 3) {
-				session::setFlashMessage( 'actions_message', "El Alias <b>".$_POST['user-nick']."</b> ya existe.", "alert alert-danger");
+				session::setFlashMessage( 'actions_message', "<b>".$_POST['user-nick']."</b> ".strTranslate("Update_profile_nick_ko"), "alert alert-danger");
 			}
 			redirectURL("?page=user-perfil");	
 		}

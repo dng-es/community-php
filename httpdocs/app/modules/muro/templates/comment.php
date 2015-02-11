@@ -28,16 +28,16 @@ function commentMuro($comment){
 			<span class="murogusta fa fa-heart '.$comment['id_comentario'].'" 
 				value="'.$comment['id_comentario'].'" 
 				href="'.$comment['votaciones'].'" 
-				title="votar">
+				title="'.strTranslate("Vote_comment").'">
 				'.$comment['votaciones'].'
 			</span>
 			
 			<span value="'.$comment['comentario'].'">
-	  			<span class="responder-triger fa fa-comment" title="responder" tipom="'.$comment['tipo_muro'].'" value="'.$comment['id_comentario'].'"> '.$respuestas.'</span>
+	  			<span class="responder-triger fa fa-comment" title="'.strTranslate("Reply").'" tipom="'.$comment['tipo_muro'].'" value="'.$comment['id_comentario'].'"> '.$respuestas.'</span>
 			</span>
 			
 			<span style="margin-left:10px">				
-		    	 <a href="?page=muro-comentarios-respuestas&id='.$comment['id_comentario'].'" class="tooltip-top" title="ver todas las respuestas"> <span class="fa fa-sign-in"></span></a>
+		    	 <a href="?page=muro-comentarios-respuestas&id='.$comment['id_comentario'].'" class="tooltip-top" title="'.strTranslate("Show_all_replies").'"> <span class="fa fa-sign-in"></span></a>
 			</span>
 		</div>';
 	echo '	<div id="muro-result-megusta'.$comment['id_comentario'].'" class="text-danger"></div>';

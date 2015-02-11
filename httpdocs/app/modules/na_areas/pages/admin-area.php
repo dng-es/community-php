@@ -23,6 +23,8 @@ addJavascripts(array("js/jquery.numeric.js",
 					 getAsset("na_areas")."js/admin-area.js", 
 					 getAsset("na_areas")."js/admin-cargas.js"));
 
+templateload("cmbCanales","users");
+
 ?>
 
 <div class="row row-top">
@@ -471,8 +473,17 @@ function showTareasArea($id_area){
 				<div class="form-group row">
 					<label for="tipo" class="col-sm-2 control-label"><?php echo strTranslate("Type");?>:</label>
 					<div class="col-sm-10">
-						<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> formulario
-						<input type="radio" id="tipo" name="tipo" value="fichero" /> fichero
+						<div class="radio">
+							<label>
+								<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> formulario
+							</label>
+						</div>
+
+						<div class="radio">
+							<label>
+								<input type="radio" id="tipo" name="tipo" value="fichero" /> fichero
+							</label>
+						</div>
 					</div>
 				</div>
 

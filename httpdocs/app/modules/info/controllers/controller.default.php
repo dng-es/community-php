@@ -28,7 +28,6 @@ class infoController{
 		  	if ($download == 1){
 				//SUBIR FICHERO
 				$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-				$nombre_archivo = strtolower($nombre_archivo);
 				$nombre_archivo = NormalizeText($nombre_archivo);
 
 				if (!move_uploaded_file($fichero['tmp_name'], PATH_INFO.$nombre_archivo)){
@@ -62,7 +61,6 @@ class infoController{
 
 				if ($_FILES['name']!='') {
 					$nombre_archivo = time().'_'.str_replace(" ","_",$document_file['name']);
-					$nombre_archivo = strtolower($nombre_archivo);
 					$nombre_archivo=NormalizeText($nombre_archivo);	
 					if (move_uploaded_file($document_file['tmp_name'], PATH_INFO.$nombre_archivo)){
 						$info->updateInfoDoc($_POST['id'], $nombre_archivo);

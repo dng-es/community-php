@@ -34,4 +34,5 @@ Order_videos_by_date = "Ordenar vídeos por fecha"
 Order_videos_by_votes = "Ordenar vídeos por votaciones"
 Last_videos = "Últimos vídeos"
 Videos_pending = "Videos pendientes"
+Views = "Reproducciones"
 ?>

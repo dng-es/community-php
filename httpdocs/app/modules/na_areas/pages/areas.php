@@ -24,15 +24,15 @@
 							<div class="panel-body">							
 								<p class="ellipsis"><?php echo $element['area_descripcion'];?></p>
 								<?php if ($acceso == 1): 
-									echo '<a href="?page=areas_det&id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-share"></i> Accede al curso</a>';
+									echo '<a href="?page=areas_det&id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-share"></i> '.strTranslate("Access_course").'</a>';
 								else:
 									if ($element['registro']==1){
 										// verificar que no se haya elcanzado el límite de usuarios
 										$total_users = connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." ");
 										if ($total_users < $element['limite_users']):
-											echo '<a href="?page=areas&id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-pencil"></i> Inscribirse en el curso</a>';
+											echo '<a href="?page=areas&id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-pencil"></i> '.strTranslate("Enroll_course").'</a>';
 										else:
-											echo '<span class="btn btn-default btn-xs pull-right"><i class="fa fa-times"></i> Inscripción cerrada</span>';
+											echo '<span class="btn btn-default btn-xs pull-right"><i class="fa fa-times"></i> '.strTranslate("Registration_closed").'</span>';
 										endif;
 									}
 								endif; ?>
@@ -61,7 +61,7 @@
 				</span>
 				<?php echo strTranslate("Na_areas");?>
 			</h4>
-			<p>Estos son los cursos que puedes realizar. Inscríbite en el curso que más te interese.</p>
+			<p><?php echo strTranslate("Registration_text");?></p>
 			<p class="text-center"><i class="fa fa-mortar-board fa-big"></i></p>
 		</div>
 	</div>

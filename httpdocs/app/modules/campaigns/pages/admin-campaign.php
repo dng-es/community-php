@@ -20,7 +20,7 @@ $plantilla = campaignsController::getItemAction();
 			
 			<div class="checkbox">
 				<label>
-					<input type="checkbox" name="novedad" id="novedad"<?php echo $plantilla['novedad']==1 ? ' checked="checked"' : "";?>> Novedad
+					<input type="checkbox" name="novedad" id="novedad"<?php echo $plantilla['novedad']==1 ? ' checked="checked"' : "";?>> <?php echo strTranslate("News");?>
 				</label>
 			</div>
 
@@ -73,7 +73,7 @@ $plantilla = campaignsController::getItemAction();
 				</div>			
 			</div>
 
-			<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php echo strTranslate("Save");?></button>
+			<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php echo strTranslate("Save_data");?></button>
 		</form>	
 	</div>
 	<?php menu::adminMenu();?>

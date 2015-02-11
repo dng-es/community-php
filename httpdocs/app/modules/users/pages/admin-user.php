@@ -3,6 +3,8 @@ addJavascripts(array("js/jquery.geturlparam.js",
 					getAsset("users")."js/connect-as.js",
 					getAsset("users")."js/admin-user.js"));
 
+templateload("cmbCanales","users");
+
 $modules = getListModules(); 
 $user_permissions = usersController::getUserPermissions($_REQUEST['id']);
 $special_pages = array("login", "registration", "registration_process", "registration-confirm", "remember", "user-confirm", "users-conn-ajax", "users-conn-data", "admin-puntos-ajax", 
@@ -90,7 +92,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<label for="canal_user"><small><?php echo strTranslate("Channel");?>:</small></label>
 									<select id="canal_user" name="canal_user" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
 										<option value="">--<?php echo strTranslate("Choose_channel");?>--</option>
-										<?php ComboCanales($elements[0]['canal']);?>
+										<?php ComboCanales($elements[0]['canal'], "");?>
 									</select>
 								</div>
 								<div class="col-md-6">

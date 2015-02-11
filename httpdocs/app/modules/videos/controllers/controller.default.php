@@ -35,19 +35,18 @@ class videosController{
 			$formacion = (($_SESSION['user_perfil']=='formador') ? 1 : 0);	
 			$response = $videos->insertFile($_FILES['nombre-video'],PATH_VIDEOS_TEMP,$canal,$_POST['titulo-video'],0,$formacion);
 			if ($response == 0){
-				$message = strTranslate("Video_upload_ko0");
+				session::setFlashMessage( 'actions_message', strTranslate("Video_upload_ko0"), "alert alert-warning");
 			}
 			elseif ($response == 1){
-				$message = strTranslate("Video_upload_ok");
+				session::setFlashMessage( 'actions_message', strTranslate("Video_upload_ok"), "alert alert-success");
 			}
 			elseif ($response == 2){
-				$message = strTranslate("Video_upload_ko1");
+				session::setFlashMessage( 'actions_message', strTranslate("Video_upload_ko1"), "alert alert-warning");
 			}
 			elseif ($response == 3){
-				$message = strTranslate("Video_upload_ko2");
+				session::setFlashMessage( 'actions_message', strTranslate("Video_upload_ko2"), "alert alert-warning");
 			}
-
-			session::setFlashMessage( 'actions_message', $message, "alert alert-warning");
+		
 			redirectURL($_SERVER['REQUEST_URI']);
 		}			
 	}
@@ -104,12 +103,11 @@ class videosController{
 			$videos = new videos();
 			$id_video = sanitizeInput($_POST['video-id']);
 			$texto_comentario = nl2br(sanitizeInput($_POST['video-comentario']));
-			if ($videos->InsertComentario($id_video, $texto_comentario, $_SESSION['user_name'],1)){ 
-				$message = strTranslate("Video_comment_insert_ok");
-			}
-			else {$message = strTranslate("Video_comment_insert_ko");}
-			session::setFlashMessage( 'actions_message', $message, "alert alert-warning");
-			redirectURL($_SERVER['REQUEST_URI']);	
+			if ($videos->InsertComentario($id_video, $texto_comentario, $_SESSION['user_name'],1)) 
+				session::setFlashMessage( 'actions_message', strTranslate("Video_comment_insert_ok"), "alert alert-success");
+			else 
+				session::setFlashMessage( 'actions_message', strTranslate("Video_comment_insert_ko"), "alert alert-warning");
+			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}
 

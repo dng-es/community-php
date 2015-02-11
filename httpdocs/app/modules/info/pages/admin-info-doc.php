@@ -2,6 +2,8 @@
 
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-info-doc.js"));
 
+templateload("cmbCanales","users");
+
 $accion = (isset($_GET['act']) ? $_GET['act'] : "new");
 $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 ?>

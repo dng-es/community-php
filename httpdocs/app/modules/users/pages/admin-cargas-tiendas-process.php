@@ -93,7 +93,7 @@ function volcarMySQL($data) {
 				//VERIFICAR QUE EXISTA EL REGIONAL PARA ALTA O MODIFICACION DE DATOS
 				if ($regional_tienda!="" and users::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ")==0){		
 					//insertar usuario
-					$users->insertUser($regional_tienda,$regional_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL1,'regional','','','','',0);
+					$users->insertUser($regional_tienda,$regional_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL_DEF,'regional','','','','',0);
 				}
 				else{
 					$users->updateJerarquiaUsers($regional_tienda, 'regional', $empresa_usuarios);
@@ -102,7 +102,7 @@ function volcarMySQL($data) {
 				//VERIFICAR QUE EXISTA EL RESPONSABLE PARA ALTA O MODIFICACION DE DATOS
 				if ($responsable_tienda!="" and users::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ")==0){		
 					//insertar usuario
-					$users->insertUser($responsable_tienda,$responsable_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL1,'responsable','','','','',0);
+					$users->insertUser($responsable_tienda,$responsable_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL_DEF,'responsable','','','','',0);
 				}
 				else{
 					$users->updateJerarquiaUsers($responsable_tienda, 'responsable', $empresa_usuarios);

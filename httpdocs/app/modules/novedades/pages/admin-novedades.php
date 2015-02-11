@@ -3,6 +3,9 @@
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 getAsset("novedades")."js/admin-novedades.js"));
+
+templateload("cmbCanales","users");
+
 ?>
 <div class="row row-top">
 	<div class="col-md-9 inset">

@@ -7,6 +7,8 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 					 "js/jquery.jtextarea.js", 
 					 getAsset("blog")."js/blog.js", 
 					 getAsset("foro")."js/foro-comentario.js"));
+
+$filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
 ?>
 
 <div class="row row-top">
@@ -70,20 +72,20 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 
 			//enlaces de pagina siguiente y anterior
 			$anterior_disabled="";
-			$anterior = $foro->getTemas(" AND activo=1 AND ocio=1 AND id_tema>".$id_tema." ORDER BY id_tema ASC  LIMIT 1");
+			$anterior = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema>".$id_tema." ORDER BY id_tema ASC  LIMIT 1");
 			if (count($anterior)!=1){$anterior_disabled = "disabled";$anterior_enlace="#";}
 			else{$anterior_enlace = "?page=blog&id=".$anterior[0]['id_tema'];}
 
 			$siguiente_disabled="";
-			$siguiente = $foro->getTemas(" AND activo=1 AND ocio=1 AND id_tema<".$id_tema." ORDER BY id_tema DESC LIMIT 1");
+			$siguiente = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema<".$id_tema." ORDER BY id_tema DESC LIMIT 1");
 			if (count($siguiente)!=1){$siguiente_disabled = "disabled";$siguiente_enlace="#";}
 			else{$siguiente_enlace='?page=blog&id='.$siguiente[0]['id_tema'];}
 
 			//enlaces de pagina siguiente y anterior
 			echo '<hr />
 				<ul class="pager">
-					<li class="previous '.$anterior_disabled .'"><a href="'.$anterior_enlace.'">&larr; Entrada anterior</a></li>
-					<li class="next '.$siguiente_disabled .'"><a href="'.$siguiente_enlace.'">Entrada siguiente &rarr;</a></li>
+					<li class="previous '.$anterior_disabled .'"><a href="'.$anterior_enlace.'">&larr; '.strTranslate("Previous_post").'</a></li>
+					<li class="next '.$siguiente_disabled .'"><a href="'.$siguiente_enlace.'">'.strTranslate("Next_post").' &rarr;</a></li>
 				</ul>
 				<hr />';
 		}    
@@ -97,7 +99,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 				//INSERTAR NUEVOS COMENTARIOS EN EL BLOG
 
 				echo '<div class="clearfix"></div><div class="panel-interior">';
-				echo '<br /><label>¿Qué piensas de este artículo? déjanos tu comentario</label>';
+				echo '<br /><label>'.strTranslate("Comment_this_post").'</label>';
 				addForoComment($id_tema);
 				echo '</div>';
 				
@@ -128,7 +130,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 			endforeach;
 			$filtro_etiquetas = substr($filtro_etiquetas, 3);
 			$filtro_etiquetas = " AND (".$filtro_etiquetas.") AND id_tema<>".$tema[0]['id_tema']." ";
-			$elements = $foro->getTemas(" AND ocio=1 AND activo=1 ".$filtro_etiquetas." ORDER BY rand() DESC LIMIT 4 "); 
+			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ".$filtro_etiquetas." ORDER BY rand() DESC LIMIT 4 "); 
 			foreach($elements as $element):
 				echo '<div class="footer-section full-height">
 						<h4 class="ellipsis">'.$element['nombre'].'</h4>
@@ -154,7 +156,8 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 				<?php echo strTranslate("Last_blog");?>
 			</h4>
 			<?php 
-			$elements = $foro->getTemas(" AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
+			
+			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
 			entradasBlog($elements);
 			?>
 			<h4>
@@ -162,10 +165,10 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Files");?>
+				<?php echo strTranslate("Archive");?>
 			</h4>
 			<?php
-			$elements = $foro->getArchivoBlog();
+			$elements = $foro->getArchivoBlog($filtro_blog);
 			archivoBlog($elements);
 			?>
 			<h4>
@@ -176,7 +179,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 				<?php echo strTranslate("Categories");?>
 			</h4>
 			<?php
-			$elements = $foro->getCategorias(" AND ocio=1 ");
+			$elements = $foro->getCategorias($filtro_blog." AND ocio=1 ");
 			categoriasBlog($elements);
 
 			?>

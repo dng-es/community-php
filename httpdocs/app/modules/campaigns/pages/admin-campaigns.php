@@ -19,10 +19,10 @@ $elements = campaignsController::getListAction(20);
 			<table class="table">
 				<tr>
 					<th width="40px">&nbsp;</th>
-					<th>Nombre</th>
-					<th>Tipo</th>
-					<th>Descripcion</th>
-					<th>Novedad</th>
+					<th><?php echo strTranslate("Name");?></th>
+					<th><?php echo strTranslate("Type");?></th>
+					<th><?php echo strTranslate("Description");?></th>
+					<th><?php echo strTranslate("News");?></th>
 				</tr>
 				<?php foreach($elements['items'] as $element): ?>
 					<tr>
@@ -38,7 +38,7 @@ $elements = campaignsController::getListAction(20);
 					<td><?php echo $element['name_campaign'];?></td>
 					<td><?php echo $element['tipo'];?></td>
 					<td><?php echo $element['desc_campaign'];?></td>
-					<td align="center"><span class="label<?php echo ($element['novedad']==0 ? " label-warning" : " label-success");?>"><?php echo ($element['novedad']==0 ? "No" : "Sí");?></span></td>
+					<td align="center"><span class="label<?php echo ($element['novedad']==0 ? " label-warning" : " label-success");?>"><?php echo ($element['novedad']==0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
 					</tr>
 				<?php endforeach;?>
 			</table>

@@ -413,17 +413,6 @@ function ComboPerfiles($perfil){
 }
 
 /**
- * Print HTML combo para los canales de la comunidad
- * @param 	string 		$canal 			Elemento del combo marcado
- */
-function ComboCanales($canal=""){
-?>
-    <option value="<?php echo CANAL1;?>" <?php if ($canal==CANAL1){ echo ' selected="selected" ';}?>><?php echo CANAL1_LABEL;?></option>
-    <option value="<?php echo CANAL2;?>" <?php if ($canal==CANAL2){ echo ' selected="selected" ';}?>><?php echo CANAL2_LABEL;?></option>
-<?php	
-}
-
-/**
  * Obtiene la versión del navegador según el UserAgent. 
  * Esta función hay que actualizarla según van saliendo nuevos navegadores.
  * @param  	string 		$user_agent 	UserAgent del navegador

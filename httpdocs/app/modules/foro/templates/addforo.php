@@ -8,6 +8,9 @@
 * @param  string   	$descripcion_foro  	tema description
 * @param  int   	$ocio  				used for news, blog, ...
 */
+
+templateload("cmbCanales","users");
+
 function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripcion_foro="",$ocio=0, $id_area=0){
 
 	//INSERTAR TEMA
@@ -21,9 +24,9 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 							"",
 							$_SESSION['user_name'],
 							$canal,0,1, '', $_POST['id_area'],0,"")){
-			session::setFlashMessage( 'actions_message', "Tema insertado correctamente.", "alert alert-success");
+			session::setFlashMessage( 'actions_message', strTranslate("Forum_created"), "alert alert-success");
 		} 
-		else{ session::setFlashMessage( 'actions_message', "Se ha producido un error en la inserción del tema. Por favor, inténtalo más tarde.", "alert alert-danger");}		
+		else{ session::setFlashMessage( 'actions_message', strTranslate("Error_while_creating_forum"), "alert alert-danger");}		
 		redirectURL($_SERVER['REQUEST_URI']);
 	} 	
 	
@@ -46,7 +49,7 @@ function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripc
 		<form id="tema-form" name="tema-form" action="" method="post" enctype="multipart/form-data" role="form">
 	<?php if ($show_canales): ?>
 			<label for="canal_tema" class="sr-only">Canal del tema:</label>
-			<select name="canal_tema" id="canal_tema">
+			<select name="canal_tema" id="canal_tema" class="form-control">
 			<?php ComboCanales();?>
 			</select>
 	<?php else: ?>

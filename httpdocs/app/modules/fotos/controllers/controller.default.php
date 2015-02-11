@@ -21,19 +21,18 @@ class fotosController{
 			$formacion = (($_SESSION['user_perfil']=='formador') ? 1 : 0);	
 			$response = $fotos->insertFile($_FILES['nombre-foto'],PATH_FOTOS,$canal,$_POST['titulo-foto'],0,$formacion);
 			if ($response == 0){
-				$message = strTranslate("Photo_upload_ko0");
+				session::setFlashMessage( 'actions_message', strTranslate("Photo_upload_ko0"), "alert alert-danger");
 			}
 			elseif ($response == 1){
-				$message = strTranslate("Photo_upload_ok");
+				session::setFlashMessage( 'actions_message', strTranslate("Photo_upload_ok"), "alert alert-success");
 			}
 			elseif ($response == 2){
-				$message = strTranslate("Photo_upload_ko1");
+				session::setFlashMessage( 'actions_message', strTranslate("Photo_upload_ko1"), "alert alert-danger");
 			}
 			elseif ($response == 3){
-				$message = strTranslate("Photo_upload_ko2");
+				session::setFlashMessage( 'actions_message', strTranslate("Photo_upload_ko2"), "alert alert-danger");
 			}
 
-			session::setFlashMessage( 'actions_message', $message, "alert alert-warning");
 			redirectURL($_SERVER['REQUEST_URI']);
 		}			
 	}

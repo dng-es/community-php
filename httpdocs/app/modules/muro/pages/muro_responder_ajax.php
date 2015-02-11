@@ -78,7 +78,7 @@ echo '<div class="">';
 							<span class="murogusta fa fa-heart '.$comentario_muro['id_comentario'].'" 
 								value="'.$comentario_muro['id_comentario'].'" 
 								href="'.$comentario_muro['votaciones'].'" 
-								title="votar comentario">
+								title="'.strTranslate("Vote_comment").'">
 								'.$comentario_muro['votaciones'].'
 							</span>
 						</div>';
@@ -87,7 +87,7 @@ echo '<div class="">';
 		  echo ' <hr>
 				</div>';  
   endforeach;
-  if(count($comentarios_muro)==0){ echo '<div class="alert alert-warning">No hay respuesta para este comentario del muro.</div>';}	
+  if(count($comentarios_muro)==0){ echo '<div class="alert alert-warning">'.strTranslate("No_replies_for_this_comment").'.</div>';}	
   echo '</div>';			
 ?> 
 

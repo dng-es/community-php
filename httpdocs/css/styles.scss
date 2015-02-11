@@ -1244,6 +1244,11 @@ table th {
 
 /*Bootstrap*/
 //[class*="col-"]{margin-bottom: -99999px !important;padding-bottom: 99999px !important;}
+.nav-tabs{
+	a{
+		outline: none;
+	}
+}
 .tab-content > .tab-pane {
     background-color: #fff;
     border-left: 1px solid #e0e0e0;

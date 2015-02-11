@@ -6,6 +6,7 @@ addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js",
 templateload("reply","muro");
 templateload("show","novedades");
 templateload("panels","destacados");
+templateload("cmbCanales","users");
 
 //usuarios conectados
 $filtroCanal= ($_SESSION['user_canal']!="admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') " : "");
@@ -13,9 +14,11 @@ $users = new users();
 $users_conn = count($users->getUsersConn($filtroCanal));
 
 $last_photo = fotosController::getListAction(1, " ORDER BY id_file DESC ");
-$last_video = videosController::getListAction(1, "");
+$last_video = videosController::getListAction(1, " AND estado=1 ");
 $last_foros = foroController::getLastTemasAction(4, " AND t.id_area=0 AND ocio=0 ");
-$last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND id_tema_parent=0 ORDER BY id_tema DESC ");
+
+$filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
+$last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND activo=1 AND id_tema_parent=0 ORDER BY id_tema DESC ");
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
@@ -48,7 +51,7 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 					<div class="col-md-12 section full-height">
 						<section>
 							<h3><?php echo strTranslate("Last_formus");?></h3>
-							<p>Descubre los últimos foros en los que los usuarios han participado.</p>
+							<p><?php echo strTranslate("Discover_last_formus");?>.</p>
 							<ul class="list-funny">
 							<?php foreach($last_foros as $last_foro): ?>
 								<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
@@ -66,6 +69,7 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 				<div class="col-md-12 section full-height">
 					<section>
 						<h3><?php echo strTranslate("Last_photos");?></h3>
+						<?php if (isset($last_video['items'][0])): ?>
 						<div class="media-preview-container">
 							<a href="?page=fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
 							<div>
@@ -73,6 +77,9 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 								<span><?php echo $last_photo['items'][0]['nick'];?> - <?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></span><br />
 							</div>
 						</div>
+						<?php else: ?>
+							<div class="text-muted">Todavía no se han subido fotos</div>
+						<?php endif; ?>
 					</section>
 				</div>
 			</div>
@@ -80,6 +87,7 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 				<div class="col-md-12 section full-height">
 					<section>
 						<h3><?php echo strTranslate("Last_videos");?></h3>
+						<?php if (isset($last_video['items'][0])): ?>
 						<div class="media-preview-container">
 							<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>">
 							<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo $last_video['items'][0]['titulo'];?>" /></a>
@@ -88,6 +96,9 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 								<span><?php echo $last_video['items'][0]['nick'];?> - <?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></span><br />
 							</div>
 						</div>
+						<?php else: ?>
+							<div class="text-muted">Todavía no se han subido vídeos</div>
+						<?php endif; ?>
 					</section>
 				</div>
 			</div>			
@@ -95,6 +106,7 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 				<div class="col-md-12 section full-height">
 					<section>
 						<h3><?php echo strTranslate("Last_blog");?></h3>
+						<?php if (isset($last_blog['items'][0])): ?>
 						<div class="media-preview-container">
 							<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>">
 							<img class="media-preview" src="images/foro/<?php echo $last_blog['items'][0]['imagen_tema'];?>" alt="<?php echo $last_blog['items'][0]['nombre'];?>" /></a>
@@ -103,6 +115,9 @@ $last_blog = foroController::getListTemasAction(1, " AND ocio=1 AND activo=1 AND
 								<span><?php echo getDateFormat($last_blog['items'][0]['date_tema'], "LONG");?></span>
 							</div>
 						</div>
+						<?php else: ?>
+							<div class="text-muted">Todavía no se han creado entradas</div>
+						<?php endif; ?>
 					</section>
 				</div>
 			</div>

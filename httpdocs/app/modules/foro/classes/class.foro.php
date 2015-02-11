@@ -76,7 +76,7 @@ class foro{
 
 			return true;
 		}
-		else {return false;}		
+		else return false;	
 	}
 
 
@@ -95,11 +95,11 @@ class foro{
 					  SET votaciones=votaciones+1 
 					  WHERE id_comentario=".$id;
 				connection::execute_query($Sql);	
-				return "Votación realizada con &eacute;xito.";
+				return 0;
 			}
-			else {return "Ya has votado este comentario.";}		
+			else return 1;
 		}
-		else {return "No puedes votar tus propios comentarios.";}
+		else return 2;
 	}
 
 	public function cambiarTipoTema($id,$tipo){
@@ -147,7 +147,6 @@ class foro{
     public function insertTemaFoto($fichero){
 		//SUBIR FICHERO
 		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-		$nombre_archivo = strtolower($nombre_archivo);
 		$nombre_archivo=NormalizeText($nombre_archivo);
 		
 		$tipo_archivo = $fichero['type'];
@@ -162,8 +161,8 @@ class foro{
 		}
 	}
 
-	public function getArchivoBlog(){
-	    $Sql="SELECT MONTH(date_tema) AS mes,YEAR(date_tema) AS ano,COUNT(id_tema) AS contador FROM foro_temas WHERE ocio=1 AND activo=1 GROUP BY MONTH(date_tema),YEAR(date_tema) ORDER BY ano DESC,mes DESC ";
+	public function getArchivoBlog($filter = ""){
+	    $Sql="SELECT MONTH(date_tema) AS mes,YEAR(date_tema) AS ano,COUNT(id_tema) AS contador FROM foro_temas WHERE ocio=1 AND activo=1 ".$filter." GROUP BY MONTH(date_tema),YEAR(date_tema) ORDER BY ano DESC,mes DESC ";
 	    return connection::getSQL($Sql);  
 	}      
 

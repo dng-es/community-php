@@ -18,10 +18,10 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
 			array("ItemLabel"=>strTranslate("Rankings"), "ItemUrl"=>"#"),
-			array("ItemLabel"=>"Ranking usuarios", "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Ranking_users"), "ItemClass"=>"active"),
 		));
 		?>
-		<p>Cada una de tus aportaciones te ayudan a acumular puntos. ¿Cuántos puntos tienes?, ¿estás entre los primeros? descúbrelo en este ranking:</p><br />
+		<p><?php echo strTranslate("Ranking_users_text");?>:</p><br />
 
 <!-- 		<div class="row container-fade">
 			<?php for ($i=0;$i<=5;$i++){ ?>
@@ -71,12 +71,12 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 		<div class="panel-interior">
 			<?php $foto = PATH_USERS_FOTO. ($puntos_user[0]['foto'] != "" ? $puntos_user[0]['foto'] : "user.jpg");?>
 			<img src="<?php echo $foto;?>" class="user-perfil-img" />   
-			<h3>Tu posición <small><?php echo $posicion_user;?></small></h3>
+			<h3><?php echo strTranslate("Your_ranking");?> <small><?php echo $posicion_user;?></small></h3>
 			<p><?php echo $puntos_user[0]['name'].' '.$puntos_user[0]['surname'];?><br />
 			<?php echo $puntos_user[0]['nombre_tienda'];?><br />
 			<?php echo $puntos_user[0]['puntos'];?> <?php echo strTranslate("APP_points");?>
 			</p>
-			<a href="?page=ranking-empresas" class="btn btn-primary btn-block">Ir a ranking de empresas</a>
+			<a href="?page=ranking-empresas" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_companies_ranking");?></a>
 		</div>
 	</div>
 </div>

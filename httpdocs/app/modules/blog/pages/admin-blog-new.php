@@ -4,6 +4,8 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					 "js/libs/ckfinder/ckfinder.js", 
 					 "js/bootstrap.file-input.js", 
 					 getAsset("blog")."js/admin-blog-new.js"));
+
+templateload("cmbCanales","users");
 ?>
 <div class="row row-top">
 	<div class="col-md-9 inset">
@@ -23,14 +25,18 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		$elements = blogController::getItemAction($id);
 
 		if (isset($elements[0])){
+			$accion = "edit";
 			$nombre = $elements[0]['nombre'];
 			$descripcion = $elements[0]['descripcion'];
 			$tipo_tema = $elements[0]['tipo_tema'];
+			$canal = $elements[0]['canal'];
 		}
 		else{
+			$accion = "new";
 			$nombre = "";
 			$descripcion = "";
 			$tipo_tema = "";
+			$canal = "";
 		}
 
 		?>
@@ -40,6 +46,10 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 
 			<label for="nombre" class="sr-only">Título de la entrada:</label>
 			<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo $nombre;?>" placeholder="título de la entrada" />
+			<br />
+			<select name="canal" id="canal" class="form-control" <?php echo ($accion=='edit' ? 'disabled="disabled"' : '');?>>
+				<?php ComboCanales($canal);?>
+			</select>
 			<br />
 			<label for="descripcion" class="sr-only">Cuerpo de la entrada:</label>
 			<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>

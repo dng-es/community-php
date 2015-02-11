@@ -31,7 +31,6 @@ class infotopdf{
 	public function insertInfo($fichero,$titulo,$canal,$tipo,$id_campaign,$cuerpo_info){
 		//SUBIR FICHERO
 		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-		$nombre_archivo = strtolower($nombre_archivo);
 		$nombre_archivo=NormalizeText($nombre_archivo);
 	
 		if (move_uploaded_file($fichero['tmp_name'], PATH_INFO.$nombre_archivo)){
@@ -50,7 +49,6 @@ class infotopdf{
     public function updateInfo($id,$document_file,$title,$canal,$tipo,$id_campaign,$cuerpo_info){
 		if ($document_file['name']!='') {
 			$nombre_archivo = time().'_'.str_replace(" ","_",$document_file['name']);
-			$nombre_archivo = strtolower($nombre_archivo);
 			$nombre_archivo=NormalizeText($nombre_archivo);	
 			if (move_uploaded_file($document_file['tmp_name'], PATH_INFO.$nombre_archivo)){
 				//generar miniatura

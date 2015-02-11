@@ -1,6 +1,8 @@
 <?php
 addJavascripts(array(getAsset("destacados")."js/admin-destacados.js", "js/jquery.numeric.js"));
 
+templateload("cmbCanales","users");
+
 session::getFlashMessage( 'actions_message' );
 destacadosController::updateAction();		
 ?>
@@ -32,8 +34,7 @@ destacadosController::updateAction();
 				<label class="col-sm-1 control-label" for="canal_destacado">Canal:</label>
 				<div class="col-sm-3">
 					<select name="canal_destacado" id="canal_destacado" class="form-control">
-						<option value="comercial">Comerciales</option>
-						<option value="gerente">Gerentes</option>
+						<?php ComboCanales();?>
 					</select>
 				</div>
 			</div>

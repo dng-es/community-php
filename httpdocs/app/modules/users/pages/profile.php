@@ -16,14 +16,18 @@ addJavascripts(array(getAsset("mensajes")."js/mensajes.js",
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
+		menu::breadcrumb(array(
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("User_profile"), "ItemClass"=>"active"),
+		));
+
 		session::getFlashMessage( 'actions_message' );
 		mensajesController::createAction();
 		$filter = ($_SESSION['user_perfil']!="admin" ? " AND (canal='".$_SESSION['user_canal']."' OR canal='admin') " : "");
 		$nick = (isset($_REQUEST['n']) ? $_REQUEST['n'] : "");
 		$usuario = usersController::getPublicPerfilAction($nick, $filter);
 		?>
-	<!-- Nav tabs -->
-		<h1><?php echo strTranslate("User_profile");?> <small><?php echo $usuario['nick'];?></small></h1>
+		<!-- Nav tabs -->
 		<ul class="nav nav-tabs">
 			<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
 			<?php if(getModuleExist("fotos")): ?>
@@ -42,44 +46,43 @@ addJavascripts(array(getAsset("mensajes")."js/mensajes.js",
 			  		<div class="col-md-12">
 						<?php if (count($usuario)>0): ?>
 						<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
-							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-nick"><?php echo strTranslate("Nick");?></label>
-								<div class="col-sm-4">
-								  <input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['nick'];?>" />
+							<div class="row">
+								<div class="col-md-12">
+									<label class="control-label" for="user-empresa"><small><?php echo strTranslate("Group_user");?></small></label>
+									<input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
 								</div>
-								<label class="col-sm-1 control-label" for="user-nick"><?php echo ucfirst(strTranslate("APP_points"));?></label>
-								<div class="col-sm-5">
-								  <input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['puntos'];?>" />
+							</div>	
+							<div class="row">
+								<div class="col-md-6">
+									<label class="control-label" for="user-nick"><small><?php echo strTranslate("Nick");?></small></label>
+									<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['nick'];?>" />
+								</div>
+								<div class="col-md-6">
+									<label class="control-label" for="user-nick"><small><?php echo ucfirst(strTranslate("APP_points"));?></small></label>
+									<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['puntos'];?>" />
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-nombre"><?php echo strTranslate("Name");?></label>
-								<div class="col-sm-10">
-								  <input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['name'];?> <?php echo $usuario['surname'];?>" />
-								</div>
-							</div>					
-							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-date"><?php echo strTranslate("Born_date");?></label>
-								<div class="col-sm-4">
-									  <div id="datetimepicker1" class="input-group date">
-									    <input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" disabled="disabled" name="user-date"value="<?php echo ($usuario['user_date']!=null ? getDateFormat($usuario['user_date'], 'SHORT') : '');?>"></input>
-									      <span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-									  </div>
-								</div>
 
-								<label class="col-sm-1 control-label" for="user-empresa"><?php echo strTranslate("Group_user");?></label>
-								<div class="col-sm-5">
-								  <input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
+							<div class="row">
+								<div class="col-md-6">
+									<label class="control-label" for="user-nombre"><small><?php echo strTranslate("Name");?></small></label>
+									<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['name'];?>" />
+								</div>
+								<div class="col-md-6">
+									<label class="control-label" for="user-surname"><small><?php echo strTranslate("Surname");?></small></label>
+									<input maxlength="100" name="user-surname" id="user-surname" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['surname'];?>" />
 								</div>
 							</div>					
-							<div class="form-group">
-								<label class="col-sm-2 control-label" for="user-comentarios"><?php echo strTranslate("what_do_you_think");?></label>
-								<div class="col-sm-10">
-								  <textarea name="user-comentarios" id="user-comentarios" class="form-control" disabled="disabled"><?php echo $usuario['user_comentarios'];?></textarea>
+				
+							<div class="row">
+								<div class="col-md-12">
+									<label class="control-label" for="user-comentarios"><small><?php echo strTranslate("what_do_you_think");?></small></label>
+									<textarea name="user-comentarios" id="user-comentarios" class="form-control" disabled="disabled"><?php echo $usuario['user_comentarios'];?></textarea>
 								</div>
 							</div>
-							<div class="form-group">
-								<div class="col-md-6 col-md-offset-2">
+							<br />
+							<div class="row">
+								<div class="col-md-12">
 									<a class="btn btn-primary new-message" data-n="<?php echo $usuario['nick'];?>" href="#"><?php echo strTranslate("Send_message_to_user");?></a>	
 								</div>
 							</div>
@@ -97,8 +100,8 @@ addJavascripts(array(getAsset("mensajes")."js/mensajes.js",
 				<section id="photos">
 
 				</section>
-				<div id="cargando-infinnite"><span class="btn btn-default">seguir cargando imagenes <i class="fa fa-arrow-circle-down"></i></span></div>
-				<div id="cargando-infinnite-end"><span class="btn btn-default alert-info">No hay más imágenes <i class="fa fa-info-circle"></i></span></div>
+				<div id="cargando-infinnite"><span class="btn btn-default"><?php echo strTranslate("More_photos");?> <i class="fa fa-arrow-circle-down"></i></span></div>
+				<div id="cargando-infinnite-end"><span class="btn btn-default alert-info"><?php echo strTranslate("No_more_photos");?> <i class="fa fa-info-circle"></i></span></div>
 				<div class="clearfix"></div>
 				<!-- Modal -->
 				<div class="modal modal-wide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

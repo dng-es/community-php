@@ -31,9 +31,9 @@ class foroController{
 								$texto_comentario,
 								$_SESSION['user_name'],
 								ESTADO_COMENTARIOS_FORO)){
-			session::setFlashMessage( 'actions_message', "Comentario insertado correctamente.", "alert alert-success");
+			session::setFlashMessage( 'actions_message', strTranslate("Message_published"), "alert alert-success");
 			} 
-			else{ session::setFlashMessage( 'actions_message', "Se ha producido un error en la inserción del comentario. Por favor, inténtalo más tarde.", "alert alert-danger");}    
+			else{ session::setFlashMessage( 'actions_message', strTranslate("Error_message_published"), "alert alert-danger");}    
 			redirectURL($_SERVER['REQUEST_URI']);
 		} 
 	}
@@ -117,7 +117,7 @@ class foroController{
 								$_SESSION['user_name'],
 								ESTADO_COMENTARIOS_FORO,
 								$_POST['comment-reply-id'])){
-				session::setFlashMessage( 'actions_message', "Respuesta insertada correctamente.", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Reply_publihed"), "alert alert-success");
 			} 
 			else{ session::setFlashMessage( 'actions_message', "Se ha producido un error en la inserción de la respuesta. Por favor, inténtalo más tarde.", "alert alert-danger");}    
 			redirectURL($_SERVER['REQUEST_URI']);
@@ -129,7 +129,13 @@ class foroController{
 		if (isset($_REQUEST['idvf']) and $_REQUEST['idvf']!="") { 
 			$foro = new foro();
 			$page_num = isset($_GET['pag']) ? $_GET['pag'] : "";
-			session::setFlashMessage( 'actions_message', $foro->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']), "alert alert-success");
+			$resultado = $foro->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']);
+			if ($resultado==0)
+				session::setFlashMessage( 'actions_message', strTranslate("Forum_comment_vote_ok"), "alert alert-success");
+			elseif ($resultado==1)
+				session::setFlashMessage( 'actions_message', strTranslate("Forum_comment_vote_repeat"), "alert alert-warning");
+			elseif ($resultado==2)
+				session::setFlashMessage( 'actions_message', strTranslate("Forum_vote_own"), "alert alert-warning");
 			redirectURL("?page=".$_GET['page']."&id=".$_GET['id']."&pag=".$page_num);
 		}
 	}		

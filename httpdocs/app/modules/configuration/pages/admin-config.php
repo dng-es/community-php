@@ -59,17 +59,17 @@ addJavascripts(array(getAsset("configuration")."js/admin-config.js"));
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="control-label" for="direccion"><small>Dirección:</small></label>
+					<label class="control-label" for="direccion"><small><?php echo strTranslate("Address");?>:</small></label>
 					<input type="text" class="form-control" maxlength="250" id="direccion" name="direccion" value="<?php echo $elements[0]['direccion'];?>" data-alert="<?php echo strTranslate("Required_field");?>" /> 
 				</div>
 				<div class="col-md-6">
-					<label class="control-label" for="telefono"><small>Teléfono:</small></label>
+					<label class="control-label" for="telefono"><small><?php echo strTranslate("Telephone");?>:</small></label>
 					<input type="text" class="form-control" maxlength="250" id="telefono" name="telefono" value="<?php echo $elements[0]['telefono'];?>" data-alert="<?php echo strTranslate("Required_field");?>" /> 
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="control-label" for="telefono2"><small>Teléfono 2:</small></label>
+					<label class="control-label" for="telefono2"><small><?php echo strTranslate("Telephone");?> 2:</small></label>
 					<input type="text" class="form-control" maxlength="250" id="telefono2" name="telefono2" value="<?php echo $elements[0]['telefono2'];?>" data-alert="<?php echo strTranslate("Required_field");?>" /> 
 				</div>
 				<div class="col-md-6">
@@ -80,7 +80,7 @@ addJavascripts(array(getAsset("configuration")."js/admin-config.js"));
 			<div class="row">
 				<div class="col-md-4">
 					<br />
-					<button type="submit" class="btn btn-primary btn-block" id="form-submit" name="form-submit">Guardar configuración</button>
+					<button type="submit" class="btn btn-primary btn-block" id="form-submit" name="form-submit"><?php echo strTranslate("Save_data");?></button>
 				</div>
 			</div>
 		</form>

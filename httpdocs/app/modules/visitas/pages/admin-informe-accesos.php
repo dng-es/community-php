@@ -1,4 +1,7 @@
 <?php
+set_time_limit(0);
+ini_set('memory_limit', '-1');
+
 //EXPORT ACCESOS
 visitasController::exportAction();
 
@@ -14,7 +17,7 @@ $pagina_excluidas = "'admin','admin-informe-accesos','admin-informe-participacio
 					 'admin-campaigns-types','admin-campaigns','admin-infotopdf-doc','admin-intotopdf','admin-validacion-foto-temas','admin-cuestionarios','admin-cuestionario','admin-cuestionario-revs',
 					 'admin-videos','admin-premios','cargas-puntos-process','admin-pages','admin-novedades','admin-blog-new','admin-destacados','admin-validacion-foro-temas',
 					 'admin-blog-foro','admin-modules','admin-campaign','admin-validacion-foro-comentarios','admin-blog','admin-templates','admin-validacion-videos',
-					 'cargas-horas-process','admin-fotos-comentarios','admin-info','admin-info-doc'";
+					 'cargas-horas-process','admin-fotos-comentarios','admin-info','admin-info-doc','admin-canales','admin-canal'";
 					 
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					 "js/bootstrap-datepicker.es.js", 

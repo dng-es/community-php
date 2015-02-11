@@ -60,7 +60,7 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 		</div>
 		<div class="ver-mas">
 			<a href="?page=muro-comentarios&id=principal">
-			<span class="fa fa-search"></span> ver más comentarios</a>
+			<span class="fa fa-search"></span> <?php echo strTranslate("More_comments");?></a>
 		</div>
 	</body>
 </html>

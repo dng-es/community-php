@@ -95,8 +95,12 @@ class session {
 		else{
 			//verificar permiso por perfil. Si es admin se permite todo acceso
 			if ($user_perfil=='admin') return true;
-			elseif (strpos($page, 'admin')!==0) return true;
-			else return false;
+			else{
+				if (strpos($page, 'admin')===0) return false;
+				elseif (strpos($page, 'supervisor')===0 and $user_perfil==='supervisor') return true;
+				elseif (strpos($page, 'supervisor')===0 and $user_perfil!=='supervisor') return false;
+				else return true;
+			}
 		}
 	}
 
@@ -225,9 +229,10 @@ class session {
 	*/
 	public static function destroySession( $url = 'login' ){
 		$users = new users();
-		if (isset($_SESSION['user_name'])) $users->deleteUserConn($_SESSION['user_name']);
-
-		visitas::updateVisitaSeconds($_SESSION['user_name']);
+		if (isset($_SESSION['user_name'])) {
+			$users->deleteUserConn($_SESSION['user_name']);
+			visitas::updateVisitaSeconds($_SESSION['user_name']);
+		}
 
 		session_unset();
 		session_destroy();		

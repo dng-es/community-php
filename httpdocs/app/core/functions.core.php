@@ -91,7 +91,8 @@ function __autoload($classname){
 	}
 	elseif (strpos($classname, "Controller")){
 		$controller_name = "default";
-		$camels = split(" ", preg_replace('/(?<!^)[A-Z]/e', 'strtolower(" $0")', $classname));
+		//$camels = split(" ", preg_replace('/(?<!^)[A-Z]/e', 'strtolower(" $0")', $classname));
+		$camels = preg_split("/ /", preg_replace_callback('/(?<!^)[A-Z]/', function($m) { return strtolower(" ".$m[0]);}, $classname));
 		if (count($camels) == 3) { 
 			$classname = $camels[0];
 			$controller_name = strtolower($camels[1]);

@@ -115,7 +115,6 @@ class na_areas{
 		//SUBIR FICHERO
 		if (isset($fichero) and $fichero['name']!="") {			
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo = strtolower($nombre_archivo);
 			$nombre_archivo=NormalizeText($nombre_archivo);		
 			move_uploaded_file($fichero['tmp_name'], PATH_TAREAS.$nombre_archivo);
 		}
@@ -178,7 +177,6 @@ class na_areas{
 		if($tipo == 'fichero'){
 			//fichero o mp3
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo = strtolower($nombre_archivo);
 			$nombre_archivo=NormalizeText($nombre_archivo);
 
 			$tipo_archivo = $fichero['type'];
@@ -190,7 +188,6 @@ class na_areas{
 		if($tipo == 'podcast'){
 			//fichero o mp3
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo = strtolower($nombre_archivo);
 			$nombre_archivo=NormalizeText($nombre_archivo);
 
 			$tipo_archivo = $fichero['type'];
@@ -202,7 +199,6 @@ class na_areas{
 		elseif ($tipo == 'video'){
 			//video
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo = strtolower($nombre_archivo);
 			$nombre_archivo=NormalizeText($nombre_archivo);
 			$tipo_archivo = $fichero['type'];
 			$tamano_archivo = $fichero['size'];
@@ -242,7 +238,6 @@ class na_areas{
 		//SUBIR FICHERO
 		if (isset($fichero) and $fichero['name']!="") {			
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo = strtolower($nombre_archivo);
 			$nombre_archivo=NormalizeText($nombre_archivo);		
 			move_uploaded_file($fichero['tmp_name'], PATH_TAREAS.$nombre_archivo);
 		}

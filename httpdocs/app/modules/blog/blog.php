@@ -23,7 +23,8 @@ class blogCore{
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("blog", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("blog", $_SESSION['user_perfil'], $user_permissions)){
 			//SELECCION ULTIMO ID BLOG
-			$id_blog = connection::SelectMaxReg("id_tema", "foro_temas", " AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
+			$filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
+			$id_blog = connection::SelectMaxReg("id_tema", "foro_temas", $filtro_blog." AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
 
 			array_push($array_final, array("LabelIcon" => "fa fa-globe",
 							"LabelItem" => strTranslate("Blog"),

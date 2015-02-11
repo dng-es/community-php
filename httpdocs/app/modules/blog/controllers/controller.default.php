@@ -9,7 +9,7 @@ class blogController{
 		if (isset($_POST['id']) and $_POST['id']==0){
 			$foro = new foro();
 			$id = 0;
-			if ($foro->InsertTema(0,$_POST['nombre'],stripslashes($_POST['descripcion']),$_FILES['imagen-tema'],$_SESSION['user_name'],CANAL1,0,1,'',0,1,$_POST['etiquetas'])) {
+			if ($foro->InsertTema(0,$_POST['nombre'],stripslashes($_POST['descripcion']),$_FILES['imagen-tema'],$_SESSION['user_name'], $_POST['canal'],0,1,'',0,1,$_POST['etiquetas'])) {
 				$id = connection::SelectMaxReg("id_tema","foro_temas"," AND ocio=1 ");		
 				session::setFlashMessage( 'actions_message', "Registro insertado correctamente", "alert alert-success");
 			}else{

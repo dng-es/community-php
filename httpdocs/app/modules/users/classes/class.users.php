@@ -13,16 +13,27 @@ class users{
 	}
 
 	public function getCanales($filter = ""){
-		$Sql="SELECT DISTINCT canal FROM users WHERE 1=1 ".$filter;
+		$Sql="SELECT * FROM canales WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);  
 	}	
 
+	public function insertCanal($canal,$canal_name){	 
+		$Sql="INSERT INTO canales (canal, canal_name) 
+			  VALUES ('".$canal."','".$canal_name."')";
+		return connection::execute_query($Sql);
+	}
+
+	public function updateCanal($canal,$canal_name){	 
+		$Sql="UPDATE canales SET canal_name='".$canal_name."' WHERE canal='".$canal."' ";
+		return connection::execute_query($Sql);
+	}
+	
 	public function getUsers($filter = ""){
 		$Sql="SELECT u.*,t.* FROM users u  
 			  LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
 			  WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);  
-	}
+	}	
 
 	public function insertUser($username,$user_password,$email,$name_user,$confirmed,$disabled,$empresa,$canal,$perfil,$telefono,$surname,$registered=0){
 		if ($perfil=='admin') {$canal='admin';}
@@ -197,7 +208,7 @@ class users{
 					else {$user_date="'".$user_date."'";}
 
 					$perfil = 'usuario';
-					$canal = CANAL1;
+					$canal = CANAL_DEF;
 				 
 					$Sql="INSERT INTO users (username,nick, user_password, email, name, confirmed, disabled, canal, 
 						  empresa, perfil,surname,user_comentarios,foto,user_date) 

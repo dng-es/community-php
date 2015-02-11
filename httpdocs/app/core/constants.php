@@ -78,9 +78,7 @@ define('ESTADO_COMENTARIOS_MURO',1);
 define('ESTADO_COMENTARIOS_FORO',1);
 
 //CANALES DE LA COMUNIDAD
-define('CANAL1','comercial');
-define('CANAL1_LABEL','Canal comercial');
-define('CANAL2','gerente');
-define('CANAL2_LABEL','Canal gerentes');
+define('CANAL_DEF','comercial');
+define('CANAL_DEF_LABEL','Canal comercial');
 define('DEFAULT_IMG_PROFILE', "user.jpg")
 ?>

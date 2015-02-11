@@ -4,6 +4,9 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					 "js/libs/ckfinder/ckfinder.js",
 					 "js/bootstrap.file-input.js", 
 					 getAsset("infotopdf")."js/admin-infotopdf-doc.js"));
+
+templateload("cmbCanales","users");
+
 ?>
 <div class="row row-top">
 	<div class="col-md-9 inset">

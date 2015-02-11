@@ -8,7 +8,8 @@
 class novedades {
  
 	public function getNovedades($filter = ""){
-		$Sql="SELECT * FROM novedades WHERE 1=1 ".$filter;
+		$Sql="SELECT n.*, c.canal_name FROM novedades n 
+		LEFT JOIN canales c On c.canal=n.canal WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 

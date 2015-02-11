@@ -18,10 +18,10 @@ function showFotoGaleria($file_galeria, $rating=true, $reto=0, $pagina = "fotos"
 			<img class="gallery-img" src="'.PATH_FOTOS.$file_galeria['name_file'].'" alt="'.$file_galeria['titulo'].'" /></a>
 			<div class="photo-info">';
 	if ($comments==true) echo '<span>'.$num_comentarios.' <i class="fa fa-comment"></i></span>';
-	echo '		<p><a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="pantalla completa" ><i class="fa fa-desktop"></i></a> '.$titulo.' </p>
+	echo '		<p><a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="'.strTranslate("Full_screen").'" ><i class="fa fa-desktop"></i></a> '.$titulo.' </p>
 			</div>
 			<span class="photo-likes">';		
-	if ($rating){echo ' <a href="?page='.$pagina.'&id='.$reto.'&idvf='.$file_galeria['id_file'].'"  title="votar foto">'.$file_galeria['fotos_puntos'].' <span class="fa fa-heart"></span></a>';}
+	if ($rating){echo ' <a href="?page='.$pagina.'&id='.$reto.'&idvf='.$file_galeria['id_file'].'"  title="'.strTranslate("Photo_vote").'">'.$file_galeria['fotos_puntos'].' <span class="fa fa-heart"></span></a>';}
 	else {echo $file_galeria['fotos_puntos'].' <span class="fa fa-heart"></span>';}
 	echo '</span>
 	</div>';		  

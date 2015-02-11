@@ -157,11 +157,11 @@ class fotos{
 					  WHERE id_comentario=".$id;
 
 				connection::execute_query($Sql);			
-				return "Votación realizada con éxito.";
+				return strTranslate("Photos_comment_vote_ok");
 			}
-			else {return "Ya ha votado este comentario.";}		
+			else return strTranslate("Photos_comment_vote_repeat");	
 		}
-		else {return "No puede votar sus propios comentarios.";}
+		else return strTranslate("Photos_comment_vote_own");
     }	  
 }
 ?>

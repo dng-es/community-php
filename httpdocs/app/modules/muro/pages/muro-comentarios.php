@@ -2,6 +2,7 @@
 addJavascripts(array(getAsset("muro")."js/muro-comentarios-todos-ajax.js"));
 
 templateload("reply","muro");
+templateload("cmbCanales","users");
 
 //OBTENCION DE LOS COMENTARIOS DEL MURO
 $muro = new muro();	
@@ -38,7 +39,7 @@ else{$pagina=1;}
 					<?php ComboCanales();?>
 				</select>
 				<?php endif;?>
-				<button class="muro-enviar btn btn-primary btn-block" type="button" id="muro-submit" value="Enviar" name="coment-submit">Enviar</button>   
+				<button class="muro-enviar btn btn-primary btn-block" type="button" id="muro-submit" value="Enviar" name="coment-submit"><?php echo strTranslate("Send");?></button>   
 			</form>	
 			<br /><div id="result-muro"></div>
 		</div>

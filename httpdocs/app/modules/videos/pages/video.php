@@ -40,7 +40,7 @@ if ($id_video > 0): ?>
 		<h3><?php echo $video['titulo'];?>
 		<small>
 		<span class="legend"><?php echo strTranslate("uploaded_by");?> <b><?php echo $video['nick'];?></b> - <span><?php echo getDateFormat($video['date_video'], "LONG");?></span>
-		 - <b>Reproducciones</b> : <?php echo $video['views'];?> 
+		 - <b><?php echo strTranslate("Views");?></b> : <?php echo $video['views'];?> 
 		 - <a href="?page=video&id=<?php echo $video['id_file'].'&idvv='.$video['id_file'];?>"><i class="fa fa-heart"></i> <?php echo $video['videos_puntos'];?></a>
 		</span>
 		</small>

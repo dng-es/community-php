@@ -1,4 +1,6 @@
 <?php
+templateload("cmbCanales","users");
+
 function PanelSubirVideo($id_promocion = 0){ 
 	$module_config = getModuleConfig("videos");
 	if ($module_config['options']['allow_uploads']==true or $_SESSION['user_perfil']=='admin'){
@@ -24,7 +26,7 @@ function PanelSubirVideo($id_promocion = 0){
 		<?php endif; ?>
 		<label for="nombre-foto" class="sr-only">Video:</label>
 		<input type="file" class="btn btn-default btn-block" name="nombre-video" id="nombre-video" title="<?php echo strTranslate("Choose_file");?>" />
-		<div class="alert alert-danger" id="alertas-participa" style="display: none"></div>
+		<div class="alert alert-danger" id="alertas-participa" style="display: none"><?php echo strTranslate("Required_all_fields");?></div>
 		<button type="submit" class="btn btn-primary btn-block" id="video-submit" name="video-submit"><?php echo strTranslate("Send_video");?></button>
 	</form>		
 	<?php } ?>

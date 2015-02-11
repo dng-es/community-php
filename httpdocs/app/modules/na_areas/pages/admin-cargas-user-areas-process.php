@@ -12,7 +12,6 @@ $id_area = $_REQUEST['id_area'];
 		    $fichero = $_FILES['nombre-fichero'];
 		    //SUBIR FICHERO		
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo = strtolower($nombre_archivo);
 			$nombre_archivo = NormalizeText($nombre_archivo);
 			
 			

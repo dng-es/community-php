@@ -27,8 +27,8 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		<section id="photos">
 
 		</section>
-		<div id="cargando-infinnite"><span class="btn btn-default">seguir cargando imagenes <i class="fa fa-arrow-circle-down"></i></span></div>
-		<div id="cargando-infinnite-end"><span class="btn btn-default alert-info">No hay más imágenes <i class="fa fa-info-circle"></i></span></div>
+		<div id="cargando-infinnite"><span class="btn btn-default"><?php echo strTranslate("More_photos");?> <i class="fa fa-arrow-circle-down"></i></span></div>
+		<div id="cargando-infinnite-end"><span class="btn btn-default alert-info"><?php echo strTranslate("No_more_photos");?> <i class="fa fa-info-circle"></i></span></div>
 		<div class="clearfix"></div>
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">

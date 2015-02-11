@@ -16,7 +16,7 @@ infoController::getZipAction();
 			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p>Despliega cada <?php echo strtolower(strTranslate("Campaign"));?> para ver sus documentos.</p>
+						<p><?php echo strTranslate("Info_collapse");?></p>
 						<p class="text-muted"><small>Total <?php echo strTranslate("Campaigns");?> <?php echo $elements['total_reg'];?></small></p>
 					</div>
 				</div>

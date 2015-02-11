@@ -271,7 +271,6 @@ class mailing{
 		$nombre_archivo = "";
 		if ($attachments['name']!="") {
 			$nombre_archivo = time().'_'.str_replace(" ","_",$attachments['name']);
-			$nombre_archivo = strtolower($nombre_archivo);
 			$nombre_archivo=NormalizeText($nombre_archivo);		
 			move_uploaded_file($attachments['tmp_name'], PATH_MAILING."attachments/".$nombre_archivo);
 		}

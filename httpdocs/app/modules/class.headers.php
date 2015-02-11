@@ -29,7 +29,7 @@ class headers{
 				<link href="css/styles.css" rel="stylesheet"> 
 			
 				<script type="text/javascript" src="js/main.min.js"></script>
-				<script type="text/javascript" src="js/notifications.js"></script>
+				<!-- <script type="text/javascript" src="js/notifications.js"></script> -->
 				
 
 			<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

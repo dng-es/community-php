@@ -1,16 +1,18 @@
 // JavaScript Document
-function Confirma(Mensaje,Destino){
-/*		var respuesta=confirm(Mensaje);        
-		if (respuesta==true)
-				location.href=Destino;*/
+function Confirma(Mensaje, Destino, Title, CancelButton, ConfirmButton){
+
+	Title || (Title = "¿Estas seguro?");
+	CancelButton || (CancelButton = "Cancelar");
+	ConfirmButton || (ConfirmButton = "Confirmar");
+
 	swal({
-		title: "¿Estas seguro?",
+		title: Title,
 		text: Mensaje,
 		type: "warning",
 		showCancelButton: true,
 		confirmButtonColor: "#DD6B55",
-		cancelButtonText: "Cancelar",
-		confirmButtonText: "Confirmar",
+		cancelButtonText: CancelButton,
+		confirmButtonText: ConfirmButton,
 		closeOnConfirm: false
 	},
 	function(){

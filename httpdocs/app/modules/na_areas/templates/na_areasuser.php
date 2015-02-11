@@ -16,7 +16,7 @@ function userNaAreas($username){
 				<td>
 					<small><?php echo $element['tarea_titulo'];?></small>
 					<?php if ($element['tipo'] == 'formulario'): ?>
-					<br /><small><a href="?page=areas_form&id=<?php echo $element['id_tarea'];?>" target="_blank">ver mis respuestas</a></small>
+					<br /><small><a href="?page=areas_form&id=<?php echo $element['id_tarea'];?>" target="_blank"><?php echo strTranslate("My_answers");?></a></small>
 					<?php else: 
 					$archivos = $na_areas->getTareasUser(" AND user_tarea='".$username."' AND id_tarea=".$element['id_tarea']." ");
 					foreach($archivos as $archivo): ?>
@@ -41,5 +41,6 @@ function userNaAreas($username){
 		<?php endforeach; ?>
 	</table>
 	<?php 
+	if (count($elements)==0) echo '<div class="row"><div class="col-md-12"><div class="alert alert-warning">'.strTranslate("No_courses_finished")."</div></div></div>";
 }
 ?>

@@ -69,11 +69,11 @@ class na_areasController{
 			$total_users = connection::countReg("na_areas_users"," AND id_area=".$id_area." ");
 			if ($total_users<$limite_users):	
 				if ($na_areas->insertUserArea($id_area,$_SESSION['user_name']))
-					session::setFlashMessage( 'actions_message', "Inscrito correctamente en el curso.", "alert alert-success");  
+					session::setFlashMessage( 'actions_message', strTranslate("Enroll_successful"), "alert alert-success");  
 				else
-					session::setFlashMessage( 'actions_message', "Se ha producido un error al apuntarte al curso. Por favor, inténtalo más tarde.", "alert alert-danger");
+					session::setFlashMessage( 'actions_message', strTranslate("Enroll_fail"), "alert alert-danger");
 			else:
-				session::setFlashMessage( 'actions_message', "Ya se ha alcanzo el límite de usuarios para este curso.", "alert alert-danger");
+				session::setFlashMessage( 'actions_message', strTranslate("Enroll_limit_reached"), "alert alert-danger");
 			endif;
 			redirectURL("?page=areas");   
 		}
