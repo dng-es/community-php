@@ -69,7 +69,7 @@ function showFotoModal($file_galeria,$votaciones=true,$movil=0,$reto=0){
 			<span class="text-muted"><a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="'.strTranslate("Full_screen").'" ><i class="fa fa-desktop"></i></a> 
 			'.$nick.' - '.getDateFormat($file_galeria['date_foto'], "SHORT");
 	if ($_SESSION['user_perfil']=='admin'){ echo ' - ID: '.$file_galeria['id_file'];}		
-	echo ' - <a href="#" data-id="'.$file_galeria['id_file'].'" data-v="'.$votado.'"  title="votar foto" class="fa fa-heart trigger-votar"> '.$file_galeria['fotos_puntos'].'</a>';
+	echo ' - <a href="#" data-id="'.$file_galeria['id_file'].'" data-v="'.$votado.'"  title="'.strTranslate("Photo_vote").'" class="fa fa-heart trigger-votar"> '.$file_galeria['fotos_puntos'].'</a>';
 	echo '</span> ';
 	echo '<div class="alert-votacion text-danger"></div>';
 	echo '</div></div>';		  

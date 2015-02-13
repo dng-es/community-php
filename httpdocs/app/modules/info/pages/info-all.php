@@ -46,12 +46,12 @@ infoController::getZipAction();
 									<div class="row">
 										<div class="col-md-12">
 											<h5><a title="<?php echo strTranslate("Download_file");?>" <?php echo $enlace;?> >
-												<i class="fa fa-file-o"></i> <?php echo $elements_info['titulo_info'];?></a><br /><small><?php echo $elements_info['tipo']; ?> - <?php echo getDateFormat($elements_info['date_info'], "LONG"); ?></small></h5>
+												<i class="fa fa-file-o"></i> <?php echo $elements_info['titulo_info'];?></a><br /><small><?php echo getDateFormat($elements_info['date_info'], "LONG"); ?></small></h5>
 										</div>
 									</div>
 								<?php endforeach;?>
 								<?php if ($num_docs == 0):?>
-									<p class="text-muted">No existen documentos en esta <?php echo strtolower(strTranslate("Campaign"));?>.</p>
+									<p class="text-muted"><?php echo strTranslate("No_files_in_this_section");?>.</p>
 								<?php endif;?>
 							</div>
 						</div>
@@ -65,7 +65,7 @@ infoController::getZipAction();
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 			<h4><?php echo strTranslate("Info_Documents");?></h4>
-			<p>toda la documentación que necesitas, ordenada por <?php echo strtolower(strTranslate("Campaigns"));?>.</p>
+			<p><?php echo strTranslate("Info_Documents_Text");?>.</p>
 			<p class="text-center"><i class="fa fa-newspaper-o fa-big"></i></p>
 		</div>
 	</div>

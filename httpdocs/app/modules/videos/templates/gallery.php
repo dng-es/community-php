@@ -63,7 +63,7 @@ function showVideoGaleria($file_galeria,$rating=true,$id_promocion=0){
 			<div>
 				<?php 
 				if ($file_galeria['tipo_video']!="") {echo ' - '.$file_galeria['tipo_video'].'</span>';}	
-				if ($rating){$votes =' <a href="?page='.$page.'&id='.$id_promocion.'&idvv='.$file_galeria['id_file'].$destination.'" title="votar video" class="fa fa-heart"></a> '.$file_galeria['videos_puntos'];}
+				if ($rating){$votes =' <a href="?page='.$page.'&id='.$id_promocion.'&idvv='.$file_galeria['id_file'].$destination.'" title="<?php echo strTranslate("Vote_video");?>" class="fa fa-heart"></a> '.$file_galeria['videos_puntos'];}
 				else {$votes = ' <span class="fa fa-heart"></span> '.$file_galeria['videos_puntos'];}
 				echo $votes;
 				if ($_SESSION['user_perfil']=='admin'){ echo ' <span class="comunidad-color"><b>id:</b></span> '.$file_galeria['id_file'];}

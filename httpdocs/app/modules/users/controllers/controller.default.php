@@ -140,7 +140,7 @@ class usersController{
 				session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ko"), "alert alert-danger");
 			}
 			elseif ($confirmar == 3) {
-				session::setFlashMessage( 'actions_message', "<b>".$_POST['user-nick']."</b> ".strTranslate("Update_profile_nick_ko"), "alert alert-danger");
+				session::setFlashMessage( 'actions_message', $_POST['user-nick']." ".strTranslate("Update_profile_nick_ko"), "alert alert-danger");
 			}
 			redirectURL("?page=user-perfil");	
 		}
