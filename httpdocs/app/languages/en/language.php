@@ -118,4 +118,5 @@ Upload = "Upload"
 Archive = "Archive"
 Choose_archive = "Choose archive"
 Full_screen = "Full screen"
+Your_comment = "Your comment"
 ?>

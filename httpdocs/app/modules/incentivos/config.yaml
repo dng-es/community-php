@@ -1,0 +1,7 @@
+---
+options:
+    allow_incentivos: true
+security:
+    - 
+        page: ^admin
+        role: admin

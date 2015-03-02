@@ -12,8 +12,8 @@ $plantilla = campaignsController::getItemAction();
 <div class="row inset row-top">	
 	<div class="col-md-12">
 		<?php menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"?page=user-campaigns"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"user-campaigns"),
 			array("ItemLabel"=>$plantilla['name_campaign'], "ItemClass"=>"active"),
 		));?>
 		<p><?php echo $plantilla['novedad']==1 ? '<span class="label label-success">novedad</span> ' : '';?></p>
@@ -23,7 +23,7 @@ $plantilla = campaignsController::getItemAction();
 			if (count($templates['items'])>0):
 				echo '<ul>';
 				foreach($templates['items'] as $element):
-					echo '<li><a href="?page=user-message&act=new&id='.$element['id_template'].'">'.$element['template_name'].'</a></li>';
+					echo '<li><a href="user-message&act=new?id='.$element['id_template'].'">'.$element['template_name'].'</a></li>';
 				endforeach;
 				echo '</ul>';
 			else:
@@ -35,7 +35,7 @@ $plantilla = campaignsController::getItemAction();
 			if (count($documentos['items'])>0):
 				echo '<ul>';
 				foreach($documentos['items'] as $element):
-					echo '<li><a href="?page=user-infotopdf&id='.$element['id_info'].'">'.$element['titulo_info'].'</a></li>';
+					echo '<li><a href="user-infotopdf?id='.$element['id_info'].'">'.$element['titulo_info'].'</a></li>';
 				endforeach;
 				echo '</ul>';
 			else:
@@ -47,7 +47,7 @@ $plantilla = campaignsController::getItemAction();
 			if (count($ficheros['items'])>0):
 				echo '<ul>';
 				foreach($ficheros['items'] as $element):
-					echo '<li><a href="?page=user-info&id='.$element['id_info'].'">'.$element['titulo_info'].'</a></li>';
+					echo '<li><a href="user-info?id='.$element['id_info'].'">'.$element['titulo_info'].'</a></li>';
 				endforeach;
 				echo '</ul>';
 			else:

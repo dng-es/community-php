@@ -30,7 +30,7 @@ class cuestionariosController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-cuestionario&id=".$id_cuestionario);
+			redirectURL("admin-cuestionario?id=".$id_cuestionario);
 		}			
 	}
 
@@ -46,7 +46,7 @@ class cuestionariosController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-cuestionario&id=".$id_cuestionario);
+			redirectURL("admin-cuestionario?id=".$id_cuestionario);
 		}
 	}			
 
@@ -84,7 +84,7 @@ class cuestionariosController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-cuestionario&id=".$_REQUEST['id']);
+			redirectURL("admin-cuestionario?id=".$_REQUEST['id']);
 		}	
 	}
 
@@ -97,7 +97,7 @@ class cuestionariosController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al modificar estado.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-cuestionarios");
+			redirectURL("admin-cuestionarios");
 		}
 	}	
 
@@ -125,7 +125,7 @@ class cuestionariosController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al clonar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-cuestionarios");
+			redirectURL("admin-cuestionarios");
 		}
 	}	
 
@@ -168,7 +168,7 @@ class cuestionariosController{
 				session::setFlashMessage( 'actions_message', "Cuestionario finalizado correctamente. Próximamente podrás consultar la nota de tu evaluación.", "alert alert-success");
 			}
 			else{ session::setFlashMessage( 'actions_message', "Se ha producido algún error al finalizar el cuestionario.", "alert alert-danger");}    
-			redirectURL("?page=cuestionario&id=".$id_cuestionario);
+			redirectURL("cuestionario?id=".$id_cuestionario);
 		}
 	}	
 
@@ -190,7 +190,7 @@ class cuestionariosController{
 		if (isset($_REQUEST['act_f']) and $_REQUEST['act_f'] == "del"){
 			$cuestionarios = new cuestionarios();
 			$cuestionarios->deleteFinalizacionForm($_REQUEST['id']," AND user_tarea='".$_REQUEST['ut']."'");
-			redirectURL("?page=admin-cuestionario-revs&id=".$_REQUEST['id']);	
+			redirectURL("admin-cuestionario-revs?id=".$_REQUEST['id']);	
 		}
 	}
 
@@ -239,7 +239,7 @@ class cuestionariosController{
 				session::setFlashMessage( 'actions_message', "Cuestionario vaciado correctamente.", "alert alert-success");
 			}
 			else{ session::setFlashMessage( 'actions_message', "Se ha producido algún error al vaciar el cuestionario.", "alert alert-danger");}    
-			redirectURL("?page=admin-cuestionario-revs&id=".$id_cuestionario);
+			redirectURL("admin-cuestionario-revs?id=".$id_cuestionario);
 		}
 	}
 }

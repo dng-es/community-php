@@ -42,13 +42,10 @@ class videosCore{
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("video", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("video", $_SESSION['user_perfil'], $user_permissions)){
-			//SELECCION ULTIMO VIDEO
-			$filter_videos = ($_SESSION['user_canal']!='admin' ? " AND canal='".$_SESSION['user_canal']."' " : "");			
-			$id_video = connection::SelectMaxReg("id_file", "galeria_videos", $filter_videos." AND estado=1 ");
 
 			array_push($array_final, array("LabelIcon" => "fa fa-video-camera",
 							"LabelItem" => strTranslate("Videos"),
-							"LabelUrl" => '?page=video&id='.$id_video,
+							"LabelUrl" => 'videos',
 							"LabelTarget" => '_self',
 							"LabelPos" => 2));
 		}

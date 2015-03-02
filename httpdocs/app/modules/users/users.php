@@ -11,7 +11,7 @@ class usersCore{
 		if ($session->checkPageViewPermission("ranking", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-trophy",
 							"LabelItem" => 'Ranking',
-							"LabelUrl" => '?page=ranking',
+							"LabelUrl" => 'ranking',
 							"LabelTarget" => '_self',
 							"LabelPos" => 8));
 		}
@@ -72,14 +72,14 @@ class usersCore{
 				"LabelUrl" => "admin-canales",
 				"LabelPos" => 6,
 			)),		
-			menu::addAdminMenu(array(
+/*			menu::addAdminMenu(array(
 				"PageName" => "admin-canal",
 				"LabelHeader" => "Tools",
 				"LabelSection" => strTranslate("Users"),
 				"LabelItem" => strTranslate("Channel_new"),
 				"LabelUrl" => "admin-canal",
 				"LabelPos" => 7,
-			)),		
+			)),	*/	
 			menu::addAdminMenu(array(
 				"PageName" => "admin-informe-puntuaciones",
 				"LabelHeader" => "Tools",

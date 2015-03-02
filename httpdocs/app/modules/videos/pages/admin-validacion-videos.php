@@ -30,7 +30,7 @@ if (isset($_REQUEST['act'])) {
 		unlink (PATH_VIDEOS_TEMP.$_REQUEST['f']);
 		$videos->cambiarEstado($_REQUEST['id'],2);}
 
-	header("Location: ?page=admin-validacion-videos"); 
+	header("Location: admin-validacion-videos"); 
 }
 
 $videos = new videos();
@@ -39,8 +39,8 @@ $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Videos"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Video_validation"), "ItemClass"=>"active"),
 		));
@@ -56,20 +56,20 @@ $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 		
 			if ($convertido==true){  			
 				echo '	<a class="" href="#" onClick="Confirma(\'¿Seguro que desea validar el vídeo?\',
-						\'?page=admin-validacion-videos&act=video_ok&id='.$element['id_file'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" 
+						\'admin-validacion-videos?act=video_ok&id='.$element['id_file'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" 
 						title="validar video" /><span><i class="fa fa-check"></i> validar video</span></a> - 
 						
 						<a class="" href="#" onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'?\',
-						\'?page=admin-validacion-videos&act=video_ko&id='.$element['id_file'].'&u='.$element['user_add'].'\')" 
+						\'admin-validacion-videos?act=video_ko&id='.$element['id_file'].'&u='.$element['user_add'].'\')" 
 						title="eliminar video" /><i class="fa fa-can"></i> eliminar</a>';
 			}
 			else{
 				echo '<a class="" href="#" 
 					  onClick="Confirma(\'¿Seguro que desea convertir el vídeo?, el proceso puede durar varios minutos.\',
-					  \'?page=admin-validacion-videos&act=video_conv&id='.$element['id_file'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" 
+					  \'admin-validacion-videos?act=video_conv&id='.$element['id_file'].'&f='.$element['name_file'].'&u='.$element['user_add'].'\')" 
 					  title="convertir video" /><i class="fa fa-video-camera"></i> convertir</a>';
 			}								
-			echo ' - <a class="" href="?page=admin-validacion-videos&exp='.$element['name_file'].'" title="descargar vídeo"><i class="fa fa-download"></i> descargar</a>';			
+			echo ' - <a class="" href="admin-validacion-videos?exp='.$element['name_file'].'" title="descargar vídeo"><i class="fa fa-download"></i> descargar</a>';			
 			echo '<div class="video-content">';
 			echo '	</div>
 				  	<div class="video-info">

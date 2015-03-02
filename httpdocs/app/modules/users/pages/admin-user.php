@@ -25,9 +25,9 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"?page=admin-users"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"admin-users"),
 			array("ItemLabel"=>strTranslate("User_info"), "ItemClass"=>"active"),
 		));
 		
@@ -152,7 +152,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 								  <img src="<?php echo PATH_USERS_FOTO.(($elements[0]['foto']=="") ? "user.jpg" : $elements[0]['foto']);?>" style="width:100%" class="responsive" /><br /><br />
 								<?php
 								echo '<div class="btn btn-primary btn-block" id="DeleteFoto" onClick="Confirma(\'¿Seguro que desea borrar la foto del usuario?\',
-									\'?page=admin-user&id='.$elements[0]['username'].'&f='.$elements[0]['foto'].'\')" 
+									\'admin-user?id='.$elements[0]['username'].'&f='.$elements[0]['foto'].'\')" 
 									title="'.strTranslate("Delete_photo").'" />'.strTranslate("Delete_photo").'</div>';
 								?>
 							</div>

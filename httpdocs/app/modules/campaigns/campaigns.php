@@ -9,7 +9,7 @@ class campaignsCore{
 			"LabelHeader" => "Modules",
 			"LabelSection" => strTranslate("Campaigns"),
 			"LabelItem" => strTranslate("New_campaign"),
-			"LabelUrl" => "admin-campaign&act=new",
+			"LabelUrl" => "admin-campaign?act=new",
 			"LabelPos" => 1,
 		)));
 

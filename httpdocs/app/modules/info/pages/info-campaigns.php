@@ -2,7 +2,7 @@
 	<div class="col-md-8 col-lg-9 inset">
 		<?php 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemClass"=>"active"),
 		));
 
@@ -15,7 +15,7 @@
 			<div class="col-md-3">
 				<div class="col-md-12 section full-height section-hover">
 					<section>					
-						<a href="?page=user-info-all&id=<?php echo $element['id_campaign'];?>" >
+						<a href="user-info-all?id=<?php echo $element['id_campaign'];?>" >
 						<i class="fa fa-newspaper-o section-icon"></i><br />
 							<h3><?php echo $element['name_campaign'];?></h3>
 							<h5><?php echo $nun_docs;?> documentos</h5>

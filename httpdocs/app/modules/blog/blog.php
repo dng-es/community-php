@@ -22,13 +22,10 @@ class blogCore{
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("blog", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("blog", $_SESSION['user_perfil'], $user_permissions)){
-			//SELECCION ULTIMO ID BLOG
-			$filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
-			$id_blog = connection::SelectMaxReg("id_tema", "foro_temas", $filtro_blog." AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
 
 			array_push($array_final, array("LabelIcon" => "fa fa-globe",
 							"LabelItem" => strTranslate("Blog"),
-							"LabelUrl" => '?page=blog&id='.$id_blog,
+							"LabelUrl" => 'blog',
 							"LabelTarget" => '_self',
 							"LabelPos" => 5));
 		}

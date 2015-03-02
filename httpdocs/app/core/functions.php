@@ -1,7 +1,13 @@
 <?php
+/**
+ * Limpia una cadena. Utilizada para evitar errores y Sql injection
+ * @param  string 		$text 			Cadena a limpiar
+ * @return string       				Cadena limpiada
+ */
 function sanitizeInput($text){
 	return str_replace("'","\'", $text);
 }
+
 /**
  * Print HTML message Error
  * @param 	string  	$msg      		Message text
@@ -144,29 +150,29 @@ function Paginator($pag,$reg,$total_reg,$pag_dest,$title,$find_reg="",$num_pagin
 		echo '<div class="pagination-centered">
 				<ul class="pagination">';
 		//echo '<span class="messages"> '.$title.' '.$total_reg.' ('.$reg_ini.'-'.$reg_end.')</span>';
-		if(($pag - 1) > 0) { echo '<li><a href="?page='.$pag_dest.'&'.$pagecount_dest.'=1&regs='.$reg.'&f='.$find_reg.'">&laquo;</a></li>';}
+		if(($pag - 1) > 0) { echo '<li><a href="'.$pag_dest.'?'.$pagecount_dest.'=1&regs='.$reg.'&f='.$find_reg.'">&laquo;</a></li>';}
 		else { echo '<li class="disabled"><a href="#">&laquo;</a></li>';}
 		
 		$pagina_inicial = $pag-1;
 		if ($pagina_inicial <= 0){ $pagina_inicial = 1; }
 		$pagina_final = $pagina_inicial + $num_paginas;
 		
-		if ($pag > 1){ echo '<li><a href="?page='.$pag_dest.'&'.$pagecount_dest.'='.($pag-1).'&regs='.$reg.'&f='.$find_reg.'">anterior</a></li>';}
+		if ($pag > 1){ echo '<li><a href="'.$pag_dest.'?'.$pagecount_dest.'='.($pag-1).'&regs='.$reg.'&f='.$find_reg.'">anterior</a></li>';}
 		else { echo '<li class="disabled"><a href="#">anterior</a></span></li>';}
 		
 		for ($i = $pagina_inicial; $i <= $pagina_final; $i++){
 			if($i <= $total_pag){
 				if ($pag == $i) { echo '<li class="active"><a href="#">'.$pag.'</a></li>';}
-				else { echo '<li><a href="?page='.$pag_dest.'&'.$pagecount_dest.'='.$i.'&regs='.$reg.'&f='.$find_reg.'">'.$i.'</a></li>';}
+				else { echo '<li><a href="'.$pag_dest.'&'.$pagecount_dest.'='.$i.'&regs='.$reg.'&f='.$find_reg.'">'.$i.'</a></li>';}
 			}
 		}
 		
 		if ($pag < $total_pag){
-			echo '<li><a href="?page='.$pag_dest.'&'.$pagecount_dest.'='.($pag+1).'&regs='.$reg.'&f='.$find_reg.'">siguiente</a></li>';
+			echo '<li><a href="'.$pag_dest.'?'.$pagecount_dest.'='.($pag+1).'&regs='.$reg.'&f='.$find_reg.'">siguiente</a></li>';
 		}
 		else { echo '<li class="disabled"><a href="#">siguiente</a></li>';}
 		
-		if(($pag + 1) <= $total_pag) { echo '<li><a href="?page='.$pag_dest.'&'.$pagecount_dest.'='.$total_pag.'&regs='.$reg.'&f='.$find_reg.'">&raquo;</a></li>';}
+		if(($pag + 1) <= $total_pag) { echo '<li><a href="'.$pag_dest.'?'.$pagecount_dest.'='.$total_pag.'&regs='.$reg.'&f='.$find_reg.'">&raquo;</a></li>';}
 		else { echo '<li class="disabled"><a href="#">&raquo;</a></li>';}
 		echo '</ul>
 			</div>';
@@ -356,11 +362,11 @@ function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz0
  * @param 	string 		$class_form  	Clase CSS para el form
  */
 
-function SearchForm($reg,$pag,$formId="searchForm",$labelForm="Buscar:",$labelButton="ir",$clase_css="",$class_form="", $method_form="post") {	
+function SearchForm($reg, $pag, $formId="searchForm", $labelForm="Buscar:", $labelButton="ir", $clase_css="", $class_form="", $method_form="post") {	
 	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
 
 	echo '<div class="'.$clase_css.'">  
-			<form action="'.$pag.'&regs='.$reg.'" method="'.$method_form.'" id="'.$formId.'" class="'.$class_form.'">		  
+			<form action="'.$pag.'?regs='.$reg.'" method="'.$method_form.'" name="'.$formId.'" id="'.$formId.'" class="'.$class_form.'">		  
 				<div class="input-group">
 					<label class="sr-only" for="find_reg">'.$labelForm.'</label>
 					<input type="text" class="form-control" id="find_reg" name="find_reg" placeholder="'.$labelForm.'" value="'.$busqueda.'">
@@ -501,6 +507,7 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
 		$transport = Swift_MailTransport::newInstance();	
 	}
 	
+	$remitente = array_keys($message_from);
 
 	// Create the Mailer using your created Transport
 	$mailer = Swift_Mailer::newInstance($transport);
@@ -512,15 +519,17 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
 
 		// Set the From address with an associative array
 		->setFrom($message_from)
+		//->setSender($ini_conf['smtp_user'])
+		->setReturnPath($remitente[0])
 
 		// Set the To addresses with an associative array
 		->setTo($message_to)
 
 		// Give it a body
-		->setBody($message_body, 'text/html')
+		->setBody(strip_tags($message_body))
 
 		// And optionally an alternative body
-		//->addPart('<q>Here is the message itself</q>', 'text/html')
+		->addPart($message_body, 'text/html')
 
 		// Optionally add any attachments
   		//->attach(Swift_Attachment::fromPath('my-document.pdf'))

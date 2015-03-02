@@ -30,7 +30,7 @@ $users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
 			$(".trigger-msg").click(function(e){
 				e.preventDefault();
 				var nick = $(this).attr("n");
-				if (nick!=""){location.href="?page=mensajes&n="+nick;}	
+				if (nick!=""){location.href="inbox?n="+nick;}	
 			});
 		});
     </script>

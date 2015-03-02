@@ -68,7 +68,7 @@ class mailingListsController{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
 			}
 
-			redirectURL("?page=user-list&act=edit&id=".$id_list);
+			redirectURL("user-list?act=editid=".$id_list);
 		}		
 	}
 
@@ -87,7 +87,7 @@ class mailingListsController{
 				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
 		
-			redirectURL("?page=user-list&id=".$id_list);
+			redirectURL("user-list?id=".$id_list);
 		}
 	}	
 
@@ -101,7 +101,7 @@ class mailingListsController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=user-lists");
+			redirectURL("user-lists");
 		}
 	}
 

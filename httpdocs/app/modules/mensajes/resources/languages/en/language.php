@@ -9,4 +9,7 @@ Mailing_inbox = "Inbox"
 Mailing_sent = "Sent items"
 Your_messages = "Your messages"
 Mailing_text = "Send a message to your community partners."
+Mailing_sent_ok = "Message sent"
+Mailing_sent_yourself = "You can not send messages to yourself"
+Mailing_delete_ok = "Message deleted successfully"
 ?>

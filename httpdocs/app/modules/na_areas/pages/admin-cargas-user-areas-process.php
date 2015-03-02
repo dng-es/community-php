@@ -46,7 +46,7 @@ $id_area = $_REQUEST['id_area'];
 			<div class="panel-body">
 				<p>resumen del proceso de importación de usuarios al área de trabajo: a la izquierda se muestra un resumen con los usuarios incluidos en el área de trabajo. 
 				No se insertarán aquellos usuarios cuyo canal no coincida conn el canal el área.</p>
-				<p><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">volver atrás</a></p>
+				<p><a href="admin-area?act=edit&id=<?php echo $id_area;?>">volver atrás</a></p>
 			</div>
 		</div>
 	</div>			

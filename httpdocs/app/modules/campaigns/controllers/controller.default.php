@@ -56,7 +56,7 @@ class campaignsController{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
 			}
 
-			redirectURL("?page=admin-campaign&id=".$id_campaign);
+			redirectURL("admin-campaign?id=".$id_campaign);
 		}		
 	}
 
@@ -79,7 +79,7 @@ class campaignsController{
 				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
 			
-			redirectURL("?page=admin-campaign&id=".$id_campaign);
+			redirectURL("admin-campaign?id=".$id_campaign);
 		}
 	}
 
@@ -92,7 +92,7 @@ class campaignsController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-campaigns");
+			redirectURL("admin-campaigns");
 		}
 	}
 
@@ -133,7 +133,7 @@ class campaignsController{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
 			}
 
-			redirectURL("?page=admin-campaigns-type&id=".$id);
+			redirectURL("admin-campaigns-type?id=".$id);
 		}		
 	}
 
@@ -151,7 +151,7 @@ class campaignsController{
 				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
 			
-			redirectURL("?page=admin-campaigns-type&id=".$id);
+			redirectURL("admin-campaigns-type?id=".$id);
 		}
 	}	
 
@@ -164,7 +164,7 @@ class campaignsController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-campaigns-types");
+			redirectURL("admin-campaigns-types");
 		}
 	}			
 }

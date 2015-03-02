@@ -13,12 +13,6 @@ include_once($base_dir . "modules/fotos/templates/comment.php");
 session::ValidateSessionAjax();
 $fotos=new fotos();
 
-//VOTAR FOTO
-if (isset($_POST['idv']) and $_POST['idv'] != ""){
-	$id = sanitizeInput($_POST['idv']);
-	echo $fotos->InsertVotacion($id, $_SESSION['user_name']);
-}
-
 //INSERTAR COMENTARIO
 if (isset($_POST['respuesta-texto']) and $_POST['respuesta-texto']!=""){
 	$id = sanitizeInput($_POST['id_file']);
@@ -26,11 +20,39 @@ if (isset($_POST['respuesta-texto']) and $_POST['respuesta-texto']!=""){
 	echo $fotos->InsertComentario($id, $texto_comentario, $_SESSION['user_name'],1);
 }
 
-//MOSTRAR COMENTARIOS
-if (isset($_REQUEST['idf']) and $_REQUEST['idf']!=""){
-	$elements = $fotos->getComentariosFoto(" AND id_file=".$_REQUEST['idf']." AND estado=1 ORDER BY id_comentario DESC");
-	foreach($elements as $element):
-		commentFoto($element, "");
-	endforeach;
+//VOTAR FOTO
+if (isset($_POST['idv']) and $_POST['idv'] != ""){
+	$id = sanitizeInput($_POST['idv']);
+	echo $fotos->InsertVotacion($id, $_SESSION['user_name']);
 }
+else{
 ?>
+<!DOCTYPE html>
+	<html lang="es">
+		<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/css/styles.css" />	
+		<!-- tooltip --> 
+		<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/main.min.js"></script> 
+		<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/jquery.bettertip.pack.js"></script> 
+		<script type="text/javascript">
+			$(function(){
+					BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
+			})
+		</script>
+
+		<!-- fin tooltip -->  
+	</head>
+	<body>
+	<?php
+	//MOSTRAR COMENTARIOS
+	if (isset($_REQUEST['idf']) and $_REQUEST['idf']!=""){
+		$elements = $fotos->getComentariosFoto(" AND id_file=".$_REQUEST['idf']." AND estado=1 ORDER BY id_comentario DESC");
+		foreach($elements as $element):
+			commentFoto($element, "");
+		endforeach;
+	}
+	?>
+	</body>
+</html>	
+<?php } ?>

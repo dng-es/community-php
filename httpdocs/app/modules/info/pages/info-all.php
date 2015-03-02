@@ -5,7 +5,7 @@ infoController::getZipAction();
 	<div class="col-md-8 col-lg-9 inset">
 		<?php 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemClass"=>"active"),
 		));
 
@@ -34,14 +34,14 @@ infoController::getZipAction();
 						        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $element['id_campaign'];?>" aria-expanded="false" aria-controls="collapse<?php echo $element['id_campaign'];?>">
 									<i class="fa fa-folder"></i> 
 									<?php echo $element['name_campaign'];?> 
-									<small><?php echo $num_docs;?> documentos</small>
+									<small><?php echo $num_docs;?> <?php echo strTranslate("Info_Documents");?></small>
 								</a>
 							</h4>
 						</div>
 						<div id="collapse<?php echo $element['id_campaign'];?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $element['id_campaign'];?>">
 							<div class="panel-body">
 								<?php foreach($elements_info['items'] as $elements_info): 
-								$enlace = ($elements_info['download']==1 ? ' href="?page=info-all&id='.$element['id_info'].'&exp='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
+								$enlace = ($elements_info['download']==1 ? ' href="info-all?id='.$element['id_info'].'&exp='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
 								?>
 									<div class="row">
 										<div class="col-md-12">
@@ -64,6 +64,7 @@ infoController::getZipAction();
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
+			<?php echo SearchForm(0, "info-search", "searchForm", strTranslate("Info_search"), strTranslate("Search"), "", "");?>
 			<h4><?php echo strTranslate("Info_Documents");?></h4>
 			<p><?php echo strTranslate("Info_Documents_Text");?>.</p>
 			<p class="text-center"><i class="fa fa-newspaper-o fa-big"></i></p>

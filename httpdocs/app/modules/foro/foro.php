@@ -26,13 +26,10 @@ class foroCore{
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("foro-subtemas", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("foro-subtemas", $_SESSION['user_perfil'], $user_permissions)){
-			//SELECCION DEL FORO
-			$filtro_canal = ($_SESSION['user_canal']== 'admin' ? "" : " AND canal='".$_SESSION['user_canal']."' ");
-			$id_foro = connection::SelectMaxReg("id_tema", "foro_temas", " AND id_tema_parent=0 AND id_area=0 AND ocio=0 ".$filtro_canal);
 
 			array_push($array_final, array("LabelIcon" => "fa fa-comment",
 							"LabelItem" => strTranslate("Forums"),
-							"LabelUrl" => '?page=foro-subtemas&id='.$id_foro,
+							"LabelUrl" => 'foro-subtemas',
 							"LabelTarget" => '_self',
 							"LabelPos" => 9));
 		}

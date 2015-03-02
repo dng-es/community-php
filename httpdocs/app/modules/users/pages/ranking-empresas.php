@@ -14,8 +14,8 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Rankings"), "ItemUrl"=>"#"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Rankings"), "ItemUrl"=>"ranking"),
 			array("ItemLabel"=>strTranslate("Ranking_companies"), "ItemClass"=>"active"),
 		));
 		?>
@@ -51,7 +51,7 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 			<li><span class="text-primary"><?php echo PUNTOS_VIDEO." ".strTranslate("APP_points");?></span> por subir un vídeo</li>
 			<li><span class="text-primary"><?php echo PUNTOS_FOTO." ".strTranslate("APP_points");?></span> por por subir una foto</li>
 			</ul>
-			<a href="?page=ranking" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_users_ranking");?></a>
+			<a href="ranking" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_users_ranking");?></a>
 		</div>
 	</div>        
 </div>

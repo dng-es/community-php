@@ -5,7 +5,7 @@ $elements = infotopdfController::getListAction(20);
 	<div class="col-md-8 col-lg-9 inset">
 		<?php 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Infotopdf_Documents"), "ItemClass"=>"active"),
 		));
 
@@ -18,7 +18,7 @@ $elements = infotopdfController::getListAction(20);
 			$nombre_miniatura = "mini".$nombre_sinext.".jpeg";
 		?>	
 		<div class="col-md-3">
-			<a href="?page=user-infotopdf&id=<?php echo $element['id_info'];?>">
+			<a href="user-infotopdf?id=<?php echo $element['id_info'];?>">
 				<h3><?php echo $element['titulo_info'];?></h3>
 				<p class="legend"><?php echo $element['campana'];?> (<?php echo $element['tipo'];?>)</p>
 				<img src="docs/info/<?php echo $nombre_miniatura;?>" style="width:100%" />

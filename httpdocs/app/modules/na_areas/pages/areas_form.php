@@ -13,13 +13,13 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 		na_areasController::finalizarFormAction($id_tarea);
 		$tarea = na_areasController::getItemTareaAction($id_tarea);
 		$id_area = ( isset($tarea[0]['id_area']) ? $tarea[0]['id_area'] : 0 );
-		$acceso = na_areasController::accesoTareaAction($id_tarea);
+		$acceso = na_areasController::accesoAreaAction($id_area);
 		$area = na_areasController::getItemAction($id_area);
 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"?page=areas"),
-			array("ItemLabel"=>$area[0]['area_nombre'], "ItemUrl"=>"?page=areas_det&id=".$id_area),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"areas"),
+			array("ItemLabel"=>$area[0]['area_nombre'], "ItemUrl"=>"areas_det?id=".$id_area),
 			array("ItemLabel"=> $tarea[0]['tarea_titulo'], "ItemClass"=>"active"),
 		));
 
@@ -37,7 +37,7 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 				if (count($valoracion)>0){
 					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos'] >= $points_to_success){ $msg = strTranslate("Na_areas_congratulations")." <b>".$valoracion[0]['puntos']."</b> ".strTranslate("Na_areas_congratulations2")."<b>".$area[0]['puntos']."</b> ".strTranslate("APP_points").".";}
 					if ($valoracion[0]['revision']==1 and $valoracion[0]['puntos'] < $points_to_success){ $msg = "Tu nota es de <b>".$valoracion[0]['puntos']."</b>,  no has conseguido superar el mínimo en este curso para conseguir ".strTranslate("APP_points").".";}
-					if ($valoracion[0]['revision']==0){ $msg = strTranlate("Revision_pending");}
+					if ($valoracion[0]['revision']==0){ $msg = strTranslate("Revision_pending");}
 				}
 				echo '<div class="alert alert-info"><span class="fa fa-info-circle"></span> '.$msg.'</div>';
 			}
@@ -75,9 +75,9 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 					echo '</div>';
 				endforeach;
 				if ($finalizados==0){
-					echo '<br /><button id="SubmitForm" class="btn btn-primary" type="button">'.strTranlate("Save").'</button>';
+					echo '<br /><button id="SubmitForm" class="btn btn-primary" type="button">'.strTranslate("Save").'</button>';
 					if (count($respuesta_user)>0){
-						echo ' <button id="FinalizarForm" class="btn btn-primary" type="button">'.strTranlate("End_task").'</button>';
+						echo ' <button id="FinalizarForm" class="btn btn-primary" type="button">'.strTranslate("End_task").'</button>';
 					}
 				}
 				echo '</form>';

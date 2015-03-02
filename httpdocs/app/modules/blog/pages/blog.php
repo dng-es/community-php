@@ -2,6 +2,7 @@
 templateload("blog","blog");
 templateload("comment","foro");
 templateload("addcomment","blog");
+templateload("tags","blog");
 
 addJavascripts(array("js/jquery.bettertip.pack.js", 
 					 "js/jquery.jtextarea.js", 
@@ -15,7 +16,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Blog"), "ItemClass"=>"active"),
 		));
 
@@ -28,7 +29,14 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 
 		//OBTENCION DE LOS DATOS DEL FORO 
 		$filtro_tema = "";
-		if (isset($_REQUEST['id'])){$id_tema=$_REQUEST['id'];}
+		if (isset($_REQUEST['id']) and $_REQUEST['id']>0){
+			$id_tema=$_REQUEST['id'];
+		}
+		else{
+						//SELECCION ULTIMO ID BLOG
+			$filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
+			$id_tema = connection::SelectMaxReg("id_tema", "foro_temas", $filtro_blog." AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
+		}
 		if (isset($_REQUEST['f'])){$id_tema=$_REQUEST['f'];} 
 		if (isset($id_tema) and $id_tema!=""){
 			if ($_SESSION['user_perfil']!="admin" and $_SESSION['user_perfil']!="formador" and $_SESSION['user_perfil']!="foros") {
@@ -53,7 +61,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 			$filtro_comentarios .= " AND estado=1 ";
 			 
 			$reg = 10;
-			if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
+			if (isset($_GET["pag"]) and $_GET["pag"]!="") {$pag = $_GET["pag"];}
 			if (!isset($pag)) { $inicio = 0; $pag = 1;}
 			else { $inicio = ($pag - 1) * $reg;}
 
@@ -67,19 +75,20 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 			if ($module_config['options']['allow_comments']==true ) echo '<span class="fa fa-comment"></span> '.$total_reg.' '.strTranslate("Comments").' ';
 
 			echo ' <span class="fa fa-eye"></span> '.$num_visitas.' '.strTranslate("Visits").'</span>
-				</p>
-				'.$tema[0]['descripcion'];
+				</p>';
+			showTags($tema[0]['tipo_tema']);
+			echo $tema[0]['descripcion'];
 
 			//enlaces de pagina siguiente y anterior
 			$anterior_disabled="";
 			$anterior = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema>".$id_tema." ORDER BY id_tema ASC  LIMIT 1");
 			if (count($anterior)!=1){$anterior_disabled = "disabled";$anterior_enlace="#";}
-			else{$anterior_enlace = "?page=blog&id=".$anterior[0]['id_tema'];}
+			else{$anterior_enlace = "blog?id=".$anterior[0]['id_tema'];}
 
 			$siguiente_disabled="";
 			$siguiente = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema<".$id_tema." ORDER BY id_tema DESC LIMIT 1");
 			if (count($siguiente)!=1){$siguiente_disabled = "disabled";$siguiente_enlace="#";}
-			else{$siguiente_enlace='?page=blog&id='.$siguiente[0]['id_tema'];}
+			else{$siguiente_enlace='blog?id='.$siguiente[0]['id_tema'];}
 
 			//enlaces de pagina siguiente y anterior
 			echo '<hr />
@@ -104,7 +113,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 				echo '</div>';
 				
 				echo '<div class="panel-container-foro">';
-				$filtro_comentarios.= " ORDER BY date_comentario DESC";
+				$filtro_comentarios.= " AND id_comentario_id=0 ORDER BY date_comentario DESC";
 				$comentarios_foro = $foro->getComentarios($filtro_comentarios.' LIMIT '.$inicio.','.$reg); 
 				foreach($comentarios_foro as $comentario_foro):
 					commentForo($comentario_foro,"blog");
@@ -121,7 +130,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-bell fa-stack-1x fa-inverse"></i>
 				</span>
-				También te puede interesar</h4>
+				'.strTranslate("You_may_also_like").'</h4>
 				<div class="row">';
 			$filtro_etiquetas = "";
 			$etiquetas = explode(",",$tema[0]['tipo_tema']);
@@ -135,7 +144,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 				echo '<div class="footer-section full-height">
 						<h4 class="ellipsis">'.$element['nombre'].'</h4>
 						<p class="text-primary"><small>'.getDateFormat($element['date_tema'], "LONG").'</small></p>
-						<a href="?page=blog&id='.$element['id_tema'].'"><img src="images/foro/'.$element['imagen_tema'].'" title="'.$element['nombre'].'" /></a><br />
+						<a href="blog?id='.$element['id_tema'].'"><img src="images/foro/'.$element['imagen_tema'].'" title="'.$element['nombre'].'" /></a><br />
 					</div>';
 			endforeach; 
 			echo '</div>';

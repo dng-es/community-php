@@ -1,5 +1,7 @@
 // JavaScript Document
 jQuery(document).ready(function(){
+	$("#num_puntos").numeric();
+	
 	$("#SubmitData").click(function(evento){
 	   $(".alert-message").html("").css("display","none");
 	   var resultado_ok=true;   

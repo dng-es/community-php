@@ -5,12 +5,12 @@ $elements = infoController::getListAction(20, $filtro);
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
 		<?php menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemUrl"=>"?page=info-campaigns"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemUrl"=>"info-campaigns"),
 			array("ItemLabel"=>$elements['items'][0]['campana'], "ItemClass"=>"active"),
 		));?>
 		<div class="table-responsive">
-			<table class="table">
+			<table class="table table-striped table-hover">
 				<tr>
 					<th width="40px">&nbsp;</th>
 					<th><?php echo strTranslate("Name");?></th>
@@ -18,11 +18,11 @@ $elements = infoController::getListAction(20, $filtro);
 					<th><?php echo strTranslate("Type");?></th>
 				</tr>
 				<?php foreach($elements['items'] as $element): 
-				$enlace = ($element['download']==1 ? ' href="?page=user-info&id='.$element['id_info'].'&exp='.$element['file_info'].'" ' : ' target="_blank" href="'.$element['file_info'].'" ');
+				$enlace = ($element['download']==1 ? ' href="user-info?id='.$element['id_info'].'&exp='.$element['file_info'].'" ' : ' target="_blank" href="'.$element['file_info'].'" ');
 				?>
 				<tr>
 					<td><a title="<?php echo strTranslate("Download_file");?>" <?php echo $enlace;?> ><i class="fa fa-download icon-table"></i></a></td>
-					<td><a href="?page=user-info&id=<?php echo $element['id_info'];?>"><?php echo $element['titulo_info'];?></a></td>
+					<td><a href="user-info?id=<?php echo $element['id_info'];?>"><?php echo $element['titulo_info'];?></a></td>
 					<td><?php echo $element['campana'];?></td>
 					<td><?php echo $element['tipo'];?></td>
 				</tr>   

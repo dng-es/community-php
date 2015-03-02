@@ -24,8 +24,8 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 		<div class="col-md-8 col-lg-9 inset">
 			<?php
 			menu::breadcrumb(array(
-				array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-				array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"?page=areas"),
+				array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+				array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"areas"),
 				array("ItemLabel"=> $area[0]['area_nombre'], "ItemClass"=>"active"),
 			));
 		
@@ -126,7 +126,7 @@ function printTareas($id_area){
 				endforeach;
 			}
 			elseif ($element['tipo']=='formulario'){ 
-				echo'<p><a href="?page=areas_form&id='.$element['id_tarea'].'"><i class="fa fa-angle-double-right"></i> '.strTranslate("Access_form").'</a></p>';
+				echo'<p><a href="areas_form?id='.$element['id_tarea'].'"><i class="fa fa-angle-double-right"></i> '.strTranslate("Access_form").'</a></p>';
 			}
 
 			echo '</div></div>

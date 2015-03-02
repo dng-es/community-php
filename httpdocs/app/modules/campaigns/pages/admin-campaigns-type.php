@@ -10,9 +10,9 @@ $plantilla = campaignsController::getItemTypesAction();
 <div class="row row-top">	
 	<div class="col-md-9 inset">
 		<?php menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"?page=admin-campaigns"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"=home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"admin-campaigns"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Campaign_types"), "ItemClass"=>"active"),
 		));?>
 		<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
@@ -28,7 +28,7 @@ $plantilla = campaignsController::getItemTypesAction();
 				<textarea class="form-control" rows="8" id="desc" name="desc"><?php echo $plantilla['campaign_type_desc'];?></textarea>
 				<span id="descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 			</div>
-			<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php echo strTranslate("Save");?></button>
+			<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php echo strTranslate("Save_data");?></button>
 		</form>	
 	</div>
 	<?php menu::adminMenu();?>

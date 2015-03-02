@@ -27,19 +27,19 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 <div class="row row-top">
 	<div class="col-md-9 inset">
 		<?php menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Blog"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Posts_list"), "ItemClass"=>"active"),
 		));?>
 		<ul class="nav nav-pills navbar-default">       
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($elements);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="?page=admin-blog-new">Nueva entrada</a></li>
-			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true"><?php echo strTranslate("Export");?></a></li>
+			<li><a href="admin-blog-new">Nueva entrada</a></li>
+			<li><a href="<?php echo $_REQUEST['page'];?>?export=true"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 
 		<div class="table-responsive">
-			<table class="table">
+			<table class="table table-striped table-hover">
 			<tr>
 			<th width="40px"></th>
 			<th>Título</th>
@@ -53,12 +53,12 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 				echo '<tr>';
 				echo '<td nowrap="nowrap">
 						<span class="fa fa-edit icon-table" title="Ver/editar entrada"
-							onClick="location.href=\'?page=admin-blog-new&id='.$element['id_tema'].'\'">
+							onClick="location.href=\'admin-blog-new?id='.$element['id_tema'].'\'">
 						</span>
 						
 						<span class="fa fa-ban icon-table" title="Eliminar"
 							onClick="Confirma(\'¿Seguro que desea eliminar la entrada?\',
-							\'?page=admin-blog&pag='.$pag.'&act=del&id='.$element['id_tema'].'\')">
+							\'admin-blog?pag='.$pag.'&act=del&id='.$element['id_tema'].'\')">
 						</span>
 					 </td>';
 							
@@ -68,7 +68,7 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 				echo '<td>'.$num_visitas.'</td>';
 				echo '<td>';
 				if ($num_comentarios==0){ echo $num_comentarios;}
-				else{ echo '<a href="?page=admin-blog-foro&id='.$element['id_tema'].'">'.$num_comentarios.'</a>';}
+				else{ echo '<a href="admin-blog-foro?id='.$element['id_tema'].'">'.$num_comentarios.'</a>';}
 				echo '</td>';
 				echo '</tr>';   
 			endforeach;?>

@@ -10,12 +10,12 @@ class mensajesController{
 																 $_POST['asunto-comentario'],
 																 $_POST['texto-comentario']);													 
 			if ($respuesta==0){
-				session::setFlashMessage( 'actions_message', "Mensaje enviado correctamente.", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Mailing_sent_ok"), "alert alert-success");
 
 			}
 			elseif ($respuesta==2){session::setFlashMessage( 'actions_message', "No se encuentra el destinatario ".$_POST['nick-comentario'].".", "alert alert-danger");}
-			elseif ($respuesta==3){session::setFlashMessage( 'actions_message', "No se puede enviar un mensaje a si mismo.", "alert alert-danger");}
-			else { session::setFlashMessage( 'actions_message', "Se ha producido un error durante el envío del mensaje. Inténtelo más tarde.", "alert alert-danger");}
+			elseif ($respuesta==3){session::setFlashMessage( 'actions_message', strTranslate("Mailing_sent_yourself"), "alert alert-danger");}
+			else { session::setFlashMessage( 'actions_message', strTranslate("Error"), "alert alert-danger");}
 			redirectURL($_SERVER['REQUEST_URI']);
 		}		
 	}
@@ -35,30 +35,30 @@ class mensajesController{
 	public static function deleteRecibidoAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act']=='ko'){
 			self::deleteUserAction($_REQUEST['id'], 'user_destinatario');
-			redirectURL("?page=mensajes");
+			redirectURL("mensajes");
 		}
 	}
 
 	public static function deleteEnviadoAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act']=='ko'){
 			self::deleteUserAction($_REQUEST['id'], 'user_remitente');
-			redirectURL("?page=mensajes_e");
+			redirectURL("sent-items");
 		}
 	}		
 
 	public static function deleteUserAction($id, $user_type){
 		if (self::verifyOwner($id, $user_type)) self::deleteAction($id, $user_type);
-		else session::setFlashMessage( 'actions_message', "Error eliminando mensaje.", "alert alert-danger");
+		else session::setFlashMessage( 'actions_message', strTranslate("Error"), "alert alert-danger");
 	}
 
 	public static function deleteAction($id, $user_type){
 		$mensajes = new mensajes();
 		$function_delete = ($user_type=='user_destinatario' ? "deleteMensajeRecibido": "deleteMensajeEnviado");
 		if ($mensajes->$function_delete($id)){
-			session::setFlashMessage( 'actions_message', "Mensaje eliminado correctamente.", "alert alert-success");
+			session::setFlashMessage( 'actions_message', strTranslate("Mailing_delete_ok"), "alert alert-success");
 		}
 		else{
-			session::setFlashMessage( 'actions_message', "Error eliminando mensaje.", "alert alert-danger");
+			session::setFlashMessage( 'actions_message', strTranslate("Error"), "alert alert-danger");
 		}
 	}
 

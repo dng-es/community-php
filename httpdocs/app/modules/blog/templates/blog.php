@@ -10,7 +10,7 @@ function archivoBlog($elements){
 				foreach($elements as $element):
 					$nombre=strftime("%B",mktime(0, 0, 0, $element['mes'], 1, 2000));
 					//echo '<option value="'.$element['mes'].','.$element['ano'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</option>';
-					echo '<li><a href="?page=blog-list&a='.$element['ano'].'&m='.$element['mes'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</a></li>';
+					echo '<li><a href="blog-list?a='.$element['ano'].'&m='.$element['mes'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</a></li>';
 				endforeach;
 	echo ' 	  </ul>
 		  </div>';
@@ -19,10 +19,10 @@ function archivoBlog($elements){
 function entradasBlog($elements){
 	foreach($elements as $element):		
 		echo '<div class="media-preview-container">
-				<a href="?page=blog&id='.$element['id_tema'].'">
+				<a href="blog?id='.$element['id_tema'].'">
 				<img src="images/foro/'.$element['imagen_tema'].'" class="media-preview" alt="'.$element['nombre'].'" /></a>
 				<div>
-					<a href="?page=blog&id='.$element['id_tema'].'">'.$element['nombre'].'</a><br />
+					<a href="blog?id='.$element['id_tema'].'">'.$element['nombre'].'</a><br />
 					<span>'.getDateFormat($element['date_tema'], "LONG").'</span>
 				</div>
 			  </div>';
@@ -30,7 +30,7 @@ function entradasBlog($elements){
 }
 
 function searchBlog(){ ?>
-	<form role="form" action="?page=blog-list" method="post" id="form-blog">
+	<form role="form" action="blog-list" method="post" id="form-blog">
 		<div class="input-group">
 			<label class="sr-only" for="find_reg"><?php echo strTranslate("Search");?></label>
 			<input class="form-control" id="find_reg" name="find_reg" placeholder="<?php echo strtolower(strTranslate("Search"));?>">
@@ -44,7 +44,7 @@ function searchBlog(){ ?>
 function categoriasBlog($elements){
 	echo '<ul class="lista-lateral">';
 	foreach($elements as $element):
-		echo '<li><a href="?page=blog-list&c='.$element.'">'.ucfirst($element).'</a></li>';
+		echo '<li><a href="blog-list?c='.$element.'">'.ucfirst($element).'</a></li>';
 	endforeach;	
 	echo '</ul>';
 }

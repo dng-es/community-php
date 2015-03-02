@@ -1,10 +1,11 @@
 <?php
-
 addJavascripts(array(getAsset("foro")."js/foro-temas.js"));
 
+templateload("tags","blog");
 templateload("blog","blog");
 templateload("list","blog");
 templateload("paginator","foro");	
+
 $foro = new foro();
 $find_reg = "";
 $find_tipo = "";
@@ -52,7 +53,7 @@ $titulo_page="";
 		}
 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Blog"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>$titulo_page, "ItemClass"=>"active"),
 		));

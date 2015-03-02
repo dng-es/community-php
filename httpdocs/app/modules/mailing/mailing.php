@@ -14,7 +14,7 @@ class mailingCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */	
-	public static function userMenu(){
+/*	public static function userMenu(){
 		$array_final = array();
 		global $session;
 		$array_final_items = array();
@@ -25,7 +25,7 @@ class mailingCore{
 
 			array_push($array_final_items , array("LabelIcon" => "",
 							"LabelItem" => "Ver todas las comunicaciones",
-							"LabelUrl" => '?page=user-templates',
+							"LabelUrl" => 'user-templates',
 							"LabelTarget" => '_self'));
 		}
 
@@ -35,7 +35,7 @@ class mailingCore{
 
 			array_push($array_final_items , array("LabelIcon" => "",
 							"LabelItem" => strTranslate("Mailing_lists"),
-							"LabelUrl" => '?page=user-lists',
+							"LabelUrl" => 'user-lists',
 							"LabelTarget" => '_self'));
 		}
 
@@ -45,7 +45,7 @@ class mailingCore{
 
 			array_push($array_final_items , array("LabelIcon" => "",
 							"LabelItem" => "Mis comunicaciones enviadas",
-							"LabelUrl" => '?page=user-messages',
+							"LabelUrl" => 'user-messages',
 							"LabelTarget" => '_self'));
 		}
 
@@ -61,7 +61,7 @@ class mailingCore{
 
 
 		return $array_final;		
-	}		
+	}*/		
 
 	/**
 	 * Elementos para el menu de administración

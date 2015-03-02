@@ -15,7 +15,7 @@ class blogController{
 			}else{
 				session::setFlashMessage( 'actions_message', "Error al insertar registro", "alert alert-danger");
 			}
-			redirectURL("?page=admin-blog-new&id=".$id);		
+			redirectURL("admin-blog-new?id=".$id);		
 		}
 	
 	}
@@ -31,7 +31,7 @@ class blogController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al modificar registro", "alert alert-danger");
 			}
-			redirectURL("?page=admin-blog-new&id=".$_POST['id']);
+			redirectURL("admin-blog-new?id=".$_POST['id']);
 		}
 	}
 

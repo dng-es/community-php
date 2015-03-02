@@ -30,16 +30,16 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"?page=admin-areas"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
 			array("ItemLabel"=>"Revisiones <b>".$tarea[0]['tarea_titulo']."</b>", "ItemClass"=>"active"),
 		));
 		?>
 
 		<ul class="nav nav-pills navbar-default">
-			<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver al curso</a></li>
-			<li><a href="?page=admin-area-revs&t3=1&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>"><?php echo strTranslate("Export");?></a></li>
+			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>">Volver al curso</a></li>
+			<li><a href="admin-area-revs?t3=1&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 
 		<?php
@@ -54,7 +54,7 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 			//grupos de la tarea
 			$grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tarea=".$id_tarea." ");
 			if (count($grupos_tarea)>0){
-				echo '<form action="?page=admin-area-revs&a='.$id_area.'&id='.$id_tarea.'" method="post" id="frm_search" name="frm_search">
+				echo '<form action="admin-area-revs?a='.$id_area.'&id='.$id_tarea.'" method="post" id="frm_search" name="frm_search">
 						<select name="grupo_search" id="grupo_search" class="cuadroTexto cuadroTextoSelect" style="width:300px !important">
 							<option value="0">-----todos los grupos de la tarea-----</option>';
 				foreach($grupos_tarea as $grupo_tarea):
@@ -86,7 +86,7 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 		$filtro.=" ORDER BY user_tarea";
 		$revisiones = $na_areas->getTareasUser($filtro); 
 		
-		echo '<br /><p>pincha <a href="?page=admin-area-revs&t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
+		echo '<br /><p>pincha <a href="admin-area-revs?t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
 
 		if (count($revisiones)==0){
 			echo '<div class="tareas-row">Los usuarios todavia no han enviado archivos para esta tarea.</div>';
@@ -102,10 +102,10 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 				else {
 					$imagen_revision='<i class="fa fa-exclamation icon-alert"></i>';
 					$destino_validar_revision='onClick="Confirma(\'¿Seguro que desea marcar como revisada la tarea del usuario '.$revision['user_tarea'].'?\',
-								\'?page=admin-area-revs&act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\')"';}
+								\'admin-area-revs?act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\')"';}
 								
 				echo '<tr>';      
-				echo '<td><a href="?page=mensajes&n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a> ';  
+				echo '<td><a href="inbox?n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a> ';  
 				echo '<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a></td>';
 				echo '<td>('.getDateFormat($revision['fecha_tarea'], "DATE_TIME").')</td>';
 				echo '<td><a href="docs/showfile.php?t=1&file='.$revision['file_tarea'].'" target="_blank">descargar</a></td>';
@@ -155,16 +155,16 @@ function revisionesFormulario($id_tarea,$id_area,$id_grupo){
 								
 				echo '<tr>';        
 				echo '<td width="70px"><span span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar la finalización del formulario?\',
-						\'?page=admin-area-revs&a='.$id_area.'&act_f=del&id='.$id_tarea.'&ut='.$revision['user_tarea'].'\')" 
+						\'admin-area-revs?a='.$id_area.'&act_f=del&id='.$id_tarea.'&ut='.$revision['user_tarea'].'\')" 
 						title="Eliminar finalizacion" /></span>
 
-						<a href="?page=admin-area-revs&t='.$revision['user_tarea'].'&a='.$id_area.'&id='.$id_tarea.'" class="fa fa-download icon-table" title="descargar"></a>
+						<a href="admin-area-revs?t='.$revision['user_tarea'].'&a='.$id_area.'&id='.$id_tarea.'" class="fa fa-download icon-table" title="descargar"></a>
 						<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a>
 					</td>';        
-				//echo '<td><a href="?page=mensajes&n='.$revision['nick'].'">'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>'; 
+				//echo '<td><a href="inbox?n='.$revision['nick'].'">'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>'; 
 				echo '<td>'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>'; 
 				echo '<td>
-						<form role="form" class="form-inline" method="post" action="?page=admin-area-revs&a='.$id_area.'&id='.$id_tarea.'" name="rev_'.$revision['user_tarea'].'" id="rev_'.$revision['user_tarea'].'">
+						<form role="form" class="form-inline" method="post" action="admin-area-revs?a='.$id_area.'&id='.$id_tarea.'" name="rev_'.$revision['user_tarea'].'" id="rev_'.$revision['user_tarea'].'">
 							<input type="hidden" name="id_tarea_rev" id="id_tarea_rev" value="'.$id_tarea.'" />
 							<input type="hidden" name="id_grupo_rev" id="id_grupo_rev" value="'.$id_grupo.'" />
 							<input type="hidden" name="id_area_rev" id="id_area_rev" value="'.$id_area.'" />

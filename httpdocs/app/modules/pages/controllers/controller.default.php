@@ -24,7 +24,7 @@ class pagesController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-page&p=".$page_name);
+			redirectURL("admin-page?p=".$page_name);
 		}		
 	}
 
@@ -38,7 +38,7 @@ class pagesController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-page&p=".$_POST['page_name']);
+			redirectURL("admin-page?p=".$_POST['page_name']);
 		}
 	}
 
@@ -51,7 +51,7 @@ class pagesController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-pages");
+			redirectURL("admin-pages");
 		}
 	}
 }

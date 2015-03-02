@@ -9,28 +9,30 @@ $modules = configurationController::getListModulesAction();
 <div class="row row-top">
 	<div class="col-md-9 inset">
 		<?php menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Configuration"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Modules_settings"), "ItemClass"=>"active"),
 		));?>
 
 		<p>A continuación se muestran todos los módulos instalados</p>
-		<table class="table">
-			<tr>
-				<th width="40px"></th>
-				<th><?php echo strTranslate("Name");?></th>
-				<th><?php echo strTranslate("Descripction");?></th>
-			</tr>
-			<?php foreach($modules as $module):
-				$module_config = getModuleConfig($module['folder']);	
-				echo '<tr>
-				<td>'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger" href="#" title="'.strTranslate("Configuration").'"><i class="fa fa-gear"></i></a>' : '<i class="fa fa-gear disabled"></i>').'</td>
-				<td>'.strTranslate(ucfirst($module['folder'])).'</td>
-				<td class="legend">'.$module['ann'].'</td>
-				</tr>';
-			endforeach; ?>
-		</table>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<tr>
+					<th width="40px"></th>
+					<th><?php echo strTranslate("Name");?></th>
+					<th><?php echo strTranslate("Description");?></th>
+				</tr>
+				<?php foreach($modules as $module):
+					$module_config = getModuleConfig($module['folder']);	
+					echo '<tr>
+					<td>'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger" href="#" title="'.strTranslate("Configuration").'"><i class="fa fa-gear"></i></a>' : '<i class="fa fa-gear disabled"></i>').'</td>
+					<td>'.strTranslate(ucfirst($module['folder'])).'</td>
+					<td class="legend">'.$module['ann'].'</td>
+					</tr>';
+				endforeach; ?>
+			</table>
+		</div>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

@@ -13,16 +13,16 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Mailing_lists"), "ItemClass"=>"active"),
 		));
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
-			<li><a href="?page=user-list&act=new"><?php echo strTranslate("New_list")?></a></li>
-			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
-			<li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
+			<li><a href="user-list?act=new"><?php echo strTranslate("New_list")?></a></li>
+			<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
+			<li><a href="user-messages">Mis comunicaciones enviadas</a></li>
 		</ul>
     	<div class="table-responsive">
 			<table class="table">
@@ -38,11 +38,11 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 					?>
 					<tr>
 					<td nowrap="nowrap">
-						<a class="fa fa-edit icon-table" title="Ver/editar" onClick="location.href='?page=user-list&act=edit&id=<?php echo $element['id_list'];?>';return false">
+						<a class="fa fa-edit icon-table" title="Ver/editar" onClick="location.href='user-list?act=edit&id=<?php echo $element['id_list'];?>';return false">
 						</a>
-						<a href="?page=<?php echo $_REQUEST['page'];?>&exportm=true&id=<?php echo $element['id_list'];?>" class="fa fa-download icon-table" title="Descargar"></a>		
+						<a href="<?php echo $_REQUEST['page'];?>?exportm=true&id=<?php echo $element['id_list'];?>" class="fa fa-download icon-table" title="Descargar"></a>		
 												<a class="fa fa-ban icon-table" title="Eliminar"
-							onClick="Confirma('¿Seguro que deseas eliminar la lista?', '?page=user-lists&pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_list'];?>'); return false;">
+							onClick="Confirma('¿Seguro que deseas eliminar la lista?', 'user-lists?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_list'];?>'); return false;">
 						</a>
 					</td>
 					<?php			

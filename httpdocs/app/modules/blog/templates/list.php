@@ -11,20 +11,17 @@ function ForoList($sub_tema,$destino = "foro-comentarios")
 	$num_visitas=connection::countReg("foro_visitas"," AND id_tema=".$sub_tema['id_tema']." ");
 	$descripcion = blogController::get_resume($sub_tema['descripcion']);
 	$nombre = strip_tags($sub_tema['nombre']);
-
-		//$destino_inscripcion=$this->foroInscripcion($sub_tema['id_tema']);
-	if ($sub_tema['tipo_tema']){$tipo_tema=' '.$sub_tema['tipo_tema'].' ';}
-	else{$tipo_tema="";} ?>
+	?>
 	
 	<div class="panel panel-default panel-comunidad" value="<?php echo $sub_tema['id_tema'];?>">
 		<div class="panel-footer">
-			<h4><a href="?page=<?php echo $destino.'&id='.$sub_tema['id_tema'];?>"><?php echo $nombre;?></a></h4>
+			<h4><a href="<?php echo $destino.'?id='.$sub_tema['id_tema'];?>"><?php echo $nombre;?></a></h4>
 			<span><?php echo getDateFormat($sub_tema['date_tema'], "LONG");?></span>
 			<span class="fa fa-comment" title="comentarios en el foro"></span>
 			<span class="contador-foro-counter"><?php echo $num_comentarios;?></span> <?php echo strTranslate("Comments");?> 
 			<span class="fa fa-eye" title="visitas al foro"></span> 
 			<span class="contador-foro-counter"><?php echo $num_visitas;?></span> <?php echo strTranslate("Visits");?> 
-			<span class="fa fa-tags"></span> <?php echo $tipo_tema;?>
+			<?php showTags($sub_tema['tipo_tema']);?>
 		</div>
 		<div class="panel-body">
 			<p><?php echo $descripcion;?></p>

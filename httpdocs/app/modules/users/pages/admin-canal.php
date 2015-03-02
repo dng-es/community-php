@@ -2,9 +2,9 @@
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Channel_list"), "ItemUrl"=>"?page=admin-canales"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Channel_list"), "ItemUrl"=>"admin-canales"),
 			array("ItemLabel"=>strTranslate("Channel"), "ItemClass"=>"active"),
 		));
 		

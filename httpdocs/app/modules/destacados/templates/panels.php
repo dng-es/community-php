@@ -15,13 +15,13 @@ function PanelLastDestacado(){
 					  <img src="docs/fotos/'.$destacado_file[0]['name_file'].'" class="media-preview" alt="'.$destacado_file[0]['titulo'].'" /></a>';
 			}
 			elseif ($destacado[0]['destacado_tipo']=='video') { 
-				echo '<a href="?page=video&id='.$destacado_file[0]['id_file'].'">
+				echo '<a href="videos?id='.$destacado_file[0]['id_file'].'">
 				<img src="'.PATH_VIDEOS.$destacado_file[0]['name_file'].'.jpg" class="media-preview" alt="'.$destacado_file[0]['titulo'].'" /></a>';
 			}
 			?>
 			<div>
 				<p>
-					<big><a href="?page=<?php echo ($destacado[0]['destacado_tipo']=='foto' ? 'fotos' : 'video&id='.$destacado_file[0]['id_file']);?>"><?php echo $destacado_file[0]['destacado_texto'];?></a></big><br />
+					<big><a href="<?php echo ($destacado[0]['destacado_tipo']=='foto' ? 'fotos' : 'videos?id='.$destacado_file[0]['id_file']);?>"><?php echo $destacado_file[0]['destacado_texto'];?></a></big><br />
 					<span><?php echo $destacado_file[0]['nick'];?> - <?php echo getDateFormat($destacado[0]['destacado_fecha'], "LONG");?></span><br />
 					
 				</p>

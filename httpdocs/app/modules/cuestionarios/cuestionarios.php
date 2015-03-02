@@ -32,7 +32,7 @@ class cuestionariosCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */	
-	public static function userMenu(){
+/*	public static function userMenu(){
 		$array_final = array();
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("cuestionario", $_SESSION['user_name']));
@@ -46,7 +46,7 @@ class cuestionariosCore{
 				foreach ($cuestionarios_menu['items'] as $cuestionario):	
 					array_push($array_final_items , array("LabelIcon" => "",
 									"LabelItem" => $cuestionario['nombre'],
-									"LabelUrl" => '?page=cuestionario&id='.$cuestionario['id_cuestionario'],
+									"LabelUrl" => 'cuestionario?id='.$cuestionario['id_cuestionario'],
 									"LabelTarget" => '_self'));
 				endforeach;
 
@@ -62,6 +62,6 @@ class cuestionariosCore{
 
 		}
 		return $array_final;		
-	}
+	}*/
 }
 ?>

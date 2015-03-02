@@ -25,15 +25,15 @@
 }
 
 @mixin rowMachine($numPerRow, $margin) {
-  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
-  &:nth-child(n) {
-    margin-bottom: $margin;
-    margin-right: $margin;
-  }
-  &:nth-child(#{$numPerRow}n) {
-    margin-right: 0;
-    margin-bottom: 0;
-  }
+	width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+	&:nth-child(n) {
+		margin-bottom: $margin;
+		margin-right: $margin;
+	}
+	&:nth-child(#{$numPerRow}n) {
+		margin-right: 0;
+		margin-bottom: 0;
+	}
 }
 /*FIN SASS MIXINS*/
 
@@ -46,6 +46,7 @@ body{
 a {
 	color:$color1; outline:none;
 	text-decoration: none !important;
+	@include transition(all, 0.5s, ease);
 	&:hover{
 		color:$color3
 	}
@@ -84,6 +85,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	background-color: $container-panel-color;
 	@include border-radius($border-def);
 	position: relative;
+	@include transition(all, 0.5s, ease);
+	&:hover{
+		background-color: darken($container-panel-color, 10%);
+	}
 	section{
 		margin-bottom: 0;
 	}
@@ -152,6 +157,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	border:0;
 	font-family: 'Community-Font';
 	font-size: $font-size-community+2;
+	letter-spacing: 2px;
 	margin-bottom:0;
 
 	.nav {
@@ -273,8 +279,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	bottom: 0;
 	color:#f0f0f0;
 	font-family: 'Community-Font', $primary-font;
-	font-size:16px;
+	font-size:14px;
+	font-weight: bolder;
 	height: 100%;
+	letter-spacing: 2px;
 	margin:0;
 	min-height:200px;
 	padding: 20px;
@@ -285,12 +293,27 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	z-index:100;
 	a{
 		color:#666;
+		margin: 0 5px;
 		&:hover{
 			color:$color1;
 		}
 	}
 	@media screen and (max-width: $break-large) {
 	    width:100%;
+	}
+}
+.footer-section{
+	@include rowMachine(4, 2%);
+	background: white;
+	padding: 15px;
+	float: left;
+	
+	h4{
+		margin-bottom: 0px;
+	}
+
+	img {
+		width: 100%; 
 	}
 }
 .lateral-container{
@@ -501,7 +524,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	padding:10px;
 }
 .MensajeNoLeido{
-	background-color:#f0f0f0;
+	background-color:lighten($color1, 47%);
 }
 /*Fin Mensajeria interna*/
 
@@ -992,7 +1015,7 @@ table th {
 	margin-top: 10px;
 	padding: 7px 15px;
 	&:before {
-		color: #fdaeb3;
+		color: #333;
 		content: '\f071';
 		float: left;
 		font-family: 'FontAwesome';
@@ -1308,6 +1331,14 @@ dt {
 	}	
 	a.label {
 		color:#fff !important;
+	}
+}
+.navbar-brand {
+	.fa{
+		@include transition(all, 0.5s, ease);
+		&:hover{
+			color: $color1;
+		}
 	}
 }
 /*Fin bootstrap*/
@@ -1715,17 +1746,16 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 	}
 }
 
-.footer-section{
-	@include rowMachine(4, 2%);
-	background: white;
-	padding: 15px;
-	float: left;
-	
-	h4{
-		margin-bottom: 0px;
-	}
-
-	img {
-		width: 100%; 
+.items-tags{
+	.label{
+		margin-right:3px;
+		a{
+			color: #fff;
+			font-weight: normal;
+			outline: none;
+			.fa{
+				color: #fff;
+			}
+		}
 	}
 }

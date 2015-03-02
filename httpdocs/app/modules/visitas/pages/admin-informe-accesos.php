@@ -17,7 +17,8 @@ $pagina_excluidas = "'admin','admin-informe-accesos','admin-informe-participacio
 					 'admin-campaigns-types','admin-campaigns','admin-infotopdf-doc','admin-intotopdf','admin-validacion-foto-temas','admin-cuestionarios','admin-cuestionario','admin-cuestionario-revs',
 					 'admin-videos','admin-premios','cargas-puntos-process','admin-pages','admin-novedades','admin-blog-new','admin-destacados','admin-validacion-foro-temas',
 					 'admin-blog-foro','admin-modules','admin-campaign','admin-validacion-foro-comentarios','admin-blog','admin-templates','admin-validacion-videos',
-					 'cargas-horas-process','admin-fotos-comentarios','admin-info','admin-info-doc','admin-canales','admin-canal'";
+					 'cargas-horas-process','admin-fotos-comentarios','admin-info','admin-info-doc','admin-canales','admin-canal','admin-cargas-tiendas','admin-validacion-muro','admin-albumes',
+					 'admin-videos-comentarios','admin-cargas-users'";
 					 
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					 "js/bootstrap-datepicker.es.js", 
@@ -444,103 +445,112 @@ $informe5 = $output;
 		<div class="col-md-9 inset">
 			<?php
 			menu::breadcrumb(array(
-				array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-				array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
+				array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+				array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 				array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"#"),
 				array("ItemLabel"=>strTranslate("Report")." <b>".strTranslate("Visits")."</b>", "ItemClass"=>"active"),
 			));
 			?>
-			<div class="col-md-12">
-				<p>Puedes filtrar los informes de acceso por fechas:</p>
-				<form name="inf-accesos" id="inf-accesos" method="post" action="?page=<?php echo $_REQUEST['page'];?>" role="form" class="">
-					<input type="hidden" name="export_fechas" id="export_fechas" value="1" />
+			<div class="row">
+				<div class="col-md-12">
+					<p>Puedes filtrar los informes de acceso por fechas:</p>
+					<form name="inf-accesos" id="inf-accesos" method="post" action="<?php echo $_REQUEST['page'];?>" role="form" class="">
+						<input type="hidden" name="export_fechas" id="export_fechas" value="1" />
 
-					<div class="row">
-						<div class="col-xs-6">
-							<label for="fecha_ini">Fecha inicio:</label>
-							<div id="datetimepicker1" class="input-group date">
-								<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_ini" class="form-control" name="fecha_ini" placeholder="Fecha inicio" value="<?php echo $fecha_ini;?>"></input>
-							<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-							</div>
+						<div class="row">
+							<div class="col-xs-6">
+								<label for="fecha_ini">Fecha inicio:</label>
+								<div id="datetimepicker1" class="input-group date">
+									<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_ini" class="form-control" name="fecha_ini" placeholder="Fecha inicio" value="<?php echo $fecha_ini;?>"></input>
+								<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+								</div>
 
-							<script>
-							jQuery(document).ready(function(){
-								$("#datetimepicker1").datetimepicker({
-								  language: "es-ES"
+								<script>
+								jQuery(document).ready(function(){
+									$("#datetimepicker1").datetimepicker({
+									  language: "es-ES"
+									});
 								});
-							});
-							</script>
-						</div>
-						<div class="col-xs-6">
-							<label for="fecha_fin">Fecha fin:</label>
-							<div id="datetimepicker2" class="input-group date">
-								<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_fin" class="form-control" name="fecha_fin" placeholder="Fecha fin" value="<?php echo $fecha_fin;?>"></input>
-							<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+								</script>
 							</div>
+							<div class="col-xs-6">
+								<label for="fecha_fin">Fecha fin:</label>
+								<div id="datetimepicker2" class="input-group date">
+									<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_fin" class="form-control" name="fecha_fin" placeholder="Fecha fin" value="<?php echo $fecha_fin;?>"></input>
+								<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+								</div>
 
-							<script>
-							jQuery(document).ready(function(){
-								$("#datetimepicker2").datetimepicker({
-								  language: "es-ES"
+								<script>
+								jQuery(document).ready(function(){
+									$("#datetimepicker2").datetimepicker({
+									  language: "es-ES"
+									});
 								});
-							});
-							</script>
+								</script>
+							</div>
 						</div>
+						<span id="fecha-alert" class="alert-message alert alert-danger"></span>
+
+						<br />
+						<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
+						<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
+						<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', 'admin-informe-accesos?act=del')" title="Vaciar registros" />Vaciar registros de accesos</a>
+						<br /><br />
+						<p class="text-danger">En los informes gráficos no se muestran los accesos al panel de administración.</p>
+						<hr />
+					</form>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+			 		<h2>Páginas visitadas <small>visitas realizadas por página</small></h2>
+					<p class="text-muted">total páginas visitadas: <?php echo $total1;?><br />
+					media de visitas por página: <?php echo $media1;?></p>
+					<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
+					<div id="chartdiv1" class="access-stats">
+						<div id="loading1" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 					</div>
-					<span id="fecha-alert" class="alert-message alert alert-danger"></span>
-
-					<br />
-					<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
-					<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
-					<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', '?page=admin-informe-accesos&act=del')" title="Vaciar registros" />Vaciar registros de accesos</a>
-					<br /><br />
-					<p>En los informes gráficos no se muestran los accesos al panel de administración.</p>
-					<hr />
-				</form>
+				</div>
 			</div>
-  <?php
 
-  echo '<div>';
-  echo '<h2>Páginas visitadas: visitas realizadas por página.</h2>
-		<p>total páginas visitadas: '.$total1.'<br />
-		media de visitas por página: '.$media1.'</p>
-		<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-		<div id="chartdiv1" class="access-stats">
-			<div id="loading1" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-		</div>
-		<h2><b>Páginas vistas por día</b>: número de paginas que se han visto cada día.</h2>
-		<p>total páginas visitadas: '.$total2.'<br />
-		media de páginas visitadas: '.$media2.'</p>
-		<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-		<div id="chartdiv2" class="access-stats">
-			<div id="loading2" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-		</div>
-
-		<h2>Visitas únicas por día: número de accesos únicos realizados a la Web cada día.</h2>
-		<p>total visitas únicas: '.$total3.'<br />
-		media visitas únicas: '.$media3.'</p>
-		<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-		<div id="chartdiv3"  class="access-stats">
-			<div id="loading3" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i>></div>
-		</div>';?>
-
-	<div class="">
-		<div class="" style="width:100%">
-			<h2>Visitas por navegador</h2>
-			<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-			<div id="chartdiv4" class="access-stats">
-				<div id="loading4" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-			</div> 
-		</div>
-		<div class="" style="width:100%">
-			<h2>Visitas por plataforma (SO).</h2>
-			<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-			<div id="chartdiv5" class="access-stats">
-				<div id="loading5" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+			<div class="row">
+				<div class="col-md-6">
+					<h2>Páginas vistas por día <small>número de paginas que se han visto cada día</small></h2>
+					<p class="text-muted">total páginas visitadas: <?php echo $total2;?><br />
+					media de páginas visitadas: <?php echo $media2;?></p>
+					<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
+					<div id="chartdiv2" class="access-stats">
+						<div id="loading2" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<h2>Visitas únicas por día <small>accesos únicos realizados cada día</small></h2>
+					<p class="text-muted">total visitas únicas: <?php echo $total3;?><br />
+					media visitas únicas: <?php echo $media3;?></p>
+					<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
+					<div id="chartdiv3"  class="access-stats">
+						<div id="loading3" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i>></div>
+					</div>
+				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<h2>Visitas por navegador</h2>
+					<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
+					<div id="chartdiv4" class="access-stats">
+						<div id="loading4" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+					</div> 
+				</div>
+				<div class="col-md-6">
+					<h2>Visitas por plataforma (SO).</h2>
+					<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
+					<div id="chartdiv5" class="access-stats">
+						<div id="loading5" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+					</div>
+				</div>
+			</div>	
 		</div>
-	</div>	
-	</div>
-	</div>
 	<?php menu::adminMenu();?>
 </div>

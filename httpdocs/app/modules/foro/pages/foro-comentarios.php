@@ -34,9 +34,22 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 			
 			//VOLVER ATRAS: SI ES UN FORO DE AREAS VOLVERA A LA PAGINA DE AREAS,
 			//SI ES OTRO TIPO DE FORO VOLVERA A LA PAGINA DE SUBFOROS
-			if ($tema[0]['id_area']<>0) { $volver="areas_det&id=".$tema[0]['id_area'];}  
-			else { $volver="foro-subtemas&id=".$tema[0]['id_tema_parent'];}
-				
+			////VERIFICA ACCESO AL FORO
+			if ($tema[0]['id_area']<>0) { 
+				$volver = "areas_det?id=".$tema[0]['id_area'];
+				if ($_SESSION['user_perfil'] == 'admin')  $acceso = true;
+				else $acceso = (connection::countReg("na_areas_users"," AND id_area=".$tema[0]['id_area']." AND username_area='".$_SESSION['user_name']."' ") > 0 ? true : false);
+			}
+			else {
+				$volver = "foro-subtemas?id=".$tema[0]['id_tema_parent'];
+				$acceso = true;
+			}
+
+			if (!$acceso):?>
+				<div class="alert alert-warning">acceso denegado</div>
+			<?php die();
+			endif;
+
 			if (count($tema)>0){			
 				//PAGINATOR
 				$reg = $module_config['options']['comments_per_page'];
@@ -53,12 +66,12 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 				$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$id_tema." ");
 				
 				menu::breadcrumb(array(
-					array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+					array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 					array("ItemLabel"=>strTranslate("Forums"), "ItemClass"=>"active"),
 				));
 				
 				echo '<h2>'.$tema[0]['nombre'].'</h2>
-					<p class="legend"><span class="fa fa-comment"></span> '.$total_reg_resp.' '.strTranslate("Comments").' <span class="fa fa-eye"></span> '.$num_visitas.' '.strTranslate("Visits").' <i class="fa fa-mail-reply"></i> <a href="?page='.$volver.'" title="'.strTranslate("Go_back").'">'.strTranslate("Go_back").'</a></p>
+					<p class="legend"><span class="fa fa-comment"></span> '.$total_reg_resp.' '.strTranslate("Comments").' <span class="fa fa-eye"></span> '.$num_visitas.' '.strTranslate("Visits").' <i class="fa fa-mail-reply"></i> <a href="'.$volver.'" title="'.strTranslate("Go_back").'">'.strTranslate("Go_back").'</a></p>
 					<p>'.$tema[0]['descripcion'].'</p>';
 
 				echo '<div class="panel-container-foro">';

@@ -13,9 +13,9 @@ templateload("cmbCanales","users");
 		<?php
 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Infotopdf_Documents"), "ItemUrl"=>"?page=admin-infotopdf"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Infotopdf_Documents"), "ItemUrl"=>"admin-infotopdf"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Infotopdf_Documents"), "ItemClass"=>"active"),
 		));
 
@@ -32,7 +32,7 @@ templateload("cmbCanales","users");
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
 			<div class="panel-body">
-				<form id="formData" role="form" name="formData" method="post" enctype="multipart/form-data" action="?page=admin-infotopdf-doc&act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
+				<form id="formData" role="form" name="formData" method="post" enctype="multipart/form-data" action="admin-infotopdf-doc?act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
 					<label>Titulo del documento:</label>
 					<input class="form-control form-big" type="text" id="info_title" name="info_title" value="<?php echo $elements[0]['titulo_info'];?>" />
 					<span id="title-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>

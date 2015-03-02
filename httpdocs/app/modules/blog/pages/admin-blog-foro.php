@@ -16,7 +16,7 @@ elseif ($_REQUEST['act']=='foro_ko'){
 	$foro->cambiarEstado($_REQUEST['id'],2);
 	$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
 }
-header("Location: ?page=admin-blog-foro&id=".$_REQUEST['idt']); 
+header("Location: admin-blog-foro?id=".$_REQUEST['idt']); 
 }
 
 //EXPORT EXCEL - SHOW AND GENERATE
@@ -39,22 +39,22 @@ $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." 
 <div class="row row-top">
 	<div class="col-md-9 inset">
 		<?php menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Blog"), "ItemUrl"=>"?page=admin-blog"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Blog"), "ItemUrl"=>"admin-blog"),
 			array("ItemLabel"=>"Comentarios en ".strTranslate("Blog"), "ItemClass"=>"active"),
 		));?>
 
 		<ul class="nav nav-pills navbar-default">       
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="?page=admin-blog-new&id=<?php echo $_REQUEST['id'];?>"><?php echo strtolower(strTranslate("Edit"));?></a></li>
-			<li><a href="?page=blog&id=<?php echo $_REQUEST['id'];?>">Ver entrada</a></li>
+			<li><a href="admin-blog-new?id=<?php echo $_REQUEST['id'];?>"><?php echo strtolower(strTranslate("Edit"));?></a></li>
+			<li><a href="blog?id=<?php echo $_REQUEST['id'];?>">Ver entrada</a></li>
 		</ul>
 		<?php if (count($pendientes)==0): ?>
 		<div class="alert alert-danger">No hay mensajes en la entrada</div>
 		<?php else: ?>
 		<div class="table-responsive">
-			<table class="table table-striped">
+			<table class="table table-striped table-hover">
 				<tr>
 				<th width="40px">&nbsp;</th>
 				<th>ID</th>
@@ -67,7 +67,7 @@ $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." 
 					echo '<td nowrap="nowrap">					
 							<span class="fa fa-ban icon-table" title="Eliminar"
 							    onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
-								\'?page=admin-blog-foro&act=foro_ko&id='.$element['id_comentario'].'&idt='.$id_tema.'&u='.$element['user_comentario'].'\')">
+								\'admin-blog-foro?act=foro_ko&id='.$element['id_comentario'].'&idt='.$id_tema.'&u='.$element['user_comentario'].'\')">
 							</span>			
 						 </td>';					
 					echo '<td>'.$element['id_comentario'].'</td>';

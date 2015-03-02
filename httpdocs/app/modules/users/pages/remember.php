@@ -21,13 +21,13 @@ $module_config = getModuleConfig("users");
 					<input type="text" name="form-lostpw-user" id="form-lostpw-user" class="form-control" placeholder="<?php echo strTranslate("Username");?>" required autofocus />
 					<br />
 					<button type="submit" name="rememberSubmit" id="rememberSubmit" class="btn btn-primary"><?php echo strTranslate("Recover_password");?></button>
-					<a href="?page=login" class="btn btn-default"><?php echo strTranslate("Identify_to_access");?></a>
+					<a href="login" class="btn btn-default"><?php echo strTranslate("Identify_to_access");?></a>
 				</div>
 			</div>
 		</form>		
 		<div class="container-separator">
 			<?php if ($module_config['options']['allow_registration']===true) :
-				echo strTranslate("If_not_registered");?> <a  href="?page=registration"><?php echo strTranslate("Register");?></a>
+				echo strTranslate("If_not_registered");?> <a  href="registration"><?php echo strTranslate("Register");?></a>
 			<?php endif;?>
 		</div>
 	</div>

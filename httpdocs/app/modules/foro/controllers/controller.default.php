@@ -64,7 +64,7 @@ class foroController{
 			$foro->cambiarEstado($_REQUEST['id'],2);
 			$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
 			session::setFlashMessage( 'actions_message', "Comentario cancelado correctamente.", "alert alert-success");
-			redirectURL("?page=admin-validacion-foro-comentarios&pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
+			redirectURL("admin-validacion-foro-comentarios?pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
 		}		
 	}
 
@@ -76,7 +76,7 @@ class foroController{
 			$foro->cambiarEstado($_REQUEST['id'],1);
 			$users->sumarPuntos($_REQUEST['u'],PUNTOS_FORO,PUNTOS_FORO_MOTIVO);
 			session::setFlashMessage( 'actions_message', "Comentario validado correctamente.", "alert alert-success");
-			redirectURL("?page=admin-validacion-foro-comentarios&pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
+			redirectURL("admin-validacion-foro-comentarios?pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
 		}
 	}
 
@@ -93,7 +93,7 @@ class foroController{
 			$foro = new foro();
 			$foro->cambiarEstadoTema($_REQUEST['id'],0);
 			session::setFlashMessage( 'actions_message', "Tema cancelado correctamente.", "alert alert-success");
-			redirectURL("?page=admin-validacion-foro-temas&pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1)); 
+			redirectURL("admin-validacion-foro-temas?pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1)); 
 		}		
 	}
 
@@ -136,7 +136,7 @@ class foroController{
 				session::setFlashMessage( 'actions_message', strTranslate("Forum_comment_vote_repeat"), "alert alert-warning");
 			elseif ($resultado==2)
 				session::setFlashMessage( 'actions_message', strTranslate("Forum_vote_own"), "alert alert-warning");
-			redirectURL("?page=".$_GET['page']."&id=".$_GET['id']."&pag=".$page_num);
+			redirectURL($_GET['page']."?id=".$_GET['id']."&pag=".$page_num);
 		}
 	}		
 }

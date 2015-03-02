@@ -17,14 +17,14 @@ function commentForo($comment,$destino="foro-comentarios"){
 		<?php userFicha($comment); ?>
 		<div class="media-body">
 			<p>
-				<a href="?page=profile&n=<?php echo $comment['nick']; ?>"><small><?php echo $comment['nick']; ?></small></a><br />
+				<a href="user-profile?n=<?php echo $comment['nick']; ?>"><small><?php echo $comment['nick']; ?></small></a><br />
 				<span class="text-muted"><small><?php echo getDateFormat($comment['date_comentario'], "LONG")." ".getDateFormat($comment['date_comentario'], "TIME"); ?></small></span>
 			</p>
 			<p><?php echo $comment['comentario'];?></p>
 			
 			<div class="comment-info">
 				<span class="comment-reply-trigger label" title="<?php echo strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Reply");?></span> 
-				<span class="label" title="<?php echo strTranslate("Vote_comment");?>"><a href="?page=<?php echo $destino.'&id='.$comment['id_tema'].'&idvf='.$comment['id_comentario'].'&pag='.$page_num;?>">
+				<span class="label" title="<?php echo strTranslate("Vote_comment");?>"><a href="<?php echo $destino.'?id='.$comment['id_tema'].'&idvf='.$comment['id_comentario'].'&pag='.$page_num;?>">
 				<i class="fa fa-heart"></i> <?php echo $comment['votaciones'];?></a></span>
 				<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label" title="ID del comentario">id: '.$comment['id_comentario'].'</span>'; ?>	
 			</div>
@@ -46,9 +46,5 @@ function commentForo($comment,$destino="foro-comentarios"){
 		</div>
 	</div>
 	<?php
-}
-
-function commentForoRespuestas($id_comentario){
-
 }
 ?>

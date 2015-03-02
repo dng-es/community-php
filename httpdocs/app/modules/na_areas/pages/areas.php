@@ -2,7 +2,7 @@
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=> strTranslate("Na_areas"), "ItemClass"=>"active"),
 		));
 		
@@ -24,13 +24,13 @@
 							<div class="panel-body">							
 								<p class="ellipsis"><?php echo $element['area_descripcion'];?></p>
 								<?php if ($acceso == 1): 
-									echo '<a href="?page=areas_det&id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-share"></i> '.strTranslate("Access_course").'</a>';
+									echo '<a href="areas_det?id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-share"></i> '.strTranslate("Access_course").'</a>';
 								else:
 									if ($element['registro']==1){
 										// verificar que no se haya elcanzado el límite de usuarios
 										$total_users = connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." ");
 										if ($total_users < $element['limite_users']):
-											echo '<a href="?page=areas&id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-pencil"></i> '.strTranslate("Enroll_course").'</a>';
+											echo '<a href="areas?id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-pencil"></i> '.strTranslate("Enroll_course").'</a>';
 										else:
 											echo '<span class="btn btn-default btn-xs pull-right"><i class="fa fa-times"></i> '.strTranslate("Registration_closed").'</span>';
 										endif;

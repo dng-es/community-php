@@ -31,14 +31,13 @@ templateload("cmbCanales","users");
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"?page=admin-areas"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
 			array("ItemLabel"=> strTranslate("Edit")." ".strTranslate("Na_areas"), "ItemClass"=>"active"),
 		));
 		?>
-		<div class="row">
-			<div class="col-md-12">
+
 				<?php
 				session::getFlashMessage( 'actions_message' );
 
@@ -65,14 +64,14 @@ templateload("cmbCanales","users");
 						$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
 					}
 					session::setFlashMessage( 'actions_message', "Estado modificado.", "alert alert-warning"); 
-					redirectURL("?page=admin-area&act=edit&id=".$_REQUEST['id']);
+					redirectURL("admin-area?act=edit&id=".$_REQUEST['id']);
 				}
 
 				//clasificar foro
 				if (isset($_POST['find_tipo'])) {  
 					$foro = new foro(); 
 					$foro->cambiarTipoTema($_POST['id_tema_tipo'],$_POST['find_tipo']);
-					//header("Location: ?page=admin-validacion-foro"); 
+					//header("Location: admin-validacion-foro"); 
 				}
 
 				//crear grupos
@@ -111,10 +110,21 @@ templateload("cmbCanales","users");
 				$limite_users = isset($elements[0]['limite_users']) ? $elements[0]['limite_users'] : "";
 				$area_canal = isset($elements[0]['area_canal']) ? $elements[0]['area_canal'] : "";
 				?>
-				<div class="panel panel-default">
-					<div class="panel-heading"><?php echo strTranslate("Main_data");?></div>
-					<div class="panel-body">
-						<form role="form" id="formData" name="formData" method="post" action="?page=admin-area&act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
+
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
+					<?php if ($accion=='edit'): ?>
+					<li><a href="#<?php echo strTranslate("Tasks");?>" data-toggle="tab"><?php echo strTranslate("Tasks");?></a></li>
+					<li><a href="#<?php echo strTranslate("Users");?>" data-toggle="tab"><?php echo strTranslate("Users");?></a></li>
+					<li><a href="#<?php echo strTranslate("Forums");?>" data-toggle="tab"><?php echo strTranslate("Forums");?></a></li>
+					<?php endif;?>
+				</ul>	
+			
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="general">
+						<div class="row">
+						<div class="col-md-12">
+						<form role="form" id="formData" name="formData" method="post" action="admin-area?act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
 							<input type="hidden" id="id_area" name="id_area" value="<?php echo $id;?>" />
 							<div class="row">
 								<div class="form-group col-md-12 nopadding">
@@ -132,9 +142,9 @@ templateload("cmbCanales","users");
 							
 							<div class="row">
 								<div class="form-group col-md-4 nopadding">
-									<label for="area_canal"><small>Canal:</small></label>
+									<label for="area_canal"><small><?php echo strTranslate("Channel");?>:</small></label>
 									<select id="area_canal" name="area_canal" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
-										<option value="">--selecciona el canal--</option>
+										<option value="">--<?php echo strTranslate("Choose_channel");?>--</option>
 										<?php ComboCanales($area_canal);?>
 									</select>
 								</div>
@@ -164,38 +174,48 @@ templateload("cmbCanales","users");
 									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
 								</div>
 							</div>
-						</form>	
+						</form>
+						</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</div>
+				
+
 		<?php
 		if ($accion=='edit'){
 			$id_area = $elements[0]['id_area'];
 			$area_canal = $elements[0]['area_canal']; ?>
-			<div class="row">
-				<div class="col-md-12">
-					<?php showTareasArea($id_area); ?>
+			<div class="tab-pane fade in" id="<?php echo strTranslate("Tasks");?>">
+				<br />
+				<div class="row">
+					<div class="col-md-12">
+						<?php showTareasArea($id_area); ?>
+					</div>
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-md-6">
-					<?php showGruposArea($id_area); ?>
-				</div>
+			<div class="tab-pane fade in" id="<?php echo strTranslate("Users");?>">
+				<br />
+				<div class="row">
+					<div class="col-md-6">
+						<?php showGruposArea($id_area); ?>
+					</div>
 
-				<div class="col-md-6">
-					<?php showUsuariosArea($id_area,$area_canal); ?>
+					<div class="col-md-6">
+						<?php showUsuariosArea($id_area,$area_canal); ?>
+					</div>
 				</div>
 			</div>
-			<br />
-			<div class="clearfix"></div>
-			<div class="row">
-				<div class="col-md-12">
-					<?php showForosArea($id_area); ?>
+
+			<div class="tab-pane fade in" id="<?php echo strTranslate("Forums");?>">
+				<br />
+				<div class="row">
+					<div class="col-md-12">
+						<?php showForosArea($id_area); ?>
+					</div>
 				</div>
 			</div>
 		<?php }?>
+		</div>
 	</div>
 	<?php menu::adminMenu();?>
 </div>
@@ -211,7 +231,7 @@ function showUsuariosArea($id_area,$area_canal){
 	        <div class="panel-body">
 	          <p>Los usuarios actuales serán reemplazados por los incluídos en el fichero. El fichero <strong>Excel XLS</strong> deberá contener una única columna con el nombre de usuario. 
 	          La primera fila será considerada como encabezado y no será importada.</p>
-	          <form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="?page=admin-cargas-user-areas-process&id='.$id_area.'">
+	          <form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="admin-cargas-user-areas-process?id='.$id_area.'">
 	            <input type="hidden" name="id_area" id="id_area" value="'.$id_area.'" />
 	            <input type="hidden" name="area_canal" id="area_canal" value="'.$area_canal.'" />
 	            <input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
@@ -228,7 +248,7 @@ function showUsuariosArea($id_area,$area_canal){
 
 	if (count($elements)>0){
 		echo '  <p>Total usuarios inscritos: <b>'.count($elements).'</b>. Puedes descargar un fichero CSV con los usuarios inscritos en el curso: <br /><br />
-				<a href="?page=admin-area&act=edit&id='.$id_area.'&t=1" class="btn btn-primary">Descargar fichero</a></span></p>';
+				<a href="admin-area?act=edit&id='.$id_area.'&t=1" class="btn btn-primary">Descargar fichero</a></span></p>';
 /*		echo '<table class="table">';
 		echo '	<tr>';
 		echo '	<th>Usuario</th>';
@@ -276,7 +296,7 @@ function showGruposArea($id_area){
 					</tr>
 					<?php foreach($elements as $element):
 						echo '<tr>';          
-						echo '<td><a href="?page=admin-area-grupo&a='.$id_area.'&g='.$element['id_grupo'].'">'.$element['grupo_nombre'].'</a></td>';
+						echo '<td><a href="admin-area-grupo?a='.$id_area.'&g='.$element['id_grupo'].'">'.$element['grupo_nombre'].'</a></td>';
 						echo '</tr>';   
 					endforeach;?>
 				</table>
@@ -289,17 +309,12 @@ function showForosArea($id_area){
 	$na_areas = new na_areas;
 
 	$elements=$na_areas->getGruposUsers(" AND id_area=".$id_area); 
-	echo '<div class="panel panel-default">
-			<div class="panel-heading">'.strTranslate("Forums").'</div>
-			<div class="panel-body">';
 
  	//TEMAS FOROS
 	getForosActivos($id_area);
 	//COMENTARIOS FORO PENDIENTE DE VALIDAR
 	getForoPendientes($id_area);   
 
-	echo '	</div>
-		</div>';
 }
 
 function getForosActivos($id_area){
@@ -324,11 +339,11 @@ function getForosActivos($id_area){
 			echo '<tr>';
 			echo '<td nowrap="nowrap">
 					<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el tema '.$element['id_tema'].'?\',
-						\'?page=admin-area&act=edit&act2=tema_ko&id='.$id_area.'&idt='.$element['id_tema'].'&u='.$element['user'].'\')" 
+						\'admin-area?act=edit&act2=tema_ko&id='.$id_area.'&idt='.$element['id_tema'].'&u='.$element['user'].'\')" 
 						title="Eliminar" />
 					</span>
 
-					<a class="fa fa-download icon-table" href="?page=admin-area&act=edit&export=true&id='.$id_area.'&idt='.$element['id_tema'].'" title="Exportar"></a>     
+					<a class="fa fa-download icon-table" href="admin-area?act=edit&export=true&id='.$id_area.'&idt='.$element['id_tema'].'" title="Exportar"></a>     
 				 </td>';          
 			echo '<td><a href="#" class="abrir-modal" title="TemaForo'.$element['id_tema'].'">'.$element['id_tema'].'</a>
 
@@ -398,7 +413,7 @@ function getForoPendientes($id_area)
 			echo '<tr>';
 			echo '<td nowrap="nowrap">
 					<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
-						\'?page=admin-area&act=edit&id='.$id_area.'&act2=foro_ko&idc='.$element['id_comentario'].'&u='.$element['user_comentario'].'\')" 
+						\'admin-area?act=edit&id='.$id_area.'&act2=foro_ko&idc='.$element['id_comentario'].'&u='.$element['user_comentario'].'\')" 
 						title="Eliminar" />
 					</span>     
 				 </td>';          
@@ -413,7 +428,7 @@ function getForoPendientes($id_area)
 									<h4 class="modal-title" id="myModalLabel">Tema en el foro</h4>
 								</div>
 								<div class="modal-body">
-									<p><b>'.$element['user_comentario'].'</b> escribió:</p>
+									<p><b>'.$element['user_comentario'].'</b> '.strTranslate("says").':</p>
 									<p><em>'.$element['comentario'].'</em></p>
 								</div>
 							</div><!-- /.modal-content -->
@@ -439,152 +454,134 @@ function showTareasArea($id_area){
 	$na_areas = new na_areas;
 	$elements = $na_areas->getTareas(" AND id_area=".$id_area." AND activa<>2 ");
 	?>
-	<div class="panel panel-default">
-		<div class="panel-heading">Tareas</div>
-		<div class="panel-body">
-			<p>Puedes crear nuevas tareas para el curso. Puedes crear una tarea de formulario.</p>
-			<form action="?page=admin-area&act=edit&id=<?php echo $id_area;?>" method="post" name="formNewTarea" id="formNewTarea" enctype="multipart/form-data" role="form" class="form-horizontal">
-				<input type="hidden" name="id_area_tarea" id="id_area_tarea" value="<?php echo $id_area;?>" />
+		<div class="row">
+			<div class="col-md-5">
+				<form action="admin-area?act=edit&id=<?php echo $id_area;?>" method="post" name="formNewTarea" id="formNewTarea" enctype="multipart/form-data" role="form" class="form-horizontal">
+					<input type="hidden" name="id_area_tarea" id="id_area_tarea" value="<?php echo $id_area;?>" />
 
-				<div class="form-group row">
-					<label for="tarea_titulo" class="col-sm-2 control-label"><?php echo strTranslate("Name");?>:</label>
-					<div class="col-sm-10">
-						<input type="text" name="tarea_titulo" id="tarea_titulo" class="form-control" />
-						<span id="tarea-titulo-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label for="tarea_descripcion" class="col-sm-2 control-label"><?php echo strTranslate("Description");?>:</label>
-					<div class="col-sm-10">
-						<textarea name="tarea_descripcion" id="tarea_descripcion" class="form-control" /></textarea>
-						<span id="tarea-descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label for="fichero-tarea" class="col-sm-2 control-label">Fichero tarea:</label></td>
-					<div class="col-sm-10">
-						<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default" title="<?php echo strTranslate("Choose_file");?>" />
-						<span id="fichero-tarea-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_file");?></span>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label for="tipo" class="col-sm-2 control-label"><?php echo strTranslate("Type");?>:</label>
-					<div class="col-sm-10">
-						<div class="radio">
-							<label>
-								<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> formulario
-							</label>
+					<div class="row nopadding">
+						<div class="col-md-6 nopadding">
+							<div class="radio">
+								<label>
+									<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> <?php echo strTranslate("Form");?>
+								</label>
+							</div>
 						</div>
-
-						<div class="radio">
-							<label>
-								<input type="radio" id="tipo" name="tipo" value="fichero" /> fichero
-							</label>
+						<div class="col-md-6 nopadding">
+							<div class="radio">
+								<label>
+									<input type="radio" id="tipo" name="tipo" value="fichero" /> <?php echo strTranslate("File");?>
+								</label>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="form-group row">
-					<div class="col-sm-offset-2 col-sm-10">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="tarea_grupo"  id="tarea_grupo"> Tarea de grupos
-							</label>
-						</div>
+					<label for="tarea_titulo" class="control-label"><?php echo strTranslate("Name");?>:</label>
+					<input type="text" name="tarea_titulo" id="tarea_titulo" class="form-control" />
+					<span id="tarea-titulo-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+
+
+					<label for="tarea_descripcion" class="control-label"><?php echo strTranslate("Description");?>:</label>
+					<textarea name="tarea_descripcion" id="tarea_descripcion" class="form-control" /></textarea>
+					<span id="tarea-descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+
+					<label for="fichero-tarea" class="control-label">Fichero tarea:</label>
+					<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default btn-block" title="<?php echo strTranslate("Choose_file");?>" />
+					<span id="fichero-tarea-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_file");?></span>
+
+					
+
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="tarea_grupo"  id="tarea_grupo"> Tarea de grupos
+						</label>
 					</div>
-				</div>
 
-				<div class="form-group row">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="button" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary">Guardar tarea</button>
-					</div>
-				</div>
-			</form>
-	
-	<?php if (count($elements)>0){
-		echo '<p>A continuación se muestran todas las tareas creadas en el curso. Puedes ver sus documentos asociados y revisiones.</p>';
-		echo '<table class="table">';
-		echo '<tr>';
-		echo '<th width="40px">&nbsp;</th>';
-		echo '<th>Links</th>';
-		echo '<th>'.strTranslate("Name").'</th>';
-		echo '<th>'.strTranslate("Type").'</th>';
-		echo '<th>Docs.</th>';
-		echo '<th>Revs.</th>';
-		echo '<th>Grupos</th>';
-		echo '</tr>';
-		
-		foreach($elements as $element):
-
-			if($element['activa']==1){
-				$imagen_revision='<i class="fa fa-check icon-ok"></i>';
-				$valor_activar=0;
-				$texto_activar="desactivar";
-			}
-			else{
-				$imagen_revision='<i class="fa fa-exclamation icon-alert"></i>';
-				$valor_activar=1;
-				$texto_activar="activar";
-			}
-
-			if($element['activa_links']==1){
-				$valor_activar_links=0;
-				$texto_activar_links="desactivar";
-				$texto_activar_links_v="SI";
-			}
-			else{
-				$valor_activar_links=1;
-				$texto_activar_links="activar";
-				$texto_activar_links_v="NO";
-			}
-
-			echo '<tr>';     
-			echo '<td nowrap="nowrap">
-						<a href="#" onClick="Confirma(\'¿Seguro que quieres '.$texto_activar.' la tarea?\',
-						\'?page=admin-area&act=edit&e='.$valor_activar.'&del_t='.$element['id_tarea'].'&id='.$id_area.'\')" 
-						title="'.$texto_activar.' tarea" />'.$imagen_revision.'</a>
-
-						<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que quieres eliminar la tarea?\',
-						\'?page=admin-area&act=edit&del_t2='.$element['id_tarea'].'&id='.$id_area.'\')" 
-						title="Eliminar tarea" />
-						</span>
-					</td>
-					<td>
-						<a href="#" onClick="Confirma(\'¿Seguro que quieres '.$texto_activar_links.' los links de la tarea?\',
-						\'?page=admin-area&act=edit&el='.$valor_activar_links.'&del_t='.$element['id_tarea'].'&id='.$id_area.'\')" 
-						title="'.$texto_activar_links.' tarea" />'.$texto_activar_links_v.'</a>
-
-					</td>';
+					<br />
+					<button type="button" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary btn-block">Guardar tarea</button>
+				</form>
+			</div>
+			<div class="col-md-7">	
+				<?php if (count($elements)>0): ?>
+				<div class="table-responsive">
+					<table class="table table-hover table-striped">
+						<tr>
+							<th width="40px">&nbsp;</th>
+							<th><?php echo strTranslate("Task");?></th>
+							<th>&nbsp;</th>
+						</tr>
 			
-			if ($element['tipo']=='formulario'){
-				echo '<td>'.$element['tarea_titulo'].'</td>';
-				$tipo_tarea='<a href="?page=admin-area-form&a='.$id_area.'&id='.$element['id_tarea'].'">'.$element['tipo'].'</a>';
-			}
-			else{
-				echo '<td><a target="_blank" href="docs/showfile.php?t=1&file='.$element['tarea_archivo'].'">'.$element['tarea_titulo'].'</a></td>';
-				$tipo_tarea=$element['tipo'];
-			}
+						<?php foreach($elements as $element):
 
-			if ($element['tarea_grupo']==1){
-				$grupo_tarea='<a href="?page=admin-area-tarea-grupo&a='.$id_area.'&id='.$element['id_tarea'].'">grupos</a>';
-			}
-			else{$grupo_tarea="";}      
-			echo '<td>'.$tipo_tarea.'</td>';
-			echo '<td><a href="?page=admin-area-docs&a='.$id_area.'&id='.$element['id_tarea'].'">docs</a></td>';
-			echo '<td><a href="?page=admin-area-revs&a='.$id_area.'&id='.$element['id_tarea'].'">revs</a></td>';
-			echo '<td>'.$grupo_tarea.'</td>';
-			
-			echo '</tr>';   
-		endforeach;
-		echo '</table>';
-	}
-	else{
-		echo '<p>No hay tareas incluidas en el curso</p>';
-	}
-	echo '</div></div>';
+							if($element['activa'] == 1){
+								$imagen_revision = '<i class="fa fa-check text-success"></i>';
+								$valor_activar = 0;
+								$texto_activar = "desactivar";
+							}
+							else{
+								$imagen_revision='<i class="fa fa-exclamation text-danger"></i>';
+								$valor_activar = 1;
+								$texto_activar = "activar";
+							}
+
+							if($element['activa_links']==1){
+								$valor_activar_links = 0;
+								$texto_activar_links = "desactivar";
+								$texto_activar_links_v = strTranslate("App_Yes");
+							}
+							else{
+								$valor_activar_links = 1;
+								$texto_activar_links = "activar";
+								$texto_activar_links_v = strTranslate("App_No");
+							}
+
+							echo '<tr>';     
+							echo '<td nowrap="nowrap">
+										<span class="icon-table" onClick="Confirma(\'¿Seguro que quieres '.$texto_activar.' la tarea?\',
+										\'admin-area?act=edit&e='.$valor_activar.'&del_t='.$element['id_tarea'].'&id='.$id_area.'\')" 
+										title="'.$texto_activar.' tarea" />'.$imagen_revision.'</span>
+
+										<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que quieres eliminar la tarea?\',
+										\'admin-area?act=edit&del_t2='.$element['id_tarea'].'&id='.$id_area.'\')" 
+										title="Eliminar tarea" />
+										</span>
+
+						
+
+									</td>
+									<td>';
+							
+							if ($element['tipo']=='formulario'){
+								echo '<a href="admin-area-form?a='.$id_area.'&id='.$element['id_tarea'].'">'.strTranslate("Form").'</a>';
+							}
+							else{
+								echo '<a target="_blank" href="docs/showfile.php?t=1&file='.$element['tarea_archivo'].'">'.strTranslate("File").'</a>';
+							}
+
+							echo '<br /><em class="text-muted"><small>'.$element['tarea_titulo'].'</small></em>
+									</td>
+									<td>
+										<span class="btn btn-default btn-xs" onClick="Confirma(\'¿Seguro que quieres '.$texto_activar_links.' los links de la tarea?\',
+										\'admin-area?act=edit&el='.$valor_activar_links.'&del_t='.$element['id_tarea'].'&id='.$id_area.'\')" 
+										title="'.$texto_activar_links.' tarea" />Link: '.$texto_activar_links_v.'</span>
+
+										<a class="btn btn-default btn-xs" href="admin-area-docs?a='.$id_area.'&id='.$element['id_tarea'].'">docs</a>
+										<a class="btn btn-default btn-xs" href="admin-area-revs?a='.$id_area.'&id='.$element['id_tarea'].'">revs</a>';
+										if ($element['tarea_grupo']==1){
+											echo '<a class="btn btn-default btn-xs" href="admin-area-tarea-grupo?a='.$id_area.'&id='.$element['id_tarea'].'">'.strTranslate("Groups").'</a>';
+										}
+							echo '</td>';		
+							echo '</tr>';   
+						endforeach; ?>
+					</table>
+				</div>
+				<?php else: ?>
+				<p>No hay tareas incluidas en el curso</p>
+			php<?php endif; ?>
+			</div>
+		</div>
+
+	<?php
 }
 	
 function InsertData(){

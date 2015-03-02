@@ -1,8 +1,7 @@
 <?php
 addCss(array("css/bootstrap-datetimepicker.min.css"));
 addJavascripts(array("js/bootstrap.file-input.js", 
-					 "js/bootstrap-datepicker.js", 
-					 "js/bootstrap-datepicker.es.js",
+					 "js/bootstrap-datepicker.js",
 					 getAsset("users")."js/registration.js"));
 $module_config = getModuleConfig("users");
 if ($module_config['options']['allow_registration']===true):
@@ -36,14 +35,14 @@ if ($module_config['options']['allow_registration']===true):
 				$template = new tpl("registration", "users");
 				$template->setVars(array(
 				        "title_email" => strTranslate("Registration"),
-				        "registration_link" => '?page=registration-confirm&a='.sha1($_POST['username-text']).'&b='.sha1($_POST['user-email']).'&c='.sha1($_POST['user-pass'])
+				        "registration_link" => 'registration-confirm?a='.sha1($_POST['username-text']).'&b='.sha1($_POST['user-email']).'&c='.sha1($_POST['user-pass'])
 				));
 
 				$body_mail = $template->getTpl();
 
 				//SendEmail($ini_conf['ContactEmail'],$_POST['user-email'],$subject_mail,$body_mail,0,$ini_conf['SiteName']);
 				messageProcess($subject_mail, array($ini_conf['MailingEmail'] => $ini_conf['SiteName']), array($_POST['user-email']), $body_mail, null);
-				redirectURL("?page=registration&m=1");
+				redirectURL("registration?m=1");
 			}
 			elseif ($confirmar==2){
 				ErrorMsg("<p>Se ha producido algun error al confirmar sus datos.</p>");
@@ -66,7 +65,7 @@ if ($module_config['options']['allow_registration']===true):
 					Recibirás en tu cuenta de correo un email para confirmar tu registro, sigue las instrucciones del mensaje para acceder.
 				</p>
 				<br />
-				<a href="?page=login" class="btn btn-default btn-lg"><?php echo strTranslate("Identify_to_access");?></a>	
+				<a href="login" class="btn btn-default btn-lg"><?php echo strTranslate("Identify_to_access");?></a>	
 			</div>
 		<?php }
 		else{
@@ -101,7 +100,7 @@ if ($module_config['options']['allow_registration']===true):
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="username-text"><?php echo strTranslate("Username");?>:</label>
 				<div class="col-sm-8">	
-					<input name="username-text" id="username-text" type="text" class="form-control" value="<?php echo $user_name;?>" placeholder="Intruduce tu DNI" />
+					<input name="username-text" id="username-text" type="text" class="form-control" value="<?php echo $user_name;?>" placeholder="" />
 					<span id="username-text-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
@@ -109,7 +108,7 @@ if ($module_config['options']['allow_registration']===true):
 				<label class="col-sm-4 control-label" for="user-empresa"><?php echo strTranslate("Group_user");?>:</label>
 				<div class="row">
 					<div class="col-xs-5">
-						<input name="user-empresa" id="user-empresa" date-c="0" type="text" class="form-control" value="<?php echo $user_empresa;?>" placeholder="Código de centro" />
+						<input name="user-empresa" id="user-empresa" date-c="0" type="text" class="form-control" value="<?php echo $user_empresa;?>" placeholder="" />
 					</div>
 					<div class="col-xs-7">
 						<input name="user-empresa-nombre" id="user-empresa-nombre" type="text" class="form-control" disabled="disabled" value="" />
@@ -121,26 +120,26 @@ if ($module_config['options']['allow_registration']===true):
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="user-nick"><?php echo strTranslate("Nick");?>:</label>
 				<div class="col-sm-8">
-					<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" value="<?php echo $user_nick;?>" placeholder="Intruduce tu <?php echo strtolower(strTranslate("Nick"));?>" />
+					<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" value="<?php echo $user_nick;?>" placeholder="" />
 					<span id="user-nick-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="user-nombre"><?php echo strTranslate("Name");?>:</label>
 				<div class="col-sm-8">
-					<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" value="<?php echo $user_nombre;?>" placeholder="Intruduce tu nombre" />
+					<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" value="<?php echo $user_nombre;?>" placeholder="" />
 					<span id="user-nombre-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="user-apellidos"><?php echo strTranslate("Surname");?>:</label>
 				<div class="col-sm-8">
-					<input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $user_apellidos;?>" placeholder="Intruduce tus apellidos" />
+					<input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $user_apellidos;?>" placeholder="" />
 					<span id="user-apellidos-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>					
 			<div class="form-group" style="display:none">
-				<label class="col-sm-4 control-label" for="user-date">Fecha nacimiento:</label>
+				<label class="col-sm-4 control-label" for="user-date"><?php echo strTranslate("Born_date");?>:</label>
 				<div class="col-sm-8">
 					<div id="datetimepicker1" class="input-group date">
 						<input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" name="user-date"></input>
@@ -203,7 +202,7 @@ if ($module_config['options']['allow_registration']===true):
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
 					<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary"><?php echo strTranslate("Register");?></button>
-					<a href="?page=login" class="btn btn-default"><?php echo strTranslate("Identify_to_access");?></a>
+					<a href="login" class="btn btn-default"><?php echo strTranslate("Identify_to_access");?></a>
 				</div>
 			</div>
 		</form>

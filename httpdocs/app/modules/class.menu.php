@@ -2,7 +2,6 @@
 class menu{
 	/**
 	* Print Main menu. User must be logged
-	*
 	*/
 	static function PageMenu(){
 		global $session;
@@ -10,38 +9,40 @@ class menu{
 		if ($_SESSION['user_logged']==true){ ?>
 			<nav class="navbar navbar-default" id="menu-main" role="navigation">
 				<div class="container-fluid">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="?page=home"><i class="fa fa-home"></i></a>
-				</div>
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="home"><i class="fa fa-home"></i></a>
+					</div>
 
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<?php self::userMainMenu();?>
-					
-					
-					<li class="hidden-md hidden-lg"><a href="?page=user-perfil"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php echo strTranslate("My_profile")?></a></li>
-					<?php if ($_SESSION['user_perfil']=='admin'){
-					echo '<li class="hidden-md hidden-lg"><a href="?page=admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
-					}
-					?>
-					<li class="hidden-md hidden-lg"><a href="?page=mensajes"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Mailing_messages")?></a></li>
-					<li class="hidden-md hidden-lg"><a href="?page=logout"><i class="fa fa-lock visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Logout")?></a></li>
-				</ul>
-				</div><!-- /.navbar-collapse -->
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<?php self::userMainMenu();?>				
+							
+							<li class="hidden-md hidden-lg"><a href="profile"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php echo strTranslate("My_profile")?></a></li>
+							<?php if ($_SESSION['user_perfil']=='admin'){
+							echo '<li class="hidden-md hidden-lg"><a href="admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
+							}
+							?>
+							<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Mailing_messages")?></a></li>
+							<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-lock visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Logout")?></a></li>
+						</ul>
+					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container-fluid -->
 			</nav>
 			<?php
 		}	
 	}
 
+	/**
+	 * Print elements of users main menu
+	 */
 	public static function userMainMenu(){
 		$array_final = array();
 		$modules = getListModules();		
@@ -94,18 +95,18 @@ class menu{
 
 			?>
 			<div class="row header-info">
-				<a href="?page=home"><img src="images/logo.png" id="header-info-logo" /></a>
+				<a href="home"><img src="images/logo.png" id="header-info-logo" /></a>
 				<div id="user-info">
 					<div class="pull-right" style="width:75%">
 					<?php 
-					echo '<a href="?page=user-perfil"><img src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
+					echo '<a href="profile"><img src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
 					
 					echo '<p>';
 					echo ' <i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
-					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="?page=admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
-					echo '<a href="?page=user-perfil" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';
-					echo '<a href="?page=mensajes" id="perfil-btn"><i class="fa fa-envelope"></i> '.strTranslate("Mailing_messages").' <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a> | ';	
-					echo '<a href="?page=logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a> | ';
+					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
+					echo '<a href="profile" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';
+					echo '<a href="inbox" id="perfil-btn"><i class="fa fa-envelope"></i> '.strTranslate("Mailing_messages").' <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a> | ';	
+					echo '<a href="logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a> | ';
 					echo ucfirst(strTranslate("APP_points")).': '.$puntos_user[0]['puntos'];
 					echo ' </p>';
 					?>
@@ -114,15 +115,21 @@ class menu{
 			</div>
 			<?php
 
-			//SELECTOR DE IDIOMAS
+			//Print language selector
 			self::languageSelector();
 		}
 	}
 
-	static function getMenuSection($section, $icon, $array_final){			
+	/**
+	 * Print each section of Admin main menu
+	 * @param  string 	$section     	Nombre de la sección
+	 * @param  string 	$icon        	Icono de la sección
+	 * @param  array 	$elems 			Elementos de cada sección
+	 */
+	static function getMenuSection($section, $icon, $elems){			
 		$header_name = "";
 		$content = "";
-		foreach($array_final as $elem):				
+		foreach($elems as $elem):				
 			if ($elem['LabelHeader']==$section) {
 				$main_url = explode("&", $elem['LabelUrl']);
 				$active = (($_GET['page']==$main_url[0] or $_GET['page']==$elem['LabelUrl']) ? " class=\"active\" " : "");
@@ -134,10 +141,10 @@ class menu{
 					$header_name = $elem['LabelSection'];
 					$content .= '<li class="module-admin-header">'.$elem['LabelSection'].'</li>
 					<ul class="module-admin-item">';
-					$content .= '<li><a '.$active.' href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+					$content .= '<li><a '.$active.' href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
 				}
 				elseif($header_name=$elem['LabelSection']){
-					$content .= '<li><a '.$active.' href="?page='.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+					$content .= '<li><a '.$active.' href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
 				}				
 			}
 		endforeach;
@@ -147,31 +154,33 @@ class menu{
 		}
 	}
 
-	static function getAdminPanels($array_final){
+	/**
+	 * Print Admin panels. Used admin main page
+	 * @param  array 	$elems 		Paneles a mostrar
+	 */
+	static function getAdminPanels($elems){
+		$header_name = "";
+		foreach($elems as $elem):	
+			if($header_name!="" and $header_name!=$elem['LabelSection']){
+				echo '</dl></div>
+					</div>
+				</div>';
+			}
 
-					$header_name = "";
-					foreach($array_final as $elem):	
-						if($header_name!="" and $header_name!=$elem['LabelSection']){
-							echo '</dl></div>
-								</div>
-							</div>';
-						}
-
-						if ($header_name!=$elem['LabelSection']){
-							$header_name = $elem['LabelSection'];
-							echo '<div class="col-md-6">
-			<div class="panel panel-default">
-				<div class="panel-heading"><h3 class="panel-title">'.$header_name.'<small><i class="fa fa-file pull-right text-muted"></i></small></h3></div>
-				<div class="panel-body">
-					<dl class="dl-horizontal">';
-						}
-						echo '<dt>'.$elem['LabelItem'].'</dt>
-							<dd><a href="?page='.$elem['LabelUrl'].'">'.$elem['LabelUrlText'].'</a></dd>';
-					endforeach;
-							echo '</dl></div>
-								</div>
-							</div>';
-	
+			if ($header_name!=$elem['LabelSection']){
+				$header_name = $elem['LabelSection'];
+				echo '<div class="col-md-6">
+						<div class="panel panel-default">
+							<div class="panel-heading"><h3 class="panel-title">'.$header_name.'<small><i class="fa fa-file pull-right text-muted"></i></small></h3></div>
+							<div class="panel-body">
+								<dl class="dl-horizontal">';
+			}
+			echo '<dt>'.$elem['LabelItem'].'</dt>
+				<dd><a href="'.$elem['LabelUrl'].'">'.$elem['LabelUrlText'].'</a></dd>';
+		endforeach;
+				echo '</dl></div>
+					</div>
+				</div>';
 	}
 
 	/**
@@ -183,14 +192,15 @@ class menu{
 		if ($ini_conf['language_selector']==true){
 			$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
 			$destination = str_replace("&lan=", "&lano=", $_SERVER['REQUEST_URI']);
+			$destination = str_replace("?lan=", "?lano=", $_SERVER['REQUEST_URI']);
+			$separator = (strpos($_SERVER['REQUEST_URI'], "?")==0  ? "?" : "&");
 			echo '<div id="language-selector">';
 			foreach($folders as $folder):
-				echo '<a href="'.$destination.'&lan='.$folder.'" title="'.$folder.'"><img src="app/languages/'.$folder.'/images/flag.png" /></a>';
+				echo '<a href="'.$destination.$separator.'lan='.$folder.'" title="'.$folder.'"><img src="app/languages/'.$folder.'/images/flag.png" /></a>';
 			endforeach;
 			echo '</div>';
 		}
 	}	
-
 
 	/**
 	* Print administration menu
@@ -221,7 +231,7 @@ class menu{
 
 			?>
 			<div class="col-md-3" id="admin-panel">
-				<h2><a href="?page=admin"><?php echo strTranslate("Go_to_main_panel");?></a></h2>
+				<h2><a href="admin"><?php echo strTranslate("Go_to_main_panel");?></a></h2>
 				<?php self::getMenuSection("Modules", "fa fa-puzzle-piece", $array_final);?>
 				<?php self::getMenuSection("Tools", "fa fa-gears", $array_final);?>
 				<br />
@@ -277,6 +287,10 @@ class menu{
 		}
 	}
 
+	/**
+	 * Print breadcrumb
+	 * @param  array 	$elems 		Elementos a mostrar en el breadcrub
+	 */
 	public static function breadcrumb($elems){
 		echo '<ol class="breadcrumb">';
 		foreach($elems as $elem):		

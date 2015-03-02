@@ -16,8 +16,8 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Rankings"), "ItemUrl"=>"#"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Rankings"), "ItemUrl"=>"ranking"),
 			array("ItemLabel"=>strTranslate("Ranking_users"), "ItemClass"=>"active"),
 		));
 		?>
@@ -76,7 +76,7 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 			<?php echo $puntos_user[0]['nombre_tienda'];?><br />
 			<?php echo $puntos_user[0]['puntos'];?> <?php echo strTranslate("APP_points");?>
 			</p>
-			<a href="?page=ranking-empresas" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_companies_ranking");?></a>
+			<a href="ranking-empresas" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_companies_ranking");?></a>
 		</div>
 	</div>
 </div>

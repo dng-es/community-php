@@ -55,7 +55,7 @@ class fotosController{
 			if (isset($_REQUEST['pag']) and $_REQUEST['pag']!="") {$destination .= "&pag=".$_REQUEST['pag'];} 
 
 			session::setFlashMessage( 'actions_message', $message, "alert alert-warning");
-			redirectURL("?page=".$destination);
+			redirectURL($destination);
 		}		
 	}		
 }

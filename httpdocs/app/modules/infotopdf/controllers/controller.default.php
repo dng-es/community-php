@@ -42,7 +42,7 @@ class infotopdfController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-info");
+			redirectURL("admin-info");
 		}
 	}
 

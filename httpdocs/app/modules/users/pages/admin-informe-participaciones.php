@@ -8,17 +8,17 @@ $elements = usersParticipacionesController::getListAction(100);
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Report")." <b>".strTranslate("APP_shares")."</b>", "ItemClass"=>"active"),
 		));
 		?>
 		<ul class="nav nav-pills navbar-default">     
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
-			<li><a href="?page=admin-informe-puntuaciones"><?php echo strTranslate("Report");?> <?php echo strTranslate("APP_points");?></a></li>
-			<li><a href="?page=admin-informe-accesos"><?php echo strTranslate("Report");?> <?php echo strtolower(strTranslate("Visits"));?></a></li>
-			<li><a href="?page=<?php echo $_REQUEST['page'].'&export=true';?>"><?php echo strTranslate("Export");?></a></li>
+			<li><a href="admin-informe-puntuaciones"><?php echo strTranslate("Report");?> <?php echo strTranslate("APP_points");?></a></li>
+			<li><a href="admin-informe-accesos"><?php echo strTranslate("Report");?> <?php echo strtolower(strTranslate("Visits"));?></a></li>
+			<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 		<div class="table-responsive">
 			<table class="table">

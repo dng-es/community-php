@@ -5,15 +5,15 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"#"),
-			array("ItemLabel"=>strTranslate("Mailing_lists"), "ItemUrl"=>"?page=user-lists"),
+			array("ItemLabel"=>strTranslate("Mailing_lists"), "ItemUrl"=>"user-lists"),
 			array("ItemLabel"=>"Mi lista de envío", "ItemClass"=>"active"),
 		));
 		?>
 		<ul class="nav nav-pills navbar-default">
-			<li><a href="?page=user-list&act=new"><?php echo strTranslate("New_list")?></a></li>
-			<li><a href="?page=user-messages">Mis comunicaciones enviadas</a></li>
+			<li><a href="user-list?act=new"><?php echo strTranslate("New_list")?></a></li>
+			<li><a href="user-messages">Mis comunicaciones enviadas</a></li>
 		</ul>
 		<?php
 		session::getFlashMessage( 'actions_message' );
@@ -22,7 +22,7 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 		$lista = mailingListsController::getItemAction();	
 		?>
 		<br />
-		<form role="form" id="formData" name="formData" enctype="multipart/form-data" method="post" action="?page=user-list&amp;id=<?php echo $lista['id_list'];?>">
+		<form role="form" id="formData" name="formData" enctype="multipart/form-data" method="post" action="user-list?id=<?php echo $lista['id_list'];?>">
 			<input type="hidden" id="id_list" name="id_list" value="<?php echo $lista['id_list'];?>" />
 
 			<div class="form-group">

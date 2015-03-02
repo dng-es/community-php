@@ -2,7 +2,6 @@
 class videosController{
 
 	public static function getItemAction($id = 0, $filter = ""){
-		$id = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;		
 		$item = array();
 		if ($id != 0){
 			$videos = new videos();
@@ -51,25 +50,24 @@ class videosController{
 		}			
 	}
 
-	public static function voteAction($destination = "video"){
+	public static function voteAction($destination = "videos"){
 		if (isset($_REQUEST['idvv']) and $_REQUEST['idvv']!="") { 
 			$videos = new videos();
 			$response = $videos->InsertVotacion($_REQUEST['idvv'],$_SESSION['user_name']);
 			if ($response == 1){
-				$message = strTranslate("Video_vote_ok");
+				session::setFlashMessage( 'actions_message', strTranslate("Video_vote_ok"), "alert alert-success");
 			}
 			elseif ($response == 2){
-				$message = strTranslate("Video_vote_repeat");
+				session::setFlashMessage( 'actions_message', strTranslate("Video_vote_repeat"), "alert alert-warning");
 			}
 			elseif ($response == 3){
-				$message = strTranslate("Video_vote_own");
+				session::setFlashMessage( 'actions_message', strTranslate("Video_vote_own"), "alert alert-warning");
 			}
 
 			if (isset($_REQUEST['f']) and $_REQUEST['f']!="") {$destination .= "&f=".$_REQUEST['f'];} 
 			if (isset($_REQUEST['pag']) and $_REQUEST['pag']!="") {$destination .= "&pag=".$_REQUEST['pag'];} 
 
-			session::setFlashMessage( 'actions_message', $message, "alert alert-warning");
-			redirectURL("?page=".$destination."&id=".$_REQUEST['idvv']);
+			redirectURL($destination."?id=".$_REQUEST['idvv']);
 		}		
 	}
 
@@ -117,7 +115,7 @@ class videosController{
 			$videos->cambiarEstadoComentario($_REQUEST['idc'],2);
 
 			session::setFlashMessage( 'actions_message', "Comentario cancelado", "alert alert-warning");
-			redirectURL("?page=admin-videos-comentarios&id=".$_REQUEST['id']);
+			redirectURL("admin-videos-comentarios?id=".$_REQUEST['id']);
 		}
 	}
 
@@ -139,7 +137,7 @@ class videosController{
 			if (isset($_REQUEST['pag2']) and $_REQUEST['pag2']!="") {$destination .= "&pag2=".$_REQUEST['pag2'];}
 
 			session::setFlashMessage( 'actions_message', $message, "alert alert-warning");
-			redirectURL("?page=".$destination);
+			redirectURL($destination);
 		}	
 
 		

@@ -25,8 +25,8 @@ $email = '';
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Infotopdf_Documents"), "ItemUrl"=>"?page=user-infotopdf-all"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Infotopdf_Documents"), "ItemUrl"=>"user-infotopdf-all"),
 			array("ItemLabel"=>$elements[0]['titulo_info'], "ItemClass"=>"active"),
 		));
 		?>
@@ -102,7 +102,7 @@ $email = '';
 				</span>
 				Comunicaciones impresas
 			</h4>
-			<a href="?page=user-infotopdf-all" class="comunidad-color">Ir a todos los documentos</a>
+			<a href="user-infotopdf-all" class="comunidad-color">Ir a todos los documentos</a>
 			<p class="text-center"><i class="fa fa-file-pdf-o fa-big"></i></p>
 		</div>
 	</div>

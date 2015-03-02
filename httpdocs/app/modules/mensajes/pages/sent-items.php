@@ -1,15 +1,15 @@
 <?php
 templateload("addmessage","mensajes");
 
-addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/mensajes.js"));
+addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/inbox.js"));
 ?>
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Mailing_messages"), "ItemUrl"=>"#"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Mailing_messages"), "ItemUrl"=>"inbox"),
 			array("ItemLabel"=>strTranslate("Mailing_sent"), "ItemClass"=>"active"),
 		));
 
@@ -22,13 +22,13 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 		?>
 
 		<p><?php echo strTranslate("Mailing_messages");?>: <span id="contador-leidos"><?php echo count($mensajes);?></span> | 
-		<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message");?></a> | <a href="?page=mensajes"><?php echo strTranslate("Mailing_inbox");?></a></p>
+		<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message");?></a> | <a href="inbox"><?php echo strTranslate("Mailing_inbox");?></a></p>
 		<div class="table-responsive container-min">
-			<table class="table table-striped">
+			<table class="table">
 			<?php foreach($mensajes as $mensaje): ?>			
 				<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo MensajeLeido">
 					<td nowrap="nowrap" valign="top">
-						<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', '?page=mensajes_e&act=ko&id=<?php echo $mensaje['id_mensaje'];?>')" title="<?php echo  strTranslate("Delete");?>"></span>
+						<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'sent-items?act=ko&id=<?php echo $mensaje['id_mensaje'];?>')" title="<?php echo  strTranslate("Delete");?>"></span>
 						<span class="fa fa-reply icon-table message-forward" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php echo strTranslate("Forward");?>"></span>			
 					</td>
 					<td valign="top" nowrap="nowrap"><span id="leidoMensajeNick<?php echo $mensaje['id_mensaje'];?>"><i class="fa fa-user"></i> <span id="message-nick-<?php echo $mensaje['id_mensaje'];?>"><?php echo $mensaje['nick'];?></span></span></td>
@@ -37,7 +37,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/men
 				</tr>
 				<tr id="MensajeOveja<?php echo $mensaje['id_mensaje'];?>" class="MensajeTextoCuerpo">
 					<td colspan="4" id="message-body-<?php echo $mensaje['id_mensaje'];?>">
-					<?php echo nl2br($mensaje['mensaje_cuerpo']);?>
+					<small><em class="text-muted"><?php echo nl2br($mensaje['mensaje_cuerpo']);?></em></small>
 					</td>
 				</tr>		 
 			<?php endforeach; ?>

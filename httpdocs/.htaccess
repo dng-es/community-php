@@ -1,3 +1,11 @@
+Options +FollowSymlinks
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?page=$1&%{QUERY_STRING} [L,NC]
+</IfModule>
+
 ####### OPTIMIZACION
 
 <IfModule mod_deflate.c>

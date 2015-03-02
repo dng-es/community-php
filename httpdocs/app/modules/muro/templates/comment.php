@@ -4,8 +4,6 @@ templateload("tipuser","users");
 
 function commentMuro($comment){
     global $page,$muro;
-	if ($page=='muro_comentarios') {$pagina=$page.'&c='.$comment['tipo_muro'];}
-	else {$pagina=$page;}
 	//respuestas al comentario
 	$respuestas = connection::countReg("muro_comentarios"," AND id_comentario_id=".$comment['id_comentario']." AND estado=1 ");
 	$votado = connection::countReg("muro_comentarios_votaciones"," AND id_comentario=".$comment['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
@@ -14,9 +12,9 @@ function commentMuro($comment){
 	echo '<div class="media">';
 	userFicha($comment);
 	echo '	<p>
-			<a href="?page=profile&n='.$comment['nick'].'"><small>'.$comment['nick'].'</small></a>';
+			<a href="user-profile?n='.$comment['nick'].'"><small>'.$comment['nick'].'</small></a>';
 	echo ' 	<span class="date-format-ago" data-date="'.$comment['date_comentario'].'">'.getDateFormat($comment['date_comentario'], "DATE_TIME").'</span>';
-    if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'){  echo '<br />canal '.$comment['canal_comentario'];}
+    if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'){  echo '<br />'.strTranslate("Channel").': '.$comment['canal_comentario'];}
     
 
 	echo '	</p>
@@ -37,7 +35,7 @@ function commentMuro($comment){
 			</span>
 			
 			<span style="margin-left:10px">				
-		    	 <a href="?page=muro-comentarios-respuestas&id='.$comment['id_comentario'].'" class="tooltip-top" title="'.strTranslate("Show_all_replies").'"> <span class="fa fa-sign-in"></span></a>
+		    	 <a href="muro-comentarios-respuestas?id='.$comment['id_comentario'].'" class="tooltip-top" title="'.strTranslate("Show_all_replies").'"> <span class="fa fa-sign-in"></span></a>
 			</span>
 		</div>';
 	echo '	<div id="muro-result-megusta'.$comment['id_comentario'].'" class="text-danger"></div>';

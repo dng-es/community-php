@@ -11,7 +11,7 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Users_connected"), "ItemClass"=>"active"),
 		));
 		?>

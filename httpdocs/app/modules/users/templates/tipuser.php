@@ -39,7 +39,7 @@ function userFicha($user_data,$movil=0){
 	if ($user_data['foto']==""){$foto="user.jpg";}
 	else {$foto=$user_data['foto'];}
 	$estrellas_print = userEstrellas($user_data['participaciones']);
-	echo '				<a class="pull-left betterTip" id="a'.$user_data['id_comentario'].'" href="$a'.$user_data['id_comentario'].'Tip?width='.$tam_foto.'" title="Datos del usuario <em>'.$user_data['nick'].'</em>">
+	echo '				<a class="pull-left betterTip" id="a'.$user_data['id_comentario'].'" href="$a'.$user_data['id_comentario'].'Tip?width='.$tam_foto.'" title="'.strTranslate("User_info").' <em>'.$user_data['nick'].'</em>">
 						<img class="comment-mini-img" src="'.$path_foto.$foto.'" />';							
 	userTip($user_data['id_comentario'],$user_data,$estrellas_print,$movil);						
 	echo $estrellas_print;

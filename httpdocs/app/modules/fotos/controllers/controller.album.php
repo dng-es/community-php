@@ -24,11 +24,11 @@ class fotosAlbumController{
 			if ($fotos->InsertAlbum($_POST['nombre'],$_SESSION['user_name'])) {
 				session::setFlashMessage( 'actions_message', "álbum creado correctamente", "alert alert-success");
 				$id_album = connection::SelectMaxReg("id_album","galeria_fotos_albumes"," AND activo=1 ");
-				redirectURL("?page=admin-albumes-new&id=".$id_album);
+				redirectURL("admin-albumes-new?id=".$id_album);
 			}
 			else{
 				session::setFlashMessage( 'actions_message', "Error al crear álbum", "alert alert-warning");
-				redirectURL("?page=admin-albumes-new");
+				redirectURL("admin-albumes-new");
 			}
 		}
 	}
@@ -42,7 +42,7 @@ class fotosAlbumController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al modificar álbum", "alert alert-warning");
 			}
-			redirectURL("?page=admin-albumes-new&id=".$_POST['id']);
+			redirectURL("admin-albumes-new?id=".$_POST['id']);
 		}
 	}
 
@@ -55,7 +55,7 @@ class fotosAlbumController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al eliminar álbum", "alert alert-warning");
 			}
-			redirectURL("?page=admin-albumes");
+			redirectURL("admin-albumes");
 		}
 	}
 
@@ -83,7 +83,7 @@ class fotosAlbumController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al eliminar imágen", "alert alert-warning");
 			}
-			redirectURL("?page=admin-albumes-new&id=".$_REQUEST['id']);
+			redirectURL("admin-albumes-new?id=".$_REQUEST['id']);
 		}
 	}
 
@@ -96,7 +96,7 @@ class fotosAlbumController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al agregar imágen", "alert alert-warning");
 			}
-			redirectURL("?page=admin-albumes-new&id=".$_POST['id_album']);
+			redirectURL("admin-albumes-new?id=".$_POST['id_album']);
 		}
 	}
 }

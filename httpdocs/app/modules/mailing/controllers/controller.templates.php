@@ -55,7 +55,7 @@ class mailingTemplatesController{
 				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
 			}
 
-			redirectURL("?page=admin-template&id=".$id_template);
+			redirectURL("admin-template?id=".$id_template);
 		}		
 	}
 
@@ -76,7 +76,7 @@ class mailingTemplatesController{
 				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
 			
-			redirectURL("?page=admin-template&id=".$id_template);
+			redirectURL("admin-template?id=".$id_template);
 		}
 	}
 
@@ -89,7 +89,7 @@ class mailingTemplatesController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-templates");
+			redirectURL("admin-templates");
 		}
 	}	
 
@@ -103,7 +103,7 @@ class mailingTemplatesController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-templates");
+			redirectURL("admin-templates");
 		}
 	}
 }

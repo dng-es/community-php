@@ -6,8 +6,8 @@ addJavascripts(array(getAsset("configuration")."js/admin-config.js"));
 		<?php 
 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Configuration"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Main_data"), "ItemClass"=>"active"),
 		));

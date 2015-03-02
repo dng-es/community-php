@@ -18,7 +18,7 @@ jQuery(document).ready(function(){
 			$.ajax({
 				type: 'POST',
 				async: false,
-				url: '?page=home',
+				url: 'home',
 				data:{"form-login-user": user, "form-login-password": pass},
 				success: function(data) {
 					location.href = "?page=login";

@@ -9,10 +9,10 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Pages"), "ItemUrl"=>"#"),
-			array("ItemLabel"=>strTranslate("Pages_list"), "ItemUrl"=>"?page=admin-pages"),
+			array("ItemLabel"=>strTranslate("Pages_list"), "ItemUrl"=>"admin-pages"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Pages"), "ItemClass"=>"active"),
 		));
 		session::getFlashMessage( 'actions_message' ); 
@@ -31,7 +31,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			<br />
 			<?php
 				if ($page_name!=""){
-					echo '<p>URL: <a href="'.$ini_conf['SiteUrl'].'?page=pagename&id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'?page=pagename&id='.$page_name.'</a></p>';
+					echo '<p>URL: <a href="'.$ini_conf['SiteUrl'].'pagename?id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'pagename?id='.$page_name.'</a></p>';
 				}
 			?>
 			<textarea cols="40" rows="5" id="page_content" name="page_content"><?php echo $pagina[0]['page_content'];?></textarea>

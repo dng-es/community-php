@@ -10,10 +10,10 @@ addJavascripts(array("js/jquery.numeric.js",
 	<div class="col-md-8 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"#"),
-			array("ItemLabel"=>"Comunicaciones enviadas", "ItemUrl"=>"?page=admin-messages"),
+			array("ItemLabel"=>"Comunicaciones enviadas", "ItemUrl"=>"admin-messages"),
 			array("ItemLabel"=>"Envío de comunicaciones", "ItemClass"=>"active"),
 		));
 
@@ -42,8 +42,8 @@ addJavascripts(array("js/jquery.numeric.js",
 			<div class="panel panel-default">
 				<div class="panel-heading">Envío de comunicaciones</div>
 				<div class="panel-body">
-					<a href="?page=admin-messages" class="comunidad-color">Ir a todas las comunicaciones</a><br />
-					<a href="?page=admin-message&act=new" class="comunidad-color">Nueva comunicación</a>
+					<a href="admin-messages" class="comunidad-color">Ir a todas las comunicaciones</a><br />
+					<a href="admin-message?act=new" class="comunidad-color">Nueva comunicación</a>
 				</div>
 			</div>
 		</div>
@@ -61,7 +61,7 @@ function ShowData($elements,$id,$accion){
 	<div class="panel panel-default">
 			<div class="panel-heading">Datos del mensaje</div>
 			<div class="panel-body">
-				<form role="form" id="formData" name="formData" enctype="multipart/form-data" method="post" action="?page=admin-message&act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
+				<form role="form" id="formData" name="formData" enctype="multipart/form-data" method="post" action="admin-message?act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
 					<h2>PASO 1: Datos generales</h2>
 					<div class="form-group">
 						<label for="email_message">Email remitente:</label>

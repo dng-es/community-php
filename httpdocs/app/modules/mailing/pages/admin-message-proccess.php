@@ -46,8 +46,8 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 					<?php else: ?>
 						<p class="alert alert-info">Envío del mensaje finalizado.</p>
 					<?php endif;?>
-					<p><i class="fa fa-download"></i> Pincha <a href="?page=admin-message-proccess&exportm=true&id=<?php echo $id;?>">aquí</a> para descarga el informe del envío.</p>
-					<p><i class="fa fa-download"></i> Si el informe contenia enlaces puedes descargar el informe pinchando <a href="?page=admin-message-proccess&exp=links&id=<?php echo $id;?>">aquí</a>.</p>
+					<p><i class="fa fa-download"></i> Pincha <a href="admin-message-proccess?exportm=true&id=<?php echo $id;?>">aquí</a> para descarga el informe del envío.</p>
+					<p><i class="fa fa-download"></i> Si el informe contenia enlaces puedes descargar el informe pinchando <a href="admin-message-proccess?exp=links&id=<?php echo $id;?>">aquí</a>.</p>
 				<?php endif;?>
 			</div>
 		</div>
@@ -57,8 +57,8 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 			<div class="panel panel-default">
 				<div class="panel-heading">Envío de comunicaciones</div>
 				<div class="panel-body">
-					<a href="?page=user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br />
-					<a href="?page=user-messages" class="comunidad-color">Mis comunicaciones enviadas</a>
+					<a href="user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br />
+					<a href="user-messages" class="comunidad-color">Mis comunicaciones enviadas</a>
 				</div>
 			</div>
 		</div>

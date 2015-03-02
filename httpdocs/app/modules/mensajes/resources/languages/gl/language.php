@@ -9,4 +9,7 @@ Mailing_inbox = "Bandeja de entrada"
 Mailing_sent = "Elementos enviados"
 Your_messages = "Tus mensajes"
 Mailing_text = "Contacta con uno de tus compañeros de la comunidad."
+Mailing_sent_ok = "Mensaje enviado correctamente"
+Mailing_sent_yourself = "No se puede enviar un mensaje a si mismo"
+Mailing_delete_ok = "Mensaje eliminado correctamente"
 ?>

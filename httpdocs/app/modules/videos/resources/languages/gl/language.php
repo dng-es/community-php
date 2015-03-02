@@ -36,4 +36,5 @@ Last_videos = "Últimos vídeos"
 Videos_pending = "Videos pendientes"
 Views = "Reproducciones"
 Vote_video = "Votar video"
+No_video_comments = "Todavia no existen comentarios en este video. Se el primero en hacerlo!"
 ?>

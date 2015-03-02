@@ -6,9 +6,9 @@ set_time_limit(0);
 	<div class="col-md-9 inset">
 		<?php 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"?page=admin-users"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"admin-users"),
 			array("ItemLabel"=>strTranslate("Users_import"), "ItemClass"=>"active"),
 		));
 
@@ -106,7 +106,7 @@ function volcarMySQL($data) {
 	// }
  //  endforeach;
    
-  echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a> | </p>
+  echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a></p>
 	   <p>El proceso de importación ha finalizado con éxito</p>';
   if ($contador > 0) { echo '<p>los siguientes usuarios han sido dados de alta: ('.$contador.')</p>'.$mensaje;}
   //if ($contador_ko>0) { echo '<p>los siguientes usuarios no fueron insertados porque ya estaban dados de alta: ('.$contador_ko.')</p>'.$mensaje_ko;}

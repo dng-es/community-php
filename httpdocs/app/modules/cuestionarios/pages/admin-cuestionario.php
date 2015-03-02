@@ -9,9 +9,9 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		<?php 
 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Forms"), "ItemUrl"=>"?page=admin-cuestionarios"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Forms"), "ItemUrl"=>"admin-cuestionarios"),
 			array("ItemLabel"=>strTranslate("Form"), "ItemClass"=>"active"),
 		));
 
@@ -41,7 +41,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			<br />
 			<?php
 			if ($id_cuestionario!=""){
-				echo '<p>'.strTranslate("Form").' URL: <a href="http://'.$ini_conf['SiteUrl'].'/?page=cuestionario&id='.$id_cuestionario.'" target="_blank">http://'.$ini_conf['SiteUrl'].'/?page=cuestionario&id='.$id_cuestionario.'</a></p>';
+				echo '<p>'.strTranslate("Form").' URL: <a href="http://'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'" target="_blank">http://'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'</a></p>';
 			}
 			?>
 			<label for="descripcion"><?php echo strTranslate("Description");?>:</label></td></tr>
@@ -81,7 +81,7 @@ function FormularioTarea($id_cuestionario,$cuestionario){
 				<tr>
 				<td nowrap="nowrap">
 						<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar la pregunta?',
-							'?page=admin-cuestionario&act=del&id=<?php echo $id_cuestionario;?>&idp=<?php echo $pregunta['id_pregunta'];?>')" 
+							'admin-cuestionario?act=del&id=<?php echo $id_cuestionario;?>&idp=<?php echo $pregunta['id_pregunta'];?>')" 
 							title="Eliminar pregunta" />
 						</span>
 					 </td>
@@ -95,7 +95,7 @@ function FormularioTarea($id_cuestionario,$cuestionario){
 		<h3><?php echo strTranslate("Form_new_question");?></h3>
 
 		<div class="area-detalle">
-		<form id="formData" name="formData" method="post" action="?page=admin-cuestionario&act=new&amp;id=<?php echo $id_cuestionario;?>&amp;">
+		<form id="formData" name="formData" method="post" action="admin-cuestionario?act=new&amp;id=<?php echo $id_cuestionario;?>&amp;">
 			<label for="pregunta_texto"><?php echo strTranslate("Form_question");?>:</label>
 			<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
 			<span id="pregunta-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>

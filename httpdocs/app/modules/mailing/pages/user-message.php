@@ -15,8 +15,8 @@ addJavascripts(array("js/jquery.numeric.js",
 		<?php
 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Mailing_templates"), "ItemUrl"=>"?page=user-templates"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Mailing_templates"), "ItemUrl"=>"user-templates"),
 			array("ItemLabel"=>"Envío de comunicaciones", "ItemClass"=>"active"),
 		));
 
@@ -38,7 +38,7 @@ addJavascripts(array("js/jquery.numeric.js",
 				<div class="row">
 					<div class="col-md-6">
 
-						<form role="form" id="formData" name="formData" enctype="multipart/form-data" method="post" action="?page=user-message&amp;id=<?php echo $id;?>&amp;accion2=ok">
+						<form role="form" id="formData" name="formData" enctype="multipart/form-data" method="post" action="user-message?id=<?php echo $id;?>&amp;accion2=ok">
 		<!-- 				<input type="hidden" id="email_message" name="email_message" value="<?php echo $ini_conf['MailingEmail']?>"/>
 						<input type="hidden" id="nombre_message" name="nombre_message" value="<?php echo $_SESSION['name'].''.$_SESSION['surname'];?>"/> -->
 						<input type="hidden" id="template_message" name="template_message" value="<?php echo $id;?>" />
@@ -207,8 +207,8 @@ addJavascripts(array("js/jquery.numeric.js",
 		<div class="panel panel-default">
 			<div class="panel-heading">Envío de comunicaciones</div>
 			<div class="panel-body">
-				<a href="?page=user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br />
-				<a href="?page=user-messages" class="comunidad-color">Mis comunicaciones enviadas</a>
+				<a href="user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br />
+				<a href="user-messages" class="comunidad-color">Mis comunicaciones enviadas</a>
 			</div>
 		</div>
 	</div>

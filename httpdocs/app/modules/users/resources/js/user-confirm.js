@@ -18,74 +18,45 @@ jQuery(document).ready(function(){
 	});
 
 	$("#confirm-form").submit(function(evento){
-	   $(".alert-message").html("");
 	   $(".alert-message").css("display","none");
 	   
-	   
 	   var resultado_ok=true;   
-	   if (validateEmail($("#user-email").val())==false) 
-	   {
-			 $("#user-email-alert").html("Debes introducir un email válido.");
-			 $("#user-email-alert").fadeIn();
-			 $("#user-email-alert").css("display","block");
-			 resultado_ok=false;
+	   if (validateEmail($("#user-email").removeClass("input-alert").val())==false) {
+	   		$('#user-email').addClass("input-alert").attr("placeholder",$('#user-email').data("alert")).focus();
+			resultado_ok=false;
 	   }
-	   if (jQuery.trim($("#user-nick").val())=="") 
-	   {
-			 $("#user-nick-alert").html("Debes intruducir algo de texto.");			 
-			 $("#user-nick-alert").fadeIn();
-			 $("#user-nick-alert").css("display","block");
-			 resultado_ok=false;
+	   if (jQuery.trim($("#user-nick").removeClass("input-alert").val())=="") {
+	   		$('#user-nick').addClass("input-alert").attr("placeholder",$('#user-nick').data("alert")).focus();
+			resultado_ok=false;
 	   }
-	   if (jQuery.trim($("#user-nombre").val())=="") 
-	   {
-			 $("#user-nombre-alert").html("Debes intruducir algo de texto.");			 
-			 $("#user-nombre-alert").fadeIn();
-			 $("#user-nombre-alert").css("display","block");
-			 resultado_ok=false;
+	   if (jQuery.trim($("#user-nombre").removeClass("input-alert").val())=="") {
+	   		$('#user-nombre').addClass("input-alert").attr("placeholder",$('#user-nombre').data("alert")).focus();
+			resultado_ok=false;
 	   }
-	   if (jQuery.trim($("#user-apellidos").val())=="") 
-	   {
-			 $("#user-apellidos-alert").html("Debes intruducir algo de texto.");			 
-			 $("#user-apellidos-alert").fadeIn();
-			 $("#user-apellidos-alert").css("display","block");
-			 resultado_ok=false;
+	   if (jQuery.trim($("#user-apellidos").removeClass("input-alert").val())=="") {
+	   		$('#user-apellidos').addClass("input-alert").attr("placeholder",$('#user-apellidos').data("alert")).focus();
+			resultado_ok=false;
 	   }	   
-	   if ($("#user-date").val()!="" && esFechaValida($("#user-date").val())==false) 
-	   {
-			 $("#user-date-alert").html("Debes intruducir una fecha válida. Formato aaaa-mm-dd.");			 
-			 $("#user-date-alert").fadeIn();
-			 $("#user-date-alert").css("display","block");
-			 resultado_ok=false;
+	   if ($("#user-date").val()!="" && esFechaValida($("#user-date").val())==false) {
+	   		$('#user-date').addClass("input-alert").attr("placeholder",$('#user-date').data("alert")).focus();
+			resultado_ok=false;
 	   }
-	   if (jQuery.trim($("#user-pass").val())=="") 
-	   {
-			 $("#user-pass-alert").html("Debes intruducir algo de texto.");			 
-			 $("#user-pass-alert").fadeIn();
-			 $("#user-pass-alert").css("display","block");
-			 resultado_ok=false;
+	   if (jQuery.trim($("#user-pass").removeClass("input-alert").val())=="") {
+	   		$('#user-pass').addClass("input-alert").attr("placeholder",$('#user-pass').data("alert")).focus();
+			resultado_ok=false;
 	   }
-	   if (jQuery.trim($("#user-repass").val())=="") 
-	   {
-			 $("#user-repass-alert").html("Debes intruducir algo de texto.");			 
-			 $("#user-repass-alert").fadeIn();
-			 $("#user-repass-alert").css("display","block");
+	   if (jQuery.trim($("#user-repass").removeClass("input-alert").val())=="") {
+	   		$('#user-repass').addClass("input-alert").attr("placeholder",$('#user-repass').data("alert")).focus();
 			 resultado_ok=false;
 	   }	
-	   if (jQuery.trim($("#user-repass").val())!=jQuery.trim($("#user-pass").val())) 
-	   {
-			 $("#user-repass-alert").html("Las contraseñas no coinciden.");			 
-			 $("#user-repass-alert").fadeIn();
-			 $("#user-repass-alert").css("display","block");
-			 resultado_ok=false;
+	   if (jQuery.trim($("#user-repass").removeClass("input-alert").val())!=jQuery.trim($("#user-pass").val())) {
+	   		$('#user-repass').addClass("input-alert").attr("placeholder",$('#user-repass').data("alert")).focus();
+			resultado_ok=false;
 	   }
 
-	   if ($("#user-declaracion").is(":checked")==false) 
-	   {
-			 $("#user-declaracion-alert").html("Debes aceptar los términos y condiciones.");			 
-			 $("#user-declaracion-alert").fadeIn();
-			 $("#user-declaracion-alert").css("display","block");
-			 resultado_ok=false;
+	   if ($("#user-declaracion").is(":checked")==false) {
+			$("#user-declaracion-alert").html("Debes aceptar los términos y condiciones.").fadeIn().css("display","block");
+			resultado_ok=false;
 	   }	   
 	   return resultado_ok;
 	});

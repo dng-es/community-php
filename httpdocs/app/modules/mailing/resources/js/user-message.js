@@ -20,7 +20,7 @@ jQuery(document).ready(function(){
 		e.preventDefault();
 		if (sendForm("send")){
 			$("#formData")
-				.attr("action", "?page=user-message&id=" + $("#template_message").val() + "&accion2=ok")
+				.attr("action", "user-message?id=" + $("#template_message").val() + "&accion2=ok")
 				.submit();
 		}
 
@@ -28,7 +28,7 @@ jQuery(document).ready(function(){
 
 	$("#SubmitAgenda").click(function(evento){
 		if (sendForm("agenda")){
-			$("#formData").attr("action", "?page=user-message&accion2=ok&act=new&id=" + $("#template_message").val() + "&a=1");
+			$("#formData").attr("action", "user-message?accion2=ok&act=new&id=" + $("#template_message").val() + "&a=1");
 			$("#formData").submit();
 		}
 	});
@@ -37,7 +37,7 @@ jQuery(document).ready(function(){
 		e.preventDefault();
 		if (sendForm("preview")){
 			$("#formData")
-				.attr("action", "?page=user-message-preview")
+				.attr("action", "user-message-preview")
 				.attr('target', '_blank')
 				.submit();
 		}

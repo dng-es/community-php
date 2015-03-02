@@ -3,7 +3,6 @@ class footer{
 	
 	/**
 	* Print HTML footer. From <footer> until javascript
-	*
 	*/	
 	public static function PageFooterInfo(){
 		$pages = new pages();
@@ -12,13 +11,13 @@ class footer{
 		?>
 		</div>
 		<div class="footer">
-			<p><a href="?page=contact"><?php echo strTranslate("Contact");?></a> - 
+			<p><a href="contact"><?php echo strTranslate("Contact");?></a> - 
 			<a href="#" id="declaracion-trigger"><?php echo strTranslate("Rights_and_responsabilities");?></a> - 
 			<a href="#" id="policy-trigger"><?php echo strTranslate("Private_policy");?></a><br />
 			make with <i class="fa fa-heart heart-pulp"></i> by DNG <?php echo date("Y");?></p>
 		</div>
 
-		<!-- Modal -->
+		<!-- Modal Derechos y responsabilidades (declaración)-->
 		<div class="modal modal-wide fade" id="declaracionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -33,6 +32,7 @@ class footer{
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
+		<!-- Modal Politica de seguridad (policy)-->
 		<div class="modal modal-wide fade" id="policyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -54,13 +54,11 @@ class footer{
 	/**
 	* Print HTML end file. From Javascript to </html>.
 	* Includes Piwik block for statistics
-	*
 	*/	
 	public static function PageFooter()
 	{
 	  	global $ini_conf, $paginas_free,$page;
-	  	if (!in_array($page, $paginas_free)){
-			
+	  	if (!in_array($page, $paginas_free)){		
 			self::PageFooterInfo();
 			echo '</div>';
 		}

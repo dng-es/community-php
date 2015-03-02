@@ -106,7 +106,7 @@ class session {
 
 	/**
 	* Return current URL.
-	* @return string Current URL
+	* @return 	string 		Current URL
 	*/
 	public static function curPageURL() {
 		$pageURL = 'http';
@@ -131,10 +131,10 @@ class session {
 		if ((isset($_SESSION['user_logged']) and $_SESSION['user_logged'] != true) && in_array($_REQUEST['page'], $paginas_free)==false){
 			//Si alguno de los datos ingresados son incorrectos redirigimos a la pÃ¡gina de
 			//error o de nuevo al formulario de ingreso.
-			header ("Location: ?page=login");
+			header ("Location: login");
 		}
 		elseif( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) or (isset($_REQUEST['page']) and $_REQUEST['page']==""))){
-			header ("Location: ?page=home");
+			header ("Location: home");
 		}
 		else {
 			//SI HAN PASADO 15 MINUTOS DE INACTIVIDAD SE CIERRA LA SESION (60*15=900)
@@ -156,7 +156,7 @@ class session {
 	*/
 	public static function ValidateSessionAjax($url="login"){
 		if (!isset($_SESSION['user_logged']) or $_SESSION['user_logged'] != true){
-			header ("Location: ?page=".$url);
+			header ("Location: ".$url);
 		}
 	}	
 
@@ -201,7 +201,7 @@ class session {
 			}
 			elseif ($result_user[0]['confirmed'] == 0 and $result_user[0]['registered'] == 0) {
 				//Redirijimos a la pagina de confirmacion de datos.
-				header ("Location: ?page=".$url_confirm);			  
+				header ("Location: ".$url_confirm);			  
 			}
 		}
 		else{
@@ -237,7 +237,7 @@ class session {
 		session_unset();
 		session_destroy();		
 		self::setUrlSession();
-		header ("Location: ?page=".$url);
+		header ("Location: ".$url);
 		die();
 	}
 	

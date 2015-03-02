@@ -54,7 +54,7 @@ class usersCanalesController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al crear canal.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-canal&id=".$canal);
+			redirectURL("admin-canal?id=".$canal);
 		}
 	}
 
@@ -69,8 +69,18 @@ class usersCanalesController{
 			else{
 				session::setFlashMessage( 'actions_message', "Error al modificar canal.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-canal&id=".$canal);
+			redirectURL("admin-canal?id=".$canal);
 		}	
-	}		
+	}
+
+	public static function getCanalesAction($filter = ""){
+		$users = new users();	
+		$elements = $users->getCanales($filter." ORDER BY canal"); 
+		$string_format = "";
+		foreach ($elements as $element):
+			$string_format.= (trim($element['canal'])=="" ? '<span class="label label-danger" title="Hay usuarios sin canal. Esto es potencialmente peligroso.">Hay usuarios sin canal</span> ' : ($element['canal']!='admin' ? '<span class="label label-warning">'.$element['canal']."</span> " : ""));
+		endforeach;
+		return $string_format;
+	}			
 }
 ?>

@@ -11,8 +11,8 @@ templateload("cmbCanales","users");
 	<div class="col-md-9 inset">
 		<?php 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("News"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("News_update"), "ItemClass"=>"active"),
 		));

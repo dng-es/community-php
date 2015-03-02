@@ -21,7 +21,7 @@ function showFotoGaleria($file_galeria, $rating=true, $reto=0, $pagina = "fotos"
 	echo '		<p><a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="'.strTranslate("Full_screen").'" ><i class="fa fa-desktop"></i></a> '.$titulo.' </p>
 			</div>
 			<span class="photo-likes">';		
-	if ($rating){echo ' <a href="?page='.$pagina.'&id='.$reto.'&idvf='.$file_galeria['id_file'].'"  title="'.strTranslate("Photo_vote").'">'.$file_galeria['fotos_puntos'].' <span class="fa fa-heart"></span></a>';}
+	if ($rating){echo ' <a href="'.$pagina.'?id='.$reto.'&idvf='.$file_galeria['id_file'].'"  title="'.strTranslate("Photo_vote").'">'.$file_galeria['fotos_puntos'].' <span class="fa fa-heart"></span></a>';}
 	else {echo $file_galeria['fotos_puntos'].' <span class="fa fa-heart"></span>';}
 	echo '</span>
 	</div>';		  

@@ -15,9 +15,9 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"?page=admin-areas"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
 			array("ItemLabel"=>"Documentación de la tarea <b>".$tarea[0]['tarea_titulo']."</b>", "ItemClass"=>"active"),
 		));
 		
@@ -27,13 +27,13 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 		?>
 
 		<ul class="nav nav-pills navbar-default">     
-			<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>">Volver a la gestión del curso</a></li>
+			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>">Volver a la gestión del curso</a></li>
 		</ul>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">Cargar nuevo documento</div>
 			<div class="panel-body">
-				<form id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="?page=admin-area-docs&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>" role="form">
+				<form id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="admin-area-docs?a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>" role="form">
 				<input type="hidden" name="id_tarea" id="id_tarea" value="<?php echo $id_tarea;?>" />
 				<label for="nombre-documento">titulo del documento:</label>
 				<input id="nombre-documento" name="nombre-documento" type="text" class="form-control" />
@@ -66,7 +66,7 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 			echo '<tr>';
 			echo '<td nowrap="nowrap">
 			<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el documento '.$element['documento_nombre'].'?\',
-			  \'?page=admin-area-docs&act=del&a='.$id_area.'&id='.$id_tarea.'&idd='.$element['id_documento'].'\')" title="eliminar documento" />
+			  \'admin-area-docs?act=del&a='.$id_area.'&id='.$id_tarea.'&idd='.$element['id_documento'].'\')" title="eliminar documento" />
 			</span>
 			</td>';
 			$ruta="docs/showfile.php?t=1&file=";

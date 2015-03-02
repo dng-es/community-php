@@ -17,18 +17,18 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>"Mis comunicaciones enviadas", "ItemClass"=>"active"),
 		));
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="?page=<?php echo $_REQUEST['page'];?>&export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
-			<li><a href="?page=user-lists">Mis listas de envío</a></li>
+			<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
+			<li><a href="user-lists">Mis listas de envío</a></li>
 		</ul>
 		<div class="table-responsive">
-			<table class="table">
+			<table class="table table-striped table-hover">
 				<tr>
 					<th width="40px">&nbsp;</th>
 					<th>Asunto</th>
@@ -51,10 +51,10 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 					?>
 					<tr>
 					<td nowrap="nowrap">
-						<a href="?page=user-messages&exportm=true&id=<?php echo $element['id_message'];?>" class="fa fa-download icon-table" title="Descargar"></a>
+						<a href="user-messages?exportm=true&id=<?php echo $element['id_message'];?>" class="fa fa-download icon-table" title="Descargar"></a>
 						<span class="fa fa-ban icon-table" 
 						<?php if ($element['message_status']=='pending'):?>
-							onClick="Confirma('¿Seguro que desea cancelar el envío?','?page=user-messages&del=true&id=<?php echo $element['id_message'];?>')" 
+							onClick="Confirma('¿Seguro que desea cancelar el envío?','user-messages?del=true&id=<?php echo $element['id_message'];?>')" 
 						<?php else: ?>
 							disabled="disabled" 
 						<?php endif;?>
@@ -62,7 +62,7 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 					</td>
 					<?php			
 					echo '<td>'.$element['message_subject'].'</td>';
-					echo '<td><a href="?page=admin-message-proccess&id='.$element['id_message'].'" class="label '.$estado.'">'.$element['message_status'].'</a></td>';
+					echo '<td><a href="admin-message-proccess?id='.$element['id_message'].'" class="label '.$estado.'">'.$element['message_status'].'</a></td>';
 					echo '<td>'.getDateFormat($element['date_add'], "SHORT").'</td>';
 					echo '<td>'.$date_scheduled.'</td>';
 					echo '<td><span class="label">'.$element['total_messages'].'</span></td>'; 
@@ -70,7 +70,7 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 					echo '<td><span class="label'.($element['total_pending']>0 ? " label-danger" : "").'">'.$element['total_pending'].'</span></td>';
 					echo '<td><span class="label'.($element['total_failed']>0 ? " label-danger" : "").'">'.$element['total_failed'].'</span></td>';
 					echo '<td><span class="label">'.$total_views.'</span></td>';
-					echo '<td><span class="label"><a href="?page=user-messages&exp=links&id='.$element['id_message'].'">'.$total_links.'</a></span></td>';
+					echo '<td><span class="label"><a href="user-messages?exp=links&id='.$element['id_message'].'">'.$total_links.'</a></span></td>';
 					?>
 					</tr> 
 				<?php endforeach;?>

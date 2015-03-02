@@ -12,9 +12,9 @@ templateload("cmbCanales","users");
 		<?php 
 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Blog"), "ItemUrl"=>"?page=admin-blog"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Blog"), "ItemUrl"=>"admin-blog"),
 			array("ItemLabel"=>"Entrada en ".strTranslate("Blog"), "ItemClass"=>"active"),
 		));
 
@@ -71,8 +71,8 @@ templateload("cmbCanales","users");
 					<?php
 						if ( $id>0 ){
 							$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$id." ");
-							echo '<a target="_blank" href="?page=blog&id='.$id.'" title="ver entrada">Ver entrada</a><br />';
-							echo '<a href="?page=admin-blog-foro&id='.$id.'" title="comentario">Comentarios de la entrada ('.$num_comentarios.')</a><br />';
+							echo '<a target="_blank" href="blog?id='.$id.'" title="ver entrada">Ver entrada</a><br />';
+							echo '<a href="admin-blog-foro?id='.$id.'" title="comentario">Comentarios de la entrada ('.$num_comentarios.')</a><br />';
 						}
 					?>					
 				</div>

@@ -29,7 +29,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-plug fa-stack-1x fa-inverse"></i>
 			</span>
-			<?php echo $_SESSION['name'];?>, <?php echo strTranslate("Wellcome_to");?> <?php echo $ini_conf['SiteName'];?>. <a href="?page=users-conn">[<?php echo strTranslate("Users_connected").": ".$users_conn;?>]</a>
+			<?php echo $_SESSION['name'];?>, <?php echo strTranslate("Wellcome_to");?> <?php echo $ini_conf['SiteName'];?>. <a href="users-conn">[<?php echo strTranslate("Users_connected").": ".$users_conn;?>]</a>
 		</p>
 		</div>
 		</div>
@@ -55,7 +55,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 							<ul class="list-funny">
 							<?php foreach($last_foros as $last_foro): ?>
 								<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
-								<li class="ellipsis"><a href="?page=foro-comentarios&id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
+								<li class="ellipsis"><a href="foro-comentarios?id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
 							<?php endforeach; ?>
 							</ul>
 						</section>
@@ -71,9 +71,9 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 						<h3><?php echo strTranslate("Last_photos");?></h3>
 						<?php if (isset($last_video['items'][0])): ?>
 						<div class="media-preview-container">
-							<a href="?page=fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
+							<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
 							<div>
-								<a href="?page=fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
+								<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
 								<span><?php echo $last_photo['items'][0]['nick'];?> - <?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></span><br />
 							</div>
 						</div>
@@ -89,10 +89,10 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 						<h3><?php echo strTranslate("Last_videos");?></h3>
 						<?php if (isset($last_video['items'][0])): ?>
 						<div class="media-preview-container">
-							<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>">
+							<a href="videos">
 							<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo $last_video['items'][0]['titulo'];?>" /></a>
 							<div>
-								<a href="?page=video&id=<?php echo $last_video['items'][0]['id_file'];?>"><?php echo $last_video['items'][0]['titulo'];?></a><br />
+								<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
 								<span><?php echo $last_video['items'][0]['nick'];?> - <?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></span><br />
 							</div>
 						</div>
@@ -108,10 +108,10 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 						<h3><?php echo strTranslate("Last_blog");?></h3>
 						<?php if (isset($last_blog['items'][0])): ?>
 						<div class="media-preview-container">
-							<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>">
+							<a href="blog">
 							<img class="media-preview" src="images/foro/<?php echo $last_blog['items'][0]['imagen_tema'];?>" alt="<?php echo $last_blog['items'][0]['nombre'];?>" /></a>
 							<div>
-								<a href="?page=blog&id=<?php echo $last_blog['items'][0]['id_tema'];?>"><?php echo $last_blog['items'][0]['nombre'];?></a><br />
+								<a href="blog"><?php echo $last_blog['items'][0]['nombre'];?></a><br />
 								<span><?php echo getDateFormat($last_blog['items'][0]['date_tema'], "LONG");?></span>
 							</div>
 						</div>

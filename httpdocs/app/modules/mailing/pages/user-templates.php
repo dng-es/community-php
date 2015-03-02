@@ -5,7 +5,7 @@ $elements = mailingTemplatesController::getListAction(6, "activos");
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Mailing_templates"), "ItemClass"=>"active"),
 		));
@@ -17,7 +17,7 @@ $elements = mailingTemplatesController::getListAction(6, "activos");
 				if ($columna ==1){echo '<div class="row">';}
 			?>	
 				<div class="col-md-4">
-					<a href="?page=user-message&id=<?php echo $element['id_template'];?>">
+					<a href="user-message&id=<?php echo $element['id_template'];?>">
 						<h3><?php echo $element['template_name'];?></h3>
 						<p class="legend"><?php echo $element['tipo'];?> - <?php echo $element['campana'];?></p>
 						<img src="images/mailing/<?php echo $element['template_mini'];?>" style="width:100%" />

@@ -56,4 +56,5 @@ Update_profile_ok = "Tu perfil ha sido actualizado"
 Update_profile_ko = "Error actualizando el perfil"
 Update_profile_nick_ko = "ya está en uso"
 Points_assignment = "Asignación de puntos"
+Search_group = "Buscar tienda"
 ?>

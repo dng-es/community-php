@@ -20,14 +20,14 @@ $usuarios_grupo = $na_areas->getGruposUsersUsuarios(" AND id_grupo=".$id_grupo."
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"?page=admin-areas"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
 			array("ItemLabel"=>"Asignación de usuarios al grupo", "ItemClass"=>"active"),
 		));
 		?>
 		<ul class="nav nav-pills navbar-default">     
-			<li><a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>"><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Go_back");?></a></li>
+			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>"><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Go_back");?></a></li>
 		</ul>
 		<div class="row">
 			<div class="col-md-5">

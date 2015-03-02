@@ -14,14 +14,14 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"?page=admin-areas"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
 			array("ItemLabel"=>strTranslate("Form"), "ItemClass"=>"active"),
 		));
 		?>
 		<p>Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
-		<a href="?page=admin-area&act=edit&id=<?php echo $id_area;?>" class="comunidad-color">Volver a la gestión del curso</a></p>
+		<a href="admin-area?act=edit&id=<?php echo $id_area;?>" class="comunidad-color">Volver a la gestión del curso</a></p>
 
 		<?php
 		//ELIMINAR PREGUNTA
@@ -76,7 +76,7 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 				echo '<tr>';
 				echo '<td nowrap="nowrap">
 						<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar la pregunta?\',
-							\'?page=admin-area-form&act=del&id='.$id_tarea.'&a='.$id_area.'&idp='.$pregunta['id_pregunta'].'\')" 
+							\'admin-area-form?act=del&id='.$id_tarea.'&a='.$id_area.'&idp='.$pregunta['id_pregunta'].'\')" 
 							title="Eliminar pregunta" />
 						</span>
 					 </td>';
@@ -91,7 +91,7 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 		?>
 		<h3>Insertar nueva pregunta</h3>
 		<div class="area-detalle">
-		<form id="formData" name="formData" method="post" action="?page=admin-area-form&act=new&amp;id=<?php echo $id_tarea;?>&amp;a=<?php echo $id_area;?>">
+		<form id="formData" name="formData" method="post" action="admin-area-form?act=new&amp;id=<?php echo $id_tarea;?>&amp;a=<?php echo $id_area;?>">
 		<table cellspacing="0" cellpadding="2px" class="Tam11">
 			<tr><td valign="top" width="150px">Pregunta:</td><td>
 			<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
@@ -111,7 +111,7 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 			</div>
 			</td></tr>    
 			<tr><td colspan="2">
-				<a href="?page=areas_form&id=<?php echo $id_tarea;?>" target="_blank" id="ver-formulario" class="btn btn-primary">ver formulario</a>
+				<a href="areas_form?id=<?php echo $id_tarea;?>" target="_blank" id="ver-formulario" class="btn btn-primary">ver formulario</a>
 				<div id="SubmitData" name="SubmitData" class="btn btn-primary" style="float:right">agregar pregunta</div></td></tr>
 		</table>
 		</form>

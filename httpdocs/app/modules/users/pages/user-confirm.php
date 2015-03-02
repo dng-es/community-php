@@ -1,7 +1,6 @@
 <?php
 addCss(array("css/bootstrap-datetimepicker.min.css"));
-addJavascripts(array("js/bootstrap-datepicker.js", 
-					 "js/bootstrap-datepicker.es.js",
+addJavascripts(array("js/bootstrap-datepicker.js",
 					 "js/bootstrap.file-input.js",
 					 getAsset("users")."js/user-confirm.js"));
 ?>
@@ -28,7 +27,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 			if ($confirmar==1){ ?>
 				<p><?php echo strTranslate("Confirmation_message");?> .</p>
 				<br />
-				<a href="?page=login" class="btn btn-primary"><?php echo strTranslate("Identify_to_access");?></a>
+				<a href="login" class="btn btn-primary"><?php echo strTranslate("Identify_to_access");?></a>
 				</div>
 			<?php }
 			elseif ($confirmar==2) {
@@ -59,7 +58,7 @@ function ShowForm()
 
 	if ($usuario[0]['confirmed']==1) {
 		echo '<div class="alert alert-warning">El usuario ya esta confirmado.
-			Para acceder a la comunidad pincha <a href="?page=login" class="comunidad-color">aquí</a>.</div>';
+			Para acceder a la comunidad pincha <a href="login" class="comunidad-color">aquí</a>.</div>';
 	}
 	else {
 		if (isset($_POST['user-nombre'])) {
@@ -94,24 +93,21 @@ function ShowForm()
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="user-nick"><?php echo strTranslate("Nick");?>:</label>
 				<div class="col-sm-8">
-					<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" value="<?php echo $user_nick;?>" />
-					<span id="user-nick-alert" class="alert-message alert alert-danger"></span>
+					<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" value="<?php echo $user_nick;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="user-nombre"><?php echo strTranslate("Name");?>:</label></td>
 				<div class="col-sm-8">
-					<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" value="<?php echo $user_nombre;?>" />
-					<span id="user-nombre-alert" class="alert-message alert alert-danger"></span>
+					<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" value="<?php echo $user_nombre;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="user-apellidos"><?php echo strTranslate("Surname");?>:</label></td>
 				<div class="col-sm-8">
-					<input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $user_apellidos;?>" />
-					<span id="user-apellidos-alert" class="alert-message alert alert-danger"></span>
+					<input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $user_apellidos;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 				</div>
 			</div>
 
@@ -123,30 +119,26 @@ function ShowForm()
 						<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 					</div>
 				</div>
-				<span id="user-date-alert" class="alert-message alert alert-danger"></span>
 			</div>
 
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="user-email"><?php echo strTranslate("Email");?>:</label></td>
 				<div class="col-sm-8">
-					<input maxlength="100" name="user-email" id="user-email" type="text" class="form-control" value="<?php echo $user_email;?>" />
-					<span id="user-email-alert" class="alert-message alert alert-danger"></span>
+					<input maxlength="100" name="user-email" id="user-email" type="text" class="form-control" value="<?php echo $user_email;?>" data-alert="<?php echo strTranslate("Required_email");?>" />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="user-pass"><?php echo strTranslate("Password");?>:</label></td>
 				<div class="col-sm-8">
-					<input maxlength="100" name="user-pass" id="user-pass" type="password" class="form-control" value="<?php echo $user_pass;?>" />
-					<span id="user-pass-alert" class="alert-message alert alert-danger"></span>
+					<input maxlength="100" name="user-pass" id="user-pass" type="password" class="form-control" value="<?php echo $user_pass;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="user-repass"><?php echo strTranslate("Password_re");?>:</label></td>
 				<div class="col-sm-8">
-					<input maxlength="100" name="user-repass" id="user-repass" type="password" class="form-control" value="<?php echo $user_repass;?>" />
-					<span id="user-repass-alert" class="alert-message alert alert-danger"></span>
+					<input maxlength="100" name="user-repass" id="user-repass" type="password" class="form-control" value="<?php echo $user_repass;?>" data-alert="<?php echo strTranslate("Password_not_match");?>" />
 				</div>
 			</div>
 

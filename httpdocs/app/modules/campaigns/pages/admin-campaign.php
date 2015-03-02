@@ -10,9 +10,9 @@ $plantilla = campaignsController::getItemAction();
 <div class="row row-top">	
 	<div class="col-md-9 inset">
 		<?php menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"?page=admin-campaigns"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"admin-campaigns"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Campaign"), "ItemClass"=>"active"),
 		));?>
 		<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">

@@ -84,7 +84,7 @@ class mailingController{
 					if ($tipo_archivo!="XLS") {
 						$mensaje = "La extensión no es correcta.".$tipo_archivo;
 						session::setFlashMessage( 'actions_message', $mensaje, "alert alert-danger"); 
-			    		redirectURL("?page=user-message&act=new&id=".$_POST['template_message']);
+			    		redirectURL("user-message?act=new&id=".$_POST['template_message']);
 					}else{
 						if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 							//BORRAR FICHEROS ANTIGUOS
@@ -100,7 +100,7 @@ class mailingController{
 						else{ 
 							$mensaje =  "Ocurrió algú;n error al subir el fichero. No pudo guardarse.";
 							session::setFlashMessage( 'actions_message', $mensaje, "alert alert-danger"); 
-			    			redirectURL("?page=user-message&act=new&id=".$_POST['template_message']);
+			    			redirectURL("user-message?act=new&id=".$_POST['template_message']);
 						} 
 					}
 				}
@@ -139,21 +139,21 @@ class mailingController{
 					$mensaje ="Envio programado correctamente. Si lo deseas puedes crear más envios.";
 					$mensaje = ($respuesta_black==true) ? $mensaje." Algunos destinatarios no se han cargado por que han solicitado la baja del servicio." : $mensaje;
 					session::setFlashMessage( 'actions_message', $mensaje, "alert alert-success");
-					redirectURL("?page=user-message&act=new&a=2&id=".$_POST['template_message']);
+					redirectURL("user-message?act=new&a=2&id=".$_POST['template_message']);
 				}
 				else{
 					//redireccion a precesamiento del mensaje
 					$mensaje ="Envio creado correctamente.";
 					$mensaje = ($respuesta_black==true) ? $mensaje." Algunos destinatarios no se han cargado por que han solicitado la baja del servicio." : $mensaje;
 					session::setFlashMessage( 'actions_message', $mensaje, "alert alert-success");
-					redirectURL("?page=admin-message-proccess&id=".$id_message);	
+					redirectURL("admin-message-proccess?id=".$id_message);	
 				}	
 		    	
 			}
 			else{
 				$mensaje = "Error al crear mensaje.";
 				session::setFlashMessage( 'actions_message', $mensaje, "alert alert-danger"); 
-		    	redirectURL("?page=user-message&act=new&id=".$_POST['template_message']);
+		    	redirectURL("user-message?act=new&id=".$_POST['template_message']);
 			}
 		}
 	}	
@@ -315,12 +315,12 @@ class mailingController{
 			$mailing->updateMessageField($id_message, "total_messages", $msgs_total);
 			$mailing->updateMessageField($id_message, "total_pending", $msgs_total);
 
-	    	redirectURL("?page=admin-message-proccess&id=".$id_message);
+	    	redirectURL("admin-message-proccess?id=".$id_message);
 		}
 		else{
 			$mensaje = "Error al crear mensaje.";
 			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-danger"); 
-	    	redirectURL("?page=admin-message&act=new");
+	    	redirectURL("admin-message?act=new");
 		}
 	}
 
@@ -350,7 +350,7 @@ class mailingController{
 			else{
 				session::setFlashMessage( 'actions_message', "Se ha producido un error cancelando la comunicación.", "alert alert-danger");
 			}
-			redirectURL("?page=user-messages");
+			redirectURL("user-messages");
 		} 
 	}	
 
@@ -395,7 +395,7 @@ class mailingController{
 			else{
 				session::setFlashMessage( 'actions_message', "Ya se ha dado de baja de nuestros servicio con anterioridad.", "alert alert-danger");
 			}
-			redirectURL("?page=unsuscribe");
+			redirectURL("unsuscribe");
 		}
 	}	
 
@@ -445,7 +445,7 @@ class mailingController{
 
     	// to process the Yahoo webpage with base href and link like <a href=link> we'd need this one
 		# preg_match_all('/<a href=([^> ]*)([^>]*)>(.*)<\/a>/Umis',$htmlmessage,$links);
-    	$clicktrack_root = $ini_conf['SiteUrl'].'/?page=unsuscribe';
+    	$clicktrack_root = $ini_conf['SiteUrl'].'/unsuscribe';
 
 		for($i=0; $i<count($links[2]); $i++){
 			$link = cleanUrl($links[2][$i]);

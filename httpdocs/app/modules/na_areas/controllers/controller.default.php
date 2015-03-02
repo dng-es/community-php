@@ -75,14 +75,14 @@ class na_areasController{
 			else:
 				session::setFlashMessage( 'actions_message', strTranslate("Enroll_limit_reached"), "alert alert-danger");
 			endif;
-			redirectURL("?page=areas");   
+			redirectURL("areas");   
 		}
 	}
 
 	public static function FinalizacionDeleteAction(){
 		$na_areas = new na_areas();
 		$elements=$na_areas->deleteFinalizacionForm($_REQUEST['id'],$_REQUEST['ut']);
-		redirectURL("?page=admin-area-revs&a=".$_REQUEST['a']."&id=".$_REQUEST['id']);	
+		redirectURL("admin-area-revs?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);	
 	}
 
 	public static function ExportFormUserAction(){
@@ -175,11 +175,11 @@ class na_areasController{
 				session::setFlashMessage( 'actions_message', "Tarea finalizada correctamente. Próximamente podrás consultar la nota de tu evaluación.", "alert alert-success");
 			}
 			else{ session::setFlashMessage( 'actions_message', "Se ha producido algún error al finalizar la tarea.", "alert alert-danger");}    
-			redirectURL("?page=areas_form&id=".$id_tarea);
+			redirectURL("areas_form?id=".$id_tarea);
 		}
 	}
 
-	public static function accesoTareaAction($id_tarea){
+	public static function accesoAreaAction($id_area){
 		$acceso=1;
 		if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
 			$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
@@ -205,7 +205,7 @@ class na_areasController{
 			else {
 				session::setFlashMessage( 'actions_message', "Error al eliminar el documento.", "alert alert-danger"); 
 			}
-			redirectURL("?page=admin-area-docs&a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
+			redirectURL("admin-area-docs?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
 		}
 	}
 }

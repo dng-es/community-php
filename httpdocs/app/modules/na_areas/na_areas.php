@@ -11,7 +11,7 @@ class na_areasCore{
 		if ($session->checkPageViewPermission("areas", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-bookmark",
 							"LabelItem" => strTranslate("Na_areas"),
-							"LabelUrl" => '?page=areas',
+							"LabelUrl" => 'areas',
 							"LabelTarget" => '_self',
 							"LabelPos" => 6));
 		}
@@ -29,7 +29,7 @@ class na_areasCore{
 				"LabelHeader" => "Modules",
 				"LabelSection" => strTranslate("Na_areas"),
 				"LabelItem" => strTranslate("Na_areas_new"),
-				"LabelUrl" => "admin-area&act=new",
+				"LabelUrl" => "admin-area?act=new",
 				"LabelPos" => 1,
 			)),
 			menu::addAdminMenu(array(

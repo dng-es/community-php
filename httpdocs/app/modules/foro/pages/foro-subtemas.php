@@ -12,7 +12,7 @@ $canal="";
 <div class="row row-top">
 	<div class="col-md-8 col-lg-9 inset">
 		<?php menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Forums"), "ItemClass"=>"active"),
 		));?>
 		<p><?php echo strTranslate("Forums_title");?></p>
@@ -21,7 +21,14 @@ $canal="";
 		session::getFlashMessage( 'actions_message' ); 	
 		$module_config = getModuleConfig("foro");
 
-		$id_tema_parent = $_REQUEST['id'];
+		if (isset($_REQUEST['id']) and $_REQUEST['id']>0){
+			$id_tema_parent = $_REQUEST['id'];
+		}
+		else{
+			//SELECCION DEL FORO
+			$filtro_canal = ($_SESSION['user_canal']== 'admin' ? "" : " AND canal='".$_SESSION['user_canal']."' ");
+			$id_tema_parent = connection::SelectMaxReg("id_tema", "foro_temas", " AND id_tema_parent=0 AND id_area=0 AND ocio=0 ".$filtro_canal);
+		}
 		//OBTENCION DE LOS TEMAS DEL FORO
 		if (isset($id_tema_parent) and $id_tema_parent!=""){
 			$filtro=" AND id_tema=".$id_tema_parent." AND activo=1 AND ocio=0 ";
@@ -73,7 +80,7 @@ $canal="";
 		<div class="panel-interior">
 			<?php
 			//BUSCADOR
-			ForoSearch($reg,'?page=foro-subtemas&id='.$id_tema_parent,$find_reg,$marca,$find_tipo);
+			ForoSearch($reg,'foro-subtemas?id='.$id_tema_parent,$find_reg,$marca,$find_tipo);
 
 			//BANNER CREAR TEMA
 			if ($module_config['options']['allow_new']==true or $_SESSION['user_perfil']=='admin') PanelSubirTemaForo($id_tema_parent,$temas[0]['canal']);

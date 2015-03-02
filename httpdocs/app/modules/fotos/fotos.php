@@ -60,7 +60,7 @@ class fotosCore{
 		if ($session->checkPageViewPermission("fotos", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-camera",
 							"LabelItem" => strTranslate("Photos"),
-							"LabelUrl" => '?page=fotos',
+							"LabelUrl" => 'fotos',
 							"LabelTarget" => '_self',
 							"LabelPos" => 2));
 		}

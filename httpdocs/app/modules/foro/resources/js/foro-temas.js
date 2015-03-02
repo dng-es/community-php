@@ -8,7 +8,7 @@ jQuery(document).ready(function(){
 		$(this).addClass("tema-foro-off").removeClass("tema-foro-on");
 	});		
 	$(".tema-foro").click(function() {
-		var destino = "?page=foro-comentarios&id="+$(this).val();
+		var destino = "foro-comentarios?id="+$(this).val();
 		location.href=destino;
 	});			
 });

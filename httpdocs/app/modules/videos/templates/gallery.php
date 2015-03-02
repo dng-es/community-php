@@ -40,8 +40,8 @@ function showVideoGaleria($file_galeria,$rating=true,$id_promocion=0){
 	//SOLO SI SE PERMITEN VOTACIONES SE MUESTRA EL LINK PARA VOTAR
 	global $page;
 	$num_pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1);
-	if ($page=='reto'){$page='reto&id='.$file_galeria['id_promocion'];}
-	else {$page=$page.'&pag='.$num_pag;}
+	if ($page=='reto'){$page='reto?id='.$file_galeria['id_promocion'];}
+	else {$page=$page.'?pag='.$num_pag;}
 
 	$destination = "";
 	if (isset($_POST['find_reg']) and $_REQUEST['find_reg']!="") {$destination .= "&f=".$_POST['find_reg'];} 
@@ -55,7 +55,7 @@ function showVideoGaleria($file_galeria,$rating=true,$id_promocion=0){
 			<div><?php echo $title;?></div>
 			<div>
 				<?php 
-				echo '<a id="a'.$file_galeria['id_file'].'" href="$a'.$file_galeria['id_file'].'Tip?width=350" class="betterTip comunidad-color" title="Datos del usuario <em>'.$file_galeria['nick'].'</em>">
+				echo '<a id="a'.$file_galeria['id_file'].'" href="$a'.$file_galeria['id_file'].'Tip?width=350" class="betterTip comunidad-color" title="'.strTranslate("User_info").' <em>'.$file_galeria['nick'].'</em>">
 				<b>'.$nick.'</b> - '.getDateFormat($file_galeria['date_video'], "SHORT").'</a>';							
 				userTip($file_galeria['id_file'],$file_galeria,userEstrellas($file_galeria['participaciones']),0);
 				?>			
@@ -63,7 +63,7 @@ function showVideoGaleria($file_galeria,$rating=true,$id_promocion=0){
 			<div>
 				<?php 
 				if ($file_galeria['tipo_video']!="") {echo ' - '.$file_galeria['tipo_video'].'</span>';}	
-				if ($rating){$votes =' <a href="?page='.$page.'&id='.$id_promocion.'&idvv='.$file_galeria['id_file'].$destination.'" title="<?php echo strTranslate("Vote_video");?>" class="fa fa-heart"></a> '.$file_galeria['videos_puntos'];}
+				if ($rating){$votes =' <a href="'.$page.'&id='.$id_promocion.'&idvv='.$file_galeria['id_file'].$destination.'" title="'.strTranslate("Vote_video").'" class="fa fa-heart"></a> '.$file_galeria['videos_puntos'];}
 				else {$votes = ' <span class="fa fa-heart"></span> '.$file_galeria['videos_puntos'];}
 				echo $votes;
 				if ($_SESSION['user_perfil']=='admin'){ echo ' <span class="comunidad-color"><b>id:</b></span> '.$file_galeria['id_file'];}

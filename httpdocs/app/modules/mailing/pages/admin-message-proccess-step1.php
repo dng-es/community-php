@@ -56,7 +56,7 @@ function pasadaProccess($id_message, $action, $pasada){
 		$message_body_user .= footerMail($usuario);
 
 		//$message_body_user .= '<img src="'.$ini_conf['SiteUrl'].'/app/modules/mailing/pages/ut.php?u='.$usuario['id_message_user'].'" />';
-		//$message_body_user .= '<p>Si no desea recibir más emails piche <a href="'.$ini_conf['SiteUrl'].'/?page=unsuscribe&u='.$usuario['email_message'].'&ua='.sha1($usuario['email_message']).'">aquí</a></p>';
+		//$message_body_user .= '<p>Si no desea recibir más emails piche <a href="'.$ini_conf['SiteUrl'].'/unsuscribe?u='.$usuario['email_message'].'&ua='.sha1($usuario['email_message']).'">aquí</a></p>';
 		
 		//convertir links para estadisticas
 		$message_body_user = mailingController::convertHtmlLinks($message_body_user, $id_message, $usuario['id_message_user']);

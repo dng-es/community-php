@@ -32,7 +32,7 @@ class foro{
 		$Sql="SELECT c.*,t.*,u.* FROM foro_comentarios c
 			  JOIN foro_temas t ON t.id_tema=c.id_tema 
 			  JOIN users u ON u.username=c.user_comentario
-			  WHERE 1=1 ".$filter;		  
+			  WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 

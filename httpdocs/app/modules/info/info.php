@@ -11,7 +11,7 @@ class infoCore{
 		if ($session->checkPageViewPermission("user-info-all", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-file",
 							"LabelItem" => strTranslate("Info_Documents"),
-							"LabelUrl" => '?page=info-all',
+							"LabelUrl" => 'info-all',
 							"LabelTarget" => '_self',
 							"LabelPos" => 7));
 		}
@@ -30,7 +30,7 @@ class infoCore{
 			"LabelHeader" => "Modules",
 			"LabelSection" => strTranslate("Info_Documents"),
 			"LabelItem" => strTranslate("Info_Documents_new"),
-			"LabelUrl" => "admin-info-doc&act=new",
+			"LabelUrl" => "admin-info-doc?act=new",
 			"LabelPos" => 1,
 		)));
 

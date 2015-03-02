@@ -7,7 +7,7 @@ class infotopdfCore{
 		if ($session->checkPageViewPermission("user-infotopdf-all", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-file-pdf-o",
 							"LabelItem" => strTranslate("Infotopdf_Documents"),
-							"LabelUrl" => '?page=user-infotopdf-all',
+							"LabelUrl" => 'user-infotopdf-all',
 							"LabelTarget" => '_self',
 							"LabelPos" => 4));
 		}
@@ -21,7 +21,7 @@ class infotopdfCore{
 				"LabelHeader" => "Modules",
 				"LabelSection" => strTranslate("Infotopdf_Documents"),
 				"LabelItem" => "Nuevo documento",
-				"LabelUrl" => "admin-infotopdf-doc&act=new",
+				"LabelUrl" => "admin-infotopdf-doc?act=new",
 				"LabelPos" => 1,
 			)),
 			menu::addAdminMenu(array(

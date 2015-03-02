@@ -35,17 +35,7 @@ class usersController{
 		$elements = $users->getPerfiles($filter." ORDER BY perfil"); 
 		$string_format = "";
 		foreach ($elements as $element):
-			$string_format.= (trim($element['perfil'])!="" ? $element['perfil']." " : '<span class="label label-danger" title="Hay usuarios sin perfil. Esto es potencialmente peligroso.">Hay usuarios sin perfil</span> ');
-		endforeach;
-		return $string_format;
-	}
-
-	public static function getCanalesAction($filter = ""){
-		$users = new users();	
-		$elements = $users->getCanales($filter." ORDER BY canal"); 
-		$string_format = "";
-		foreach ($elements as $element):
-			$string_format.= (trim($element['canal'])=="" ? '<span class="label label-danger" title="Hay usuarios sin canal. Esto es potencialmente peligroso.">Hay usuarios sin canal</span> ' : ($element['canal']!='admin' ? $element['canal']." " : ""));
+			$string_format.= (trim($element['perfil'])!="" ? '<span class="label label-warning">'.$element['perfil']."</span> " : '<span class="label label-danger" title="Hay usuarios sin perfil. Esto es potencialmente peligroso.">Hay usuarios sin perfil</span> ');
 		endforeach;
 		return $string_format;
 	}		
@@ -95,7 +85,7 @@ class usersController{
 			}
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
 			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
-			redirectURL("?page=admin-users&pag=".$pag."&f=".$find_reg);
+			redirectURL("admin-users?pag=".$pag."&f=".$find_reg);
 		}
 	}
 
@@ -142,7 +132,7 @@ class usersController{
 			elseif ($confirmar == 3) {
 				session::setFlashMessage( 'actions_message', $_POST['user-nick']." ".strTranslate("Update_profile_nick_ko"), "alert alert-danger");
 			}
-			redirectURL("?page=user-perfil");	
+			redirectURL("profile");	
 		}
 	}	
 
@@ -193,7 +183,7 @@ class usersController{
 				redirectURL($_SESSION['url_request']);
 			}
 			else{
-				redirectURL("?page=home");
+				redirectURL("home");
 			}		
 		}
 	}
@@ -220,12 +210,12 @@ class usersController{
 							$registered
 							)) {
 					session::setFlashMessage( 'actions_message', "Usuario insertado correctamente.", "alert alert-success");
-					redirectURL("?page=admin-user&id=".$_POST['username']);
+					redirectURL("admin-user?id=".$_POST['username']);
 				}
 			}
 			else { 
 				session::setFlashMessage( 'actions_message', "El usuario ya existe.", "alert alert-warning");
-				redirectURL("?page=admin-user");
+				redirectURL("admin-user");
 			}		
 		}
 	}
@@ -253,7 +243,7 @@ class usersController{
 			else { 
 				session::setFlashMessage( 'actions_message', "Se ha producido algun error durante la modificacion de los datos.", "alert alert-danger");}
 
-			redirectURL("?page=admin-user&id=".$_POST['id_username']);
+			redirectURL("admin-user?id=".$_POST['id_username']);
 		}
 	}	
 
@@ -264,7 +254,7 @@ class usersController{
 				session::setFlashMessage( 'actions_message', "foto borrada correctamente.", "alert alert-success");}
 			else { 
 				session::setFlashMessage( 'actions_message', "No se ha podido eliminar la foto.", "alert alert-danger");}
-			redirectURL("?page=admin-user&id=".$_REQUEST['id']);
+			redirectURL("admin-user?id=".$_REQUEST['id']);
 		}
 	}
 
@@ -290,7 +280,7 @@ class usersController{
 				}
 			endforeach;
 			session::setFlashMessage( 'actions_message', "Permisos actualizados.", "alert alert-success");
-			redirectURL("?page=admin-user&t=2&id=".$_POST['user_permission']);
+			redirectURL("admin-user?t=2&id=".$_POST['user_permission']);
 		}
 	}
 

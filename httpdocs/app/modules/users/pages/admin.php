@@ -1,15 +1,16 @@
 <?php
 $num_users = number_format(connection::countReg("users", " AND disabled=0 AND registered=1 AND confirmed=1 "), 0, ',', '.');
+$num_empresas = number_format(connection::countReg("users_tiendas", " AND activa=1 "), 0, ',', '.');
 $num_access = number_format(connection::countReg("accesscontrol", " AND webpage<>'Inicio de sesion' "), 0, ',', '.');
 $num_perfiles = usersController::getPerfilesAction();
-$num_canales = usersController::getCanalesAction();
+$num_canales = usersCanalesController::getCanalesAction();
 ?>
 
 <div class="row row-top">
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"#")
 		));
 		?>
@@ -24,31 +25,31 @@ $num_canales = usersController::getCanalesAction();
 					</div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
-							<dt>Total usuarios activos</dt>
+							<dt>Usuarios activos</dt>
 							<dd><?php echo $num_users;?></dd>
+							<dt>Tiendas activas</dt>
+							<dd><?php echo $num_empresas;?></dd>
 							<dt>Perfiles activos</dt>
 							<dd><?php echo $num_perfiles;?></dd>
 							<dt>Canales activos</dt>
 							<dd><?php echo $num_canales;?></dd>
-							<dt>Páginas visitadas</dt>
-							<dd><?php echo $num_access;?></dd>
 						</dl>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-default">
-					<div class="panel-heading"><h3 class="panel-title"><?php echo strTranslate("Reports");?> <small><i class="fa fa-file pull-right text-muted"></i></small></h3></div>
+					<div class="panel-heading"><h3 class="panel-title"><?php echo strTranslate("Reports");?> <small><i class="fa fa-area-chart pull-right text-muted"></i></small></h3></div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
 							<dt><?php echo strTranslate("Visits_title");?></dt>
-							<dd><a href="?page=admin-informe-accesos"><?php echo strTranslate("Go_to");?></a></dd>
+							<dd><a href="admin-informe-accesos"><?php echo strTranslate("Go_to");?></a> <span class="text-muted"><small>- <?php echo strTranslate("Page_views");?> <?php echo $num_access;?></small></span></dd>
 							<dt><?php echo ucfirst(strTranslate("APP_points"));?></dt>
-							<dd><a href="?page=admin-informe-puntuaciones"><?php echo strTranslate("Go_to");?></a></dd>
+							<dd><a href="admin-informe-puntuaciones"><?php echo strTranslate("Go_to");?></a></dd>
 							<dt><?php echo ucfirst(strTranslate("APP_shares"));?></dt>
-							<dd><a href="?page=admin-informe-participaciones"><?php echo strTranslate("Go_to");?></a></dd>
+							<dd><a href="admin-informe-participaciones"><?php echo strTranslate("Go_to");?></a></dd>
 							<dt><?php echo strTranslate("Users_list");?></dt>
-							<dd><a href="?page=admin-users&export=true"><?php echo strTranslate("Export");?> CSV</a></dd>
+							<dd><a href="admin-users&export=true"><?php echo strTranslate("Export");?> CSV</a></dd>
 						</dl>
 					</div>
 				</div>								

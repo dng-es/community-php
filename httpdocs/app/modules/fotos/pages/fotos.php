@@ -15,7 +15,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		<?php 
 
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Photo_gallery"), "ItemClass"=>"active"),
 		));
 
@@ -33,7 +33,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			<?php SearchPhoto("fotos","searchForm","Buscar foto por título","buscar", "", "", "get");?>
+			<?php SearchPhoto("fotos","searchForm", strTranslate("Search_Photo_by_title"), strTranslate("Search"), "", "", "get");?>
 			<?php PanelSubirFoto(0);?>
 			<br />
 			<h4>
@@ -45,7 +45,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 			</h4>
 			<ul class="list-funny">
 			<?php foreach($albums['items'] as $album): ?>
-				<li><a href="?page=fotos&id=<?php echo $album['id_album'];?>"><?php echo $album['nombre_album'];?></a></li>
+				<li><a href="fotos?id=<?php echo $album['id_album'];?>"><?php echo $album['nombre_album'];?></a></li>
 			<?php endforeach;?>
 			</ul>
 		</div>

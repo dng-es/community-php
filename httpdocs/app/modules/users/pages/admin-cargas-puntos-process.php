@@ -5,9 +5,9 @@ set_time_limit(0);
 	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
-			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"?page=admin"),
-			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"?page=admin-users"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"admin-users"),
 			array("ItemLabel"=>"Asignación de puntos", "ItemClass"=>"active"),
 		));
 		
