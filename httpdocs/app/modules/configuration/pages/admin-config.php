@@ -2,7 +2,7 @@
 addJavascripts(array(getAsset("configuration")."js/admin-config.js"));
 ?>
 <div class="row  row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php 
 
 		menu::breadcrumb(array(

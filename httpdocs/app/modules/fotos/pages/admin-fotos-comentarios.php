@@ -14,7 +14,7 @@ $id_file = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 $pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_file." ORDER BY id_comentario DESC"); ?>
 
 <div class="row row-top">
-	<div class="col-md-9">
+	<div class="app-main">
 		<?php 
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),

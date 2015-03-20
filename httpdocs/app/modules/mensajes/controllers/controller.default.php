@@ -1,5 +1,37 @@
 <?php
 class mensajesController{
+	public static function getListAction($reg = 0, $filtro = "", $find_reg = ""){
+		$mensajes = new mensajes();
+		if (isset($_POST['find_reg'])) $find_reg=$_POST['find_reg'];
+		if (isset($_REQUEST['f'])) $find_reg=$_REQUEST['f'];
+		if ($find_reg !="") $filtro = " AND (mensaje_cuerpo LIKE '%".$find_reg."%' OR asunto_mensaje LIKE '%".$find_reg."%') ";
+		$filtro .= " AND user_destinatario='".$_SESSION['user_name']."' AND estado<>2 ORDER BY date_mensaje DESC ";
+		$paginator_items = PaginatorPages($reg);
+		
+		$total_reg = connection::countReg("mensajes",$filtro); 
+		return array('items' => $mensajes->getMensajes($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+					'pag' 		=> $paginator_items['pag'],
+					'reg' 		=> $reg,
+					'find_reg' 	=> $find_reg,
+					'total_reg' => $total_reg);
+	}
+
+	public static function getListSentAction($reg = 0, $filtro = "", $find_reg = ""){
+		$mensajes = new mensajes();
+		if (isset($_POST['find_reg'])) $find_reg=$_POST['find_reg'];
+		if (isset($_REQUEST['f'])) $find_reg=$_REQUEST['f'];
+		if ($find_reg !="") $filtro = " AND (mensaje_cuerpo LIKE '%".$find_reg."%' OR asunto_mensaje LIKE '%".$find_reg."%') ";
+		$filtro .= " AND user_remitente='".$_SESSION['user_name']."' AND estado_remitente=0 ORDER BY date_mensaje DESC ";
+		$paginator_items = PaginatorPages($reg);
+		
+		$total_reg = connection::countReg("mensajes",$filtro); 
+		return array('items' => $mensajes->getMensajesEnviados($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+					'pag' 		=> $paginator_items['pag'],
+					'reg' 		=> $reg,
+					'find_reg' 	=> $find_reg,
+					'total_reg' => $total_reg);
+	}
+
 	public static function createAction(){
 		if (isset($_POST['texto-comentario']) and $_POST['texto-comentario']!=""){
 			$mensajes = new mensajes();

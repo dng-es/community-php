@@ -13,13 +13,19 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Rankings"), "ItemUrl"=>"ranking"),
 			array("ItemLabel"=>strTranslate("Ranking_users"), "ItemClass"=>"active"),
 		));
+
+		//globaloptionsController::gettoken( $_SESSION['user_name'], $_SESSION['user_pass']);
+		//globaloptionsController::getParticipantData(globaloptionsController::store_id, 'Pepe');
+		//globaloptionsController::addParticipant("Pepe", "1234", "José", "Noguera", '', "dnoguera@imagar.com", '666666666', '', '', 'C/Niza 10 6ºC', 'Móstoles', 'Madrid', 'ES', '28921');
+		//globaloptionsController::updateParticipant("547668", "Pepe", "1234", "José", "Noguera", '', "dnoguera@imagar.com", '666666666', '', '', 'C/Niza 10 6ºC', 'Móstoles', 'Madrid', 'ES', '28921', 'Active');
+
 		?>
 		<p><?php echo strTranslate("Ranking_users_text");?>:</p><br />
 
@@ -42,41 +48,49 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 		<div class="row">
 			<div class="col-md-12">
 				<br />
-				<table class="table table-striped">
-					<?php
-					//LOS 10 PRIMEROS DEL RANKING
-					//$total_usuarios = connection::countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
-					//echo '	<p>Los mejores en el ranking, total de usuarios activos: '.$total_usuarios.'</p>';
+				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+						<?php
+						//LOS 10 PRIMEROS DEL RANKING
+						//$total_usuarios = connection::countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
+						//echo '	<p>Los mejores en el ranking, total de usuarios activos: '.$total_usuarios.'</p>';
 
-					for ($i=0;$i<=14;$i++){	
-						if (isset($puntos[$i])):
-							$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg"); ?>
-							<tr>
-								<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i+1);?></small></i></td>
-								<td width="50px"><img src="<?php echo $foto;?>" width="50px" height="50px" /></td>
-								<td>
-									<?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?>
-									<p class="text-muted"><?php echo $puntos[$i]['nombre_tienda'];?><br />
-									<span><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></span></p>
-								</td>
-								<td><?php $puntos[$i]['nombre_tienda'];?></td>
-							</tr>
-						<?php endif;
-					} ?>
-				</table>
+						for ($i=0;$i<=14;$i++){	
+							if (isset($puntos[$i])):
+								$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg"); ?>
+								<tr>
+									<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i+1);?></small></i></td>
+									<td width="50px"><img src="<?php echo $foto;?>" width="50px" height="50px" /></td>
+									<td>
+										<a href="user-profile?n=<?php echo $puntos[$i]['nick'];?>"><?php echo $puntos[$i]['nick'];?></a> - <?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?>
+										<p class="text-muted"><?php echo $puntos[$i]['nombre_tienda'];?><br />
+										<span><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></span></p>
+									</td>
+									<td><?php $puntos[$i]['nombre_tienda'];?></td>
+								</tr>
+							<?php endif;
+						} ?>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
-			<?php $foto = PATH_USERS_FOTO. ($puntos_user[0]['foto'] != "" ? $puntos_user[0]['foto'] : "user.jpg");?>
-			<img src="<?php echo $foto;?>" class="user-perfil-img" />   
+			<a href="ranking-empresas" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_companies_ranking");?></a>   
 			<h3><?php echo strTranslate("Your_ranking");?> <small><?php echo $posicion_user;?></small></h3>
 			<p><?php echo $puntos_user[0]['name'].' '.$puntos_user[0]['surname'];?><br />
 			<?php echo $puntos_user[0]['nombre_tienda'];?><br />
 			<?php echo $puntos_user[0]['puntos'];?> <?php echo strTranslate("APP_points");?>
 			</p>
-			<a href="ranking-empresas" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_companies_ranking");?></a>
+			<hr />
+			<h3>¿Cómo ganar <?php echo strTranslate("APP_points");?>?</h3>
+			<ul class="list-funny">
+			<li><span class="text-primary"><?php echo PUNTOS_ACCESO_SEMANA." ".strTranslate("APP_points");?></span> por entrar 1 vez a la semana en la comunidad</li>
+			<li><span class="text-primary"><?php echo PUNTOS_FORO_SEMANA." ".strTranslate("APP_points");?></span> por participar 1 vez por semana en los foros</li>
+			<li><span class="text-primary"><?php echo PUNTOS_VIDEO." ".strTranslate("APP_points");?></span> por subir un vídeo</li>
+			<li><span class="text-primary"><?php echo PUNTOS_FOTO." ".strTranslate("APP_points");?></span> por por subir una foto</li>
+			</ul>
 		</div>
 	</div>
 </div>

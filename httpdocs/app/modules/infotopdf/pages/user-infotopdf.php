@@ -22,7 +22,7 @@ $email = '';
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -93,7 +93,7 @@ $email = '';
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<h4>
 				<span class="fa-stack fa-sx">

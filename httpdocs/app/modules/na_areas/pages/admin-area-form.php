@@ -11,7 +11,7 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),

@@ -19,8 +19,10 @@ class usersTiendasController{
 					'total_reg' => $total_reg);
 	}
 
-	public static function getItemAction($id = 0){
-	
+	public static function getItemAction($id = ""){
+			$users = new users();
+			$plantilla = $users->getTiendas(" AND cod_tienda='".$id."' ");	
+			return  $plantilla[0];	
 	}
 
 	public static function exportListAction(){

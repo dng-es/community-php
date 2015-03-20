@@ -699,4 +699,20 @@ function arraycolumn($array, $column, $index_key=null){
 		return $ret;		
 	}
 }
+
+/**
+ * Ordena array por un elemento
+ * @param  array 	$array     	Array a ordenar
+ * @param  string 	$field     	Campo por el que ordenar
+ * @param  string 	$sort_mode 	Modo de ordenación
+ * @return array            	Array ordenado
+ */
+function arraySort($array, $field, $sort_mode=SORT_DESC){
+		foreach ($array as $clave => $fila) {
+			$posicion[$clave] = $fila[$field];
+		}
+
+		array_multisort($posicion, $sort_mode, $array);
+		return $array;
+}
 ?>

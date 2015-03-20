@@ -1,8 +1,7 @@
 <?php
 class incentivosFabricantesController{
-	public static function getListAction($reg = 0){
+	public static function getListAction($reg = 0, $filtro = ""){
 		$incentivos = new incentivos();
-		$filtro = "";
 		$find_reg = "";
 		if (isset($_POST['find_reg'])) {$filtro = " AND nombre_fabricante LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
 		if (isset($_REQUEST['f'])) {$filtro = " AND nombre_fabricante LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
@@ -22,9 +21,9 @@ class incentivosFabricantesController{
 			$nombre_fabricante = sanitizeInput( $_POST['fabricante-nombre'] );
 			$incentivos = new incentivos();
 			if ($incentivos->insertIncentivesFabricantes($nombre_fabricante))
-				session::setFlashMessage( 'actions_message', "Fabricante creado correctamente.", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', "Error al crear fabricante.", "alert alert-danger");
+				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-danger");
 			redirectURL("admin-incentives-fabricantes");
 		}
 	}
@@ -34,11 +33,21 @@ class incentivosFabricantesController{
 			$id_fabricante = sanitizeInput( $_REQUEST['id'] );
 			$incentivos = new incentivos();
 			if ($incentivos->disableIncentivesFabricantes($id_fabricante))
-				session::setFlashMessage( 'actions_message', "Fabricante deshabilitado correctamente.", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', "Error al deshabilitar fabricante.", "alert alert-danger");
+				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			redirectURL("admin-incentives-fabricantes");
 		}	
 	}
+
+	public static function exportAction(){
+		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+			$incentivos = new incentivos();
+			$elements = $incentivos->getIncentivesFabricantes("");
+			download_send_headers(strTranslate("Incentives_manufacturers")."_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}  		
+	}	
 }
 ?>

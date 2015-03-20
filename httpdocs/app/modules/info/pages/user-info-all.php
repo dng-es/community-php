@@ -3,7 +3,7 @@ $filtro = ((isset($_REQUEST['id']) and $_REQUEST['id']>0) ? " AND i.id_campaign=
 $elements = infoController::getListAction(20, $filtro);
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemUrl"=>"info-campaigns"),
@@ -32,7 +32,7 @@ $elements = infoController::getListAction(20, $filtro);
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
 
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<h4>
 				<span class="fa-stack fa-sx">

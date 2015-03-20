@@ -17,7 +17,7 @@ $usuarios_area = $na_areas->getAreasUsers(" AND id_area=".$id_area." AND usernam
 $usuarios_grupo = $na_areas->getGruposUsersUsuarios(" AND id_grupo=".$id_grupo." ");
 ?>
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),

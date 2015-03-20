@@ -83,7 +83,7 @@ function __autoload($classname){
 	}
 	elseif ($classname == "debugger") {
 		if ($ini_conf['debug_app'] == 1 || $ini_conf['debug_app'] == 2){
-			include_once (dirname(__FILE__) ."/class.".strtolower($classname).".php");
+			include_once (dirname(__FILE__) ."/debugger/class.".strtolower($classname).".php");
 			if ($ini_conf['debug_app'] == 2){
 				debugger::$debugger_output = "file";
 			}

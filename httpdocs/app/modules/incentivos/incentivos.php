@@ -11,19 +11,52 @@ class incentivosCore {
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */	
-/*	public static function userMenu(){
+	public static function userMenu(){
 		$array_final = array();
 		global $session;
-		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("incentives", $_SESSION['user_name']));
-		if ($session->checkPageViewPermission("incentives", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-money",
-							"LabelItem" => strTranslate("Incentives"),
-							"LabelUrl" => 'incentives',
-							"LabelTarget" => '_self',
-							"LabelPos" => 9));
+		$array_final_items = array();
+
+		//menu ver todas las comunicaciones	
+		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-templates", $_SESSION['user_name']));
+		if ($session->checkPageViewPermission("user-templates", $_SESSION['user_perfil'], $user_permissions)){
+
+			array_push($array_final_items , array("LabelIcon" => "",
+							"LabelItem" => strTranslate("Incentives_my_sales"),
+							"LabelUrl" => 'incentives-ventas',
+							"LabelTarget" => '_self'));
 		}
+
+		//menu ver todas las comunicaciones	
+		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-lists", $_SESSION['user_name']));
+		if ($session->checkPageViewPermission("user-lists", $_SESSION['user_perfil'], $user_permissions)){
+
+			array_push($array_final_items , array("LabelIcon" => "",
+							"LabelItem" => strTranslate("Incentives_my_targets"),
+							"LabelUrl" => 'incentives-targets',
+							"LabelTarget" => '_self'));
+		}
+
+		//menu ver todas las comunicaciones	
+/*		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-messages", $_SESSION['user_name']));
+		if ($session->checkPageViewPermission("user-messages", $_SESSION['user_perfil'], $user_permissions)){
+
+			array_push($array_final_items , array("LabelIcon" => "",
+							"LabelItem" => "Rankings",
+							"LabelUrl" => 'incentives-rankings',
+							"LabelTarget" => '_self'));
+		}*/
+
+		if (count($array_final_items)>0){
+				array_push($array_final, array("LabelIcon" => "fa fa-gift",
+								"LabelItem" => strTranslate("Incentives"),
+								"LabelUrl" => '',
+								"LabelTarget" => '',
+								"SubItems" => $array_final_items,
+								"LabelPos" => 9));
+		}
+
 		return $array_final;		
-	}*/	
+	}	
 
 	/**
 	 * Elementos para el menu de administración
@@ -35,33 +68,33 @@ class incentivosCore {
 				"PageName" => "admin-incentives",
 				"LabelHeader" => "Modules",
 				"LabelSection" => strTranslate("Incentives"),
-				"LabelItem" => strTranslate("Incentives_list"),
-				"LabelUrl" => "admin-incentives",
-				"LabelPos" => 2,
+				"LabelItem" => strTranslate("Incentives_targets"),
+				"LabelUrl" => "admin-incentives-targets",
+				"LabelPos" => 4,
 			)),
 			menu::addAdminMenu(array(
 				"PageName" => "admin-incentives-fabricantes",
 				"LabelHeader" => "Modules",
 				"LabelSection" => strTranslate("Incentives"),
-				"LabelItem" => "Fabricantes",
+				"LabelItem" => strTranslate("Incentives_manufacturers"),
 				"LabelUrl" => "admin-incentives-fabricantes",
-				"LabelPos" => 3,
+				"LabelPos" => 1,
 			)),	
 			menu::addAdminMenu(array(
 				"PageName" => "admin-incentives-products",
 				"LabelHeader" => "Modules",
 				"LabelSection" => strTranslate("Incentives"),
-				"LabelItem" => "Productos",
+				"LabelItem" => strTranslate("Incentives_products"),
 				"LabelUrl" => "admin-incentives-products",
-				"LabelPos" => 4,
+				"LabelPos" => 2,
 			)),	
 			menu::addAdminMenu(array(
 				"PageName" => "admin-incentives-products",
 				"LabelHeader" => "Modules",
 				"LabelSection" => strTranslate("Incentives"),
-				"LabelItem" => "Carga de ventas",
-				"LabelUrl" => "admin-cargas-incentives",
-				"LabelPos" => 5,
+				"LabelItem" => strTranslate("Incentives_sales"),
+				"LabelUrl" => "admin-incentives-ventas",
+				"LabelPos" => 3,
 			)),							
 		);
 	}

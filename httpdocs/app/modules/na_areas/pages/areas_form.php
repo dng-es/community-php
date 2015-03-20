@@ -6,7 +6,7 @@ addJavascripts(array(getAsset("na_areas")."js/areas_form.js"));
 $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] : 0);
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		na_areasController::saveFormAction();
@@ -87,11 +87,11 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 			}
 		}
 		else{
-			ErrorMsg("No tienes acceso a la sección");
+			ErrorMsg(strTranslate("Access_denied"));
 		}
 		?>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar hidden-sm hidden-xs">
 		<div class="panel-interior">
 			<h4>
 				<span class="fa-stack fa-sx">

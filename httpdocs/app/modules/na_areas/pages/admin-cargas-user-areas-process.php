@@ -3,9 +3,16 @@ set_time_limit(0);
 $id_area = $_REQUEST['id_area'];
 ?>
   
-<div id="page-info">Cargas de usuarios al area de trabajo</div>
-<div class="row inset row-top">
-	<div class="col-md-9">
+<div class="row row-top">
+	<div class="app-main">
+		<?php
+		menu::breadcrumb(array(
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
+			array("ItemLabel"=> strTranslate("Na_areas_list"), "ItemClass"=>"active"),
+		));
+		?>
 
 		<?php
 		if (isset($_FILES['nombre-fichero']['name'])){
@@ -40,15 +47,13 @@ $id_area = $_REQUEST['id_area'];
 		}
 		?>
 	</div>
-	<div class="col-md-3">
-		<div class="panel panel-default">
-	  		<div class="panel-heading">gestión de areas</div>
-			<div class="panel-body">
-				<p>resumen del proceso de importación de usuarios al área de trabajo: a la izquierda se muestra un resumen con los usuarios incluidos en el área de trabajo. 
-				No se insertarán aquellos usuarios cuyo canal no coincida conn el canal el área.</p>
-				<p><a href="admin-area?act=edit&id=<?php echo $id_area;?>">volver atrás</a></p>
+	<div class="app-sidebar">
+	  		<h4>Cargas de usuarios al area de trabajo</h4>
+			<p>resumen del proceso de importación de usuarios al área de trabajo: a la izquierda se muestra un resumen con los usuarios incluidos en el área de trabajo. 
+			No se insertarán aquellos usuarios cuyo canal no coincida conn el canal el área.</p>
+			<ul class="panel-body">
+				<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>">volver atrás</a></li>
 			</div>
-		</div>
 	</div>			
 </div>
 

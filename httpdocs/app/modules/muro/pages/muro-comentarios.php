@@ -15,7 +15,7 @@ else{$pagina=1;}
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -28,7 +28,7 @@ else{$pagina=1;}
 			<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 		</div>	
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<form id="muro-form" name="coment-form" action="" method="post" role="form">
 				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />	  

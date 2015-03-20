@@ -10,6 +10,7 @@ function showNovedades(){
 				<?php if (count($elements['items'])>0): ?>
 				<?php foreach($elements['items'] as $element): ?>
 				<h3><?php echo strTranslate("News").($_SESSION['user_canal']=='admin' ? " ".$element['canal_name'] : "");?></h3>
+				<span class="text-muted"><?php echo getDateFormat( $element['date_novedad'], "LONG" );?></span>
 				<article>
 					<?php echo $element['cuerpo'];?>
 				</article>

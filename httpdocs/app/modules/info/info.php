@@ -8,12 +8,20 @@ class infoCore{
 		$array_final = array();
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-info-all", $_SESSION['user_name']));
+
+		$module_config = getModuleConfig("info");
+		$alerts_text = "";
+		if ($module_config['options']['show_alarms']):
+			$num_alerts = infoController::getAlerts();
+			$alerts_text = ($num_alerts>0 ? ' <span class="menu-alert" id="contador-documentos-header">'.$num_alerts.'</span>' : "");
+		endif;
+
 		if ($session->checkPageViewPermission("user-info-all", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-file",
-							"LabelItem" => strTranslate("Info_Documents"),
+							"LabelItem" => strTranslate("Info_Documents").$alerts_text,
 							"LabelUrl" => 'info-all',
 							"LabelTarget" => '_self',
-							"LabelPos" => 7));
+							"LabelPos" => 1));
 		}
 		return $array_final;		
 	}

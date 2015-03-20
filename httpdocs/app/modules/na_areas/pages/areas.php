@@ -1,5 +1,5 @@
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -52,7 +52,7 @@
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		<br />
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar hidden-sm hidden-xs">
 		<div class="panel-interior">
 			<h4>
 				<span class="fa-stack fa-sx">

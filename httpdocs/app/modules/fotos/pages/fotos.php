@@ -11,7 +11,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php 
 
 		menu::breadcrumb(array(
@@ -22,7 +22,8 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		session::getFlashMessage( 'actions_message' );
 		fotosController::voteAction();
 		fotosController::createAction();
-		$albums = fotosAlbumController::getListAction(100, " AND activo=1 ORDER BY nombre_album ");
+		$filtro_canal = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
+		$albums = fotosAlbumController::getListAction(100, $filtro_canal." AND activo=1 ORDER BY nombre_album ");
 		?>
 		<section id="photos">
 
@@ -31,7 +32,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		<div id="cargando-infinnite-end"><span class="btn btn-default alert-info"><?php echo strTranslate("No_more_photos");?> <i class="fa fa-info-circle"></i></span></div>
 		<div class="clearfix"></div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php SearchPhoto("fotos","searchForm", strTranslate("Search_Photo_by_title"), strTranslate("Search"), "", "", "get");?>
 			<?php PanelSubirFoto(0);?>

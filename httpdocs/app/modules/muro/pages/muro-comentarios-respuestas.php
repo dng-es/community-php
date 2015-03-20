@@ -10,7 +10,7 @@ $filtro_comentario = " AND id_comentario=".$id_comentario." ";
 $comentario_muro = $muro->getComentarios($filtro_comentario);   
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -25,7 +25,7 @@ $comentario_muro = $muro->getComentarios($filtro_comentario);
 		</div>
 		<div id="destino"></div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php
 			//SOLO LOS COMERCIALES,FORMADORES Y ADMIN PUEDEN INSERTAR COMENTARIOS

@@ -1,0 +1,7 @@
+<snippet>
+	<content><![CDATA[
+\$${1:maximo} = connection::SelectMaxReg("${2:field}","${3:table}","${4:filter}");
+]]></content>
+	<tabTrigger>da_selectMaxReg</tabTrigger>
+	<scope>source.php</scope>
+</snippet>

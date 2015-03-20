@@ -13,7 +13,7 @@ foroController::changeTipoAction();
 $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND activo=1 and itinerario='' ".$filtro_temas);?>
 
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),

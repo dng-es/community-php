@@ -13,12 +13,11 @@ class usersController{
   		return $users->getUsersPermisions(" AND username='".$username."' ".$filter);
 	}
 
-	public static function getListAction($reg = 0){
+	public static function getListAction($reg = 0, $filtro = ""){
 		$users = new users();
-		$filtro = "";
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro = " AND username LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro = " AND username LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
+		if (isset($_POST['find_reg'])) {$filtro .= " AND username LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filtro .= " AND username LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
 		$filtro .= " ORDER BY username";
 		$paginator_items = PaginatorPages($reg);
 		

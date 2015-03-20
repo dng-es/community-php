@@ -100,6 +100,17 @@ class infoController{
 		if (isset($_REQUEST['exp']) and $_REQUEST['exp']!=""){
 			fileToZip($_REQUEST['exp'], PATH_INFO);
 		}
+	}	
+
+	public static function insertAlerts(){
+		$info = new info();
+		$info -> insertAlerts();
+	}
+	
+	public static function getAlerts(){
+		$info = new info();
+		$noLeidos = connection::countReg("info"," AND id_info NOT IN (SELECT id_info FROM info_alerts WHERE username_alert = '".$_SESSION['user_name']."')");
+		return $noLeidos;
 	}		
 }
 ?>

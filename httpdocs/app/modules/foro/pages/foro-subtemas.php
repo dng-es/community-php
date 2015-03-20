@@ -10,7 +10,7 @@ $id_tema_parent="";
 $canal="";
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Forums"), "ItemClass"=>"active"),
@@ -38,7 +38,7 @@ $canal="";
 
 		if (isset($id_tema_parent) and $id_tema_parent!=""){
 		//OBTENER SUBTEMAS DE FORO
-		$filtro_subtemas = " AND t.id_tema_parent=".$temas[0]['id_tema']." AND t.activo=1 AND t.ocio=0 "; 
+		$filtro_subtemas = " AND id_tema_parent=".$temas[0]['id_tema']." AND activo=1 AND ocio=0 "; 
 		$reg = $module_config['options']['forums_per_page'];
 		$marca = 0;
 		$find_tipo = "";
@@ -48,27 +48,26 @@ $canal="";
 		else { $inicio = ($pag - 1) * $reg;}
 		
 		if (isset($_POST['find_reg']) and $_POST['find_reg'] != "") {
-			$filtro_subtemas.=" AND (c.comentario LIKE '%".$_POST['find_reg']."%' OR t.nombre LIKE  '%".$_POST['find_reg']."%') ";
+			$filtro_subtemas.=" AND (nombre LIKE  '%".$_POST['find_reg']."%') ";
 			$find_reg=$_POST['find_reg'];
 		}
 		if (isset($_REQUEST['f']) and $_REQUEST['f']!="") {
-			$filtro_subtemas.=" AND (c.comentario LIKE '%".$_REQUEST['f']."%' OR t.nombre LIKE '%".$_REQUEST['f']."%') ";
+			$filtro_subtemas.=" AND (nombre LIKE '%".$_REQUEST['f']."%') ";
 			$find_reg=$_REQUEST['f'];
 		}
 		if (isset($_POST['find_tipo']) and $_POST['find_tipo'] != "") {
-			$filtro_subtemas.=" AND t.tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
+			$filtro_subtemas.=" AND tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
 			$find_tipo=$_POST['find_tipo'];
 			$marca=1;
 		}
 		if (isset($_REQUEST['m']) and $_REQUEST['m']==1) {
-			$filtro_subtemas.=" AND t.tipo_tema LIKE '%".$_REQUEST['t']."%' ";
+			$filtro_subtemas.=" AND tipo_tema LIKE '%".$_REQUEST['t']."%' ";
 			$find_tipo=$_REQUEST['t'];
 			$marca=1;
 		}
 
-		$total_reg = $foro->getTemasComentarios($filtro_subtemas,'');
-		$total_reg = count($total_reg);
-		$sub_temas = $foro->getTemasComentarios($filtro_subtemas,' LIMIT '.$inicio.','.$reg);
+		$total_reg = connection::countReg("foro_temas", $filtro_subtemas);
+		$sub_temas = $foro->getTemas($filtro_subtemas." ORDER BY id_tema DESC ",' LIMIT '.$inicio.','.$reg);
 		foreach($sub_temas as $sub_tema):
 			ForoList($sub_tema);		
 		endforeach;  
@@ -76,7 +75,7 @@ $canal="";
 		}?>
 
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php
 			//BUSCADOR

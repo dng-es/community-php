@@ -13,7 +13,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 ?>
 
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -23,6 +23,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 		$foro = new foro();
 		$module_config = getModuleConfig("blog");						
 
+		blogController::insertAlerts();
 		session::getFlashMessage( 'actions_message' );	
 		foroController::createRespuestaAction();
 		foroController::votarAction();		
@@ -52,8 +53,6 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 		if (isset($id_tema) and $id_tema!=""){
 
 			//SHOW PAGINATOR
-			//if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador') 
-			//{ $filtro_comentarios .= " AND t.canal='".$_SESSION['user_canal']."' ";}
 			if (isset($_POST['find_reg'])) {$filtro_comentarios=" AND c.id_tema=".$_POST['find_reg']." ";$find_reg=$_POST['find_reg'];}
 			if (isset($id_tema)) {$filtro_comentarios=" AND c.id_tema=".$id_tema." ";$find_reg=$id_tema;} 
 
@@ -70,7 +69,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 
 			echo '<h2>'.$tema[0]['nombre'].'</h2>
 				<p class="legend">
-					<span class="text-muted">'.getDateFormat($tema[0]['date_tema'], "LONG").'</span> ';
+					<span class="text-muted">'.getDateFormat($tema[0]['date_tema'], "LONG").'</span><br />';
 
 			if ($module_config['options']['allow_comments']==true ) echo '<span class="fa fa-comment"></span> '.$total_reg.' '.strTranslate("Comments").' ';
 
@@ -142,15 +141,16 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ".$filtro_etiquetas." ORDER BY rand() DESC LIMIT 4 "); 
 			foreach($elements as $element):
 				echo '<div class="footer-section full-height">
-						<h4 class="ellipsis">'.$element['nombre'].'</h4>
-						<p class="text-primary"><small>'.getDateFormat($element['date_tema'], "LONG").'</small></p>
+						<a href="blog?id='.$element['id_tema'].'"><h4 class="ellipsis">'.$element['nombre'].'</h4></a>
+						<p class="text-muted"><small>'.getDateFormat($element['date_tema'], "LONG").'</small></p>
 						<a href="blog?id='.$element['id_tema'].'"><img src="images/foro/'.$element['imagen_tema'].'" title="'.$element['nombre'].'" /></a><br />
+						<p class="hidden-md hidden-lg"><br />'.blogController::get_resume(strip_tags($element['descripcion'])).'</p>
 					</div>';
 			endforeach; 
 			echo '</div>';
 		}?>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php
 			//BUSCADOR

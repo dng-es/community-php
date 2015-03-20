@@ -5,7 +5,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php 
 
 		menu::breadcrumb(array(
@@ -41,7 +41,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			<br />
 			<?php
 			if ($id_cuestionario!=""){
-				echo '<p>'.strTranslate("Form").' URL: <a href="http://'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'" target="_blank">http://'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'</a></p>';
+				echo '<p>'.strTranslate("Form").' URL: <a href="'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'" target="_blank">'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'</a></p>';
 			}
 			?>
 			<label for="descripcion"><?php echo strTranslate("Description");?>:</label></td></tr>

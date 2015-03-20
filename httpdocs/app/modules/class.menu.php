@@ -57,11 +57,7 @@ class menu{
 		}
 		endforeach;
 
-		foreach ($array_final as $clave => $fila) {
-			$posicion[$clave] = $fila['LabelPos'];
-		}
-
-		array_multisort($posicion, SORT_ASC, $array_final);
+		$array_final = arraySort($array_final, 'LabelPos', SORT_ASC);
 
 		foreach ($array_final as  $fila) {
 			if (isset($fila['SubItems']) and count($fila['SubItems'])>0){
@@ -102,12 +98,12 @@ class menu{
 					echo '<a href="profile"><img src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
 					
 					echo '<p>';
-					echo ' <i class="fa fa-comment"></i> '.strTranslate("Hello").' '.$_SESSION['user_nick'].'<br />';
-					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin"><i class="fa fa-gear"></i> '.strTranslate("Administration").'</a> | ';}
-					echo '<a href="profile" id="perfil-btn"><i class="fa fa-user"></i> '.strTranslate("My_profile").'</a> | ';
-					echo '<a href="inbox" id="perfil-btn"><i class="fa fa-envelope"></i> '.strTranslate("Mailing_messages").' <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a> | ';	
-					echo '<a href="logout" id="logout-btn"><i class="fa fa-lock"></i> '.strTranslate("Logout").'</a> | ';
-					echo ucfirst(strTranslate("APP_points")).': '.$puntos_user[0]['puntos'];
+					echo $_SESSION['user_nick'].'<br />';
+					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-lock"></i></a>';
+					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear"></i></a>';}
+					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user"></i></a>';
+					echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';	
+					echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
 					echo ' </p>';
 					?>
 					</div>		
@@ -230,7 +226,7 @@ class menu{
 			array_multisort($principal, SORT_ASC, $seccion, SORT_ASC, $posicion, SORT_ASC, $array_final);
 
 			?>
-			<div class="col-md-3" id="admin-panel">
+			<div class="app-sidebar-admin" id="admin-panel">
 				<h2><a href="admin"><?php echo strTranslate("Go_to_main_panel");?></a></h2>
 				<?php self::getMenuSection("Modules", "fa fa-puzzle-piece", $array_final);?>
 				<?php self::getMenuSection("Tools", "fa fa-gears", $array_final);?>

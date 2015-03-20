@@ -1,14 +1,17 @@
 <?php
 infoController::getZipAction();
+
+addJavascripts(array(getAsset("info")."js/info-all.js"));
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php 
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemClass"=>"active"),
 		));
 
+		infoController::insertAlerts();
 		session::getFlashMessage( 'actions_message' );
 		$elements = campaignsController::getListAction(8);
 		?>
@@ -62,7 +65,7 @@ infoController::getZipAction();
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php echo SearchForm(0, "info-search", "searchForm", strTranslate("Info_search"), strTranslate("Search"), "", "");?>
 			<h4><?php echo strTranslate("Info_Documents");?></h4>

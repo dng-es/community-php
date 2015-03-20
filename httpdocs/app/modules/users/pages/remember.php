@@ -19,9 +19,16 @@ $module_config = getModuleConfig("users");
 				<div class="col-md-10">
 					<label for="form-lostpw-user"><?php echo strTranslate("Recover_password_info");?></label>
 					<input type="text" name="form-lostpw-user" id="form-lostpw-user" class="form-control" placeholder="<?php echo strTranslate("Username");?>" required autofocus />
-					<br />
-					<button type="submit" name="rememberSubmit" id="rememberSubmit" class="btn btn-primary"><?php echo strTranslate("Recover_password");?></button>
-					<a href="login" class="btn btn-default"><?php echo strTranslate("Identify_to_access");?></a>
+					<div class="row nopadding">
+						<div class="col-md-6 nopadding">
+							<br />
+							<button type="submit" name="rememberSubmit" id="rememberSubmit" class="btn btn-primary btn-block"><?php echo strTranslate("Recover_password");?></button>
+						</div>
+						<div class="col-md-6 nopadding">
+							<br />
+							<a href="login" class="btn btn-default btn-block"><?php echo strTranslate("Identify_to_access");?></a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</form>		

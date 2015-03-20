@@ -34,14 +34,36 @@
 		margin-right: 0;
 		margin-bottom: 0;
 	}
+	@media screen and (max-width: $break-medium) {
+	    margin: 0;
+		width: 100%;
+	}	
 }
 /*FIN SASS MIXINS*/
+
+/*Maquetacion APP*/
+.app-main{
+	@extend .col-md-8;
+	@extend .col-lg-9;
+	@extend .inset;
+}
+.app-sidebar{
+	@extend .col-md-4;
+	@extend .col-lg-3;
+	@extend .nopadding;
+	@extend .lateral-container;
+}
+.app-sidebar-admin{
+	@extend .col-md-4;
+	@extend .col-lg-3;
+}
+/*Fin Maquetacion APP*/
 
 body{
 	background-color:#777;
 	color:#333;
 	font-size: $font-size-community;
-	font-family: "Open Sans", sans-serif;
+	font-family: $primary-font, sans-serif;
 }
 a {
 	color:$color1; outline:none;
@@ -84,6 +106,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .section{
 	background-color: $container-panel-color;
 	@include border-radius($border-def);
+	overflow: hidden;
 	position: relative;
 	@include transition(all, 0.5s, ease);
 	&:hover{
@@ -155,10 +178,11 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	background-color: transparent;
 	@include border-radius(0);
 	border:0;
-	font-family: 'Community-Font';
-	font-size: $font-size-community+2;
-	letter-spacing: 2px;
+	font-family: 'fjallaoneregular';
+	font-size: $font-size-community+3;
+	letter-spacing: 1px;
 	margin-bottom:0;
+	text-transform: uppercase;
 
 	.nav {
 		.fa{
@@ -176,16 +200,30 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		}
 	}
 
+	.navbar-collapse{
+		overflow-y: scroll;
+	}
 	@media screen and (max-width: $break-medium) {
 		background-color: $panels-color;
+		@include box-shadow(#999 0px 2px 5px);
 		left:0;
 		max-height: 100%;
-		overflow-y: scroll;
 		position:fixed;
 		top:0;
 		width:100%;
 		z-index:1039;
 	}
+}
+
+.menu-alert{
+	background-color: $color2;
+	@include border-radius(20px);
+	color: #000 !important;
+	display:inline-block;
+	font-size: 12px;
+	line-height: 17px;
+	padding: 0px 4.5px;
+	text-align:center;
 }
 
 .container-min{
@@ -202,9 +240,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	.col-md-8{
 		/* background: #f5f5f5; */
 	}
-	margin-top: 0px;
+	margin: 0 (100%-$main-container-width)/2;
 	padding-bottom: 0px;
 	position: relative;
+	width: $main-container-width;
 	/* z-index:-1; */
 	h1{
 		font-size:28px;
@@ -216,7 +255,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		}
 	}
 	@media screen and (max-width: $break-medium) {
-	    margin-top: 50px;
+		margin: 50px 0 0 0;
+		width: 100%;
 	}
 }
 .content-header {
@@ -278,9 +318,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	border-top: 10px solid #666;
 	bottom: 0;
 	color:#f0f0f0;
-	font-family: 'Community-Font', $primary-font;
+	font-family: 'fjallaoneregular', $primary-font;
 	font-size:14px;
-	font-weight: bolder;
 	height: 100%;
 	letter-spacing: 2px;
 	margin:0;
@@ -292,14 +331,20 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	width: 100%;
 	z-index:100;
 	a{
-		color:#666;
-		margin: 0 5px;
+		color:$color1;
+		font-size: 18px;
+		margin: 0 15px;
 		&:hover{
 			color:$color1;
 		}
 	}
 	@media screen and (max-width: $break-large) {
 	    width:100%;
+	    a{
+	    	display: block;
+	    	font-size: 14px;
+	    	text-align: left;
+	    }
 	}
 }
 .footer-section{
@@ -455,14 +500,33 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		text-align: right;
 	}
 	span {
-		color:$color3
+		color:$color3;
+	}
+	.points{
+		color: #fff;
+		font-family: 'fjallaoneregular';
+		font-size: $font-size-community;
+		margin-left: 15px;
+		position: relative;
+    	top: 3px;
+		big{
+			font-size: $font-size-community + 8;
+		}
+	}
+	.fa{
+		font-size: 21px;
+		margin-left: 15px;
 	}
 	#contador-leidos-header{
-		background-color: $color1;
+		background-color: #fff;
 		@include border-radius(20px);
-		color: #fff;
+		color: #000;
 		display:inline-block;
-		padding: 1px 6px;
+		font-size: 12px;
+		font-family: 'fjallaoneregular';
+		letter-spacing: 1px;
+		line-height: 17px;
+		padding: 0px 4.5px;
 		text-align:center;
 	}
 	@media screen and (max-width: $break-medium){
@@ -633,6 +697,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	padding: 0 15px 15px 15px;
 	h1, h2, h3, h4, h5, h6{
 		color: $panels-color-title;
+		margin-top:15px;
 	}
 	label{
 		color: $color1;
@@ -817,7 +882,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	div{
 		display: inline-block;
 		float: left;
-		font-size: 12px;
+		font-size: $font-size-community;
 		width: 60%;	
 		span{
 			color:#999;
@@ -1157,13 +1222,13 @@ table th {
 	color:$color1;
 	float:left;
 	font-size: $font-size-community - 2;
-	height:150px;
-	margin: 10px;
-	padding:15px;
-	width:20%;
+	height:110px;
+	margin: 0 2%;
+	padding:5px 0;
+	width:29%;
 	i{
 		display:block;
-		font-size:90px;
+		font-size:50px;
 		margin-bottom: 10px;
 		@media screen and (max-width: $break-medium) {
 			font-size:20px;
@@ -1173,6 +1238,9 @@ table th {
 		height: auto;
 		margin: 10px 0;
 		width:100%;
+	}
+	a{
+		outline: none;
 	}
 }
 /*Fin Areas de trabajo*/
@@ -1262,6 +1330,12 @@ table th {
 	}
 	@media screen and (max-width: $break-medium) {
 		font-size:40px;
+		small{
+			font-size: 14px;
+			left: 4px;
+			margin-top:7px;
+			top: 0;
+		}
 	}
 }
 
@@ -1387,6 +1461,17 @@ dt {
 	top:-21px;
 	width: 100%;
 }
+
+.incentives-stats{
+	background:#fff; 
+	border:0px solid #f0f0f0;
+	margin: 0;
+	min-height:250px;
+	padding: 0;
+	position:relative;
+	top:-21px;
+	width: 100%;
+}
 /*Fin Control de accesos*/
 
 @mixin button-pulp(){
@@ -1476,16 +1561,16 @@ dt {
 	right: 0;
 	z-index: 101;
 	h2{
-		color:#a9a9a9 !important;
+		color:lighten($panels-color, 30%) !important;
 		font-size:16px;
 		margin-bottom:0px !important;
 	}
 	h3{
-		color:#a9a9a9;
+		color:lighten($panels-color, 30%);
 		font-size:18px;
 	}
 	ul{
-		background-color: #4a4a4a;
+		background-color: lighten($panels-color, 8%);
 		margin:0 -15px 0 -15px;
 		padding:0 0 0.1px 0;
 		li{
@@ -1493,7 +1578,7 @@ dt {
 			list-style:none;
 			margin:0 0 1px 0;
 			padding:7px 0px 7px 15px;
-			border-bottom:1px solid #2a2a2a;
+			border-bottom:1px solid darken($panels-color, 6%);
 			&:before {
 				content: '\f105';
 				font-family: 'FontAwesome';
@@ -1503,25 +1588,25 @@ dt {
 				color: $color1;
 			}
 			&:hover{
-				background-color:#222;
-				border-bottom:1px solid #000;
+				background-color:darken($panels-color, 8%);
+				border-bottom:1px solid darken($panels-color, 14%);
 			}
 		}
 		ul{
-			background-color:#2a2a2a;
+			background-color:darken($panels-color, 6%);
 			margin: 0;
 			padding:0 0 0.1px 0;
 			li{
-				background-color:#1a1a1a;
+				background-color:darken($panels-color, 12%);
 				margin:0 0 1px 0;
 				padding:7px 0px 7px 50px;
-				border-bottom:1px solid #000;
+				border-bottom:1px solid darken($panels-color, 12%);
 				a{
 					display:block;
 				}
 				&:hover{
-					background-color:#222;
-					border-bottom:1px solid #1a1a1a;
+					background-color:darken($panels-color, 8%);
+					border-bottom:1px solid darken($panels-color, 12%);
 				}
 			}
 		}

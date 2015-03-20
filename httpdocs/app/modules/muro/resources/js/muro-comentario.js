@@ -3,7 +3,7 @@ jQuery(document).ready(function(){
 	$("#coment-submit").click(function(evento){
 	   $("#texto-comentario-alert").html("").css("display","none");
 	   var resultado_ok=true;   
-		if ($('#texto-comentario').val()=="") {
+		if (jQuery.trim($('#texto-comentario').val())=="") {
 			 $("#texto-comentario-alert").html("Debes insertar algo de texto en el comentario.").fadeIn().css("display","block");
 			 resultado_ok=false;
 		}

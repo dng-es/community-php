@@ -16,18 +16,20 @@ $module_config = getModuleConfig("users");
         <form method="post" action="" name="form-login" id="form-login" role="form" class="form-horizontal">          
             <div class="row">
                 <div class="col-md-5"> 
-	                <div class="form-group">
+	                <div class="form-group has-feedback">
 					    <label for="form-login-user" class="col-sm-4 control-label"><?php echo strTranslate("Username");?></label>
 					    <div class="col-sm-8">
-					      <input type="text" class="form-control" id="form-login-user" name="form-login-user" placeholder="<?php echo strTranslate("Username");?>">
+							<input type="text" class="form-control" id="form-login-user" name="form-login-user" placeholder="<?php echo strTranslate("Username");?>">
+							<span class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></span>
 					    </div>
 					</div>
 				</div>
 				<div class="col-md-5">
-					<div class="form-group">
+					<div class="form-group has-feedback">
 					    <label for="form-login-password" class="col-sm-4 control-label"><?php echo strTranslate("Password");?></label>
 					    <div class="col-sm-8">
-					      <input type="password" class="form-control" id="form-login-password" name="form-login-password" placeholder="<?php echo strTranslate("Password");?>">
+							<input type="password" class="form-control" id="form-login-password" name="form-login-password" placeholder="<?php echo strTranslate("Password");?>">
+							<span class="glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
 					    </div>
 					</div>
 				</div>

@@ -6,7 +6,7 @@ muroController::cancelAction();
 $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('principal','responsable') ORDER BY date_comentario DESC"); ?>
 
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),

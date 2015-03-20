@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[
+validateEmail( \$${1:email} );
+]]></content>
+	<tabTrigger>da_validateEmail</tabTrigger>
+	<scope>source.php</scope>
+	<description>Validate if it is a valid email</description>
+</snippet>
+

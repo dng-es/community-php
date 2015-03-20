@@ -201,8 +201,16 @@ if ($module_config['options']['allow_registration']===true):
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
-					<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary"><?php echo strTranslate("Register");?></button>
-					<a href="login" class="btn btn-default"><?php echo strTranslate("Identify_to_access");?></a>
+					<div class="row">
+						<div class="col-md-5">
+							<br />
+							<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary btn-block"><?php echo strTranslate("Register");?></button>
+						</div>
+						<div class="col-md-7">
+							<br />
+							<a href="login" class="btn btn-default btn-block"><?php echo strTranslate("Identify_to_access");?></a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</form>

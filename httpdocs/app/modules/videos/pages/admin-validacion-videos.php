@@ -36,7 +36,7 @@ if (isset($_REQUEST['act'])) {
 $videos = new videos();
 $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),

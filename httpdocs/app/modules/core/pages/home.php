@@ -21,7 +21,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND activo=1 AND id_tema_parent=0 ORDER BY id_tema DESC ");
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<div class="row">
 		<div class="col-md-12">
 		<p class="text-muted">
@@ -40,25 +40,29 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 			<div class="col-md-7">
 				<div class="row">
 					<div class="col-md-12 section">
-						<section>
-							<h3><?php echo strTranslate("Highlights");?></h3>
-							<?php PanelLastDestacado();?>
-						</section>
+						<h3><?php echo strTranslate("Last_blog");?></h3>
+						<?php if (isset($last_blog['items'][0])): ?>
+						<div class="media-preview-container">
+							<a href="blog"><?php echo $last_blog['items'][0]['nombre'];?></a><br />
+							<span class="text-muted"><small><?php echo getDateFormat($last_blog['items'][0]['date_tema'], "LONG");?></small></span>
+							<p><?php echo blogController::get_resume($last_blog['items'][0]['descripcion']);?></p>
+						</div>
+						<?php else: ?>
+							<div class="text-muted">Todavía no se han creado entradas</div>
+						<?php endif; ?>
 					</div>
 				</div>
 				<br />
 				<div class="row">
 					<div class="col-md-12 section full-height">
-						<section>
-							<h3><?php echo strTranslate("Last_formus");?></h3>
-							<p><?php echo strTranslate("Discover_last_formus");?>.</p>
-							<ul class="list-funny">
-							<?php foreach($last_foros as $last_foro): ?>
-								<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
-								<li class="ellipsis"><a href="foro-comentarios?id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
-							<?php endforeach; ?>
-							</ul>
-						</section>
+						<h3><?php echo strTranslate("Last_formus");?></h3>
+						<p><?php echo strTranslate("Discover_last_formus");?>.</p>
+						<ul class="list-funny">
+						<?php foreach($last_foros as $last_foro): ?>
+							<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
+							<li class="ellipsis"><a href="foro-comentarios?id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
+						<?php endforeach; ?>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -67,63 +71,46 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 		<div class="row">
 			<div class="col-md-4 ">
 				<div class="col-md-12 section full-height">
-					<section>
-						<h3><?php echo strTranslate("Last_photos");?></h3>
-						<?php if (isset($last_video['items'][0])): ?>
-						<div class="media-preview-container">
-							<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
-							<div>
-								<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
-								<span><?php echo $last_photo['items'][0]['nick'];?> - <?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></span><br />
-							</div>
+					<h3><?php echo strTranslate("Last_photos");?></h3>
+					<?php if (isset($last_video['items'][0])): ?>
+					<div class="media-preview-container">
+						<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
+						<div>
+							<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
+							<span><small><?php echo $last_photo['items'][0]['nick'];?> - <?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></small></span><br />
 						</div>
-						<?php else: ?>
-							<div class="text-muted">Todavía no se han subido fotos</div>
-						<?php endif; ?>
-					</section>
+					</div>
+					<?php else: ?>
+						<div class="text-muted">Todavía no se han subido fotos</div>
+					<?php endif; ?>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="col-md-12 section full-height">
-					<section>
-						<h3><?php echo strTranslate("Last_videos");?></h3>
-						<?php if (isset($last_video['items'][0])): ?>
-						<div class="media-preview-container">
-							<a href="videos">
-							<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo $last_video['items'][0]['titulo'];?>" /></a>
-							<div>
-								<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
-								<span><?php echo $last_video['items'][0]['nick'];?> - <?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></span><br />
-							</div>
+					<h3><?php echo strTranslate("Last_videos");?></h3>
+					<?php if (isset($last_video['items'][0])): ?>
+					<div class="media-preview-container">
+						<a href="videos">
+						<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo $last_video['items'][0]['titulo'];?>" /></a>
+						<div>
+							<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
+							<span><small><?php echo $last_video['items'][0]['nick'];?> - <?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></small></span><br />
 						</div>
-						<?php else: ?>
-							<div class="text-muted">Todavía no se han subido vídeos</div>
-						<?php endif; ?>
-					</section>
+					</div>
+					<?php else: ?>
+						<div class="text-muted">Todavía no se han subido vídeos</div>
+					<?php endif; ?>
 				</div>
 			</div>			
 			<div class="col-md-4">
 				<div class="col-md-12 section full-height">
-					<section>
-						<h3><?php echo strTranslate("Last_blog");?></h3>
-						<?php if (isset($last_blog['items'][0])): ?>
-						<div class="media-preview-container">
-							<a href="blog">
-							<img class="media-preview" src="images/foro/<?php echo $last_blog['items'][0]['imagen_tema'];?>" alt="<?php echo $last_blog['items'][0]['nombre'];?>" /></a>
-							<div>
-								<a href="blog"><?php echo $last_blog['items'][0]['nombre'];?></a><br />
-								<span><?php echo getDateFormat($last_blog['items'][0]['date_tema'], "LONG");?></span>
-							</div>
-						</div>
-						<?php else: ?>
-							<div class="text-muted">Todavía no se han creado entradas</div>
-						<?php endif; ?>
-					</section>
+					<h3><?php echo strTranslate("Highlights");?></h3>
+					<?php PanelLastDestacado();?>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div id="muro-insert">
 			<form id="muro-form" name="coment-form" action="" method="post" role="form">
 				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />   

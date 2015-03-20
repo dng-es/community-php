@@ -11,7 +11,7 @@ templateload("na_areasuser","na_areas");
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -137,11 +137,13 @@ templateload("na_areasuser","na_areas");
 			<?php endif; ?>
 		</div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
+			<a class="btn btn-primary btn-block" href="group?id=<?php echo $_SESSION['user_empresa'];?>"><?php echo strTranslate("My_group");?></a>
+			<br />
+			<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
 			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" /> 
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div><br />
-			<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
 		</div>
 	</div>
 </div>

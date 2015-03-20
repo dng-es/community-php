@@ -62,7 +62,7 @@ class fotosCore{
 							"LabelItem" => strTranslate("Photos"),
 							"LabelUrl" => 'fotos',
 							"LabelTarget" => '_self',
-							"LabelPos" => 2));
+							"LabelPos" => 3));
 		}
 		return $array_final;	
 	}		

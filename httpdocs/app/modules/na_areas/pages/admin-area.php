@@ -28,7 +28,7 @@ templateload("cmbCanales","users");
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -127,21 +127,21 @@ templateload("cmbCanales","users");
 						<form role="form" id="formData" name="formData" method="post" action="admin-area?act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
 							<input type="hidden" id="id_area" name="id_area" value="<?php echo $id;?>" />
 							<div class="row">
-								<div class="form-group col-md-12 nopadding">
+								<div class="form-group col-md-12">
 									<label for="area_nombre"><small><?php echo strTranslate("Name");?>:</small></label>
 									<input class="form-control form-big" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"  data-alert="<?php echo strTranslate("Required_field");?>" />
 								</div>
 							</div>
 
 							<div class="row">
-								<div class="form-group col-md-12 nopadding">
+								<div class="form-group col-md-12">
 									<label for="area_descripcion"><small><?php echo strTranslate("Description");?>:</small></label>
 									<textarea class="form-control" id="area_descripcion" name="area_descripcion" data-alert="<?php echo strTranslate("Required_field");?>"><?php echo $area_descripcion;?></textarea>
 								</div>
 							</div>
 							
 							<div class="row">
-								<div class="form-group col-md-4 nopadding">
+								<div class="form-group col-md-4">
 									<label for="area_canal"><small><?php echo strTranslate("Channel");?>:</small></label>
 									<select id="area_canal" name="area_canal" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
 										<option value="">--<?php echo strTranslate("Choose_channel");?>--</option>
@@ -149,12 +149,12 @@ templateload("cmbCanales","users");
 									</select>
 								</div>
 
-								<div class="form-group col-md-2 nopadding">
+								<div class="form-group col-md-2">
 									<label for="area_puntos"><small><?php echo ucfirst(strTranslate("APP_points"));?>:</small></label>
 									<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 								</div>  
 
-								<div class="form-group col-md-2 nopadding">
+								<div class="form-group col-md-2">
 									<label for="area_limite"><small>Límite de usuarios:</small></label>
 									<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 								</div>  
@@ -168,9 +168,8 @@ templateload("cmbCanales","users");
 							</div>
 							
 							<div class="clearfix"></div>
-							<br />
 							<div class="row">
-								<div class="form-group col-md-12 nopadding">
+								<div class="form-group col-md-12">
 									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
 								</div>
 							</div>
@@ -499,6 +498,8 @@ function showTareasArea($id_area){
 
 					<br />
 					<button type="button" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary btn-block">Guardar tarea</button>
+					<br />
+					
 				</form>
 			</div>
 			<div class="col-md-7">	

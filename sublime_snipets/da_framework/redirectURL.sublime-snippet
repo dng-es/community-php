@@ -1,0 +1,7 @@
+<snippet>
+	<content><![CDATA[
+redirectURL(${1:\$_SERVER['REQUEST_URI']});
+]]></content>
+	<tabTrigger>da_redirectURL</tabTrigger>
+	<scope>source.php</scope>
+</snippet>

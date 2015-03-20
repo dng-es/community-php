@@ -6,7 +6,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 
 ?>
 <div class="row row-top">	
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -31,7 +31,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			<br />
 			<?php
 				if ($page_name!=""){
-					echo '<p>URL: <a href="'.$ini_conf['SiteUrl'].'pagename?id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'pagename?id='.$page_name.'</a></p>';
+					echo '<p>URL: <a href="'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'</a></p>';
 				}
 			?>
 			<textarea cols="40" rows="5" id="page_content" name="page_content"><?php echo $pagina[0]['page_content'];?></textarea>

@@ -1,6 +1,6 @@
 // JavaScript Document
 jQuery(document).ready(function(){	
-	$("#puntos_incentivo").numeric();
+	$("#puntos").numeric();
 	$("#datetimepicker1, #datetimepicker2").datetimepicker({
 		language: "es-ES",
 		startDate: "2014/01/01"
@@ -9,10 +9,10 @@ jQuery(document).ready(function(){
 	//verificación datos del formulario
 	$("#formData").submit(function(evento){
 	   
-		var resultado_ok=true;   
+	   var resultado_ok=true;   
 
-		if (jQuery.trim($("#puntos_incentivo").removeClass("input-alert").val())=="") {
-			$('#puntos_incentivo').addClass("input-alert").attr("placeholder",$('#puntos_incentivo').data("alert")).focus();
+		if (jQuery.trim($("#puntos").removeClass("input-alert").val())=="") {
+			$('#puntos').addClass("input-alert").attr("placeholder",$('#puntos').data("alert")).focus();
 			resultado_ok = false;
 		} 
 

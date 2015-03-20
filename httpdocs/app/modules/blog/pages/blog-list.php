@@ -14,7 +14,7 @@ $titulo_page="";
 ?>
 
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		
 
 		<?php
@@ -71,7 +71,7 @@ $titulo_page="";
 		Paginator($pag,$reg,$total_reg,'blog-list'.$url_filters,'',$find_reg); ?>	 
 
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php
 			//BUSCADOR

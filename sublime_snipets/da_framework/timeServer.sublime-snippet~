@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[
+\$${1:hora} = connection::timeServer();
+]]></content>
+	<tabTrigger>da_timeServer</tabTrigger>
+	<scope>source.php</scope>
+</snippet>
+

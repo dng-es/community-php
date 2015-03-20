@@ -34,4 +34,7 @@
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+
+	//activar corrector ortográfico por defecto
+	config.scayt_autoStartup = true;
 };

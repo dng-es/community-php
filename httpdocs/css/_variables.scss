@@ -9,8 +9,21 @@
     font-weight: normal;
 }
 
+@font-face {
+    font-family: 'fjallaoneregular';
+    src: url('fonts/FjallaOne-Regular-webfont.eot');
+    src: url('fonts/FjallaOne-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/FjallaOne-Regular-webfont.woff2') format('woff2'),
+         url('fonts/FjallaOne-Regular-webfont.woff') format('woff'),
+         url('fonts/FjallaOne-Regular-webfont.ttf') format('truetype'),
+         url('fonts/FjallaOne-Regular-webfont.svg#fjallaoneregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 $primary-font: "Open Sans", sans-serif;
-$color1 : #198b73;	//color principal
+$color1 : #e30613;	//color principal
 $color2 : lighten($color1, 10%);	//color claro
 //$color2 : #fff;
 $color3 : darken($color1, 10%);	//color oscuro o de contraste respecto el color principal
@@ -23,6 +36,7 @@ $panels-color: #373737;
 $panels-color-title: #ccc;
 $panels-color-text: #f0f0f0;
 $app_width : 100%;
+$main-container-width : 100%;
 
 $break-small: 768px;
 $break-medium: 992px;
@@ -46,9 +60,10 @@ $navbar-default-link-active-bg: $color1;
 $navbar-default-link-active-color: #fff;
 $navbar-default-link-hover-bg: $color1;
 $navbar-default-link-hover-color: #fff;
-$navbar-default-toggle-hover-bg: $color1;
+$navbar-default-toggle-hover-bg: transparent;
 $navbar-default-toggle-icon-bar-bg: $color1;
-$navbar-default-toggle-border-color: $color1;
+$navbar-default-toggle-border-color: none;
+$nav-link-hover-bg: $color2;
 $dropdown-bg: $color1;
 $dropdown-link-color: #fff;
 $panel-primary-border: #e5e5e5;

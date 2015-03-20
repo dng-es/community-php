@@ -7,7 +7,7 @@ addJavascripts(array("js/jquery.numeric.js",
 					 getAsset("mailing")."js/admin-message-test.js"));
 ?>	
 <div class="row row-top">
-	<div class="col-md-8 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),

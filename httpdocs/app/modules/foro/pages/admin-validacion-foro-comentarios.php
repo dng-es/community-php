@@ -3,10 +3,10 @@
 session::getFlashMessage( 'actions_message' );
 foroController::validateComentarioAction();
 foroController::cancelComentarioAction();
-$elements = foroController::getListComentariosAction(15, " AND estado=1 AND ocio=0 ORDER BY id_comentario DESC");?>
+$elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY id_comentario DESC");?>
 
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
@@ -40,7 +40,7 @@ $elements = foroController::getListComentariosAction(15, " AND estado=1 AND ocio
 			</table>
 		</div>
 		<br />
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);	?>
+		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

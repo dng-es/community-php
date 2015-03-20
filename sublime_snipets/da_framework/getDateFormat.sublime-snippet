@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[
+getDateFormat( \$${1:date}, \$${2:format} );
+]]></content>
+	<tabTrigger>da_getDateFormat</tabTrigger>
+	<scope>source.php</scope>
+	<description>	Formats: DAY, MONTH, MONT_LONG, YEAR, SHORT, LONG, TIME, DATE_TIME</description>
+</snippet>

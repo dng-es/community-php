@@ -14,7 +14,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -141,7 +141,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 			<?php endif; ?>
 		</div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php if (count($usuario)>0): ?>
 			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" />  
@@ -152,3 +152,18 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 </div>
 
 <?php addMensaje();?>
+
+<!-- Modal -->
+<div class="modal modal-wide fade" id="fotosModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel"><?php echo strTranslate("Photos");?></h4>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

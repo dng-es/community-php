@@ -16,7 +16,8 @@ class novedades {
 	public function updateNovedades($cuerpo,$activo, $canal){
 		$Sql="UPDATE novedades SET
 			 activo=".$activo.",
-			 cuerpo='".$cuerpo."' 
+			 cuerpo='".$cuerpo."' ,
+			 date_novedad=NOW()
 			 WHERE canal='".$canal."' ";
 		return connection::execute_query($Sql);
 	}	  

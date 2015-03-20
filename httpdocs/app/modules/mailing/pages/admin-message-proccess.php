@@ -8,9 +8,8 @@ mailingController::exportLinksAction(" AND username_add='".$_SESSION['user_name'
 addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 
 ?>
-<div class="row inset row-top">
-	<div class="col-md-8">
-		<h1>Envío de comunicaciones</h1>
+<div class="row row-top">
+	<div class="app-main">
 		<?php
 		$mailing = new mailing();
 		session::getFlashMessage( 'actions_message' );
@@ -53,13 +52,12 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 		</div>
 
 		</div>
-		<div class="col-md-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">Envío de comunicaciones</div>
-				<div class="panel-body">
-					<a href="user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br />
-					<a href="user-messages" class="comunidad-color">Mis comunicaciones enviadas</a>
-				</div>
+		<div class="app-sidebar">
+			<div class="panel-interior">
+				<h4>Envío de comunicaciones</h4>
+				<ul class="list-funny">
+					<li><a href="user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br /></li>
+					<li><a href="user-messages" class="comunidad-color">Mis comunicaciones enviadas</a></li>
 			</div>
 		</div>
 	</div>

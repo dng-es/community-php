@@ -80,6 +80,18 @@ class blogController{
 		$more_text = preg_replace('/^[\s]*(.*)[\s]*$/', '\\1', $more_text);
 
 		return array( 'main' => $main, 'extended' => $extended, 'more_text' => $more_text );
+	}	
+
+	public static function insertAlerts(){
+		$blog = new blog();
+		$blog -> insertAlerts();
+	}
+	
+	public static function getAlerts(){
+		$blog = new blog();
+		$filtro_canal = ($_SESSION['user_perfil'] == 'admin' ? "" : " AND canal='".$_SESSION['user_canal']."' ");
+		$noLeidos = connection::countReg("foro_temas"," AND activo=1 AND ocio=1 ".$filtro_canal." AND id_tema NOT IN (SELECT id_tema FROM blog_alerts WHERE username_alert = '".$_SESSION['user_name']."')");
+		return $noLeidos;
 	}			
 }
 ?>

@@ -37,7 +37,7 @@ $id_tema= $_REQUEST['id'];
 $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." ORDER BY id_comentario DESC");
 ?>
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),

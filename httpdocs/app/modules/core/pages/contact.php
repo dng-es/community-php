@@ -6,27 +6,59 @@ addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact.js")
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
-		<h1><?php echo strTranslate("Contact");?></h1>
+	<div class="app-main">
+		<?php
+		menu::breadcrumb(array(
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
+			array("ItemLabel"=>strTranslate("Contact"), "ItemClass"=>"active"),
+		));
+		?>
+
 		<?php 
 		//MESSAGES
 		session::getFlashMessage( 'actions_message' );
 		coreContactController::contactAction();
 		?>
-		<p><?php echo strTranslate("Send_us_an_email");?></p>
-		<form id="contact_form" name="contact_form" method="post" action="" method="post" role="form">
-			<label for="subject_form" class="sr-only">Asunto:</label>
-			<input type="text" name="subject_form" id="subject_form" class="form-control"placeholder="<?php echo strTranslate('Message_subject');?>" />
-			<div class="message-form alert alert-danger" id="message-form-subject"><?php echo strTranslate('Introduce_subject');?></div>				
-			<br /><textarea cols="56" rows="8" name="body_form" id="body_form" class="jtextarea form-control" placeholder="<?php echo strTranslate('Your_message');?>"></textarea>
-			<div class="message-form alert alert-danger" id="message-form-body"><?php echo strTranslate('Introduce_your_message');?></div>
-			<br /><br />
-			<button type="submit" class="btn btn-primary" id="EnviarForm" value="Enviar"><?php echo strTranslate("Send");?></button>
-		</form>
+		<div class="row">
+			<div class="col-md-4 col-md-push-8">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4><?php echo $ini_conf['SiteName'];?></h4>
+						<ul class="list-unstyled">
+							<li><?php echo $ini_conf['SiteUrl'];?></li>
+							<li><?php echo $ini_conf['ContactEmail'];?></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8 col-md-pull-4">
+				<p class="hidden-md hidden-lg"><?php echo strTranslate("Send_us_an_email");?></p>
+				<form id="contact_form" name="contact_form" method="post" action="" method="post" role="form">
+					<div class="form-group">
+						<label for="subject_form" class="sr-only">Asunto:</label>
+						<input type="text" name="subject_form" id="subject_form" class="form-control"placeholder="<?php echo strTranslate('Message_subject');?>" />
+						<div class="message-form alert alert-danger" id="message-form-subject"><?php echo strTranslate('Introduce_subject');?></div>				
+						<br /><textarea cols="56" rows="8" name="body_form" id="body_form" class="jtextarea form-control" placeholder="<?php echo strTranslate('Your_message');?>"></textarea>
+						<div class="message-form alert alert-danger" id="message-form-body"><?php echo strTranslate('Introduce_your_message');?></div>
+					</div>
+					<div class="form-group col-md-4 nopadding">
+						<button type="submit" class="btn btn-primary btn-block" id="EnviarForm" value="Enviar"><?php echo strTranslate("Send");?></button>
+					</div>
+					<br />
+				</form>
+			</div>
+		</div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar hidden-sm hidden-xs">
 		<div class="panel-interior">
-
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php echo strTranslate("Contact");?></h4>
+			<p><?php echo strTranslate("Send_us_an_email");?></p>
+			<p class="text-center"><i class="fa fa-envelope fa-big"></i></p>
 		</div>
 	</div>
 </div>

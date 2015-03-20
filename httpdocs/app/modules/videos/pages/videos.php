@@ -22,7 +22,7 @@ $num_videos = 6;
 ?>		
 
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -66,7 +66,7 @@ $num_videos = 6;
 			<?php endif; ?>
 		<?php endif;?>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php SearchVideo(1000,"videos?id=".$id_video,"searchForm", strTranslate("Search_video_by_title"), strTranslate("Search"));?>
 			<?php PanelSubirVideo(0);?>

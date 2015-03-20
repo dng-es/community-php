@@ -24,7 +24,7 @@ $grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tar
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),

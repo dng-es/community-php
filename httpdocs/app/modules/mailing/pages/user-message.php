@@ -10,8 +10,8 @@ addJavascripts(array("js/jquery.numeric.js",
 					 getAsset("mailing")."js/user-message-test.js"));
 
 ?>
-<div class="row inset row-top">
-	<div class="col-md-9">
+<div class="row row-top">
+	<div class="app-main">
 		<?php
 
 		menu::breadcrumb(array(
@@ -203,12 +203,14 @@ addJavascripts(array("js/jquery.numeric.js",
 		</div>
 	</div>
 	</div>
-	<div class="col-md-3">
-		<div class="panel panel-default">
-			<div class="panel-heading">Envío de comunicaciones</div>
-			<div class="panel-body">
-				<a href="user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br />
-				<a href="user-messages" class="comunidad-color">Mis comunicaciones enviadas</a>
+	<div class="app-sidebar">
+		<div class="panel-interior">
+			<div class="panel panel-default">
+				<div class="panel-heading">Envío de comunicaciones</div>
+				<div class="panel-body">
+					<a href="user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br />
+					<a href="user-messages" class="comunidad-color">Mis comunicaciones enviadas</a>
+				</div>
 			</div>
 		</div>
 	</div>

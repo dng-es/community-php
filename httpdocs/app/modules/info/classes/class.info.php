@@ -51,6 +51,12 @@ class info{
 			 file_info='".$nombre_archivo."' 
 			 WHERE id_info=".$id;
 		return connection::execute_query($Sql);
+	}	
+
+	public function insertAlerts(){
+		$Sql = "INSERT INTO info_alerts (id_info,username_alert)
+				SELECT id_info, '".$_SESSION['user_name']."' FROM info WHERE id_info NOT IN (SELECT  id_info FROM info_alerts WHERE username_alert = '".$_SESSION['user_name']."')";
+		return connection::execute_query($Sql);
 	}	       
 }
 ?>

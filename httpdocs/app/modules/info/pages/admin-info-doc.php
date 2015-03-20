@@ -8,7 +8,7 @@ $accion = (isset($_GET['act']) ? $_GET['act'] : "new");
 $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 ?>
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php 
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -81,7 +81,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 							<div class="form-group">
 
 								<small><label for="download">
-									<input type="checkbox" name="download" id="download" <?php echo $elements[0]['download']==1 ? "checked" : "";?>> Fichero descargable <span class="text-muted">(si no marcas esta opción introducir URL del documento)</span>
+									<input type="checkbox" name="download" id="download" <?php echo $elements[0]['download']==1 ? 'checked="checked"' : '';?>> Fichero descargable <span class="text-muted">(si no marcas esta opción introducir URL del documento)</span>
 								</label></small>
 
 								<input class="form-control" type="text" id="info_url" name="info_url" value="<?php echo $elements[0]['download']==1 ? "" : $elements[0]['titulo_info'];?>" />
@@ -91,7 +91,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 
 						<div class="col-md-6">
 							<div class="form-group">
-								<small><label>Selecciona el documento:
+								<small><label for="info_file">Selecciona el documento:
 								<?php
 								if ($elements[0]['file_info']!=""){ 
 									$enlace = ($elements[0]['download']==1 ? 'docs/showfile.php?file='.$elements[0]['file_info'] : $elements[0]['file_info']);
@@ -100,12 +100,12 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 								?>
 								</label></small>
 								<br /><input name="info_file" id="info_file" type="file" class="btn btn-primary" title="<?php echo strTranslate("Choose_file");?>" />
+								<span id="file-alert" class="alert-message"></span>
 							</div>
 						</div>
 					</div>
 
 					 
-					<span id="file-alert" class="alert-message"></span>
 					<br /><br />
 					<input type="button" name="SubmitData" id="SubmitData" class="btn btn-primary pull-right" value="<?php echo strTranslate("Save_data");?>" />
 				</form>	

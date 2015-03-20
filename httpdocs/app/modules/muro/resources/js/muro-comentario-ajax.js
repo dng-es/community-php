@@ -41,7 +41,7 @@ jQuery(document).ready(function(){
 	function ValidateResponder(){
 		$("#muro-responder-result").html("");
 	    var resultado_ok=true;   
-		if ($('#texto-responder').val()=="") 
+		if (jQuery.trim($('#texto-responder').val())=="") 
 		{
 			 ShowMensajeResponder("Debes insertar algo de texto.");
 			 resultado_ok=false;
@@ -72,7 +72,7 @@ jQuery(document).ready(function(){
 	function ValidateMuro(){
 	    $("#result-muro").html("");
 	    var resultado_ok=true;   
-		if ($('#texto-comentario').val()=="") {
+		if (jQuery.trim($('#texto-comentario').val())=="") {
 			 ShowMensaje("Debes insertar algo de texto en el comentario.");
 			 $("#result-muro").addClass("alert alert-danger");
 			 resultado_ok=false;

@@ -8,7 +8,7 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -17,12 +17,13 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 		?>
 		<div class="inset">
 	  		<p>Descubre qué usuarios están en este mismo momento en la comunidad.</p>
+	  		<p class="hidden-md hidden-lg">Ahora mismo hay <strong><?php echo $users_conn;?></strong> usuarios conectados.<br /></p>
 	  		<div id="mensajes">
 			<div class="mensaje"><div id="cargando"><i class="fa fa-spinner fa-spin ajax-load"></i></div></div>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar hidden-xs hidden-sn">
 		<div class="panel-interior">
 			<h4>
 				<span class="fa-stack fa-sx">

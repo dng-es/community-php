@@ -21,7 +21,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
   	
   	if ( $acceso==1 ): ?>
 	<div class="row row-top">
-		<div class="col-md-8 col-lg-9 inset">
+		<div class="app-main">
 			<?php
 			menu::breadcrumb(array(
 				array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -60,7 +60,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 } ?>
 
 
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php
 			if ($module_config['options']['forums']==true){
@@ -79,7 +79,8 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 function printTareas($id_area){
 	$na_areas = new na_areas();
 	$contador_tareas = 0;
-	$elements = $na_areas->getTareas(" AND id_area=".$id_area." and activa=1 "); 
+	$elements = $na_areas->getTareas(" AND id_area=".$id_area." and activa=1 ");
+	global $ini_conf;
 
 	foreach($elements as $element):
 		//VERIFICAR SI ES UNA TAREA PARA UN GRUPO Y SI EL USUARIO PERTENECE O NO AL GRUPO

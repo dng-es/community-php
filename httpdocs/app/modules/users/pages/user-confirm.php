@@ -154,7 +154,7 @@ function ShowForm()
 					<div class="checkbox">
 						<label>
 							<input id="user-declaracion" name="user-declaracion" type="checkbox" value="1" /> <?php echo strTranslate("Acept");?> 
-							<a href="#" id="declaracion-trigger"><?php echo strTranslate("Terms_and_conditions");?></a>.
+							<a href="#" id="declaracion-trigger"><?php echo strTranslate("Terms_and_conditions");?></a>
 						</label>
 						<span id="user-declaracion-alert" class="alert-message alert alert-danger"></span>
 					</div>
@@ -162,8 +162,8 @@ function ShowForm()
 			</div>					 					 
 			
 			<div class="form-group">
-				<div class="col-sm-offset-4 col-sm-8">
-					<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary"><?php echo strTranslate("Send_data");?></button>
+				<div class="col-sm-offset-4 col-sm-8 col-md-4">
+					<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary btn-block"><?php echo strTranslate("Send_data");?></button>
 				</div>
 			</div>
 		</form>

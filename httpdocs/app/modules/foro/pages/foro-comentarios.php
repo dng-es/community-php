@@ -9,7 +9,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 
 ?>
 <div class="row row-top">
-	<div class="col-md-8 col-lg-9 inset">
+	<div class="app-main">
 		<?php
 		
 		session::getFlashMessage( 'actions_message' );
@@ -90,7 +90,7 @@ addJavascripts(array("js/jquery.bettertip.pack.js",
 		}
 		?> 
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
+	<div class="app-sidebar">
 		<div class="panel-interior">
 			<h4>
 				<span class="fa-stack fa-sx">
