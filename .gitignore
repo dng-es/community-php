@@ -8,7 +8,7 @@ httpdocs/docs/tareas/*.*
 httpdocs/docs/videos/*.*
 httpdocs/images/foro/*.*
 httpdocs/images/usuarios/*.*
-httpdocs/images/mailing/*
+httpdocs/images/mailing/*.*
 httpdocs/images/banners/*.*
 /.project
 /.vagrant
