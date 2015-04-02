@@ -55,17 +55,18 @@ Estructura general
 
     ├── bin                     - herramienta de consola
     ├── documentacion           - documentación sobre la comunidad
-    └── httpdocs
-        ├── css                 - Archivos CSS principales
-        ├── docs                - directorio de almacenamiento de documentos
-        ├── images              - directorio para imágenes
-        ├── app
-        │   ├── core            - núcleo del sistema
-        │   ├── languajes       - archivos generales de traducciones
-        │   └── modules         - directorio que contiene todos los módulos
-        │
-        └── js                  - archivos javascript generales de la comunidad
-
+    ├── httpdocs
+    │   ├── css                 - Archivos CSS principales
+    │   ├── docs                - directorio de almacenamiento de documentos
+    │   ├── images              - directorio para imágenes
+    │   ├── app
+    │   │   ├── core            - núcleo del sistema
+    │   │   ├── languajes       - archivos generales de traducciones
+    │   │   └── modules         - directorio que contiene todos los módulos
+    │   │
+    │   └── js                  - archivos javascript generales de la comunidad
+    │
+    └── utils                   - herramientas utiles para desarrollo
 
 Estructura de un módulo
 
