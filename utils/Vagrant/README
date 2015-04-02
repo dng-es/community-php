@@ -1,0 +1,2 @@
+Move files bootsrap.sh and Vagrantfile to root app folder (../..), then in command line type:
+vagrant up
