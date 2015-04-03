@@ -145,7 +145,7 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 * [templateload] (#templateload)
 
 ### Generación y procesamiento de archivos
-* [exportCsv] (#exportcsv)
+* [array2csv] (#array2csv)
 * [fileToZip] (#filetozip)
 * [HTMLtoPDF] (#htmltopdf)
 * [uploadFileToFolder] (#uploadfiletofolder)
@@ -238,12 +238,14 @@ templateload($template,$modulename);
 ```
 
 ### Generación y procesamiento de archivos
-#### exportCsv
-Exporta a CSV un array, donde $regs sera el array de registros a exportar y $file_name el nombre del archivo a generar sin la extension. Uso: 
+#### array2csv
+Exporta a CSV un array, donde $array sera el array de registros a exportar. Uso, primero se envian las cabeceras para descarga: 
 ```php 
-exportCsv($regs, $file_name);
+download_send_headers("nombre_fichero.csv");
+array2csv($array);
 ```
 **IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
+
 
 #### fileToZip
 Comprime a zip el fichero especificado por $filename alojado en la ruta $path. Uso: 
