@@ -8,7 +8,7 @@
 * [Herramienta console] (#herramienta-console)
 * [Idiomas] (#idiomas)
 * [Debug mode] (#debug-mode)
-* [Referencia API] (#referencia-api)
+* [Referencia funciones] (#referencia-funciones)
 
 
 ## Requisitos y dependencias
@@ -130,7 +130,7 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 **IMPORTANTE: desactivar debug mode en servidores de producción (debug_app = 0) o establecer salida a fichero de log (debug_app = 2).**
 
 
-## Referencia API
+## Referencia funciones
 
 ### Core
 * [addCss] (#addcss)
