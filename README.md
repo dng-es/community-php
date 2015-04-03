@@ -132,7 +132,7 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 
 ## Referencia API
 
-Core
+### Core
 * [addCss] (#addcss)
 * [addJavascripts] (#addJavascripts)
 * [getAsset] (#getasset)
@@ -144,13 +144,13 @@ Core
 * [redirectURL] (#redirecturl)
 * [templateload] (#templateload)
 
-Generación y procesamiento de archivos
+### Generación y procesamiento de archivos
 * [exportCsv] (#exportcsv)
 * [fileToZip] (#filetozip)
 * [HTMLtoPDF] (#htmltopdf)
 * [uploadFileToFolder] (#uploadfiletofolder)
 
-Sesiones
+### Sesiones
 * [session::AccessLevel] (#sessionaccesslevel)
 * [session::createSession] (#sessioncreatesession)
 * [session::destroySession] (#sessiondestroysession)
@@ -158,48 +158,33 @@ Sesiones
 * [session::setFlashMessage] (#sessionsetflashmessage)
 * [session::ValidateSessionAjax] (#sessionvalidatesessionajax)
 
-Manejo de cadenas
+### Manejo de cadenas
 * [createRandomPassword] (#createrandompassword)
 * [getDataFormat] (#getDataFormat)
 * [NormalizeText] (#normalizetext)
 * [strTranslate] (#strtranslate)
 * [shortText] (#shorttext)
 
-Validaciones
+### Validaciones
 * [validateDate] (#validatedate)
 * [validateEmail] (#validateemail)
 * [validateNifCifNie] (#validatenifcifnie)
 
-
-### addCss
+### Core
+#### addCss
 Agrega los ficheros Css específicos de una paguna. Uso: 
 ```php 
 //my_page.php
 addCss("css/my_page.css");
 ```
 
-### addJavascripts
+#### addJavascripts
 Agrega los ficheros JS específicos de una paguna. Uso: 
 ```php 
 //my_page.php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("my_module")."js/my_page.js"));
 ```
 Agrega los arvivos bootstrap.file-input.js y my_page.js, donde my_page.js pertenece al módulo my_module (para su carga se emplea la función [getAsset()] (#getasset)). 
-
-### createRandomPassword
-Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
-```php 
-createRandomPassword(7);
-
-//especificando los caracteres aleatorios
-createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
-```
-### getDataFormat
-Devuelve una fecha con el formato especificado (DAY, MONTH, MONTH_LONG, YEAR, SHORT, LONG, TIME, DATE_TIME). Uso: 
-```php 
-getDataFormat('2014-01-14', 'LONG');
-//mostrará -> 14 de Enero 2014
-```
 
 ### exportCsv
 Exporta a CSV un array, donde $regs sera el array de registros a exportar y $file_name el nombre del archivo a generar sin la extension. Uso: 
@@ -264,6 +249,21 @@ $message_protocol puede ser Mail(valor por defecto), smtp o Sendmail. Si en $mes
 Envia cabeceras para eliminar la cache del navegador. Uso: 
 ```php 
 noCache();
+```
+### createRandomPassword
+Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
+```php 
+createRandomPassword(7);
+
+//especificando los caracteres aleatorios
+createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
+```
+
+### getDataFormat
+Devuelve una fecha con el formato especificado (DAY, MONTH, MONTH_LONG, YEAR, SHORT, LONG, TIME, DATE_TIME). Uso: 
+```php 
+getDataFormat('2014-01-14', 'LONG');
+//mostrará -> 14 de Enero 2014
 ```
 
 ### NormalizeText
