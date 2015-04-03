@@ -1,5 +1,5 @@
 # Community-php 
-> Comunidad de usuarios php5 y mysql. Ver módulos en app/modules (módulos con versión menor 1.0 no están completamente testeados o finalizados). Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
+> Comunidad de usuarios php5 y mysql, creada por componentes/módulos. Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
 * [Requisitos y dependencias] (#requisitos-y-dependencias)
 * [Instalación] (#instalacion)
@@ -69,7 +69,7 @@ Estructura general
     └── utils                   - herramientas utiles para desarrollo
 
 Estructura de un módulo
-
+Módulos con versión menor 1.0 no están completamente testeados o finalizados.
 
     ├── my_module
     │   ├── controllers         - controladores del módulo
