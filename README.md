@@ -186,62 +186,38 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("my_module")."js/my_
 ```
 Agrega los arvivos bootstrap.file-input.js y my_page.js, donde my_page.js pertenece al módulo my_module (para su carga se emplea la función [getAsset()] (#getasset)). 
 
-### exportCsv
-Exporta a CSV un array, donde $regs sera el array de registros a exportar y $file_name el nombre del archivo a generar sin la extension. Uso: 
-```php 
-exportCsv($regs, $file_name);
-```
-**IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
-
-### fileToZip
-Comprime a zip el fichero especificado por $filename alojado en la ruta $path. Uso: 
-```php 
-fileToZip($filename, $path);
-```
-**IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
-
-### getAsset
+#### getAsset
 Obtiene la ruta de los assets del módulo especificado con $modulename. Uso: 
 ```php 
 getAsset($modulename);
 ```
 
-### getBrowser
+#### getBrowser
 Obtiene la versión del navegador según el UserAgent. Uso: 
 ```php 
 getBrowser($_SERVER['HTTP_USER_AGENT']);
 ```
 
-### getListModules
+#### getListModules
 Devuelve un array con todos los módulos instalados. Uso: 
 ```php 
 getListModules();
 ```
 
-### getPlatform
+#### getPlatform
 Obtiene el Sistema Operativo según el UserAgent del navegador. Uso: 
 ```php 
 getPlatform($_SERVER['HTTP_USER_AGENT']);
 ```
-
-### HTMLtoPDF
-Convierte a PDF la cadena de texto en formato HTML. Uso: 
-```php 
-HTMLtoPDF($content, [$size]);
-```
-Donde $content será la cadena de texto en formato HTML a convertir a PDF. El parámetro opcional $size indica el tamaño del documento, por defecto A4.
-
-**IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
-
-### messageProcess
+#### messageProcess
 Envia un email con Swift Mailer. Uso: 
 ```php 
 messageProcess( $message_subject, 
-				$message_from = array('john@doe.com' => 'John Doe'), 
-				$message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), 
-				$message_body, 
-				$message_attachment = null,
-				$message_protocol = "smtp");
+                $message_from = array('john@doe.com' => 'John Doe'), 
+                $message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), 
+                $message_body, 
+                $message_attachment = null,
+                $message_protocol = "smtp");
 ```
 $message_protocol puede ser Mail(valor por defecto), smtp o Sendmail. Si en $message_protocol se emplea smpt, se utilizá la configuración SMTP establecida en el fichero de configuraciópn general config.php. Para Sendmail la configuración se establecerá igualmente en config.php.
 
@@ -250,35 +226,50 @@ Envia cabeceras para eliminar la cache del navegador. Uso:
 ```php 
 noCache();
 ```
-### createRandomPassword
-Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
-```php 
-createRandomPassword(7);
-
-//especificando los caracteres aleatorios
-createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
-```
-
-### getDataFormat
-Devuelve una fecha con el formato especificado (DAY, MONTH, MONTH_LONG, YEAR, SHORT, LONG, TIME, DATE_TIME). Uso: 
-```php 
-getDataFormat('2014-01-14', 'LONG');
-//mostrará -> 14 de Enero 2014
-```
-
-### NormalizeText
-Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso: 
-```php 
-NormalizeText($text, $text_separator);
-```
-
-### redirectURL
+#### redirectURL
 Redirecciona a la url especificada. Uso: 
 ```php 
 redirectURL($url);
 ```
+#### templateload
+Carga la plantilla especificada con $template situada en el módulo especificado con $modulename. Uso: 
+```php 
+templateload($template,$modulename);
+```
 
-### session::AccessLevel
+### Generación y procesamiento de archivos
+#### exportCsv
+Exporta a CSV un array, donde $regs sera el array de registros a exportar y $file_name el nombre del archivo a generar sin la extension. Uso: 
+```php 
+exportCsv($regs, $file_name);
+```
+**IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
+
+#### fileToZip
+Comprime a zip el fichero especificado por $filename alojado en la ruta $path. Uso: 
+```php 
+fileToZip($filename, $path);
+```
+**IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
+
+#### HTMLtoPDF
+Convierte a PDF la cadena de texto en formato HTML. Uso: 
+```php 
+HTMLtoPDF($content, [$size]);
+```
+Donde $content será la cadena de texto en formato HTML a convertir a PDF. El parámetro opcional $size indica el tamaño del documento, por defecto A4.
+
+**IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
+#### uploadFileToFolder
+Sube un fichero a la ruta especificada. Uso: 
+```php 
+uploadFileToFolder($file, $destination);
+```
+Donde $file será $_FILES['nombre_input_file'] y $destination el directorio donde se ha de subir la imágen
+
+
+### Sesiones
+#### session::AccessLevel
 Establece el nivel de acceso a una determinada página. Uso: 
 ```php 
 $perfiles_autorizados = array("admin", "formador");
@@ -292,72 +283,83 @@ Crea una sesión si el usuario y contraseña es correcto. Tras el inicio de sesi
 session::createSession($usuario, $password, [$url]);
 ```
 
-### session::destroySession
+#### session::destroySession
 Destruye la sesion actual y redirecciona a la url pasada por parámetro. Uso: 
 ```php 
 session::destroySession();
 ```
 Si no se pasa pámetro redirige a "login".
 
-### session::getFlashMessage
+#### session::getFlashMessage
 Obtiene el mensaje pasado por parámetro. Uso: 
 ```php 
 session::getFlashMessage( 'actions_message' );
 ```
 Una vez mostrado el mensaje  'actions_message' será borrado de la memoria flash. Para crear un mensaje flash ver [session::setFlashMessage] (#session::setflashmessage).
 
-### session::setFlashMessage
+#### session::setFlashMessage
 Crea un mensaje flash. Uso: 
 ```php 
 session::setFlashMessage( 'actions_message', 'Registro insertado correctamente', 'alert alert-success');
 ```
 En el ejemplo se crea el mensaje flash 'actions_message' con el texto 'Registro insertado correctamente' y se le aplica la clase css 'alert alert-success'. Para recuperar un mensaje flash ver [session::getFlashMessage] (#session::getflashmessage).
 
-### session::ValidateSessionAjax
+#### session::ValidateSessionAjax
 Comprueba si un usuario esta correctamente autentificado, en caso contrario redirige a "login" o en su defecto a la página indicada por el paámetro opcional $url. Uso: 
 ```php 
 session::ValidateSessionAjax([$url]);
 ```
 
-### strTranslate
+### Manejo de cadenas
+#### createRandomPassword
+Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
+```php 
+createRandomPassword(7);
+
+//especificando los caracteres aleatorios
+createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
+```
+#### getDataFormat
+Devuelve una fecha con el formato especificado (DAY, MONTH, MONTH_LONG, YEAR, SHORT, LONG, TIME, DATE_TIME). Uso: 
+```php 
+getDataFormat('2014-01-14', 'LONG');
+//mostrará -> 14 de Enero 2014
+```
+
+#### NormalizeText
+Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso: 
+```php 
+NormalizeText($text, $text_separator);
+```
+
+#### strTranslate
 Traduce la cadena de texto pasada por parámetro en el idioma establecido por defecto. Uso: 
 ```php 
 strTranslate($str);
 ```
 
-### shortText
+#### shortText
 Acorta un texto añadiendo puntos suspensivos. Uso: 
 ```php 
 shortText($text_html,$num_car);
 ```
 Donde $text_html será la cadena a cortar y $num_car el numero de caracteres máximo de la cadena
 
-### templateload
-Carga la plantilla especificada con $template situada en el módulo especificado con $modulename. Uso: 
-```php 
-templateload($template,$modulename);
-```
 
-### uploadFileToFolder
-Sube un fichero a la ruta especificada. Uso: 
-```php 
-uploadFileToFolder($file, $destination);
-```
-Donde $file será $_FILES['nombre_input_file'] y $destination el directorio donde se ha de subir la imágen
-
-### validateDate
+### Validaciones
+#### validateDate
 Comprueba si una cadena es una fecha válida según el formato especificado. Uso: 
 ```php 
 validateDate($date, 'Y-m-d H:i:s');
 ```
 
-### validateEmail
+#### validateEmail
 Comprueba si un texto si es o no una cuenta de correo válida. Uso: 
 ```php 
 validateEmail($email);
 ```
 
-### validateNifCifNie
+#### validateNifCifNie
 Comprueba si un NIF, CIF o NIE es correcto. Devolverá:
 - 1 = NIF ok
 - 2 = CIF ok
