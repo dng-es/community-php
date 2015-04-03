@@ -50,7 +50,7 @@ Para la creación de un entorno de desarrollo con <a target="_blank" href="https
 ## Estructura de archivos y directorios
 La estructura de archivos y directorios básica es la siguiente:
 
-#Estructura general
+###Estructura general
 
 
     ├── bin                     - herramienta de consola
@@ -68,7 +68,7 @@ La estructura de archivos y directorios básica es la siguiente:
     │
     └── utils                   - herramientas utiles para desarrollo
 
-#Estructura de un módulo
+###Estructura de un módulo
 Módulos con versión menor 1.0 no están completamente testeados o finalizados.
 
     ├── my_module
