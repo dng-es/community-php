@@ -52,7 +52,6 @@ La estructura de archivos y directorios básica es la siguiente:
 
 ###Estructura general
 
-
     ├── bin                     - herramienta de consola
     ├── documentacion           - documentación sobre la comunidad
     ├── httpdocs
@@ -72,6 +71,7 @@ La estructura de archivos y directorios básica es la siguiente:
 Módulos con versión menor 1.0 no están completamente testeados o finalizados.
 
     ├── my_module
+    │   ├── classes             - acceso a la base de datos desde el módulo
     │   ├── controllers         - controladores del módulo
     │   ├── pages               - páginas del módulo
     │   ├── resources           - recursos del módulo   
@@ -81,9 +81,9 @@ Módulos con versión menor 1.0 no están completamente testeados o finalizados.
     │   │   └── languages       - ficheros de idiomas del módulo 
     │   │
     │   ├── templates           - plantillas del módulo       
-    │   └── class.my_module.php - acceso a la base de datos desde el módulo
+    │   ├── config.yaml         - Opciones de configración del módulo       
+    │   └── my_module.php       - fichero de general del módulo
     │
-
 
 
 ## Herramienta console 
