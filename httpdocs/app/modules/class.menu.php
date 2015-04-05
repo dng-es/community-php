@@ -44,19 +44,8 @@ class menu{
 	 * Print elements of users main menu
 	 */
 	public static function userMainMenu(){
-		$array_final = array();
-		$modules = getListModules();		
-		foreach($modules as $module):
-			if (file_exists(__DIR__."/".$module['folder']."/".$module['folder'].".php")){
-				include_once (__DIR__."/".$module['folder']."/".$module['folder'].".php");
-				$moduleClass = $module['folder']."Core";
-				$instance = new $moduleClass();
-				if (method_exists($instance, "userMenu")) {
-				$array_final = array_merge($array_final, $instance->userMenu());
-			}
-		}
-		endforeach;
-
+		global $array_usermenu;
+		$array_final = $array_usermenu;
 		$array_final = arraySort($array_final, 'LabelPos', SORT_ASC);
 
 		foreach ($array_final as  $fila) {
@@ -204,19 +193,9 @@ class menu{
 	*/
 	static function adminMenu(){
 		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']=='admin'){ 
-			$array_final = array();
-			$modules = getListModules();		
-			foreach($modules as $module):
-				if (file_exists(__DIR__."/".$module['folder']."/".$module['folder'].".php")){
-					include_once (__DIR__."/".$module['folder']."/".$module['folder'].".php");
-					$moduleClass = $module['folder']."Core";
-					$instance = new $moduleClass();
-					if (method_exists($instance, "adminMenu")) {
-				    	$array_final = array_merge($array_final, $instance->adminMenu());
-					}
-				}
-			endforeach;
-			
+			global $array_adminmenu;
+			$array_final = $array_adminmenu;
+						
 			foreach ($array_final as $clave => $fila) {
 				$principal[$clave] = $fila['LabelHeader'];
 				$seccion[$clave] = $fila['LabelSection'];

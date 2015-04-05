@@ -19,6 +19,7 @@ $videos_types = array("MP4","MOV","AVI","3GP","WMV");
 $fotos_types = array("GIF","JPG","JPEG","PNG");
 //APP VERSION
 define('APP_VERSION',"0.4.6");
+define('APP_DEF_PAGE',"login");
 //TIEMPO DE SESION
 define('SESSION_MAXTIME',1800);
 //PUNTOS A OTORGAR POR ACCION REALIZADA POR USUARIO Y TEXTOS DE MOTIVOS
