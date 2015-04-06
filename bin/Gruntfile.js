@@ -54,7 +54,6 @@
 		       files: {
 		           '<%= public_html %>js/main.min.js': [
 		           '<%= public_html %>js/libs/jquery-*.js',
-		           '<%= public_html %>js/libs/jqueryui-*.min.js',
 		           '<%= public_html %>js/libs/sweetalert/sweet-alert.js', 
 		           '<%= public_html %>js/libs/functions.js', 
 		           '<%= public_html %>css/libs/bootstrap*/assets/javascripts/bootstrap.js', 
@@ -72,7 +71,6 @@
 		       files: {
 		           '<%= public_html %>js/main.min.js': [
 		           '<%= public_html %>js/libs/jquery-*.js',
-		           '<%= public_html %>js/libs/jqueryui-*.min.js',
 		           '<%= public_html %>js/libs/sweetalert/sweet-alert.js', 
 		           '<%= public_html %>js/libs/functions.js', 
 		           '<%= public_html %>css/libs/bootstrap*/assets/javascripts/bootstrap.js', 
