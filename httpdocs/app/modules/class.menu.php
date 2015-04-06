@@ -44,19 +44,8 @@ class menu{
 	 * Print elements of users main menu
 	 */
 	public static function userMainMenu(){
-		$array_final = array();
-		$modules = getListModules();		
-		foreach($modules as $module):
-			if (file_exists(__DIR__."/".$module['folder']."/".$module['folder'].".php")){
-				include_once (__DIR__."/".$module['folder']."/".$module['folder'].".php");
-				$moduleClass = $module['folder']."Core";
-				$instance = new $moduleClass();
-				if (method_exists($instance, "userMenu")) {
-				$array_final = array_merge($array_final, $instance->userMenu());
-			}
-		}
-		endforeach;
-
+		global $array_usermenu;
+		$array_final = $array_usermenu;
 		$array_final = arraySort($array_final, 'LabelPos', SORT_ASC);
 
 		foreach ($array_final as  $fila) {
@@ -98,7 +87,7 @@ class menu{
 					echo '<a href="profile"><img src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
 					
 					echo '<p>';
-					echo $_SESSION['user_nick'].'<br />';
+					echo '<a href="profile">'.$_SESSION['user_nick'].'</a><br />';
 					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-lock"></i></a>';
 					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear"></i></a>';}
 					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user"></i></a>';
@@ -204,19 +193,9 @@ class menu{
 	*/
 	static function adminMenu(){
 		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']=='admin'){ 
-			$array_final = array();
-			$modules = getListModules();		
-			foreach($modules as $module):
-				if (file_exists(__DIR__."/".$module['folder']."/".$module['folder'].".php")){
-					include_once (__DIR__."/".$module['folder']."/".$module['folder'].".php");
-					$moduleClass = $module['folder']."Core";
-					$instance = new $moduleClass();
-					if (method_exists($instance, "adminMenu")) {
-				    	$array_final = array_merge($array_final, $instance->adminMenu());
-					}
-				}
-			endforeach;
-			
+			global $array_adminmenu;
+			$array_final = $array_adminmenu;
+						
 			foreach ($array_final as $clave => $fila) {
 				$principal[$clave] = $fila['LabelHeader'];
 				$seccion[$clave] = $fila['LabelSection'];
@@ -230,8 +209,8 @@ class menu{
 				<h2><a href="admin"><?php echo strTranslate("Go_to_main_panel");?></a></h2>
 				<?php self::getMenuSection("Modules", "fa fa-puzzle-piece", $array_final);?>
 				<?php self::getMenuSection("Tools", "fa fa-gears", $array_final);?>
-				<br />
-			</div>
+				<div class="text-right"><h3><small>v. <?php echo APP_VERSION;?></small></h3></div>
+			</div>	
 			<?php
 		}
 	}	

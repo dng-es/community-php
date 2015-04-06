@@ -131,7 +131,7 @@ class session {
 		if ((isset($_SESSION['user_logged']) and $_SESSION['user_logged'] != true) && in_array($_REQUEST['page'], $paginas_free)==false){
 			//Si alguno de los datos ingresados son incorrectos redirigimos a la pÃ¡gina de
 			//error o de nuevo al formulario de ingreso.
-			header ("Location: login");
+			header ("Location: " . APP_DEF_PAGE);
 		}
 		elseif( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) or (isset($_REQUEST['page']) and $_REQUEST['page']==""))){
 			header ("Location: home");
@@ -227,7 +227,7 @@ class session {
 	* @param 	string 	$url 		redirect url after session is destroyed
 	*
 	*/
-	public static function destroySession( $url = 'login' ){
+	public static function destroySession( $url = APP_DEF_PAGE ){
 		$users = new users();
 		if (isset($_SESSION['user_name'])) {
 			$users->deleteUserConn($_SESSION['user_name']);
