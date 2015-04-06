@@ -7,7 +7,7 @@ $objetivo = incentivosObjetivosController::getItemAction($id_objetivo);
 ?>
 
 <div class="row row-top">
-	<div class="app-main">
+	<div class="col-md-9 inset">
 		<?php 
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),

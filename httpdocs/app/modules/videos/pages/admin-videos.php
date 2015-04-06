@@ -43,7 +43,6 @@ $elements=$videos->getVideos($filtro.' LIMIT '.$inicio.','.$reg);
 				<tr>
 					<th width="40px"></th>
 					<th><?php echo strTranslate("Video");?></th>
-					<th><?php echo strTranslate("Date");?></th>
 					<th><?php echo strTranslate("Author");?></th>
 					<th><i class="fa fa-comment"></i></th>
 				</tr>
@@ -58,8 +57,9 @@ $elements=$videos->getVideos($filtro.' LIMIT '.$inicio.','.$reg);
 							</span>
 						 </td>';
 								
-					echo '<td>'.$element['titulo'].'</td>';
-					echo '<td>'.getDateFormat($element['date_video'], "SHORT").'</td>';
+					echo '<td>'.$element['titulo'];
+					echo '<br /><em class="text-muted"><small>'.getDateFormat($element['date_video'], "LONG").'</small></em>';
+					echo '</td>';
 					echo '<td>'.$element['user_add'].'</td>';
 					echo '<td>';
 			   	if ($num_comentarios==0){ echo $num_comentarios;}

@@ -36,6 +36,9 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($elements);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 			<li><a href="admin-blog-new">Nueva entrada</a></li>
 			<li><a href="<?php echo $_REQUEST['page'];?>?export=true"><?php echo strTranslate("Export");?></a></li>
+			<div class="pull-right">
+				<?php echo SearchForm($elements['reg'],"admin-blog","searchForm",strTranslate("Search"),strTranslate("Search"),"","navbar-form navbar-left");?>	
+			</div>
 		</ul>
 
 		<div class="table-responsive">
@@ -74,7 +77,7 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 			endforeach;?>
 			</table>
 		</div>
-		<?php Paginator($pag,$reg,$total_reg,'admin-blog','Entradas',"");?>
+		<?php Paginator($pag,$reg,$total_reg,'admin-blog','Entradas',$find_reg);?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

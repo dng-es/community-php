@@ -7,10 +7,13 @@ addJavascripts(array(getAsset("foro")."js/admin-validacion-foro-temas.js"));
 $filtro_temas = (isset($_POST['tipo_search']) and $_POST['tipo_search']!="") ? " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' " : "";
 $find_tipo = (isset($_POST['tipo_search']) and $_POST['tipo_search']!="") ? $_POST['tipo_search'] : "";
 
+if (isset($_POST['find_reg'])) {$filtro_temas.=" AND nombre LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
+if (isset($_REQUEST['f'])) {$filtro_temas.=" AND nombre LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];}
+
 session::getFlashMessage( 'actions_message' );
 foroController::cancelTemaAction();
 foroController::changeTipoAction();
-$elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND activo=1 and itinerario='' ".$filtro_temas);?>
+$elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND activo=1 and itinerario='' ".$filtro_temas." ORDER BY id_tema DESC ");?>
 
 <div class="row row-top">
 	<div class="app-main">
@@ -21,7 +24,10 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 			array("ItemLabel"=>"Temas en los foros", "ItemClass"=>"active"),
 		));?>
 		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>      
+			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+			<div class="pull-right">
+				<?php echo SearchForm($elements['reg'],"admin-validacion-foro-temas","searchForm",strTranslate("Search"),strTranslate("Search"),"","navbar-form navbar-left");?>	
+			</div>
 		</ul>
 		<div class="table-responsive">
 			<table class="table table-striped table-hover">
@@ -81,7 +87,9 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 				// <input type="submit" value="Modif." class="btn btn-default">
 				// </form>
 				// </td>';
-				echo '<td>'.$element['nombre'].'</td>';
+				echo '<td>'.$element['nombre'];
+				echo '<br /><em class="text-muted"><small>'.getDateFormat($element['date_tema'], "LONG").'</small></em>';
+				echo '</td>';
 				echo '<td>'.$element['user'].'</td>';
 				echo '<td>'.$element['canal'].'</td>';
 				echo '<td align="center">'.$num_comentarios.'</td>';
@@ -91,7 +99,7 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 			</table>
 		</div>
 		<br />
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$find_reg);?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

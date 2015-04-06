@@ -11,7 +11,7 @@ $incentivos = new incentivos();
 ?>
 
 <div class="row row-top">
-	<div class="app-main">
+	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -53,7 +53,7 @@ $incentivos = new incentivos();
 		</div>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
-	<div class="app-sidebar">
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 			<h4><?php echo strTranslate("Incentives");?></h4>
 			<p>Estos son los rankings de cada objetivo, ¿estas entre los primeros? descúbrelo!!!.</p>

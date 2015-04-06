@@ -1,6 +1,10 @@
 <?php
 $base_dir = str_replace('modules/core/pages', '', realpath(dirname(__FILE__))) ;
 include_once($base_dir . "modules/class.headers.php");
+include_once($base_dir . "modules/blog/classes/class.blog.php");
+include_once($base_dir . "modules/blog/controllers/controller.default.php");
+include_once($base_dir . "modules/info/classes/class.info.php");
+include_once($base_dir . "modules/info/controllers/controller.default.php");
 
 addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact.js"));
 

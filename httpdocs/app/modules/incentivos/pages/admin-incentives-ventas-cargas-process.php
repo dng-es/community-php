@@ -3,7 +3,7 @@ set_time_limit(0);
 ?>
 
 <div class="row row-top">
-	<div class="app-main">
+	<div class="col-md-9 inset">
 		<?php 
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -50,6 +50,9 @@ function volcarMySQL($data) {
 	$contador_ko = 0;
 	$incentivos = new incentivos();
 
+	//Global Options token
+	$gotoken = globaloptionsController::gettoken( $_SESSION['user_name'], $_SESSION['user_pass']);
+
 	for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
 		$referencia_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
 		$fabricante_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
@@ -61,13 +64,20 @@ function volcarMySQL($data) {
 			//buscar id_producto por referencia y fabriacante
 			$producto = $incentivos->getIncentivesProductos(" AND UPPER(p.referencia_producto)='".$referencia_producto."' AND UPPER(f.nombre_fabricante)='".$fabricante_producto."' ");
 			if (count($producto)>0){
-				if ($incentivos->insertIncentivesVenta( $producto[0]['id_producto'], $cantidad_venta, $username_venta, $fecha_venta )) {
+				if ($incentivos->insertIncentivesVenta( $producto[0]['id_producto'], $cantidad_venta, $username_venta, $fecha_venta )) {		
+
 					$contador_insert++;
 					//asignacion de puntos. Obtener puntos del producto por la fecha y obtener aceleradores
 					$puntuacion_producto = $incentivos->getIncentivesProductosPuntos(" AND id_producto=".$producto[0]['id_producto']." AND '".$fecha_venta."' BETWEEN date_ini AND date_fin ");
 					$puntuacion_acelerador = $incentivos->getIncentivesProductAcelerators(" AND a.id_producto=".$producto[0]['id_producto']." AND '".$fecha_venta."' BETWEEN a.date_ini AND a.date_fin ");
 					$puntuacion_venta = (0 + (count($puntuacion_producto)>0 ? $puntuacion_producto[0]['puntos'] : 0)) * (count($puntuacion_acelerador)>0 ? $puntuacion_acelerador[0]['valor_acelerador'] : 1);
 					$incentivos->insertIncentivesProductosVentas( $username_venta, $puntuacion_venta, $producto[0]['id_producto'], $fecha_venta );
+
+					//Global Options
+					if ($puntuacion_venta > 0){
+						$user_info = $users->getUsers(" AND username='".$username_venta."' ");
+						globaloptionsController::transferPoints($user_info[0]['party_id'], "rest balance", $puntuacion_venta, "Ventas del producto: ".$producto[0]['id_producto'], globaloptionsController::$store_id, date("Y-m-d h:m:s"), $expiryDate = '2013-10-04 09:12:33', $gotoken);
+					}
 				}
 			}
 			else{

@@ -47,15 +47,17 @@
 	@extend .col-lg-9;
 	@extend .inset;
 }
-.app-sidebar{
+.app-sidebar-main{
 	@extend .col-md-4;
 	@extend .col-lg-3;
+}
+.app-sidebar{
+	@extend .app-sidebar-main;
 	@extend .nopadding;
 	@extend .lateral-container;
 }
 .app-sidebar-admin{
-	@extend .col-md-4;
-	@extend .col-lg-3;
+	@extend .app-sidebar-main;
 }
 /*Fin Maquetacion APP*/
 
@@ -426,6 +428,18 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 /*Login page*/
+#page-login #login-container-deg{
+	margin-top: -15%;
+	@include opacity(0);
+}
+// #page-login .login-container{
+// 	@include opacity(0);
+// }
+// #page-login .login-container form{
+// 	position: relative;
+// 	right:-5%;
+// 	@include opacity(0);
+// }
 #login-container-deg{
 	@extend .free-container;
 	margin: 10% 0 0 0;
@@ -695,6 +709,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	color: $panels-color-text;
 	overflow: hidden;
 	padding: 0 15px 15px 15px;
+	width: 100%;
 	h1, h2, h3, h4, h5, h6{
 		color: $panels-color-title;
 		margin-top:15px;
@@ -883,7 +898,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		display: inline-block;
 		float: left;
 		font-size: $font-size-community;
-		width: 60%;	
+		width: 70%;	
 		span{
 			color:#999;
 		}
@@ -895,7 +910,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	.media-preview{
 		float: left;
 		margin-right: 5%;
-		width: 35%;
+		width: 25%;
 	}
 }
 #form-video-comment{
@@ -1413,6 +1428,12 @@ dt {
 		&:hover{
 			color: $color1;
 		}
+	}
+}
+.navbar-default{
+	.navbar-form{
+		margin: 3px;
+		padding: 0px;
 	}
 }
 /*Fin bootstrap*/

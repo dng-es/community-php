@@ -34,7 +34,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 			$id_tema=$_REQUEST['id'];
 		}
 		else{
-						//SELECCION ULTIMO ID BLOG
+			//SELECCION ULTIMO ID BLOG
 			$filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
 			$id_tema = connection::SelectMaxReg("id_tema", "foro_temas", $filtro_blog." AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
 		}
@@ -52,13 +52,14 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 
 		if (isset($id_tema) and $id_tema!=""){
 
-			//SHOW PAGINATOR
+			//buscador
 			if (isset($_POST['find_reg'])) {$filtro_comentarios=" AND c.id_tema=".$_POST['find_reg']." ";$find_reg=$_POST['find_reg'];}
 			if (isset($id_tema)) {$filtro_comentarios=" AND c.id_tema=".$id_tema." ";$find_reg=$id_tema;} 
 
 			if ($filtro_comentarios==""){$filtro_comentarios=" AND c.id_tema=0 ";}
 			$filtro_comentarios .= " AND estado=1 ";
 			 
+			//paginador
 			$reg = 10;
 			if (isset($_GET["pag"]) and $_GET["pag"]!="") {$pag = $_GET["pag"];}
 			if (!isset($pag)) { $inicio = 0; $pag = 1;}
@@ -67,35 +68,42 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 			$total_reg = connection::countReg("foro_comentarios c",$filtro_comentarios);
 			$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$id_tema." ");
 
-			echo '<h2>'.$tema[0]['nombre'].'</h2>
-				<p class="legend">
-					<span class="text-muted">'.getDateFormat($tema[0]['date_tema'], "LONG").'</span><br />';
-
-			if ($module_config['options']['allow_comments']==true ) echo '<span class="fa fa-comment"></span> '.$total_reg.' '.strTranslate("Comments").' ';
-
-			echo ' <span class="fa fa-eye"></span> '.$num_visitas.' '.strTranslate("Visits").'</span>
-				</p>';
-			showTags($tema[0]['tipo_tema']);
-			echo $tema[0]['descripcion'];
-
-			//enlaces de pagina siguiente y anterior
-			$anterior_disabled="";
+			//enlaces de pagina anterior
+			$anterior_disabled = "";
 			$anterior = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema>".$id_tema." ORDER BY id_tema ASC  LIMIT 1");
-			if (count($anterior)!=1){$anterior_disabled = "disabled";$anterior_enlace="#";}
+			if (count($anterior)!=1){$anterior_disabled = "disabled";$anterior_enlace = "#";}
 			else{$anterior_enlace = "blog?id=".$anterior[0]['id_tema'];}
 
-			$siguiente_disabled="";
+			//enlaces de pagina siguiente
+			$siguiente_disabled = "";
 			$siguiente = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema<".$id_tema." ORDER BY id_tema DESC LIMIT 1");
-			if (count($siguiente)!=1){$siguiente_disabled = "disabled";$siguiente_enlace="#";}
-			else{$siguiente_enlace='blog?id='.$siguiente[0]['id_tema'];}
+			if (count($siguiente) != 1){$siguiente_disabled = "disabled"; $siguiente_enlace = "#";}
+			else{$siguiente_enlace = 'blog?id='.$siguiente[0]['id_tema'];}
 
-			//enlaces de pagina siguiente y anterior
-			echo '<hr />
-				<ul class="pager">
-					<li class="previous '.$anterior_disabled .'"><a href="'.$anterior_enlace.'">&larr; '.strTranslate("Previous_post").'</a></li>
-					<li class="next '.$siguiente_disabled .'"><a href="'.$siguiente_enlace.'">'.strTranslate("Next_post").' &rarr;</a></li>
-				</ul>
-				<hr />';
+			?>
+			<div class="panel panel-default panel-comunidad">
+				<div class="panel-footer">
+					<h4><a href="<?php echo $destino.'?id='.$sub_tema['id_tema'];?>"><?php echo $tema[0]['nombre'];?></a></h4>
+					<span><?php echo getDateFormat($tema[0]['date_tema'], "LONG");?></span>
+					<?php if ($module_config['options']['allow_comments']==true ):?>
+					<span class="fa fa-comment" title="comentarios en el foro"></span>
+					<span class="contador-foro-counter"><?php echo $total_reg;?></span> <?php echo strTranslate("Comments");?> 
+					<?php endif;?>
+					<span class="fa fa-eye" title="visitas al foro"></span> 
+					<span class="contador-foro-counter"><?php echo $num_visitas;?></span> <?php echo strTranslate("Visits");?> 
+					<?php showTags($tema[0]['tipo_tema']);?>
+				</div>
+				<div class="panel-body">
+					<p><?php echo $tema[0]['descripcion'];?></p>
+				</div>
+			</div>
+			<hr />
+			<ul class="pager">
+				<li class="previous <?php echo $anterior_disabled;?>"><a href="<?php echo $anterior_enlace;?>">&larr; <?php echo strTranslate("Previous_post");?></a></li>
+				<li class="next <?php echo $siguiente_disabled ;?>"><a href="<?php echo $siguiente_enlace;?>"><?php echo strTranslate("Next_post");?> &rarr;</a></li>
+			</ul>
+			<hr />
+			<?php
 		}    
 
 
@@ -155,7 +163,6 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 			<?php
 			//BUSCADOR
 			searchBlog();
-
 			?>
 			<h4>
 				<span class="fa-stack fa-sx">
@@ -164,8 +171,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 				</span>
 				<?php echo strTranslate("Last_blog");?>
 			</h4>
-			<?php 
-			
+			<?php 			
 			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
 			entradasBlog($elements);
 			?>
@@ -190,7 +196,6 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 			<?php
 			$elements = $foro->getCategorias($filtro_blog." AND ocio=1 ");
 			categoriasBlog($elements);
-
 			?>
 		</div>
 	</div>

@@ -11,7 +11,7 @@ $users = new users();
 ?>
 
 <div class="row row-top">
-	<div class="app-main">
+	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -93,7 +93,7 @@ $users = new users();
 		</div>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
-	<div class="app-sidebar">
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 			<h4><?php echo strTranslate("Incentives");?></h4>
 			<p>Estos son tus incentivos y el porcentaje de consecución. Tambien puedes ver el ranking de cada objetivo y comprobar quienes son los mejores.</p>
@@ -121,7 +121,7 @@ function showGraph($id_target, $conseguido, $pendiente){
 		// this makes the chart 3D
 		chart.depth3D = 15;
 		chart.angle = 30;
-		chart.colors = ["#d9534f", "#5cb85c"]
+		chart.colors = ["#cc1c4a", "#5cb85c"]
 
 		//FULL WIDTH/HEIGHT
 		chart.labelsEnabled = false;

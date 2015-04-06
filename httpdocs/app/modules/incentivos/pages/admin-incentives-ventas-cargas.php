@@ -2,7 +2,7 @@
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("users")."js/admin-cargas.js"));
 ?>
 <div class="row row-top">
-	<div class="app-main">
+	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),

@@ -4,11 +4,17 @@ class cuestionariosController{
 		$cuestionarios = new cuestionarios();
 		$paginator_items = PaginatorPages($reg);
 		
+		$find_reg = "";
+		if (isset($_POST['find_reg'])) {$filtro.=" AND nombre LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filtro.=" AND nombre LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];}
+
+		$filtro .= " ORDER BY id_cuestionario DESC";
+
 		$total_reg = connection::countReg("cuestionarios",$filtro); 
 		return array('items' => $cuestionarios->getCuestionarios($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
-					'find_reg' 	=> $paginator_items['find_reg'],
+					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
 	}
 

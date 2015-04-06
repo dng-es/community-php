@@ -27,7 +27,7 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 ?>
 
 <div class="row row-top">
-	<div class="app-main">
+	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -98,11 +98,11 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 				$usuario_rev=$users->getUsers(" AND username='".$revision['user_tarea']."' ");
 				if ($revision['revision']==1){
 					$imagen_revision='<i class="fa fa-check icon-ok"></i>';
-					$destino_validar_revision="";}
+					$destino_validar_revision="onClick='return false'";}
 				else {
 					$imagen_revision='<i class="fa fa-exclamation icon-alert"></i>';
 					$destino_validar_revision='onClick="Confirma(\'¿Seguro que desea marcar como revisada la tarea del usuario '.$revision['user_tarea'].'?\',
-								\'admin-area-revs?act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\')"';}
+								\'admin-area-revs?act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\'); return false"';}
 								
 				echo '<tr>';      
 				echo '<td><a href="inbox?n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a> ';  
@@ -174,7 +174,7 @@ function revisionesFormulario($id_tarea,$id_area,$id_grupo){
 						</form>
 					</td>';
 				echo '<td>('.getDateFormat($revision['date_finalizacion'], "DATE_TIME").')</td>';
-				echo '<td><a href="#" onclick="createDialog('.$id_tarea.',\''.$revision['user_tarea'].'\')">ver respuestas</a></td>';       
+				echo '<td><a href="#" onclick="createDialog('.$id_tarea.',\''.$revision['user_tarea'].'\'); return false;">ver respuestas</a></td>';       
 				echo '</tr>';
 			endforeach;
 			echo '</table>

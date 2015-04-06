@@ -22,9 +22,8 @@
 				<tr>
 					<th width="40px"></th>
 					<th><?php echo strTranslate("Name");?></th>
-					<th><?php echo strTranslate("Date");?></th>
 					<th><?php echo strTranslate("User");?></th>
-					<th><?php echo strTranslate("Photos");?></th>
+					<th><center><?php echo strTranslate("Photos");?></center></th>
 				</tr>
 				<?php foreach($elements['items'] as $element):
 				$num_fotos = connection::countReg("galeria_fotos", "AND estado=1 AND id_album=".$element['id_album']." "); ?>
@@ -43,10 +42,11 @@
 						</span>
 					 </td>';
 							
-				echo '<td>'.$element['nombre_album'].'</td>';
-				echo '<td>'.getDateFormat($element['date_album'], "SHORT").'</td>';
+				echo '<td>'.$element['nombre_album'];
+				echo '<br /><em class="text-muted"><small>'.getDateFormat($element['date_album'], "LONG").'</small></em>';
+				echo '</td>';
 				echo '<td>'.$element['username_album'].'</td>';
-				echo '<td>'.$num_fotos.'</td>';
+				echo '<td><center>'.$num_fotos.'</center></td>';
 				echo '</tr>';   
 				endforeach;?>
 			</table>

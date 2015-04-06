@@ -32,7 +32,7 @@ $elements = usersController::getListAction(35);
 			<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php echo strTranslate("Export");?></a></li>
 			<li><a href="<?php echo $_REQUEST['page'].'?export_s=true';?>">Exportar estadísticas</a></li>
 			<div class="pull-right">
-				<?php echo SearchForm($elements['reg'],"admin-users","searchForm","buscar usuario","Buscar","","navbar-form navbar-left");?>	
+				<?php echo SearchForm($elements['reg'],"admin-users","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>	
 			</div>
 		</ul>
 

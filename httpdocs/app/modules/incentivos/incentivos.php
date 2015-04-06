@@ -11,7 +11,7 @@ class incentivosCore {
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */	
-	public static function userMenu(){
+public static function userMenu(){
 		$array_final = array();
 		global $session;
 		$array_final_items = array();

@@ -23,7 +23,7 @@ function entradasBlog($elements){
 				<img src="images/foro/'.$element['imagen_tema'].'" class="media-preview" alt="'.$element['nombre'].'" /></a>
 				<div>
 					<a href="blog?id='.$element['id_tema'].'">'.$element['nombre'].'</a><br />
-					<span>'.getDateFormat($element['date_tema'], "LONG").'</span>
+					<span><small>'.getDateFormat($element['date_tema'], "LONG").'</small></span>
 				</div>
 			  </div>';
 	endforeach;	

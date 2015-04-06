@@ -163,7 +163,7 @@ function Paginator($pag,$reg,$total_reg,$pag_dest,$title,$find_reg="",$num_pagin
 		for ($i = $pagina_inicial; $i <= $pagina_final; $i++){
 			if($i <= $total_pag){
 				if ($pag == $i) { echo '<li class="active"><a href="#">'.$pag.'</a></li>';}
-				else { echo '<li><a href="'.$pag_dest.'&'.$pagecount_dest.'='.$i.'&regs='.$reg.'&f='.$find_reg.'">'.$i.'</a></li>';}
+				else { echo '<li><a href="'.$pag_dest.'?'.$pagecount_dest.'='.$i.'&regs='.$reg.'&f='.$find_reg.'">'.$i.'</a></li>';}
 			}
 		}
 		

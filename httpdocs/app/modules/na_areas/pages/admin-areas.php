@@ -27,8 +27,12 @@ if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
 $na_areas = new na_areas();
 $find_reg = "";
 $find_text = "";
+$filtro = "";
 
-$filtro = " AND estado<>2  ORDER BY area_nombre";
+if (isset($_POST['find_reg'])) {$filtro.=" AND area_nombre LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
+if (isset($_REQUEST['f'])) {$filtro.=" AND area_nombre LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];}
+$filtro .= " AND estado<>2  ORDER BY id_area DESC";
+
 
 //SHOW PAGINATOR
 $reg = 10;
@@ -57,6 +61,10 @@ $elements=$na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $total_reg;?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>    
 			<li><a href="admin-area?act=new"><?php echo strTranslate("Na_areas_new");?></a></li>
 			<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q=<?php echo $find_text;?>"><?php echo strTranslate("Export");?></a></li>
+			<div class="pull-right">
+				<?php echo SearchForm($elements['reg'],"admin-areas","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
+			</div>
+
 		</ul>
 
 		<div class="table-responsive">
@@ -65,7 +73,6 @@ $elements=$na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 					<th width="40px">&nbsp;</th>
 					<th><?php echo strTranslate("Na_areas");?></th>
 					<th><?php echo strTranslate("Channel");?></th>
-					<th><?php echo strTranslate("Date");?></th>
 				</tr>		
 				<?php foreach($elements as $element): ?>
 					<?php
@@ -95,9 +102,9 @@ $elements=$na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 							<a href="#" onClick="Confirma('¿Seguro que quieres <?php echo $texto_activar;?> el curso?', 'admin-areas?act=del&e=<?php echo $valor_activar;?>&id=<?php echo $element['id_area'];?>')" 
 							title="<?php echo $texto_activar;?> curso" /><?php echo $imagen_revision;?></a>
 						</td>						
-						<td><?php echo $element['area_nombre'];?></td>
+						<td><?php echo $element['area_nombre'];?>
+						<br /><em class="text-muted"><small><?php echo getDateFormat($element['area_fecha'], "LONG");?></small></em></td>
 						<td><?php echo $element['area_canal'];?></td>
-						<td><?php echo getDateFormat($element['area_fecha'], "SHORT").'</td>';?>
 						</tr>
 				<?php endforeach; ?>
 			</table>

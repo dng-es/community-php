@@ -7,7 +7,7 @@ $total_puntos = connection::sumReg("incentives_ventas_puntos", "puntuacion_venta
 ?>
 
 <div class="row row-top">
-	<div class="app-main">
+	<div class="col-md-9 inset">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -52,7 +52,7 @@ $total_puntos = connection::sumReg("incentives_ventas_puntos", "puntuacion_venta
 		</div>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 	</div>
-	<div class="app-sidebar">
+	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 			<h4><?php echo strTranslate("Incentives");?></h4>
 			<p>Estas son tus ventas y los puntos conseguidos por ellas.</p>
