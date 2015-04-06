@@ -82,28 +82,7 @@
 		            preserveComments: false
 		       }
 		   },
-		},	
-
-		imagemin: {                          // Task
-
-			jpg: {
-			      options: {
-			        progressive: true
-			      },
-			      files: [
-			        {
-			          // Set to true to enable the following options…
-			          expand: true,
-			          // cwd is 'current working directory'
-			          cwd: '../httpdocs/images/',
-			          src: ['*.jpg'],
-			          // Could also match cwd. i.e. project-directory/img/
-			          dest: '../httpdocs/images/build/',
-			          ext: '.jpg'
-			        }
-			      ]
-			    }
-		  }
+		}
 
 	});
  
@@ -112,11 +91,10 @@
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-compass');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-imagemin');
 
 	// TASKS =====================================/
 
 	grunt.registerTask('default', []);
-	grunt.registerTask('prod', ['compass:prod', 'uglify:prod', 'images']);
-	grunt.registerTask('dev', ['compass:dev', 'uglify:dev', 'images']);
+	grunt.registerTask('prod', ['compass:prod', 'uglify:prod']);
+	grunt.registerTask('dev', ['compass:dev', 'uglify:dev']);
 };
