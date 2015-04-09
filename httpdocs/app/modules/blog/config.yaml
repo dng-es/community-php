@@ -2,7 +2,3 @@
 options:
     allow_comments: true
     show_alarms: true
-security:
-    - 
-        page: ^admin
-        role: admin
