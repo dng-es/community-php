@@ -1,4 +1,10 @@
 <?php
+/**
+* @Modulo de foros
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @version  1.0.1
+*
+*/	
 class foroCore{
 	/**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario

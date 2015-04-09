@@ -1,10 +1,4 @@
-<?php
-/**
-* @Modulo de fotos, depends on Users module. 
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0
-*
-*/	
+<?php	
 class fotos{
 
 	public function getFotos($filter = ""){

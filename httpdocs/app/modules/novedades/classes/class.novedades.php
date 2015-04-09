@@ -1,10 +1,4 @@
 <?php
-/**
-* @Modulo Novedades
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0
-*
-*/	
 class novedades {
  
 	public function getNovedades($filter = ""){

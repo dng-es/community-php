@@ -1,7 +1,0 @@
-options:
-	forums: true
-	tasks_file: true
-	tasks_form: true
-security:
-	- { page: admin-area, role: admin }
-	- { page: admin-areas, role: admin }

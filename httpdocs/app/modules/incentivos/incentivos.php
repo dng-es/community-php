@@ -1,7 +1,7 @@
 <?php
 /**
 * @Manage incentivos
-* @author [author] <[email]>
+* @author David Noguera <dnoguera@imagar.com>
 * @version 1.0
 *
 */

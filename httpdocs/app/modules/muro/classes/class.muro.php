@@ -1,10 +1,4 @@
 <?php
-/**
-* @Modulo muro
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0
-* 
-*/	
 class muro{ 
 	public function getComentarios($filter = ""){
 		$Sql="SELECT c.*,u.*,c.canal AS canal_comentario FROM muro_comentarios c

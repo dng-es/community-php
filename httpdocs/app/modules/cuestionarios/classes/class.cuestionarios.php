@@ -1,10 +1,4 @@
 <?php
-/**
-* @Manage cuestionarios
-* @author David Noguera Gutierrez
-* @version 1.0
-*
-*/
 class cuestionarios{
 
 	/**

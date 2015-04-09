@@ -1,4 +1,10 @@
 <?php
+/**
+* @Modulo muro
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @version 1.0
+* 
+*/	
 class muroCore{
 	/**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario

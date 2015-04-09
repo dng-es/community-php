@@ -235,12 +235,6 @@ class ".$moduleName."Core {
 	private function fileClassContent( $moduleName ){
 		$content = "<?php
 
-/**
-* @Manage ".$moduleName."
-* @author [author] <[email]>
-* @version 1.0
-*
-*/
 class ".$moduleName."{
 
 	/**

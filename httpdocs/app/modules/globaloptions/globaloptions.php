@@ -1,7 +1,7 @@
 <?php
 /**
 * @Manage globaloptions
-* @author [author] <[email]>
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0
 *
 */

@@ -33,7 +33,7 @@ class configurationController{
 		$listModules = array();
 		$folders = getListModules();
 		foreach($folders as $folder):
-			$annotations = FileSystem::getClassAnnotations($folder['folder']);
+			$annotations = FileSystem::getClassAnnotations($folder['folder']."Core");
 			$ano = $annotations[1];
 			$ann ="";
 			foreach($ano as $annotation):

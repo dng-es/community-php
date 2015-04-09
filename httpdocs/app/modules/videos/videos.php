@@ -1,4 +1,10 @@
 <?php
+/**
+* @Videos module, depends on Users module.
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @version 1.0.1 
+* 
+*/	
 class videosCore{
 	/**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario

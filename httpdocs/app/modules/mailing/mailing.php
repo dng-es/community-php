@@ -1,4 +1,10 @@
 <?php
+/**
+* @Modulo para mailing masivo
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @version 1.2.1
+* 
+*/	
 class mailingCore{
 /**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario

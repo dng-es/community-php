@@ -1,9 +1,4 @@
 <?php
-/**
-* @Configuration app module
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.1.1
-*/	
 class configuration{
 
 	function getConfigIni($filter = ""){

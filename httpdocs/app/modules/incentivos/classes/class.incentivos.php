@@ -1,11 +1,4 @@
 <?php
-
-/**
-* @Manage incentivos
-* @author David Noguera <dnoguera@imagar.com>
-* @version 1.0
-*
-*/
 class incentivos{
 
 	/**

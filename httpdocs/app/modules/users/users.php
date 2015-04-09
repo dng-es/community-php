@@ -1,4 +1,10 @@
 <?php
+/**
+* @Modulo de usuarios
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @version 1.0.1
+* 
+*/	
 class usersCore{
 	/**
 	 * Elementos para el menu de usuarios

@@ -1,4 +1,9 @@
 <?php
+/**
+* @Configuration app module
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @version 1.1.1
+*/	
 class configurationCore{
 	/**
 	 * Elementos para el menu de administración

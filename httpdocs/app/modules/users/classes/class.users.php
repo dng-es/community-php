@@ -1,10 +1,4 @@
 <?php
-/**
-* @Modulo de usuarios
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0.1
-* 
-*/	
 class users{
 	
 	public function getPerfiles($filter = ""){

@@ -1,4 +1,10 @@
 <?php
+/**
+* @Manage cuestionarios
+* @author David Noguera Gutierrez
+* @version 1.0
+*
+*/
 class cuestionariosCore{
 	/**
 	 * Elementos para el menu de administración

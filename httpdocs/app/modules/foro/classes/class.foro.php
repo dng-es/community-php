@@ -1,10 +1,4 @@
 <?php
-/**
-* @Modulo de foros
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version  1.0.1
-*
-*/	
 class foro{
  
 	public function getTemas($filter = "") {

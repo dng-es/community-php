@@ -1,9 +1,4 @@
 <?php
-/**
-* @Control de accesos e informes estadísticos
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0
-*/	
 class visitas{
 	
 	public static function getVisitas($filter = ""){

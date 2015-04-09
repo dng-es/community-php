@@ -1,10 +1,4 @@
 <?php
-/**
-* @Modulo de gestión de páginas de la app
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.1.6
-*
-*/	
 class pages{
  
 	public function getPages($filter = ""){

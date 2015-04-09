@@ -42,9 +42,9 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 		<!-- Nav tabs -->
 		<button type="button" class="btn btn-default btn-xs connect-as pull-right" data-u="<?php echo $elements[0]['username'];?>" data-p="<?php echo $elements[0]['user_password'];?>"><i class="fa fa-plug"></i> <?php echo strTranslate("Connect_as");?></button>
 		<ul class="nav nav-tabs" id="myTab">
-		  <li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
-		  <li><a href="#statistics" data-toggle="tab"><?php echo strTranslate("Statistics");?></a></li>
-		  <li><a href="#permissions" data-toggle="tab"><?php echo strTranslate("Permissions");?></a></li>
+			<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
+			<li><a href="#statistics" data-toggle="tab"><?php echo strTranslate("Statistics");?></a></li>
+			<li><a href="#permissions" data-toggle="tab"><?php echo strTranslate("Permissions");?></a></li>
 		</ul>		
 		
 		<div class="tab-content">

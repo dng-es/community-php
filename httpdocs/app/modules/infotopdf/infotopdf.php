@@ -1,4 +1,10 @@
 <?php
+/**
+* @Libreria de archivos descargables para el usuario
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @version 1.1.1
+*
+*/	
 class infotopdfCore{
 	public static function userMenu(){
 		$array_final = array();

@@ -11,7 +11,7 @@
 		$elements = na_areasController::getListAction(6, " AND estado=1 ORDER BY id_area DESC ");
 		$i = 0;
 		foreach($elements['items'] as $element):
-			$acceso = connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." AND username_area='".$_SESSION['user_name']."' "); ?>
+			$acceso = ( $_SESSION['user_perfil'] == 'admin' ? 1 : connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." AND username_area='".$_SESSION['user_name']."' ")); ?>
 		
 			<?php if ($acceso==1 or $element['registro']==1) : ?>
 				<?php if ($i==0) echo '<div class="row">';?>
