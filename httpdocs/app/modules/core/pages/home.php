@@ -72,7 +72,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 			<div class="col-md-4 ">
 				<div class="col-md-12 section full-height">
 					<h3><?php echo strTranslate("Last_photos");?></h3>
-					<?php if (isset($last_video['items'][0])): ?>
+					<?php if (isset($last_photo['items'][0])): ?>
 					<div class="media-preview-container">
 						<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
 						<div>

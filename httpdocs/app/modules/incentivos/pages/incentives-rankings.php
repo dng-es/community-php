@@ -11,7 +11,7 @@ $incentivos = new incentivos();
 ?>
 
 <div class="row row-top">
-	<div class="col-md-9 inset">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -23,6 +23,13 @@ $incentivos = new incentivos();
 			<div class="col-md-12">
 				<?php foreach($elements['items'] as $element):?>
 				<?php $ranking = incentivosController::getRankingAction($element);?>
+				<?php 
+					if ($element['tipo_objetivo'] == 'Usuario'):
+						$posicion = array_search($_SESSION['user_name'], array_column($ranking, 'usuario'));
+					else:
+						$posicion = array_search($_SESSION['user_empresa'], array_column($ranking, 'usuario'));
+					endif;
+				?>
 				<div class="panel panel-default">	
 					<div class="panel-heading"><?php echo $element['nombre_objetivo'];?></div>
 					<div class="panel-body">
@@ -30,7 +37,7 @@ $incentivos = new incentivos();
 							<div class="col-md-12">
 								<table class="table table-striped table-hover">
 								<?php for ($i = 0; $i < 10; $i++){ 
-									if ($element['tipo_objetivo']=='Usuario'){
+									if ($element['tipo_objetivo']=='Usuario' and $ranking[$i]['nick'] <> ''){
 										$texto_usuario = '<a href="user-profile?n='.$ranking[$i]['nick'].'">'.(isset($ranking[$i]) ? $ranking[$i]['usuario_nombre'] : "").'</a>';
 									}
 									else{
@@ -57,6 +64,13 @@ $incentivos = new incentivos();
 		<div class="panel-interior">
 			<h4><?php echo strTranslate("Incentives");?></h4>
 			<p>Estos son los rankings de cada objetivo, ¿estas entre los primeros? descúbrelo!!!.</p>
+			
+
+			<?php if ($posicion !== false):?>
+			<h3><?php echo strTranslate("Your_ranking");?> <small style="color:#f7c925"><?php echo $posicion+1;?></small></h3>
+			<p><?php echo round($ranking[$posicion]['porcentaje'], 2);?>% de consecución<br />
+			<?php endif;?>
+
 			<p class="text-center"><i class="fa fa-gift fa-big"></i></p>
 		</div>
 	</div>

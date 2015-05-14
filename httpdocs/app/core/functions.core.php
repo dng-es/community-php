@@ -114,7 +114,8 @@ function __autoload($classname){
 * @return 	string 		$path 				module asset container path
 */
 function getAsset($modulename){
-	$path = "app/modules/".$modulename."/resources/";
+	global $ini_conf;
+	$path = $ini_conf['SiteUrl']."/app/modules/".$modulename."/resources/";
 	return $path;
 }
 

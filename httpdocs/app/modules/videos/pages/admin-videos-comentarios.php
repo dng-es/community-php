@@ -21,7 +21,7 @@ videosController::validateCommentAction();
 			<div class="table-responsive">
 				<table class="table table-striped table-hover">
 					<tr>
-						<th width="40px">&nbsp;</th>';
+						<th width="40px">&nbsp;</th>
 						<th>ID</th>
 						<th><?php echo strTranslate("Comment");?></th>
 						<th><?php echo strTranslate("Author");?></th>
@@ -46,12 +46,5 @@ videosController::validateCommentAction();
 		<?php endif; ?>
 
 	</div>
-	<div class="col-md-3">
-		<div class="panel panel-default">
-			<div class="panel-heading"><?php echo strTranslate("Videos");?></div>
-			<div class="panel-body">
-				<a href="admin-videos"><?php echo strTranslate("Video_list");?></a>
-			</div>
-		</div>		
-	</div>
+	<?php menu::adminMenu();?>
 </div>

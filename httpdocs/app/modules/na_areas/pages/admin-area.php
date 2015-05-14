@@ -234,7 +234,7 @@ function showUsuariosArea($id_area,$area_canal){
 	            <input type="hidden" name="id_area" id="id_area" value="'.$id_area.'" />
 	            <input type="hidden" name="area_canal" id="area_canal" value="'.$area_canal.'" />
 	            <input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
-	            <button type="button" id="inputFile" name="inputFile" class="btn btn-primary">importar fichero</button>
+	            <button type="submit" id="inputFile" name="inputFile" class="btn btn-primary">importar fichero</button>
 	            <div id="fichero-alert" class="alert-message alert alert-danger alert alert-danger"></div>
 	          </form>
 	        </div>

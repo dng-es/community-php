@@ -113,6 +113,9 @@ class usersController{
 	public static function updatePerfilAction(){
 		$users = new users();
 		if (isset($_POST['user-username']) and $_POST['user-username']!=""){
+			
+			$comentarios = sanitizeInput($_POST['user-comentarios']);
+
 			$confirmar=$users->perfilUser($_POST['user-username'],
 										   $_POST['user-nick'],
 										   $_POST['user-nombre'],
@@ -120,7 +123,7 @@ class usersController{
 										   $_POST['user-pass'],
 										   $_POST['user-email'],
 										   $_FILES['nombre-fichero'],
-										   $_POST['user-comentarios'],
+										   $comentarios,
 										   $_POST['user-date']);
 			if ($confirmar == 1){
 				session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ok"), "alert alert-success");
@@ -192,9 +195,9 @@ class usersController{
 			$users = new users();
 			//VERIFICAR NOMBRE USUARIO YA EXISTE
 			if (count($users->getUsers(" AND username='".$_POST['username']."' "))==0){
-				$confirmed = ($_POST['confirmed_user']=="on" ? 1 : 0);
-				$registered = ($_POST['registered_user']=="on" ? 1 : 0);
-				$disabled = ($_POST['disabled_user']=="on" ? 1 : 0);
+				$confirmed = (isset($_POST['confirmed_user']) and $_POST['confirmed_user']=="on") ? 1 : 0;
+				$registered = (isset($_POST['registered_user']) and $_POST['registered_user']=="on") ? 1 : 0;
+				$disabled = (isset($_POST['disabled_user']) and $_POST['disabled_user']=="on") ? 1 : 0;
 				if ($users->insertUser($_POST['username'],
 							$_POST['user_password'],
 							$_POST['email_user'],

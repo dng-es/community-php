@@ -13,7 +13,7 @@
 		?>
 		<ul class="nav nav-pills navbar-default">      
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="?admin-page"><?php echo strTranslate("New_page");?></a></li>
+			<li><a href="admin-page"><?php echo strTranslate("New_page");?></a></li>
 		</ul>
 
 		<div class="table-responsive">
@@ -35,7 +35,7 @@
 						</span>
 					</td>						
 					<td><?php echo $element['page_name'];?></td>
-					<td><a href="<?php echo $ini_conf['SiteUrl'].'pagename?id='.$element['page_name'];?>" target="_blank"><?php echo $ini_conf['SiteUrl'];?>?pagename?id=<?php echo $element['page_name'];?></a></td>
+					<td><a href="<?php echo $ini_conf['SiteUrl'].'/pagename?id='.$element['page_name'];?>" target="_blank"><?php echo $ini_conf['SiteUrl'];?>/pagename?id=<?php echo $element['page_name'];?></a></td>
 				</tr>
 				<?php endforeach; ?>
 			</table>

@@ -15,6 +15,10 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 		//CONFIRMAR USUARIO
 		if (isset($_POST['user-username']) and $_POST['user-username']!=""){
 			$users = new users();
+
+
+			$comentarios = sanitizeInput($_POST['user-piensas']);
+
 			$confirmar=$users->confirmUser($_POST['user-username'],
 										   $_POST['user-nick'],
 										   $_POST['user-nombre'],
@@ -22,7 +26,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 										   $_POST['user-pass'],
 										   $_POST['user-email'],
 										   $_FILES['nombre-fichero'],
-										   $_POST['user-piensas'],
+										   $comentarios,
 										   $_POST['user-date']);
 			if ($confirmar==1){ ?>
 				<p><?php echo strTranslate("Confirmation_message");?> .</p>

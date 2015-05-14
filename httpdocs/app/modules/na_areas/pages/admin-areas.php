@@ -99,7 +99,7 @@ $elements=$na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 
 							<a href="admin-areas?id=<?php echo $element['id_area'];?>" class="fa fa-download icon-table" title="Descargar usuarios"></a>
 
-							<a href="#" onClick="Confirma('¿Seguro que quieres <?php echo $texto_activar;?> el curso?', 'admin-areas?act=del&e=<?php echo $valor_activar;?>&id=<?php echo $element['id_area'];?>')" 
+							<a href="#" onClick="Confirma('¿Seguro que quieres <?php echo $texto_activar;?> el curso?', 'admin-areas?act=del&e=<?php echo $valor_activar;?>&id=<?php echo $element['id_area'];?>'); return false;" 
 							title="<?php echo $texto_activar;?> curso" /><?php echo $imagen_revision;?></a>
 						</td>						
 						<td><?php echo $element['area_nombre'];?>
