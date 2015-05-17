@@ -578,11 +578,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 .ficha-user-tip-info{
 	color: $color1;
-	font-size: 12px;
-	span{
-		color: $color3;
-		font-weight:bolder;
-	}
 }
 .comment-mini-img{
 	@include border-radius($border-def);
@@ -597,7 +592,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 /*Mensajeria interna*/
 .MensajeTextoCuerpo{
-	background:#f9f9f9;
+	background:#fff;
 	display:none;margin:0 0 15px 0;
 	padding:10px;
 }

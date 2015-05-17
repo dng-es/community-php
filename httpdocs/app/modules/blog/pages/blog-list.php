@@ -58,8 +58,8 @@ $titulo_page="";
 			array("ItemLabel"=>$titulo_page, "ItemClass"=>"active"),
 		));
 
-		$total_reg = count($foro->getTemasComentarios($filtro_subtemas,''));
-		$sub_temas = $foro->getTemasComentarios($filtro_subtemas,' LIMIT '.$inicio.','.$reg);
+		$total_reg = connection::countReg("foro_temas t",$filtro_subtemas);
+		$sub_temas = $foro->getTemas($filtro_subtemas,' LIMIT '.$inicio.','.$reg);
 		foreach($sub_temas as $sub_tema):
 		echo '<div class="row">
 				<div class="col-md-12">';

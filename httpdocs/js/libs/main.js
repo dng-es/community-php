@@ -1,7 +1,6 @@
 jQuery(document).ready(function(){
 
 	$(".user-tip").tooltip({
-		animated : 'fade',
 		placement : 'auto top',
 		container: 'body'
 	});

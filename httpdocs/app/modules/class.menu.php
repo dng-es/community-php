@@ -31,7 +31,7 @@ class menu{
 							}
 							?>
 							<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Mailing_messages")?></a></li>
-							<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-lock visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Logout")?></a></li>
+							<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-power-off visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Logout")?></a></li>
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container-fluid -->
@@ -88,7 +88,7 @@ class menu{
 					
 					echo '<p>';
 					echo '<a href="profile">'.$_SESSION['user_nick'].'</a><br />';
-					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-lock"></i></a>';
+					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-power-off"></i></a>';
 					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear"></i></a>';}
 					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user"></i></a>';
 					echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';	

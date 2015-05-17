@@ -41,7 +41,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 					<td width="150px" valign="top" align="right" nowrap="nowrap"><span id="leidoMensajeTime<?php echo $mensaje['id_mensaje'];?>"><small class="text-muted"><?php echo getDateFormat($mensaje['date_mensaje'], "LONG");?></small></span></td>		
 				</tr>
 				<tr id="MensajeOveja<?php echo $mensaje['id_mensaje'];?>" class="MensajeTextoCuerpo">
-					<td colspan="4" id="message-body-<?php echo $mensaje['id_mensaje'];?>"><small><em class="text-muted"><?php echo nl2br($mensaje['mensaje_cuerpo']);?></em></small></td>
+					<td colspan="4" id="message-body-<?php echo $mensaje['id_mensaje'];?>" class="text-muted"><?php echo nl2br($mensaje['mensaje_cuerpo']);?></td>
 				</tr>			 
 			<?php endforeach; ?>
 			</table>

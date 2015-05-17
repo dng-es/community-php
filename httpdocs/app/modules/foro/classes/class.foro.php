@@ -2,7 +2,7 @@
 class foro{
  
 	public function getTemas($filter = "") {
-		$Sql="SELECT * FROM foro_temas WHERE 1=1 ".$filter;
+		$Sql="SELECT * FROM foro_temas t WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);  
 	}
 

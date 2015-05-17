@@ -35,12 +35,16 @@ class mensajesController{
 	public static function createAction(){
 		if (isset($_POST['texto-comentario']) and $_POST['texto-comentario']!=""){
 			$mensajes = new mensajes();
+			$nick = sanitizeInput($_POST['nick-comentario']);
+			$asunto = sanitizeInput($_POST['asunto-comentario']);
+			$mensaje = sanitizeInput($_POST['texto-comentario']);
+
 			$respuesta = $mensajes->InsertMensaje($_SESSION['user_nick'],
 																 $_SESSION['user_name'],
 																 $_SESSION['user_mail'],
-																 $_POST['nick-comentario'],
-																 $_POST['asunto-comentario'],
-																 $_POST['texto-comentario']);													 
+																 $nick,
+																 $asunto,
+																 $mensaje);													 
 			if ($respuesta==0){
 				session::setFlashMessage( 'actions_message', strTranslate("Mailing_sent_ok"), "alert alert-success");
 

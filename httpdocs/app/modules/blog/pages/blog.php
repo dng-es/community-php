@@ -96,12 +96,10 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 					<p><?php echo $tema[0]['descripcion'];?></p>
 				</div>
 			</div>
-			<hr />
 			<ul class="pager">
 				<li class="previous <?php echo $anterior_disabled;?>"><a href="<?php echo $anterior_enlace;?>">&larr; <?php echo strTranslate("Previous_post");?></a></li>
 				<li class="next <?php echo $siguiente_disabled ;?>"><a href="<?php echo $siguiente_enlace;?>"><?php echo strTranslate("Next_post");?> &rarr;</a></li>
 			</ul>
-			<hr />
 			<?php
 		}    
 
