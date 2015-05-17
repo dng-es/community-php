@@ -5,30 +5,32 @@ function userTip($id,$user_data,$estrellas_print,$movil=0){
 		$path_foto="";
 		if ($user_data['foto']==""){$foto="user.jpg";}
 		else {$foto=$user_data['foto'];}
-			echo '<div id="a'.$id.'Tip" class="ficha-user-tip">							
+			$output = '<div id="a'.$id.'Tip" class="text-left">							
 					<table cellpadding="3" cellspacing="0">
 					<tr><td valign="top">
 					<img src="'.$path_foto.PATH_USERS_FOTO.$foto.'" class="imgUserTip" />
 					</td>
 					<td>
 					<span>
-					<span class="ficha-user-tip-info">'.strTranslate("Nick").': <span>'.$user_data['nick'].'</span></span><br />
-					<span class="ficha-user-tip-info">'.strTranslate("Name").': <span>'.$user_data['name'].' '.$user_data['surname'].'</span></span><br />';
+					<span>'.strTranslate("Nick").': <span class="ficha-user-tip-info">'.$user_data['nick'].'</span></span><br />
+					<span>'.strTranslate("Name").': <span class="ficha-user-tip-info">'.$user_data['name'].' '.$user_data['surname'].'</span></span><br />';
 			if ($user_data['user_date']!=''){
 				$dia = getDateFormat($user_data['user_date'], "DAY");
 				$mes = getDateFormat($user_data['user_date'], "MONTH_LONG");		
 				$fecha_nacimiento=$dia." de ".$mes;
-				echo '<span class="ficha-user-tip-info">'.strTranslate("Born_date").': <span>'.$fecha_nacimiento.'</span></span><br />';}
+				$output .= '<span>'.strTranslate("Born_date").': <span class="ficha-user-tip-info">'.$fecha_nacimiento.'</span></span><br />';}
 			//echo '	<span class="ficha-user-tip-info">Centro de trabajo: <span>'.$user_data['nombre_tienda'].'</span></span><br />';
 			//echo '	<span class="ficha-user-tip-info">Provincia: <span>'.$user_data['provincia'].'</span></span><br />';
-			echo '	<span class="ficha-user-tip-info">'.ucfirst(strTranslate("APP_points")).': <span>'.$user_data['puntos'].'</span></span><br />';
-			echo (trim($user_data['user_comentarios'])!="" ? '<span class="text-muted"><em><small>'.$user_data['user_comentarios'].'</small></em></span><br />' : "");
-			echo '	</span>
+			$output .=  '	<span>'.ucfirst(strTranslate("APP_points")).': <span class="ficha-user-tip-info">'.$user_data['puntos'].'</span></span><br />';
+			$output .=  (trim($user_data['user_comentarios'])!="" ? '<span class="text-muted"><em><small>'.$user_data['user_comentarios'].'</small></em></span><br />' : "");
+			$output .=  '	</span>
 					<span>'.$estrellas_print.'</span>
 					</td>
 					</tr>
 					</table>
 				</div>';
+
+		return $output;
 }
 
 function userFicha($user_data,$movil=0){
@@ -39,9 +41,9 @@ function userFicha($user_data,$movil=0){
 	if ($user_data['foto']==""){$foto="user.jpg";}
 	else {$foto=$user_data['foto'];}
 	$estrellas_print = userEstrellas($user_data['participaciones']);
-	echo '				<a class="pull-left betterTip" id="a'.$user_data['id_comentario'].'" href="$a'.$user_data['id_comentario'].'Tip?width='.$tam_foto.'" title="'.strTranslate("User_info").' <em>'.$user_data['nick'].'</em>">
+							
+	echo '				<a data-html="true" class="user-tip pull-left" title="'.str_replace('"', '\'', userTip($user_data['id_comentario'],$user_data,$estrellas_print,$movil)).'" id="a'.$user_data['id_comentario'].'" href="user-profile?n='.$user_data['nick'].'" >
 						<img class="comment-mini-img" src="'.$path_foto.$foto.'" />';							
-	userTip($user_data['id_comentario'],$user_data,$estrellas_print,$movil);						
 	echo $estrellas_print;
 	echo '</a>';
 }

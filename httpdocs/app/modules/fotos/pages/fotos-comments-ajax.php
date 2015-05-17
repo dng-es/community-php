@@ -17,7 +17,6 @@ $module_config = getModuleConfig("fotos");
 <head>
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
 	<script type="text/javascript" src="js/main.min.js"></script>
-	<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>
 	<script src="<?php echo getAsset("fotos");?>js/fotos-gallery-ajax.js"></script>
 </head>
 <body>

@@ -3,8 +3,7 @@
 templateload("addcomment","foro");
 templateload("comment","foro");
 
-addJavascripts(array("js/jquery.bettertip.pack.js", 
-					 "js/jquery.jtextarea.js", 
+addJavascripts(array("js/jquery.jtextarea.js", 
 					 getAsset("foro")."js/foro-comentario.js"));
 
 ?>

@@ -16,15 +16,6 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="css/styles.css" />
 		<script language="JavaScript" src="app/modules/muro/resources/js/muro-respuestas-ajax.js"></script>
-		
-		<!-- tooltip --> 
-		<script type="text/javascript" src="js/jquery.bettertip.pack.js"></script> 
-		<script type="text/javascript">
-			$(function(){
-					BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
-			})
-		</script>
-		<!-- fin tooltip --> 
 		<script type="text/javascript">
 			jQuery(document).ready(function(){
 				var ahora = "<?php echo connection::timeServer();?>";
@@ -35,6 +26,10 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 						if (date) {
 								$(this).text(date);
 						}
+				});
+
+				$(".user-tip").tooltip({
+					'placement': 'left'
 				});
 			});
 		</script>	 

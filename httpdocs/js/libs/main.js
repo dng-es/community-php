@@ -1,4 +1,11 @@
 jQuery(document).ready(function(){
+
+	$(".user-tip").tooltip({
+		animated : 'fade',
+		placement : 'auto top',
+		container: 'body'
+	});
+
 	$(".disabled a").click(function(e){
 		e.preventDefault();
 	});

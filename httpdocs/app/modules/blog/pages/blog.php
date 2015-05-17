@@ -4,8 +4,7 @@ templateload("comment","foro");
 templateload("addcomment","blog");
 templateload("tags","blog");
 
-addJavascripts(array("js/jquery.bettertip.pack.js", 
-					 "js/jquery.jtextarea.js", 
+addJavascripts(array("js/jquery.jtextarea.js", 
 					 getAsset("blog")."js/blog.js", 
 					 getAsset("foro")."js/foro-comentario.js"));
 
