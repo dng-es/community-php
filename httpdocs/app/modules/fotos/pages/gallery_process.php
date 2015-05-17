@@ -32,16 +32,7 @@ else{
 		<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/css/styles.css" />	
-		<!-- tooltip --> 
 		<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/main.min.js"></script> 
-		<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/jquery.bettertip.pack.js"></script> 
-		<script type="text/javascript">
-			$(function(){
-					BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
-			})
-		</script>
-
-		<!-- fin tooltip -->  
 	</head>
 	<body>
 	<?php

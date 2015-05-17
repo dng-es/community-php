@@ -17,15 +17,6 @@ include_once($base_dir . "modules/muro/classes/class.muro.php");
 		<script type="text/javascript" src="js/main.min.js"></script>		
 		<script language="JavaScript" src="app/modules/muro/resources/js/muro-comentario.js"></script>
 		<script language="JavaScript" src="app/modules/muro/resources/js/muro-respuestas-ajax.js"></script>
-		
-		<!-- tooltip -->  
-	    <script type="text/javascript" src="js/jquery.bettertip.pack.js"></script>        
-	    <script type="text/javascript">
-	        $(function(){
-	            BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
-	        })
-	    </script>
-	    <!-- fin tooltip -->
 
 		<!-- fechas -->
 		<script type="text/javascript">

@@ -41,9 +41,6 @@ $(window).scroll(function(){
 });*/
 
 jQuery(document).ready(function(){
-
-	BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
-
 	id_album = $.getURLParam("id");
 	nick = $.getURLParam("n");
 	find_text = $.getURLParam("find_reg");

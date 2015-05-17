@@ -1,7 +1,7 @@
 <?php
 templateload("addmessage","mensajes");
 
-addJavascripts(array("js/jquery.bettertip.pack.js", getAsset("mensajes")."js/inbox.js"));
+addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 ?>  
 <div class="row row-top">
 	<div class="app-main">

@@ -6,8 +6,6 @@ templateload("tipuser","users");
 addJavascripts(array(getAsset("mensajes")."js/inbox.js", 
 					 getAsset("users")."js/user-profile.js",
 					 "js/bootstrap.file-input.js", 
-					 "js/jquery.bettertip.pack.js",
-					 "js/jquery.bettertip.pack.js", 
 					 "js/jquery.geturlparam.js", 
 					 getAsset("fotos")."js/fotos.js"));
 

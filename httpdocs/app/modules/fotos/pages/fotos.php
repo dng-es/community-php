@@ -5,7 +5,6 @@ templateload("addfile","fotos");
 templateload("searchfile","fotos");
 
 addJavascripts(array("js/bootstrap.file-input.js", 
-					 "js/jquery.bettertip.pack.js", 
 					 "js/jquery.geturlparam.js", 
 					 getAsset("fotos")."js/fotos.js"));
 

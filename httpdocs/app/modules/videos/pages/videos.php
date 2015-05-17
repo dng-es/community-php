@@ -3,7 +3,6 @@ templateload("searchfile","videos");
 
 addJavascripts(array("js/bootstrap.file-input.js", 
 					 "js/libs/jwplayer/jwplayer.js", 
-					 "js/jquery.bettertip.pack.js", 
 					 getAsset("videos")."js/videos.js"));
 
 if (isset($_REQUEST['id']) and $_REQUEST['id']>0){

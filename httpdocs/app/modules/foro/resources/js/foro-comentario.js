@@ -1,8 +1,4 @@
 // JavaScript Document
-$(function(){
-		BT_setOptions({openWait:250, closeWait:0, cacheEnabled:true});
-})
-
 jQuery(document).ready(function(){
 
 	var maxsize_textarea = 600;
