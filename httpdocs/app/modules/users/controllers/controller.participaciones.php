@@ -22,7 +22,6 @@ class usersParticipacionesController{
 			echo array2csv($elements);
 			die();
 		}	
-	}	
-	
+	}
 }
 ?>

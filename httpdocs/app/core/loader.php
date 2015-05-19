@@ -1,18 +1,18 @@
 <?php
 include_once ("functions.core.php");
 
-//OBTENER PAGINA SOLICITADA. SI NO LA PAGINA DE LOGIN
+//Get requested page. If not requested page get default page
 $page = (isset($_REQUEST['page']) and $_REQUEST['page']!="") ? $_REQUEST['page'] : APP_DEF_PAGE;
 
-//LOGOUT SESSION
+//Logut session
 if ($page=='logout') {session::destroySession();}
 
-//LOGIN-SESSION
+//Login session
 $session = new session();
 $session->validateUserSession();
 $user_permissions = $session->user_permissions;
 
-//CARGAR MODULOS
+//Load modules
 $array_usermenu = array();
 $array_adminmenu = array();
 $modules = getListModules();		

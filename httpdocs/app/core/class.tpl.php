@@ -1,15 +1,29 @@
 <?php
 class tpl{
+
+	/**
+	 * Set template
+	 * @param  string 	$template_file 		Template file name
+	 * @param  string 	$modulename    		Module name whre template is placed
+	 */
 	function tpl($template_file, $modulename){
 		$this->tpl_file = dirname(__FILE__) . '/../modules/'.$modulename.'/templates/mails/' . $template_file . '.tpl';
 	}
 	
+	/**
+	 * Set template vars
+	 * @param array 	$vars 		Vars in template: var name and value
+	 */
 	function setVars($vars){
 		global $ini_conf;
 		$vars = array_merge($vars, $ini_conf);
-		$this->vars= (empty($this->vars)) ? $vars : $this->vars . $vars;
+		$this->vars = (empty($this->vars)) ? $vars : $this->vars . $vars;
 	}
 	
+	/**
+	 * Get template
+	 * @return string HTML template
+	 */
 	function getTpl(){
 		if (!($this->fd = @fopen($this->tpl_file, 'r'))) {
 			echo 'error al abrir la plantilla ' . $this->tpl_file;

@@ -65,14 +65,6 @@ class usersController{
 		}  		
 	}
 
-	public static function createAction(){
-		
-	}
-
-	public static function updateAction(){
-
-	}
-
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
 			$users = new users();

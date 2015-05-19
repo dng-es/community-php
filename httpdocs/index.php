@@ -5,15 +5,15 @@ include_once(pageRouter($page . ".php"));
 $output = ob_get_contents();
 ob_end_clean();
 
-//TEMPLATE PAGE HEADERS
+//Template page header
 headers::PageHeader();
 
-//TEMPLATE PAGE BODY
+//Template page body
 headers::PageBody($ini_conf,$page);
 
-//PAGE BODY
+//Template page body
 echo $output;
 
-//TEMPLATE PAGE FOOTER
+//Template page footer
 footer::PageFooter();
 ?>

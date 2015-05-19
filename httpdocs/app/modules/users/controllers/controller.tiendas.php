@@ -22,7 +22,7 @@ class usersTiendasController{
 	public static function getItemAction($id = ""){
 			$users = new users();
 			$plantilla = $users->getTiendas(" AND cod_tienda='".$id."' ");	
-			return  $plantilla[0];	
+			return  $plantilla[0];
 	}
 
 	public static function exportListAction(){
@@ -33,14 +33,6 @@ class usersTiendasController{
 			echo array2csv($elements);
 			die();
 		}
-	}	
-
-	public static function createAction(){
-	
-	}
-
-	public static function deleteAction(){
-
 	}		
 }
 ?>

@@ -1,5 +1,6 @@
 <?php
 class pagesController{
+	
 	public static function getListAction($reg = 0){
 		$pages = new pages();
 		$filtro = " ORDER BY page_name";
