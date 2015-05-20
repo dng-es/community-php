@@ -266,7 +266,7 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getIncentivesObjetivosDetalleExport($filter = ""){
-		$Sql="SELECT o.nombre_objetivo,o.tipo_objetivo,d.destino_objetivo,p.referencia_producto,p.nombre_producto,f.nombre_fabricante FROM incentives_objetivos_detalle d 
+		$Sql="SELECT o.nombre_objetivo,o.tipo_objetivo,d.destino_objetivo,p.referencia_producto,p.nombre_producto,f.nombre_fabricante,d.valor_objetivo FROM incentives_objetivos_detalle d 
 			LEFT JOIN incentives_objetivos o ON o.id_objetivo=d.id_objetivo
 			LEFT JOIN incentives_productos p ON p.id_producto=d.id_producto
 			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
