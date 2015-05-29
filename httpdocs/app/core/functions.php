@@ -715,4 +715,17 @@ function arraySort($array, $field, $sort_mode=SORT_DESC){
 		array_multisort($posicion, $sort_mode, $array);
 		return $array;
 }
+
+function showHtmlLinks($string){
+
+	//filtro los enlaces normales
+	$string = preg_replace("/((http|https|www)[^\s]+)/", '<a target=\"_blank\" href="$1">$0</a>', $string);
+	//miro si hay enlaces con solamente www, si es así le añado el http://
+	$string= preg_replace("/href=\"www/", 'href="http://www', $string);	 
+	//saco los enlaces de twitter
+	$string = preg_replace("/(@[^\s]+)/", '<a target=\"_blank\"  href="http://twitter.com/intent/user?screen_name=$1">$0</a>', $string);
+	$string = preg_replace("/(#[^\s]+)/", '<a target=\"_blank\"  href="http://twitter.com/search?q=$1">$0</a>', $string);
+
+	return $string;
+}
 ?>

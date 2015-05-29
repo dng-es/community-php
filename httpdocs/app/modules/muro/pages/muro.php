@@ -48,7 +48,7 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 	if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador'){$filtro=" AND c.canal='".$_SESSION['user_canal']."' ";}
 	$filtro.=" AND tipo_muro='principal' AND estado=1 AND id_comentario_id=0 ORDER BY date_comentario DESC LIMIT 20";
 	$comentarios_muro = $muro->getComentarios($filtro);
-		echo '<div class="" id="muro-home">'; 
+		echo '<div id="muro-home" data-mcs-theme="light">'; 
 		foreach($comentarios_muro as $comentario_muro):
 		 commentMuro($comentario_muro);
 		endforeach;	

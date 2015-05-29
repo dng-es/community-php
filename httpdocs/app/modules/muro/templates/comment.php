@@ -18,25 +18,25 @@ function commentMuro($comment){
     
 
 	echo '	</p>
-			<p id="texto-comentario-'.$comment['id_comentario'].'">'.$comment['comentario'].'</p>			
-		</div>
-		<div class="legend pull-right" style="margin-right:10px">
-			<span class="muro-votado" id="'.$comment['id_comentario'].'" value="'.$votado.'"></span>							
-			<span class="muro-votado-user" id="user_'.$comment['id_comentario'].'" value="'.$votado_user.'"></span>
-			<span class="murogusta fa fa-heart '.$comment['id_comentario'].'" 
-				value="'.$comment['id_comentario'].'" 
-				href="'.$comment['votaciones'].'" 
-				title="'.strTranslate("Vote_comment").'">
-				'.$comment['votaciones'].'
-			</span>
-			
-			<span value="'.$comment['comentario'].'">
-	  			<span class="responder-triger fa fa-comment" title="'.strTranslate("Reply").'" tipom="'.$comment['tipo_muro'].'" value="'.$comment['id_comentario'].'"> '.$respuestas.'</span>
-			</span>
-			
-			<span style="margin-left:10px">				
-		    	 <a href="muro-comentarios-respuestas?id='.$comment['id_comentario'].'" class="tooltip-top" title="'.strTranslate("Show_all_replies").'"> <span class="fa fa-sign-in"></span></a>
-			</span>
+			<p id="texto-comentario-'.$comment['id_comentario'].'">'.showHtmlLinks($comment['comentario']).'</p>			
+			<div class="legend">
+				<span class="muro-votado" id="'.$comment['id_comentario'].'" value="'.$votado.'"></span>							
+				<span class="muro-votado-user" id="user_'.$comment['id_comentario'].'" value="'.$votado_user.'"></span>
+				<span class="murogusta fa fa-heart '.$comment['id_comentario'].'" 
+					value="'.$comment['id_comentario'].'" 
+					href="'.$comment['votaciones'].'" 
+					title="'.strTranslate("Vote_comment").'">
+					'.$comment['votaciones'].'
+				</span>
+				
+				<span value="'.$comment['comentario'].'">
+		  			<span class="responder-triger fa fa-comment" title="'.strTranslate("Reply").'" tipom="'.$comment['tipo_muro'].'" value="'.$comment['id_comentario'].'"> '.$respuestas.'</span>
+				</span>
+				
+				<span style="margin-left:10px">				
+			    	 <a href="muro-comentarios-respuestas?id='.$comment['id_comentario'].'" class="tooltip-top" title="'.strTranslate("Show_all_replies").'"> <span class="fa fa-sign-in"></span></a>
+				</span>
+			</div>
 		</div>';
 	echo '	<div id="muro-result-megusta'.$comment['id_comentario'].'" class="text-danger"></div>';
 	echo '	<hr>';  
