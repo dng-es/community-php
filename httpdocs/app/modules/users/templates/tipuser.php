@@ -2,7 +2,7 @@
 
 function userTip($id,$user_data,$estrellas_print){
 		$foto = ($user_data['foto'] == "" ? "user.jpg" : $user_data['foto']);
-		$output = '<div id="a'.$id.'Tip" class="text-left">							
+		$output = '<div id="a'.$id.'Tip" class="text-left tooltip-media">							
 				<table cellpadding="3" cellspacing="0">
 				<tr><td valign="top">
 				<img src="'.PATH_USERS_FOTO.$foto.'" class="imgUserTip" />

@@ -74,7 +74,7 @@ class menu{
 		if ($_SESSION['user_logged']==true){
 			$users = new users();
 			$puntos_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
-
+			$_SESSION['user_puntos'] = $puntos_user[0]['puntos'];
 			//MENSAJE NO LEIDOS
 			$contador_no_leidos=connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 

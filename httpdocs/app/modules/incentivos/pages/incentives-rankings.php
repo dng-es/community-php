@@ -25,9 +25,9 @@ $incentivos = new incentivos();
 				<?php $ranking = incentivosController::getRankingAction($element);?>
 				<?php 
 					if ($element['tipo_objetivo'] == 'Usuario'):
-						$posicion = array_search($_SESSION['user_name'], array_column($ranking, 'usuario'));
+						$posicion = array_search($_SESSION['user_name'], arraycolumn($ranking, 'usuario'));
 					else:
-						$posicion = array_search($_SESSION['user_empresa'], array_column($ranking, 'usuario'));
+						$posicion = array_search($_SESSION['user_empresa'], arraycolumn($ranking, 'usuario'));
 					endif;
 				?>
 				<div class="panel panel-default">	

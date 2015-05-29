@@ -14,7 +14,9 @@ function commentMuro($comment){
 	echo '	<p>
 			<a href="user-profile?n='.$comment['nick'].'"><small>'.$comment['nick'].'</small></a>';
 	echo ' 	<span class="date-format-ago" data-date="'.$comment['date_comentario'].'">'.getDateFormat($comment['date_comentario'], "DATE_TIME").'</span>';
-    if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'){  echo '<br />'.strTranslate("Channel").': '.$comment['canal_comentario'];}
+    if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'){  
+    	echo '<br /><small>'.strTranslate("Channel").': '.$comment['canal_comentario'].'</small>';
+    }
     
 
 	echo '	</p>
@@ -33,7 +35,7 @@ function commentMuro($comment){
 		  			<span class="responder-triger fa fa-comment" title="'.strTranslate("Reply").'" tipom="'.$comment['tipo_muro'].'" value="'.$comment['id_comentario'].'"> '.$respuestas.'</span>
 				</span>
 				
-				<span style="margin-left:10px">				
+				<span style="margin-left:5px">				
 			    	 <a href="muro-comentarios-respuestas?id='.$comment['id_comentario'].'" class="tooltip-top" title="'.strTranslate("Show_all_replies").'"> <span class="fa fa-sign-in"></span></a>
 				</span>
 			</div>

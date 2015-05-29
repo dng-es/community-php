@@ -23,15 +23,45 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 <div class="row row-top">
 	<div class="app-main">
 		<div class="row">
-		<div class="col-md-12">
-		<p class="text-muted">
-			<span class="fa-stack fa-lg">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-plug fa-stack-1x fa-inverse"></i>
-			</span>
-			<?php echo $_SESSION['name'];?>, <?php echo strTranslate("Wellcome_to");?> <?php echo $ini_conf['SiteName'];?>. <a href="users-conn">[<?php echo strTranslate("Users_connected").": ".$users_conn;?>]</a>
-		</p>
-		</div>
+			<div class="col-md-6">
+				<div class="panel panel-default panel-ranking">
+					<div class="panel-body nopadding">
+						<div class="row">
+							<div class="col-md-8 inset">
+								<h4>
+									<?php echo $_SESSION['user_nick'];?>
+								</h4>
+								<?php echo strTranslate("Wellcome_to");?> <?php echo $ini_conf['SiteName'];?>. <a href="profile"><?php echo strTranslate("My_profile");?></a>
+							</div>
+							<div class="col-md-4 label-success inset panel-color">
+								<p class="text-center"><big><?php echo $_SESSION['user_puntos'];?></big><br />
+									<?php echo ucfirst(strTranslate("APP_points"));?>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default panel-ranking">
+					<div class="panel-body nopadding">
+						<div class="row">
+							<div class="col-md-8 inset">
+								<h4>
+									<?php echo strTranslate("Users_connected");?>
+								</h4>
+								<?php echo strTranslate("Go_to");?> <a href="users-conn"><?php echo strTranslate("Users_connected");?></a>
+							</div>
+							<div class="col-md-4 label-info inset panel-color">
+								<p class="text-center"><big><?php echo $users_conn;?></big><br />
+									<?php echo strTranslate("Users");?>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 		<div class="row">
 			<div class="col-md-5">

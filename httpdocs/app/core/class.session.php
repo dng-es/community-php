@@ -188,6 +188,7 @@ class session {
 				$_SESSION['user_email'] = $result_user[0]['email'];
 				$_SESSION['user_canal'] = $result_user[0]['canal'];
 				$_SESSION['user_empresa'] = $result_user[0]['empresa'];
+				$_SESSION['user_puntos'] = $result_user[0]['puntos'];
 				$_SESSION['user_canal_nombre'] = "";
 				$_SESSION['user_perfil'] = $result_user[0]['perfil'];
 				$_SESSION['user_mail'] = $result_user[0]['email'];

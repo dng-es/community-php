@@ -716,6 +716,11 @@ function arraySort($array, $field, $sort_mode=SORT_DESC){
 		return $array;
 }
 
+/**
+ * Pone los enlaces html en una cadena de texto
+ * @param  string 	$string 	Cadena a buscar y  reemplazar
+ * @return string            	Cadena reemplazada
+ */
 function showHtmlLinks($string){
 
 	//filtro los enlaces normales
