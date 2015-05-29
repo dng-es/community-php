@@ -29,8 +29,11 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 				});
 
 				$(".user-tip").tooltip({
-					'placement': 'left'
+					'placement': 'left',
+					'container': 'body'
 				});
+				
+				$("#muro-home").mCustomScrollbar();
 			});
 		</script>	 
 	</head>

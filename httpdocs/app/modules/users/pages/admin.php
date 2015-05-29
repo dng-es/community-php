@@ -49,7 +49,7 @@ $num_canales = usersCanalesController::getCanalesAction();
 							<dt><?php echo ucfirst(strTranslate("APP_shares"));?></dt>
 							<dd><a href="admin-informe-participaciones"><?php echo strTranslate("Go_to");?></a></dd>
 							<dt><?php echo strTranslate("Users_list");?></dt>
-							<dd><a href="admin-users&export=true"><?php echo strTranslate("Export");?> CSV</a></dd>
+							<dd><a href="admin-users?export=true"><?php echo strTranslate("Export");?> CSV</a></dd>
 						</dl>
 					</div>
 				</div>								
