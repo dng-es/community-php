@@ -163,6 +163,7 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 * [createRandomPassword] (#createrandompassword)
 * [getDataFormat] (#getDataFormat)
 * [NormalizeText] (#normalizetext)
+* [showHtmlLinks] (#showhtmllinks)
 * [strTranslate] (#strtranslate)
 * [shortText] (#shorttext)
 
@@ -333,6 +334,12 @@ getDataFormat('2014-01-14', 'LONG');
 Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso: 
 ```php 
 NormalizeText($text, $text_separator);
+```
+
+#### showHtmlLinks
+Pone los enlaces html en una cadena de texto. Uso: 
+```php 
+showHtmlLinks($text);
 ```
 
 #### strTranslate
