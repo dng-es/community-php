@@ -21,7 +21,7 @@ function videoComment($comentario, $destino = "videos-comentarios"){?>
 			<span class="text-muted"><small><?php echo getDateFormat($comentario['date_comentario'], "LONG")." ".getDateFormat($comentario['date_comentario'], "TIME"); ?></small></span>
 		</p>
 		<p><a name="comentario-id-'.$comentario['id_comentario'].'" id="comentario-id-'.$comentario['id_comentario'].'"></a></p>
-		<p><?php echo $comentario['comentario'];?></p>
+		<p><?php echo showHtmlLinks($comentario['comentario']);?></p>
 		<div class="comment-info">
 			<span class="label tooltip-bottom" title="<?php echo strTranslate("Vote_comment");?>"><a class="trigger-video" href="<?php echo $destino.'&idvc='.$comentario['id_comentario'];?>" data-id="'.$comentario['id_comentario'].'">
 			<i class="fa fa-heart"></i> <?php echo $comentario['votaciones'];?></a></span>

@@ -14,7 +14,11 @@ function userTip($id,$user_data,$estrellas_print,$movil=0){
 					<span>
 					<span>'.strTranslate("Nick").': <span class="ficha-user-tip-info">'.$user_data['nick'].'</span></span><br />
 					<span>'.strTranslate("Name").': <span class="ficha-user-tip-info">'.$user_data['name'].' '.$user_data['surname'].'</span></span><br />';
-			if ($user_data['user_date']!=''){
+			if ($_SESSION['user_perfil'] == 'admin'){
+				$output .= '<span>'.strTranslate("Profile").': <span class="ficha-user-tip-info">'.$user_data['perfil'].'</span></span><br />
+					<span>'.strTranslate("Channel").': <span class="ficha-user-tip-info">'.$user_data['canal'].'</span></span><br />';
+			}
+			if ($user_data['user_date'] != ''){
 				$dia = getDateFormat($user_data['user_date'], "DAY");
 				$mes = getDateFormat($user_data['user_date'], "MONTH_LONG");		
 				$fecha_nacimiento=$dia." de ".$mes;
@@ -34,7 +38,7 @@ function userTip($id,$user_data,$estrellas_print,$movil=0){
 }
 
 function userFicha($user_data,$movil=0){
-	$path_foto="";
+	$path_foto = "";
 	if ($movil==1){$path_foto="../";$tam_foto="180";}
 	else {$tam_foto="350";}
 	$path_foto.=PATH_USERS_FOTO;
