@@ -54,7 +54,7 @@ echo '<div class="">';
 	if ($_SESSION['user_name']==$comentario_muro['user_comentario']) {$votado_user=1;}
 	else {$votado_user=0;}
 				echo '<div class="media">';
-			userFicha($comentario_muro,0);
+			userFicha($comentario_muro);
 			echo '		<p class="comunidad-color"><b>'.$comentario_muro['nick'].'</b> <span class="date-format-ago" data-date="'.$comentario_muro['date_comentario'].'">'.getDateFormat($comentario_muro['date_comentario'], "DATE_TIME").'</span>:';
 		    //SOLO LOS FORMADORES Y ADMIN PUEDEN VER EL CANAL
 		    if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'){  echo ' ('.strTranslate("Channel").': '.$comentario_muro['canal_comentario'].')';}
