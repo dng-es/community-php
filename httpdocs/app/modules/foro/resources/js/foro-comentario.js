@@ -7,7 +7,10 @@ jQuery(document).ready(function(){
 	 cssElement: { display: "inline-block",color: "#666666",background: "transparent"}});	
 
 
-	$(".comment-info .label").tooltip({placement:"bottom"});
+	$(".comment-info .label").tooltip({
+		placement: "bottom",
+		container: "body",
+	});
 	
 	$("#coment-form").submit(function(evento){	   
 		var resultado_ok=true;     
