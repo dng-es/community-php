@@ -13,7 +13,7 @@ function commentMuro($comment){
 	userFicha($comment);
 	echo '	<p>
 			<a href="user-profile?n='.$comment['nick'].'"><small>'.$comment['nick'].'</small></a>';
-	echo ' 	<span class="date-format-ago" data-date="'.$comment['date_comentario'].'">'.getDateFormat($comment['date_comentario'], "DATE_TIME").'</span>';
+	echo ' 	<small><span class="date-format-ago" data-date="'.$comment['date_comentario'].'">'.getDateFormat($comment['date_comentario'], "DATE_TIME").'</span></small>';
     if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'){  
     	echo '<br /><small>'.strTranslate("Channel").': '.$comment['canal_comentario'].'</small>';
     }

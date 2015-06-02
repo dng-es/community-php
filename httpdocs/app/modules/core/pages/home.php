@@ -31,7 +31,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 								<h4>
 									<?php echo $_SESSION['user_nick'];?>
 								</h4>
-								<?php echo strTranslate("Wellcome_to");?> <?php echo $ini_conf['SiteName'];?>. <a href="profile"><?php echo strTranslate("My_profile");?></a>
+								<?php echo strTranslate("Wellcome_to");?> <?php echo $ini_conf['SiteName'];?>.
 							</div>
 							<div class="col-md-4 label-success inset panel-color">
 								<p class="text-center"><big><?php echo $_SESSION['user_puntos'];?></big><br />
