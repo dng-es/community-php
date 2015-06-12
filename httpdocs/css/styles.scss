@@ -573,6 +573,23 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 /*Ficha de usuarios - Tooltip*/
+.ficha-user{
+	background-color:#f0f0f0;
+	border:1px solid #f0f0f0;
+	display: inline-block; 
+	margin:0 10px 15px 0 !important; 
+	overflow: hidden;
+	width: 100px !important;
+
+	img{
+		height: 100px !important;
+		width:100px !important;
+	}
+
+	div{
+		padding: 5px;
+	}
+}
 .tooltip-media{
 	margin:8px;
 }
@@ -930,7 +947,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		display: inline-block;
 		float: left;
 		font-size: $font-size-community;
-		width: 70%;	
+		width: 60%;	
 		span{
 			color:#999;
 		}
@@ -941,8 +958,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	}
 	.media-preview{
 		float: left;
-		margin-right: 5%;
-		width: 25%;
+		margin-right: 3%;
+		width: 37%;
 	}
 }
 #form-video-comment{

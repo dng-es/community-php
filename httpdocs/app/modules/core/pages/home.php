@@ -107,7 +107,8 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 						<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
 						<div>
 							<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
-							<span><small><?php echo $last_photo['items'][0]['nick'];?> - <?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></small></span><br />
+							<?php echo $last_photo['items'][0]['nick'];?><br />
+							<span><small><?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></small></span><br />
 						</div>
 					</div>
 					<?php else: ?>
@@ -124,7 +125,8 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 						<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo $last_video['items'][0]['titulo'];?>" /></a>
 						<div>
 							<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
-							<span><small><?php echo $last_video['items'][0]['nick'];?> - <?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></small></span><br />
+							<?php echo $last_video['items'][0]['nick'];?><br />
+							<small><span><?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></small></span><br />
 						</div>
 					</div>
 					<?php else: ?>

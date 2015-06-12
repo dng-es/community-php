@@ -85,8 +85,8 @@ $num_videos = 6;
 							<a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'">
 							<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.$element['titulo'].'" /></a>
 							<div><a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'">'.$element['titulo'].'</a><br />
-								 <span>'.getDateFormat($element['date_video'], "LONG").'</span><br />
-								 '.$element['nick'].'
+								 '.$element['nick'].'<br />
+								 <span><small>'.getDateFormat($element['date_video'], "LONG").'</small></span>
 							</div>
 						</div>';
 			endforeach;			

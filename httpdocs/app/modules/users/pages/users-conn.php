@@ -16,11 +16,18 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 		));
 		?>
 		<div class="inset">
-	  		<p>Descubre qué usuarios están en este mismo momento en la comunidad.</p>
+	  		<h4>Descubre qué usuarios están en este mismo momento en la comunidad.</h4>
 	  		<p class="hidden-md hidden-lg">Ahora mismo hay <strong><?php echo $users_conn;?></strong> usuarios conectados.<br /></p>
-	  		<div id="mensajes">
-			<div class="mensaje"><div id="cargando"><i class="fa fa-spinner fa-spin ajax-load"></i></div></div>
-			</div>
+	  		
+	  		<div class="panel panel-default">
+	  			<div class="panel-body">
+			  		<div id="mensajes">
+						<div class="mensaje">
+							<div id="cargando"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+						</div>
+					</div>	  				
+	  			</div>
+	  		</div>
 		</div>
 	</div>
 	<div class="app-sidebar hidden-xs hidden-sn">
