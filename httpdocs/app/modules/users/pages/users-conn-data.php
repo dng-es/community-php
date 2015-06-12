@@ -16,8 +16,8 @@ $inicio = ($pagina - 1) * $reg;
 $users = new users();
 if ($_SESSION['user_canal']=='exclusivo' or $_SESSION['user_canal']=='rt'){$filtroCanal=" AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') ";}
 else{$filtroCanal="";}
-$users_conn = $users->getUsers(" AND confirmed=1 LIMIT ".$inicio.",".$reg);  
-//$users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
+//$users_conn = $users->getUsers(" AND confirmed=1 LIMIT ".$inicio.",".$reg);  
+$users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
