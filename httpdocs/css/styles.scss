@@ -574,12 +574,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 /*Ficha de usuarios - Tooltip*/
 .ficha-user{
-	background-color:#f0f0f0;
-	border:1px solid #f0f0f0;
 	display: inline-block; 
 	margin:0 10px 15px 0 !important; 
-	overflow: hidden;
-	width: 100px !important;
+	width: 110px !important;
+	font-size: $font-size-community - 2;
 
 	img{
 		height: 100px !important;
