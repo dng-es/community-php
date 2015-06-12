@@ -6,11 +6,6 @@
 *
 */
 class mensajesCore{
-	private $mod_icon = 'envelope-o';
-
-	public function getIcon(){
-		return $this->mod_icon;
-	}
 	/**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario
 	 * @param  	string 		$username 		Id usuario a mostrar información

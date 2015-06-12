@@ -23,10 +23,9 @@ global $modules_data;
 					$module_config = getModuleConfig($module['folder']);	
 					$key = array_search($module['folder'], arraycolumn($modules_data, 'name'));
 					echo '<tr>
-					<td width="40px"><center><i class="icon-fun fa fa-'.$modules_data[$key]['icon'].'"></center></td>
-					<td>'.strTranslate(ucfirst($module['folder'])).'</td>
+					<td><h4>'.strTranslate(ucfirst($module['folder'])).'</h4></td>
 					<td class="legend">'.$module['ann'].'</td>
-					<td width="40px">'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger" href="#" title="'.strTranslate("Configuration").'"><i class="fa fa-gear"></i></a>' : '<i class="fa fa-gear disabled"></i>').'</td>
+					<td>'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger btn btn-default btn-xs" href="#" title="'.strTranslate("Configuration").'"><small>'.strTranslate("Configuration").'</small>&nbsp;<i class="fa fa-gear"></i></a>' : '').'</td>
 					</tr>';
 				endforeach; ?>
 			</table>

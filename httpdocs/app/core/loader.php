@@ -26,8 +26,7 @@ foreach($modules as $module):
 			$array_usermenu = array_merge($array_usermenu, $instance->userMenu());
 		if (method_exists($instance, "adminMenu")) 
 			$array_adminmenu = array_merge($array_adminmenu, $instance->adminMenu());
-
-		$icon = (method_exists($instance, "getIcon") ? $instance->getIcon() : "gears");
+		
 		array_push($modules_data, array("name" => $module['folder'], "icon" => $icon));
 	}
 endforeach;

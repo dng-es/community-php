@@ -6,11 +6,6 @@
 * 
 */	
 class rankingsCore{
-	private $mod_icon = 'bar-chart';
-
-	public function getIcon(){
-		return $this->mod_icon;
-	}
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
