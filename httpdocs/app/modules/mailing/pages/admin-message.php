@@ -37,17 +37,8 @@ addJavascripts(array("js/jquery.numeric.js",
 			ShowData($elements,$id,$accion);	
 		}	
 		?>
-		</div>
-		<div class="col-md-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">Envío de comunicaciones</div>
-				<div class="panel-body">
-					<a href="admin-messages" class="comunidad-color">Ir a todas las comunicaciones</a><br />
-					<a href="admin-message?act=new" class="comunidad-color">Nueva comunicación</a>
-				</div>
-			</div>
-		</div>
 	</div>
+	<?php menu::adminMenu();?>
 </div>
 
 

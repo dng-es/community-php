@@ -6,6 +6,12 @@
 *
 */	
 class infotopdfCore{
+	private $mod_icon = 'file-pdf-o';
+
+	public function getIcon(){
+		return $this->mod_icon;
+	}
+
 	public static function userMenu(){
 		$array_final = array();
 		global $session;

@@ -35,7 +35,9 @@ class configurationController{
 		foreach($folders as $folder):
 			$annotations = FileSystem::getClassAnnotations($folder['folder']."Core");
 			$ano = $annotations[1];
-			$ann ="";
+			$ann = "";
+			
+			$icon = "user";
 			foreach($ano as $annotation):
 				$thisann = isset($annotation) ? ucfirst($annotation) : "";
 				if (strpos($thisann, "Version 0.7")!==false){
@@ -55,7 +57,7 @@ class configurationController{
 				}
 				$ann .= $thisann."<br />";
 			endforeach;	
-			array_push($listModules, array("folder" => $folder['folder'], "ann" => $ann));		
+			array_push($listModules, array("folder" => $folder['folder'], "ann" => $ann, "icon" => $icon));		
 		endforeach;	
 		return $listModules;	
 	}	

@@ -3,8 +3,9 @@ addJavascripts(array(getAsset("configuration")."js/admin-modules.js"));
 
 session::getFlashMessage( 'actions_message' ); 
 configurationController::updateAction();
-$elements = configurationController::getItemAction();
 $modules = configurationController::getListModulesAction();
+
+global $modules_data;
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -15,20 +16,17 @@ $modules = configurationController::getListModulesAction();
 			array("ItemLabel"=>strTranslate("Modules_settings"), "ItemClass"=>"active"),
 		));?>
 
-		<p>A continuación se muestran todos los módulos instalados</p>
+		<p>A continuación se muestran todos los módulos instalados</p><br />
 		<div class="table-responsive">
 			<table class="table table-striped table-hover">
-				<tr>
-					<th width="40px"></th>
-					<th><?php echo strTranslate("Name");?></th>
-					<th><?php echo strTranslate("Description");?></th>
-				</tr>
 				<?php foreach($modules as $module):
 					$module_config = getModuleConfig($module['folder']);	
+					$key = array_search($module['folder'], arraycolumn($modules_data, 'name'));
 					echo '<tr>
-					<td>'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger" href="#" title="'.strTranslate("Configuration").'"><i class="fa fa-gear"></i></a>' : '<i class="fa fa-gear disabled"></i>').'</td>
+					<td width="40px"><center><i class="icon-fun fa fa-'.$modules_data[$key]['icon'].'"></center></td>
 					<td>'.strTranslate(ucfirst($module['folder'])).'</td>
 					<td class="legend">'.$module['ann'].'</td>
+					<td width="40px">'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger" href="#" title="'.strTranslate("Configuration").'"><i class="fa fa-gear"></i></a>' : '<i class="fa fa-gear disabled"></i>').'</td>
 					</tr>';
 				endforeach; ?>
 			</table>

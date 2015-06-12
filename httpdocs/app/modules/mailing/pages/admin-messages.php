@@ -20,6 +20,7 @@ $elements = mailingController::getListAction(20);
 		?>
   		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
+			<li><a href="admin-message"><?php echo strTranslate("New_message");?></a></li>
 			<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 

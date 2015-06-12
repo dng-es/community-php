@@ -15,6 +15,7 @@ $user_permissions = $session->user_permissions;
 //Load modules
 $array_usermenu = array();
 $array_adminmenu = array();
+$modules_data = array();
 $modules = getListModules();		
 foreach($modules as $module):
 	if (file_exists(__DIR__."/../modules/".$module['folder']."/".$module['folder'].".php")){
@@ -25,6 +26,9 @@ foreach($modules as $module):
 			$array_usermenu = array_merge($array_usermenu, $instance->userMenu());
 		if (method_exists($instance, "adminMenu")) 
 			$array_adminmenu = array_merge($array_adminmenu, $instance->adminMenu());
+
+		$icon = (method_exists($instance, "getIcon") ? $instance->getIcon() : "gears");
+		array_push($modules_data, array("name" => $module['folder'], "icon" => $icon));
 	}
 endforeach;
 

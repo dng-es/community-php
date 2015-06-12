@@ -60,8 +60,8 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<input type="text" class="form-big form-control<?php if (isset($_REQUEST['id']) and $_REQUEST['id']!="") {echo ' TextDisabled" readonly="readonly';}?>" id="username" name="username" value="<?php echo $elements[0]['username'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 								</div>
 								<div class="col-md-6">
-							  		<label for="nick_user"><small><?php echo strTranslate("Nick");?>:</small></label>
-							  		<input type="text" class="form-control TextDisabled" readonly="readonly" id="nick_user" name="nick_user" value="<?php echo $elements[0]['nick'];?>" />
+									<label for="nick_user"><small><?php echo strTranslate("Nick");?>:</small></label>
+									<input type="text" class="form-control TextDisabled" readonly="readonly" id="nick_user" name="nick_user" value="<?php echo $elements[0]['nick'];?>" />
 								</div>
 							</div>
 							<div class="row">

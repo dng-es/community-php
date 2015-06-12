@@ -5,4 +5,5 @@ Mailing_templates = "Plantillas de emails"
 New_list = "Nueva lista"
 Email_customer_info = "Envía este emial a tus clientes y mantenlos informados de nuestros productos y servicios"
 New_template = "Nueva plantilla"
+New_message = "Nuevo envío"
 ?>

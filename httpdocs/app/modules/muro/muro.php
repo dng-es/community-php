@@ -6,6 +6,11 @@
 * 
 */	
 class muroCore{
+	private $mod_icon = 'comments';
+
+	public function getIcon(){
+		return $this->mod_icon;
+	}
 	/**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario
 	 * @param  	string 		$username 		Id usuario a mostrar información
