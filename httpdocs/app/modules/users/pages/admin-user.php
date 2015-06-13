@@ -264,7 +264,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<?php endif;?>
 									<?php endforeach;?>
 								</table>
-								<button type="submit" class="btn btn-default pull-right"><?php echo strTranslate("Save");?> <?php echo strTranslate("Permissions");?></button>
+								<button type="submit" class="btn btn-default btn-xs pull-right"><?php echo strTranslate("Save");?> <?php echo strTranslate("Permissions");?></button>
 								<div class="clearfix"></div>
 							</form>
 							<br />

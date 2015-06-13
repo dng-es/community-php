@@ -64,12 +64,12 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 
 		</div>
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<?php showNovedades();?>
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-6">
 				<div class="row">
-					<div class="col-md-12 section">
+					<div class="col-md-12 section panel panel-default">
 						<h3><?php echo strTranslate("Last_blog");?></h3>
 						<?php if (isset($last_blog['items'][0])): ?>
 						<div class="media-preview-container">
@@ -84,7 +84,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 				</div>
 				<br />
 				<div class="row">
-					<div class="col-md-12 section full-height">
+					<div class="col-md-12 section full-height panel panel-default">
 						<h3><?php echo strTranslate("Last_formus");?></h3>
 						<p><?php echo strTranslate("Discover_last_formus");?>.</p>
 						<ul class="list-funny">
@@ -99,7 +99,10 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 		</div>
 		<br />
 		<div class="row">
-			<div class="col-md-4 ">
+			<div class="col-md-12">
+		<div class="panel panel-default">
+		<div class="row">
+			<div class="col-md-4 nopadding">
 				<div class="col-md-12 section full-height">
 					<h3><?php echo strTranslate("Last_photos");?></h3>
 					<?php if (isset($last_photo['items'][0])): ?>
@@ -116,7 +119,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 					<?php endif; ?>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-4 nopadding">
 				<div class="col-md-12 section full-height">
 					<h3><?php echo strTranslate("Last_videos");?></h3>
 					<?php if (isset($last_video['items'][0])): ?>
@@ -134,12 +137,15 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 					<?php endif; ?>
 				</div>
 			</div>			
-			<div class="col-md-4">
+			<div class="col-md-4 nopadding">
 				<div class="col-md-12 section full-height">
 					<h3><?php echo strTranslate("Highlights");?></h3>
 					<?php PanelLastDestacado();?>
 				</div>
 			</div>
+		</div>
+		</div>
+		</div>
 		</div>
 	</div>
 	<div class="app-sidebar">
