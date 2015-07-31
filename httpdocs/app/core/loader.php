@@ -2,15 +2,18 @@
 include_once ("functions.core.php");
 
 //Get requested page. If not requested page get default page
-$page = (isset($_REQUEST['page']) and $_REQUEST['page']!="") ? $_REQUEST['page'] : APP_DEF_PAGE;
+$page = (isset($_REQUEST['page']) && $_REQUEST['page']!="") ? $_REQUEST['page'] : APP_DEF_PAGE;
 
 //Logut session
-if ($page=='logout') {session::destroySession();}
+if ($page=='logout') session::destroySession();
 
 //Login session
 $session = new session();
 $session->validateUserSession();
 $user_permissions = $session->user_permissions;
+
+//Underconstruction
+if ($ini_conf['underconstruction'] == true && ($page != "underconstruction" && $page != "login") && $_SESSION['user_perfil'] != 'admin') session::destroySession("underconstruction");
 
 //Load modules
 $array_usermenu = array();
@@ -30,5 +33,4 @@ foreach($modules as $module):
 		array_push($modules_data, array("name" => $module['folder']));
 	}
 endforeach;
-
 ?>

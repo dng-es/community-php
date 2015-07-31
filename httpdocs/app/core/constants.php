@@ -13,7 +13,7 @@ $ini_conf = array_merge($ini_conf, $site_config);
 //include($base_dir_config."/../languages/".(isset($_SESSION['language']) ? $_SESSION['language'] : $ini_conf['language'])."/options.php");
 
 //PAGINAS EN LAS QUE EL USUARIO NO ES NECESARIO QUE ESTE LOGUEADO
-$paginas_free = array("login","user-confirm","logout","contact-free","declaracion","policy","404","remember","registration","registration-confirm","unsuscribe");
+$paginas_free = array("underconstruction", "login","user-confirm","logout","contact-free","declaracion","policy","404","remember","registration","registration-confirm","unsuscribe");
 //TIPOS DE ARCHIVOS PERMITIDOS
 $videos_types = array("MP4","MOV","AVI","3GP","WMV");
 $fotos_types = array("GIF","JPG","JPEG","PNG");

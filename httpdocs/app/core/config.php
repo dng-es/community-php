@@ -31,6 +31,9 @@ language_selector = true
 ;DEBUG OPTIONS. Poner 0 en servidores de producción. 1 salida por pantalla. 2 salida fichero error
 debug_app = 0
 
+;UNDERCONSTRUCTION - only admins can access. Values: true or false
+underconstruction = true
+
 [SMTP settings]
 smtp_domain = "smtp.example.org"
 smtp_port = 25
