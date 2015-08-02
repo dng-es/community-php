@@ -2,11 +2,7 @@
 jQuery(document).ready(function(){	
 	$("#mensaje-new-trigger").click(function(e){
 		e.preventDefault();
-
-		$("#nick-comentario").val("").css({"background-color":"#fff","border-color":"#D8D8D8"});
-		$("#asunto-comentario").val("").css({"background-color":"#fff","border-color":"#D8D8D8"});
-		$("#texto-comentario").val("").css({"background-color":"#fff","border-color":"#D8D8D8"});
-
+		$("#nick-comentario, #asunto-comentario, #texto-comentario").val("").removeClass("input-alert");
 		$('#new_mensaje').modal();
 	});
 
@@ -74,30 +70,28 @@ jQuery(document).ready(function(){
 	
 	$("#message-form").submit(function(e){
 		e.preventDefault();
-	    $("#nick-comentario").css({"background-color":"#fff","border-color":"#D8D8D8"});
-	    $("#asunto-comentario").css({"background-color":"#fff","border-color":"#D8D8D8"});
-	    $("#texto-comentario").css({"background-color":"#fff","border-color":"#D8D8D8"});   
+	    $("#nick-comentario, #asunto-comentario, #texto-comentario").removeClass("input-alert");
 
-	    var resultado_ok=true,
+	    var resultado_ok = true,
 	    	destinatario = jQuery.trim($("#nick-comentario").val()),
 	    	self = this;
-		if (destinatario==""){
-			$("#nick-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
-			resultado_ok=false;
+		if (destinatario == ""){
+			$("#nick-comentario").addClass("input-alert");
+			resultado_ok = false;
 		}
-		if (destinatario==jQuery.trim($("#remitente-comentario").val())) {
-			$("#nick-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
-			resultado_ok=false;
-		}
-		
-		if (jQuery.trim($("#asunto-comentario").val())=="") {
-			$("#asunto-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
-			resultado_ok=false;
+		if (destinatario == jQuery.trim($("#remitente-comentario").val())) {
+			$("#nick-comentario").addClass("input-alert");
+			resultado_ok = false;
 		}
 		
-		if (jQuery.trim($("#texto-comentario").val())=="") {
-			$("#texto-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
-			resultado_ok=false;
+		if (jQuery.trim($("#asunto-comentario").val()) == "") {
+			$("#asunto-comentario").addClass("input-alert");
+			resultado_ok = false;
+		}
+		
+		if (jQuery.trim($("#texto-comentario").val()) == "") {
+			$("#texto-comentario").addClass("input-alert");
+			resultado_ok = false;
 		}
 
 		//verificar usuario existe
@@ -109,14 +103,15 @@ jQuery(document).ready(function(){
 			})
 			.done(function(data) {
 				if (data==0){
-					$("#nick-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
+					/*$("#nick-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});*/
+					$("#nick-comentario").addClass("input-alert");
 				}
 				else{
-					if (resultado_ok==true){self.submit();}
+					if (resultado_ok == true){self.submit();}
 				}
 			})
 			.fail(function(data) {
-				$("#nick-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});
+				$("#nick-comentario").addClass("input-alert");
 				/*resultado_ok=false;*/
 		});
 	});

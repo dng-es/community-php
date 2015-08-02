@@ -31,13 +31,15 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 						<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'sent-items?act=ko&id=<?php echo $mensaje['id_mensaje'];?>')" title="<?php echo  strTranslate("Delete");?>"></span>
 						<span class="fa fa-reply icon-table message-forward" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php echo strTranslate("Forward");?>"></span>			
 					</td>
-					<td valign="top" nowrap="nowrap"><span id="leidoMensajeNick<?php echo $mensaje['id_mensaje'];?>"><i class="fa fa-user"></i> <span id="message-nick-<?php echo $mensaje['id_mensaje'];?>"><?php echo $mensaje['nick'];?></span></span></td>
-					<td width="100%" valign="top"><a id="<?php echo $mensaje['id_mensaje'];?>" href="#" value="1" class="titulo-mensaje MensajeLeido" title="<?php echo $mensaje['asunto_mensaje'];?>"><?php echo $mensaje['asunto_mensaje'];?></a></td>
-					<td width="150px" valign="top" align="right" nowrap="nowrap"><span id="leidoMensajeTime<?php echo $mensaje['id_mensaje'];?>"><small class="text-muted"><?php echo getDateFormat($mensaje['date_mensaje'], "LONG");?></small></span></td>		
+					<td valign="top" nowrap="nowrap"><span id="leidoMensajeNick<?php echo $mensaje['id_mensaje'];?>"><span id="message-nick-<?php echo $mensaje['id_mensaje'];?>"><?php echo $mensaje['nick'];?></span></span></td>
+					<td width="100%" valign="top">
+						<a id="<?php echo $mensaje['id_mensaje'];?>" href="#" value="1" class="titulo-mensaje MensajeLeido" title="<?php echo $mensaje['asunto_mensaje'];?>"><?php echo $mensaje['asunto_mensaje'];?></a>
+						<div class="pull-right"><span id="leidoMensajeTime<?php echo $mensaje['id_mensaje'];?>"><small class="text-muted"><?php echo getDateFormat($mensaje['date_mensaje'], "LONG");?></small></span></div>
+					</td>
 				</tr>
 				<tr id="MensajeOveja<?php echo $mensaje['id_mensaje'];?>" class="MensajeTextoCuerpo">
-					<td colspan="4" id="message-body-<?php echo $mensaje['id_mensaje'];?>">
-					<small><em class="text-muted"><?php echo nl2br($mensaje['mensaje_cuerpo']);?></em></small>
+					<td colspan="4" id="message-body-<?php echo $mensaje['id_mensaje'];?>" class="text-muted">
+						<?php echo nl2br($mensaje['mensaje_cuerpo']);?>
 					</td>
 				</tr>		 
 			<?php endforeach; ?>

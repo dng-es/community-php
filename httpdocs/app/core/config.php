@@ -32,7 +32,7 @@ language_selector = true
 debug_app = 0
 
 ;UNDERCONSTRUCTION - only admins can access. Values: true or false
-underconstruction = true
+underconstruction = false
 
 [SMTP settings]
 smtp_domain = "smtp.example.org"
