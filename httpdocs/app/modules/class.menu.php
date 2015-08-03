@@ -80,11 +80,11 @@ class menu{
 
 			?>
 			<div class="row header-info">
-				<a href="home"><img src="images/logo.png" id="header-info-logo" /></a>
+				<a href="home"><img src="images/logo.png" alt="<?php echo $ini_conf['SiteName'];?>" id="header-info-logo" /></a>
 				<div id="user-info">
 					<div class="pull-right" style="width:75%">
 					<?php 
-					echo '<a href="profile"><img src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
+					echo '<a href="profile"><img alt="'.$_SESSION['user_nick'].'" src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
 					
 					echo '<p>';
 					echo '<a href="profile">'.$_SESSION['user_nick'].'</a><br />';
@@ -181,7 +181,7 @@ class menu{
 			$separator = (strpos($_SERVER['REQUEST_URI'], "?")==0  ? "?" : "&");
 			echo '<div id="language-selector">';
 			foreach($folders as $folder):
-				echo '<a href="'.$destination.$separator.'lan='.$folder.'" title="'.$folder.'"><img src="app/languages/'.$folder.'/images/flag.png" /></a>';
+				echo '<a href="'.$destination.$separator.'lan='.$folder.'" title="'.$folder.'"><img alt="<?php echo $folder;?>" src="app/languages/'.$folder.'/images/flag.png" /></a>';
 			endforeach;
 			echo '</div>';
 		}

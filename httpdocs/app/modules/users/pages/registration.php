@@ -8,7 +8,7 @@ if ($module_config['options']['allow_registration']===true):
 ?>
 <div id="confirm-container" class="row">			
 	<div class="col-md-5">
-		<img src="images/logo01.png" class="responsive login-img" />
+		<img src="images/logo01.png" alt="<?php echo $ini_conf['SiteName'];?>" class="responsive login-img" />
 	</div>
 	<div class="col-md-6 login-container">
 		<div class="col-md-12">

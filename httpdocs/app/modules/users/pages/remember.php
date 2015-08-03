@@ -7,7 +7,7 @@ $module_config = getModuleConfig("users");
 ?>
 <div class="row" id="login-container-deg">
 	<div class="col-md-5">
-		<img src="images/logo01.png" class="responsive login-img" />
+		<img src="images/logo01.png" alt="<?php echo $ini_conf['SiteName'];?>" class="responsive login-img" />
 	</div>
 	<div class="col-md-7 login-container">
 		<h1 class="inset"><?php echo strTranslate("Recover_password");?></h1>            

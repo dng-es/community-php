@@ -13,7 +13,7 @@ class headers{
 		?>
 
 		<!DOCTYPE html>
-		<html lang="es">
+		<html lang="<?php echo $_SESSION['language'];?>" xml:lang="<?php echo $_SESSION['language'];?>">
 			<head>
 				<base href="<?php echo $ini_conf['SiteUrl'];?>/">
 				<meta charset="utf-8">
@@ -64,7 +64,7 @@ class headers{
 		global $paginas_free; ?>
 		</head>
 			<body id="page-<?php echo $page;?>">
-			<img id="bg" src="images/bg01.jpg" />
+			<img alt="fondo" id="bg" src="images/bg01.jpg" />
 		<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged']==true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
 				<div class="container" id="container-main">
 				<!-- Page content -->

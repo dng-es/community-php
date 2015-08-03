@@ -148,7 +148,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 				echo '<div class="footer-section full-height">
 						<a href="blog?id='.$element['id_tema'].'"><h4 class="ellipsis">'.$element['nombre'].'</h4></a>
 						<p class="text-muted"><small>'.getDateFormat($element['date_tema'], "LONG").'</small></p>
-						<a href="blog?id='.$element['id_tema'].'"><img src="images/foro/'.$element['imagen_tema'].'" title="'.$element['nombre'].'" /></a><br />
+						<a href="blog?id='.$element['id_tema'].'"><img src="images/foro/'.$element['imagen_tema'].'" alt="'.$element['nombre'].'" /></a><br />
 						<p class="hidden-md hidden-lg"><br />'.blogController::get_resume(strip_tags($element['descripcion'])).'</p>
 					</div>';
 			endforeach; 

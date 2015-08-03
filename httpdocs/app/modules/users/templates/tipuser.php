@@ -5,7 +5,7 @@ function userTip($id,$user_data,$estrellas_print){
 		$output = '<div id="a'.$id.'Tip" class="text-left tooltip-media">							
 				<table cellpadding="3" cellspacing="0">
 				<tr><td valign="top">
-				<img src="'.PATH_USERS_FOTO.$foto.'" class="imgUserTip" />
+				<img alt="'.$user_data['nick'].'" src="'.PATH_USERS_FOTO.$foto.'" class="imgUserTip" />
 				</td>
 				<td>
 				<span>
@@ -39,7 +39,7 @@ function userFicha($user_data){
 	$foto = ($user_data['foto'] == "" ? "user.jpg" : $user_data['foto']);
 	$estrellas_print = userEstrellas($user_data['participaciones']);					
 	echo '<a data-html="true" class="user-tip pull-left" title="'.str_replace('"', '\'', userTip($user_data['id_comentario'],$user_data,$estrellas_print)).'" id="a'.$user_data['id_comentario'].'" href="user-profile?n='.$user_data['nick'].'" >
-			<img class="comment-mini-img" src="'.PATH_USERS_FOTO.$foto.'" />';							
+			<img alt="'.$user_data['nick'].'" class="comment-mini-img" src="'.PATH_USERS_FOTO.$foto.'" />';							
 	echo $estrellas_print;
 	echo '</a>';
 }
