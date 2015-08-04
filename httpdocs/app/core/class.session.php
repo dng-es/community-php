@@ -29,8 +29,7 @@ class session {
 				$user_permissions = $this->checkPageTypePermission("view", $this->user_page_permission);
 
 				if ($this->checkPageViewPermission($page, $_SESSION['user_perfil'], $user_permissions)){
-					$visitas = new visitas();
-					$visitas ->insertVisitas($_SESSION['user_name'],$page);  
+					visitasController::insertVisita($page);  
 				}
 				else{
 					ErrorMsg(strTranslate("Access_denied"));
@@ -196,8 +195,7 @@ class session {
 				$_SESSION['user_canal_nombre'] = ($result_user[0]['canal'] == 'admin') ? "Administración" : ucfirst($result_user[0]['canal']);
 
 				//crear estadistica de acceso
-				$visitas = new visitas();
-				$visitas->insertVisitas($_SESSION['user_name'],"Inicio sesion");
+				visitasController::insertVisita("Inicio sesion");
 				$users->updateLastAccess($_SESSION['user_name']);
 			}
 			elseif ($result_user[0]['confirmed'] == 0 and $result_user[0]['registered'] == 0) {

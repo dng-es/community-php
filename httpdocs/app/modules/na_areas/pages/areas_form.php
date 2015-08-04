@@ -43,8 +43,10 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 			}
 
 			if (count($elements)>0){
-				echo '<form action="" method="post" name="formTarea" id="formTarea" role="form" >
+				if ($finalizados==0){
+					echo '<form action="" method="post" name="formTarea" id="formTarea" role="form" >
 								<input type="hidden" id="id_tarea" name="id_tarea" value="'.$id_tarea.'" />';
+				}
 				foreach($elements as $element):
 					$respuesta_user=$na_areas->getRespuestasUser(" AND id_pregunta=".$element['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");
 					if  (count($respuesta_user) == 0) { $respuesta_user[0]['respuesta_valor'] = "";}
@@ -75,13 +77,12 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id']!=0) ? $_REQUEST['id'] :
 					echo '</div>';
 				endforeach;
 				if ($finalizados==0){
-					echo '<br /><button id="SubmitForm" class="btn btn-primary" type="button">'.strTranslate("Save").'</button>';
+					echo '<br /><input id="SubmitForm" class="btn btn-primary" type="submit" value="'.strTranslate("Save").'" /">';
 					if (count($respuesta_user)>0){
 						echo ' <button id="FinalizarForm" class="btn btn-primary" type="button">'.strTranslate("End_task").'</button>';
 					}
-				}
-				echo '</form>';
-				if ($finalizados==0){
+
+					echo '</form>';
 					echo '<br /><br /><div class="alert alert-warning">Asegúrate de haber contestado todas las preguntas correctamente antes de Finalizar la tarea.</div>';
 				}
 			}

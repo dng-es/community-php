@@ -83,7 +83,7 @@ $num_videos = 6;
 			foreach($elements['items'] as $element):
 				echo '<div class="media-preview-container">
 							<a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'">
-							<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.$element['titulo'].'" /></a>
+							<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.prepareString($element['titulo']).'" /></a>
 							<div><a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'">'.$element['titulo'].'</a><br />
 								 '.$element['nick'].'<br />
 								 <span><small>'.getDateFormat($element['date_video'], "LONG").'</small></span>

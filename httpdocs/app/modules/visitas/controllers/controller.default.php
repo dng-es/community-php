@@ -10,6 +10,24 @@ class visitasController{
 			echo array2csv($elements);
 			die();
 		}
+	}
+
+	public static function insertVisita($page){
+		$visitas = new visitas();
+
+		//tiempo de la visita anterior
+		$visitas->updateVisitaSeconds($_SESSION['user_name']);
+
+		//insertar registro de la visita
+		$webpage_id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
+		$visitas ->insertVisita($_SESSION['user_name'], $page, $webpage_id);  
+
+		//puntuacion semanal
+		if(connection::countReg("accesscontrol"," AND username='".$_SESSION['user_name']."' AND WEEK(fecha)=WEEK(NOW()) AND YEAR(fecha)=YEAR(NOW())")==1){
+			users::sumarPuntos($username,PUNTOS_ACCESO_SEMANA,PUNTOS_ACCESO_SEMANA_MOTIVO);
+		}
+		  
+		return true;
 	}	
 }
 ?>

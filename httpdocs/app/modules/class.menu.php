@@ -80,11 +80,11 @@ class menu{
 
 			?>
 			<div class="row header-info">
-				<a href="home"><img src="images/logo.png" alt="<?php echo $ini_conf['SiteName'];?>" id="header-info-logo" /></a>
+				<a href="home"><img src="images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" /></a>
 				<div id="user-info">
 					<div class="pull-right" style="width:75%">
 					<?php 
-					echo '<a href="profile"><img alt="'.$_SESSION['user_nick'].'" src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
+					echo '<a href="profile"><img alt="'.prepareString($_SESSION['user_nick']).'" src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
 					
 					echo '<p>';
 					echo '<a href="profile">'.$_SESSION['user_nick'].'</a><br />';

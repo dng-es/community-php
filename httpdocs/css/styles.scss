@@ -530,7 +530,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		color:$color3;
 	}
 	.points{
-		color: #fff;
+		color: #bbb;
 		font-family: 'fjallaoneregular';
 		font-size: $font-size-community;
 		margin-left: 15px;
@@ -545,9 +545,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		margin-left: 15px;
 	}
 	#contador-leidos-header{
-		background-color: #fff;
+		background-color: #bbb;
 		@include border-radius(20px);
-		color: #000;
+		color: #fff;
 		display:inline-block;
 		font-size: 12px;
 		font-family: 'fjallaoneregular';
@@ -739,7 +739,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	padding: 10px 20px;
 	text-align: right;	
 	a{
-		color: lighten($panels-color, 50%);
+		color: $color1;
 		font-size: $font-size-community + 2;
 		outline:none;
 		@include transition(all, 0.3s, ease);
@@ -752,7 +752,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 			}
 		}
 		span{
-			color: darken($panels-color, 8%);
+			color: darken($panels-color, 50%);
 			font-size: 20px
 		}
 	}

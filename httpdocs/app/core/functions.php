@@ -733,4 +733,17 @@ function showHtmlLinks($string){
 
 	return $string;
 }
+
+/**
+* Quita html, comillas y comillas simples de una cadena de texto. Usado para Alt de imagenes
+* @param  string            $string Cadena a buscar y  reemplazar
+* @return string            Cadena reemplazada
+*/
+function prepareString($string){
+	$string = str_replace('"', '', $string);
+	$string = str_replace("'", "", $string);
+	$string = strip_tags ($string);
+
+	return $string;
+}
 ?>

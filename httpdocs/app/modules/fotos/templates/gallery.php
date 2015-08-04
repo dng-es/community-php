@@ -15,7 +15,7 @@ function showFotoGaleria($file_galeria, $rating=true, $reto=0, $pagina = "fotos"
 	
 	echo '<div>
 			<a href="#" data-id="'.$file_galeria['id_file'].'" class="trigger-foto-comments">
-			<img class="gallery-img" src="'.PATH_FOTOS.$file_galeria['name_file'].'" alt="'.$file_galeria['titulo'].'" /></a>
+			<img class="gallery-img" src="'.PATH_FOTOS.$file_galeria['name_file'].'" alt="'.prepareString($file_galeria['titulo']).'" /></a>
 			<div class="photo-info">';
 	if ($comments==true) echo '<span>'.$num_comentarios.' <i class="fa fa-comment"></i></span>';
 	echo '		<p><a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="'.strTranslate("Full_screen").'" ><i class="fa fa-desktop"></i></a> '.$titulo.' </p>

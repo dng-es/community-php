@@ -107,7 +107,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 					<h3><?php echo strTranslate("Last_photos");?></h3>
 					<?php if (isset($last_photo['items'][0])): ?>
 					<div class="media-preview-container">
-						<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo $last_photo['items'][0]['titulo'];?>" /></a>
+						<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo prepareString($last_photo['items'][0]['titulo']);?>" /></a>
 						<div>
 							<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
 							<?php echo $last_photo['items'][0]['nick'];?><br />
@@ -125,7 +125,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 					<?php if (isset($last_video['items'][0])): ?>
 					<div class="media-preview-container">
 						<a href="videos">
-						<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo $last_video['items'][0]['titulo'];?>" /></a>
+						<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo prepareString($last_video['items'][0]['titulo']);?>" /></a>
 						<div>
 							<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
 							<?php echo $last_video['items'][0]['nick'];?><br />

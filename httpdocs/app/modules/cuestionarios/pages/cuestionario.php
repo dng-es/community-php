@@ -34,8 +34,11 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 		}
 
 		if (count($elements)>0){
+			if ($finalizados==0){
 			echo '<form action="" method="post" name="formTarea" id="formTarea" role="form" >
-							<input type="hidden" id="id_cuestionario" name="id_cuestionario" value="'.$id_cuestionario.'" />';
+					<input type="hidden" id="id_cuestionario" name="id_cuestionario" value="'.$id_cuestionario.'" />';
+			}
+			
 			foreach($elements as $element):
 				$respuesta_user=$cuestionarios->getRespuestasUser(" AND id_pregunta=".$element['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");
 				if  (count($respuesta_user) == 0) { $respuesta_user[0]['respuesta_valor'] = "";}
@@ -66,13 +69,11 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 				echo '</div>';
 			endforeach;
 			if ($finalizados==0){
-				echo '<br /><button id="SubmitForm" class="btn btn-primary" type="button">Guardar respuestas</button>';
+				echo '<br /><input id="SubmitForm" class="btn btn-primary" type="submit" value="'.strTranslate("Save").'" />';
 				if (count($respuesta_user)>0){
 					echo ' <button id="FinalizarForm" onClick="Confirma(\'¿Seguro que desea finalizar el cuestionario?.\nRecuerda  que previamente tienes que guardar tus respuestas.\',\'cuestionario?id='.$id_cuestionario.'&d=1\')" class="btn btn-primary" type="button">Finalizar cuestionario</button>';
 				}
-			}
-			echo '</form>';
-			if ($finalizados==0){
+				echo '</form>';
 				echo '<br /><br /><div class="alert alert-warning">Asegúrate de haber contestado todas las preguntas correctamente antes de finalizar el cuestionario.</div>';
 			}
 		}
