@@ -20,30 +20,33 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 		$mensajeria = new mensajes();
 		$elements = mensajesController::getListSentAction(20)
 		?>
-
-		<p><?php echo strTranslate("Mailing_messages");?> <span id="contador-leidos"><?php echo $elements['total_reg'];?></span> | 
-		<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message");?></a> | <a href="inbox"><?php echo strTranslate("Mailing_inbox");?></a></p>
-		<div class="table-responsive container-min">
-			<table class="table">
-			<?php foreach($elements['items'] as $mensaje): ?>			
-				<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo MensajeLeido">
-					<td nowrap="nowrap" valign="top">
-						<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'sent-items?act=ko&id=<?php echo $mensaje['id_mensaje'];?>')" title="<?php echo  strTranslate("Delete");?>"></span>
-						<span class="fa fa-reply icon-table message-forward" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php echo strTranslate("Forward");?>"></span>			
-					</td>
-					<td valign="top" nowrap="nowrap"><span id="leidoMensajeNick<?php echo $mensaje['id_mensaje'];?>"><span id="message-nick-<?php echo $mensaje['id_mensaje'];?>"><?php echo $mensaje['nick'];?></span></span></td>
-					<td width="100%" valign="top">
-						<a id="<?php echo $mensaje['id_mensaje'];?>" href="#" value="1" class="titulo-mensaje MensajeLeido" title="<?php echo $mensaje['asunto_mensaje'];?>"><?php echo $mensaje['asunto_mensaje'];?></a>
-						<div class="pull-right"><span id="leidoMensajeTime<?php echo $mensaje['id_mensaje'];?>"><small class="text-muted"><?php echo getDateFormat($mensaje['date_mensaje'], "LONG");?></small></span></div>
-					</td>
-				</tr>
-				<tr id="MensajeOveja<?php echo $mensaje['id_mensaje'];?>" class="MensajeTextoCuerpo">
-					<td colspan="4" id="message-body-<?php echo $mensaje['id_mensaje'];?>" class="text-muted">
-						<?php echo nl2br($mensaje['mensaje_cuerpo']);?>
-					</td>
-				</tr>		 
-			<?php endforeach; ?>
-			</table>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<p><?php echo strTranslate("Mailing_messages");?> <span id="contador-leidos"><?php echo $elements['total_reg'];?></span> | 
+				<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message_app");?></a> | <a href="inbox"><?php echo strTranslate("Mailing_inbox");?></a></p>
+				<div class="table-responsive container-min">
+					<table class="table">
+					<?php foreach($elements['items'] as $mensaje): ?>			
+						<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo MensajeLeido">
+							<td nowrap="nowrap" valign="top">
+								<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'sent-items?act=ko&id=<?php echo $mensaje['id_mensaje'];?>')" title="<?php echo  strTranslate("Delete");?>"></span>
+								<span class="fa fa-reply icon-table message-forward" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php echo strTranslate("Forward");?>"></span>			
+							</td>
+							<td valign="top" nowrap="nowrap"><span id="leidoMensajeNick<?php echo $mensaje['id_mensaje'];?>"><span id="message-nick-<?php echo $mensaje['id_mensaje'];?>"><?php echo $mensaje['nick'];?></span></span></td>
+							<td width="100%" valign="top">
+								<a id="<?php echo $mensaje['id_mensaje'];?>" href="#" value="1" class="titulo-mensaje MensajeLeido" title="<?php echo $mensaje['asunto_mensaje'];?>"><?php echo $mensaje['asunto_mensaje'];?></a>
+								<div class="pull-right"><span id="leidoMensajeTime<?php echo $mensaje['id_mensaje'];?>"><small class="text-muted"><?php echo getDateFormat($mensaje['date_mensaje'], "LONG");?></small></span></div>
+							</td>
+						</tr>
+						<tr id="MensajeOveja<?php echo $mensaje['id_mensaje'];?>" class="MensajeTextoCuerpo">
+							<td colspan="4" id="message-body-<?php echo $mensaje['id_mensaje'];?>" class="text-muted">
+								<?php echo showHtmlLinks(nl2br($mensaje['mensaje_cuerpo']));?>
+							</td>
+						</tr>		 
+					<?php endforeach; ?>
+					</table>
+				</div>
+			</div>
 			<br />
 			<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		</div>
