@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
 				url: 'home',
 				data:{"form-login-user": user, "form-login-password": pass},
 				success: function(data) {
-					location.href = "?page=login";
+					location.href = "login";
 				}
 			});
 		});

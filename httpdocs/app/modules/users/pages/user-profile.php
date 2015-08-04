@@ -43,48 +43,46 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 				<div class="row inset"> 
 			  		<div class="col-md-12">
 						<?php if (count($usuario)>0): ?>
-						<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
-							<div class="row">
-								<div class="col-md-12">
-									<label class="control-label" for="user-empresa"><small><?php echo strTranslate("Group_user");?></small></label>
-									<input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
-								</div>
-							</div>	
-							<div class="row">
-								<div class="col-md-6">
-									<label class="control-label" for="user-nick"><small><?php echo strTranslate("Nick");?></small></label>
-									<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['nick'];?>" />
-								</div>
-								<div class="col-md-6">
-									<label class="control-label" for="user-nick"><small><?php echo ucfirst(strTranslate("APP_points"));?></small></label>
-									<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['puntos'];?>" />
-								</div>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="control-label" for="user-empresa"><small><?php echo strTranslate("Group_user");?></small></label>
+								<input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
 							</div>
+						</div>	
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label" for="user-nick"><small><?php echo strTranslate("Nick");?></small></label>
+								<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['nick'];?>" />
+							</div>
+							<div class="col-md-6">
+								<label class="control-label" for="user-nick"><small><?php echo ucfirst(strTranslate("APP_points"));?></small></label>
+								<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['puntos'];?>" />
+							</div>
+						</div>
 
-							<div class="row">
-								<div class="col-md-6">
-									<label class="control-label" for="user-nombre"><small><?php echo strTranslate("Name");?></small></label>
-									<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['name'];?>" />
-								</div>
-								<div class="col-md-6">
-									<label class="control-label" for="user-surname"><small><?php echo strTranslate("Surname");?></small></label>
-									<input maxlength="100" name="user-surname" id="user-surname" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['surname'];?>" />
-								</div>
-							</div>					
-				
-							<div class="row">
-								<div class="col-md-12">
-									<label class="control-label" for="user-comentarios"><small><?php echo strTranslate("what_do_you_think");?></small></label>
-									<textarea name="user-comentarios" id="user-comentarios" class="form-control" disabled="disabled"><?php echo $usuario['user_comentarios'];?></textarea>
-								</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label" for="user-nombre"><small><?php echo strTranslate("Name");?></small></label>
+								<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['name'];?>" />
 							</div>
-							<br />
-							<div class="row">
-								<div class="col-md-12">
-									<a class="btn btn-primary new-message" data-n="<?php echo $usuario['nick'];?>" href="#"><?php echo strTranslate("Send_message_to_user");?></a>	
-								</div>
+							<div class="col-md-6">
+								<label class="control-label" for="user-surname"><small><?php echo strTranslate("Surname");?></small></label>
+								<input maxlength="100" name="user-surname" id="user-surname" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['surname'];?>" />
 							</div>
-						</form>	
+						</div>					
+			
+						<div class="row">
+							<div class="col-md-12">
+								<label class="control-label" for="user-comentarios"><small><?php echo strTranslate("what_do_you_think");?></small></label>
+								<textarea name="user-comentarios" id="user-comentarios" class="form-control" disabled="disabled"><?php echo $usuario['user_comentarios'];?></textarea>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-md-12">
+								<a class="btn btn-primary new-message" data-n="<?php echo $usuario['nick'];?>" href="#"><?php echo strTranslate("Send_message_to_user");?></a>	
+							</div>
+						</div>
 							
 						<?php else: ?>
 						<div class="alert alert-warning"><?php echo strTranslate("User_not_found");?></div>

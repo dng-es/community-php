@@ -23,7 +23,7 @@ rankingsController::ExportRankingDataAction();
 		?>
 		<ul class="nav nav-pills navbar-default">      
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="?page=admin-ranking"><?php echo strTranslate("New_ranking");?></a></li>
+			<li><a href="admin-ranking"><?php echo strTranslate("New_ranking");?></a></li>
 		</ul>
 		
 		<table class="table table_striped">
@@ -37,23 +37,23 @@ rankingsController::ExportRankingDataAction();
 			<tr>
 			<td nowrap="nowrap">
 				<span class="fa fa-edit icon-table" title="<?php echo strTranslate("Edit");?>"
-					onClick="location.href='?page=admin-ranking&id=<?php echo $element['id_ranking'];?>'">
+					onClick="location.href='admin-ranking?id=<?php echo $element['id_ranking'];?>'">
 				</span>
 
-				<a title="<?php echo strTranslate("Show");?>" target="_blank" href="?page=rankings&id=<?php echo $element['id_ranking'];?>">
+				<a title="<?php echo strTranslate("Show");?>" target="_blank" href="rankings?id=<?php echo $element['id_ranking'];?>">
 					<i class="fa fa-share icon-table"></i>
 				</a>
 
-				<a href="?page=admin-rankings&exp=<?php echo $element['id_ranking'];?>" class="fa fa-download icon-table" title="descargar datos"></a>
+				<a href="admin-rankings?exp=<?php echo $element['id_ranking'];?>" class="fa fa-download icon-table" title="descargar datos"></a>
 
 				<span class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
-					onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', '?page=admin-rankings&e=2&act=del&id=<?php echo $element['id_ranking'];?>')">
+					onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-rankings?e=2&act=del&id=<?php echo $element['id_ranking'];?>')">
 				</span>
 
 			</td>						
 			<td><?php echo $element['nombre_ranking'];?></td>
 			<td><?php echo $element['ranking_category_name'];?></td>
-			<td><a href="?page=admin-rankings&act=del&e=<?php echo ($element['activo']==1 ? 0 : 1);?>&id=<?php echo $element['id_ranking'];?>"><span class="label<?php echo ($element['activo']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['activo']==1 ? "sí" : "no");?></span></a></td>
+			<td><a href="admin-rankings?act=del&e=<?php echo ($element['activo']==1 ? 0 : 1);?>&id=<?php echo $element['id_ranking'];?>"><span class="label<?php echo ($element['activo']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['activo']==1 ? "sí" : "no");?></span></a></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>

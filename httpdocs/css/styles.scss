@@ -1880,7 +1880,8 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 
 .msg-flash{display:none}
 .input-alert{
-	background-color: #ebccd1;
+	background-color: #FEC9BC;
+	border-color: #fb8a6f;
 	@include input-placeholder {
 		color: #e59797;
 		font-style: italic;

@@ -43,7 +43,7 @@ class rankingsController{
 			else{
 				session::setFlashMessage( 'actions_message', "error al modificar estado.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-rankings");
+			redirectURL("admin-rankings");
 		}
 	}			
 
@@ -62,7 +62,7 @@ class rankingsController{
 			else{
 				session::setFlashMessage( 'actions_message', "error al insertar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-ranking&id=".$id_ranking);
+			redirectURL("admin-ranking?id=".$id_ranking);
 		}			
 	}
 
@@ -83,7 +83,7 @@ class rankingsController{
 			else{
 				session::setFlashMessage( 'actions_message', "error al modificar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-ranking&id=".$id_ranking);
+			redirectURL("admin-ranking?id=".$id_ranking);
 		}
 	}
 
@@ -100,7 +100,7 @@ class rankingsController{
 			else{
 				session::setFlashMessage( 'actions_message', "error al insertar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-rankings-category&id=".$id_ranking);
+			redirectURL("admin-rankings-category?id=".$id_ranking);
 		}			
 	}
 
@@ -119,7 +119,7 @@ class rankingsController{
 			else{
 				session::setFlashMessage( 'actions_message', "error al modificar el registro.", "alert alert-danger");
 			}
-			redirectURL("?page=admin-rankings-category&id=".$id_ranking);
+			redirectURL("admin-rankings-category?id=".$id_ranking);
 		}
 	}	
 

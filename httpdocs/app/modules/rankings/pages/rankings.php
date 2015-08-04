@@ -20,7 +20,7 @@ if (count($ranking_data)>0):
 	<div class="col-md-8 col-lg-9 inset">
 		<?php
 		menu::breadcrumb(array(
-			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"?page=home"),
+			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Rankings"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>$ranking_data[0]['nombre_ranking'], "ItemClass"=>"active"),
 		));
@@ -36,7 +36,7 @@ if (count($ranking_data)>0):
 						if (isset($puntos[$i])): ?>
 					<tr>
 						<td class="table-number"><span class="badge badge-primary"><?php echo ($i+1);?></span></td>
-						<td width="100%"><h3><?php echo number_format($puntos[$i]['value_ranking'], 2, ',', '.');?> - <small><?php echo $puntos[$i]['nombre_tienda'];?></small></h3></td>
+						<td width="100%"><p><?php echo number_format($puntos[$i]['value_ranking'], 2, ',', '.');?> - <small><?php echo $puntos[$i]['nombre_tienda'];?></small></p></td>
 					</tr>
 						<?php endif;
 					} ?>

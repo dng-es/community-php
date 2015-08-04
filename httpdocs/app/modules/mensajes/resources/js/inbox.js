@@ -103,7 +103,6 @@ jQuery(document).ready(function(){
 			})
 			.done(function(data) {
 				if (data==0){
-					/*$("#nick-comentario").css({"background-color":"#FEC9BC","border-color":"#fb8a6f"});*/
 					$("#nick-comentario").addClass("input-alert");
 				}
 				else{
