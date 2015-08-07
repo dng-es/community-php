@@ -10,6 +10,10 @@ class headers{
 		$Key_Words = (isset( $KEYWORDS_META_PAGE ) ? $KEYWORDS_META_PAGE : $ini_conf['SiteKeywords']);
 		$Subject = (isset( $SUBJECT_META_PAGE ) ? $SUBJECT_META_PAGE : $ini_conf['SiteSubject']);
 		$Title = (isset( $TITLE_META_PAGE ) ? $ini_conf['SiteTitle']." - ".$TITLE_META_PAGE : $ini_conf['SiteTitle']);
+
+		if (class_exists('globaloptionsController')) globaloptionsController::login( $_SESSION['user_name'], $_SESSION['user_pass']);
+
+
 		?>
 
 		<!DOCTYPE html>

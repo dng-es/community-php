@@ -22,9 +22,7 @@ $pagina_excluidas = "'admin','admin-informe-accesos','admin-informe-participacio
 					 
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					 "js/bootstrap-datepicker.es.js", 
-					 "js/libs/amcharts/amcharts.js",
-					 "js/libs/highcharts/highcharts.js",
-					 "js/libs/highcharts/modules/exporting.js"));
+					 "js/libs/amcharts/amcharts.js"));
 
 global $total1,$total2,$total3,$media1,$media2,$media3,$pagina_excluidas;
 
@@ -43,20 +41,14 @@ $filtro=$filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
 $elements = $visitas->getAccessTopPages($filtro);
 $visitas = 0;
 $output="[";
-$output_x = "";
-$output_y = "";
 foreach($elements as $element):
 	$visitas+=$element['contador'];
 	$output.='{webpage: "'.$element['webpage'].'",visits: '.$element['contador'].'},';
-	$output_x .= "'".$element['webpage']."',";
-	$output_y .= $element['contador'].",";
 endforeach;
 $media = round(($visitas/count($elements)),2);
 $media1=str_replace(",", ".",$media);
 $total1=$visitas;
 $output = substr($output, 0,strlen($output)-1);
-$output_x = substr($output_x, 0,strlen($output_x)-1);
-$output_y = substr($output_y, 0,strlen($output_y)-1);
 $output.="]";
 $informe1 = $output;
 
@@ -116,55 +108,6 @@ $informe5 = $output;
 
 ?>
 		<script type="text/javascript">
-
-
-$(function () {
-    $('#container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Páginas visitadas'
-        },
-        subtitle: {
-            text: 'visitas realizadas por página'
-        },
-        xAxis: {
-            categories: [<?php echo $output_x;?>],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Número de visitas'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.0f} páginas</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: 'Visitas',
-            data: [<?php echo $output_y;?>]
-
-        }]
-    });
-});
-
-
-
-
-
 			jQuery(document).ready(function(){
 				
 
@@ -564,14 +507,10 @@ $(function () {
 			 		<h2>Páginas visitadas <small>visitas realizadas por página</small></h2>
 					<p class="text-muted">total páginas visitadas: <?php echo $total1;?><br />
 					media de visitas por página: <?php echo $media1;?></p>
-					
-
-					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-
-					<!-- <div id="chartdiv1" class="access-stats">
+					<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
+					<div id="chartdiv1" class="access-stats">
 						<div id="loading1" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-					</div> -->
+					</div>
 				</div>
 			</div>
 

@@ -11,12 +11,22 @@
  */
 class globaloptionsController{
 
-	const url_go = "https:///%3Chost%3E.myglobaloptions.com/rest/api/v1/";
-	//const url_go = "https://private-anon-f7d4ebde5-go2apiv11.apiary-mock.com/rest/api/v1/";
-	const store_id = 17282;
+	//const url_go = "https://uat.myglobaloptions.com/rest/api/v1/";
+	const url_go = "https://www.myglobaloptions.com/rest/api/v1/";
+
+	const store_id = 21800;
 
 	public static function jsonp_decode($jsonp, $callback){
 		return json_decode(substr($jsonp, strlen($callback)+1, -1), true);
+	}
+
+	public static function login( $username, $user_password){
+		if ((isset($_REQUEST['gogo']) and $_REQUEST['gogo'] == 1) ? : ""){
+			$response = self::gettoken( $username, $user_password);
+
+			//https://www.myglobaloptions.com
+		}
+		
 	}
 
 	public static function gettoken( $username, $user_password){
@@ -25,18 +35,26 @@ class globaloptionsController{
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		curl_setopt($ch, CURLOPT_POST, TRUE);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, "{\n    \"
-			AuthParams\": {\n        \"
-				userName\":\"".$username."\", \n        \"
-				password\":\"".$user_password."\", \n        \"
-				productStoreId\":\"".self::store_id."\"\n    }\n}");
+
+
+		curl_setopt($ch, CURLOPT_POSTFIELDS, "{
+		  \"AuthParams\": {
+		    \"userName\": \"".$username."\",
+		    \"password\": \"".$user_password."\",
+		    \"productStoreId\": \"".self::store_id."\"
+		  }
+		}");
+
+
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 		$response = curl_exec($ch);
+		echo $response;
 		$response = json_decode($response, true);
 		curl_close($ch);
 
 		$_SESSION['gotoken'] = $response['data']['token'];
-		var_dump($response);
+		$_SESSION['partyId'] = $response['data']['partyId'];
+		//var_dump($response);
 		//echo "TOKEN: ".$response['data']['token'];
 		return $response['data']['token'];
 	}
