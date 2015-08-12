@@ -65,13 +65,19 @@ $output="";
  $elements = visitas::getAccessPages($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
  $output="[";
  $visitas = 0;
+ $output_x2 = "";
+ $output_y2 = "";
  foreach($elements as $element):
 	$visitas+=$element['contador'];
 	$output.="{date: new Date(".$element['anio'].", ".($element['mes']-1).", ".$element['dia']."),price: ".$element['contador']."},";
+	$output_y2 .= $element['contador'].",";
+	$output_x2 .= "'".$element['anio']."-".($element['mes']-1)."-".$element['dia']."',";
  endforeach;
 $media = round(($visitas/count($elements)),2);
 $output = substr($output, 0,strlen($output)-1);
 $output.="]";
+$output_x2 = substr($output_x2, 0,strlen($output_x2)-1);
+$output_y2 = substr($output_y2, 0,strlen($output_y2)-1);
 $media2=str_replace(",", ".",$media);
 $total2=$visitas;
 $informe2 = $output;
@@ -119,7 +125,7 @@ $informe5 = $output;
 
 
 $(function () {
-    $('#container').highcharts({
+    $('#containerVisitas').highcharts({
         chart: {
             type: 'column'
         },
@@ -127,7 +133,7 @@ $(function () {
             text: 'Páginas visitadas'
         },
         subtitle: {
-            text: 'visitas realizadas por página'
+            text: 'visitas realizadas por página - total: <?php echo $total1;?> - media: <?php echo $media1;?>'
         },
         xAxis: {
             categories: [<?php echo $output_x;?>],
@@ -159,6 +165,46 @@ $(function () {
 
         }]
     });
+
+    $('#containerVisitasDias').highcharts({
+        title: {
+            text: 'Páginas vistas por día',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'número de paginas - total: <?php echo $total2;?> - media: <?php echo $media2;?>',
+            x: -20
+        },
+        xAxis: {
+            categories: [<?php echo $output_x2;?>]
+        },
+        yAxis: {
+            title: {
+                text: 'número de visitas'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: ''
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Visitas',
+            data: [<?php echo $output_y2;?>]
+        }]
+    });
+
+
+
 });
 
 
@@ -560,30 +606,14 @@ $(function () {
 			</div>
 
 			<div class="row">
-				<div class="col-md-12">
-			 		<h2>Páginas visitadas <small>visitas realizadas por página</small></h2>
-					<p class="text-muted">total páginas visitadas: <?php echo $total1;?><br />
-					media de visitas por página: <?php echo $media1;?></p>
-					
-
-					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-
-					<!-- <div id="chartdiv1" class="access-stats">
-						<div id="loading1" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-					</div> -->
+				<div class="col-md-12">		
+					<div id="containerVisitas" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
-					<h2>Páginas vistas por día <small>número de paginas que se han visto cada día</small></h2>
-					<p class="text-muted">total páginas visitadas: <?php echo $total2;?><br />
-					media de páginas visitadas: <?php echo $media2;?></p>
-					<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-					<div id="chartdiv2" class="access-stats">
-						<div id="loading2" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-					</div>
+					<div id="containerVisitasDias" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 				</div>
 				<div class="col-md-6">
 					<h2>Visitas únicas por día <small>accesos únicos realizados cada día</small></h2>

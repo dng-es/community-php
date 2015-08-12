@@ -49,6 +49,7 @@ class menu{
 		$array_final = arraySort($array_final, 'LabelPos', SORT_ASC);
 
 		foreach ($array_final as  $fila) {
+			$labelId = (isset($fila['LabelId']) ? 'id="'.$fila['LabelId'].'"' : '');
 			if (isset($fila['SubItems']) and count($fila['SubItems'])>0){
 				echo '<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].' <b class="caret"></b></a>
@@ -61,7 +62,7 @@ class menu{
 							</li>';
 			}
 			else{
-				echo '<li><a target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
+				echo '<li><a '.$labelId.' target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
 			}
 		}
 	}

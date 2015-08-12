@@ -20,15 +20,6 @@ class globaloptionsController{
 		return json_decode(substr($jsonp, strlen($callback)+1, -1), true);
 	}
 
-	public static function login( $username, $user_password){
-		if ((isset($_REQUEST['gogo']) and $_REQUEST['gogo'] == 1) ? : ""){
-			$response = self::gettoken( $username, $user_password);
-
-			//https://www.myglobaloptions.com
-		}
-		
-	}
-
 	public static function gettoken( $username, $user_password){
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, self::url_go."gettoken");
@@ -48,7 +39,7 @@ class globaloptionsController{
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 		$response = curl_exec($ch);
-		echo $response;
+		//echo $response;
 		$response = json_decode($response, true);
 		curl_close($ch);
 
@@ -193,7 +184,8 @@ class globaloptionsController{
 		//var_dump($response);	
 	}
 
-	public static function getParticipantBalance($partyId, $token = ''){
+	public static function getParticipantBalance($partyId = '', $token = ''){
+		$partyId = ($partyId == '' ? $_SESSION['partyId'] : $partyId);
 		$token = ($token == '' ? $_SESSION['gotoken'] : $token);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, self::url_go.$token."/getParticipantBalance?partyId=".$partyId."&programId=".self::store_id."&callback=jpcallback");
@@ -203,8 +195,9 @@ class globaloptionsController{
 		$response = self::jsonp_decode($response, "jpcallback");
 		curl_close($ch);
 
-		//var_dump($response);	
-		return $response['data'];
+		$puntos_global = (($response != NULL and $response['statusCode'] == 0) ? $response['data']['balance'] : 0);
+
+		return $puntos_global;
 	}
 }
 ?>

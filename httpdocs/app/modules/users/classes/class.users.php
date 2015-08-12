@@ -255,6 +255,7 @@ class users{
 			if (connection::execute_query($Sql)){ 
 				if ($nombre_archivo != "") {$_SESSION['user_foto'] = $nombre_archivo;}
 				$_SESSION['user_nick'] = $nick;
+				$_SESSION['user_pass'] = $user_pass;
 				return 1;}
 			else { return 2;}
 		}
