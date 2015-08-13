@@ -26,7 +26,7 @@ class visitas{
 	}	 	 
 
 	public static function getAccessPages($filter = ""){
-		$Sql="SELECT COUNT(webpage) AS contador,DATE(fecha) AS fecha,YEAR(fecha) AS anio,MONTH(fecha) AS mes,DAY(fecha) AS dia FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY DATE(fecha) ";
+		$Sql="SELECT COUNT(webpage) AS contador,DATE(fecha) AS fecha,YEAR(fecha) AS anio,MONTH(fecha) AS mes,DAY(fecha) AS dia FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY DATE(fecha) "; //echo $Sql."<br /><br />";
 		return connection::getSQL($Sql);
 	}
 

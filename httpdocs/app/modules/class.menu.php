@@ -72,6 +72,7 @@ class menu{
 	*
 	*/
 	static function UserInfoMenu(){
+		global $ini_conf;
 		if ($_SESSION['user_logged']==true){
 			$users = new users();
 			$puntos_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");

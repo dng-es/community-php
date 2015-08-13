@@ -34,7 +34,7 @@ class incentivos{
 	public function getObjetivosRanking($filter = ""){
 		$Sql="SELECT destino_objetivo,SUM(valor_objetivo) AS suma, GROUP_CONCAT(id_producto) AS productos,u.name,u.surname,u.nick FROM incentives_objetivos_detalle o 
 			LEFT JOIN users u ON u.username=o.destino_objetivo
-			WHERE 1=1 ".$filter." GROUP BY destino_objetivo";
+			WHERE 1=1 ".$filter." GROUP BY destino_objetivo"; echo $Sql."<br /><br />";
 		return connection::getSQL($Sql);
 	}
 

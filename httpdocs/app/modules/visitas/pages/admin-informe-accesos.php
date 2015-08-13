@@ -22,7 +22,6 @@ $pagina_excluidas = "'admin','admin-informe-accesos','admin-informe-participacio
 					 
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					 "js/bootstrap-datepicker.es.js", 
-					 "js/libs/amcharts/amcharts.js",
 					 "js/libs/highcharts/highcharts.js",
 					 "js/libs/highcharts/modules/exporting.js"));
 
@@ -37,88 +36,76 @@ endif;
 
 $visitas = new visitas();
 //DATOS VISITAS POR PAGINAS
-$output="";
-
-$filtro=$filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
+$filtro = $filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
 $elements = $visitas->getAccessTopPages($filtro);
 $visitas = 0;
-$output="[";
+
 $output_x = "";
 $output_y = "";
 foreach($elements as $element):
 	$visitas+=$element['contador'];
-	$output.='{webpage: "'.$element['webpage'].'",visits: '.$element['contador'].'},';
 	$output_x .= "'".$element['webpage']."',";
 	$output_y .= $element['contador'].",";
 endforeach;
 $media = round(($visitas/count($elements)),2);
-$media1=str_replace(",", ".",$media);
-$total1=$visitas;
-$output = substr($output, 0,strlen($output)-1);
+$media1 = str_replace(",", ".",$media);
+$total1 = $visitas;
 $output_x = substr($output_x, 0,strlen($output_x)-1);
 $output_y = substr($output_y, 0,strlen($output_y)-1);
-$output.="]";
-$informe1 = $output;
+
 
 //DATOS VISITAS POR DIA
-$output="";
  $elements = visitas::getAccessPages($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
- $output="[";
  $visitas = 0;
  $output_x2 = "";
  $output_y2 = "";
  foreach($elements as $element):
 	$visitas+=$element['contador'];
-	$output.="{date: new Date(".$element['anio'].", ".($element['mes']-1).", ".$element['dia']."),price: ".$element['contador']."},";
 	$output_y2 .= $element['contador'].",";
 	$output_x2 .= "'".$element['anio']."-".($element['mes']-1)."-".$element['dia']."',";
  endforeach;
 $media = round(($visitas/count($elements)),2);
-$output = substr($output, 0,strlen($output)-1);
-$output.="]";
 $output_x2 = substr($output_x2, 0,strlen($output_x2)-1);
 $output_y2 = substr($output_y2, 0,strlen($output_y2)-1);
-$media2=str_replace(",", ".",$media);
-$total2=$visitas;
-$informe2 = $output;
+$media2 = str_replace(",", ".",$media);
+$total2 = $visitas;
+
 
 //DATOS VISITAS UNICAS
-$output="";
 $elements = visitas::getAccessPages($filtro_informe." AND webpage='Inicio sesion' ");
-$output="[";
 $visitas = 0;
+$output_x3 = "";
+$output_y3 = "";
 foreach($elements as $element):
 	$visitas+=$element['contador'];
-	$output.="{date: new Date(".$element['anio'].", ".($element['mes']-1).", ".$element['dia']."),price: ".$element['contador']."},";
+	$output_y3 .= $element['contador'].",";
+	$output_x3 .= "'".$element['anio']."-".($element['mes']-1)."-".$element['dia']."',";
 endforeach;
 $media = round(($visitas/count($elements)),2);
-$output = substr($output, 0,strlen($output)-1);
-$output.="]";
-$media3=str_replace(",", ".",$media);
-$total3=$visitas;
-$informe3 = $output;
+$output_x3 = substr($output_x3, 0,strlen($output_x3)-1);
+$output_y3 = substr($output_y3, 0,strlen($output_y3)-1);
+$media3 = str_replace(",", ".",$media);
+$total3 = $visitas;
+
 
 //DATOS VISITAS POR NAVEGADOR
-$output="";
+$outputBrowser="";
 $elements = visitas::getAccessBrowser($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
-$output="[";
+
 foreach($elements as $element):
-	$output.='{browser: "'.$element['browser'].'",value: '.$element['contador'].'},';
+	$outputBrowser.='{name: "'.$element['browser'].'",y: '.$element['contador'].'},';
 endforeach;
-$output = substr($output, 0,strlen($output)-1);
-$output.="]";
-$informe4 = $output;	
+$outputBrowser = substr($outputBrowser, 0,strlen($outputBrowser)-1);
+
 
 //DATOS VISITAS POR PLATAFORMA
-$output="";
+$outputPlatform="";
 $elements = visitas::getAccessPlatform($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
-$output="[";
 foreach($elements as $element):
-	$output.='{platform: "'.$element['platform'].'",value: '.$element['contador'].'},';
+	$outputPlatform.='{name: "'.$element['platform'].'",y: '.$element['contador'].'},';
 endforeach;
-$output = substr($output, 0,strlen($output)-1);
-$output.="]";
-$informe5 = $output;
+$outputPlatform = substr($outputPlatform, 0,strlen($outputPlatform)-1);
+
 
 ?>
 		<script type="text/javascript">
@@ -204,326 +191,107 @@ $(function () {
     });
 
 
+    $('#containerVisitasUnicas').highcharts({
+        title: {
+            text: 'Visitas únicas por día',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'número de paginas - total: <?php echo $total3;?> - media: <?php echo $media3;?>',
+            x: -20
+        },
+        xAxis: {
+            categories: [<?php echo $output_x3;?>]
+        },
+        yAxis: {
+            title: {
+                text: 'número de visitas'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: ''
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Visitas',
+            data: [<?php echo $output_y3;?>]
+        }]
+    });    
+
+	$('#containerBrowser').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Visitas por navegador'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: "Porcentaje",
+            colorByPoint: true,
+            data: [<?php echo $outputBrowser;?>]
+        }]
+    });
+
+	$('#containerPlatform').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Visitas por plataforma'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: "Porcentaje",
+            colorByPoint: true,
+            data: [<?php echo $outputPlatform;?>]
+        }]
+    });    
+
 
 });
 
-
-
-
-
-			jQuery(document).ready(function(){
-				
-
-			$(".loading").css("display", "inline");
-			showInfoPages();    
-			showInfoAccess();
-			showMasVisitadas();
-			showBrowsers();
-			showPlatforms();
-
-				function showInfoPages(){		
-
-					var chart;
-					var average=<?php echo $media2;?>;
-					var chartData=<?php echo $informe2;?>;
-					var arrayVariables;
-
-
-						AmCharts.ready(function () {
-
-							AmCharts.dayNames = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
-							AmCharts.shortDayNames = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
-							AmCharts.monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-							AmCharts.shortMonthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-
-							// SERIAL CHART    
-							chart = new AmCharts.AmSerialChart();
-							chart.pathToImages = "js/amcharts/images/";
-							chart.zoomOutButton = {
-								backgroundColor: '#000000',
-								backgroundAlpha: 0.15
-							};
-							
-							chart.dataProvider = chartData;
-							chart.categoryField = "date";
-
-							// AXES
-							// category
-							var categoryAxis = chart.categoryAxis;
-							categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-							categoryAxis.minPeriod = "DD"; // our data is daily, so we set minPeriod to DD
-							categoryAxis.dashLength = 1;
-							categoryAxis.gridAlpha = 0.15;
-							categoryAxis.axisColor = "#DADADA";
-
-							// value                
-							var valueAxis = new AmCharts.ValueAxis();
-							valueAxis.axisColor = "#DADADA";
-							valueAxis.dashLength = 1;
-							valueAxis.logarithmic = true; // this line makes axis logarithmic
-							chart.addValueAxis(valueAxis);
-
-							// GUIDE for average
-							var guide = new AmCharts.Guide();
-							guide.value = average;
-							guide.lineColor = "#CC0000";
-							guide.dashLength = 4;
-							guide.label = "media: "+average;
-							guide.inside = true;
-							guide.lineAlpha = 1;
-							valueAxis.addGuide(guide);
-
-							// GRAPH
-							var graph = new AmCharts.AmGraph();
-							graph.type = "smoothedLine";
-							graph.bullet = "round";
-							graph.bulletColor = "#FFFFFF";
-							graph.bulletBorderColor = "#00BBCC";
-							graph.bulletBorderThickness = 2;
-							graph.bulletSize = 7;
-							graph.title = "Price";
-							graph.valueField = "price";
-							graph.lineThickness = 2;
-							graph.lineColor = "#00BBCC";
-							chart.addGraph(graph);
-
-							// CURSOR
-							var chartCursor = new AmCharts.ChartCursor();
-							chartCursor.cursorPosition = "mouse";
-							chart.addChartCursor(chartCursor);
-
-							// SCROLLBAR
-							var chartScrollbar = new AmCharts.ChartScrollbar();
-							chart.addChartScrollbar(chartScrollbar);
-
-							// WRITE
-							chart.write("chartdiv2");
-							$("#loading2").css("display", "none");
-					});
-				}
-
-				function showInfoAccess(){		
-					var chart;
-	        		var average=<?php echo $media3;?>;
-					var chartData=<?php echo $informe3;?>;
-					var arrayVariables;
-
-						AmCharts.ready(function () {
-
-			                AmCharts.dayNames = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
-							AmCharts.shortDayNames = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
-							AmCharts.monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-							AmCharts.shortMonthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-
-			                // SERIAL CHART    
-			                chart = new AmCharts.AmSerialChart();
-			                chart.pathToImages = "js/amcharts/images/";
-			                chart.zoomOutButton = {
-			                    backgroundColor: '#000000',
-			                    backgroundAlpha: 0.15
-			                };
-							
-
-			                chart.dataProvider = chartData;
-			                chart.categoryField = "date";
-
-			                // AXES
-			                // category
-			                var categoryAxis = chart.categoryAxis;
-			                categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-			                categoryAxis.minPeriod = "DD"; // our data is daily, so we set minPeriod to DD
-			                categoryAxis.dashLength = 1;
-			                categoryAxis.gridAlpha = 0.15;
-			                categoryAxis.axisColor = "#DADADA";
-
-			                // value                
-			                var valueAxis = new AmCharts.ValueAxis();
-			                valueAxis.axisColor = "#DADADA";
-			                valueAxis.dashLength = 1;
-			                valueAxis.logarithmic = true; // this line makes axis logarithmic
-			                chart.addValueAxis(valueAxis);
-
-			                // GUIDE for average
-			                var guide = new AmCharts.Guide();
-			                guide.value = average;
-			                guide.lineColor = "#CC0000";
-			                guide.dashLength = 4;
-			                guide.label = "media: "+average;
-			                guide.inside = true;
-			                guide.lineAlpha = 1;
-			                valueAxis.addGuide(guide);	                
-
-
-			                // GRAPH
-			                var graph = new AmCharts.AmGraph();
-			                graph.type = "smoothedLine";
-			                graph.bullet = "round";
-			                graph.bulletColor = "#FFFFFF";
-			                graph.bulletBorderColor = "#00BBCC";
-			                graph.bulletBorderThickness = 2;
-			                graph.bulletSize = 7;
-			                graph.title = "Price";
-			                graph.valueField = "price";
-			                graph.lineThickness = 2;
-			                graph.lineColor = "#00BBCC";
-			                chart.addGraph(graph);
-
-			                // CURSOR
-			                var chartCursor = new AmCharts.ChartCursor();
-			                chartCursor.cursorPosition = "mouse";
-			                chart.addChartCursor(chartCursor);
-
-			                // SCROLLBAR
-			                var chartScrollbar = new AmCharts.ChartScrollbar();
-			                chart.addChartScrollbar(chartScrollbar);
-
-			                // WRITE
-			                chart.write("chartdiv3");
-			                $("#loading3").css("display", "none");
-
-					});
-				}
-
-
-				function showMasVisitadas(){		
-					var chart;
-					var average=<?php echo $media1;?>;
-					var chartData=<?php echo $informe1;?>;
-					var arrayVariables;
-
-
-						AmCharts.ready(function () {
-
-							// SERIAL CHART
-							chart = new AmCharts.AmSerialChart();
-							chart.dataProvider = chartData;
-							chart.categoryField = "webpage";
-							chart.startDuration = 1;
-
-							// AXES
-							// category
-							var categoryAxis = chart.categoryAxis;
-							categoryAxis.labelRotation = 25;
-							categoryAxis.gridPosition = "start";
-
-							// value
-							// in case you don't want to change default settings of value axis,
-							// you don't need to create it, as one value axis is created automatically.
-							
-							// value                
-							var valueAxis = new AmCharts.ValueAxis();
-							chart.addValueAxis(valueAxis);
-
-							// GUIDE for average
-							var guide = new AmCharts.Guide();
-							guide.value = average;
-							guide.lineColor = "#CC0000";
-							guide.dashLength = 4;
-							guide.label = "media: "+average;
-							guide.inside = true;
-							guide.lineAlpha = 1;
-							valueAxis.addGuide(guide);
-
-							// GRAPH
-							var graph = new AmCharts.AmGraph();
-							graph.valueField = "visits";
-							graph.balloonText = "[[category]]: [[value]]";
-							graph.type = "column";
-							graph.lineAlpha = 0;
-							graph.fillAlphas = 0.8;
-							chart.addGraph(graph);
-
-							chart.write("chartdiv1");
-							$("#loading1").css("display", "none");
-					});
-				}				
-
-				function showBrowsers(){		
-					var chart;
-					var chartData=<?php echo $informe4;?>;
-					var arrayVariables;
-
-
-					AmCharts.ready(function () {
-						// PIE CHART
-						chart = new AmCharts.AmPieChart();
-						chart.dataProvider = chartData;
-						chart.titleField = "browser";
-						chart.valueField = "value";
-						chart.outlineColor = "#ffffff";
-						chart.outlineAlpha = 0.8;
-						chart.outlineThickness = 0;
-						// this makes the chart 3D
-						chart.depth3D = 15;
-						chart.angle = 30;
-
-						//FULL WIDTH/HEIGHT
-						chart.labelsEnabled = false;
-						chart.autoMargins = false;
-						chart.marginTop = "6%";
-						chart.marginBottom = "10%";
-						chart.marginLeft = "6%";
-						chart.marginRight = "6%";
-						chart.pullOutRadius = 0;
-
-						// LEGEND
-						legend = new AmCharts.AmLegend();
-						legend.position = "right";
-						legend.switchType = "v";
-						legend.markerType = "circle";
-						legend.switchable = true;
-						chart.addLegend(legend);
-
-						// WRITE
-						chart.write("chartdiv4");
-						$("#loading4").css("display", "none");
-					});
-				}		
-
-				function showPlatforms(){		
-					var chart;
-					var chartData=<?php echo $informe5;?>;
-					var arrayVariables;
-
-
-					AmCharts.ready(function () {
-						// PIE CHART
-						chart = new AmCharts.AmPieChart();
-						chart.dataProvider = chartData;
-						chart.titleField = "platform";
-						chart.valueField = "value";
-						chart.outlineColor = "#ffffff";
-						chart.outlineAlpha = 0.8;
-						chart.outlineThickness = 0;
-						// this makes the chart 3D
-						chart.depth3D = 15;
-						chart.angle = 30;
-
-						//FULL WIDTH/HEIGHT
-						chart.labelsEnabled = false;
-						chart.autoMargins = false;
-						chart.marginTop = "6%";
-						chart.marginBottom = "10%";
-						chart.marginLeft = "6%";
-						chart.marginRight = "6%";
-						chart.pullOutRadius = 0;
-
-						// LEGEND
-						legend = new AmCharts.AmLegend();
-						legend.position = "right";
-						legend.switchType = "v";
-						legend.markerType = "circle";
-						legend.switchable = true;
-						//legend.valueWidth = 80;
-						chart.addLegend(legend);
-
-						// WRITE
-						chart.write("chartdiv5");
-						$("#loading5").css("display", "none");
-					});
-				}												
-			});
-		</script>        
+</script>        
 <?php
 
   
@@ -616,30 +384,16 @@ $(function () {
 					<div id="containerVisitasDias" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 				</div>
 				<div class="col-md-6">
-					<h2>Visitas únicas por día <small>accesos únicos realizados cada día</small></h2>
-					<p class="text-muted">total visitas únicas: <?php echo $total3;?><br />
-					media visitas únicas: <?php echo $media3;?></p>
-					<div style="height:18px;position:relative;width:200px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-					<div id="chartdiv3"  class="access-stats">
-						<div id="loading3" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i>></div>
-					</div>
+					<div id="containerVisitasUnicas" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
-					<h2>Visitas por navegador</h2>
-					<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-					<div id="chartdiv4" class="access-stats">
-						<div id="loading4" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-					</div> 
+					<div id="containerBrowser" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 				</div>
 				<div class="col-md-6">
-					<h2>Visitas por plataforma (SO).</h2>
-					<div style="height:18px;position:relative;width:180px;display:block;top:0px;left:0.1%;background:#fff;z-index:100000000"></div>
-					<div id="chartdiv5" class="access-stats">
-						<div id="loading5" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-					</div>
+					<div id="containerPlatform" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 				</div>
 			</div>	
 		</div>

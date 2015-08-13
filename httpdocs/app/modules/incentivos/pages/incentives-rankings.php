@@ -1,7 +1,5 @@
 <?php
 
-addJavascripts(array("js/libs/amcharts/amcharts.js"));
-
 $id_objetivo = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 
 session::getFlashMessage( 'actions_message' ); 
@@ -66,7 +64,7 @@ $incentivos = new incentivos();
 			<p>Estos son los rankings de cada objetivo, ¿estas entre los primeros? descúbrelo!!!.</p>
 			
 
-			<?php if ($posicion !== false):?>
+			<?php if ( isset($posicion) and $posicion !== false):?>
 			<h3><?php echo strTranslate("Your_ranking");?> <small style="color:#f7c925"><?php echo $posicion+1;?></small></h3>
 			<p><?php echo round($ranking[$posicion]['porcentaje'], 2);?>% de consecución<br />
 			<?php endif;?>

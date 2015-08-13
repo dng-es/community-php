@@ -43,11 +43,13 @@ class globaloptionsController{
 		$response = json_decode($response, true);
 		curl_close($ch);
 
-		$_SESSION['gotoken'] = $response['data']['token'];
-		$_SESSION['partyId'] = $response['data']['partyId'];
-		//var_dump($response);
-		//echo "TOKEN: ".$response['data']['token'];
-		return $response['data']['token'];
+		if (isset($response['data'])):
+			$_SESSION['gotoken'] = $response['data']['token'];
+			$_SESSION['partyId'] = $response['data']['partyId'];
+			//var_dump($response);
+			//echo "TOKEN: ".$response['data']['token'];
+			return $response['data']['token'];
+		endif;
 	}
 
 	public static function getParticipantData($partyId, $username, $token = ''){

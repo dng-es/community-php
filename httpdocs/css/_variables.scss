@@ -30,7 +30,7 @@ $color3 : darken($color1, 10%);	//color oscuro o de contraste respecto el color 
 
 $font-size-community: 14px;
 $border-def: 0px;
-$container-color: #f7f7f7;
+$container-color: #f9f9f9;
 $container-panel-color: #fff;
 $panels-color: #fff;
 $panels-color-title: #333;
@@ -68,7 +68,7 @@ $nav-link-hover-bg: $color2;
 $dropdown-bg: $color1;
 $dropdown-link-color: #fff;
 $panel-primary-border: #e5e5e5;
-$panel-default-heading-bg : $panels-color;
+/* $panel-default-heading-bg : $panels-color; */
 $breadcrumb-bg: darken($container-color, 2%);
 $breadcrumb-padding-vertical: 6px;
 $table-bg-hover: lighten($color1, 47%);

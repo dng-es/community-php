@@ -1439,9 +1439,6 @@ table th {
 	font-size: 15px;
 }
 
-.panel-default .panel-heading{
-	color:#fff;
-}
 dt {
     color: #666;
     font-weight: 500;
@@ -1641,12 +1638,12 @@ dt {
 	right: 0;
 	z-index: 101;
 	h2{
-		color:lighten($panels-color, 30%) !important;
+		color:darken($panels-color, 30%) !important;
 		font-size:16px;
 		margin-bottom:0px !important;
 	}
 	h3{
-		color:lighten($panels-color, 30%);
+		color:darken($panels-color, 30% );
 		font-size:18px;
 	}
 	ul{

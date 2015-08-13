@@ -1,6 +1,7 @@
 <?php
 
-addJavascripts(array("js/libs/amcharts/amcharts.js"));
+addJavascripts(array("js/libs/highcharts/highcharts.js",
+					 "js/libs/highcharts/modules/exporting.js"));
 
 $referencia_acelerador = (isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
 
@@ -109,39 +110,40 @@ $users = new users();
 function showGraph($id_target, $conseguido, $pendiente){
 ?>
 <script type="text/javascript">
-	var chartData<?php echo $id_target;?>=[{browser: "Pendiente",value: <?php echo floatval($pendiente);?>},{browser: "Conseguido",value: <?php echo floatval($conseguido);?>}];
-
-	AmCharts.ready(function () {
-		// PIE CHART
-		chart = new AmCharts.AmPieChart();
-		chart.dataProvider = chartData<?php echo $id_target;?>;
-		chart.titleField = "browser";
-		chart.valueField = "value";
-		chart.outlineColor = "#ffffff";
-		chart.outlineAlpha = 0.8;
-		chart.outlineThickness = 0;
-		// this makes the chart 3D
-		chart.depth3D = 15;
-		chart.angle = 30;
-		chart.colors = ["#cc1c4a", "#5cb85c"]
-
-		//FULL WIDTH/HEIGHT
-		chart.labelsEnabled = false;
-		chart.autoMargins = false;
-		chart.marginTop = "10%";
-		chart.marginBottom = "10%";
-		chart.marginLeft = "6%";
-		chart.marginRight = "6%";
-		chart.pullOutRadius = 0;
-
-		// WRITE
-		chart.write("chartdiv<?php echo $id_target;?>");
-		$("#loading<?php echo $id_target;?>").css("display", "none");
-	});
+	var chartData<?php echo $id_target;?>=[{name: "Pendiente",y: <?php echo floatval($pendiente);?>},{name: "Conseguido",y: <?php echo floatval($conseguido);?>}];
+	$(function () {
+		$('#container<?php echo $id_target;?>').highcharts({
+	        chart: {
+	            plotBackgroundColor: null,
+	            plotBorderWidth: null,
+	            plotShadow: false,
+	            type: 'pie'
+	        },
+	        title: {
+	            text: 'Consecucion objetivo'
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	        },
+	        plotOptions: {
+	            pie: {
+	                allowPointSelect: true,
+	                cursor: 'pointer',
+	                dataLabels: {
+	                    enabled: false
+	                },
+	                showInLegend: true
+	            }
+	        },
+	        series: [{
+	            name: "Porcentaje",
+	            colorByPoint: true,
+	            data: chartData<?php echo $id_target;?>
+	        }]
+	    });   
+});   
 </script>
-<div id="chartdiv<?php echo $id_target;?>" class="incentives-stats">
-	<div id="loading<?php echo $id_target;?>" class="loading"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-</div>
+<div id="container<?php echo $id_target;?>" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <?php 
 }
 ?>

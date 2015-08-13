@@ -58,6 +58,7 @@ class incentivosController{
 	}
 
 	public static function getRankingUsuarioAction($objetivo){
+		echo "usuario";
 		$incentivos = new incentivos();
 		$objetivos = $incentivos->getObjetivosRanking(" AND id_objetivo=".$objetivo['id_objetivo']." ");
 		$elements = array();
@@ -82,6 +83,7 @@ class incentivosController{
 	}
 
 	public static function getRankingTiendaAction($objetivo){
+		echo "tienda";
 		$incentivos = new incentivos();
 		$objetivos = $incentivos->getObjetivosRankingTienda(" AND id_objetivo=".$objetivo['id_objetivo']." ");
 		$elements = array();
