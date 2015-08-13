@@ -72,7 +72,7 @@ $total2 = $visitas;
 
 
 //DATOS VISITAS UNICAS
-$elements = visitas::getAccessPages($filtro_informe." AND webpage='Inicio sesion' ");
+$elements = visitas::getAccessUnique($filtro_informe." AND webpage='Inicio sesion' ");
 $visitas = 0;
 $output_x3 = "";
 $output_y3 = "";
@@ -322,78 +322,151 @@ $(function () {
 				array("ItemLabel"=>strTranslate("Report")." <b>".strTranslate("Visits")."</b>", "ItemClass"=>"active"),
 			));
 			?>
+
 			<div class="row">
-				<div class="col-md-12">
-					<p>Puedes filtrar los informes de acceso por fechas:</p>
-					<form name="inf-accesos" id="inf-accesos" method="post" action="<?php echo $_REQUEST['page'];?>" role="form" class="">
-						<input type="hidden" name="export_fechas" id="export_fechas" value="1" />
-
-						<div class="row">
-							<div class="col-xs-6">
-								<label for="fecha_ini">Fecha inicio:</label>
-								<div id="datetimepicker1" class="input-group date">
-									<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_ini" class="form-control" name="fecha_ini" placeholder="Fecha inicio" value="<?php echo $fecha_ini;?>"></input>
-								<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+				<div class="col-md-6">
+					<div class="panel panel-default panel-ranking">
+						<div class="panel-body nopadding">
+							<div class="row">
+								<div class="col-md-8 inset">
+									<h4>Usuarios activos</h4>
+									Total usuarios activos en la comunidad
 								</div>
-
-								<script>
-								jQuery(document).ready(function(){
-									$("#datetimepicker1").datetimepicker({
-									  language: "es-ES"
-									});
-								});
-								</script>
-							</div>
-							<div class="col-xs-6">
-								<label for="fecha_fin">Fecha fin:</label>
-								<div id="datetimepicker2" class="input-group date">
-									<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_fin" class="form-control" name="fecha_fin" placeholder="Fecha fin" value="<?php echo $fecha_fin;?>"></input>
-								<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+								<div class="col-md-4 label-success inset panel-color">
+									<?php 
+										$num_users = number_format(connection::countReg("users", " AND disabled=0 AND registered=1 AND confirmed=1 "), 0, ',', '.');
+									?>
+									<p class="text-center"><big><?php echo $num_users;?></big><br />
+										<?php echo strTranslate("Users");?>
+									</p>
 								</div>
-
-								<script>
-								jQuery(document).ready(function(){
-									$("#datetimepicker2").datetimepicker({
-									  language: "es-ES"
-									});
-								});
-								</script>
 							</div>
 						</div>
-						<span id="fecha-alert" class="alert-message alert alert-danger"></span>
+					</div>
+				</div>
 
-						<br />
-						<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
-						<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
-						<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', 'admin-informe-accesos?act=del')" title="Vaciar registros" />Vaciar registros de accesos</a>
-						<br /><br />
-						<p class="text-danger">En los informes gráficos no se muestran los accesos al panel de administración.</p>
-						<hr />
-					</form>
+				<div class="col-md-6">
+					<div class="panel panel-default panel-ranking">
+						<div class="panel-body nopadding">
+							<div class="row">
+								<div class="col-md-8 inset">
+									<h4>Tiendas activos</h4>
+									Total <?php echo strtolower(strTranslate("Groups_user"));?> activas en la comunidad
+								</div>
+								<div class="col-md-4 label-info inset panel-color">
+									<?php 
+										$num_empresas = number_format(connection::countReg("users_tiendas", " AND activa=1 "), 0, ',', '.');
+									?>
+									<p class="text-center"><big><?php echo $num_empresas;?></big><br />
+										<?php echo strTranslate("Groups_user");?>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-md-12">		
-					<div id="containerVisitas" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+				<div class="col-md-12">				
+					<div class="panel panel-default panel-ranking">
+						<div class="panel-body">
+							<p>Puedes filtrar los informes de acceso por fechas: <span class="text-danger text-small">En los informes gráficos no se muestran los accesos al panel de administración.</span></p>
+							<div class="row">
+								<div class="col-md-5">
+									<form name="inf-accesos" id="inf-accesos" method="post" action="<?php echo $_REQUEST['page'];?>" role="form" class="">
+										<input type="hidden" name="export_fechas" id="export_fechas" value="1" />
+
+										<div class="row">
+											<div class="col-xs-6">
+												<label for="fecha_ini">Fecha inicio:</label>
+												<div id="datetimepicker1" class="input-group date">
+													<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_ini" class="form-control" name="fecha_ini" placeholder="Fecha inicio" value="<?php echo $fecha_ini;?>"></input>
+												<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+												</div>
+
+												<script>
+												jQuery(document).ready(function(){
+													$("#datetimepicker1").datetimepicker({
+													  language: "es-ES"
+													});
+												});
+												</script>
+											</div>
+											<div class="col-xs-6">
+												<label for="fecha_fin">Fecha fin:</label>
+												<div id="datetimepicker2" class="input-group date">
+													<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_fin" class="form-control" name="fecha_fin" placeholder="Fecha fin" value="<?php echo $fecha_fin;?>"></input>
+												<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+												</div>
+
+												<script>
+												jQuery(document).ready(function(){
+													$("#datetimepicker2").datetimepicker({
+													  language: "es-ES"
+													});
+												});
+												</script>
+											</div>
+										</div>
+										<span id="fecha-alert" class="alert-message alert alert-danger"></span>
+									</div>
+									<div class="col-md-7">
+										<br />
+										<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
+										<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
+										<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', 'admin-informe-accesos?act=del')" title="Vaciar registros" />Vaciar registros de accesos</a>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="row">
+				<div class="col-md-12">
+				<div class="panel panel-default panel-ranking">
+					<div class="panel-body nopadding">		
+							<div id="containerVisitas" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
-					<div id="containerVisitasDias" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					<div class="panel panel-default panel-ranking">
+						<div class="panel-body nopadding">
+							<div id="containerVisitasDias" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-6">
-					<div id="containerVisitasUnicas" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					<div class="panel panel-default panel-ranking">
+						<div class="panel-body nopadding">
+							<div id="containerVisitasUnicas" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
-					<div id="containerBrowser" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					<div class="panel panel-default panel-ranking">
+					<div class="panel-body nopadding">
+							<div id="containerBrowser" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-6">
-					<div id="containerPlatform" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					<div class="panel panel-default panel-ranking">
+						<div class="panel-body nopadding">
+							<div id="containerPlatform" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+						</div>
+					</div>
 				</div>
 			</div>	
 		</div>

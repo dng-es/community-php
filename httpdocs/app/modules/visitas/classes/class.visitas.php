@@ -30,6 +30,16 @@ class visitas{
 		return connection::getSQL($Sql);
 	}
 
+	public static function getAccessUnique($filter = ""){
+		$Sql="SELECT COUNT(*) AS contador,DATE(fecha) AS fecha,YEAR(fecha) AS anio,MONTH(fecha) AS mes,DAY(fecha) AS dia FROM (
+				SELECT username,fecha 
+				FROM accesscontrol 
+				WHERE 1=1 ".$filter." 
+				GROUP BY username, DATE(fecha)) AS total
+			GROUP BY DATE(fecha) "; //echo $Sql."<br /><br />";
+		return connection::getSQL($Sql);
+	}	
+
 	public static function getAccessBrowser($filter = ""){
 		$Sql="SELECT COUNT(webpage) AS contador,browser FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY browser ";
 		return connection::getSQL($Sql);

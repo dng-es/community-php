@@ -27,7 +27,7 @@ $num_canales = usersCanalesController::getCanalesAction();
 						<dl class="dl-horizontal">
 							<dt>Usuarios activos</dt>
 							<dd><?php echo $num_users;?></dd>
-							<dt>Tiendas activas</dt>
+							<dt><?php echo strTranslate("Groups_user");?> activas</dt>
 							<dd><?php echo $num_empresas;?></dd>
 							<dt>Perfiles activos</dt>
 							<dd><?php echo $num_perfiles;?></dd>
