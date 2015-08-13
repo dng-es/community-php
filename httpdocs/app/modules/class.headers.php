@@ -66,7 +66,7 @@ class headers{
 		global $paginas_free; ?>
 		</head>
 			<body id="page-<?php echo $page;?>">
-			<img alt="fondo" id="bg" src="images/bg01.jpg" />
+			<img alt="fondo" id="bg" src="images/bg01.jpg" class="hidden-print" />
 		<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged']==true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
 
 				<?php if (class_exists('globaloptionsController')):
@@ -79,7 +79,7 @@ class headers{
 				<?php endif; ?>
 				<div class="container" id="container-main">
 				<!-- Page content -->
-					<div id="header-container">
+					<div id="header-container" class="hidden-print">
 						<?php menu::UserInfoMenu();?>
 						<?php menu::PageMenu();?>
 					</div>

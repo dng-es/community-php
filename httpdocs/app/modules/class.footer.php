@@ -10,7 +10,7 @@ class footer{
 		$declaracion= $pages->getPages(" AND page_name='declaracion' ");
 		?>
 		</div>
-		<div class="footer">
+		<div class="footer hidden-print">
 			<p><a href="contact"><?php echo strTranslate("Contact");?></a> 
 			<a href="#" id="declaracion-trigger"><?php echo strTranslate("Rights_and_responsabilities");?></a> 
 			<a href="#" id="policy-trigger"><?php echo strTranslate("Private_policy");?></a><br />

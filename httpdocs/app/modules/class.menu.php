@@ -207,7 +207,7 @@ class menu{
 			array_multisort($principal, SORT_ASC, $seccion, SORT_ASC, $posicion, SORT_ASC, $array_final);
 
 			?>
-			<div class="app-sidebar-admin" id="admin-panel">
+			<div class="app-sidebar-admin hidden-print" id="admin-panel">
 				<h2><a href="admin"><?php echo strTranslate("Go_to_main_panel");?></a></h2>
 				<?php self::getMenuSection("Modules", "fa fa-puzzle-piece", $array_final);?>
 				<?php self::getMenuSection("Tools", "fa fa-gears", $array_final);?>
@@ -269,7 +269,7 @@ class menu{
 	 * @param  array 	$elems 		Elementos a mostrar en el breadcrub
 	 */
 	public static function breadcrumb($elems){
-		echo '<ol class="breadcrumb">';
+		echo '<ol class="breadcrumb hidden-print">';
 		foreach($elems as $elem):		
 			echo '<li'.(isset($elem["ItemClass"]) ? ' class="'.$elem["ItemClass"].'" ': '').'>
 					'.(isset($elem["ItemUrl"]) ? '<a href="'.$elem["ItemUrl"].'">' : '').'

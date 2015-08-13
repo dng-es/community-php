@@ -113,6 +113,7 @@ function showGraph($id_target, $conseguido, $pendiente){
 	var chartData<?php echo $id_target;?>=[{name: "Pendiente",y: <?php echo floatval($pendiente);?>},{name: "Conseguido",y: <?php echo floatval($conseguido);?>}];
 	$(function () {
 		$('#container<?php echo $id_target;?>').highcharts({
+			credits: false,
 	        chart: {
 	            plotBackgroundColor: null,
 	            plotBorderWidth: null,

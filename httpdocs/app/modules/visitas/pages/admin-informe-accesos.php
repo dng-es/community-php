@@ -39,7 +39,6 @@ $visitas = new visitas();
 $filtro = $filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
 $elements = $visitas->getAccessTopPages($filtro);
 $visitas = 0;
-
 $output_x = "";
 $output_y = "";
 foreach($elements as $element):
@@ -106,13 +105,11 @@ foreach($elements as $element):
 endforeach;
 $outputPlatform = substr($outputPlatform, 0,strlen($outputPlatform)-1);
 
-
 ?>
-		<script type="text/javascript">
-
-
+<script type="text/javascript">
 $(function () {
     $('#containerVisitas').highcharts({
+    	credits: false,
         chart: {
             type: 'column'
         },
@@ -148,12 +145,24 @@ $(function () {
         },
         series: [{
             name: 'Visitas',
-            data: [<?php echo $output_y;?>]
-
+            data: [<?php echo $output_y;?>],
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.0f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '10px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
         }]
     });
 
     $('#containerVisitasDias').highcharts({
+    	credits: false,
         title: {
             text: 'Páginas vistas por día',
             x: -20 //center
@@ -184,6 +193,14 @@ $(function () {
             verticalAlign: 'middle',
             borderWidth: 0
         },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
         series: [{
             name: 'Visitas',
             data: [<?php echo $output_y2;?>]
@@ -192,6 +209,7 @@ $(function () {
 
 
     $('#containerVisitasUnicas').highcharts({
+    	credits: false,
         title: {
             text: 'Visitas únicas por día',
             x: -20 //center
@@ -213,6 +231,14 @@ $(function () {
                 color: '#808080'
             }]
         },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
         tooltip: {
             valueSuffix: ''
         },
@@ -229,6 +255,7 @@ $(function () {
     });    
 
 	$('#containerBrowser').highcharts({
+        credits: false,
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -259,6 +286,7 @@ $(function () {
     });
 
 	$('#containerPlatform').highcharts({
+		credits: false,
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -367,7 +395,7 @@ $(function () {
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row hidden-print">
 				<div class="col-md-12">				
 					<div class="panel panel-default panel-ranking">
 						<div class="panel-body">
@@ -415,7 +443,8 @@ $(function () {
 										<br />
 										<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
 										<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
-										<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', 'admin-informe-accesos?act=del')" title="Vaciar registros" />Vaciar registros de accesos</a>
+										<a href="#" onClick="window.print(); return false;" class="btn btn-primary">Imprimir informe</a>
+										<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', 'admin-informe-accesos?act=del')" title="Vaciar registros" />Vaciar registros</a>
 									</form>
 								</div>
 							</div>
@@ -430,7 +459,7 @@ $(function () {
 				<div class="col-md-12">
 				<div class="panel panel-default panel-ranking">
 					<div class="panel-body nopadding">		
-							<div id="containerVisitas" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+							<div id="containerVisitas" style="width:640px;min-width: 310px; height: 400px; margin: 0 auto"></div>
 						</div>
 					</div>
 				</div>
