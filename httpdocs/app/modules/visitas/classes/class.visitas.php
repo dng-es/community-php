@@ -40,6 +40,11 @@ class visitas{
 		return connection::getSQL($Sql);
 	}	
 
+	public static function getAccessHour($filter = ""){
+		$Sql="SELECT COUNT(webpage) AS contador,HOUR(fecha) AS date_hour FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY HOUR(fecha) ";
+		return connection::getSQL($Sql);
+	}	
+
 	public static function getAccessBrowser($filter = ""){
 		$Sql="SELECT COUNT(webpage) AS contador,browser FROM accesscontrol WHERE 1=1 ".$filter." GROUP BY browser ";
 		return connection::getSQL($Sql);

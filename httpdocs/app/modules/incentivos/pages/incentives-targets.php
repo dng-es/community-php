@@ -144,7 +144,7 @@ function showGraph($id_target, $conseguido, $pendiente){
 	    });   
 });   
 </script>
-<div id="container<?php echo $id_target;?>" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="container<?php echo $id_target;?>" class="container-graph"></div>
 <?php 
 }
 ?>

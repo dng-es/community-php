@@ -69,14 +69,13 @@ class headers{
 			<img alt="fondo" id="bg" src="images/bg01.jpg" class="hidden-print" />
 		<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged']==true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
 
-				<?php if (class_exists('globaloptionsController')):
-					globaloptionsController::gettoken( $_SESSION['user_name'], $_SESSION['user_pass']);
-				?>
-					<form name="formGlobalOptions" id="formGlobalOptions"  method="post" target="_blank" action="https://www.myglobaloptions.com/store/control/login">
-						<input type="hidden" name="USERNAME" value="<?php echo $_SESSION['user_name'];?>">
-						<input type="hidden" name="PASSWORD" value="<?php echo $_SESSION['user_pass'];?>">
-					</form>
-				<?php endif; ?>
+				<?php //if (class_exists('globaloptionsController')):	
+					//globaloptionsController::gettoken( $_SESSION['user_name'], $_SESSION['user_pass']);?>
+					<!-- <form name="formGlobalOptions" id="formGlobalOptions"  method="post" target="_blank" action="https://www.myglobaloptions.com/store/control/login">
+						<input type="hidden" name="USERNAME" value="<?php //echo $_SESSION['user_name'];?>">
+						<input type="hidden" name="PASSWORD" value="<?php //echo $_SESSION['user_pass'];?>">
+					</form> -->
+				<?php //endif; ?>
 				<div class="container" id="container-main">
 				<!-- Page content -->
 					<div id="header-container" class="hidden-print">

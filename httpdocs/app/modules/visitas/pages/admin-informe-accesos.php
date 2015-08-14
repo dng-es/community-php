@@ -34,10 +34,10 @@ else:
 endif;
 
 
-$visitas = new visitas();
+
 //DATOS VISITAS POR PAGINAS
 $filtro = $filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
-$elements = $visitas->getAccessTopPages($filtro);
+$elements = visitas::getAccessTopPages($filtro);
 $visitas = 0;
 $output_x = "";
 $output_y = "";
@@ -51,6 +51,23 @@ $media1 = str_replace(",", ".",$media);
 $total1 = $visitas;
 $output_x = substr($output_x, 0,strlen($output_x)-1);
 $output_y = substr($output_y, 0,strlen($output_y)-1);
+
+//DATOS VISITAS POR HORA
+$filtro = $filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
+$elements = visitas::getAccessHour($filtro);
+$visitas = 0;
+$output_x5 = "";
+$output_y5 = "";
+foreach($elements as $element):
+    $visitas+=$element['contador'];
+    $output_x5 .= "'".$element['date_hour']."',";
+    $output_y5 .= $element['contador'].",";
+endforeach;
+$media = round(($visitas/count($elements)),2);
+$media5 = str_replace(",", ".",$media);
+$total5 = $visitas;
+$output_x5 = substr($output_x5, 0,strlen($output_x5)-1);
+$output_y5 = substr($output_y5, 0,strlen($output_y5)-1);
 
 
 //DATOS VISITAS POR DIA
@@ -146,6 +163,59 @@ $(function () {
         series: [{
             name: 'Visitas',
             data: [<?php echo $output_y;?>],
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.0f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '10px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+
+$('#containerHoras').highcharts({
+        credits: false,
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Visitas por hora'
+        },
+        subtitle: {
+            text: 'visitas realizadas por hora del servidor - total: <?php echo $total5;?> - media: <?php echo $media5;?>'
+        },
+        xAxis: {
+            categories: [<?php echo $output_x5;?>],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Número de visitas'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.0f} páginas</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Visitas',
+            data: [<?php echo $output_y5;?>],
             dataLabels: {
                 enabled: true,
                 rotation: -90,
@@ -273,9 +343,12 @@ $(function () {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
             }
         },
         series: [{
@@ -304,9 +377,12 @@ $(function () {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
             }
         },
         series: [{
@@ -356,7 +432,7 @@ $(function () {
 					<div class="panel panel-default panel-ranking">
 						<div class="panel-body nopadding">
 							<div class="row">
-								<div class="col-md-8 inset">
+								<div class="col-md-8 inset panel-description">
 									<h4>Usuarios activos</h4>
 									Total usuarios activos en la comunidad
 								</div>
@@ -377,8 +453,8 @@ $(function () {
 					<div class="panel panel-default panel-ranking">
 						<div class="panel-body nopadding">
 							<div class="row">
-								<div class="col-md-8 inset">
-									<h4>Tiendas activos</h4>
+								<div class="col-md-8 inset panel-description">
+									<h4><?php echo strTranslate("Groups_user");?> activas</h4>
 									Total <?php echo strtolower(strTranslate("Groups_user"));?> activas en la comunidad
 								</div>
 								<div class="col-md-4 label-info inset panel-color">
@@ -456,27 +532,34 @@ $(function () {
 
 
 			<div class="row">
-				<div class="col-md-12">
-				<div class="panel panel-default panel-ranking">
-					<div class="panel-body nopadding">		
-							<div id="containerVisitas" style="width:640px;min-width: 310px; height: 400px; margin: 0 auto"></div>
+				<div class="col-md-6">
+    				<div class="panel panel-default panel-ranking">
+    					<div class="panel-body nopadding">		
+    						<div id="containerVisitas" class="container-graph"></div>
 						</div>
 					</div>
 				</div>
+                <div class="col-md-6">
+                    <div class="panel panel-default panel-ranking">
+                        <div class="panel-body nopadding">      
+                            <div id="containerHoras" class="container-graph"></div>
+                        </div>
+                    </div>
+                </div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
 					<div class="panel panel-default panel-ranking">
 						<div class="panel-body nopadding">
-							<div id="containerVisitasDias" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+							<div id="containerVisitasDias" class="container-graph"></div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="panel panel-default panel-ranking">
 						<div class="panel-body nopadding">
-							<div id="containerVisitasUnicas" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+							<div id="containerVisitasUnicas" class="container-graph"></div>
 						</div>
 					</div>
 				</div>
@@ -486,14 +569,14 @@ $(function () {
 				<div class="col-md-6">
 					<div class="panel panel-default panel-ranking">
 					<div class="panel-body nopadding">
-							<div id="containerBrowser" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+							<div id="containerBrowser" class="container-graph"></div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="panel panel-default panel-ranking">
 						<div class="panel-body nopadding">
-							<div id="containerPlatform" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+							<div id="containerPlatform" class="container-graph"></div>
 						</div>
 					</div>
 				</div>

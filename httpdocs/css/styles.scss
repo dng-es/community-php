@@ -1925,6 +1925,33 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 			}
 		}
 	}
+
+	@media print {
+		margin: 0 !important;
+		div{
+			background-color: #f0f0f0 !important;
+			-webkit-print-color-adjust: exact; 
+			display: inline-block;
+			float: left;
+			.panel-description{
+				width: 450px !important;
+			}
+			.panel-color{
+				background-color: #f0f0f0 !important;
+				-webkit-print-color-adjust: exact; 
+				width: 150px !important;
+			}
+			p{
+				font-size: 0px !important;
+				line-height: 20px !important;
+				height: 27px !important;
+			}
+			h4{
+				font-size: 18px !important;
+				margin:0;
+			}
+		}
+	}
 }
 .icon-fun{
 	color: #c5c5c5;
@@ -1932,3 +1959,24 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 	margin-top: 5px;
 	text-align: center;
 }
+
+/*Graficos*/
+.container-graph{
+	min-width: 310px;
+	margin: 0 auto;
+	
+	//width:640px  !important;
+/* 	@media screen {
+	width:100% !important;
+	} */
+
+/*  	@media print {
+		width:640px !important;
+	}  */
+}
+.highcharts-button{
+	@media print {
+		display: none;
+	}
+}
+/*Fin Graficos*/
