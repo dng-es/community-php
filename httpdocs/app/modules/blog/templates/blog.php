@@ -30,7 +30,7 @@ function entradasBlog($elements){
 }
 
 function searchBlog(){ ?>
-	<form role="form" action="blog-list" method="post" id="form-blog">
+	<form role="form" action="blog-list" method="get" id="form-blog">
 		<div class="input-group">
 			<label class="sr-only" for="find_reg"><?php echo strTranslate("Search");?></label>
 			<input class="form-control" id="find_reg" name="find_reg" placeholder="<?php echo strtolower(strTranslate("Search"));?>">

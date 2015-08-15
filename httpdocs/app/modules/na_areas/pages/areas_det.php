@@ -35,24 +35,31 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 			<p><?php echo $area[0]['area_descripcion'];?></p>
 			<div class="clearfix"></div>
 
-			<?php printTareas($id_area);
+			<div class="row">
+				<div class="col-md-6">
+					<h4>Tareas del curso</h4>
+					<?php printTareas($id_area);?>
+				</div>
+				<div class="col-md-6">
+					<?php if ($module_config['options']['forums']==true){
+						//mostrar foros del area
+						$id_tema_parent = connection::SelectMaxReg("id_tema","foro_temas"," AND id_tema_parent=0 AND id_area=".$id_area." ");
+						$filtro=" AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ";
+						if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
+						
+						$elements = foroController::getListTemasAction($module_config['options']['forums_per_page'], $filtro);
 
-			if ($module_config['options']['forums']==true){
-				//mostrar foros del area
-				$id_tema_parent = connection::SelectMaxReg("id_tema","foro_temas"," AND id_tema_parent=0 AND id_area=".$id_area." ");
-				$filtro=" AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ";
-				if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
-				
-				$elements = foroController::getListTemasAction($module_config['options']['forums_per_page'], $filtro);
+						echo '<h4>'.strTranslate("Forums").' del curso</h4>';
+						if ($elements['total_reg']==0) echo '<div class="alert alert-warning">'.strTranslate("No_active_forums").'.</div>';
+						foreach($elements['items'] as $element):
+							ForoList($element);		
+						endforeach;  
+						
+						Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],"areas_det&id=".$id_area,'',$elements['find_reg']);
+					} ?>
+				</div>
+			</div>
 
-				echo '<h2>'.strTranslate("Forums").'</h2>';
-				if ($elements['total_reg']==0) echo '<div class="alert alert-warning">'.strTranslate("No_active_forums").'.</div>';
-				foreach($elements['items'] as $element):
-					ForoList($element);		
-				endforeach;  
-				
-				Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],"areas_det&id=".$id_area,'',$elements['find_reg']);
-			} ?>
 		</div>
 	<?php else: ?>
 	  	<div class="alert alert-warning"><?php echo strTranslate("Access_denied");?></div>
@@ -92,10 +99,7 @@ function printTareas($id_area){
 		}
 	  	if ($element['tarea_grupo'] == 0 or $acceso_grupo == 1){
 	  		$contador_tareas++;
-			if (!($contador_tareas%2) == 0) {
-				echo '<div class="row">';
-			}
-			echo '<div class="col-md-6"><div class="panel panel-default">
+			echo '<div class="panel panel-default">
 				  <div class="panel-heading"><h3 class="panel-title">'.$element['tarea_titulo'].'</h3></div>
 				  <div class="panel-body">
 				  <p>'.$element['tarea_descripcion'].'</p>';
@@ -130,17 +134,11 @@ function printTareas($id_area){
 				echo'<p><a href="areas_form?id='.$element['id_tarea'].'"><i class="fa fa-angle-double-right"></i> '.strTranslate("Access_form").'</a></p>';
 			}
 
-			echo '</div></div>
-			</div>';
-		}
-		if (($contador_tareas%2) == 0) {
-			echo '</div>';
+			echo '</div></div>';
 		}
 	endforeach; 	
 	
-	if (!($contador_tareas%2) == 0) {
-		echo '</div>';
-	}
+
 
 	if ($contador_tareas==0){ 
 		//echo '<div class="alert alert-info"><i class="fa fa-info-circle"></i> No hay tareas activas.</div>';

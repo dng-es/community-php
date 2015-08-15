@@ -90,10 +90,10 @@ class menu{
 					
 					echo '<p>';
 					echo '<a href="profile">'.$_SESSION['user_nick'].'</a><br />';
-					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-power-off"></i></a>';
-					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear"></i></a>';}
-					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user"></i></a>';
-					echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';	
+					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-power-off faa-pulse animated-hover"></i></a>';
+					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
+					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
+					echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope faa-shake animated-hover"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';	
 					echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
 					echo ' </p>';
 					?>

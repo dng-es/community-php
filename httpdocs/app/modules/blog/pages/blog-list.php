@@ -39,9 +39,9 @@ $titulo_page="";
 			$titulo_page = "<b>".ucfirst($_REQUEST['c'])."</b>";
 			$url_filters = "&c=".$_REQUEST['c'];
 		}
-		else if (isset($_POST['find_reg']) and $_POST['find_reg']!="") {
-			$filtro_subtemas.=" AND t.nombre LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];
-			$titulo_page = strTranslate("Search_results")." <b>".$_POST['find_reg']."</b>";
+		else if (isset($_REQUEST['find_reg']) and $_REQUEST['find_reg']!="") {
+			$filtro_subtemas.=" AND t.nombre LIKE '%".$_REQUEST['find_reg']."%' ";$find_reg=$_REQUEST['find_reg'];
+			$titulo_page = strTranslate("Search_results")." <b>".$_REQUEST['find_reg']."</b>";
 		}
 		else if (isset($_REQUEST['f']) and $_REQUEST['f']!="") {
 			$filtro_subtemas.=" AND t.nombre LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];

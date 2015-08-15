@@ -67,7 +67,8 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<?php echo SearchForm(0, "info-search", "searchForm", strTranslate("Info_search"), strTranslate("Search"), "", "");?>
+
+			<?php echo SearchForm(0, "info-search", "searchForm", strTranslate("Info_search"), strTranslate("Search"), "", "", "get");?>
 			<h4><?php echo strTranslate("Info_Documents");?></h4>
 			<p><?php echo strTranslate("Info_Documents_Text");?>.</p>
 			<p class="text-center"><i class="fa fa-newspaper-o fa-big"></i></p>
