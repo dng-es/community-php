@@ -39,6 +39,8 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 		$elements = usersController::getItemAction();
 		$estadisticas = usersController::getUserStatistics();
 		?>
+		<div class="panel panel-default">
+			<div class="panel-body">
 		<!-- Nav tabs -->
 		<button type="button" class="btn btn-default btn-xs connect-as pull-right" data-u="<?php echo $elements[0]['username'];?>" data-p="<?php echo $elements[0]['user_password'];?>"><i class="fa fa-plug"></i> <?php echo strTranslate("Connect_as");?></button>
 		<ul class="nav nav-tabs" id="myTab">
@@ -274,6 +276,8 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 				</div>
 			</div>
 		</div>			
+	</div>
+	</div>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

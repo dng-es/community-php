@@ -32,44 +32,48 @@ $elements=$videos->getVideos($filtro.' LIMIT '.$inicio.','.$reg);
 			array("ItemLabel"=>strTranslate("Video_list"), "ItemClass"=>"active"),
 		));
 		?>
-		<ul class="nav nav-pills navbar-default"> 
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $total_reg;?></b> <?php echo strtolower(strTranslate("Items"));?>.</a></li>
-			<li><a href="<?php echo $_REQUEST['page'];?>?export=true"><?php echo strTranslate("Export");?></a></li>
-		</ul>
-		
-		
-		<div class="table-responsive">
-			<table class="table table-striped table-hover">
-				<tr>
-					<th width="40px"></th>
-					<th><?php echo strTranslate("Video");?></th>
-					<th><?php echo strTranslate("Author");?></th>
-					<th><i class="fa fa-comment"></i></th>
-				</tr>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<ul class="nav nav-pills navbar-default"> 
+					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $total_reg;?></b> <?php echo strtolower(strTranslate("Items"));?>.</a></li>
+					<li><a href="<?php echo $_REQUEST['page'];?>?export=true"><?php echo strTranslate("Export");?></a></li>
+				</ul>
 				
-				<?php foreach($elements as $element):
-					$num_comentarios = connection::countReg("galeria_videos_comentarios"," AND estado=1 AND id_file=".$element['id_file']." ");
-					echo '<tr>';
-					echo '<td nowrap="nowrap">	
-							<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'"
-								onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',
-								\'admin-videos?pag='.$pag.'&act=del&id='.$element['id_file'].'\')">
-							</span>
-						 </td>';
-								
-					echo '<td>'.$element['titulo'];
-					echo '<br /><em class="text-muted"><small>'.getDateFormat($element['date_video'], "LONG").'</small></em>';
-					echo '</td>';
-					echo '<td>'.$element['user_add'].'</td>';
-					echo '<td>';
-			   	if ($num_comentarios==0){ echo $num_comentarios;}
-			    else{ echo '<a href="admin-videos-comentarios?id='.$element['id_file'].'">'.$num_comentarios.'</a>';}
-					echo '</td>';
-					echo '<tr>';   
-				endforeach;?>
-			</table>
+				
+				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+						<tr>
+							<th width="40px"></th>
+							<th><?php echo strTranslate("Video");?></th>
+							<th><?php echo strTranslate("Author");?></th>
+							<th><i class="fa fa-comment"></i></th>
+						</tr>
+						
+						<?php foreach($elements as $element):
+							$num_comentarios = connection::countReg("galeria_videos_comentarios"," AND estado=1 AND id_file=".$element['id_file']." ");
+							echo '<tr>';
+							echo '<td nowrap="nowrap">	
+									<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'"
+										onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',
+										\'admin-videos?pag='.$pag.'&act=del&id='.$element['id_file'].'\')">
+									</span>
+								 </td>';
+										
+							echo '<td>'.$element['titulo'];
+							echo '<br /><em class="text-muted"><small>'.getDateFormat($element['date_video'], "LONG").'</small></em>';
+							echo '</td>';
+							echo '<td>'.$element['user_add'].'</td>';
+							echo '<td>';
+					   	if ($num_comentarios==0){ echo $num_comentarios;}
+					    else{ echo '<a href="admin-videos-comentarios?id='.$element['id_file'].'">'.$num_comentarios.'</a>';}
+							echo '</td>';
+							echo '<tr>';   
+						endforeach;?>
+					</table>
+				</div>
+				<?php Paginator($pag,$reg,$total_reg,'admin-videos','Videos',$find_reg);?>
+			</div>
 		</div>
-		<?php Paginator($pag,$reg,$total_reg,'admin-videos','Videos',$find_reg);?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>
