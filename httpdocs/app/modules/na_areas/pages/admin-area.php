@@ -111,6 +111,8 @@ templateload("cmbCanales","users");
 				$area_canal = isset($elements[0]['area_canal']) ? $elements[0]['area_canal'] : "";
 				?>
 
+		<div class="panel panel-default">
+			<div class="panel-body">
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
 					<?php if ($accion=='edit'): ?>
@@ -179,41 +181,43 @@ templateload("cmbCanales","users");
 					</div>
 				
 
-		<?php
-		if ($accion=='edit'){
-			$id_area = $elements[0]['id_area'];
-			$area_canal = $elements[0]['area_canal']; ?>
-			<div class="tab-pane fade in" id="<?php echo strTranslate("Tasks");?>">
-				<br />
-				<div class="row">
-					<div class="col-md-12">
-						<?php showTareasArea($id_area); ?>
-					</div>
+					<?php
+					if ($accion=='edit'){
+						$id_area = $elements[0]['id_area'];
+						$area_canal = $elements[0]['area_canal']; ?>
+						<div class="tab-pane fade in" id="<?php echo strTranslate("Tasks");?>">
+							<br />
+							<div class="row">
+								<div class="col-md-12">
+									<?php showTareasArea($id_area); ?>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane fade in" id="<?php echo strTranslate("Users");?>">
+							<br />
+							<div class="row">
+								<div class="col-md-6">
+									<?php showGruposArea($id_area); ?>
+								</div>
+
+								<div class="col-md-6">
+									<?php showUsuariosArea($id_area,$area_canal); ?>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane fade in" id="<?php echo strTranslate("Forums");?>">
+							<br />
+							<div class="row">
+								<div class="col-md-12">
+									<?php showForosArea($id_area); ?>
+								</div>
+							</div>
+						</div>
+					<?php }?>
 				</div>
 			</div>
-
-			<div class="tab-pane fade in" id="<?php echo strTranslate("Users");?>">
-				<br />
-				<div class="row">
-					<div class="col-md-6">
-						<?php showGruposArea($id_area); ?>
-					</div>
-
-					<div class="col-md-6">
-						<?php showUsuariosArea($id_area,$area_canal); ?>
-					</div>
-				</div>
-			</div>
-
-			<div class="tab-pane fade in" id="<?php echo strTranslate("Forums");?>">
-				<br />
-				<div class="row">
-					<div class="col-md-12">
-						<?php showForosArea($id_area); ?>
-					</div>
-				</div>
-			</div>
-		<?php }?>
 		</div>
 	</div>
 	<?php menu::adminMenu();?>

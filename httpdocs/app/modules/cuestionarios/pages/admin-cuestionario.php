@@ -33,27 +33,31 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			$cuestionario_descripcion = "";
 		}
 		?>
-		<form method="post" name="form-cuestionario" id="form-cuestionario" role="form">
-			<input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $id_cuestionario;?>" />
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form method="post" name="form-cuestionario" id="form-cuestionario" role="form">
+					<input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $id_cuestionario;?>" />
 
-			<label for="nombre"><?php echo strTranslate("Name");?></label>
-			<input type="text" name="nombre" id ="nombre" class="form-control form-big" value="<?php echo $cuestionario_nombre;?>" />
-			<br />
-			<?php
-			if ($id_cuestionario!=""){
-				echo '<p>'.strTranslate("Form").' URL: <a href="'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'" target="_blank">'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'</a></p>';
-			}
-			?>
-			<label for="descripcion"><?php echo strTranslate("Description");?>:</label></td></tr>
-			<textarea cols="40" rows="5" id="descripcion" name="descripcion"><?php echo $cuestionario_descripcion;?></textarea>
-			<script type="text/javascript">
-				var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
-				CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
-			</script>
-			<br /><button class="btn btn-primary" id="SubmitCuestionario" name="SubmitCuestionario" type="submit"><?php echo strTranslate("Save");?></button>
-		</form>
-		<br />
-		<?php if ($id_cuestionario>0 ) FormularioTarea($id_cuestionario,$cuestionario); ?>
+					<label for="nombre"><?php echo strTranslate("Name");?></label>
+					<input type="text" name="nombre" id ="nombre" class="form-control form-big" value="<?php echo $cuestionario_nombre;?>" />
+					<br />
+					<?php
+					if ($id_cuestionario!=""){
+						echo '<p>'.strTranslate("Form").' URL: <a href="'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'" target="_blank">'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'</a></p>';
+					}
+					?>
+					<label for="descripcion"><?php echo strTranslate("Description");?>:</label></td></tr>
+					<textarea cols="40" rows="5" id="descripcion" name="descripcion"><?php echo $cuestionario_descripcion;?></textarea>
+					<script type="text/javascript">
+						var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
+						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
+					</script>
+					<br /><button class="btn btn-primary" id="SubmitCuestionario" name="SubmitCuestionario" type="submit"><?php echo strTranslate("Save");?></button>
+				</form>
+				<br />
+				<?php if ($id_cuestionario>0 ) FormularioTarea($id_cuestionario,$cuestionario); ?>
+			</div>
+		</div>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

@@ -28,41 +28,45 @@ $elements = incentivosProductosController::getListAction(35, $filtro_productos);
 		<br />
 		<div class="row">
 			<div class="col-md-7">
-				<div class="table-responsive">
-					<table class="table table-striped table-hover">
-						<tr>
-						<th width="40px"></th>
-						<th>Ref.</th>
-						<th><?php echo strTranslate("Incentives_products");?></th>
-						<th><?php echo strTranslate("Incentives_manufacturers");?></th>
-						<th><center><?php echo strTranslate("Incentives_acelerators");?></center></th>
-						<th><center><?php echo strTranslate("Incentives_points");?></center></th>
-						</tr>	
-						<?php foreach($elements['items'] as $element):?>
-							<tr>
-							<td nowrap="nowrap">
-								<span class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
-									onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-products?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_producto'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>')">
-								</span>
-							</td>					
-							<td><?php echo $element['referencia_producto'];?></td>
-							<td><?php echo $element['nombre_producto'];?></td>
-							<td><?php echo $element['nombre_fabricante'];?></td>
-							<td>
-								<center><a href="admin-incentives-products-acelerators?ref=<?php echo $element['id_producto'];?>">
-								<?php 
-								//obtener numero de aceleradores creados
-								$contador = connection::countReg("incentives_productos_aceleradores"," AND id_producto=".$element['id_producto']." ");
-								echo $contador;
-								?>
-								</a></center>
-							</td>
-							<td>
-								<center><a class="btn btn-default btn-xs" href="admin-incentives-products-points?ref=<?php echo $element['id_producto'];?>"><?php echo strTranslate("Incentives_points");?></a>
-							</a>
-							</tr>  
-						<?php endforeach; ?>
-					</table>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-striped table-hover">
+								<tr>
+								<th width="40px"></th>
+								<th>Ref.</th>
+								<th><?php echo strTranslate("Incentives_products");?></th>
+								<th><?php echo strTranslate("Incentives_manufacturers");?></th>
+								<th><center><?php echo strTranslate("Incentives_acelerators");?></center></th>
+								<th><center><?php echo strTranslate("Incentives_points");?></center></th>
+								</tr>	
+								<?php foreach($elements['items'] as $element):?>
+									<tr>
+										<td nowrap="nowrap">
+											<span class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
+												onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-products?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_producto'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>')">
+											</span>
+										</td>					
+										<td><?php echo $element['referencia_producto'];?></td>
+										<td><?php echo $element['nombre_producto'];?></td>
+										<td><?php echo $element['nombre_fabricante'];?></td>
+										<td>
+											<center><a href="admin-incentives-products-acelerators?ref=<?php echo $element['id_producto'];?>">
+											<?php 
+											//obtener numero de aceleradores creados
+											$contador = connection::countReg("incentives_productos_aceleradores"," AND id_producto=".$element['id_producto']." ");
+											echo $contador;
+											?>
+											</a></center>
+										</td>
+										<td>
+											<center><a class="btn btn-default btn-xs" href="admin-incentives-products-points?ref=<?php echo $element['id_producto'];?>"><?php echo strTranslate("Incentives_points");?></a></center>
+										</td>
+									</tr>  
+								<?php endforeach; ?>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-5">

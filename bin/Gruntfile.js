@@ -93,10 +93,12 @@
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-compass');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-critical');
 
 	// TASKS =====================================/
 
 	grunt.registerTask('default', []);
 	grunt.registerTask('prod', ['compass:prod', 'uglify:prod']);
 	grunt.registerTask('dev', ['compass:dev', 'uglify:dev']);
+	grunt.registerTask('critical', ['critical']);
 };

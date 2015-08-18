@@ -27,27 +27,31 @@ $elements = incentivosFabricantesController::getListAction(35);
 
 		<div class="row">
 			<div class="col-md-6">
-				<div class="table-responsive">
-					<table class="table table-striped table-hover">
-						<tr>
-						<th width="40px"></th>
-						<th><?php echo strTranslate("Incentives_manufacturers");?></th>
-						<th width="60px"></th>
-						</tr>	
-						<?php foreach($elements['items'] as $element):?>
-							<tr>
-							<td nowrap="nowrap">						
-								<span class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
-									onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-fabricantes&pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_fabricante'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>')">
-								</span>
-							</td>					
-							<td><?php echo $element['nombre_fabricante'];?></td>
-							<td>
-								<a class="btn btn-default btn-xs" href="admin-incentives-products?m=<?php echo $element['id_fabricante'];?>"><?php echo strTranslate("Incentives_products");?>
-							</a>
-							</tr>  
-						<?php endforeach; ?>
-					</table>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-striped table-hover">
+								<tr>
+								<th width="40px"></th>
+								<th><?php echo strTranslate("Incentives_manufacturers");?></th>
+								<th width="60px"></th>
+								</tr>	
+								<?php foreach($elements['items'] as $element):?>
+									<tr>
+										<td nowrap="nowrap">						
+											<span class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
+												onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-fabricantes&pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_fabricante'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>')">
+											</span>
+										</td>					
+										<td><?php echo $element['nombre_fabricante'];?></td>
+										<td>
+											<a class="btn btn-default btn-xs" href="admin-incentives-products?m=<?php echo $element['id_fabricante'];?>"><?php echo strTranslate("Incentives_products");?></a>
+										</td>
+									</tr>  
+								<?php endforeach; ?>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-6">

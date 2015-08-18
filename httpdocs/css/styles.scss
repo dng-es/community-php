@@ -7,6 +7,7 @@
 @import "libs/sweetalert/sweet-alert.scss"; /*Sweet alert*/
 @import "libs/customscrollbar/jquery.mCustomScrollbar.scss"; /*Scrollbar*/
 @import "libs/bootstrap-sass-3.2.0/assets/stylesheets/bootstrap"; /*Bootstrap*/
+@import "libs/font-awesome-animation/font-awesome-animation.scss"; /*Bootstrap*/
 
 /*SASS MIXINS*/
 @mixin transition($elements, $speed, $eff) {
@@ -438,7 +439,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	label{
 		color: #e5e5e5;
 		font-size: $font-size-community + 1;
-		text-align:left;
+		text-align:right;
 		@media screen and (max-width: $break-medium) {
 			@include text-shadow(#000 1px 1px 1px);
 		}
@@ -1924,6 +1925,10 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 				font-size: 44px;
 			}
 		}
+	}
+
+	div.text-small{
+		line-height: 12px;
 	}
 
 	@media print {

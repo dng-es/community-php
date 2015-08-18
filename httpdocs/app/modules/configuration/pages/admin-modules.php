@@ -16,19 +16,23 @@ global $modules_data;
 			array("ItemLabel"=>strTranslate("Modules_settings"), "ItemClass"=>"active"),
 		));?>
 
-		<p>A continuación se muestran todos los módulos instalados</p><br />
-		<div class="table-responsive">
-			<table class="table table-striped table-hover">
-				<?php foreach($modules as $module):
-					$module_config = getModuleConfig($module['folder']);	
-					$key = array_search($module['folder'], arraycolumn($modules_data, 'name'));
-					echo '<tr>
-					<td><h4>'.strTranslate(ucfirst($module['folder'])).'</h4></td>
-					<td class="legend">'.$module['ann'].'</td>
-					<td>'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger btn btn-default btn-xs" href="#" title="'.strTranslate("Configuration").'"><small>'.strTranslate("Configuration").'</small>&nbsp;<i class="fa fa-gear"></i></a>' : '').'</td>
-					</tr>';
-				endforeach; ?>
-			</table>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<p>A continuación se muestran todos los módulos instalados</p><br />
+				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+						<?php foreach($modules as $module):
+							$module_config = getModuleConfig($module['folder']);	
+							$key = array_search($module['folder'], arraycolumn($modules_data, 'name'));
+							echo '<tr>
+							<td><h4>'.strTranslate(ucfirst($module['folder'])).'</h4></td>
+							<td class="legend">'.$module['ann'].'</td>
+							<td>'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger btn btn-default btn-xs" href="#" title="'.strTranslate("Configuration").'"><small>'.strTranslate("Configuration").'</small>&nbsp;<i class="fa fa-gear"></i></a>' : '').'</td>
+							</tr>';
+						endforeach; ?>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<?php menu::adminMenu();?>

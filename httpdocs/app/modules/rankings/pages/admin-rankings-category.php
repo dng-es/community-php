@@ -36,22 +36,26 @@ $session->AccessLevel($perfiles_autorizados);
 			$ranking_nombre = "";
 		}
 		?>
-		<form method="post" name="formRanking" id="formRanking" role="form" enctype="multipart/form-data">
-			<input type="hidden" name="id_ranking" id="id_ranking" value="<?php echo $id_ranking;?>" />
-			
-			<div class="form-group">
-				<label for="nombre"><?php echo strTranslate("Name");?>:</label>
-				<input type="text" name="nombre" id ="nombre" class="form-control" value="<?php echo $ranking_nombre;?>" />
-				<div class="alert-message alert alert-danger" id="nombre-alert">Introduce el nombre del ranking</div>
-			</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form method="post" name="formRanking" id="formRanking" role="form" enctype="multipart/form-data">
+					<input type="hidden" name="id_ranking" id="id_ranking" value="<?php echo $id_ranking;?>" />
+					
+					<div class="form-group">
+						<label for="nombre"><?php echo strTranslate("Name");?>:</label>
+						<input type="text" name="nombre" id ="nombre" class="form-control" value="<?php echo $ranking_nombre;?>" />
+						<div class="alert-message alert alert-danger" id="nombre-alert">Introduce el nombre del ranking</div>
+					</div>
 
-			<br />
-			<button class="btn btn-primary" id="SubmitCuestionario" name="SubmitForm" type="submit"><?php echo strTranslate("Save_data");?></button>
-			<br />
-		<br />
-		<?php if ($id_ranking>0 ): ?>
-		<?php endif; ?>
-		</form>
+					<br />
+					<button class="btn btn-primary" id="SubmitCuestionario" name="SubmitForm" type="submit"><?php echo strTranslate("Save_data");?></button>
+					<br />
+				<br />
+				<?php if ($id_ranking>0 ): ?>
+				<?php endif; ?>
+				</form>
+			</div>
+		</div>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

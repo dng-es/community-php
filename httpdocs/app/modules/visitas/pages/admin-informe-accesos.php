@@ -433,14 +433,16 @@ $('#containerHoras').highcharts({
 						<div class="panel-body nopadding">
 							<div class="row">
 								<div class="col-md-8 inset panel-description">
-									<h4>Usuarios activos</h4>
-									Total usuarios activos en la comunidad
-								</div>
-								<div class="col-md-4 label-success inset panel-color">
 									<?php 
-										$num_users = number_format(connection::countReg("users", " AND disabled=0 AND registered=1 AND confirmed=1 "), 0, ',', '.');
+                                        $num_users = connection::countReg("users", " AND disabled=0 AND registered=1 AND confirmed=1 ");
+										$tot_users = connection::countReg("users", " AND disabled=0 ");
 									?>
-									<p class="text-center"><big><?php echo $num_users;?></big><br />
+                                    <h4>Usuarios activos</h4>
+                                    <div class="text-small">Total usuarios: <?php echo number_format($tot_users, 0, ',', '.');?></div>
+                                    <div class="text-small">Total usuarios activos: <?php echo number_format($num_users, 0, ',', '.');?> (<?php echo round((($num_users * 100) / $tot_users), 2);?>%)</div>
+                                </div>
+                                <div class="col-md-4 label-success inset panel-color full-height">
+									<p class="text-center"><big><?php echo number_format($num_users, 0, ',', '.');?></big><br />
 										<?php echo strTranslate("Users");?>
 									</p>
 								</div>
@@ -455,9 +457,9 @@ $('#containerHoras').highcharts({
 							<div class="row">
 								<div class="col-md-8 inset panel-description">
 									<h4><?php echo strTranslate("Groups_user");?> activas</h4>
-									Total <?php echo strtolower(strTranslate("Groups_user"));?> activas en la comunidad
+									<div class="text-small">Total <?php echo strtolower(strTranslate("Groups_user"));?> activas en la comunidad<br /><br /></div>
 								</div>
-								<div class="col-md-4 label-info inset panel-color">
+								<div class="col-md-4 label-info inset panel-color full-height">
 									<?php 
 										$num_empresas = number_format(connection::countReg("users_tiendas", " AND activa=1 "), 0, ',', '.');
 									?>
@@ -473,7 +475,7 @@ $('#containerHoras').highcharts({
 
 			<div class="row hidden-print">
 				<div class="col-md-12">				
-					<div class="panel panel-default panel-ranking">
+					<div class="panel panel-default">
 						<div class="panel-body">
 							<p>Puedes filtrar los informes de acceso por fechas: <span class="text-danger text-small">En los informes gráficos no se muestran los accesos al panel de administración.</span></p>
 							<div class="row">
@@ -533,14 +535,14 @@ $('#containerHoras').highcharts({
 
 			<div class="row">
 				<div class="col-md-6">
-    				<div class="panel panel-default panel-ranking">
+    				<div class="panel panel-default">
     					<div class="panel-body nopadding">		
     						<div id="containerVisitas" class="container-graph"></div>
 						</div>
 					</div>
 				</div>
                 <div class="col-md-6">
-                    <div class="panel panel-default panel-ranking">
+                    <div class="panel panel-default">
                         <div class="panel-body nopadding">      
                             <div id="containerHoras" class="container-graph"></div>
                         </div>
@@ -550,14 +552,14 @@ $('#containerHoras').highcharts({
 
 			<div class="row">
 				<div class="col-md-6">
-					<div class="panel panel-default panel-ranking">
+					<div class="panel panel-default">
 						<div class="panel-body nopadding">
 							<div id="containerVisitasDias" class="container-graph"></div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6">
-					<div class="panel panel-default panel-ranking">
+					<div class="panel panel-default">
 						<div class="panel-body nopadding">
 							<div id="containerVisitasUnicas" class="container-graph"></div>
 						</div>
@@ -567,14 +569,14 @@ $('#containerHoras').highcharts({
 
 			<div class="row">
 				<div class="col-md-6">
-					<div class="panel panel-default panel-ranking">
+					<div class="panel panel-default">
 					<div class="panel-body nopadding">
 							<div id="containerBrowser" class="container-graph"></div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6">
-					<div class="panel panel-default panel-ranking">
+					<div class="panel panel-default">
 						<div class="panel-body nopadding">
 							<div id="containerPlatform" class="container-graph"></div>
 						</div>

@@ -30,7 +30,6 @@ class headers{
 				<link rel="shortcut icon" href="favicon.ico">
 				<link rel="icon" type="image/ico"  href="favicon.ico" >		
 				<link href="<?php echo $ini_conf['SiteUrl'];?>/css/styles.css" rel="stylesheet">
-				<link href="<?php echo $ini_conf['SiteUrl'];?>/css/libs/font-awesome-animation/font-awesome-animation.scss" rel="stylesheet">
 				<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/main.min.js"></script>
 				<!-- <script type="text/javascript" src="js/notifications.js"></script> -->
 				

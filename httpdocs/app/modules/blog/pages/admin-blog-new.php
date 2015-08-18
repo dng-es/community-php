@@ -43,23 +43,27 @@ templateload("cmbCanales","users");
 		<form id="formData" name="formData" method="post" enctype="multipart/form-data" action="" role="form">
 		<input type="hidden" name="id" value="<?php echo $id;?>" />
 		<div class="col-md-9">
+			<div class="panel panel-default">
+				<div class="panel-body">
 
-			<label for="nombre" class="sr-only">Título de la entrada:</label>
-			<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo $nombre;?>" placeholder="título de la entrada" />
-			<br />
-			<select name="canal" id="canal" class="form-control" <?php echo ($accion=='edit' ? 'disabled="disabled"' : '');?>>
-				<?php ComboCanales($canal);?>
-			</select>
-			<br />
-			<label for="descripcion" class="sr-only">Cuerpo de la entrada:</label>
-			<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>
-			<script type="text/javascript">
+					<label for="nombre" class="sr-only">Título de la entrada:</label>
+					<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo $nombre;?>" placeholder="título de la entrada" />
+					<br />
+					<select name="canal" id="canal" class="form-control" <?php echo ($accion=='edit' ? 'disabled="disabled"' : '');?>>
+						<?php ComboCanales($canal);?>
+					</select>
+					<br />
+					<label for="descripcion" class="sr-only">Cuerpo de la entrada:</label>
+					<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>
+					<script type="text/javascript">
 
-			var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
-			CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
+					var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
+					CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 
-			</script>
-			
+					</script>
+					
+				</div>
+			</div>
 		</div>
 		<div class="col-md-3 nopadding">
 			<div class="panel panel-default">
