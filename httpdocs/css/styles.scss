@@ -1424,6 +1424,9 @@ table th {
 .nav-tabs{
 	a{
 		outline: none;
+		&:hover{
+			color: #fff;
+		}
 	}
 }
 .tab-content > .tab-pane {

@@ -35,27 +35,52 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form method="post" name="form-cuestionario" id="form-cuestionario" role="form">
-					<input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $id_cuestionario;?>" />
 
-					<label for="nombre"><?php echo strTranslate("Name");?></label>
-					<input type="text" name="nombre" id ="nombre" class="form-control form-big" value="<?php echo $cuestionario_nombre;?>" />
-					<br />
-					<?php
-					if ($id_cuestionario!=""){
-						echo '<p>'.strTranslate("Form").' URL: <a href="'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'" target="_blank">'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'</a></p>';
-					}
-					?>
-					<label for="descripcion"><?php echo strTranslate("Description");?>:</label></td></tr>
-					<textarea cols="40" rows="5" id="descripcion" name="descripcion"><?php echo $cuestionario_descripcion;?></textarea>
-					<script type="text/javascript">
-						var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
-						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
-					</script>
-					<br /><button class="btn btn-primary" id="SubmitCuestionario" name="SubmitCuestionario" type="submit"><?php echo strTranslate("Save");?></button>
-				</form>
-				<br />
-				<?php if ($id_cuestionario>0 ) FormularioTarea($id_cuestionario,$cuestionario); ?>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
+					<?php if ($id_cuestionario>0 ):?>
+					<li><a href="#formquestions" data-toggle="tab"><?php echo strTranslate("Form_questions");?></a></li>
+					<?php endif;?>
+				</ul>	
+
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="general">
+						<div class="row">
+							<div class="col-md-12">
+								<form method="post" name="form-cuestionario" id="form-cuestionario" role="form">
+									<input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $id_cuestionario;?>" />
+
+									<label for="nombre"><?php echo strTranslate("Name");?></label>
+									<input type="text" name="nombre" id ="nombre" class="form-control form-big" value="<?php echo $cuestionario_nombre;?>" />
+									<br />
+									<?php
+									if ($id_cuestionario!=""){
+										echo '<p>'.strTranslate("Form").' URL: <a href="'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'" target="_blank">'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'</a></p>';
+									}
+									?>
+									<label for="descripcion"><?php echo strTranslate("Description");?>:</label></td></tr>
+									<textarea cols="40" rows="5" id="descripcion" name="descripcion"><?php echo $cuestionario_descripcion;?></textarea>
+									<script type="text/javascript">
+										var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
+										CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
+									</script>
+									<br /><button class="btn btn-primary" id="SubmitCuestionario" name="SubmitCuestionario" type="submit"><?php echo strTranslate("Save");?></button>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				<?php if ($id_cuestionario>0 ):?>
+					<div class="tab-pane fade in" id="formquestions">
+						<div class="row">
+							<div class="col-md-12">
+								<br />
+								<?php FormularioTarea($id_cuestionario,$cuestionario); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php endif;?>
 			</div>
 		</div>
 	</div>
@@ -73,7 +98,6 @@ function FormularioTarea($id_cuestionario,$cuestionario){
 		if (count($preguntas)==0): ?>
 			<div class="alert alert-warning">El cuestionario no tiene preguntas, puedes crearlas a continuación.</div>
 		<?php else: ?>
-			<h3><?php echo strTranslate("Form_questions");?></h3>
 			<table class="table">
 				<tr>
 					<th width="20px">&nbsp;</th>
