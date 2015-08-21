@@ -67,7 +67,7 @@ $elements=$videos->getVideos($filtro.' LIMIT '.$inicio.','.$reg);
 					   	if ($num_comentarios==0){ echo $num_comentarios;}
 					    else{ echo '<a href="admin-videos-comentarios?id='.$element['id_file'].'">'.$num_comentarios.'</a>';}
 							echo '</td>';
-							echo '<tr>';   
+							echo '</tr>';   
 						endforeach;?>
 					</table>
 				</div>
