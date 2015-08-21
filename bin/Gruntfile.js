@@ -84,6 +84,17 @@
 		            preserveComments: false
 		       }
 		   },
+		},
+		critical: {
+			dist: {
+				options: {
+				base: './'
+			},
+			// The source file
+			src: 'testpage.html',
+			// The destination file
+			dest: 'result.html'
+			}
 		}
 
 	});
