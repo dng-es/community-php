@@ -66,7 +66,7 @@ echo '<div id="muro-home" style="height: 100% !important">';
 foreach($comentarios_muro as $comentario_muro):
 	commentMuro($comentario_muro);
 endforeach;
-Paginator($pag,$reg,$total_reg,'muro-comentarios&id='.$nombre_muro,'comentarios',$find_reg,10,"selected-muro");
+Paginator($pag,$reg,$total_reg,'muro-comentarios?id='.$nombre_muro,'comentarios',$find_reg,10,"selected-muro");
 if(count($comentarios_muro)==0){ echo '<p>No hay comentarios en el muro</p>';}	
 echo '</div>';
 ?> 

@@ -67,11 +67,11 @@ $canal="";
 		}
 
 		$total_reg = connection::countReg("foro_temas", $filtro_subtemas);
-		$sub_temas = $foro->getTemas($filtro_subtemas." ORDER BY id_tema DESC ",' LIMIT '.$inicio.','.$reg);
+		$sub_temas = $foro->getTemas($filtro_subtemas." ORDER BY id_tema DESC  LIMIT ".$inicio.",".$reg);
 		foreach($sub_temas as $sub_tema):
 			ForoList($sub_tema);		
 		endforeach;  
-		ForoPaginator($pag,$reg,$total_reg,'foro-subtemas&id='.$id_tema_parent,'temas',$find_reg,$find_tipo,$marca);	 
+		ForoPaginator($pag,$reg,$total_reg,'foro-subtemas?id='.$id_tema_parent,'temas',$find_reg,$find_tipo,$marca);	 
 		}?>
 
 	</div>

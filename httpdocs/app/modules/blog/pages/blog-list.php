@@ -19,7 +19,7 @@ $titulo_page="";
 
 		<?php
 		//OBTENER SUBTEMAS DE FORO
-		$reg = 10;
+		$reg = 5;
 		if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
 		if (!isset($pag)) { $inicio = 0; $pag = 1;}
 		else { $inicio = ($pag - 1) * $reg;}
@@ -59,7 +59,7 @@ $titulo_page="";
 		));
 
 		$total_reg = connection::countReg("foro_temas t",$filtro_subtemas);
-		$sub_temas = $foro->getTemas($filtro_subtemas,' LIMIT '.$inicio.','.$reg);
+		$sub_temas = $foro->getTemas($filtro_subtemas.' LIMIT '.$inicio.','.$reg);
 		foreach($sub_temas as $sub_tema):
 		echo '<div class="row">
 				<div class="col-md-12">';
