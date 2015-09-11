@@ -18,7 +18,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 		mensajesController::deleteEnviadoAction();
 
 		$mensajeria = new mensajes();
-		$elements = mensajesController::getListSentAction(20)
+		$elements = mensajesController::getListSentAction(20);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
