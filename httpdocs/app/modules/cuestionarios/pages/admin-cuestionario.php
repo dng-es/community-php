@@ -79,8 +79,8 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 							</div>
 						</div>
 					</div>
-				</div>
 				<?php endif;?>
+				</div>
 			</div>
 		</div>
 	</div>

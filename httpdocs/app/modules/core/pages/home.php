@@ -54,7 +54,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 							</div>
 							<div class="col-md-4 label-info inset panel-color">
 								<p class="text-center"><big><?php echo $users_conn;?></big><br />
-									<?php echo strTranslate("Users");?>
+									<?php echo strTranslate(($users_conn > 1 ? "Users" : "User"));?>
 								</p>
 							</div>
 						</div>

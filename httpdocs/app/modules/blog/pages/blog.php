@@ -112,7 +112,7 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 				//INSERTAR NUEVOS COMENTARIOS EN EL BLOG
 
 				echo '<div class="clearfix"></div><div class="panel-interior">';
-				echo '<br /><label>'.strTranslate("Comment_this_post").'</label>';
+				echo '<label>'.strTranslate("Comment_this_post").':</label>';
 				addForoComment($id_tema);
 				echo '</div>';
 				

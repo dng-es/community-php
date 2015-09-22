@@ -422,7 +422,7 @@ $('#containerHoras').highcharts({
 			menu::breadcrumb(array(
 				array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 				array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
-				array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"#"),
+				array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"admin"),
 				array("ItemLabel"=>strTranslate("Report")." <b>".strTranslate("Visits")."</b>", "ItemClass"=>"active"),
 			));
 			?>

@@ -38,7 +38,7 @@ $files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
 		<?php showFotoModal($files_galeria[0],true,0,0);?>
 		<?php if ($module_config['options']['allow_comments']==true): ?>
 		<form action="" method="post" role="form" id="form-comentario-fotos" name="form-comentario-fotos" class="panel-interior">
-			<h4><?php echo strTranslate("Photo_comment_new");?></h4>
+			<label for="respuesta-texto"><?php echo strTranslate("Photo_comment_new");?></label>
 			<input type="hidden" name="id_file" id="id_file" value="<?php echo $files_galeria[0]['id_file'];?>" />
 			<textarea class="form-control" name="respuesta-texto" id="respuesta-texto"></textarea>
 			<button type="submit" class="btn btn-primary btn-block"><?php echo strTranslate("Send");?></button>

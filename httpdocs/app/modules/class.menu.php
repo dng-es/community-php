@@ -26,8 +26,13 @@ class menu{
 							<?php self::userMainMenu();?>				
 							
 							<li class="hidden-md hidden-lg"><a href="profile"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php echo strTranslate("My_profile")?></a></li>
-							<?php if ($_SESSION['user_perfil']=='admin'){
-							echo '<li class="hidden-md hidden-lg"><a href="admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
+							<?php 
+							$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
+							//se muestra el acceso a admin si tiene el permiso
+							if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
+								if ($_SESSION['user_perfil']=='admin'){
+									echo '<li class="hidden-md hidden-lg"><a href="admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
+								}
 							}
 							?>
 							<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Mailing_messages")?></a></li>
@@ -73,6 +78,7 @@ class menu{
 	*/
 	static function UserInfoMenu(){
 		global $ini_conf;
+		global $session;
 		if ($_SESSION['user_logged']==true){
 			$users = new users();
 			$puntos_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
@@ -91,7 +97,11 @@ class menu{
 					echo '<p>';
 					echo '<a href="profile">'.$_SESSION['user_nick'].'</a><br />';
 					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-power-off faa-pulse animated-hover"></i></a>';
-					if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
+					$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
+					//se muestra el acceso a admin si tiene el permiso
+					if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
+						if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
+					}
 					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
 					echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope faa-shake animated-hover"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';	
 					echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';

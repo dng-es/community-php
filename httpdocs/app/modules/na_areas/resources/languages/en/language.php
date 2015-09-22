@@ -27,4 +27,5 @@ Tutor = "Tutor"
 Enroll_successful = "Enroll successful"
 Enroll_fail = "Error while enrolling"
 Enroll_limit_reached = "Enroll limit reached"
+No_enrollments_yet = "You are not enrolled in any course"
 ?>

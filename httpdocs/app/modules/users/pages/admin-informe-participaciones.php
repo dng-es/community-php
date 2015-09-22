@@ -10,7 +10,7 @@ $elements = usersParticipacionesController::getListAction(100);
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
-			array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"#"),
+			array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Report")." <b>".strTranslate("APP_shares")."</b>", "ItemClass"=>"active"),
 		));
 		?>

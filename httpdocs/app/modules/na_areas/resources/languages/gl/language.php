@@ -27,4 +27,5 @@ Tutor = "Tutor"
 Enroll_successful = "Inscripción realizada"
 Enroll_fail = "Error al inscribirse"
 Enroll_limit_reached = "Ya se ha alcanzo el límite de usuarios para este curso"
+No_enrollments_yet = "Todavía no estas inscrito en algún curso"
 ?>
