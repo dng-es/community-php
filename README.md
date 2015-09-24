@@ -10,6 +10,7 @@ v. 0.4.6
 * [Idiomas] (#idiomas)
 * [Debug mode] (#debug-mode)
 * [Referencia funciones] (#referencia-funciones)
+* [Modules] (#modules)
 
 
 ## Requisitos y dependencias
@@ -383,3 +384,15 @@ Uso:
 ```php 
 checkNifCifNie($cif);
 ```
+
+
+## Modules
+* [Module Core] (#module-core)
+* [Module Configuration] (#module-configuration)
+
+
+#### Module Core
+Módulo con páginas genericas: home, 404, contact, underconstruction
+
+#### Module Configuration
+Módulo para establecer la configuración de la app
