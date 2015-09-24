@@ -387,9 +387,63 @@ checkNifCifNie($cif);
 
 
 ## Modules
+* [Menu user] (#menu-user)
+* [Menu admin] (#menu-admin)
 * [Module Core] (#module-core)
 * [Module Configuration] (#module-configuration)
 
+
+#### Menu user
+El menu principal de la app se generica dinamicante. Los elementos al menu son añadidos por cada módulo desde el fichero general de opciones de cada módulo. El fichero de opciones del módulo debe tener agregada la funcción userMenu():
+
+```php 
+    public static function userMenu(){
+        $array_final = array();
+
+        array_push($array_final, array("LabelIcon" => "fa fa-envelope",
+                        "LabelItem" => 'Contact',
+                        "LabelUrl" => 'contact',
+                        "LabelTarget" => '_self',
+                        "LabelPos" => 7));
+
+        array_push($array_final, array("LabelIcon" => "fa fa-trophy",
+                        "LabelItem" => 'Ranking',
+                        "LabelUrl" => 'ranking',
+                        "LabelTarget" => '_self',
+                        "LabelPos" => 8));
+
+        return $array_final;        
+    }   
+```
+La función devolverá un array con los elementos añadidos por el modulo al menu.
+
+
+#### Menu admin
+El menu de admministración de la app se generica dinamicante. Los elementos al menu son añadidos por cada módulo desde el fichero general de opciones de cada módulo. El fichero de opciones del módulo debe tener agregada la funcción adminMenu():
+
+```php 
+    public static function adminMenu(){
+        return array(
+            menu::addAdminMenu(array(
+                "PageName" => "admin-users",
+                "LabelHeader" => "Tools",
+                "LabelSection" => strTranslate("Users"),
+                "LabelItem" => strTranslate("Users_list"),
+                "LabelUrl" => "admin-users",
+                "LabelPos" => 1,
+            )),
+            menu::addAdminMenu(array(
+                "PageName" => "admin-cargas-users",
+                "LabelHeader" => "Tools",
+                "LabelSection" => strTranslate("Users"),
+                "LabelItem" => strTranslate("Users_import"),
+                "LabelUrl" => "admin-cargas-users",
+                "LabelPos" => 2
+            ))
+        );       
+    }   
+```
+La función devolverá un array con los elementos añadidos por el modulo al menu.
 
 #### Module Core
 Módulo con páginas genericas: home, 404, contact, underconstruction
