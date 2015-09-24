@@ -2,15 +2,15 @@
 v. 0.4.6
 > Comunidad de usuarios php5 y mysql, creada por componentes/módulos. Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
-* [Requisitos y dependencias] (#requisitos-y-dependencias)
-* [Instalación] (#instalacion)
-* [Entorno desarrollo] (#entorno-desarrollo)
-* [Estructura de archivos y directorios] (#estructura-de-archivos-y-directorios)
-* [Herramienta console] (#herramienta-console)
-* [Idiomas] (#idiomas)
-* [Debug mode] (#debug-mode)
-* [Referencia funciones] (#referencia-funciones)
-* [Modules] (#modules)
+* [Requisitos y dependencias](#requisitos-y-dependencias)
+* [Instalación](#instalacion)
+* [Entorno desarrollo](#entorno-desarrollo)
+* [Estructura de archivos y directorios](#estructura-de-archivos-y-directorios)
+* [Herramienta console](#herramienta-console)
+* [Idiomas](#idiomas)
+* [Debug mode](#debug-mode)
+* [Referencia funciones](#referencia-funciones)
+* [Modules](#modules)
 
 
 ## Requisitos y dependencias
@@ -89,15 +89,18 @@ Módulos con versión menor 1.0 no están completamente testeados o finalizados.
 
 
 ## Herramienta console 
-Aplicación de consola para crear módulos. Uso: 
+>Aplicación de consola para la realizacion de tareas como la creación de módulos, búsqueda de páginas en la estructura de directorios de la app, etc.
+
+Ejemplo de uso: 
+
 ```bash 
 php bin/console options
 ```
-Opciones de console:
+Donde las opciones de console son:
 
-* [createmodule] (#createmodule)
-* [findpage] (#findpage)
-* [showmodules] (#showmodules)
+* [createmodule](#createmodule)
+* [findpage](#findpage)
+* [showmodules](#showmodules)
 
 ### createmodule
 Crea nuevo módulo con su estructura de directorios y ficheros básicos. Uso: 
@@ -123,6 +126,8 @@ Tras ejecutar el comando se mostrarán todos los modulos instalados.
 ## Idiomas
 Soporte para idiomas implementado. Establecer idioma en app/core/config.php. Los ficheros de traducciones se encuentran en app/languages. Cada módulo cuenta con sus propios ficheros de traducciones en app/modules/module_name/resources/languages.
 
+Para mas información sobre el uso e las traducciones ver [strTranslate()](#strtranslate).
+
 ## Debug mode
 Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 - 0: debug mode desactivado
@@ -135,43 +140,43 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 ## Referencia funciones
 
 ### Core
-* [addCss] (#addcss)
-* [addJavascripts] (#addJavascripts)
-* [getAsset] (#getasset)
-* [getBrowser] (#getbrowser)
-* [getListModules] (#getlistmodules)
-* [getPlatform] (#getplatform)
-* [messageProcess] (#messageprocess)
-* [noCache] (#nocache)
-* [redirectURL] (#redirecturl)
-* [templateload] (#templateload)
+* [addCss](#addcss)
+* [addJavascripts](#addJavascripts)
+* [getAsset](#getasset)
+* [getBrowser](#getbrowser)
+* [getListModules](#getlistmodules)
+* [getPlatform](#getplatform)
+* [messageProcess](#messageprocess)
+* [noCache](#nocache)
+* [redirectURL](#redirecturl)
+* [templateload](#templateload)
 
 ### Generación y procesamiento de archivos
-* [array2csv] (#array2csv)
-* [fileToZip] (#filetozip)
-* [HTMLtoPDF] (#htmltopdf)
-* [uploadFileToFolder] (#uploadfiletofolder)
+* [array2csv](#array2csv)
+* [fileToZip](#filetozip)
+* [HTMLtoPDF](#htmltopdf)
+* [uploadFileToFolder](#uploadfiletofolder)
 
 ### Sesiones
-* [session::AccessLevel] (#sessionaccesslevel)
-* [session::createSession] (#sessioncreatesession)
-* [session::destroySession] (#sessiondestroysession)
-* [session::getFlashMessage] (#sessiongetflashmessage)
-* [session::setFlashMessage] (#sessionsetflashmessage)
-* [session::ValidateSessionAjax] (#sessionvalidatesessionajax)
+* [session::AccessLevel](#sessionaccesslevel)
+* [session::createSession](#sessioncreatesession)
+* [session::destroySession](#sessiondestroysession)
+* [session::getFlashMessage](#sessiongetflashmessage)
+* [session::setFlashMessage](#sessionsetflashmessage)
+* [session::ValidateSessionAjax](#sessionvalidatesessionajax)
 
 ### Manejo de cadenas
-* [createRandomPassword] (#createrandompassword)
-* [getDataFormat] (#getDataFormat)
-* [NormalizeText] (#normalizetext)
-* [showHtmlLinks] (#showhtmllinks)
-* [strTranslate] (#strtranslate)
-* [shortText] (#shorttext)
+* [createRandomPassword](#createrandompassword)
+* [getDataFormat](#getDataFormat)
+* [NormalizeText](#normalizetext)
+* [showHtmlLinks](#showhtmllinks)
+* [strTranslate](#strtranslate)
+* [shortText](#shorttext)
 
 ### Validaciones
-* [validateDate] (#validatedate)
-* [validateEmail] (#validateemail)
-* [validateNifCifNie] (#validatenifcifnie)
+* [validateDate](#validatedate)
+* [validateEmail](#validateemail)
+* [validateNifCifNie](#validatenifcifnie)
 
 ### Core
 #### addCss
@@ -224,7 +229,7 @@ messageProcess( $message_subject,
 ```
 $message_protocol puede ser Mail(valor por defecto), smtp o Sendmail. Si en $message_protocol se emplea smpt, se utilizá la configuración SMTP establecida en el fichero de configuraciópn general config.php. Para Sendmail la configuración se establecerá igualmente en config.php.
 
-### noCache
+#### noCache
 Envia cabeceras para eliminar la cache del navegador. Uso: 
 ```php 
 noCache();
@@ -241,6 +246,8 @@ templateload($template,$modulename);
 ```
 
 ### Generación y procesamiento de archivos
+> Funciones y métodos útiles para el tratamiento de ficheros (generacion  CSV, ZIP, PDF, etc.). Todas las funciones están disponibles en cualquier ámbito a de la app.
+
 #### array2csv
 Exporta a CSV un array, donde $array sera el array de registros a exportar. Uso, primero se envian las cabeceras para descarga: 
 ```php 
@@ -274,6 +281,8 @@ Donde $file será $_FILES['nombre_input_file'] y $destination el directorio dond
 
 
 ### Sesiones
+> Colección de funciones y métodos para la creación de sesiones y su manejo. Incluye la implementación de seguridad de la app.
+
 #### session::AccessLevel
 Establece el nivel de acceso a una determinada página. Uso: 
 ```php 
@@ -282,7 +291,7 @@ session::AccessLevel($perfiles_autorizados);
 ```
 En el ejemplo anterior se restringe el acceso a usuarios con perfil admin y formador
 
-### session::createSession
+#### session::createSession
 Crea una sesión si el usuario y contraseña es correcto. Tras el inicio de sesión si el usuario tiene sus datos pendientes de confirmar se redirige a la página "user-confirm" o a otra pagina establecida por el parámetro opcional $url. Uso: 
 ```php 
 session::createSession($usuario, $password, [$url]);
@@ -316,6 +325,8 @@ session::ValidateSessionAjax([$url]);
 ```
 
 ### Manejo de cadenas
+> Colección de funciones útiles para el manejo de cadenas, fechas, traducciones, etc. Todas estas funciones están disponibles desde cualquier ámbito de la app.
+
 #### createRandomPassword
 Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
 ```php 
@@ -347,7 +358,9 @@ showHtmlLinks($text);
 Traduce la cadena de texto pasada por parámetro en el idioma establecido por defecto. Uso: 
 ```php 
 strTranslate($str);
+echo strTranslate("Home"); //mostrará la traducción de la palabra 'Home' en app/languages/lan/language.php
 ```
+Donde $str sera la cadena de texto a traducir, que figurará en los ficheros general de idiomas o en los ficheros de idionas de los módulos.
 
 #### shortText
 Acorta un texto añadiendo puntos suspensivos. Uso: 
@@ -358,6 +371,8 @@ Donde $text_html será la cadena a cortar y $num_car el numero de caracteres má
 
 
 ### Validaciones
+> Colección de funciones útiles para la validación de datos. Todas las funciones están disponibles desde cualquier ámbito de la app.
+
 #### validateDate
 Comprueba si una cadena es una fecha válida según el formato especificado. Uso: 
 ```php 
@@ -387,33 +402,33 @@ checkNifCifNie($cif);
 
 
 ## Modules
-* [Menu user] (#menu-user)
-* [Menu admin] (#menu-admin)
-* [Module Core] (#module-core)
-* [Module Configuration] (#module-configuration)
+* [Menu user](#menu-user)
+* [Menu admin](#menu-admin)
+* [Module Core](#module-core)
+* [Module Configuration](#module-configuration)
 
 
 #### Menu user
 El menu principal de la app se generica dinamicante. Los elementos al menu son añadidos por cada módulo desde el fichero general de opciones de cada módulo. El fichero de opciones del módulo debe tener agregada la funcción userMenu():
 
 ```php 
-    public static function userMenu(){
-        $array_final = array();
+public static function userMenu(){
+    $array_final = array();
 
-        array_push($array_final, array("LabelIcon" => "fa fa-envelope",
-                        "LabelItem" => 'Contact',
-                        "LabelUrl" => 'contact',
-                        "LabelTarget" => '_self',
-                        "LabelPos" => 7));
+    array_push($array_final, array("LabelIcon" => "fa fa-envelope",
+                    "LabelItem" => 'Contact',
+                    "LabelUrl" => 'contact',
+                    "LabelTarget" => '_self',
+                    "LabelPos" => 7));
 
-        array_push($array_final, array("LabelIcon" => "fa fa-trophy",
-                        "LabelItem" => 'Ranking',
-                        "LabelUrl" => 'ranking',
-                        "LabelTarget" => '_self',
-                        "LabelPos" => 8));
+    array_push($array_final, array("LabelIcon" => "fa fa-trophy",
+                    "LabelItem" => 'Ranking',
+                    "LabelUrl" => 'ranking',
+                    "LabelTarget" => '_self',
+                    "LabelPos" => 8));
 
-        return $array_final;        
-    }   
+    return $array_final;        
+}   
 ```
 La función devolverá un array con los elementos añadidos por el modulo al menu.
 
@@ -422,26 +437,26 @@ La función devolverá un array con los elementos añadidos por el modulo al men
 El menu de admministración de la app se generica dinamicante. Los elementos al menu son añadidos por cada módulo desde el fichero general de opciones de cada módulo. El fichero de opciones del módulo debe tener agregada la funcción adminMenu():
 
 ```php 
-    public static function adminMenu(){
-        return array(
-            menu::addAdminMenu(array(
-                "PageName" => "admin-users",
-                "LabelHeader" => "Tools",
-                "LabelSection" => strTranslate("Users"),
-                "LabelItem" => strTranslate("Users_list"),
-                "LabelUrl" => "admin-users",
-                "LabelPos" => 1,
-            )),
-            menu::addAdminMenu(array(
-                "PageName" => "admin-cargas-users",
-                "LabelHeader" => "Tools",
-                "LabelSection" => strTranslate("Users"),
-                "LabelItem" => strTranslate("Users_import"),
-                "LabelUrl" => "admin-cargas-users",
-                "LabelPos" => 2
-            ))
-        );       
-    }   
+public static function adminMenu(){
+    return array(
+        menu::addAdminMenu(array(
+            "PageName" => "admin-users",
+            "LabelHeader" => "Tools",
+            "LabelSection" => strTranslate("Users"),
+            "LabelItem" => strTranslate("Users_list"),
+            "LabelUrl" => "admin-users",
+            "LabelPos" => 1,
+        )),
+        menu::addAdminMenu(array(
+            "PageName" => "admin-cargas-users",
+            "LabelHeader" => "Tools",
+            "LabelSection" => strTranslate("Users"),
+            "LabelItem" => strTranslate("Users_import"),
+            "LabelUrl" => "admin-cargas-users",
+            "LabelPos" => 2
+        ))
+    );       
+}   
 ```
 La función devolverá un array con los elementos añadidos por el modulo al menu.
 
@@ -449,4 +464,4 @@ La función devolverá un array con los elementos añadidos por el modulo al men
 Módulo con páginas genericas: home, 404, contact, underconstruction
 
 #### Module Configuration
-Módulo para establecer la configuración de la app
+Módulo para establecer la configuración de la app 
