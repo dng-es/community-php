@@ -28,26 +28,31 @@ Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto
 
 
 ## Entorno desarrollo
-Para la creación de un entorno de desarrollo con <a target="_blank" href="https://www.vagrantup.com/">Vagrant</a> emplear los archivos Vagrant y bootstrap.sh. Configurar correctamente rutas necesarias, ver <a href="#instalacion">instalación</a>.
+Para la creación de un entorno de desarrollo con <a target="_blank" href="https://www.vagrantup.com/">Vagrant</a> emplear los archivos Vagrant y bootstrap.sh. Configurar correctamente rutas necesarias, ver <a href="#instalacion">instalación</a> - *utils/Vagrant*. Ver el archivo README para mas detalles - *utils/Vagrant/README*.
 
 - GRUNT para la generación de ficheros CSS y JS (gruntfile.js esta en /bin)
 - La hoja de estilos .CSS esta creada con SASS y COMPASS (styles.scss)
 
+En la carpeta *utils/VirtualHost* esta el fichero de ejemplo para crear un host vistual: *comunidad.local.com.conf*. Ver el archivo README para mas detalles - *utils/VirtualHost/README*.
+
+Para el desarrollo con **SublimeText**, existen snipets con funciones de la app - *utils/SublimeText/snipets*.
 
 ### Librerias de terceros
-- jQuery: (js/jquery.php) Javascript.
-- Bootstrap: (css/bootstrap.min.css - js/bootstrap.min.js)
-- Bootstrap Datepicker: (js/bootstrap-datepicker.js) Javascript. Datapicker para formularios
-- Bootstrap Dropdown: (js/bootstrap-dropdown.js) Javascript. Incluye efecto de despligue de los dropdowns de bootstrap al hacer over sobre el elemento
-- Bootstrap FileInput: (js/bootstrap.file-input.js) Javascript. modifica aspecto de los input file
-- CKEditor: (js/libs/ckeditor) Javascript. Editor WYSIWYG
-- CKFinder: (js/libs/ckfinder) Javascript. Subida de archivos integrado en CKEditor
-- amCharts: (js/libs/amcharts) Javascript. Generación de gráficos
-- JWPlayer: (js/libs/jwplayer) Javascript. Reproductor de video
-- SwiftMailer: (app/core/Swift-5.1.0) php. Envío de emials
-- gpyc: (app/core/gpyc-0.5) php. Lectura y escritura de YAML
-- Zipfile: (app/core/class.zipfile.php) php. Clase para generación de ficheros ZIP
-- resizeImage: (app/core/class.resizeimage.php) php. Clase para generar miniaturas de imágenes
+- **jQuery**: *js/jquery.php* - Javascript.
+- **Bootstrap**: *css/bootstrap.min.css - js/bootstrap.min.js*
+- **Bootstrap Datepicker**: *js/bootstrap-datepicker.js* - Javascript. Datapicker para formularios
+- **Bootstrap Dropdown**: *js/bootstrap-dropdown.js* - Javascript. Incluye efecto de despligue de los dropdowns de bootstrap al hacer over sobre el elemento
+- **Bootstrap FileInput**: *js/bootstrap.file-input.js* - Javascript. modifica aspecto de los input file
+- **CKEditor**: *js/libs/ckeditor* - Javascript. Editor WYSIWYG
+- **CKFinder**: *js/libs/ckfinder* - Javascript. Subida de archivos integrado en CKEditor
+- **amCharts**: *js/libs/amcharts* - Javascript. Generación de gráficos
+- **JWPlayer**: *js/libs/jwplayer* - Javascript. Reproductor de video
+- **SweetAlert**: *js/libs/sweetalert* - Javascript. Muestra pop-ups para los avisos.
+- **SwiftMailer**: *app/core/Swift-5.1.0* - php. Envío de emials
+- **gpyc**: *app/core/gpyc-0.5* - php. Lectura y escritura de YAML
+- **resizeImage**: *app/core/class.resizeimage.php* - php. Clase para generar miniaturas de imágenes
+- **Zipfile**: *app/core/class.zipfile.php)* - php. Clase para generación de ficheros ZIP
+
 
 
 ## Estructura de archivos y directorios
@@ -168,9 +173,10 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 * [createRandomPassword](#createrandompassword)
 * [getDataFormat](#getDataFormat)
 * [NormalizeText](#normalizetext)
+* [sanitizeInput](#sanitizeinput)
 * [showHtmlLinks](#showhtmllinks)
-* [strTranslate](#strtranslate)
 * [shortText](#shorttext)
+* [strTranslate](#strtranslate)
 
 ### Validaciones
 * [validateDate](#validatedate)
@@ -190,6 +196,8 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 * [getPlatform](#getplatform)
 * [messageProcess](#messageprocess)
 * [noCache](#nocache)
+* [Paginator](#paginator)
+* [SearchForm](#searchform)
 
 
 ## Core
@@ -326,37 +334,32 @@ session::ValidateSessionAjax([$url]);
 ### createRandomPassword
 Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso:
 ```php
-createRandomPassword(7);
-
-//especificando los caracteres aleatorios
-createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
+$pass = createRandomPassword(7);
+$pass = createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789"); //especificando los caracteres aleatorios
 ```
 ### getDataFormat
-Devuelve una fecha con el formato especificado (DAY, MONTH, MONTH_LONG, YEAR, SHORT, LONG, TIME, DATE_TIME). Uso: 
+Devuelve una fecha con el formato especificado (DAY, MONTH, MONTH_LONG, YEAR, SHORT, LONG, TIME, DATE_TIME). Uso:
 ```php
-getDataFormat('2014-01-14', 'LONG');
-//mostrará -> 14 de Enero 2014
+getDataFormat('2014-01-14', 'LONG'); //mostrará -> 14 de Enero 2014
 ```
 
 ### NormalizeText
-Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso: 
+Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso:
 ```php
 NormalizeText($text, $text_separator);
 ```
+###sanitizeInput
+Limpia una cadena. Utilizada para evitar errores y Sql injection. Uso:
+```php
+$valor = sanitizeInput($_POST['valor]);
+```
 
 ### showHtmlLinks
-Pone los enlaces html en una cadena de texto. Uso:
+Pone los enlaces html de una cadena de texto. Uso:
 ```php
-showHtmlLinks($text);
+$text = 'Texto con un enlace a google.com';
+echo showHtmlLinks($text); //mostrará: Texto con un enlace a <a href="http://google.com">google.com</a>
 ```
-
-### strTranslate
-Traduce la cadena de texto pasada por parámetro en el idioma establecido por defecto. Uso: 
-```php
-strTranslate($str);
-echo strTranslate("Home"); //mostrará la traducción de la palabra 'Home' en app/languages/lan/language.php
-```
-Donde $str sera la cadena de texto a traducir, que figurará en los ficheros general de idiomas o en los ficheros de idionas de los módulos.
 
 ### shortText
 Acorta un texto añadiendo puntos suspensivos. Uso:
@@ -364,6 +367,13 @@ Acorta un texto añadiendo puntos suspensivos. Uso:
 shortText($text_html,$num_car);
 ```
 Donde $text_html será la cadena a cortar y $num_car el numero de caracteres máximo de la cadena
+
+### strTranslate
+Traduce la cadena de texto pasada por parámetro en el idioma establecido por defecto. Uso: 
+```php
+echo strTranslate("Home"); //mostrará la traducción de la palabra 'Home'
+```
+La cadena de texto a traducir figurará en los ficheros general de idiomas - *httpdocs/app/languages/lan/language.php* o en los ficheros de idionas de los módulos - *httpdocs/app/modules/module_name/resources/languages/lan/language.php*.
 
 
 ## Validaciones
@@ -373,17 +383,23 @@ Donde $text_html será la cadena a cortar y $num_car el numero de caracteres má
 ### validateDate
 Comprueba si una cadena es una fecha válida según el formato especificado. Uso:
 ```php
-validateDate($date, 'Y-m-d H:i:s');
+$result = validateDate($date, 'Y-m-d H:i:s');
 ```
+La comprobación devolverá true o false.
 
 ### validateEmail
 Comprueba si un texto si es o no una cuenta de correo válida. Uso:
 ```php
-validateEmail($email);
+$result = validateEmail($email);
 ```
+La comprobación devolverá true o false.
 
 ### validateNifCifNie
-Comprueba si un NIF, CIF o NIE es correcto. Devolverá:
+Comprueba si un NIF, CIF o NIE es correcto. Uso:
+```php
+$result = checkNifCifNie($cif);
+```
+Devolverá:
 - 1 = NIF ok
 - 2 = CIF ok
 - 3 = NIE ok
@@ -391,11 +407,6 @@ Comprueba si un NIF, CIF o NIE es correcto. Devolverá:
 - -2 = CIF bad
 - -3 = NIE bad
 - 0 = ??? incorrecto.
-
-Uso:
-```php
-checkNifCifNie($cif);
-```
 
 ## Base de datos
 <span style="float:right">[Inicio](#community-php)</span>
@@ -468,7 +479,7 @@ Obtiene el Sistema Operativo según el UserAgent del navegador. Uso:
 getPlatform($_SERVER['HTTP_USER_AGENT']);
 ```
 ### messageProcess
-Envia un email con Swift Mailer. Uso:
+Envia un email. Uso:
 ```php
 messageProcess( $message_subject,
                 $message_from = array('john@doe.com' => 'John Doe'),
@@ -477,12 +488,22 @@ messageProcess( $message_subject,
                 $message_attachment = null,
                 $message_protocol = "smtp");
 ```
-$message_protocol puede ser Mail(valor por defecto), smtp o Sendmail. Si en $message_protocol se emplea smpt, se utilizá la configuración SMTP establecida en el fichero de configuraciópn general config.php. Para Sendmail la configuración se establecerá igualmente en config.php.
+**$message_protocol** puede ser Mail(valor por defecto), smtp o Sendmail. Si en $message_protocol se emplea smpt, se utilizá la configuración SMTP establecida en el fichero de configuraciópn general *config.php*. Para Sendmail la configuración se establecerá igualmente en *config.php*.
 
 ### noCache
 Envia cabeceras para eliminar la cache del navegador. Uso:
 ```php
 noCache();
+```
+### Paginator
+Crea un paginador de registros. Uso:
+```php
+Paginator($pag, $reg, $total_reg, $pag_dest, $title, $find_reg, $num_paginas, $addClass, $pagecount_dest);
+```
+### SearchForm
+Crea un buscador. Uso:
+```php
+SearchForm($reg, $pag, $formId, $labelForm, $labelButton, $clase_css, $class_form, $method_form);
 ```
 
 ## Modules
@@ -551,7 +572,7 @@ public static function adminMenu(){
 La función devolverá un array con los elementos añadidos por el modulo al menu.
 
 ### Module Core
-Módulo con páginas genericas: home, 404, contact, underconstruction
+Módulo con páginas genericas: *home*, *404*, *contact*, *underconstruction*.
 
 ### Module Configuration
 Módulo para establecer la configuración de la app. Tablas en la base de datos:
