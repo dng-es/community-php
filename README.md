@@ -1,4 +1,4 @@
-# Community-php 
+# Community-php
 v. 0.4.6
 > Comunidad de usuarios php5 y mysql, creada por componentes/módulos. Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
@@ -11,6 +11,7 @@ v. 0.4.6
 * [Debug mode](#debug-mode)
 * [Referencia funciones](#referencia-funciones)
 * [Modules](#modules)
+* [Seguridad](#seguridad)
 
 
 ## Requisitos y dependencias
@@ -33,7 +34,7 @@ Para la creación de un entorno de desarrollo con <a target="_blank" href="https
 - La hoja de estilos .CSS esta creada con SASS y COMPASS (styles.scss)
 
 
-### Librerias de terceros 
+### Librerias de terceros
 - jQuery: (js/jquery.php) Javascript.
 - Bootstrap: (css/bootstrap.min.css - js/bootstrap.min.js)
 - Bootstrap Datepicker: (js/bootstrap-datepicker.js) Javascript. Datapicker para formularios
@@ -76,24 +77,24 @@ Módulos con versión menor 1.0 no están completamente testeados o finalizados.
     │   ├── classes             - acceso a la base de datos desde el módulo
     │   ├── controllers         - controladores del módulo
     │   ├── pages               - páginas del módulo
-    │   ├── resources           - recursos del módulo   
-    │   │   ├── css             - archivos CSS del módulo   
-    │   │   ├── images          - imágenes del módulo   
-    │   │   ├── js              - javascripts del módulo           
-    │   │   └── languages       - ficheros de idiomas del módulo 
+    │   ├── resources           - recursos del módulo
+    │   │   ├── css             - archivos CSS del módulo
+    │   │   ├── images          - imágenes del módulo
+    │   │   ├── js              - javascripts del módulo
+    │   │   └── languages       - ficheros de idiomas del módulo
     │   │
-    │   ├── templates           - plantillas del módulo       
-    │   ├── config.yaml         - Opciones de configración del módulo       
+    │   ├── templates           - plantillas del módulo
+    │   ├── config.yaml         - Opciones de configración del módulo
     │   └── my_module.php       - fichero de general del módulo
     │
 
 
-## Herramienta console 
+## Herramienta console
 >Aplicación de consola para la realizacion de tareas como la creación de módulos, búsqueda de páginas en la estructura de directorios de la app, etc.
 
-Ejemplo de uso: 
+Ejemplo de uso:
 
-```bash 
+```bash
 php bin/console options
 ```
 Donde las opciones de console son:
@@ -104,21 +105,21 @@ Donde las opciones de console son:
 
 ### createmodule
 Crea nuevo módulo con su estructura de directorios y ficheros básicos. Uso: 
-```bash 
+```bash
 php bin/console createmodule
 ```
 Tras ejecutar el comando se preguntará por el nombre del nuevo modulo.
 
 ### findpage
-Encuentra una pagina. Muestra en que módulo se encuentra. Uso: 
-```bash 
+Encuentra una pagina. Muestra en que módulo se encuentra. Uso:
+```bash
 php bin/console findpage
 ```
 Tras ejecutar el comando se preguntará por la página a buscar. Si la página es encontrada mostrará su ruta.
 
 ### showmodules
-Muestra todos los modulos con su información. Uso: 
-```bash 
+Muestra todos los modulos con su información. Uso:
+```bash
 php bin/console showmodules
 ```
 Tras ejecutar el comando se mostrarán todos los modulos instalados.
@@ -138,16 +139,14 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 
 
 ## Referencia funciones
+<span style="float:right">[Inicio](#community-php)</span>
+> Funciones de la app, las funciones principales y otras funciones útiles.
 
 ### Core
 * [addCss](#addcss)
 * [addJavascripts](#addJavascripts)
 * [getAsset](#getasset)
-* [getBrowser](#getbrowser)
 * [getListModules](#getlistmodules)
-* [getPlatform](#getplatform)
-* [messageProcess](#messageprocess)
-* [noCache](#nocache)
 * [redirectURL](#redirecturl)
 * [templateload](#templateload)
 
@@ -158,12 +157,12 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 * [uploadFileToFolder](#uploadfiletofolder)
 
 ### Sesiones
-* [session::AccessLevel](#sessionaccesslevel)
-* [session::createSession](#sessioncreatesession)
-* [session::destroySession](#sessiondestroysession)
-* [session::getFlashMessage](#sessiongetflashmessage)
-* [session::setFlashMessage](#sessionsetflashmessage)
-* [session::ValidateSessionAjax](#sessionvalidatesessionajax)
+* [AccessLevel](#accesslevel)
+* [createSession](#createsession)
+* [destroySession](#destroysession)
+* [setFlashMessage](#setflashmessage)
+* [getFlashMessage](#getflashmessage)
+* [ValidateSessionAjax](#validatesessionajax)
 
 ### Manejo de cadenas
 * [createRandomPassword](#createrandompassword)
@@ -178,214 +177,212 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 * [validateEmail](#validateemail)
 * [validateNifCifNie](#validatenifcifnie)
 
-### Core
-#### addCss
-Agrega los ficheros Css específicos de una paguna. Uso: 
-```php 
+### Base de datos
+* [execute_query](#execute_query)
+* [getSQL](#getsql)
+* [SelectMaxReg](#selectmaxreg)
+* [countReg](#countreg)
+* [sumReg](#sumreg)
+* [timeServer](#timeserver)
+
+### Otras funciones
+* [getBrowser](#getbrowser)
+* [getPlatform](#getplatform)
+* [messageProcess](#messageprocess)
+* [noCache](#nocache)
+
+
+## Core
+<span style="float:right">[Inicio](#community-php)</span>
+>Métodos y funciones principales de la app - *httpdocs/app/core/functions.core.php*
+
+### addCss
+Agrega los ficheros Css específicos de una paguna. Uso:
+```php
 //my_page.php
 addCss("css/my_page.css");
 ```
 
-#### addJavascripts
-Agrega los ficheros JS específicos de una paguna. Uso: 
-```php 
+### addJavascripts
+Agrega los ficheros JS específicos de una paguna. Uso:
+```php
 //my_page.php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("my_module")."js/my_page.js"));
 ```
-Agrega los arvivos bootstrap.file-input.js y my_page.js, donde my_page.js pertenece al módulo my_module (para su carga se emplea la función [getAsset()] (#getasset)). 
+Agrega los arvivos bootstrap.file-input.js y my_page.js, donde my_page.js pertenece al módulo my_module (para su carga se emplea la función [getAsset()] (#getasset)).
 
-#### getAsset
-Obtiene la ruta de los assets del módulo especificado con $modulename. Uso: 
-```php 
+### getAsset
+Obtiene la ruta de los assets del módulo especificado con $modulename. Uso:
+```php
 getAsset($modulename);
 ```
 
-#### getBrowser
-Obtiene la versión del navegador según el UserAgent. Uso: 
-```php 
-getBrowser($_SERVER['HTTP_USER_AGENT']);
-```
-
-#### getListModules
-Devuelve un array con todos los módulos instalados. Uso: 
-```php 
+### getListModules
+Devuelve un array con todos los módulos instalados. Uso:
+```php
 getListModules();
 ```
 
-#### getPlatform
-Obtiene el Sistema Operativo según el UserAgent del navegador. Uso: 
-```php 
-getPlatform($_SERVER['HTTP_USER_AGENT']);
-```
-#### messageProcess
-Envia un email con Swift Mailer. Uso: 
-```php 
-messageProcess( $message_subject, 
-                $message_from = array('john@doe.com' => 'John Doe'), 
-                $message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), 
-                $message_body, 
-                $message_attachment = null,
-                $message_protocol = "smtp");
-```
-$message_protocol puede ser Mail(valor por defecto), smtp o Sendmail. Si en $message_protocol se emplea smpt, se utilizá la configuración SMTP establecida en el fichero de configuraciópn general config.php. Para Sendmail la configuración se establecerá igualmente en config.php.
-
-#### noCache
-Envia cabeceras para eliminar la cache del navegador. Uso: 
-```php 
-noCache();
-```
-#### redirectURL
-Redirecciona a la url especificada. Uso: 
-```php 
+### redirectURL
+Redirecciona a la url especificada. Uso:
+```php
 redirectURL($url);
 ```
-#### templateload
-Carga la plantilla especificada con $template situada en el módulo especificado con $modulename. Uso: 
-```php 
+### templateload
+Carga la plantilla especificada con $template situada en el módulo especificado con $modulename. Uso:
+```php
 templateload($template,$modulename);
 ```
 
-### Generación y procesamiento de archivos
-> Funciones y métodos útiles para el tratamiento de ficheros (generacion  CSV, ZIP, PDF, etc.). Todas las funciones están disponibles en cualquier ámbito a de la app.
+## Generación y procesamiento de archivos
+<span style="float:right">[Inicio](#community-php)</span>
+> Funciones y métodos útiles para el tratamiento de ficheros (generacion  CSV, ZIP, PDF, etc.). Todas las funciones están disponibles en cualquier ámbito a de la app. Incluidas en el fichero *httpdocs/app/core/functions.php*
 
-#### array2csv
-Exporta a CSV un array, donde $array sera el array de registros a exportar. Uso, primero se envian las cabeceras para descarga: 
-```php 
+### array2csv
+Exporta a CSV un array, donde $array sera el array de registros a exportar. Uso, primero se envian las cabeceras para descarga:
+```php
 download_send_headers("nombre_fichero.csv");
 array2csv($array);
 ```
 **IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
 
 
-#### fileToZip
-Comprime a zip el fichero especificado por $filename alojado en la ruta $path. Uso: 
-```php 
+### fileToZip
+Comprime a zip el fichero especificado por $filename alojado en la ruta $path. Uso:
+```php
 fileToZip($filename, $path);
 ```
 **IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
 
-#### HTMLtoPDF
-Convierte a PDF la cadena de texto en formato HTML. Uso: 
-```php 
+### HTMLtoPDF
+Convierte a PDF la cadena de texto en formato HTML. Uso:
+```php
 HTMLtoPDF($content, [$size]);
 ```
 Donde $content será la cadena de texto en formato HTML a convertir a PDF. El parámetro opcional $size indica el tamaño del documento, por defecto A4.
 
 **IMPORTANTE:** debe colacarse al comienzo de la página ya que se envía por las cabeceras HTTP y posterior a verificación de acceso en paginas de administración o con privilegios especiales.
-#### uploadFileToFolder
-Sube un fichero a la ruta especificada. Uso: 
-```php 
+### uploadFileToFolder
+Sube un fichero a la ruta especificada. Uso:
+```php
 uploadFileToFolder($file, $destination);
 ```
 Donde $file será $_FILES['nombre_input_file'] y $destination el directorio donde se ha de subir la imágen
 
 
-### Sesiones
-> Colección de funciones y métodos para la creación de sesiones y su manejo. Incluye la implementación de seguridad de la app.
+## Sesiones
+<span style="float:right">[Inicio](#community-php)</span>
+> Colección de funciones y métodos para la creación de sesiones y su manejo. Incluye la implementación de seguridad de la app. Todos los métodos están dentro de la clase **session** - httpdocs/app/core/class.session.php
 
-#### session::AccessLevel
-Establece el nivel de acceso a una determinada página. Uso: 
-```php 
+### AccessLevel
+Establece el nivel de acceso a una determinada página. Uso:
+```php
 $perfiles_autorizados = array("admin", "formador");
 session::AccessLevel($perfiles_autorizados);
 ```
 En el ejemplo anterior se restringe el acceso a usuarios con perfil admin y formador
 
-#### session::createSession
+### createSession
 Crea una sesión si el usuario y contraseña es correcto. Tras el inicio de sesión si el usuario tiene sus datos pendientes de confirmar se redirige a la página "user-confirm" o a otra pagina establecida por el parámetro opcional $url. Uso: 
 ```php 
 session::createSession($usuario, $password, [$url]);
 ```
 
-#### session::destroySession
-Destruye la sesion actual y redirecciona a la url pasada por parámetro. Uso: 
+### destroySession
+Destruye la sesion actual y redirecciona a la url pasada por parámetro. Uso:
 ```php 
 session::destroySession();
 ```
 Si no se pasa pámetro redirige a "login".
 
-#### session::getFlashMessage
-Obtiene el mensaje pasado por parámetro. Uso: 
+### setFlashMessage
+Crea un mensaje flash. Uso:
+```php
+//mensaje de operación realizada con éxito
+session::setFlashMessage( 'actions_message', 'Registro insertado correctamente', 'alert alert-success');
+
+//mensaje de operación realizada con error
+session::setFlashMessage( 'actions_message', 'Error al insertar registro', 'alert alert-danger');
+```
+En el ejemplo se crea el mensaje flash 'actions_message' con el texto 'Registro insertado correctamente' y se le aplica la clase css 'alert alert-success'. Para recuperar un mensaje flash ver [session::getFlashMessage] (#session::getflashmessage).
+
+### getFlashMessage
+Obtiene el mensaje pasado por parámetro. Uso:
 ```php 
 session::getFlashMessage( 'actions_message' );
 ```
 Una vez mostrado el mensaje  'actions_message' será borrado de la memoria flash. Para crear un mensaje flash ver [session::setFlashMessage] (#session::setflashmessage).
 
-#### session::setFlashMessage
-Crea un mensaje flash. Uso: 
-```php 
-session::setFlashMessage( 'actions_message', 'Registro insertado correctamente', 'alert alert-success');
-```
-En el ejemplo se crea el mensaje flash 'actions_message' con el texto 'Registro insertado correctamente' y se le aplica la clase css 'alert alert-success'. Para recuperar un mensaje flash ver [session::getFlashMessage] (#session::getflashmessage).
-
-#### session::ValidateSessionAjax
-Comprueba si un usuario esta correctamente autentificado, en caso contrario redirige a "login" o en su defecto a la página indicada por el paámetro opcional $url. Uso: 
-```php 
+### ValidateSessionAjax
+Comprueba si un usuario esta correctamente autentificado, en caso contrario redirige a "login" o en su defecto a la página indicada por el paámetro opcional $url. Uso:
+```php
 session::ValidateSessionAjax([$url]);
 ```
 
-### Manejo de cadenas
-> Colección de funciones útiles para el manejo de cadenas, fechas, traducciones, etc. Todas estas funciones están disponibles desde cualquier ámbito de la app.
+## Manejo de cadenas
+<span style="float:right">[Inicio](#community-php)</span>
+> Colección de funciones útiles para el manejo de cadenas, fechas, traducciones, etc. Todas estas funciones están disponibles desde cualquier ámbito de la app. Incluidas en el fichero *httpdocs/app/core/functions.php*
 
-#### createRandomPassword
-Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso: 
-```php 
+### createRandomPassword
+Genera una cadena aleatoria. Por defecto la cadena generada es alfanumérica, aunque se puede pasar como segundo parámetro los carateres permitidos. Uso:
+```php
 createRandomPassword(7);
 
 //especificando los caracteres aleatorios
 createRandomPassword(7, "abcdefghijkmnopqrstuvwxyz023456789");
 ```
-#### getDataFormat
+### getDataFormat
 Devuelve una fecha con el formato especificado (DAY, MONTH, MONTH_LONG, YEAR, SHORT, LONG, TIME, DATE_TIME). Uso: 
-```php 
+```php
 getDataFormat('2014-01-14', 'LONG');
 //mostrará -> 14 de Enero 2014
 ```
 
-#### NormalizeText
+### NormalizeText
 Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más). Uso: 
-```php 
+```php
 NormalizeText($text, $text_separator);
 ```
 
-#### showHtmlLinks
-Pone los enlaces html en una cadena de texto. Uso: 
-```php 
+### showHtmlLinks
+Pone los enlaces html en una cadena de texto. Uso:
+```php
 showHtmlLinks($text);
 ```
 
-#### strTranslate
+### strTranslate
 Traduce la cadena de texto pasada por parámetro en el idioma establecido por defecto. Uso: 
-```php 
+```php
 strTranslate($str);
 echo strTranslate("Home"); //mostrará la traducción de la palabra 'Home' en app/languages/lan/language.php
 ```
 Donde $str sera la cadena de texto a traducir, que figurará en los ficheros general de idiomas o en los ficheros de idionas de los módulos.
 
-#### shortText
-Acorta un texto añadiendo puntos suspensivos. Uso: 
-```php 
+### shortText
+Acorta un texto añadiendo puntos suspensivos. Uso:
+```php
 shortText($text_html,$num_car);
 ```
 Donde $text_html será la cadena a cortar y $num_car el numero de caracteres máximo de la cadena
 
 
-### Validaciones
-> Colección de funciones útiles para la validación de datos. Todas las funciones están disponibles desde cualquier ámbito de la app.
+## Validaciones
+<span style="float:right">[Inicio](#community-php)</span>
+> Colección de funciones útiles para la validación de datos. Todas las funciones están disponibles desde cualquier ámbito de la app. Incluidas en el fichero *httpdocs/app/core/functions.php*
 
-#### validateDate
-Comprueba si una cadena es una fecha válida según el formato especificado. Uso: 
-```php 
+### validateDate
+Comprueba si una cadena es una fecha válida según el formato especificado. Uso:
+```php
 validateDate($date, 'Y-m-d H:i:s');
 ```
 
-#### validateEmail
-Comprueba si un texto si es o no una cuenta de correo válida. Uso: 
-```php 
+### validateEmail
+Comprueba si un texto si es o no una cuenta de correo válida. Uso:
+```php
 validateEmail($email);
 ```
 
-#### validateNifCifNie
+### validateNifCifNie
 Comprueba si un NIF, CIF o NIE es correcto. Devolverá:
 - 1 = NIF ok
 - 2 = CIF ok
@@ -396,22 +393,115 @@ Comprueba si un NIF, CIF o NIE es correcto. Devolverá:
 - 0 = ??? incorrecto.
 
 Uso:
-```php 
+```php
 checkNifCifNie($cif);
 ```
 
+## Base de datos
+<span style="float:right">[Inicio](#community-php)</span>
+> Funciones principales para acceso a la base de datos y otras operaciones. Todos los métodos están dentro de la clase **connection** - httpdocs/app/core/class.connection.php
+
+### execute_query
+Ejecuta una consulta sql sobre la base de datos.
+
+```php
+$result = connection::execute_query("UPDATE users SET disabled=1 WHERE username='demo' ");
+```
+Devuelve true o false en función del resultado de la ejecución de la consulta.
+
+### getSQL
+Devuelve el resultado de una consulta sql sobre la base de datos.
+
+```php
+$result = connection::getSQL("SELECT * FROM users");
+```
+Devuelve un array de arrays con el resultado de la consulta.
+
+### SelectMaxReg
+Devuelve el valor maximo de un campo de una tabla, aplicando el filtro especificado.
+
+```php
+$field = "puntos";
+$table = "users";
+$filter = " AND disabled=0 ";
+$maxreg = connection::SelectMaxReg($field, $table, $filter);
+```
+
+### countReg
+Devuelve el número de registros de una tabla, aplicando el filtro especificado.
+
+```php
+$table = "users";
+$filter = " AND disabled=0 ";
+$counter = connection::countReg($table, $filter);
+```
+
+### sumReg
+Devuelve la suma de los valores de un campo de una tabla, aplicando el filtro especificado.
+
+```php
+$table = "users";
+$field = "puntos";
+$filter = " AND disabled=0 ";
+$sum = connection::sumReg($table, $field, $filter);
+```
+
+### timeServer
+Devuelve la hora del servidor.
+
+```php
+$time_server = connection::timeServer();
+```
+## Otras funciones
+<span style="float:right">[Inicio](#community-php)</span>
+>Otras funciones útiles. Incluidas en el fichero *httpdocs/app/core/functions.php*
+
+### getBrowser
+Obtiene la versión del navegador según el UserAgent. Uso:
+```php
+getBrowser($_SERVER['HTTP_USER_AGENT']);
+```
+
+### getPlatform
+Obtiene el Sistema Operativo según el UserAgent del navegador. Uso:
+```php
+getPlatform($_SERVER['HTTP_USER_AGENT']);
+```
+### messageProcess
+Envia un email con Swift Mailer. Uso:
+```php
+messageProcess( $message_subject,
+                $message_from = array('john@doe.com' => 'John Doe'),
+                $message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'),
+                $message_body,
+                $message_attachment = null,
+                $message_protocol = "smtp");
+```
+$message_protocol puede ser Mail(valor por defecto), smtp o Sendmail. Si en $message_protocol se emplea smpt, se utilizá la configuración SMTP establecida en el fichero de configuraciópn general config.php. Para Sendmail la configuración se establecerá igualmente en config.php.
+
+### noCache
+Envia cabeceras para eliminar la cache del navegador. Uso:
+```php
+noCache();
+```
 
 ## Modules
+<span style="float:right">[Inicio](#community-php)</span>
+>Existen modulos necesarios para el funcionamiento de la app: Core, Configuration, Users y Visitas. Se pueden crear nuevos modulos siguiendo la estructura descrita o mediante la herramienta de consola.
+
 * [Menu user](#menu-user)
 * [Menu admin](#menu-admin)
 * [Module Core](#module-core)
+* [Module Users](#module-usuarios)
+* [Module Visitas](#module-visitas)
 * [Module Configuration](#module-configuration)
 
+Ver la herramienta de consola [createmodule](#createmodule) para la creación de automática de nuevos módulos.
 
-#### Menu user
-El menu principal de la app se generica dinamicante. Los elementos al menu son añadidos por cada módulo desde el fichero general de opciones de cada módulo. El fichero de opciones del módulo debe tener agregada la funcción userMenu():
+### Menu user
+El menu principal de la app se generica dinamicante desde **userMainMenu()** en *httpdocs/app/modules/class.menu.php*. Los elementos al menu son añadidos por cada módulo desde el fichero general de cada módulo - *httpdocs/app/modules/my_module/my_module.php*. El fichero de opciones del módulo debe tener agregada la funcción **userMenu()**:
 
-```php 
+```php
 public static function userMenu(){
     $array_final = array();
 
@@ -427,16 +517,16 @@ public static function userMenu(){
                     "LabelTarget" => '_self',
                     "LabelPos" => 8));
 
-    return $array_final;        
-}   
+    return $array_final;
+}
 ```
 La función devolverá un array con los elementos añadidos por el modulo al menu.
 
 
-#### Menu admin
-El menu de admministración de la app se generica dinamicante. Los elementos al menu son añadidos por cada módulo desde el fichero general de opciones de cada módulo. El fichero de opciones del módulo debe tener agregada la funcción adminMenu():
+### Menu admin
+El menu de admministración de la app se generica dinamicante desde **adminMenu()** en *httpdocs/app/modules/class.menu.php*. Los elementos al menu son añadidos por cada módulo desde el fichero general de cada módulo - *httpdocs/app/modules/my_module/my_module.php*. El fichero de opciones del módulo debe tener agregada la funcción **adminMenu()**:
 
-```php 
+```php
 public static function adminMenu(){
     return array(
         menu::addAdminMenu(array(
@@ -455,13 +545,37 @@ public static function adminMenu(){
             "LabelUrl" => "admin-cargas-users",
             "LabelPos" => 2
         ))
-    );       
-}   
+    );
+}
 ```
 La función devolverá un array con los elementos añadidos por el modulo al menu.
 
-#### Module Core
+### Module Core
 Módulo con páginas genericas: home, 404, contact, underconstruction
 
-#### Module Configuration
-Módulo para establecer la configuración de la app 
+### Module Configuration
+Módulo para establecer la configuración de la app. Tablas en la base de datos:
+- config
+
+### Module Users
+Módulo para la gestión de usuarios y permisos de usuarios. Tablas en la base de datos:
+- users
+- users_tiendas
+- users_connected
+- users_participaciones
+- users_permissions
+- users_puntuaciones
+
+### Module Visitas
+Encargado de generar las estadisticas de acceso a la app. Tablas en la base de datos:
+- accesscontrol
+
+## Seguridad
+<span style="float:right">[Inicio](#community-php)</span>
+Las sesiones están implementadas en el fichero httpdocs/app/core/class.session.php. Para una descripción detalladas de los metodos disponibles ver [Sesiones](#sesiones).
+
+Por defecto, todas las páginas de la Web estarán protegidas por usuario y contraseña. Para hacer una página accesible sin necesidad de loguearse en la app, debemos añadir dicha página al array ***$paginas_free*** (httpdocs/app/core/constants.php).
+
+El acceso al zona de administración sólo será accesible para los usuarios con perfil admin. Todas aquellas páginas que comiencen por admin se entenderá que son páginas protegidas y solo disponibles para usuarios administradores.
+
+Se pueden establecer permisos específicos para cada usuario y a cada página (Modulo users). Desde el panel de administración, se peden editar individualmente los permisos de cada usuario.
