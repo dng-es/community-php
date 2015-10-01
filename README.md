@@ -606,3 +606,29 @@ Por defecto, todas las páginas de la Web estarán protegidas por usuario y cont
 El acceso al zona de administración sólo será accesible para los usuarios con perfil admin. Todas aquellas páginas que comiencen por admin se entenderá que son páginas protegidas y solo disponibles para usuarios administradores.
 
 Se pueden establecer permisos específicos para cada usuario y a cada página (Modulo users). Desde el panel de administración, se peden editar individualmente los permisos de cada usuario.
+
+## Envio de formularios
+Se emplean mensajes flash para mostrar avisos sobre el resultado del envio de un formulario. Ejemplo:
+
+En el controlador donde se recibe el formulario, tras las acciones correspondientes crearemos un mensaje de error o de exito. A continuacion con ***redirectUrl()*** redirigimos a la página deseada.
+
+```php
+public static function deleteAction(){
+    $mymodule = new mymodule();
+    if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
+        if ($mymodule->deleteItem($_REQUEST['id'])) {
+            session::setFlashMessage( 'actions_message', "Todo bien!!!", "alert alert-success");}
+        else {
+            session::setFlashMessage( 'actions_message', "Error!!!", "alert alert-danger");}
+
+        redirectURL("pagename");
+    }
+}
+```
+
+En la página donde es redirigida, normalmente la misma desde la que se envía el formulario, mostraremos el mensaje flash - **IMPORTANTE**: *getFlashMessage()* tiene que ir antes que las llamadas a los controladores
+```php
+	session::getFlashMessage( 'actions_message' ); 
+	mymoduleController::deleteAction();
+
+```
