@@ -1,7 +1,7 @@
 <?php
 $na_areas = new na_areas();
-$id_area=$_REQUEST['a'];
-$id_grupo=$_REQUEST['g'];
+$id_area = $_REQUEST['a'];
+$id_grupo = $_REQUEST['g'];
 
 //agregar usuario al area
 if (isset($_POST['id_grupo_add']) and $_POST['id_grupo_add']!=""){

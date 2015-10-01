@@ -11,7 +11,8 @@ $elements = infoController::getListAction(20, $filtro);
 		));?>
 		<h3><?php echo strTranslate("Search_results");?>: <span class="text-primary"><em><?php echo sanitizeInput($_REQUEST['find_reg']);?></em> (<?php echo $elements['total_reg'];?> <?php echo strtolower(strTranslate("Items"));?>)</span></h3>
 		<?php foreach($elements['items'] as $elements_info): 
-		$enlace = ($elements_info['download']==1 ? ' href="info-all?id='.$element['id_info'].'&exp='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
+		//$enlace = ($elements_info['download'] == 1 ? ' href="info-all?id='.$element['id_info'].'&exp='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
+		$enlace = ($elements_info['download'] == 1 ? ' href="docs/showfile.php?file='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
 		?>
 			<div class="row">
 				<div class="col-md-12">
@@ -21,7 +22,7 @@ $elements = infoController::getListAction(20, $filtro);
 			</div>
 		<?php endforeach;  ?>
 
-		<?php if ($elements['total_reg']==0):?>
+		<?php if ($elements['total_reg'] == 0):?>
 		<div class="alert alert-warning">no existen documentos en la campaña</div>
 		<?php endif;?>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>

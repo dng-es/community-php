@@ -6,12 +6,13 @@ templateload("cmbCanales","users");
 
 //OBTENCION DE LOS COMENTARIOS DEL MURO
 $muro = new muro();	
-if (isset($_REQUEST['id'])){$nombre_muro=$_REQUEST['id'];}
-if (isset($_POST['tipo_responder'])){$nombre_muro=$_POST['tipo_responder'];}
-if (isset($_POST['tipo_muro'])){$nombre_muro=$_POST['tipo_muro'];}
-if ($nombre_muro==""){$nombre_muro="principal";}  
-if (isset($_REQUEST['pag'])){$pagina=$_REQUEST['pag'];}
-else{$pagina=1;}
+if (isset($_REQUEST['id'])) $nombre_muro = $_REQUEST['id'];
+if (isset($_POST['tipo_responder'])) $nombre_muro = $_POST['tipo_responder'];
+if (isset($_POST['tipo_muro'])) $nombre_muro = $_POST['tipo_muro'];
+if ($nombre_muro == "") $nombre_muro = "principal";
+
+if (isset($_REQUEST['pag'])) $pagina = $_REQUEST['pag'];
+else $pagina = 1;
 
 ?>
 <div class="row row-top">
@@ -34,7 +35,7 @@ else{$pagina=1;}
 				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />	  
 				<h4><?php echo strTranslate("New_comment_on_wall");?></h4>
 				<textarea maxlength="160" class="form-control muro-texto" id="texto-comentario" name="texto-comentario"></textarea>
-				<?php if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'):?>
+				<?php if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'formador'):?>
 				<select name="canal_comentario" id="canal_comentario" class="form-control">
 					<?php ComboCanales();?>
 				</select>

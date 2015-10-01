@@ -30,7 +30,7 @@ function pasadaProccess($id_message, $action, $pasada){
 	$msgs_block = $mailing->getMsgsBlock();
 
 	//obtener datos del mesaje
-	$elements=$mailing->getMessages(" AND id_message=".$id_message." "); 	
+	$elements = $mailing->getMessages(" AND id_message=".$id_message." "); 	
 	$message_subject = $elements[0]['message_subject'];
 	$message_body = $elements[0]['message_body'];
 	$message_from = array($elements[0]['message_from_email'] => $elements[0]['message_from_name']);
@@ -83,7 +83,7 @@ function pasadaProccess($id_message, $action, $pasada){
 	$mailing->updateMessageField($id_message, "total_pending", $pendientes);
 	$mailing->updateMessageField($id_message, "total_failed", $fallidos);
 
-	if ($pendientes==0){
+	if ($pendientes == 0){
 		//actualizar datos del mensaje
 		$mailing->updateMessageField($id_message, "message_status", "'completed'");
 	}

@@ -21,7 +21,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 
 		$page_name = isset($_REQUEST['p']) ? $_REQUEST['p'] : (isset($_POST['page_name']) ? $_POST['page_name'] : "");		
 		$pages = new pages();
-		$pagina= $pages->getPages(" AND page_name='".$page_name."' "); 
+		$pagina = $pages->getPages(" AND page_name='".$page_name."' "); 
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -32,7 +32,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					<input type="text" name="page_name_new" id ="page_name_new" class="form-control" <?php echo $page_name!='' ? ' disabled="disabled" value="'.$page_name.'" ' : '' ?> />
 					<br />
 					<?php
-						if ($page_name!=""){
+						if ($page_name != ""){
 							echo '<p>URL: <a href="'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'</a></p>';
 						}
 					?>

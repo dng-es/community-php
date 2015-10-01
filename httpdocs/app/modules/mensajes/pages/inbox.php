@@ -20,7 +20,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 
 		$mensajeria = new mensajes();
 		$elements = mensajesController::getListAction(20);
-		$contador_no_leidos=connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
+		$contador_no_leidos = connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -29,8 +29,8 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 				<div class="table-responsive container-min">
 					<table class="table">
 					<?php foreach($elements['items'] as $mensaje):
-						if ($mensaje['estado']==0){$estilo_leido="MensajeNoLeido";$estilo_titulo="TituloNoleido ";}
-						else {$estilo_leido="";$estilo_titulo="";} ?>
+						if ($mensaje['estado'] == 0){$estilo_leido="MensajeNoLeido";$estilo_titulo="TituloNoleido ";}
+						else {$estilo_leido = "";$estilo_titulo = "";} ?>
 						
 						<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo <?php echo $estilo_leido;?>">
 							<td nowrap="nowrap" valign="top">
@@ -53,7 +53,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 				</div>
 			</div>
 			<br />
-			<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+			<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 		</div>
 	</div>
   	<div class="app-sidebar">

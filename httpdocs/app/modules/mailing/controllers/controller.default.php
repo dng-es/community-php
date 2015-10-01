@@ -34,26 +34,26 @@ class mailingController{
 		$content = str_replace('[USER_LOGO]', '<img src="'.$ini_conf['SiteUrl'].'/images/usuarios/'.$_SESSION['user_foto'].'" />', $content);
 
 		
-		if (isset($_POST['claim_promocion']) and $_POST['claim_promocion']!=""){ $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);}
-		if (isset($_POST['descuento_promocion']) and $_POST['descuento_promocion']!=""){ $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);}
-		if (isset($_POST['date_promocion']) and $_POST['date_promocion']!=""){ $content = str_replace('[DATE_PROMOCION]', $_POST['date_promocion'], $content);}
+		if (isset($_POST['claim_promocion']) and $_POST['claim_promocion'] != ""){ $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);}
+		if (isset($_POST['descuento_promocion']) and $_POST['descuento_promocion'] != ""){ $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);}
+		if (isset($_POST['date_promocion']) and $_POST['date_promocion'] != ""){ $content = str_replace('[DATE_PROMOCION]', $_POST['date_promocion'], $content);}
 
 		return $content;
 	}
 
 	public static function previewUserAction(){
-		if (isset($_POST['template_message']) and $_POST['template_message']>0){
+		if (isset($_POST['template_message']) and $_POST['template_message'] > 0){
 			return self::createMsgBodyAction();
 		}
 	}
 
 	public static function createUserAction(){
-		if (isset($_POST['template_message']) and $_POST['template_message']>0){
+		if (isset($_POST['template_message']) and $_POST['template_message'] > 0){
 			$mailing = new mailing();
 				
 			$fichero = isset($_FILES['nombre-fichero']) == true ? $_FILES['nombre-fichero'] : null ; 
-			$nombre_lista = ($_POST['tipo-lista']=='fichero') ? $fichero['name'] : $_POST['id_list'];
-			$date_scheduled = ((isset($_REQUEST['a']) and $_REQUEST['a']==1) ? "'".$_POST['user-date']."'" : "NULL" );
+			$nombre_lista = ($_POST['tipo-lista'] == 'fichero') ? $fichero['name'] : $_POST['id_list'];
+			$date_scheduled = ((isset($_REQUEST['a']) and $_REQUEST['a'] == 1) ? "'".$_POST['user-date']."'" : "NULL" );
 	
 			$content = self::createMsgBodyAction();
 			
@@ -73,11 +73,11 @@ class mailingController{
 				//insertar links del mensaje
 				self::insertHtmlLinks($content, $id_message);
 				 
-		    	if ($_POST['tipo-lista']=='fichero'){
+		    	if ($_POST['tipo-lista'] == 'fichero'){
 
 					//SUBIR FICHERO		
 					$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-					$nombre_archivo=NormalizeText($nombre_archivo);	
+					$nombre_archivo = NormalizeText($nombre_archivo);	
 					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 					$tamano_archivo = $fichero['size'];
 					//compruebo si las características del archivo son las que deseo
@@ -98,16 +98,16 @@ class mailingController{
 
 						}
 						else{ 
-							$mensaje =  "Ocurrió algú;n error al subir el fichero. No pudo guardarse.";
+							$mensaje = "Ocurrió algú;n error al subir el fichero. No pudo guardarse.";
 							session::setFlashMessage( 'actions_message', $mensaje, "alert alert-danger"); 
 			    			redirectURL("user-message?act=new&id=".$_POST['template_message']);
 						} 
 					}
 				}
-				elseif($_POST['tipo-lista']=='lista'){
+				elseif($_POST['tipo-lista'] == 'lista'){
 					$respuesta_black = self::volcarLista($id_message, $_POST['id_list']);
 				}
-				elseif($_POST['tipo-lista']=='todos'){
+				elseif($_POST['tipo-lista'] == 'todos'){
 					$respuesta_black = true;
 					$users = new users();
 					$elements = $users->getUsers(" AND disabled=0 AND confirmed=1 ");
@@ -117,10 +117,10 @@ class mailingController{
 						//verificar es un email valido
 						if(validateEmail($username_email)){
 							//verificar no este mas de una vez
-							if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username_email."' ")==0){
+							if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username_email."' ") == 0){
 								//verificar no este en la lista negra
-								if (connection::countReg("mailing_blacklist"," AND email_black='".$username_email."' ")==0){
-									if ($username_email!="") $mailing->insertMessageUser($id_message, $username, $username_email);	
+								if (connection::countReg("mailing_blacklist"," AND email_black='".$username_email."' ") == 0){
+									if ($username_email != "") $mailing->insertMessageUser($id_message, $username, $username_email);	
 								}
 								else{ $respuesta = true;}		
 							}
@@ -134,17 +134,17 @@ class mailingController{
 				$mailing->updateMessageField($id_message, "total_messages", $msgs_total);
 				$mailing->updateMessageField($id_message, "total_pending", $msgs_total);
 
-				if (isset($_REQUEST['a']) and $_REQUEST['a']==1){
+				if (isset($_REQUEST['a']) and $_REQUEST['a'] == 1){
 					//redireccion a agenda de mensaje
 					$mensaje ="Envio programado correctamente. Si lo deseas puedes crear más envios.";
-					$mensaje = ($respuesta_black==true) ? $mensaje." Algunos destinatarios no se han cargado por que han solicitado la baja del servicio." : $mensaje;
+					$mensaje = ($respuesta_black == true) ? $mensaje." Algunos destinatarios no se han cargado por que han solicitado la baja del servicio." : $mensaje;
 					session::setFlashMessage( 'actions_message', $mensaje, "alert alert-success");
 					redirectURL("user-message?act=new&a=2&id=".$_POST['template_message']);
 				}
 				else{
 					//redireccion a precesamiento del mensaje
-					$mensaje ="Envio creado correctamente.";
-					$mensaje = ($respuesta_black==true) ? $mensaje." Algunos destinatarios no se han cargado por que han solicitado la baja del servicio." : $mensaje;
+					$mensaje = "Envio creado correctamente.";
+					$mensaje = ($respuesta_black == true) ? $mensaje." Algunos destinatarios no se han cargado por que han solicitado la baja del servicio." : $mensaje;
 					session::setFlashMessage( 'actions_message', $mensaje, "alert alert-success");
 					redirectURL("admin-message-proccess?id=".$id_message);	
 				}	
@@ -167,10 +167,10 @@ class mailingController{
 			//verificar es un email valido
 			if(validateEmail($username)){
 				//verificar no este mas de una vez
-				if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ")==0){
+				if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ") == 0){
 					//verificar no este en la lista negra
 					if (connection::countReg("mailing_blacklist"," AND email_black='".$username."' ")==0){
-						if ($username!="") $mailing->insertMessageUser($id_message,"",$username);	
+						if ($username != "") $mailing->insertMessageUser($id_message,"",$username);	
 					}
 					else{ $respuesta = true;}		
 				}	
@@ -190,9 +190,9 @@ class mailingController{
 			//verificar es un email valido
 			if(validateEmail($username)){
 				//verificar no este mas de una vez
-				if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ")==0){
+				if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ") == 0){
 					//verificar no este en la lista negra
-					if (connection::countReg("mailing_blacklist"," AND email_black='".$username."' ")==0){
+					if (connection::countReg("mailing_blacklist"," AND email_black='".$username."' ") == 0){
 						if ($username!="") $mailing->insertMessageUser($id_message,"",$username);	
 					}
 					else{ $respuesta = true;}		
@@ -281,9 +281,9 @@ class mailingController{
 
 			    	//ademas añadimos al responsable de la tienda
 			    	$responsable_tienda = $users->getTiendas(" AND cod_tienda='".$tienda_sel."' ");
-			    	if (count($responsable_tienda)>0){
+			    	if (count($responsable_tienda) > 0){
 			    		$user_responsable = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND username='".$responsable_tienda[0]['responsable_tienda']."' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
-			    		if (count($user_responsable)>0){
+			    		if (count($user_responsable) > 0){
 			    			$mailing->insertMessageUser($id_message,$user_responsable[0]['username'],$user_responsable[0]['email']);	
 			    		}
 			    	}
@@ -342,7 +342,7 @@ class mailingController{
 	}
 
 	public static function cancelMessageAction($filtro = ""){	
-		if (isset($_REQUEST['del']) and $_REQUEST['del']==true) {
+		if (isset($_REQUEST['del']) and $_REQUEST['del'] == true) {
 			$mailing = new mailing();
 			if ($mailing->updateMessageField($_REQUEST['id'],'message_status',"'cancelled'", " AND username_add='".$_SESSION['user_name']."' ")){
 				session::setFlashMessage( 'actions_message', "Comunicación cancelada correctamente", "alert alert-success");
@@ -355,7 +355,7 @@ class mailingController{
 	}	
 
 	public static function exportListAction($filtro = ""){	
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 			$mailing = new mailing();
 			$elements = $mailing->getMessages($filtro);
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
@@ -365,7 +365,7 @@ class mailingController{
 	}
 
 	public static function exportMessageAction($filtro = ""){	
-		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm']==true) {
+		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm'] == true) {
 			$mailing = new mailing();
 			$elements = $mailing->getMessagesUsers($filtro." AND id_message=".$_REQUEST['id']);
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
@@ -375,7 +375,7 @@ class mailingController{
 	}
 
 	public static function exportLinksAction($filtro = ""){	
-		if (isset($_REQUEST['exp']) and $_REQUEST['exp']=='links') {
+		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] == 'links') {
 			$mailing = new mailing();
 			$elements = $mailing->getMessageLinkUserExport($filtro." AND l.id_message=".$_REQUEST['id']);
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
@@ -385,7 +385,7 @@ class mailingController{
 	}			
 
 	public static function createBlackAction(){
-		if (isset($_POST['email_black']) and $_POST['email_black']!='') {
+		if (isset($_POST['email_black']) and $_POST['email_black'] != '') {
 			$mailing = new mailing();
 			if ($mailing->insertBlackListUsser($_POST['email_black'])) {
 				//poner los posibles mensajes pendientes como lista negra
@@ -453,7 +453,7 @@ class mailingController{
 			if (preg_match('/\.$/',$link)) {
 				$link = substr($link,0,-1);
 			}
-			if ( preg_match('/^http|ftp/',$link) && strpos($link,$clicktrack_root)===false ) {	
+			if ( preg_match('/^http|ftp/',$link) && strpos($link,$clicktrack_root) === false ) {	
 				$url = cleanUrl($link,array('PHPSESSID','uid'));		
 				$id_link = $mailing->getMessageLink(" AND id_message=".$id_message." AND link_name='".$links[4][$i]."' AND url='".$url."' ");
 				$messageid = urlencode(base64_encode($id_message_user));

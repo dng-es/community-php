@@ -1,7 +1,7 @@
 <?php
 class na_areasController{
 
-	public static function getListAction($reg = 0, $filter=""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$na_areas = new na_areas();
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);
@@ -29,7 +29,7 @@ class na_areasController{
 		$points_to_success = $module_config['options']['points_to_success'];
 
 		$na_areas = new na_areas();
-		$user_tarea=$_POST['user_rev'];
+		$user_tarea = $_POST['user_rev'];
 		$tarea_user = $_POST['id_tarea_rev'];
 		$id_area = $_POST['id_area_rev'];
 		$puntos = $_POST['puntos_rev'];
@@ -47,7 +47,7 @@ class na_areasController{
 	}
 
 	public static function uploadTareaAction(){
-		if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){
+		if (isset($_POST['id_tarea']) and $_POST['id_tarea'] != ""){
 			$na_areas = new na_areas();
 			if($na_areas->insertTareaUser($_POST['id_area'],$_POST['id_tarea'],$_SESSION['user_name'],$_FILES['nombre-fichero'])){
 				session::setFlashMessage( 'actions_message', "Fichero envíado correctamente.", "alert alert-success");
@@ -60,7 +60,7 @@ class na_areasController{
 	}
 
 	public static function apuntarseAction(){
-		if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
+		if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 			$id_area = $_REQUEST['id'];
 			$na_areas = new na_areas();
 			//verificar si ya se ha alcanzado el limite de usuarios
@@ -87,7 +87,7 @@ class na_areasController{
 
 	public static function ExportFormUserAction(){
 		$na_areas = new na_areas();
-		$elements=$na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".$_REQUEST['id']." and r.respuesta_user='".$_REQUEST['t']."' ");
+		$elements = $na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".$_REQUEST['id']." and r.respuesta_user='".$_REQUEST['t']."' ");
 		download_send_headers("data_" . date("Y-m-d") . ".csv");
 		echo array2csv($elements);
 		die();
@@ -109,23 +109,23 @@ class na_areasController{
 
 	public static function ExportFormAllAction(){
 		$na_areas = new na_areas();
-		$elements=$na_areas->getFormulariosFinalizados(" AND id_tarea=".$_REQUEST['id']." ORDER BY user_tarea"); 
-		$file_name='exported_file'.date("YmdGis");
+		$elements = $na_areas->getFormulariosFinalizados(" AND id_tarea=".$_REQUEST['id']." ORDER BY user_tarea"); 
+		$file_name = 'exported_file'.date("YmdGis");
 
 		$final = array();
 		foreach($elements as $element):
 			//nombre del grupo
 			$nombre_grupo='';
-			if (count($grupos=$na_areas->getUsuarioGrupoTarea($_REQUEST['id'],$_REQUEST['a']," AND grupo_username='".$element['user_tarea']."' "))>0){
-				 $nombre_grupo=$grupos[0]['grupo_nombre'];
+			if (count($grupos = $na_areas->getUsuarioGrupoTarea($_REQUEST['id'],$_REQUEST['a']," AND grupo_username='".$element['user_tarea']."' ")) > 0){
+				 $nombre_grupo = $grupos[0]['grupo_nombre'];
 			}	
-			$element['nombre_grupo']=$nombre_grupo;
+			$element['nombre_grupo'] = $nombre_grupo;
 
 			//respuestas del usuario
 			$respuestas = $na_areas -> getFormulariosFinalizadosRespuestas($element['id_tarea'],$element['user_tarea']);
 			$i=1;
 			foreach($respuestas as $respuesta):
-				$pregunta_texto="pregunta".$i;
+				$pregunta_texto = "pregunta".$i;
 				$element[$pregunta_texto]=$respuesta['respuesta_valor'];
 				$i++;
 			endforeach;    
@@ -137,27 +137,27 @@ class na_areasController{
 	}	
 
 	public static function saveFormAction(){
-	    if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){
+	    if (isset($_POST['id_tarea']) and $_POST['id_tarea'] != ""){
 			$na_areas = new na_areas();
 			$id_tarea = $_POST['id_tarea'];
-			$preguntas=$na_areas->getPreguntas(" AND id_tarea=".$id_tarea." ");
+			$preguntas = $na_areas->getPreguntas(" AND id_tarea=".$id_tarea." ");
 			foreach($preguntas as $pregunta):
 
-			  if($pregunta['pregunta_tipo']=='texto'){
-			    $respuesta_valor=$_POST["respuesta_".$pregunta['id_pregunta']];
+			  if($pregunta['pregunta_tipo'] == 'texto'){
+			    $respuesta_valor = $_POST["respuesta_".$pregunta['id_pregunta']];
 			  }
-			  elseif($pregunta['pregunta_tipo']=='unica'){
-			    $respuesta_valor="";
-			    $respuesta_valor=$_POST["respuesta_".$pregunta['id_pregunta']];
+			  elseif($pregunta['pregunta_tipo'] == 'unica'){
+			    $respuesta_valor = "";
+			    $respuesta_valor = $_POST["respuesta_".$pregunta['id_pregunta']];
 			  }
-			  elseif($pregunta['pregunta_tipo']=='multiple'){
-			    $respuesta_valor="";
-			    $respuestas_usuario=$na_areas->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." ");
+			  elseif($pregunta['pregunta_tipo'] == 'multiple'){
+			    $respuesta_valor = "";
+			    $respuestas_usuario = $na_areas->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." ");
 			    foreach($respuestas_usuario as $respuesta_usuario):
-			      $campo="respuesta_".$pregunta['id_pregunta']."_".$respuesta_usuario['id_respuesta'];  
-			      if (isset($_POST[$campo]) and $_POST[$campo]!=''){$respuesta_valor.=$_POST[$campo]."|";}
+			      $campo = "respuesta_".$pregunta['id_pregunta']."_".$respuesta_usuario['id_respuesta'];  
+			      if (isset($_POST[$campo]) and $_POST[$campo] != ''){$respuesta_valor .= $_POST[$campo]."|";}
 			    endforeach;
-			    $respuesta_valor=substr($respuesta_valor, 0,(strlen($respuesta_valor)-1));
+			    $respuesta_valor = substr($respuesta_valor, 0,(strlen($respuesta_valor)-1));
 			  }
 			  
 			  $respuesta_valor = str_replace("'", "´", $respuesta_valor);
@@ -169,7 +169,7 @@ class na_areasController{
 	}	
 
 	public static function finalizarFormAction($id_tarea){
-		if (isset($_REQUEST['d']) and $_REQUEST['d']==1){
+		if (isset($_REQUEST['d']) and $_REQUEST['d'] == 1){
 			$na_areas = new na_areas();
 			if($na_areas->insertFormulariosFinalizados($id_tarea,$_SESSION['user_name'])){
 				session::setFlashMessage( 'actions_message', "Tarea finalizada correctamente. Próximamente podrás consultar la nota de tu evaluación.", "alert alert-success");
@@ -181,14 +181,14 @@ class na_areasController{
 
 	public static function accesoAreaAction($id_area){
 		$acceso=1;
-		if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador'){
+		if ($_SESSION['user_perfil'] != 'admin' and $_SESSION['user_perfil'] != 'formador'){
 			$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
 		}
 		return $acceso;
 	}
 	
 	public static function insertDocAction(){
-		if (isset($_POST['id_tarea']) and $_POST['id_tarea']!=""){ 
+		if (isset($_POST['id_tarea']) and $_POST['id_tarea'] != ""){ 
 			$na_areas = new na_areas();
 			$mensaje = $na_areas->insertTareaDoc($_POST['id_tarea'],$_POST['tipo'],$_POST['nombre-documento'],$_FILES['nombre-fichero'],$_POST['documento-link']);
 			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-warning"); 
@@ -197,7 +197,7 @@ class na_areasController{
 	}
 
 	public static function deleteDocAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { 
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') { 
 			$na_areas = new na_areas();
 			if($na_areas->deleteTareaDoc($_REQUEST['idd'])){
 				session::setFlashMessage( 'actions_message', "Documento eliminado correctamente.", "alert alert-success"); 

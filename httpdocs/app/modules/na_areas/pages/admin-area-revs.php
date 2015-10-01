@@ -49,7 +49,7 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 			$id_grupo=0; 
 			if(isset($_POST['grupo_search']) and $_POST['grupo_search']!="") {$id_grupo = $_POST['grupo_search'];}
 			if(isset($_POST['id_grupo_rev']) and $_POST['id_grupo_rev']!="") {$id_grupo = $_POST['id_grupo_rev'];}
-			if(isset($_REQUEST['idg']) and $_REQUEST['idg']!="") {$id_grupo = $_REQUEST['idg'];}
+			if(isset($_REQUEST['idg']) and $_REQUEST['idg'] != "") {$id_grupo = $_REQUEST['idg'];}
 
 			//grupos de la tarea
 			$grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tarea=".$id_tarea." ");
@@ -59,14 +59,14 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 							<option value="0">-----todos los grupos de la tarea-----</option>';
 				foreach($grupos_tarea as $grupo_tarea):
 					$selected="";
-					if ($id_grupo==$grupo_tarea['id_grupo']){$selected=' selected="selected" ';}
+					if ($id_grupo == $grupo_tarea['id_grupo']){$selected = ' selected="selected" ';}
 					echo '<option value="'.$grupo_tarea['id_grupo'].'" '.$selected.'>'.$grupo_tarea['grupo_nombre'].'</option>';
 				endforeach;
 				echo '  </select>
 						<div id="btn_search" style="margin:-4px 0 0 5px">filtrar grupo</div>
 					</form>';
 			}
-			if ($tarea[0]['tipo']=='formulario'){revisionesFormulario($id_tarea,$id_area,$id_grupo);}
+			if ($tarea[0]['tipo'] == 'formulario'){revisionesFormulario($id_tarea,$id_area,$id_grupo);}
 			else{revisionesFicheros($id_tarea,$id_area,$id_grupo);} 
 		}
 		else{ErrorMsg("Error al cargar la tarea");}
@@ -82,13 +82,13 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 		$na_areas = new na_areas();
 		$users = new users();
 		$filtro = " AND id_tarea=".$id_tarea." ";
-		if ($id_grupo!=0){$filtro.=" AND user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";;}
-		$filtro.=" ORDER BY user_tarea";
+		if ($id_grupo!=0){$filtro .= " AND user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
+		$filtro .= " ORDER BY user_tarea";
 		$revisiones = $na_areas->getTareasUser($filtro); 
 		
 		echo '<br /><p>pincha <a href="admin-area-revs?t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
 
-		if (count($revisiones)==0){
+		if (count($revisiones) == 0){
 			echo '<div class="tareas-row">Los usuarios todavia no han enviado archivos para esta tarea.</div>';
 		}
 		else{
@@ -96,12 +96,12 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 					<tbody>';
 			foreach($revisiones as $revision):
 				$usuario_rev=$users->getUsers(" AND username='".$revision['user_tarea']."' ");
-				if ($revision['revision']==1){
+				if ($revision['revision'] == 1){
 					$imagen_revision='<i class="fa fa-check icon-ok"></i>';
-					$destino_validar_revision="onClick='return false'";}
+					$destino_validar_revision = "onClick='return false'";}
 				else {
 					$imagen_revision='<i class="fa fa-exclamation icon-alert"></i>';
-					$destino_validar_revision='onClick="Confirma(\'¿Seguro que desea marcar como revisada la tarea del usuario '.$revision['user_tarea'].'?\',
+					$destino_validar_revision = 'onClick="Confirma(\'¿Seguro que desea marcar como revisada la tarea del usuario '.$revision['user_tarea'].'?\',
 								\'admin-area-revs?act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\'); return false"';}
 								
 				echo '<tr>';      
@@ -122,12 +122,12 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 function revisionesFormulario($id_tarea,$id_area,$id_grupo){
 		$na_areas = new na_areas();
 		$users = new users();
-		$filtro=" AND id_tarea=".$id_tarea." ";
-		if ($id_grupo!=0){$filtro.=" AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
+		$filtro =" AND id_tarea=".$id_tarea." ";
+		if ($id_grupo!=0){$filtro .= " AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
 		$filtro.=" ORDER BY user_tarea";
 		$revisiones = $na_areas->getFormulariosFinalizados($filtro);   
 
-		if (count($revisiones)==0){
+		if (count($revisiones) == 0){
 			echo '<div class="tareas-row">Los usuarios todavia no han finalizado los formularios para esta tarea.</div>';
 		}
 		else{
@@ -140,15 +140,15 @@ function revisionesFormulario($id_tarea,$id_area,$id_grupo){
 						<th>Respuestas</th>
 					</tr>';
 			foreach($revisiones as $revision):
-				if ($revision['revision']==1){
+				if ($revision['revision'] == 1){
 					$imagen_revision='<i class="fa fa-check icon-ok"></i>';
-					$destino_validar_revision="";
+					$destino_validar_revision = "";
 					$btn = "";
 					$txt = ' disabled="disabled" ';
 				}
 				else {
-					$imagen_revision='<i class="fa fa-exclamation icon-alert"></i>';
-					$destino_validar_revision='';
+					$imagen_revision = '<i class="fa fa-exclamation icon-alert"></i>';
+					$destino_validar_revision = '';
 					$btn = '<button type="submit" class="btn btn-default">validar</button>';
 					$txt = "";
 				}

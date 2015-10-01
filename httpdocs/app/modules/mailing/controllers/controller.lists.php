@@ -1,7 +1,7 @@
 <?php
 class mailingListsController{
 
-	public static function getListAction($reg = 0, $usuario=""){
+	public static function getListAction($reg = 0, $usuario = ""){
 		$mailing = new mailing();
 		$filtro = " AND activo=1 ORDER BY name_list ASC ";
 		if ($usuario != ""){ $filtro = " AND user_list='".$usuario."' ".$filtro;}
@@ -32,7 +32,7 @@ class mailingListsController{
 	}	
 
 	public static function exportListAction($filtro = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 			$mailing = new mailing();
 			$elements = $mailing->getLists($filtro . " AND activo=1 ORDER BY name_list DESC ");
 			download_send_headers("listas_" . date("Y-m-d") . ".csv");
@@ -42,7 +42,7 @@ class mailingListsController{
 	}	
 
 	public static function exportUserListAction($filtro = ""){	
-		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm']==true) {
+		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm'] == true) {
 			$mailing = new mailing();
 			$elements = $mailing->getListsUsers($filtro." AND id_list=".$_REQUEST['id']);
 			download_send_headers("emails_" . date("Y-m-d") . ".csv");
@@ -52,7 +52,7 @@ class mailingListsController{
 	}	
 
 	public static function createAction(){
-		if (isset($_POST['name_list']) and $_POST['name_list']!="" and $_POST['id_list']==0){
+		if (isset($_POST['name_list']) and $_POST['name_list'] != "" and $_POST['id_list'] == 0){
 			$mailing = new mailing();
 			$id_list = 0;
 			$name = str_replace("'", "´", $_POST['name_list']);
@@ -73,7 +73,7 @@ class mailingListsController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['name_list']) and $_POST['name_list']!="" and $_POST['id_list']>0){
+		if (isset($_POST['name_list']) and $_POST['name_list'] != "" and $_POST['id_list'] > 0){
 			$mailing = new mailing();
 			$id_list = $_POST['id_list'];
 			$name_list = str_replace("'", "´", $_POST['name_list']);
@@ -93,7 +93,7 @@ class mailingListsController{
 
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$mailing = new mailing();
 			if ($mailing->deleteList($_REQUEST['id'])) {
 				session::setFlashMessage( 'actions_message', "Registro eliminado correctamente", "alert alert-success");
@@ -106,7 +106,7 @@ class mailingListsController{
 	}
 
 	private static function importAction($id_list){
-		if (isset($_FILES['nombre-fichero']['name']) and $_FILES['nombre-fichero']['name']!=""){
+		if (isset($_FILES['nombre-fichero']['name']) and $_FILES['nombre-fichero']['name'] != ""){
 			$nombre_archivo = uploadFileToFolder($_FILES['nombre-fichero'], "docs/cargas/");
 
 			require_once 'docs/reader.php';

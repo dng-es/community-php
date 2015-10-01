@@ -1,6 +1,6 @@
 <?php
 //DESCARGAR USUARIOS DEL AREA
-if (isset($_REQUEST['t']) and $_REQUEST['t']==1){
+if (isset($_REQUEST['t']) and $_REQUEST['t'] == 1){
 	$na_areas = new na_areas();
 	$elements = $na_areas->getAreasUsers(" AND id_area=".$_REQUEST['id']);
 	download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -9,7 +9,7 @@ if (isset($_REQUEST['t']) and $_REQUEST['t']==1){
 }
 
 //DESCARGAR FORO
-if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 	$foro = new foro(); 
 	$elements = $foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['idt']." ");
 	download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -48,18 +48,18 @@ templateload("cmbCanales","users");
 				$accion1 = isset($_GET['act1']) ? $_GET['act1'] : "";
 				$accion2 = isset($_GET['accion2']) ? $_GET['accion2'] : "";
 
-				if ($accion=='edit'){ $id=$_GET['id'];}
-				if ($accion=='edit' and $accion2=='ok' and $accion1!="del"){ UpdateData();}
-				elseif ($accion=='new' and $accion2=='ok'){ $id=InsertData();$accion="edit";}
+				if ($accion == 'edit'){ $id=$_GET['id'];}
+				if ($accion == 'edit' and $accion2 == 'ok' and $accion1!="del"){ UpdateData();}
+				elseif ($accion == 'new' and $accion2 == 'ok'){ $id=InsertData();$accion="edit";}
 
 				//VALIDAR CONTENIDOS FORO
 				if (isset($_REQUEST['act2'])) {   
 					$foro = new foro();
 					$users = new users();
-					if ($_REQUEST['act2']=='tema_ko'){
+					if ($_REQUEST['act2'] == 'tema_ko'){
 						$foro->cambiarEstadoTema($_REQUEST['idt'],0);
 					}
-					elseif ($_REQUEST['act2']=='foro_ko'){
+					elseif ($_REQUEST['act2'] == 'foro_ko'){
 						$foro->cambiarEstado($_REQUEST['idc'],2);
 						$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
 					}
@@ -182,7 +182,7 @@ templateload("cmbCanales","users");
 				
 
 					<?php
-					if ($accion=='edit'){
+					if ($accion == 'edit'){
 						$id_area = $elements[0]['id_area'];
 						$area_canal = $elements[0]['area_canal']; ?>
 						<div class="tab-pane fade in" id="<?php echo strTranslate("Tasks");?>">
@@ -244,12 +244,12 @@ function showUsuariosArea($id_area,$area_canal){
 	        </div>
 	      </div>';
 
-	$elements=$na_areas->getAreasUsers(" AND id_area=".$id_area); 
+	$elements = $na_areas->getAreasUsers(" AND id_area=".$id_area); 
 	echo '<div class="panel panel-default full-height">
 					<div class="panel-heading">Usuarios incluídos en el curso</div>
 					<div class="panel-body">';
 
-	if (count($elements)>0){
+	if (count($elements) > 0){
 		echo '  <p>Total usuarios inscritos: <b>'.count($elements).'</b>. Puedes descargar un fichero CSV con los usuarios inscritos en el curso: <br /><br />
 				<a href="admin-area?act=edit&id='.$id_area.'&t=1" class="btn btn-primary">Descargar fichero</a></span></p>';
 /*		echo '<table class="table">';
@@ -275,7 +275,7 @@ function showUsuariosArea($id_area,$area_canal){
 function showGruposArea($id_area){
 	$na_areas = new na_areas;
 
-	$elements=$na_areas->getGruposUsers(" AND id_area=".$id_area); ?>
+	$elements = $na_areas->getGruposUsers(" AND id_area=".$id_area); ?>
 	<div class="panel panel-default full-height">
 		<div class="panel-heading">Grupos de usuarios en el curso</div>
 		<div class="panel-body">
@@ -292,7 +292,7 @@ function showGruposArea($id_area){
 			<button type="button" id="SubmitGrupo" name="SubmitGrupo" class="btn btn-primary">guardar grupo</button>
 			</form>
 			<br />
-			<?php if (count($elements)>0): ?>
+			<?php if (count($elements) > 0): ?>
 				<table class="table table-striped">
 					<tr>
 						<th>Nombre del grupo</th>
@@ -311,7 +311,7 @@ function showGruposArea($id_area){
 function showForosArea($id_area){
 	$na_areas = new na_areas;
 
-	$elements=$na_areas->getGruposUsers(" AND id_area=".$id_area); 
+	$elements = $na_areas->getGruposUsers(" AND id_area=".$id_area); 
 
  	//TEMAS FOROS
 	getForosActivos($id_area);
@@ -391,9 +391,9 @@ function getForoPendientes($id_area)
 {
 	$foro = new foro();
 	$calculo = strtotime("-4 days");
-	$fecha_ayer= date("Y-m-d", $calculo);
+	$fecha_ayer = date("Y-m-d", $calculo);
 	$pendientes = $foro->getComentarios(" AND date_comentario>='".$fecha_ayer."' AND estado=1 AND t.id_area=".$id_area." ORDER BY id_comentario DESC");
-	if (count($pendientes)==0){
+	if (count($pendientes) == 0){
 		echo '<p>No hay mensajes en el <span class="orange-color">FORO</span> insertados ultimamente (fecha: '.$fecha_ayer.').<br />
 				'.ucfirst(strTranslate("APP_points")).' a otorgar por mensaje: <span class="orange-color">'.PUNTOS_FORO.'.</span></p><br />';
 	}
@@ -439,7 +439,7 @@ function getForoPendientes($id_area)
 					</div><!-- /.modal -->
 
 			</td>';
-			if ($element['responsables']==1) {$responsables="SI";}
+			if ($element['responsables'] == 1) {$responsables = "SI";}
 			else {$responsables="NO";}
 			echo '<td>'.$responsables.'</td>';
 			echo '<td>'.$element['user_comentario'].'</td>';
@@ -507,7 +507,7 @@ function showTareasArea($id_area){
 				</form>
 			</div>
 			<div class="col-md-7">	
-				<?php if (count($elements)>0): ?>
+				<?php if (count($elements) > 0): ?>
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
 						<tr>
@@ -524,12 +524,12 @@ function showTareasArea($id_area){
 								$texto_activar = "desactivar";
 							}
 							else{
-								$imagen_revision='<i class="fa fa-exclamation text-danger"></i>';
+								$imagen_revision = '<i class="fa fa-exclamation text-danger"></i>';
 								$valor_activar = 1;
 								$texto_activar = "activar";
 							}
 
-							if($element['activa_links']==1){
+							if($element['activa_links'] == 1){
 								$valor_activar_links = 0;
 								$texto_activar_links = "desactivar";
 								$texto_activar_links_v = strTranslate("App_Yes");
@@ -556,7 +556,7 @@ function showTareasArea($id_area){
 									</td>
 									<td>';
 							
-							if ($element['tipo']=='formulario'){
+							if ($element['tipo'] == 'formulario'){
 								echo '<a href="admin-area-form?a='.$id_area.'&id='.$element['id_tarea'].'">'.strTranslate("Form").'</a>';
 							}
 							else{
@@ -572,7 +572,7 @@ function showTareasArea($id_area){
 
 										<a class="btn btn-default btn-xs" href="admin-area-docs?a='.$id_area.'&id='.$element['id_tarea'].'">docs</a>
 										<a class="btn btn-default btn-xs" href="admin-area-revs?a='.$id_area.'&id='.$element['id_tarea'].'">revs</a>';
-										if ($element['tarea_grupo']==1){
+										if ($element['tarea_grupo'] == 1){
 											echo '<a class="btn btn-default btn-xs" href="admin-area-tarea-grupo?a='.$id_area.'&id='.$element['id_tarea'].'">'.strTranslate("Groups").'</a>';
 										}
 							echo '</td>';		
@@ -591,7 +591,7 @@ function showTareasArea($id_area){
 	
 function InsertData(){
 	$na_areas = new na_areas();
-	$registro = (isset($_POST['area_registro']) and $_POST['area_registro']=="on") ? 1 : 0;
+	$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
 
 	if ($na_areas->insertArea($_POST['area_nombre'],
 				$_POST['area_descripcion'],
@@ -608,7 +608,7 @@ function InsertData(){
 
 function UpdateData(){
 	$na_areas = new na_areas();
-	$registro = (isset($_POST['area_registro']) and $_POST['area_registro']=="on") ? 1 : 0;
+	$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
 	$nombre = sanitizeInput($_POST['area_nombre']);
 	$descripcion = sanitizeInput($_POST['area_descripcion']);
 	if ($na_areas->updateArea($_POST['id_area'],

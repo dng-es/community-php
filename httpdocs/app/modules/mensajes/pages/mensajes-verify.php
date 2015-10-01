@@ -7,7 +7,7 @@ include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/class.session.php");
 session::ValidateSessionAjax();
 
-if (isset($_REQUEST['nick']) and $_REQUEST['nick']!="")
+if (isset($_REQUEST['nick']) and $_REQUEST['nick'] != "")
 {
 	$encontrado = connection::countReg("users", " AND nick='".$_REQUEST['nick']."' ");
 	echo $encontrado;

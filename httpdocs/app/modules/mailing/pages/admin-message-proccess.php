@@ -26,9 +26,9 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 				<div><b>Lista:</b> <?php echo $elements[0]['message_lista'];?></div>
 				<div><b>Total mensajes:</b> <?php echo $elements[0]['total_messages'];?></div>
 				<br />
-				<div><b>Estado:</b> <span class="label <?php echo $elements[0]['message_status']=='pending' ? 'label-warning' : ($elements[0]['message_status']=='cancelled' ? 'label-danger' : 'label-success');?>"><?php echo $elements[0]['message_status'];?></span></div>
+				<div><b>Estado:</b> <span class="label <?php echo $elements[0]['message_status'] == 'pending' ? 'label-warning' : ($elements[0]['message_status'] == 'cancelled' ? 'label-danger' : 'label-success');?>"><?php echo $elements[0]['message_status'];?></span></div>
 				<hr />
-				<?php if ($elements[0]['message_status']=='pending'):?>
+				<?php if ($elements[0]['message_status'] == 'pending'):?>
 				<a href="#" class="btn btn-primary" id="proccess-message" data-id="<?php echo $elements[0]['id_message'];?>" data-estado="enabled" data-action="pending">Procesar envío del mensaje</a>
 				<div id="mailing-process-info">
 					Por favor, no cierres esta ventana durante el proceso de envío.

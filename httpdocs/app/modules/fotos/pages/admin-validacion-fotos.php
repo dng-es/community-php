@@ -8,12 +8,12 @@ if (isset($_REQUEST['act'])) {
 	$users = new users();
 	$fotos = new fotos();
 
-	if ($_REQUEST['act']=='foto_ok'){
-	  $fotos->cambiarEstado($_REQUEST['id'],1);
-	  $fotos->updateFotoAlbum($_REQUEST['id'],$_REQUEST['ida']);
-	  $users->sumarPuntos($_REQUEST['u'],PUNTOS_FOTO,PUNTOS_FOTO_MOTIVO);
+	if ($_REQUEST['act'] == 'foto_ok'){
+	  $fotos->cambiarEstado($_REQUEST['id'], 1);
+	  $fotos->updateFotoAlbum($_REQUEST['id'], $_REQUEST['ida']);
+	  $users->sumarPuntos($_REQUEST['u'], PUNTOS_FOTO,PUNTOS_FOTO_MOTIVO);
 	}
-	elseif ($_REQUEST['act']=='foto_ko'){$fotos->cambiarEstado($_REQUEST['id'],2,0);}
+	elseif ($_REQUEST['act'] == 'foto_ko') $fotos->cambiarEstado($_REQUEST['id'], 2, 0);
 
 	header("Location: admin-validacion-fotos"); 
 }
@@ -58,7 +58,7 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 									</span>';
 							echo'</td>';
 							echo '<td>';
-							ComboAlbumes(0,$albumes,"nombre_album_" .$element['id_file']);
+							ComboAlbumes(0, $albumes, "nombre_album_" .$element['id_file']);
 							echo '</td>';					
 							echo '<td>'.$element['user_add'].'</td>';
 							echo '<td>'.$element['canal_file'].'</td>';

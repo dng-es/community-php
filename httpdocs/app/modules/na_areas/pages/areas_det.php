@@ -1,5 +1,4 @@
 <?php
-
 templateload("search","foro");
 templateload("list","foro");
 templateload("paginator","foro");
@@ -11,7 +10,7 @@ addJavascripts(array("js/libs/jwplayer/jwplayer.js",
 					 getAsset("na_areas")."js/areas_det.js"));
 
 
-if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
+if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 	$na_areas = new na_areas();
 	$id_area = $_REQUEST['id'];
 
@@ -41,21 +40,21 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 					<?php printTareas($id_area);?>
 				</div>
 				<div class="col-md-6">
-					<?php if ($module_config['options']['forums']==true){
+					<?php if ($module_config['options']['forums'] == true){
 						//mostrar foros del area
 						$id_tema_parent = connection::SelectMaxReg("id_tema","foro_temas"," AND id_tema_parent=0 AND id_area=".$id_area." ");
-						$filtro=" AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ";
-						if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador' and $_SESSION['user_canal']!='foros'){$filtro.=" AND canal='".$_SESSION['user_canal']."' ";}
+						$filtro = " AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ";
+						if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_canal'] != 'formador' and $_SESSION['user_canal'] != 'foros'){$filtro .= " AND canal='".$_SESSION['user_canal']."' ";}
 						
 						$elements = foroController::getListTemasAction($module_config['options']['forums_per_page'], $filtro);
 
 						echo '<h4>'.strTranslate("Forums").' del curso</h4>';
-						if ($elements['total_reg']==0) echo '<div class="alert alert-warning">'.strTranslate("No_active_forums").'.</div>';
+						if ($elements['total_reg'] == 0) echo '<div class="alert alert-warning">'.strTranslate("No_active_forums").'.</div>';
 						foreach($elements['items'] as $element):
 							ForoList($element);		
 						endforeach;  
 						
-						Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],"areas_det&id=".$id_area,'',$elements['find_reg']);
+						Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], "areas_det&id=".$id_area, '', $elements['find_reg']);
 					} ?>
 				</div>
 			</div>
@@ -70,9 +69,9 @@ if (isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php
-			if ($module_config['options']['forums']==true){
+			if ($module_config['options']['forums'] == true){
 				//BANNER CREAR TEMA
-				PanelSubirTemaForo($id_tema_parent,$area[0]['area_canal'], false, "", 0, $id_area);
+				PanelSubirTemaForo($id_tema_parent, $area[0]['area_canal'], false, "", 0, $id_area);
 			}
 			?>
 			<br />
@@ -130,7 +129,7 @@ function printTareas($id_area){
 							<span class="fa fa-download"></span> '.strTranslate("Uploaded").' '.getDateFormat($archivo['fecha_tarea'], "SHORT").'</a>';
 				endforeach;
 			}
-			elseif ($element['tipo']=='formulario'){ 
+			elseif ($element['tipo'] == 'formulario'){ 
 				echo'<p><a href="areas_form?id='.$element['id_tarea'].'"><i class="fa fa-angle-double-right"></i> '.strTranslate("Access_form").'</a></p>';
 			}
 

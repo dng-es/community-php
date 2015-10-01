@@ -26,7 +26,7 @@ class usersTiendasController{
 	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 			$users = new users();
 			$elements=$users->getTiendas("");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");

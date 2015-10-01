@@ -38,26 +38,24 @@ include_once($base_dir . "modules/muro/classes/class.muro.php");
 	<div id="responder-form" style="height: 40px; display:none"></div> 
 <?php
 session::ValidateSessionAjax();
-$muro=new muro();
-  
+$muro = new muro();
 
-if(isset($_REQUEST['id']) and $_REQUEST['id']!=""){$id_comentario=$_REQUEST['id'];}
-else{$id_comentario=0;}
+$id_comentario = ((isset($_REQUEST['id']) and $_REQUEST['id'] != "") ? $_REQUEST['id'] : 0);
 
 templateload("tipuser","users");
 
-$filtro=" AND id_comentario_id=".$id_comentario." ORDER BY date_comentario DESC";
+$filtro = " AND id_comentario_id=".$id_comentario." ORDER BY date_comentario DESC";
 $comentarios_muro = $muro->getComentarios($filtro);
 echo '<div class="">';
   foreach($comentarios_muro as $comentario_muro):
 	$votado = connection::countReg("muro_comentarios_votaciones"," AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
-	if ($_SESSION['user_name']==$comentario_muro['user_comentario']) {$votado_user=1;}
+	if ($_SESSION['user_name'] == $comentario_muro['user_comentario']) {$votado_user = 1;}
 	else {$votado_user=0;}
 				echo '<div class="media">';
 			userFicha($comentario_muro);
 			echo '		<p class="comunidad-color"><b>'.$comentario_muro['nick'].'</b> <span class="date-format-ago" data-date="'.$comentario_muro['date_comentario'].'">'.getDateFormat($comentario_muro['date_comentario'], "DATE_TIME").'</span>:';
 		    //SOLO LOS FORMADORES Y ADMIN PUEDEN VER EL CANAL
-		    if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'){  echo ' ('.strTranslate("Channel").': '.$comentario_muro['canal_comentario'].')';}
+		    if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'formador'){  echo ' ('.strTranslate("Channel").': '.$comentario_muro['canal_comentario'].')';}
 			echo '		</p>
 						<p id="texto-comentario-'.$comentario_muro['id_comentario'].'">'.$comentario_muro['comentario'].'</p>
 						
@@ -78,7 +76,7 @@ echo '<div class="">';
 		  echo ' <hr>
 				</div>';  
   endforeach;
-  if(count($comentarios_muro)==0){ echo '<div class="alert alert-warning">'.strTranslate("No_replies_for_this_comment").'.</div>';}	
+  if(count($comentarios_muro) == 0) echo '<div class="alert alert-warning">'.strTranslate("No_replies_for_this_comment").'.</div>';
   echo '</div>';			
 ?> 
 

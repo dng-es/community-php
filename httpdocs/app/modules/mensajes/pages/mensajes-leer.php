@@ -8,7 +8,7 @@ include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/mensajes/classes/class.mensajes.php");
 session::ValidateSessionAjax();
 
-if (isset($_REQUEST['id']) and $_REQUEST['id']!="")
+if (isset($_REQUEST['id']) and $_REQUEST['id'] != "")
 {
 	$mensajes = new mensajes();
 	$mensajes->leerMensaje($_REQUEST['id']);

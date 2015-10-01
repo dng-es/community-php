@@ -3,8 +3,8 @@
 addJavascripts(array(getAsset("na_areas")."js/admin-area-form.js"));
 
 $na_areas = new na_areas();
-$id_area=$_REQUEST['a'];
-$id_tarea=$_REQUEST['id'];
+$id_area = $_REQUEST['a'];
+$id_tarea = $_REQUEST['id'];
 
 //OBTENER DATOS DE LA TAREA
 $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
@@ -25,10 +25,10 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 
 		<?php
 		//ELIMINAR PREGUNTA
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $na_areas->deletePregunta($_REQUEST['idp']);}
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') { $na_areas->deletePregunta($_REQUEST['idp']);}
 
 		//INSERTAR PREGUNTA
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='new') { 
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'new') { 
 			if (trim($_POST['pregunta_texto'])){
 				$na_areas->insertPregunta($id_tarea,$_POST['pregunta_texto'],$_POST['pregunta_tipo']);
 				$id_pregunta = connection::SelectMaxReg("id_pregunta","na_tareas_preguntas","");
@@ -36,18 +36,18 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 				if ($_POST['pregunta_tipo']!='texto'){
 					//INSERTAR PREGUNTA-RESPUESTA
 					$num_repuestas=$_POST['contador-respuestas'];
-					for ($i=1; $i <=$num_repuestas; $i++) { 
+					for ($i = 1; $i <= $num_repuestas; $i++) { 
 						$campo_respuesta="respuesta".$i;
 						$valor = trim($_POST[$campo_respuesta]);
 						$valor = str_replace("'", "´", $valor);
 						$valor = str_replace('"', '´', $valor);
-						if ($valor!=""){$na_areas->insertPreguntaRespuesta($id_pregunta,$valor);}
+						if ($valor != ""){$na_areas->insertPreguntaRespuesta($id_pregunta,$valor);}
 					}
 				}
 			}
 		}
 
-		if (count($tarea)==1 and $tarea[0]['tipo']=='formulario'){FormularioTarea($id_tarea,$id_area,$tarea);}
+		if (count($tarea) == 1 and $tarea[0]['tipo'] == 'formulario'){FormularioTarea($id_tarea,$id_area,$tarea);}
 		else{ErrorMsg("Error al cargar el formulario la tarea");} ?>
 	</div>
 	<?php menu::adminMenu();?>
@@ -60,7 +60,7 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 		$na_areas = new na_areas();
 		$preguntas = $na_areas->getPreguntas(" AND id_tarea=".$id_tarea." "); 
 
-		if (count($preguntas)==0){
+		if (count($preguntas) == 0){
 			echo '<div class="tareas-row">El formulario no tiene preguntas, puede crear las preguntas a continuación.</div>';
 		}
 		else{

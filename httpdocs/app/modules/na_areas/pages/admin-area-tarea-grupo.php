@@ -1,16 +1,16 @@
 <?php
 $na_areas = new na_areas();
-$id_area=$_REQUEST['a'];
-$id_tarea=$_REQUEST['id'];
+$id_area = $_REQUEST['a'];
+$id_tarea = $_REQUEST['id'];
 
 //agregar grupo a la tarea
-if (isset($_POST['id_tarea_add']) and $_POST['id_tarea_add']!=""){
+if (isset($_POST['id_tarea_add']) and $_POST['id_tarea_add'] != ""){
 	$na_areas->insertGrupoTarea($_POST['id_grupo_add'],$_POST['id_tarea_add']);
 	$id_area = $_POST['id_area'];
 	$id_tarea = $_POST['id_tarea_add'];
 }
 //quitar grupo de la tarea
-if (isset($_POST['id_tarea_del']) and $_POST['id_tarea_del']!=""){
+if (isset($_POST['id_tarea_del']) and $_POST['id_tarea_del'] != ""){
 	$na_areas->deleteGrupoTarea($_POST['id_grupo_del'],$_POST['id_tarea_del']);
 	$id_area = $_POST['id_area'];
 	$id_tarea = $_POST['id_tarea_del'];
@@ -57,11 +57,11 @@ $grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tar
 					<br />
 					<br />
 					<br />
-					<button class="btn btn-primary btn-block" type="submit">></button><br />
+					<button class="btn btn-primary btn-block" type="submit"></button><br />
 			</form>
 
 			<form id="formData" name="formData" method="post" action="">
-					<button class="btn btn-primary btn-block" type="submit"><</button>
+					<button class="btn btn-primary btn-block" type="submit"></button>
 				</div>
 
 				<div class="col-md-5">

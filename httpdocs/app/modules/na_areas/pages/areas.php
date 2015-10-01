@@ -13,8 +13,8 @@
 		foreach($elements['items'] as $element):
 			$acceso = ( $_SESSION['user_perfil'] == 'admin' ? 1 : connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." AND username_area='".$_SESSION['user_name']."' ")); ?>
 		
-			<?php if ($acceso==1 or $element['registro']==1) : ?>
-				<?php if ($i==0) echo '<div class="row">';?>
+			<?php if ($acceso == 1 or $element['registro'] == 1) : ?>
+				<?php if ($i == 0) echo '<div class="row">';?>
 				<div class="col-md-6">
 					<div class="col-md-12 nopadding full-height">
 						<div class="panel panel-default">					
@@ -26,7 +26,7 @@
 								<?php if ($acceso == 1): 
 									echo '<a href="areas_det?id='.$element['id_area'].'" class="btn btn-primary btn-xs pull-right"><i class="fa fa-share"></i> '.strTranslate("Access_course").'</a>';
 								else:
-									if ($element['registro']==1){
+									if ($element['registro'] == 1){
 										// verificar que no se haya elcanzado el límite de usuarios
 										$total_users = connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." ");
 										if ($total_users < $element['limite_users']):
@@ -41,7 +41,7 @@
 						</div>
 					</div>
 				</div>
-				<?php if ($i==1) {
+				<?php if ( $i==1 ) {
 					echo '</div>';
 					$i = 0;
 				}
@@ -49,7 +49,7 @@
 			<?php endif; ?>
 		<?php endforeach;?>
 		<?php if ($i==1) echo '</div>'; ?>
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 		<br />
 	</div>
 	<div class="app-sidebar hidden-sm hidden-xs">

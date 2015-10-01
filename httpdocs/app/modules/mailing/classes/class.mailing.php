@@ -24,7 +24,7 @@ class mailing{
 	 * @return 	array 								Array con los mensajes
 	 */
 	public function getMessages($filter = "") {
-		$Sql="SELECT * from mailing_messages  
+		$Sql = "SELECT * from mailing_messages  
 			  WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);  
 	}
@@ -35,7 +35,7 @@ class mailing{
 	 * @return 	array         						Array con los mensajes
 	 */
 	public function getMessagesUsersSimple($filter = "") {
-		$Sql="SELECT * FROM mailing_messages_users 
+		$Sql = "SELECT * FROM mailing_messages_users 
 			  WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
@@ -46,7 +46,7 @@ class mailing{
 	 * @return 	array         						Array con los mensajes
 	 */
 	public function getMessagesUsers($filter = "") {
-		$Sql="SELECT m.*,u.name,u.surname,t.nombre_tienda FROM mailing_messages_users m 
+		$Sql = "SELECT m.*,u.name,u.surname,t.nombre_tienda FROM mailing_messages_users m 
 			  LEFT JOIN users u ON u.username=m.username_message 
 			  LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa
 			  WHERE 1=1 ".$filter;
@@ -59,7 +59,7 @@ class mailing{
 	 * @return 	array 								Array con los templates
 	 */
 	public function getLists($filter = "") {
-		$Sql="SELECT * from mailing_lists 
+		$Sql = "SELECT * from mailing_lists 
 			  WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
@@ -70,8 +70,8 @@ class mailing{
 	 * @param  	string 		$usuario				Usuario dueño de la lista
 	 * @return 	boolean                				Resultado del proceso
 	 */
-	public function insertList($name,$usuario){
-		$Sql="INSERT INTO mailing_lists (name_list,user_list) 
+	public function insertList($name, $usuario){
+		$Sql = "INSERT INTO mailing_lists (name_list,user_list) 
 			VALUES('".$name."','".$usuario."')";
 		return connection::execute_query($Sql);
 	}
@@ -82,8 +82,8 @@ class mailing{
 	 * @param  	string 		$name 					Nombre de la lista
 	 * @return 	boolean                				Resultado del proceso
 	 */
-	public function updateList($id,$name){
-		$Sql="UPDATE mailing_lists SET
+	public function updateList($id, $name){
+		$Sql = "UPDATE mailing_lists SET
 			 name_list='".$name."' 
 			 WHERE id_list=".$id;
 		return connection::execute_query($Sql);
@@ -95,7 +95,7 @@ class mailing{
 	 * @return 	boolean                				Resultado del proceso
 	 */	
 	public function deleteList($id){
-		$Sql="UPDATE mailing_lists SET
+		$Sql = "UPDATE mailing_lists SET
 			 activo=0  
 			 WHERE id_list=".$id;
 		return connection::execute_query($Sql);
@@ -107,7 +107,7 @@ class mailing{
 	 * @return 	array 								Array con los templates
 	 */
 	public function getListsUsers($filter = "") {
-		$Sql="SELECT u.*, d.birthday FROM mailing_lists_users u 
+		$Sql = "SELECT u.*, d.birthday FROM mailing_lists_users u 
 			  LEFT JOIN mailing_lists_users_data d ON d.email=u.email
 			  WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 

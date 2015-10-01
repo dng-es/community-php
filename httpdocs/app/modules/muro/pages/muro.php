@@ -45,14 +45,14 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 	$muro=new muro(); 
 
 	$filtro="";
-	if ($_SESSION['user_canal']!='admin' and $_SESSION['user_canal']!='formador'){$filtro=" AND c.canal='".$_SESSION['user_canal']."' ";}
-	$filtro.=" AND tipo_muro='principal' AND estado=1 AND id_comentario_id=0 ORDER BY date_comentario DESC LIMIT 20";
+	if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_canal'] != 'formador'){$filtro = " AND c.canal='".$_SESSION['user_canal']."' ";}
+	$filtro .= " AND tipo_muro='principal' AND estado=1 AND id_comentario_id=0 ORDER BY date_comentario DESC LIMIT 20";
 	$comentarios_muro = $muro->getComentarios($filtro);
 		echo '<div id="muro-home">'; 
 		foreach($comentarios_muro as $comentario_muro):
 		 commentMuro($comentario_muro);
 		endforeach;	
-		if (count($comentarios_muro)==0):?>
+		if (count($comentarios_muro) == 0):?>
 		<div class="alert alert-warning"><?php echo strTranslate("No_comments_on_wall");?></div>
 		<?php endif;?>
 		</div>

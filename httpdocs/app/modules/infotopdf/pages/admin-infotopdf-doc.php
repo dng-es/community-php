@@ -21,13 +21,13 @@ templateload("cmbCanales","users");
 
 		$accion=$_GET['act'];
 		$id ='';
-		if ($accion=='edit'){ $id=$_GET['id'];}
-		if ($accion=='edit' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ UpdateData($id);}
-		if ($accion=='new' and (isset($_GET['accion2']) and $_GET['accion2']=='ok')){ $id=InsertData();$accion="edit";}  
+		if ($accion == 'edit'){ $id=$_GET['id'];}
+		if ($accion == 'edit' and (isset($_GET['accion2']) and $_GET['accion2'] == 'ok')) UpdateData($id);
+		if ($accion == 'new' and (isset($_GET['accion2']) and $_GET['accion2'] == 'ok')){ $id = InsertData();$accion="edit";}  
 
 		$info = new infotopdf();
 		$campaigns = new campaigns();
-		$elements=infotopdfController::getItem();
+		$elements = infotopdfController::getItem();
 		?>
 		<div class="panel panel-default">
 			<div class="panel-heading">Datos del documento</div>
@@ -67,10 +67,10 @@ templateload("cmbCanales","users");
 						</div>
 						<div class="col-md-6">
 						<?php
-						if ($elements[0]['file_info']!=""){ 
+						if ($elements[0]['file_info'] != ""){ 
 							$nombre_archivo = $elements[0]['file_info'];
 							$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
-							$nombre_sinext=substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
+							$nombre_sinext = substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
 							$nombre_miniatura = "mini".$nombre_sinext.".jpeg";
 						  	echo '<img style="width:100%;border:0;height:auto" src="docs/info/'.$nombre_miniatura.'" alt="banner" />';
 						}
@@ -104,7 +104,7 @@ templateload("cmbCanales","users");
 function insertData(){
 	$info = new infotopdf();
 	$resultado=$info->insertInfo($_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info']);
-	if ($resultado=="") {
+	if ($resultado == "") {
 		OkMsg('Registro insertado correctamente.');
 		$id = connection::SelectMaxReg("id_info","infotopdf","");
 		return $id;
@@ -114,10 +114,9 @@ function insertData(){
 
 function UpdateData($id){
 	$info = new infotopdf();
-	if ($info->updateInfo($id,$_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info'])) {
-		OkMsg('Registro modificado correctamente.');}
-	else{
+	if ($info->updateInfo($id,$_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info'])) 
+		OkMsg('Registro modificado correctamente.');
+	else
 		ErrorMsg('Error al modificar el documento.');
-	}
 }
 ?>

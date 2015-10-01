@@ -81,10 +81,10 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 							<div class="form-group">
 
 								<small><label for="download">
-									<input type="checkbox" name="download" id="download" <?php echo $elements[0]['download']==1 ? 'checked="checked"' : '';?>> Fichero descargable <span class="text-muted">(si no marcas esta opción introducir URL del documento)</span>
+									<input type="checkbox" name="download" id="download" <?php echo $elements[0]['download'] == 1 ? 'checked="checked"' : '';?>> Fichero descargable <span class="text-muted">(si no marcas esta opción introducir URL del documento)</span>
 								</label></small>
 
-								<input class="form-control" type="text" id="info_url" name="info_url" value="<?php echo $elements[0]['download']==1 ? "" : $elements[0]['titulo_info'];?>" />
+								<input class="form-control" type="text" id="info_url" name="info_url" value="<?php echo $elements[0]['download'] == 1 ? "" : $elements[0]['titulo_info'];?>" />
 							</div>
 						</div>
 

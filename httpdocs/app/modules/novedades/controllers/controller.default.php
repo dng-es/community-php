@@ -1,6 +1,6 @@
 <?php
 class novedadesController{
-	public static function getListAction($reg = 0, $filtro=""){
+	public static function getListAction($reg = 0, $filtro = ""){
 		$novedades = new novedades();
 		$paginator_items = PaginatorPages($reg);
 		$find_reg = "";
@@ -17,7 +17,7 @@ class novedadesController{
 		if (isset($_POST['texto'])){
 			$novedades = new novedades();		
 			$cuerpo = stripslashes($_POST['texto']);
-			$activo = ($_POST['activo']=="on" ? 1 : 0);
+			$activo = ($_POST['activo'] == "on" ? 1 : 0);
 			$canal = $_POST['canal'];
 
 			if ($novedades->updateNovedades($cuerpo,$activo, $canal)) {

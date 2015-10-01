@@ -11,10 +11,10 @@ $elements = infotopdfController::getListAction(20);
 
 		$columna = 1;
 		foreach($elements['items'] as $element): 
-			if ($columna ==1){echo '<div class="row">';}
+			if ($columna == 1){echo '<div class="row">';}
 			$nombre_archivo = $element['file_info'];
 			$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
-			$nombre_sinext=substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
+			$nombre_sinext = substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
 			$nombre_miniatura = "mini".$nombre_sinext.".jpeg";
 		?>	
 		<div class="col-md-3">
@@ -25,12 +25,12 @@ $elements = infotopdfController::getListAction(20);
 			</a>
 		</div>
 		<?php 
-			if ($columna == 4){echo '</div>';$columna=0;}
+			if ($columna == 4){echo '</div>'; $columna = 0;}
      		$columna++;
 		endforeach;
 		if ($columna == 2){echo '</div>';}
 		?>
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
 	<div class="app-sidebar hidden-sm hidden-xs">
 		<div class="panel-interior">

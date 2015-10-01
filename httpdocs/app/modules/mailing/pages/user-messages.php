@@ -44,7 +44,7 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 				</tr>
 				<?php
 				foreach($elements['items'] as $element):
-					$estado = $element['message_status']=='pending' ? 'label-warning' : ($element['message_status']=='cancelled' ? 'label-danger' : 'label-success');
+					$estado = $element['message_status'] == 'pending' ? 'label-warning' : ($element['message_status'] == 'cancelled' ? 'label-danger' : 'label-success');
 					$date_scheduled = ($element['date_scheduled'] != null) ? (getDateFormat($element['date_scheduled'], "SHORT")) : "";
 					$total_views = connection::countReg("mailing_messages_users", " AND views>0 AND id_message=".$element['id_message']."");
 					$total_links = connection::countReg("mailing_messages_links_users", " AND id_message=".$element['id_message']."");
@@ -53,7 +53,7 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 					<td nowrap="nowrap">
 						<a href="user-messages?exportm=true&id=<?php echo $element['id_message'];?>" class="fa fa-download icon-table" title="Descargar"></a>
 						<span class="fa fa-ban icon-table" 
-						<?php if ($element['message_status']=='pending'):?>
+						<?php if ($element['message_status'] == 'pending'):?>
 							onClick="Confirma('¿Seguro que desea cancelar el envío?','user-messages?del=true&id=<?php echo $element['id_message'];?>')" 
 						<?php else: ?>
 							disabled="disabled" 
@@ -67,8 +67,8 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 					echo '<td>'.$date_scheduled.'</td>';
 					echo '<td><span class="label">'.$element['total_messages'].'</span></td>'; 
 					echo '<td><span class="label">'.$element['total_send'].'</span></td>';
-					echo '<td><span class="label'.($element['total_pending']>0 ? " label-danger" : "").'">'.$element['total_pending'].'</span></td>';
-					echo '<td><span class="label'.($element['total_failed']>0 ? " label-danger" : "").'">'.$element['total_failed'].'</span></td>';
+					echo '<td><span class="label'.($element['total_pending'] > 0 ? " label-danger" : "").'">'.$element['total_pending'].'</span></td>';
+					echo '<td><span class="label'.($element['total_failed'] > 0 ? " label-danger" : "").'">'.$element['total_failed'].'</span></td>';
 					echo '<td><span class="label">'.$total_views.'</span></td>';
 					echo '<td><span class="label"><a href="user-messages?exp=links&id='.$element['id_message'].'">'.$total_links.'</a></span></td>';
 					?>
@@ -76,7 +76,7 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 				<?php endforeach;?>
 			</table>
 		</div>
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">

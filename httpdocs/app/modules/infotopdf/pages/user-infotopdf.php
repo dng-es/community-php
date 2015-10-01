@@ -12,12 +12,12 @@ $nombre_archivo = $elements[0]['file_info'];
 $ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
 $nombre_sinext=substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
 $nombre_miniatura = "mini".$nombre_sinext.".jpeg";
-$direccion='';
-$cod_postal='';
-$poblacion='';
-$provincia='';
-$telefono='';
-$web='';
+$direccion = '';
+$cod_postal = '';
+$poblacion = '';
+$provincia = '';
+$telefono = '';
+$web = '';
 $email = '';
 
 ?>

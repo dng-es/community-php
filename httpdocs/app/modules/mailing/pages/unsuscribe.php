@@ -7,7 +7,7 @@
 		<?php 
 		session::getFlashMessage( 'actions_message' );  
 		mailingController::createBlackAction();	  
-		if (sha1($_GET['u'])==$_GET['ua']):?>
+		if (sha1($_GET['u']) == $_GET['ua']):?>
 			<p>Desea darse de baja de nuestro servicio con el email: <b><?php echo $_GET['u'];?></b></p>
 			<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-signin">
 				<input type="hidden" name="email_black" id="email_black" value="<?php echo $_GET['u'];?>">

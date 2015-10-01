@@ -11,7 +11,7 @@ include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/mailing/classes/class.mailing.php");
 
-if (isset($_GET["u"]) && $_GET["u"]!="") {
+if (isset($_GET["u"]) && $_GET["u"] != "") {
 	$id_message_user = urldecode(base64_decode($_GET["u"]));
 	$mailing = new mailing();
 	$mailing->updateMessageUserViews($id_message_user);

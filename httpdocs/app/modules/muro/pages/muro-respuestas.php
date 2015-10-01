@@ -19,7 +19,7 @@ include_once($base_dir . "modules/muro/classes/class.muro.php");
 session::ValidateSessionAjax();
 $muro=new muro();
   //VOTAR COMENTARIO
-  if (isset($_REQUEST['idvc']) and $_REQUEST['idvc']!="") { 
+  if (isset($_REQUEST['idvc']) and $_REQUEST['idvc'] != "") { 
     $mensaje=$insercion_comentario = $muro->InsertVotacion($_REQUEST['idvc'],$_SESSION['user_name']);
   }
 ?> 

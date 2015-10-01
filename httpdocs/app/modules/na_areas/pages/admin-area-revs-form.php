@@ -13,12 +13,12 @@ include_once($base_dir . "modules/na_areas/classes/class.na_areas.php");
 //OBTENER RESPUESTAS
 if (isset($_POST['tarea']) and $_POST['tarea']!=""){
 	$na_areas = new na_areas();
-	$datos="<ul>";
-	$respuestas=$na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".$_POST['tarea']." and r.respuesta_user='".$_POST['user']."' ");
+	$datos = "<ul>";
+	$respuestas = $na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".$_POST['tarea']." and r.respuesta_user='".$_POST['user']."' ");
 	foreach($respuestas as $respuesta):
-		$datos.="<li>".$respuesta['Pregunta'].": <strong>".$respuesta['Respuesta']."</strong></li>";
+		$datos .= "<li>".$respuesta['Pregunta'].": <strong>".$respuesta['Respuesta']."</strong></li>";
 	endforeach;
-	$datos.="</ul>";
+	$datos .= "</ul>";
 	echo $datos;
 } 
 ?>

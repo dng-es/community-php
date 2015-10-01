@@ -2,7 +2,7 @@
 class usersController{
 
 	public static function getItemAction(){
-		if (isset($_GET['id']) and $_GET['id']!=''){ 
+		if (isset($_GET['id']) and $_GET['id'] != ''){ 
 			$users = new users();
 	  		return $users->getUsers(" AND username='".$_GET['id']."'");
   		}
@@ -34,13 +34,13 @@ class usersController{
 		$elements = $users->getPerfiles($filter." ORDER BY perfil"); 
 		$string_format = "";
 		foreach ($elements as $element):
-			$string_format.= (trim($element['perfil'])!="" ? '<span class="label label-warning">'.$element['perfil']."</span> " : '<span class="label label-danger" title="Hay usuarios sin perfil. Esto es potencialmente peligroso.">Hay usuarios sin perfil</span> ');
+			$string_format.= (trim($element['perfil']) != "" ? '<span class="label label-warning">'.$element['perfil']."</span> " : '<span class="label label-danger" title="Hay usuarios sin perfil. Esto es potencialmente peligroso.">Hay usuarios sin perfil</span> ');
 		endforeach;
 		return $string_format;
 	}		
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$users = new users();
 			$elements = $users->getUsers("");
 			download_send_headers("users_" . date("Y-m-d") . ".csv");
@@ -50,7 +50,7 @@ class usersController{
 	}	
 
 	public static function exportStatisticsAction(){
-		if (isset($_REQUEST['export_s']) and $_REQUEST['export_s']==true) {
+		if (isset($_REQUEST['export_s']) and $_REQUEST['export_s'] == true){
 			$users = new users();
 			$elements = $users->getUsers("");
 			$usuarios = array();
@@ -66,7 +66,7 @@ class usersController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$users = new users();
 			if ($users->disableUser($_REQUEST['id'])) {
 				session::setFlashMessage( 'actions_message', "Usuario deshabilitado correctamente.", "alert alert-success");
@@ -80,11 +80,11 @@ class usersController{
 		}
 	}
 
-	public static function getPerfilAction($username, $filter=""){
+	public static function getPerfilAction($username, $filter = ""){
 		if ( $username != "" ){
 			$users = new users();
 			$plantilla = $users->getUsers(" AND username='".$username."' ".$filter);
-			$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto']=="" ? "user.jpg" : $plantilla[0]['foto']);
+			$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto'] == "" ? "user.jpg" : $plantilla[0]['foto']);
 			$plantilla[0]["user_foto"] = $user_foto;
 			return $plantilla[0];	
 		}	
@@ -95,7 +95,7 @@ class usersController{
 			$users = new users();
 			$plantilla = $users->getUsers(" AND nick='".$nick."' ".$filter);
 			if (count($plantilla)>0){
-				$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto']=="" ? "user.jpg" : $plantilla[0]['foto']);
+				$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto'] == "" ? "user.jpg" : $plantilla[0]['foto']);
 				$plantilla[0]["user_foto"] = $user_foto;
 				return $plantilla[0];
 			}		
@@ -104,7 +104,7 @@ class usersController{
 
 	public static function updatePerfilAction(){
 		$users = new users();
-		if (isset($_POST['user-username']) and $_POST['user-username']!=""){
+		if (isset($_POST['user-username']) and $_POST['user-username'] != ""){
 			
 			$comentarios = sanitizeInput($_POST['user-comentarios']);
 
@@ -131,7 +131,7 @@ class usersController{
 	}	
 
 	public static function getUserStatistics(){
-		if (isset($_GET['id']) and $_GET['id']!=''){ 
+		if (isset($_GET['id']) and $_GET['id'] != ''){ 
 			return self::userStatistics($_GET['id']);
 		}
 	}		
@@ -173,7 +173,7 @@ class usersController{
 
 	public static function loginRedirectAction(){
 		if (isset($_SESSION['user_logged']) and $_SESSION['user_logged']) {		
-			if (isset($_SESSION['url_request']) and $_SESSION['url_request']!=""){
+			if (isset($_SESSION['url_request']) and $_SESSION['url_request'] != ""){
 				redirectURL($_SESSION['url_request']);
 			}
 			else{
@@ -183,13 +183,13 @@ class usersController{
 	}
 
 	public static function insertUserAction(){
-		if (isset($_POST['id_username']) and $_POST['id_username']==""){
+		if (isset($_POST['id_username']) and $_POST['id_username'] == ""){
 			$users = new users();
 			//VERIFICAR NOMBRE USUARIO YA EXISTE
-			if (count($users->getUsers(" AND username='".$_POST['username']."' "))==0){
-				$confirmed = (isset($_POST['confirmed_user']) and $_POST['confirmed_user']=="on") ? 1 : 0;
-				$registered = (isset($_POST['registered_user']) and $_POST['registered_user']=="on") ? 1 : 0;
-				$disabled = (isset($_POST['disabled_user']) and $_POST['disabled_user']=="on") ? 1 : 0;
+			if (count($users->getUsers(" AND username='".$_POST['username']."' ")) == 0){
+				$confirmed = (isset($_POST['confirmed_user']) and $_POST['confirmed_user'] == "on") ? 1 : 0;
+				$registered = (isset($_POST['registered_user']) and $_POST['registered_user'] == "on") ? 1 : 0;
+				$disabled = (isset($_POST['disabled_user']) and $_POST['disabled_user'] == "on") ? 1 : 0;
 				if ($users->insertUser($_POST['username'],
 							$_POST['user_password'],
 							$_POST['email_user'],
@@ -215,11 +215,11 @@ class usersController{
 	}
 
 	public static function updateUserAction(){
-		if (isset($_POST['id_username']) and $_POST['id_username']!=""){
+		if (isset($_POST['id_username']) and $_POST['id_username'] != ""){
 			$users = new users();
-			$confirmed = (isset($_POST['confirmed_user']) and $_POST['confirmed_user']=="on") ? 1 : 0;
-			$registered = (isset($_POST['registered_user']) and $_POST['registered_user']=="on") ? 1 : 0;
-			$disabled = (isset($_POST['disabled_user']) and $_POST['disabled_user']=="on") ? 1 : 0;
+			$confirmed = (isset($_POST['confirmed_user']) and $_POST['confirmed_user'] == "on") ? 1 : 0;
+			$registered = (isset($_POST['registered_user']) and $_POST['registered_user'] == "on") ? 1 : 0;
+			$disabled = (isset($_POST['disabled_user']) and $_POST['disabled_user'] == "on") ? 1 : 0;
 
 			if ($users->updateUser($_POST['id_username'],
 								$_POST['user_password'],
@@ -243,7 +243,7 @@ class usersController{
 
 	public static function deleteFotoAction(){
 		$users = new users();
-		if (isset($_REQUEST['f']) and $_REQUEST['f']!=""){
+		if (isset($_REQUEST['f']) and $_REQUEST['f'] != ""){
 			if ($users->deleteFoto($_REQUEST['id'],$_REQUEST['f'])) { 
 				session::setFlashMessage( 'actions_message', "foto borrada correctamente.", "alert alert-success");}
 			else { 
@@ -253,11 +253,11 @@ class usersController{
 	}
 
 	public static function updatePermissionsAction(){
-		if (isset($_POST['user_permission']) and $_POST['user_permission']!=""){
+		if (isset($_POST['user_permission']) and $_POST['user_permission'] != ""){
 			foreach(array_keys($_POST) as $permission):
-				if ($permission!="user_permission"){
+				if ($permission != "user_permission"){
 					//detectar permisos de editar
-					if (strrpos($permission, "edit_")===0){
+					if (strrpos($permission, "edit_") === 0){
 						$permission_name = substr($permission, 5);
 						$permission_type = "edit";
 						$permission_value = $_POST[$permission];
@@ -265,7 +265,7 @@ class usersController{
 					}
 
 					//detectar permisos de ver/view
-					if (strrpos($permission, "view_")===0){
+					if (strrpos($permission, "view_") === 0){
 						$permission_name = substr($permission, 5);
 						$permission_type = "view";
 						$permission_value = $_POST[$permission];

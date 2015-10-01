@@ -2,8 +2,7 @@
 addJavascripts(array(getAsset("muro")."js/muro-comentarios-responder-ajax.js"));
 
 $muro = new muro();
-if (isset($_REQUEST['id']) and $_REQUEST['id']!="" ){$id_comentario=$_REQUEST['id'];}
-else {$id_comentario=0;}
+$id_comentario = ((isset($_REQUEST['id']) and $_REQUEST['id'] != "" ) ? $_REQUEST['id'] : 0);
 
 //OBTENER DATOS DEL COMENTARIO
 $filtro_comentario = " AND id_comentario=".$id_comentario." ";					   
@@ -29,7 +28,7 @@ $comentario_muro = $muro->getComentarios($filtro_comentario);
 		<div class="panel-interior">
 			<?php
 			//SOLO LOS COMERCIALES,FORMADORES Y ADMIN PUEDEN INSERTAR COMENTARIOS
-			if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='usuario' or $_SESSION['user_perfil']=='formador' or $_SESSION['user_perfil']=='responsable' or $_SESSION['user_perfil']=='forosIns') : ?>
+			if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'usuario' or $_SESSION['user_perfil'] == 'formador' or $_SESSION['user_perfil'] == 'responsable' or $_SESSION['user_perfil'] == 'forosIns') : ?>
 			<form id="form-responder-muro" name="form-responder-muro" action="" method="post" role="form">
 				<input type="hidden" name="id_comentario_responder" id ="id_comentario_responder" value="<?php echo $id_comentario;?>" />
 				<h4><?php echo strTranslate("New_comment_on_wall");?></h4>

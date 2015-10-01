@@ -17,7 +17,7 @@ class muroController{
 	}
 
 	public static function validateAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='muro_ok'){
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'muro_ok'){
 			$users = new users();
 			$muro = new muro();
 			$muro->cambiarEstado($_REQUEST['id'],1);
@@ -28,7 +28,7 @@ class muroController{
 	}
 
 	public static function cancelAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='muro_ko'){
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'muro_ko'){
 			$users = new users();
 			$muro = new muro();
 			$muro->cambiarEstado($_REQUEST['id'],2);

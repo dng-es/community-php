@@ -54,7 +54,7 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 				<?php endforeach;?>
 			</table>
 		</div>
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">

@@ -25,12 +25,12 @@ addJavascripts(array("js/jquery.numeric.js",
 
 		$id = isset($_GET['id']) == true ? $_GET['id'] : 0;
 		$plantilla = mailingTemplatesController::getItemAction($id);
-		$direccion='';
-		$cod_postal='';
-		$poblacion='';
-		$provincia='';
-		$telefono='';
-		$web='';
+		$direccion = '';
+		$cod_postal = '';
+		$poblacion = '';
+		$provincia = '';
+		$telefono = '';
+		$web = '';
 		?>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><big>PASO 1</big> - Datos del mensaje</h3></div>

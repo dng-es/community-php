@@ -499,11 +499,17 @@ noCache();
 Crea un paginador de registros. Uso:
 ```php
 Paginator($pag, $reg, $total_reg, $pag_dest, $title, $find_reg, $num_paginas, $addClass, $pagecount_dest);
+
+//example
+Paginator($pag, $reg, $total_reg, 'blog?id='.$id_tema, 'comentarios', $find_reg, 10, 'selected-foro');
 ```
 ### SearchForm
-Crea un buscador. Uso:
+Crea un buscador. El metodo de envio del formulario por defecto es *post*. Uso:
 ```php
 SearchForm($reg, $pag, $formId, $labelForm, $labelButton, $clase_css, $class_form, $method_form);
+
+//example
+SearchForm($elements['reg'], "admin-users", "searchForm", "buscar usuario", "Buscar", "", "navbar-form");
 ```
 
 ## Modules

@@ -20,7 +20,7 @@ $elements = infoController::getItemAction($_GET['id']);
 						<label><?php echo strTranslate("Campaign");?>:</label> <?php echo $elements[0]['campana']; ?><br />
 						<label><?php echo strTranslate("Type");?>:</label> <?php echo $elements[0]['tipo']; ?><br />
 						<label><?php echo strTranslate("Date");?>:</label> <?php echo getDateFormat($elements[0]['date_info'], "LONG"); ?><br /><br />
-						<?php if ($elements[0]['download']==1): ?>
+						<?php if ($elements[0]['download'] == 1): ?>
 						<a target="_blank" href="user-info&exp=<?php echo $elements[0]['file_info'];?>" class="btn btn-primary"><?php echo strTranslate("Download_file");?></a>
 						<?php else: ?>
 						<a target="_blank" href="<?php echo $elements[0]['file_info'];?>" class="btn btn-primary">Ir a la documentación</a>

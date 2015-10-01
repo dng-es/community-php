@@ -1,7 +1,7 @@
 <?php
 
 class infoController{
-	public static function getListAction($reg = 0, $filter=""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$info = new info();
 		$filtro = $filter." ORDER BY titulo_info";
 		$paginator_items = PaginatorPages($reg);
@@ -20,9 +20,9 @@ class infoController{
 	}	
 
 	public static function createAction(){
-		if (isset($_POST['id']) and $_POST['id']==0){
+		if (isset($_POST['id']) and $_POST['id'] == 0){
 			$info = new info();
-			$download = ($_POST['download']=="on" ? 1 : 0);
+			$download = ($_POST['download'] == "on" ? 1 : 0);
 
 		  	if ($download == 1){
 				//SUBIR FICHERO
@@ -39,7 +39,7 @@ class infoController{
 		  		$nombre_archivo = $_POST['info_url'];
 		  	}			
 
-			if ($info->insertInfo($nombre_archivo,$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'], $download)){
+			if ($info->insertInfo($nombre_archivo, $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $download)){
 				session::setFlashMessage( 'actions_message', "Registro insertado correctamente", "alert alert-success");
 				$id = connection::SelectMaxReg("id_info","info","");
 				redirectURL("admin-info-doc?act=edit&id=".$id);
@@ -52,7 +52,7 @@ class infoController{
 	}
 
 	public static function updateAction($id){
-		if (isset($_POST['id']) and $_POST['id']>0){
+		if (isset($_POST['id']) and $_POST['id'] > 0){
 			$info = new info();
 			$download = ($_POST['download'] == "on" ? 1 : 0);
 
@@ -73,7 +73,7 @@ class infoController{
 		  		$info->updateInfoDoc($_POST['id'], $_POST['info_url']);
 		  	}
 
-			if ($info->updateInfo($_POST['id'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'], $download)) {
+			if ($info->updateInfo($_POST['id'], $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $download)) {
 				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
 			}
 			else{
@@ -84,9 +84,9 @@ class infoController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$info = new info();
-			if ($info->deleteInfo($_REQUEST['id'],$_REQUEST['d'])) {
+			if ($info->deleteInfo($_REQUEST['id'], $_REQUEST['d'])) {
 				session::setFlashMessage( 'actions_message', "Registro eliminado correctamente", "alert alert-success");
 			}
 			else{
@@ -97,7 +97,7 @@ class infoController{
 	}
 
 	public static function getZipAction(){
-		if (isset($_REQUEST['exp']) and $_REQUEST['exp']!=""){
+		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] != ""){
 			fileToZip($_REQUEST['exp'], PATH_INFO);
 		}
 	}	
@@ -109,7 +109,7 @@ class infoController{
 	
 	public static function getAlerts(){
 		$info = new info();
-		$noLeidos = connection::countReg("info"," AND id_info NOT IN (SELECT id_info FROM info_alerts WHERE username_alert = '".$_SESSION['user_name']."')");
+		$noLeidos = connection::countReg("info", " AND id_info NOT IN (SELECT id_info FROM info_alerts WHERE username_alert = '".$_SESSION['user_name']."')");
 		return $noLeidos;
 	}		
 }

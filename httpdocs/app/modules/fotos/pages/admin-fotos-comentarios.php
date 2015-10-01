@@ -4,8 +4,8 @@ $users = new users();
 
 	//VALIDAR COMENTARIOS
 if (isset($_REQUEST['act'])) { 	 
-	if ($_REQUEST['act']=='foto_ko'){
-		$fotos->cambiarEstadoComentario($_REQUEST['id'],2);
+	if ($_REQUEST['act'] == 'foto_ko'){
+		$fotos->cambiarEstadoComentario($_REQUEST['id'], 2);
 	}
 	header("Location: admin-fotos-comentarios?id=".$_REQUEST['idt']."&ida=".$_REQUEST['ida']); 
 }
@@ -23,7 +23,7 @@ $pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_fi
 			array("ItemLabel"=>strTranslate("Comments_in_photos"), "ItemClass"=>"active"),
 		)); ?>
 
-		<?php if (count($pendientes)==0):?>
+		<?php if (count($pendientes) == 0):?>
 			<div class="alert alert-warning">No hay comentarios en la foto</div>
 		<?php else: ?>
 		<a href="admin-albumes-new?act=edit&id='.$_REQUEST['ida'].'">Volver al album</a>

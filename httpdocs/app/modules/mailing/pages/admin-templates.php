@@ -31,7 +31,7 @@ $elements = mailingTemplatesController::getListAction(20);
 							<th><center><?php echo strTranslate("Active");?></center></th>
 						</tr>
 						<?php foreach($elements['items'] as $element): 
-							$new_act = ($element['activo']==1 ? 0 : 1);
+							$new_act = ($element['activo'] == 1 ? 0 : 1);
 						?>
 							<tr>
 							<td nowrap="nowrap">

@@ -1,6 +1,6 @@
 <?php
 class rankingsController{
-	public static function getListAction($reg = 0, $filtro=""){
+	public static function getListAction($reg = 0, $filtro = ""){
 		$rankings = new rankings();
 		$paginator_items = PaginatorPages($reg);
 		
@@ -12,7 +12,7 @@ class rankingsController{
 					'total_reg' => $total_reg);
 	}
 
-	public static function getListCategoryAction($reg = 0, $filtro=""){
+	public static function getListCategoryAction($reg = 0, $filtro = ""){
 		$rankings = new rankings();
 		$paginator_items = PaginatorPages($reg);
 		
@@ -29,13 +29,13 @@ class rankingsController{
 		return $rankings->getRankings(" AND id_ranking=".$id.$filter);
 	}
 
-	public static function getItemCategoryAction($id, $filter=" "){
+	public static function getItemCategoryAction($id, $filter = " "){
 		$rankings = new rankings();
 		return $rankings->getRankingsCategories(" AND id_ranking_category=".$id.$filter);
 	}	
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$rankings = new rankings();
 			if ($rankings->updateEstadoRankings($_REQUEST['id'], $_REQUEST['e'])) {
 				session::setFlashMessage( 'actions_message', "estado modificado correctamente", "alert alert-success");
@@ -48,7 +48,7 @@ class rankingsController{
 	}			
 
 	public static function createAction(){
-		if (isset($_POST['id_ranking']) and $_POST['id_ranking']==0){
+		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] == 0){
 			$id_ranking = 0;
 			$rankings = new rankings();
 			$nombre = str_replace("'","´",$_POST['nombre']);
@@ -67,7 +67,7 @@ class rankingsController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id_ranking']) and $_POST['id_ranking']>0){
+		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] > 0){
 			$rankings = new rankings();
 			$id_ranking = $_POST['id_ranking'];
 			$nombre = str_replace("'","´",$_POST['nombre']);
@@ -88,7 +88,7 @@ class rankingsController{
 	}
 
 	public static function createCategoryAction(){
-		if (isset($_POST['id_ranking']) and $_POST['id_ranking']==0){
+		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] == 0){
 			$id_ranking = 0;
 			$rankings = new rankings();
 			$nombre = str_replace("'","´",$_POST['nombre']);
@@ -105,7 +105,7 @@ class rankingsController{
 	}
 
 	public static function updateCategoryAction(){
-		if (isset($_POST['id_ranking']) and $_POST['id_ranking']>0){
+		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] > 0){
 			$rankings = new rankings();
 			$id_ranking = $_POST['id_ranking'];
 			$nombre = str_replace("'","´",$_POST['nombre']);
@@ -124,7 +124,7 @@ class rankingsController{
 	}	
 
 	public static function uploadRankingData($id_ranking){
-		if (isset($_FILES['fichero']['name']) and $_FILES['fichero']['name']!="") {
+		if (isset($_FILES['fichero']['name']) and $_FILES['fichero']['name'] != ""){
 			//primero borramos los datos existentes
 			$rankings = new rankings();
 			$rankings->deleteRankingsData(" id_ranking=".$id_ranking);
@@ -160,7 +160,7 @@ class rankingsController{
 	}	
 
 	public static function ExportRankingDataAction(){
-		if (isset($_REQUEST['exp']) and $_REQUEST['exp']>0){
+		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] > 0){
 			$rankings = new rankings();
 			$elements = $rankings->getRankingsDataSimple(" AND id_ranking=".$_REQUEST['exp']." "); 
 			exportCsv($elements);

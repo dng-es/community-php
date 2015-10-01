@@ -13,7 +13,7 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 session::ValidateSessionAjax();
 
 //VERIFICAR CÓDIGO DE TIENDA
-if (isset($_POST['id_message']) and $_POST['id_message']!=""){
+if (isset($_POST['id_message']) and $_POST['id_message'] != ""){
 	$id_message = $_POST['id_message'];
 	$action = $_POST['action'];
 	$pasada = $_POST['pasada'];
@@ -84,7 +84,7 @@ function pasadaProccess($id_message, $action, $pasada){
 	$mailing->updateMessageField($id_message, "total_pending", $pendientes);
 	$mailing->updateMessageField($id_message, "total_failed", $fallidos);
 
-	if ($pendientes==0){
+	if ($pendientes == 0){
 		//actualizar datos del mensaje
 		$mailing->updateMessageField($id_message, "message_status", "'completed'");
 	}

@@ -40,16 +40,16 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 	<div id="responder-form" style="height: 40px; display:none"></div> 
 <?php
 session::ValidateSessionAjax();
-$muro=new muro();
+$muro = new muro();
 $find_reg = "";
 $filtro_comentarios = "";
 
 //OBTENER COMENTARIOS DEL MURO
-if (isset($_REQUEST['c'])){$nombre_muro=$_REQUEST['c'];}
-if (isset($_POST['tipo_responder'])){$nombre_muro=$_POST['tipo_responder'];}
-if (isset($_POST['tipo_muro'])){$nombre_muro=$_POST['tipo_muro'];}
-if ($nombre_muro==""){$nombre_muro="principal";}
-if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador') { $filtro_comentarios .= " AND c.canal='".$_SESSION['user_canal']."' ";}
+if (isset($_REQUEST['c'])) $nombre_muro = $_REQUEST['c'];
+if (isset($_POST['tipo_responder'])) $nombre_muro = $_POST['tipo_responder'];
+if (isset($_POST['tipo_muro'])) $nombre_muro = $_POST['tipo_muro'];
+if ($nombre_muro == "") $nombre_muro = "principal";
+if ($_SESSION['user_perfil'] != 'admin' and $_SESSION['user_perfil'] != 'formador') $filtro_comentarios .= " AND c.canal='".$_SESSION['user_canal']."' ";
 $filtro_comentarios .= " AND id_comentario_id=0 AND estado=1 AND tipo_muro='".$nombre_muro."' 
 						 AND tipo_muro IN ('principal','responsable') ORDER BY date_comentario DESC";
 
@@ -67,7 +67,7 @@ foreach($comentarios_muro as $comentario_muro):
 	commentMuro($comentario_muro);
 endforeach;
 Paginator($pag,$reg,$total_reg,'muro-comentarios?id='.$nombre_muro,'comentarios',$find_reg,10,"selected-muro");
-if(count($comentarios_muro)==0){ echo '<p>No hay comentarios en el muro</p>';}	
+if(count($comentarios_muro) == 0){ echo '<p>No hay comentarios en el muro</p>';}	
 echo '</div>';
 ?> 
 

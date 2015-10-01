@@ -27,7 +27,7 @@ $elements = infoController::getListAction(20);
 							<th><center>Descargable</center></th>
 						</tr>
 						<?php foreach($elements['items'] as $element): 
-						$enlace = ($element['download']==1 ? 'user-info?id='.$element['id_info'].'&exp='.$element['file_info'] : $element['file_info']);
+						$enlace = ($element['download'] == 1 ? 'user-info?id='.$element['id_info'].'&exp='.$element['file_info'] : $element['file_info']);
 						?>
 						<tr>
 							<td nowrap="nowrap">
@@ -39,7 +39,7 @@ $elements = infoController::getListAction(20);
 							<td><a target="_blank" href="<?php echo $enlace;?>"><?php echo $element['titulo_info'];?></a></td>
 							<td><?php echo $element['tipo'];?></td>
 							<td><?php echo $element['campana'];?></td>
-							<td align="center"><span class="label<?php echo ($element['download']==0 ? " label-warning" : " label-success");?>"><?php echo ($element['download']==1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
+							<td align="center"><span class="label<?php echo ($element['download'] == 0 ? " label-warning" : " label-success");?>"><?php echo ($element['download'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
 						</tr>   
 						<?php endforeach;  ?>
 					</table>

@@ -3,8 +3,8 @@
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
 $na_areas = new na_areas();
-$id_area=$_REQUEST['a'];
-$id_tarea=$_REQUEST['id'];
+$id_area = $_REQUEST['a'];
+$id_tarea = $_REQUEST['id'];
 
 //OBTENER DATOS DE LA TAREA
 $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
@@ -69,9 +69,9 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 			  \'admin-area-docs?act=del&a='.$id_area.'&id='.$id_tarea.'&idd='.$element['id_documento'].'\')" title="eliminar documento" />
 			</span>
 			</td>';
-			$ruta="docs/showfile.php?t=1&file=";
-			if ($element['documento_tipo']=='enlace'){$ruta="";}
-			elseif ($element['documento_tipo']=='video'){$ruta=PATH_VIDEOS;}
+			$ruta = "docs/showfile.php?t=1&file=";
+			if ($element['documento_tipo'] == 'enlace'){$ruta="";}
+			elseif ($element['documento_tipo'] == 'video'){$ruta=PATH_VIDEOS;}
 			echo '<td><a target="_blank" href="'.$ruta.$element['documento_file'].'">'.$element['documento_nombre'].'<a></td>';
 			echo '<td>'.$element['documento_tipo'].'</td>';
 			echo '</tr>';   

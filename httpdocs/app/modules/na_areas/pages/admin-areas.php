@@ -1,6 +1,6 @@
 <?php
 //EXPORT REGS.
-if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 	$na_areas = new na_areas();
 	$elements = $na_areas->getAreas(" AND estado=1");
 	download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -18,10 +18,10 @@ if ((isset($_REQUEST['id']) and $_REQUEST['id']!="") and !isset($_REQUEST['act']
 }
 
 //CAMBIAR ESTADO
-if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 	$na_areas = new na_areas();
 	$estado = $_REQUEST['e'];
-	$na_areas->estadoArea($_REQUEST['id'],$estado);
+	$na_areas->estadoArea($_REQUEST['id'], $estado);
 }	
 
 $na_areas = new na_areas();
@@ -29,8 +29,8 @@ $find_reg = "";
 $find_text = "";
 $filtro = "";
 
-if (isset($_POST['find_reg'])) {$filtro.=" AND area_nombre LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-if (isset($_REQUEST['f'])) {$filtro.=" AND area_nombre LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];}
+if (isset($_POST['find_reg'])) {$filtro .= " AND area_nombre LIKE '%".$_POST['find_reg']."%' "; $find_reg = $_POST['find_reg'];}
+if (isset($_REQUEST['f'])) {$filtro .= " AND area_nombre LIKE '%".$_REQUEST['f']."%' "; $find_reg = $_REQUEST['f'];}
 $filtro .= " AND estado<>2  ORDER BY id_area DESC";
 
 
@@ -38,12 +38,12 @@ $filtro .= " AND estado<>2  ORDER BY id_area DESC";
 $reg = 10;
 $pag = 1;
 $inicio = 0;
-if (isset($_GET["pag"]) and $_GET["pag"]!="") {
+if (isset($_GET["pag"]) and $_GET["pag"] != "") {
 	$pag = $_GET["pag"];
 	$inicio = ($pag - 1) * $reg;
 }
-$total_reg = connection::countReg("na_areas",$filtro); 
-$elements=$na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg); 	
+$total_reg = connection::countReg("na_areas", $filtro); 
+$elements = $na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg); 	
 
 ?>
 
@@ -111,7 +111,7 @@ $elements=$na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 						<?php endforeach; ?>
 					</table>
 				</div>
-				<?php Paginator($pag,$reg,$total_reg,'admin-areas','Areas',$find_reg);?>
+				<?php Paginator($pag, $reg, $total_reg, 'admin-areas','Areas', $find_reg);?>
 			</div>
 		</div>
 	</div>

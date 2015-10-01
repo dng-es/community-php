@@ -12,8 +12,8 @@ class fotosCore{
 	 * @return 	array           			Array con resultados
 	 */
 	public function userModuleStatistis($username){
-		$num = connection::countReg("galeria_fotos"," AND user_add='".$username."' ");
-		$num_votaciones = connection::countReg("galeria_fotos_votaciones"," AND user_votacion='".$username."' ");
+		$num = connection::countReg("galeria_fotos", " AND user_add='".$username."' ");
+		$num_votaciones = connection::countReg("galeria_fotos_votaciones", " AND user_votacion='".$username."' ");
 		return array( strTranslate("Photo_uploads") => $num,
 					  strTranslate("Votes_in_photos") => $num_votaciones,);
 	}

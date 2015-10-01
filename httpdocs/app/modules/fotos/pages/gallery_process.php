@@ -14,7 +14,7 @@ session::ValidateSessionAjax();
 $fotos=new fotos();
 
 //INSERTAR COMENTARIO
-if (isset($_POST['respuesta-texto']) and $_POST['respuesta-texto']!=""){
+if (isset($_POST['respuesta-texto']) and $_POST['respuesta-texto'] != ""){
 	$id = sanitizeInput($_POST['id_file']);
 	$texto_comentario = nl2br(sanitizeInput($_POST['respuesta-texto']));
 	echo $fotos->InsertComentario($id, $texto_comentario, $_SESSION['user_name'],1);
@@ -37,7 +37,7 @@ else{
 	<body>
 	<?php
 	//MOSTRAR COMENTARIOS
-	if (isset($_REQUEST['idf']) and $_REQUEST['idf']!=""){
+	if (isset($_REQUEST['idf']) and $_REQUEST['idf'] != ""){
 		$elements = $fotos->getComentariosFoto(" AND id_file=".$_REQUEST['idf']." AND estado=1 ORDER BY id_comentario DESC");
 		foreach($elements as $element):
 			commentFoto($element, "");

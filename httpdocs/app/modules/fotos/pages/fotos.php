@@ -21,7 +21,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		session::getFlashMessage( 'actions_message' );
 		fotosController::voteAction();
 		fotosController::createAction();
-		$filtro_canal = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
+		$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
 		$albums = fotosAlbumController::getListAction(100, $filtro_canal." AND activo=1 ORDER BY nombre_album ");
 		?>
 		<section id="photos">
