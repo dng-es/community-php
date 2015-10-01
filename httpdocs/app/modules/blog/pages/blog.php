@@ -54,17 +54,17 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 			//buscador
 			if (isset($_POST['find_reg'])) {$filtro_comentarios=" AND c.id_tema=".$_POST['find_reg']." ";$find_reg=$_POST['find_reg'];}
 			if (isset($id_tema)) {$filtro_comentarios=" AND c.id_tema=".$id_tema." ";$find_reg=$id_tema;} 
-
 			if ($filtro_comentarios==""){$filtro_comentarios=" AND c.id_tema=0 ";}
 			$filtro_comentarios .= " AND estado=1 ";
 			 
-			//paginador
-			$reg = 10;
+			//paginador. Valor muy alto de $reg para que se muestren todos los comentarios
+			$reg = 999999;
 			if (isset($_GET["pag"]) and $_GET["pag"]!="") {$pag = $_GET["pag"];}
 			if (!isset($pag)) { $inicio = 0; $pag = 1;}
 			else { $inicio = ($pag - 1) * $reg;}
-
 			$total_reg = connection::countReg("foro_comentarios c",$filtro_comentarios);
+
+			//numero de visitas
 			$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$id_tema." ");
 
 			//enlaces de pagina anterior
@@ -105,27 +105,32 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 
 
 		if (count($tema)>0){	
-			//INSERTAR VISITA EN EL FORO
-			$foro->insertVisita($_SESSION['user_name'],$id_tema,0);
-
-			if ($module_config['options']['allow_comments']==true){
-				//INSERTAR NUEVOS COMENTARIOS EN EL BLOG
-
-				echo '<div class="clearfix"></div><div class="panel-interior">';
-				echo '<label>'.strTranslate("Comment_this_post").':</label>';
-				addForoComment($id_tema);
-				echo '</div>';
+			if ($module_config['options']['allow_comments']==true){ 
+				//INSERTAR VISITA EN EL FORO/POST
+				$foro->insertVisita($_SESSION['user_name'],$id_tema,0);
 				
-				echo '<div class="panel-container-foro">';
+				//COMENTARIOS DEL FORO/POST
 				$filtro_comentarios.= " AND id_comentario_id=0 ORDER BY date_comentario DESC";
 				$comentarios_foro = $foro->getComentarios($filtro_comentarios.' LIMIT '.$inicio.','.$reg); 
-				foreach($comentarios_foro as $comentario_foro):
-					commentForo($comentario_foro,"blog");
-				endforeach;	
-				echo '</div><br />';
+				?>
+				<div class="clearfix"></div>
+				<div class="panel-interior">
+					<label><?php echo strTranslate("Comment_this_post");?>:</label>
+					<?php addForoComment($id_tema);?>
+				</div>
 				
-				if ($total_reg==0){ echo '<div class="alert alert-warning">Todavía no se han insertado comentarios en esta entrada.</div>';}
-				else {Paginator($pag,$reg,$total_reg,'blog&id='.$id_tema,'comentarios',$find_reg,10,"selected-foro");}
+				<div class="panel-container-foro">
+					<?php foreach($comentarios_foro as $comentario_foro):
+						commentForo($comentario_foro,"blog");
+					endforeach;	?>
+				</div>
+				<br />
+				
+				<?php if ($total_reg==0): ?>
+					<div class="alert alert-warning">Todavía no se han insertado comentarios en esta entrada.</div>
+				<?php else: 
+					Paginator($pag,$reg,$total_reg,'blog?id='.$id_tema,'comentarios',$find_reg,10,"selected-foro");
+				endif;
 			}
 
 			//ENTRADAS SIMILARES

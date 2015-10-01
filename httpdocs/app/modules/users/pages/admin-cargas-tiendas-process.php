@@ -74,7 +74,7 @@ function volcarMySQL($data) {
 		
 		if ($cod_tienda!=""){
 			//VERIFICAR QUE EXISTA LA TIENDA PARA ALTA Y ACTUALIZACION
-			if (users::countReg("users_tiendas"," AND cod_tienda='".$cod_tienda."' ")>0){			
+			if (connection::countReg("users_tiendas"," AND cod_tienda='".$cod_tienda."' ")>0){			
 				//actualizar tienda	
 				$users->updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa);
 				$contador_update++;
@@ -91,7 +91,7 @@ function volcarMySQL($data) {
 			}
 			else{
 				//VERIFICAR QUE EXISTA EL REGIONAL PARA ALTA O MODIFICACION DE DATOS
-				if ($regional_tienda!="" and users::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ")==0){		
+				if ($regional_tienda!="" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ")==0){		
 					//insertar usuario
 					$users->insertUser($regional_tienda,$regional_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL_DEF,'regional','','','','',0);
 				}
@@ -100,7 +100,7 @@ function volcarMySQL($data) {
 				}
 
 				//VERIFICAR QUE EXISTA EL RESPONSABLE PARA ALTA O MODIFICACION DE DATOS
-				if ($responsable_tienda!="" and users::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ")==0){		
+				if ($responsable_tienda!="" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ")==0){		
 					//insertar usuario
 					$users->insertUser($responsable_tienda,$responsable_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL_DEF,'responsable','','','','',0);
 				}

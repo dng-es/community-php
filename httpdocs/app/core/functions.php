@@ -32,7 +32,7 @@ function OkMsg($msg,$msg_show = 1){
  * @param 	string  	$text_separator Caracter separador para la cadena normalizada
  * @return 	string  	        		Texto normalizado
  */
-function NormalizeText( $text, $text_separator = "_") {
+function NormalizeText( $text, $text_separator = "_"){
 	//utilizada para subida de ficheros, elimina todos los caracteres extraños
 	$text = strtolower($text);
 	return ereg_replace( '[^ A-Za-z0-9_.-]', $text_separator, $text);
@@ -183,7 +183,7 @@ function Paginator($pag,$reg,$total_reg,$pag_dest,$title,$find_reg="",$num_pagin
 /**
  * Envia cabeceras para eliminar cache del navegador
  */
-function noCache() {
+function noCache(){
 	//Incluido al principio, hace que el navegador no use cache
 	header("Expires: Mon, 1 Jul 1900 00:00:00 GMT");
 	header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -220,7 +220,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s'){
  * @param  	string 		$cif 			Cadena de texto a verificar
  * @return 	int      					1 = NIF ok, 2 = CIF ok, 3 = NIE ok, -1 = NIF bad, -2 = CIF bad, -3 = NIE bad, 0 = ??? bad
  */
-function validateNifCifNie($cif) {
+function validateNifCifNie($cif){
 	$cif = strtoupper($cif);
 		
 	for ($i = 0; $i < 9; $i ++){
@@ -294,7 +294,7 @@ function validateNifCifNie($cif) {
  *		die();
  *		
  */
-function array2csv(array &$array) {
+function array2csv(array &$array){
 	if (count($array) == 0) {
 		return null;
 	}
@@ -315,7 +315,7 @@ function array2csv(array &$array) {
  * Envia cabeceras para descarga
  * @param  string 		$filename 		Nombre del archivo que se va a descargar
  */
-function download_send_headers($filename) {
+function download_send_headers($filename){
 	// disable caching
 	$now = gmdate("D, d M Y H:i:s");
 	header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
@@ -338,7 +338,7 @@ function download_send_headers($filename) {
  * @param 	string 		$chars           Caracteres permitidos
  * @return  string 						 Cadena generada de forma aleatoria
  */
-function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz023456789") {
+function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz023456789"){
 	srand((double)microtime()*1000000); 
 	$i = 0; 
 	$pass = '' ; 
@@ -363,7 +363,7 @@ function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz0
  * @param 	string 		$class_form  	Clase CSS para el form
  */
 
-function SearchForm($reg, $pag, $formId="searchForm", $labelForm="Buscar:", $labelButton="ir", $clase_css="", $class_form="", $method_form="post") {	
+function SearchForm($reg, $pag, $formId="searchForm", $labelForm="Buscar:", $labelButton="ir", $clase_css="", $class_form="", $method_form="post"){	
 	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
 
 	echo '<div class="'.$clase_css.'">  
@@ -396,8 +396,7 @@ function DescargarArchivo($fichero){
  * Print HTML combo para los temas de los foros
  * @param 	string 		$tipo_tema 		Elemento del combo marcado
  */
-function ComboTiposTemas($tipo_tema){
-?>
+function ComboTiposTemas($tipo_tema){ ?>
       <option value="Promociones" <?php if ($tipo_tema=='Promociones'){ echo ' selected="selected" ';}?>>Promociones</option>
       <option value="Formacion" <?php if ($tipo_tema=='Formacion'){ echo ' selected="selected" ';}?>>Formacion</option>
       <option value="Tarifas" <?php if ($tipo_tema=='Tarifas'){ echo ' selected="selected" ';}?>>Tarifas</option>
@@ -409,8 +408,7 @@ function ComboTiposTemas($tipo_tema){
  * Print HTML combo para los perfiles de la comunidad
  * @param 	string 		$perfil 		Elemento del combo marcado
  */
-function ComboPerfiles($perfil){
-?>
+function ComboPerfiles($perfil){ ?>
 	<option value="usuario" <?php if ($perfil=='usuario'){ echo ' selected="selected" ';}?>>Comercial</option>
 	<option value="responsable" <?php if ($perfil=='responsable'){ echo ' selected="selected" ';}?>>Responsable</option>
 	<option value="regional" <?php if ($perfil=='regional'){ echo ' selected="selected" ';}?>>Regional</option>
@@ -425,7 +423,7 @@ function ComboPerfiles($perfil){
  * @param  	string 		$user_agent 	UserAgent del navegador
  * @return 	string             			Nombre del navegador
  */
-function getBrowser($user_agent) {
+function getBrowser($user_agent){
      $navegadores = array(
      	  'IExplorer 11' => 'Trident/7+',
           'IExplorer 10' => '(MSIE 10\.[0-9]+)',
@@ -459,7 +457,7 @@ function getBrowser($user_agent) {
  * @param  	string 		$user_agent 	UserAgent del navegador
  * @return 	string             			Nombre del SO
  */
-function getPlatform($user_agent) {
+function getPlatform($user_agent){
      $plataformas = array(
           'Windows 8.1' => 'Windows NT 6.3+',
           'Windows 8' => 'Windows NT 6.2+',
@@ -645,7 +643,7 @@ function filesToZip($array_files){
  * @param  array  		$disallowed_params 	Parámetros excluidos
  * @return string                    		URL limpiada
  */
-function cleanUrl($url,$disallowed_params = array('PHPSESSID')) {
+function cleanUrl($url,$disallowed_params = array('PHPSESSID')){
 	$parsed = @parse_url($url);
 	$params = array();
 

@@ -1,5 +1,5 @@
 <?php
-infoController::getZipAction();
+//infoController::getZipAction();
 
 addJavascripts(array(getAsset("info")."js/info-all.js"));
 ?>
@@ -44,7 +44,8 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 						<div id="collapse<?php echo $element['id_campaign'];?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $element['id_campaign'];?>">
 							<div class="panel-body">
 								<?php foreach($elements_info['items'] as $elements_info): 
-								$enlace = ($elements_info['download']==1 ? ' href="info-all?id='.$element['id_info'].'&exp='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
+								//$enlace = ($elements_info['download']==1 ? ' href="info-all?id='.$element['id_info'].'&exp='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
+								$enlace = ($elements_info['download']==1 ? ' href="docs/showfile.php?file='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
 								?>
 									<div class="row">
 										<div class="col-md-12">
