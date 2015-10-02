@@ -12,6 +12,7 @@ v. 0.4.6
 * [Referencia funciones](#referencia-funciones)
 * [Modules](#modules)
 * [Seguridad](#seguridad)
+* [Forms](#forms)
 
 
 ## Requisitos y dependencias
@@ -607,7 +608,7 @@ El acceso al zona de administración sólo será accesible para los usuarios con
 
 Se pueden establecer permisos específicos para cada usuario y a cada página (Modulo users). Desde el panel de administración, se peden editar individualmente los permisos de cada usuario.
 
-## Envio de formularios
+## Forms
 Se emplean mensajes flash para mostrar avisos sobre el resultado del envio de un formulario. Ejemplo:
 
 En el controlador donde se recibe el formulario, tras las acciones correspondientes crearemos un mensaje de error o de exito. A continuacion con ***redirectUrl()*** redirigimos a la página deseada.
@@ -630,5 +631,8 @@ En la página donde es redirigida, normalmente la misma desde la que se envía e
 ```php
 	session::getFlashMessage( 'actions_message' ); 
 	mymoduleController::deleteAction();
-
 ```
+
+###Formularios predefinidos
+####SearchForm()
+Muestra por pantalla un formulario de búsqueda. Para más información ver [SearchForm()](#searchform).
