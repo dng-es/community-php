@@ -1,5 +1,5 @@
 <?php
-function commentFoto($comment,$destino="fotos-comentarios"){ ?>
+function commentFoto($comment, $destino = "fotos-comentarios"){ ?>
 	<div class="media media-comment">
 		<?php userFicha($comment);?>
 		<p>

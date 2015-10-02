@@ -1,29 +1,35 @@
 <?php
 $foro = new foro();
 $filtro = " AND ocio=1 AND activo=1 ";
-if (isset($_POST['find_reg'])) {$filtro.=" AND nombre LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-if (isset($_REQUEST['f'])) {$filtro.=" AND nombre LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];}
+if (isset($_POST['find_reg'])){
+	$filtro .= " AND nombre LIKE '%".$_POST['find_reg']."%' ";
+	$find_reg = $_POST['find_reg'];
+}
+if (isset($_REQUEST['f'])){
+	$filtro .= " AND nombre LIKE '%".$_REQUEST['f']."%' ";
+	$find_reg = $_REQUEST['f'];
+}
 
-$filtro.=" ORDER BY id_tema DESC ";
-if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') { $foro->cambiarEstadoTema($_REQUEST['id'],0);}
+$filtro .= " ORDER BY id_tema DESC ";
+if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') $foro->cambiarEstadoTema($_REQUEST['id'], 0);
 
 //SHOW PAGINATOR
 $reg = 15;
-if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
+if (isset($_GET["pag"])) $pag = $_GET["pag"];
 if (!isset($pag)) { $inicio = 0; $pag = 1;}
 else { $inicio = ($pag - 1) * $reg;}
 $total_reg = connection::countReg("foro_temas",$filtro);
 
 
 //EXPORT EXCEL - SHOW AND GENERATE
-if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 	$elements = $foro->getTemas($filtro);
 	download_send_headers("data_" . date("Y-m-d") . ".csv");
 	echo array2csv($elements);
 	die();
 }
 
-$elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
+$elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php menu::breadcrumb(array(
@@ -73,7 +79,7 @@ $elements=$foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 						echo $element['user'].'</td>';
 						echo '<td>'.$num_visitas.'</td>';
 						echo '<td>';
-						if ($num_comentarios==0){ echo $num_comentarios;}
+						if ($num_comentarios == 0){ echo $num_comentarios;}
 						else{ echo '<a href="admin-blog-foro?id='.$element['id_tema'].'">'.$num_comentarios.'</a>';}
 						echo '</td>';
 						echo '</tr>';   

@@ -6,8 +6,8 @@ class footer{
 	*/	
 	public static function PageFooterInfo(){
 		$pages = new pages();
-		$politica= $pages->getPages(" AND page_name='policy' ");
-		$declaracion= $pages->getPages(" AND page_name='declaracion' ");
+		$politica = $pages->getPages(" AND page_name='policy' ");
+		$declaracion = $pages->getPages(" AND page_name='declaracion' ");
 		?>
 		</div>
 		<div class="footer hidden-print">
@@ -55,8 +55,7 @@ class footer{
 	* Print HTML end file. From Javascript to </html>.
 	* Includes Piwik block for statistics
 	*/	
-	public static function PageFooter()
-	{
+	public static function PageFooter(){
 	  	global $ini_conf, $paginas_free,$page;
 	  	if (!in_array($page, $paginas_free)){		
 			self::PageFooterInfo();

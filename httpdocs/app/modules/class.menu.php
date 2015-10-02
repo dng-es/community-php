@@ -6,7 +6,7 @@ class menu{
 	static function PageMenu(){
 		global $session;
 		//MENU DE NAVAGACION
-		if ($_SESSION['user_logged']==true){ ?>
+		if ($_SESSION['user_logged'] == true){ ?>
 			<nav class="navbar navbar-default" id="menu-main" role="navigation">
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
@@ -55,7 +55,7 @@ class menu{
 
 		foreach ($array_final as  $fila) {
 			$labelId = (isset($fila['LabelId']) ? 'id="'.$fila['LabelId'].'"' : '');
-			if (isset($fila['SubItems']) and count($fila['SubItems'])>0){
+			if (isset($fila['SubItems']) and count($fila['SubItems']) > 0){
 				echo '<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].' <b class="caret"></b></a>
 								<ul class="dropdown-menu">';
@@ -79,7 +79,7 @@ class menu{
 	static function UserInfoMenu(){
 		global $ini_conf;
 		global $session;
-		if ($_SESSION['user_logged']==true){
+		if ($_SESSION['user_logged'] == true){
 			$users = new users();
 			$puntos_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
 			$_SESSION['user_puntos'] = $puntos_user[0]['puntos'];
@@ -100,7 +100,7 @@ class menu{
 					$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
 					//se muestra el acceso a admin si tiene el permiso
 					if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
-						if ($_SESSION['user_perfil']=='admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
+						if ($_SESSION['user_perfil'] == 'admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
 					}
 					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
 					echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope faa-shake animated-hover"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';	
@@ -127,22 +127,18 @@ class menu{
 		$header_name = "";
 		$content = "";
 		foreach($elems as $elem):				
-			if ($elem['LabelHeader']==$section) {
+			if ($elem['LabelHeader'] == $section) {
 				$main_url = explode("&", $elem['LabelUrl']);
-				$active = (($_GET['page']==$main_url[0] or $_GET['page']==$elem['LabelUrl']) ? " class=\"active\" " : "");
-				if($header_name!="" and $header_name!=$elem['LabelSection']){
-					$content .= '</ul>';
-				}
+				$active = (($_GET['page'] == $main_url[0] or $_GET['page'] == $elem['LabelUrl']) ? " class=\"active\" " : "");
+				if($header_name != "" and $header_name != $elem['LabelSection']) $content .= '</ul>';
 
-				if ($header_name!=$elem['LabelSection']){
+				if ($header_name != $elem['LabelSection']){
 					$header_name = $elem['LabelSection'];
 					$content .= '<li class="module-admin-header">'.$elem['LabelSection'].'</li>
 					<ul class="module-admin-item">';
 					$content .= '<li><a '.$active.' href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
 				}
-				elseif($header_name=$elem['LabelSection']){
-					$content .= '<li><a '.$active.' href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
-				}				
+				elseif($header_name == $elem['LabelSection']) $content .= '<li><a '.$active.' href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
 			}
 		endforeach;
 		if ($content != ""){
@@ -158,13 +154,13 @@ class menu{
 	static function getAdminPanels($elems){
 		$header_name = "";
 		foreach($elems as $elem):	
-			if($header_name!="" and $header_name!=$elem['LabelSection']){
+			if($header_name != "" and $header_name != $elem['LabelSection']){
 				echo '</dl></div>
 					</div>
 				</div>';
 			}
 
-			if ($header_name!=$elem['LabelSection']){
+			if ($header_name != $elem['LabelSection']){
 				$header_name = $elem['LabelSection'];
 				echo '<div class="col-md-6">
 						<div class="panel panel-default">
@@ -186,11 +182,11 @@ class menu{
 	*/
 	static function languageSelector(){
 		global $ini_conf;
-		if ($ini_conf['language_selector']==true){
+		if ($ini_conf['language_selector'] == true){
 			$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
 			$destination = str_replace("&lan=", "&lano=", $_SERVER['REQUEST_URI']);
 			$destination = str_replace("?lan=", "?lano=", $_SERVER['REQUEST_URI']);
-			$separator = (strpos($_SERVER['REQUEST_URI'], "?")==0  ? "?" : "&");
+			$separator = (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?" : "&");
 			echo '<div id="language-selector">';
 			foreach($folders as $folder):
 				echo '<a href="'.$destination.$separator.'lan='.$folder.'" title="'.$folder.'"><img alt="<?php echo $folder;?>" src="app/languages/'.$folder.'/images/flag.png" /></a>';
@@ -204,7 +200,7 @@ class menu{
 	*
 	*/
 	static function adminMenu(){
-		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']=='admin'){ 
+		if ($_SESSION['user_logged'] == true and $_SESSION['user_perfil'] == 'admin'){ 
 			global $array_adminmenu;
 			$array_final = $array_adminmenu;
 						
@@ -250,7 +246,7 @@ class menu{
 	*
 	*/
 	static function adminPanels(){
-		if ($_SESSION['user_logged']==true and $_SESSION['user_perfil']=='admin'){ 
+		if ($_SESSION['user_logged'] == true and $_SESSION['user_perfil'] == 'admin'){ 
 			$array_final = array();
 			$modules = getListModules();		
 			foreach($modules as $module):

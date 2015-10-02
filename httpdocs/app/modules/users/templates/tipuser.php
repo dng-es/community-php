@@ -1,6 +1,6 @@
 <?php
 
-function userTip($id,$user_data,$estrellas_print){
+function userTip($id, $user_data, $estrellas_print){
 		$foto = ($user_data['foto'] == "" ? "user.jpg" : $user_data['foto']);
 		$output = '<div id="a'.$id.'Tip" class="text-left tooltip-media">							
 				<table cellpadding="3" cellspacing="0">
@@ -45,12 +45,12 @@ function userFicha($user_data){
 }
 
 function userEstrellas($participaciones){
-	$estrellas=$participaciones/APORTACIONES_VALORACION;
-	$estrellas_print="";
-	for ($i=1;$i<=5;$i++) {
-		if ($estrellas>=$i) {$clase="fa fa-star star-on";}
-		else {$clase="fa fa-star star-off";}
-		$estrellas_print.='<span class="'.$clase.'"></span>';
+	$estrellas = $participaciones/APORTACIONES_VALORACION;
+	$estrellas_print = "";
+	for ($i = 1; $i <= 5; $i++) {
+		if ($estrellas >= $i) $clase = "fa fa-star star-on";
+		else $clase = "fa fa-star star-off";
+		$estrellas_print .= '<span class="'.$clase.'"></span>';
 	}
 	return $estrellas_print;
 }

@@ -1,7 +1,7 @@
 <?php
 addJavascripts(array(getAsset("campaigns")."js/admin-campaigns-type.js"));
 
-session::getFlashMessage( 'actions_message' ); 
+session::getFlashMessage('actions_message'); 
 campaignsController::createTypeAction();
 campaignsController::updateTypeAction();
 $plantilla = campaignsController::getItemTypesAction();	

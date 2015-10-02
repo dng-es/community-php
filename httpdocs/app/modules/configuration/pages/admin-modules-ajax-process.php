@@ -8,11 +8,11 @@ include_once($base_dir . "core/class.session.php");
 
 session::ValidateSessionAjax();
 //modificar configuracion del modulo
-if (isset($_POST['modulename']) and $_POST['modulename']!=""){
+if (isset($_POST['modulename']) and $_POST['modulename'] != ""){
 
 	$module_config = getModuleConfig($_POST['modulename']);
 	foreach(array_keys($_POST) as $element):
-		if ($element != 'modulename' and substr($element, (strlen($element)-7), strlen($element))=="_typeof"){	
+		if ($element != 'modulename' and substr($element, (strlen($element)-7), strlen($element)) == "_typeof"){	
 			$form_field = substr($element, 0, strlen($element)-7);
 			switch ($_POST[$element]) {
 				case 'boolean':
@@ -32,11 +32,10 @@ if (isset($_POST['modulename']) and $_POST['modulename']!=""){
 	$module_config['options'] = $array['options'];
 
 	$file = $base_dir . "modules/".$_POST['modulename']."/config.yaml";
-	if (writeYml($module_config, $file)){
+	if (writeYml($module_config, $file)) 
 		echo '<span class="text-success"><i class="fa fa-info-circle"></i> Datos guardados correctamente</span>';
-	}
-	else{
+	else
 		echo '<span class="text-danger"><i class="fa fa-warning"></i> Error al guardar datos</span>';
-	}
+
 }
 ?>

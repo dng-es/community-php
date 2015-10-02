@@ -1,7 +1,7 @@
 <?php
 class configurationController{
 	public static function updateAction(){
-		if (isset($_POST['site-name']) and $_POST['site-name']!=''){
+		if (isset($_POST['site-name']) and $_POST['site-name'] != ''){
 			$configuration = new configuration();
 			if ($configuration->UpdateConfiguracion($_POST['telefono'],
 										 $_POST['telefono2'],
@@ -14,12 +14,12 @@ class configurationController{
 										 $_POST['site-subject'],
 										 $_POST['site-keywords'],
 										 $_POST['site-url'],
-										 $_POST['email-mailing'])) {
-				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
-			}
+										 $_POST['email-mailing'])) 
+				
+				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+			else
+				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
+			
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}
@@ -40,21 +40,17 @@ class configurationController{
 			$icon = "user";
 			foreach($ano as $annotation):
 				$thisann = isset($annotation) ? ucfirst($annotation) : "";
-				if (strpos($thisann, "Version 0.7")!==false){
+				if (strpos($thisann, "Version 0.7")!==false)
 					$thisann = '<span class="label label-warning">'.$thisann.'</span>';
-				}
-				elseif (strpos($thisann, "Version 0.8")!==false){
+				elseif (strpos($thisann, "Version 0.8")!==false) 
 					$thisann = '<span class="label label-warning">'.$thisann.'</span>';
-				}
-				elseif (strpos($thisann, "Version 0.9")!==false){
+				elseif (strpos($thisann, "Version 0.9")!==false) 
 					$thisann = '<span class="label label-warning">'.$thisann.'</span>';
-				}
-				elseif (strpos($thisann, "Version 0")!==false){
+				elseif (strpos($thisann, "Version 0")!==false) 
 					$thisann = '<span class="label label-danger">'.$thisann.'</span>';
-				}
-				elseif (strpos($thisann, "Version")!==false){
+				elseif (strpos($thisann, "Version")!==false) 
 					$thisann = '<span class="label label-success">'.$thisann.'</span>';
-				}
+
 				$ann .= $thisann."<br />";
 			endforeach;	
 			array_push($listModules, array("folder" => $folder['folder'], "ann" => $ann, "icon" => $icon));		

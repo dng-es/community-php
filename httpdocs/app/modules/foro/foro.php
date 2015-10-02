@@ -12,10 +12,10 @@ class foroCore{
 	 * @return 	array           			Array con resultados
 	 */
 	public function userModuleStatistis($username){
-		$num = connection::countReg("foro_comentarios"," AND user_comentario='".$username."' ");
-		$num_temas = connection::countReg("foro_temas"," AND user='".$username."' ");
-		$num_votaciones = connection::countReg("foro_comentarios_votaciones"," AND user_votacion='".$username."' ");
-		$num_visitas = connection::countReg("foro_visitas"," AND username='".$username."' ");
+		$num = connection::countReg("foro_comentarios", " AND user_comentario='".$username."' ");
+		$num_temas = connection::countReg("foro_temas", " AND user='".$username."' ");
+		$num_votaciones = connection::countReg("foro_comentarios_votaciones", " AND user_votacion='".$username."' ");
+		$num_visitas = connection::countReg("foro_visitas", " AND username='".$username."' ");
 
 		return array('Comentarios en los foros' => $num,
 					 'Temas creados en los foros' => $num_temas,

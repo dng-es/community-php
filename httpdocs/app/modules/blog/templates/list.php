@@ -5,10 +5,9 @@
 * @param 	array 		$sub_tema 		tema data
 * @param 	string		$destino 		Links destination (foros, blog, áreas de trabajo)
 */
-function ForoList($sub_tema,$destino = "foro-comentarios")
-{
-	$num_comentarios=connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$sub_tema['id_tema']." ");
-	$num_visitas=connection::countReg("foro_visitas"," AND id_tema=".$sub_tema['id_tema']." ");
+function ForoList($sub_tema, $destino = "foro-comentarios"){
+	$num_comentarios = connection::countReg("foro_comentarios", " AND estado=1 AND id_tema=".$sub_tema['id_tema']." ");
+	$num_visitas = connection::countReg("foro_visitas", " AND id_tema=".$sub_tema['id_tema']." ");
 	$descripcion = blogController::get_resume($sub_tema['descripcion']);
 	$nombre = strip_tags($sub_tema['nombre']);
 	?>

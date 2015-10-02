@@ -42,7 +42,7 @@ $elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY
 					</table>
 				</div>
 				<br />
-				<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>

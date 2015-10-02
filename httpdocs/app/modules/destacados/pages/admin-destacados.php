@@ -1,9 +1,9 @@
 <?php
 addJavascripts(array(getAsset("destacados")."js/admin-destacados.js", "js/jquery.numeric.js"));
 
-templateload("cmbCanales","users");
+templateload("cmbCanales", "users");
 
-session::getFlashMessage( 'actions_message' );
+session::getFlashMessage('actions_message');
 destacadosController::updateAction();		
 ?>
 <div class="row row-top">

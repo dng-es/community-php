@@ -2,10 +2,10 @@
 include_once ("functions.core.php");
 
 //Get requested page. If not requested page get default page
-$page = (isset($_REQUEST['page']) && $_REQUEST['page']!="") ? $_REQUEST['page'] : APP_DEF_PAGE;
+$page = (isset($_REQUEST['page']) && $_REQUEST['page'] != "") ? $_REQUEST['page'] : APP_DEF_PAGE;
 
 //Logut session
-if ($page=='logout') session::destroySession();
+if ($page == 'logout') session::destroySession();
 
 //Login session
 $session = new session();

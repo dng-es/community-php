@@ -1,12 +1,11 @@
 <?php
-templateload("cmbCanales","users");
+templateload("cmbCanales", "users");
 
-function PanelSubirFoto($id_promocion=0){ 
+function PanelSubirFoto($id_promocion = 0){ 
 
 	$module_config = getModuleConfig("fotos");
-	if ($module_config['options']['allow_uploads']==true or $_SESSION['user_perfil']=='admin'){
+	if ($module_config['options']['allow_uploads'] == true or $_SESSION['user_perfil'] == 'admin'){
 	?>
-
 	<h4>
 		<span class="fa-stack fa-sx">
 			<i class="fa fa-circle fa-stack-2x"></i>
@@ -19,7 +18,7 @@ function PanelSubirFoto($id_promocion=0){
 		<input type="hidden" name="id_promocion" id="id_promocion" value="<?php echo $id_promocion;?>"/>
 		<input type="hidden" name="tipo_envio" id="tipo_envio" value="foto"/>
 		<input maxlength="250" name="titulo-foto" id="titulo-foto" type="text" class="form-control" value="" placeholder="<?php echo strTranslate("Photo_title");?>" />
-		<?php if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'):?>
+		<?php if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'formador'):?>
 		<select name="canal-foto" id="canal-foto" class="form-control">
 			<?php ComboCanales()?>
 		</select>

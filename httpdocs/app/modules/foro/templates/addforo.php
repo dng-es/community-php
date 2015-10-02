@@ -9,32 +9,32 @@
 * @param  int   	$ocio  				used for news, blog, ...
 */
 
-templateload("cmbCanales","users");
+templateload("cmbCanales", "users");
 
-function PanelSubirTemaForo($id_tema_parent,$canal,$show_canales=false,$descripcion_foro="",$ocio=0, $id_area=0){
+function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $descripcion_foro = "", $ocio = 0, $id_area = 0){
 
 	//INSERTAR TEMA
 	$foro = new foro();
-	if (isset($_POST['nombre-tema']) and $_POST['nombre-tema']!=""){
-		if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador' and $_SESSION['user_perfil']!='admin_responsables' and $_SESSION['user_perfil']!='foros'){$canal=$_SESSION['user_canal'];}
-		else { $canal=$_POST['canal_tema'];}
+	if (isset($_POST['nombre-tema']) and $_POST['nombre-tema'] != ""){
+		if ($_SESSION['user_perfil'] != 'admin' and $_SESSION['user_perfil'] != 'formador' and $_SESSION['user_perfil'] != 'admin_responsables' and $_SESSION['user_perfil'] != 'foros') $canal = $_SESSION['user_canal'];
+		else $canal = $_POST['canal_tema'];
 		if ($foro->InsertTema($_POST['id_tema_parent'],
 							$_POST['nombre-tema'],
 							$_POST['texto-descripcion'],
 							"",
 							$_SESSION['user_name'],
 							$canal,0,1, '', $_POST['id_area'],0,"")){
-			session::setFlashMessage( 'actions_message', strTranslate("Forum_created"), "alert alert-success");
+			session::setFlashMessage('actions_message', strTranslate("Forum_created"), "alert alert-success");
 		} 
-		else{ session::setFlashMessage( 'actions_message', strTranslate("Error_while_creating_forum"), "alert alert-danger");}		
+		else session::setFlashMessage('actions_message', strTranslate("Error_while_creating_forum"), "alert alert-danger");
 		redirectURL($_SERVER['REQUEST_URI']);
 	} 	
 	
-	$title_add = ($ocio==1) ? "Nueva noticia" : strTranslate("Create_new_forum");
-	$title_add_desc = ($ocio==1) ? "Puedes insertar una nueva noticia. Para ello introduce su título y descripción." : strTranslate("Create_new_forum_label");
-	$title_btn = ($ocio==1) ? "Crear noticia" : strTranslate("Create_forum");
-	$title_name = ($ocio==1) ? "Título de la noticia:" : strTranslate("Title");
-	$title_desc = ($ocio==1) ? "Descripción de la noticia:" : strTranslate("Description");
+	$title_add = ($ocio == 1) ? "Nueva noticia" : strTranslate("Create_new_forum");
+	$title_add_desc = ($ocio == 1) ? "Puedes insertar una nueva noticia. Para ello introduce su título y descripción." : strTranslate("Create_new_forum_label");
+	$title_btn = ($ocio == 1) ? "Crear noticia" : strTranslate("Create_forum");
+	$title_name = ($ocio == 1) ? "Título de la noticia:" : strTranslate("Title");
+	$title_desc = ($ocio == 1) ? "Descripción de la noticia:" : strTranslate("Description");
 	?>
 	<script language="JavaScript" src="<?php echo getAsset("foro");?>js/foro-subtemas.js"></script>
 	<div id="banner-foros-form">

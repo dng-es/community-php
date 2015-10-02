@@ -4,11 +4,17 @@ foroController::exportTemasAction();
 
 addJavascripts(array(getAsset("foro")."js/admin-validacion-foro-temas.js"));
 
-$filtro_temas = (isset($_POST['tipo_search']) and $_POST['tipo_search']!="") ? " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' " : "";
-$find_tipo = (isset($_POST['tipo_search']) and $_POST['tipo_search']!="") ? $_POST['tipo_search'] : "";
+$filtro_temas = (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") ? " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' " : "";
+$find_tipo = (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") ? $_POST['tipo_search'] : "";
 
-if (isset($_POST['find_reg'])) {$filtro_temas.=" AND nombre LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-if (isset($_REQUEST['f'])) {$filtro_temas.=" AND nombre LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];}
+if (isset($_POST['find_reg'])) {
+	$filtro_temas .= " AND nombre LIKE '%".$_POST['find_reg']."%' ";
+	$find_reg = $_POST['find_reg'];
+}
+if (isset($_REQUEST['f'])) {
+	$filtro_temas .= " AND nombre LIKE '%".$_REQUEST['f']."%' ";
+	$find_reg = $_REQUEST['f'];
+}
 
 session::getFlashMessage( 'actions_message' );
 foroController::cancelTemaAction();
@@ -28,7 +34,7 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 				<ul class="nav nav-pills navbar-default"> 
 					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<div class="pull-right">
-						<?php echo SearchForm($elements['reg'],"admin-validacion-foro-temas","searchForm",strTranslate("Search"),strTranslate("Search"),"","navbar-form navbar-left");?>	
+						<?php echo SearchForm($elements['reg'], "admin-validacion-foro-temas", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>	
 					</div>
 				</ul>
 				<div class="table-responsive">
@@ -44,8 +50,8 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 						</tr>
 
 						<?php foreach($elements['items'] as $element):
-						$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
-						$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");	  
+						$num_comentarios = connection::countReg("foro_comentarios", " AND estado=1 AND id_tema=".$element['id_tema']." ");
+						$num_visitas = connection::countReg("foro_visitas", " AND id_tema=".$element['id_tema']." ");	  
 						echo '<tr>';
 						echo '<td nowrap="nowrap">
 								<span class="fa fa-ban icon-table" title="Eliminar"
@@ -76,19 +82,7 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 								  </div><!-- /.modal-dialog -->
 								</div><!-- /.modal -->
 						</td>';
-						if ($element['responsables']==1) {$responsables="SI";}
-						else {$responsables="NO";}
-						// echo '<td>'.$responsables.'</td>';
-						// echo '<td nowrap="nowrap">
-						// <form action="" method="post" role="form" class="form-inline">
-						// <input type="hidden" name="id_tema_tipo" value="'.$element['id_tema'].'">
-						// <input type="hidden" name="tipo_search" value="'.$find_tipo.'">
-						// <select name="find_tipo" id="find_tipo" class="form-control">'.$element['tipo_tema'];				  
-					//          ComboTiposTemas($element['tipo_tema']);
-						// echo '</select>
-						// <input type="submit" value="Modif." class="btn btn-default">
-						// </form>
-						// </td>';
+						$responsables = ($element['responsables'] == 1 ? 'SI' : 'NO');
 						echo '<td>'.$element['nombre'];
 						echo '<br /><em class="text-muted"><small>'.getDateFormat($element['date_tema'], "LONG").'</small></em>';
 						echo '</td>';
@@ -101,7 +95,7 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 					</table>
 				</div>
 				<br />
-				<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$find_reg);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $find_reg);?>
 			</div>
 		</div>
 	</div>
@@ -110,17 +104,16 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 
 
 <?php
-function SearchTemas($tipo_tema)
-{	
-	  echo '<form name="SearchTemas" id="SearchTemas" action="" method="post" role="form">';
-	  if ($marca_tipo==1){$marcado=' checked="checked" ';}
-	  else {$marcado='';}?>
-      <select name="tipo_search" id="tipo_search" class="form-control">
-      <option value="">---Todos---</option>
-      <?php ComboTiposTemas($tipo_tema);?>
-      </select>
-      <br />
-      <button type="submit" id="find-btn" class="btn btn-primary">buscar</button>
-      </FORM>
+function SearchTemas($tipo_tema){	
+	$marcado = ($marca_tipo == 1 ? ' checked="checked" ' : '');
+	?>
+	<form name="SearchTemas" id="SearchTemas" action="" method="post" role="form">
+		<select name="tipo_search" id="tipo_search" class="form-control">
+		<option value="">---Todos---</option>
+		<?php ComboTiposTemas($tipo_tema);?>
+		</select>
+		<br />
+		<button type="submit" id="find-btn" class="btn btn-primary">buscar</button>
+	</form>
 <?php }
 ?>

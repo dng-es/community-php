@@ -20,36 +20,41 @@ $titulo_page="";
 		<?php
 		//OBTENER SUBTEMAS DE FORO
 		$reg = 5;
-		if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
-		if (!isset($pag)) { $inicio = 0; $pag = 1;}
-		else { $inicio = ($pag - 1) * $reg;}
+		if (isset($_GET["pag"])) $pag = $_GET["pag"];
+		if (!isset($pag)){
+			$inicio = 0; 
+			$pag = 1;
+		}
+		else $inicio = ($pag - 1) * $reg;
 
-		$filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
+		$filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
 		$filtro_subtemas = $filtro_blog." AND t.activo=1 AND t.ocio=1 ";
 		//filtro por año y mes
-		if (isset($_REQUEST['a']) and isset($_REQUEST['m']) and $_REQUEST['m']!="" and $_REQUEST['a']!=""){
+		if (isset($_REQUEST['a']) and isset($_REQUEST['m']) and $_REQUEST['m'] != "" and $_REQUEST['a'] != ""){
 			$nombre=strftime("%B",mktime(0, 0, 0, $_REQUEST['m'], 1, 2000));
 			$filtro_subtemas .= " AND MONTH(t.date_tema)=".$_REQUEST['m']." AND YEAR(t.date_tema)=".$_REQUEST['a'];
 			$titulo_page = "<b>".ucfirst($nombre).", ".$_REQUEST['a']."</b>";
 			$url_filters = "&a=".$_REQUEST['a']."&m=".$_REQUEST['m'];
 		}
-		else if (isset($_REQUEST['c']) and $_REQUEST['c']!="") {
-			$filtro_subtemas.=" AND t.tipo_tema LIKE '%".$_REQUEST['c']."%' ";
+		else if (isset($_REQUEST['c']) and $_REQUEST['c'] != "") {
+			$filtro_subtemas.= " AND t.tipo_tema LIKE '%".$_REQUEST['c']."%' ";
 			$find_tipo = $_REQUEST['c'];
 			$titulo_page = "<b>".ucfirst($_REQUEST['c'])."</b>";
 			$url_filters = "&c=".$_REQUEST['c'];
 		}
-		else if (isset($_REQUEST['find_reg']) and $_REQUEST['find_reg']!="") {
-			$filtro_subtemas.=" AND t.nombre LIKE '%".$_REQUEST['find_reg']."%' ";$find_reg=$_REQUEST['find_reg'];
+		else if (isset($_REQUEST['find_reg']) and $_REQUEST['find_reg'] != "") {
+			$filtro_subtemas.=" AND t.nombre LIKE '%".$_REQUEST['find_reg']."%' ";
+			$find_reg = $_REQUEST['find_reg'];
 			$titulo_page = strTranslate("Search_results")." <b>".$_REQUEST['find_reg']."</b>";
 		}
-		else if (isset($_REQUEST['f']) and $_REQUEST['f']!="") {
-			$filtro_subtemas.=" AND t.nombre LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];
+		else if (isset($_REQUEST['f']) and $_REQUEST['f'] != "") {
+			$filtro_subtemas.= " AND t.nombre LIKE '%".$_REQUEST['f']."%' ";
+			$find_reg = $_REQUEST['f'];
 			$titulo_page = strTranslate("Search_results")." <b>".$_REQUEST['f']."</b>";
 		}	  
-		else if (isset($_POST['tipo-sel']) and $_POST['tipo-sel']==1) {
-			$filtro_subtemas.= " AND t.tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
-			$find_tipo=$_POST['find_tipo'];
+		else if (isset($_POST['tipo-sel']) and $_POST['tipo-sel'] == 1) {
+			$filtro_subtemas .= " AND t.tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
+			$find_tipo = $_POST['find_tipo'];
 		}
 
 		menu::breadcrumb(array(
@@ -68,7 +73,7 @@ $titulo_page="";
 			 </div>';			
 		endforeach;  
 
-		Paginator($pag,$reg,$total_reg,'blog-list'.$url_filters,'',$find_reg); ?>	 
+		Paginator($pag, $reg, $total_reg, 'blog-list'.$url_filters, '', $find_reg); ?>	 
 
 	</div>
 	<div class="app-sidebar">

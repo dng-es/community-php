@@ -1702,24 +1702,16 @@ dt {
 #photos {
 	background-color:transparent;
 	text-align:center;
-	padding:10px 0%;
-	display: flex;
-	display: -webkit-flex;
-	flex-flow: row wrap;
-    -webkit-flex-flow: row wrap;
+	padding:10px 0;
+	display: inline-block;
 	justify-content: center;
 
 	div{
-		display: flex;
-		display: -webkit-flex;   
-		flex-direction: column;     
-		-webkit-flex-direction: column;
+		display: inline-block;
 		margin: 10px 10px;
 		position:relative;
 
 		@media screen and (max-width: $break-medium) {
-			order: 0;
-			-webkit-order: 0; 
 			width: 100%;
 		}
 

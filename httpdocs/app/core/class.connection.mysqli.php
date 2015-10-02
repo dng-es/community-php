@@ -18,18 +18,16 @@ class connection_sql {
 	}
 	
 	public function __get($name) {
-		if(defined("self::$name")) { return constant("self::$name");}
+		if(defined("self::$name")) return constant("self::$name");
 		trigger_error ("$name is not defined");
 	}
 	
 	public static function conex(){
 		//Database conection
 		global $ini_conf;
-		$link = mysqli_connect($ini_conf['host'],$ini_conf['user'],$ini_conf['pass'],$ini_conf['db']);
+		$link = mysqli_connect($ini_conf['host'], $ini_conf['user'], $ini_conf['pass'], $ini_conf['db']);
 		mysqli_set_charset($link,'utf8');
-		if (mysqli_connect_errno($link)){
-			die(mysqli_connect_error());
-		}
+		if (mysqli_connect_errno($link)) die(mysqli_connect_error());
 		return $link;
 	}
 
@@ -42,10 +40,8 @@ class connection_sql {
 		$link = self::conex();
 
 		//debugger control		
-		if ((isset($ini_conf['debug_app']) and ($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2)) and $consulta!="") {
-			if (class_exists('debugger')) {
-				debugger::addError(0, $consulta, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql");
-			}
+		if ((isset($ini_conf['debug_app']) and ($ini_conf['debug_app'] == 1 or $ini_conf['debug_app'] == 2)) and $consulta != "") {
+			if (class_exists('debugger')) debugger::addError(0, $consulta, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql");
 		}
 		
 		if ($da_query = mysqli_query($link, $consulta)) {
@@ -53,7 +49,7 @@ class connection_sql {
 			return $da_query;  
 		}
 		else {	
-			if ($ini_conf['debug_app']==1 or $ini_conf['debug_app']==2) {
+			if ($ini_conf['debug_app'] == 1 or $ini_conf['debug_app'] == 2) {
 				debugger::addError(0, $consulta." - ".mysqli_error($link), $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql_error");
 			}
 			self::close_conex($link);

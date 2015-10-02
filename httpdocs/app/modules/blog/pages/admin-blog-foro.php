@@ -7,12 +7,12 @@ $users = new users();
 
 //VALIDAR CONTENIDOS
 if (isset($_REQUEST['act'])) { 	 
-if ($_REQUEST['act']=='foro_ok'){
+if ($_REQUEST['act'] == 'foro_ok'){
   $foro->cambiarEstado($_REQUEST['id'],1);
   $users->sumarPuntos($_REQUEST['u'],PUNTOS_FORO,PUNTOS_FORO_MOTIVO);
 }
-elseif ($_REQUEST['act']=='tema_ko'){$foro->cambiarEstadoTema($_REQUEST['id'],0);}
-elseif ($_REQUEST['act']=='foro_ko'){
+elseif ($_REQUEST['act'] == 'tema_ko'){$foro->cambiarEstadoTema($_REQUEST['id'],0);}
+elseif ($_REQUEST['act'] == 'foro_ko'){
 	$foro->cambiarEstado($_REQUEST['id'],2);
 	$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
 }
@@ -20,7 +20,7 @@ header("Location: admin-blog-foro?id=".$_REQUEST['idt']);
 }
 
 //EXPORT EXCEL - SHOW AND GENERATE
-if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 	$foro = new foro(); 
 	$elements_exp=$foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['id']." ");
   	download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -28,12 +28,15 @@ if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
 	die();
 }    
 
-if (isset($_POST['tipo_search']) and $_POST['tipo_search']!="") {$filtro_temas.=" AND tipo_tema LIKE '%".$_POST['tipo_search']."%' ";$find_tipo=$_POST['tipo_search'];}
+if (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") {
+	$filtro_temas .= " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' ";
+	$find_tipo = $_POST['tipo_search'];
+}
 
 $foro = new foro();
 $calculo = strtotime("-4 days");
-$fecha_ayer= date("Y-m-d", $calculo);
-$id_tema= $_REQUEST['id'];
+$fecha_ayer = date("Y-m-d", $calculo);
+$id_tema = $_REQUEST['id'];
 $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." ORDER BY id_comentario DESC");
 ?>
 <div class="row row-top">
@@ -50,7 +53,7 @@ $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." 
 			<li><a href="admin-blog-new?id=<?php echo $_REQUEST['id'];?>"><?php echo strtolower(strTranslate("Edit"));?></a></li>
 			<li><a href="blog?id=<?php echo $_REQUEST['id'];?>">Ver entrada</a></li>
 		</ul>
-		<?php if (count($pendientes)==0): ?>
+		<?php if (count($pendientes) == 0): ?>
 		<div class="alert alert-danger">No hay mensajes en la entrada</div>
 		<?php else: ?>
 		<div class="table-responsive">

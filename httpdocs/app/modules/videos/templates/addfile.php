@@ -1,10 +1,9 @@
 <?php
-templateload("cmbCanales","users");
+templateload("cmbCanales", "users");
 
 function PanelSubirVideo($id_promocion = 0){ 
 	$module_config = getModuleConfig("videos");
-	if ($module_config['options']['allow_uploads']==true or $_SESSION['user_perfil']=='admin'){
-	?>
+	if ($module_config['options']['allow_uploads'] == true or $_SESSION['user_perfil'] == 'admin'){ ?>
 	<h4>
 		<span class="fa-stack fa-sx">
 			<i class="fa fa-circle fa-stack-2x"></i>
@@ -18,7 +17,7 @@ function PanelSubirVideo($id_promocion = 0){
 		<input type="hidden" name="tipo_envio" id="tipo_envio" value="video"/>
 		<label for="titulo-video" class="sr-only"><?php echo strTranslate("Title");?>:</label>
 		<input maxlength="250" name="titulo-video" id="titulo-video" type="text" class="form-control" value="" placeholder="<?php echo strTranslate("Video_title");?>" />
-		<?php if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'): ?>
+		<?php if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'formador'): ?>
 		<label for="canal-video" class="sr-only">Canal:</label>
 		<select name="canal-video" id="canal-video" class="form-control">
 			<?php ComboCanales();?>

@@ -12,7 +12,7 @@ class blogCore{
 	 * @return 	array           			Array con resultados
 	 */
 	public function userModuleStatistis($username){
-		$num = connection::countReg("foro_comentarios c LEFT JOIN foro_temas t ON c.id_tema=t.id_tema "," AND t.ocio=1 AND c.user_comentario='".$username."' ");
+		$num = connection::countReg("foro_comentarios c LEFT JOIN foro_temas t ON c.id_tema=t.id_tema ", " AND t.ocio=1 AND c.user_comentario='".$username."' ");
 
 
 		return array('Comentarios en los blogs' => $num);	

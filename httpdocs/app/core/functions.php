@@ -13,7 +13,7 @@ function sanitizeInput($text){
  * @param 	string  	$msg      		Message text
  * @param 	integer 	$msg_show 		Opción para mostrar o no alertas
  */
-function ErrorMsg($msg,$msg_show = 1){
+function ErrorMsg($msg, $msg_show = 1){
 	if ($msg_show == 1) {echo '<div class="alert alert-danger">'.$msg.'</div>';}
 }
 
@@ -44,7 +44,7 @@ function NormalizeText( $text, $text_separator = "_"){
  * @param 	int 		$num_car   		Numero de carateres
  * @return 	string  	        		Texto acortado con puntos suspensivos si es mas largo que $num_car
  */
-function shortText($text_html,$num_car){
+function shortText($text_html, $num_car){
 	if (strlen($text_html) <= $num_car) { return $text_html; }
 	else { return substr(strip_tags($text_html),0,strpos(strip_tags($text_html),' ',$num_car))."..."; }
 }
@@ -99,7 +99,7 @@ function getDateFormat($date, $format){
  * @param 	string  	$from_mail_real Nombre compleato del remitente
  * @return 	boolean  	        		Resultado del envio
  */
-function SendEmail($from_mail,$to_mail,$subject_mail,$body_mail,$html_mode = 0,$from_mail_real = ''){
+function SendEmail($from_mail, $to_mail, $subject_mail, $body_mail, $html_mode = 0, $from_mail_real = ''){
 	$headers_mail = "";
 	if ($html_mode == 1) {
 		$headers_mail = "MIME-Version: 1.0\r\n";
@@ -108,7 +108,7 @@ function SendEmail($from_mail,$to_mail,$subject_mail,$body_mail,$html_mode = 0,$
 	$headers_mail .= "From: ".$from_mail_real." <".$from_mail.">";
 	//$headers_mail .= 'From: '.$from_mail_real.' <'.$from_mail.'>\nReply-To: '.$from_mail.'\nX-Mailer: PHP/' . phpversion();
 
-	if (mail($to_mail,$subject_mail,$body_mail,$headers_mail)) { return true;}
+	if (mail($to_mail,$subject_mail,$body_mail,$headers_mail)) return true;
 }
 
 /**
@@ -120,7 +120,7 @@ function PaginatorPages($reg){
 	$find_reg = "";
 	$pag = 1;
 	$inicio = 0;
-	if (isset($_GET["pag"]) and $_GET["pag"]!="") {
+	if (isset($_GET["pag"]) and $_GET["pag"] != "") {
 		$pag = $_GET["pag"];
 		$inicio = ($pag - 1) * $reg;
 	}
@@ -140,41 +140,39 @@ function PaginatorPages($reg){
  * @param 	integer 	$num_paginas 	Número máximo de páginas a mostrar en el paginador
  * @param 	string  	$addClass    	Clase CSS
  */
-function Paginator($pag,$reg,$total_reg,$pag_dest,$title,$find_reg="",$num_paginas=10,$addClass="", $pagecount_dest = "pag"){
+function Paginator($pag, $reg, $total_reg, $pag_dest, $title, $find_reg = "", $num_paginas = 10, $addClass = "", $pagecount_dest = "pag"){
 	$total_pag = ceil($total_reg / $reg);
 	if ($total_pag > 1){
-		$separator = (strpos($pag_dest, "?")==0  ? "?" : "&");
-		$reg_ini = (($pag-1) * $reg) + 1;
-		$reg_end = $pag*$reg;
-		if ($reg_ini > $total_reg) { $reg_ini = $total_reg; }
-		if ($reg_end > $total_reg) { $reg_end = $total_reg; }
+		$separator = (strpos($pag_dest, "?") == 0  ? "?" : "&");
+		$reg_ini = (($pag - 1) * $reg) + 1;
+		$reg_end = $pag * $reg;
+		if ($reg_ini > $total_reg) $reg_ini = $total_reg;
+		if ($reg_end > $total_reg) $reg_end = $total_reg;
 		echo '<div class="pagination-centered">
 				<ul class="pagination">';
 		//echo '<span class="messages"> '.$title.' '.$total_reg.' ('.$reg_ini.'-'.$reg_end.')</span>';
-		if(($pag - 1) > 0) { echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'=1&regs='.$reg.'&f='.$find_reg.'">&laquo;</a></li>';}
-		else { echo '<li class="disabled"><a href="#">&laquo;</a></li>';}
+		if(($pag - 1) > 0) echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'=1&regs='.$reg.'&f='.$find_reg.'">&laquo;</a></li>';
+		else echo '<li class="disabled"><a href="#">&laquo;</a></li>';
 		
-		$pagina_inicial = $pag-1;
-		if ($pagina_inicial <= 0){ $pagina_inicial = 1; }
+		$pagina_inicial = $pag - 1;
+		if ($pagina_inicial <= 0) $pagina_inicial = 1;
 		$pagina_final = $pagina_inicial + $num_paginas;
 		
-		if ($pag > 1){ echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'='.($pag-1).'&regs='.$reg.'&f='.$find_reg.'">anterior</a></li>';}
-		else { echo '<li class="disabled"><a href="#">anterior</a></span></li>';}
+		if ($pag > 1) echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'='.($pag - 1).'&regs='.$reg.'&f='.$find_reg.'">anterior</a></li>';
+		else echo '<li class="disabled"><a href="#">anterior</a></span></li>';
 		
 		for ($i = $pagina_inicial; $i <= $pagina_final; $i++){
 			if($i <= $total_pag){
-				if ($pag == $i) { echo '<li class="active"><a href="#">'.$pag.'</a></li>';}
-				else { echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'='.$i.'&regs='.$reg.'&f='.$find_reg.'">'.$i.'</a></li>';}
+				if ($pag == $i) echo '<li class="active"><a href="#">'.$pag.'</a></li>';
+				else echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'='.$i.'&regs='.$reg.'&f='.$find_reg.'">'.$i.'</a></li>';
 			}
 		}
 		
-		if ($pag < $total_pag){
-			echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'='.($pag+1).'&regs='.$reg.'&f='.$find_reg.'">siguiente</a></li>';
-		}
-		else { echo '<li class="disabled"><a href="#">siguiente</a></li>';}
+		if ($pag < $total_pag) echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'='.($pag+1).'&regs='.$reg.'&f='.$find_reg.'">siguiente</a></li>';
+		else echo '<li class="disabled"><a href="#">siguiente</a></li>';
 		
-		if(($pag + 1) <= $total_pag) { echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'='.$total_pag.'&regs='.$reg.'&f='.$find_reg.'">&raquo;</a></li>';}
-		else { echo '<li class="disabled"><a href="#">&raquo;</a></li>';}
+		if(($pag + 1) <= $total_pag) echo '<li><a href="'.$pag_dest.$separator.$pagecount_dest.'='.$total_pag.'&regs='.$reg.'&f='.$find_reg.'">&raquo;</a></li>';
+		else echo '<li class="disabled"><a href="#">&raquo;</a></li>';
 		echo '</ul>
 			</div>';
 	}
@@ -363,22 +361,21 @@ function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz0
  * @param 	string 		$class_form  	Clase CSS para el form
  */
 
-function SearchForm($reg, $pag, $formId="searchForm", $labelForm="Buscar:", $labelButton="ir", $clase_css="", $class_form="", $method_form="post"){	
-	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
-
-	echo '<div class="'.$clase_css.'">  
-			<form action="'.$pag.'?regs='.$reg.'" method="'.$method_form.'" name="'.$formId.'" id="'.$formId.'" class="'.$class_form.'">		  
-				<div class="input-group">
-					<label class="sr-only" for="find_reg">'.$labelForm.'</label>
-					<input type="text" class="form-control" id="find_reg" name="find_reg" placeholder="'.$labelForm.'" value="'.$busqueda.'">
-					<input type="hidden" name="registros_form" value="'.$reg.'" />
-					<div class="input-group-btn">
-						<button type="submit" class="btn btn-default" title="'.$labelButton.'" destino="'.$formId.'"><i class="glyphicon glyphicon-search"></i></button>
-					</div>
-				</div>  
-			</form>
-		  </div>';	
-}
+function SearchForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "", $class_form = "", $method_form = "post"){	
+	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : ""); ?>
+	<div class="<?php echo $clase_css;?>">  
+		<form action="<?php echo $pag.'?regs='.$reg;?>" method="<?php echo $method_form;?>" name="<?php echo $formId;?>" id="<?php echo $formId;?>" class="<?php echo $class_form;?>">
+			<div class="input-group">
+				<label class="sr-only" for="find_reg"><?php echo $labelForm;?></label>
+				<input type="text" class="form-control" id="find_reg" name="find_reg" placeholder="<?php echo $labelForm;?>" value="<?php echo $busqueda;?>">
+				<input type="hidden" name="registros_form" value="<?php echo $reg;?>" />
+				<div class="input-group-btn">
+					<button type="submit" class="btn btn-default" title="<?php echo $labelButton;?>" destino="<?php echo $formId;?>"><i class="glyphicon glyphicon-search"></i></button>
+				</div>
+			</div>
+		</form>
+	</div>
+<?php }
 
 /**
  * Descarga un archivo
@@ -397,9 +394,9 @@ function DescargarArchivo($fichero){
  * @param 	string 		$tipo_tema 		Elemento del combo marcado
  */
 function ComboTiposTemas($tipo_tema){ ?>
-      <option value="Promociones" <?php if ($tipo_tema=='Promociones'){ echo ' selected="selected" ';}?>>Promociones</option>
-      <option value="Formacion" <?php if ($tipo_tema=='Formacion'){ echo ' selected="selected" ';}?>>Formacion</option>
-      <option value="Tarifas" <?php if ($tipo_tema=='Tarifas'){ echo ' selected="selected" ';}?>>Tarifas</option>
+      <option value="Promociones" <?php if ($tipo_tema == 'Promociones') echo ' selected="selected" ';?>>Promociones</option>
+      <option value="Formacion" <?php if ($tipo_tema == 'Formacion') echo ' selected="selected" ';?>>Formacion</option>
+      <option value="Tarifas" <?php if ($tipo_tema == 'Tarifas') echo ' selected="selected" ';?>>Tarifas</option>
 
 <?php	
 }
@@ -409,10 +406,10 @@ function ComboTiposTemas($tipo_tema){ ?>
  * @param 	string 		$perfil 		Elemento del combo marcado
  */
 function ComboPerfiles($perfil){ ?>
-	<option value="usuario" <?php if ($perfil=='usuario'){ echo ' selected="selected" ';}?>>Comercial</option>
-	<option value="responsable" <?php if ($perfil=='responsable'){ echo ' selected="selected" ';}?>>Responsable</option>
-	<option value="regional" <?php if ($perfil=='regional'){ echo ' selected="selected" ';}?>>Regional</option>
-	<option value="admin" <?php if ($perfil=='admin'){ echo ' selected="selected" ';}?>>Administrador</option>
+	<option value="usuario" <?php if ($perfil=='usuario') echo ' selected="selected" ';?>>Comercial</option>
+	<option value="responsable" <?php if ($perfil=='responsable') echo ' selected="selected" ';?>>Responsable</option>
+	<option value="regional" <?php if ($perfil=='regional') echo ' selected="selected" ';?>>Regional</option>
+	<option value="admin" <?php if ($perfil=='admin') echo ' selected="selected" ';?>>Administrador</option>
 
 <?php	
 }
@@ -554,8 +551,8 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
  */
 function uploadFileToFolder($fichero, $destino){
 	$nombre_archivo = "";
-	if (isset($fichero) and $fichero['name']!="") {			
-		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
+	if (isset($fichero) and $fichero['name'] != "") {			
+		$nombre_archivo = time().'_'.str_replace(" ", "_", $fichero['name']);
 		$nombre_archivo = strtolower($nombre_archivo);
 		$nombre_archivo = NormalizeText($nombre_archivo);		
 		move_uploaded_file($fichero['tmp_name'], $destino.$nombre_archivo);
@@ -570,7 +567,7 @@ function uploadFileToFolder($fichero, $destino){
  */
 function HTMLtoPDF($content, $size = 'A4'){
     require_once('html2pdf/html2pdf.class.php');
-    $html2pdf = new HTML2PDF('P',$size,'es');
+    $html2pdf = new HTML2PDF('P', $size, 'es');
     $html2pdf->WriteHTML($content);
     $html2pdf->Output('exemple.pdf');
 }
@@ -627,7 +624,7 @@ function filesToZip($array_files){
 
 	for ($i = 0; $i <= count($array_files); $i++) {
 		if (file_exists($array_files[$i][0].$array_files[$i][1])){
-			$zipfile->add_file(implode("",file($array_files[$i][0].$array_files[$i][1])), $array_files[$i][1]);
+			$zipfile->add_file(implode("", file($array_files[$i][0].$array_files[$i][1])), $array_files[$i][1]);
 		}
 	}
 
@@ -643,7 +640,7 @@ function filesToZip($array_files){
  * @param  array  		$disallowed_params 	Parámetros excluidos
  * @return string                    		URL limpiada
  */
-function cleanUrl($url,$disallowed_params = array('PHPSESSID')){
+function cleanUrl($url, $disallowed_params = array('PHPSESSID')){
 	$parsed = @parse_url($url);
 	$params = array();
 
@@ -688,7 +685,7 @@ function cleanUrl($url,$disallowed_params = array('PHPSESSID')){
  * @param  mixed $column La columna de valores a devolver. Puede ser un interger o string
  * @return array         array de valores de la columna especificada
  */
-function arraycolumn($array, $column, $index_key=null){
+function arraycolumn($array, $column, $index_key = null){
 	if (function_exists("array_column")){
 		return array_column($array, $column, $index_key);
 	}
@@ -706,7 +703,7 @@ function arraycolumn($array, $column, $index_key=null){
  * @param  string 	$sort_mode 	Modo de ordenación
  * @return array            	Array ordenado
  */
-function arraySort($array, $field, $sort_mode=SORT_DESC){
+function arraySort($array, $field, $sort_mode = SORT_DESC){
 		foreach ($array as $clave => $fila) {
 			$posicion[$clave] = $fila[$field];
 		}
@@ -725,7 +722,7 @@ function showHtmlLinks($string){
 	//filtro los enlaces normales
 	$string = preg_replace("/((http|https|www)[^\s]+)/", '<a target=\"_blank\" href="$1">$0</a>', $string);
 	//miro si hay enlaces con solamente www, si es así le añado el http://
-	$string= preg_replace("/href=\"www/", 'href="http://www', $string);	 
+	$string = preg_replace("/href=\"www/", 'href="http://www', $string);	 
 	//saco los enlaces de twitter
 	$string = preg_replace("/(@[^\s]+)/", '<a target=\"_blank\"  href="http://twitter.com/intent/user?screen_name=$1">$0</a>', $string);
 	$string = preg_replace("/(#[^\s]+)/", '<a target=\"_blank\"  href="http://twitter.com/search?q=$1">$0</a>', $string);
@@ -742,7 +739,6 @@ function prepareString($string){
 	$string = str_replace('"', '', $string);
 	$string = str_replace("'", "", $string);
 	$string = strip_tags ($string);
-
 	return $string;
 }
 ?>

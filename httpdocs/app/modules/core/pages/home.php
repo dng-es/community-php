@@ -3,21 +3,21 @@
 addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js", 
 					 getAsset("core")."js/home.js"));
 
-templateload("reply","muro");
-templateload("show","novedades");
-templateload("panels","destacados");
-templateload("cmbCanales","users");
+templateload("reply", "muro");
+templateload("show", "novedades");
+templateload("panels", "destacados");
+templateload("cmbCanales", "users");
 
 //usuarios conectados
-$filtroCanal= ($_SESSION['user_canal']!="admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') " : "");
+$filtroCanal = ($_SESSION['user_canal'] != "admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') " : "");
 $users = new users();
 $users_conn = count($users->getUsersConn($filtroCanal));
 
-$last_photo = fotosController::getListAction(1, " ORDER BY id_file DESC ");
+$last_photo = fotosController::getListAction(1, " AND estado=1 ORDER BY id_file DESC ");
 $last_video = videosController::getListAction(1, " AND estado=1 ");
 $last_foros = foroController::getLastTemasAction(4, " AND t.id_area=0 AND ocio=0 ");
 
-$filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
+$filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
 $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND activo=1 AND id_tema_parent=0 ORDER BY id_tema DESC ");
 ?>
 <div class="row row-top">

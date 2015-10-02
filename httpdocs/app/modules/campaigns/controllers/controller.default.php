@@ -37,61 +37,57 @@ class campaignsController{
 	}	
 
 	public static function createAction(){
-		if (isset($_POST['name_campaign']) and $_POST['name_campaign']!="" and $_POST['id_campaign']==0){
+		if (isset($_POST['name_campaign']) and $_POST['name_campaign'] != "" and $_POST['id_campaign'] == 0){
 			$campaigns = new campaigns();
 			$id_campaign = 0;
 			$name_campaign = str_replace("'", "´", $_POST['name_campaign']);
 			$desc_campaign = str_replace("'", "´", $_POST['desc_campaign']);
 			$id_type = $_POST['id_type'];
-			$novedad = ($_POST['novedad']=='on') ? 1 : 0;
+			$novedad = ($_POST['novedad'] == 'on') ? 1 : 0;
 			
 			$imagen_mini = uploadFileToFolder($_FILES['nombre-fichero'], "images/banners/");
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");
 
-			if ($campaigns->insertCampaigns($name_campaign,$desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad)) {
-				session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
+			if ($campaigns->insertCampaigns($name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad)) {
+				session::setFlashMessage('actions_message', "Registro insertado correctamente.", "alert alert-success");
 				$id_campaign = connection::SelectMaxReg("id_campaign","campaigns","");
 			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
-			}
+			else
+				session::setFlashMessage('actions_message', "Error al insertar el registro.", "alert alert-danger");
 
 			redirectURL("admin-campaign?id=".$id_campaign);
 		}		
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['name_campaign']) and $_POST['name_campaign']!="" and $_POST['id_campaign']>0){
+		if (isset($_POST['name_campaign']) and $_POST['name_campaign'] != "" and $_POST['id_campaign'] > 0){
 			$campaigns = new campaigns();
 			$id_campaign = $_POST['id_campaign'];
 			$name_campaign = str_replace("'", "´", $_POST['name_campaign']);
 			$desc_campaign = str_replace("'", "´", $_POST['desc_campaign']);
 			$id_type = $_POST['id_type'];
-			$novedad = ($_POST['novedad']=='on') ? 1 : 0;
+			$novedad = ($_POST['novedad'] == 'on') ? 1 : 0;
 			
 			$imagen_mini = uploadFileToFolder($_FILES['nombre-fichero'], "images/banners/");
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");		
 
-			if ($campaigns->updateCampaigns($id_campaign, $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad)) {
-				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
-			}
+			if ($campaigns->updateCampaigns($id_campaign, $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad)) 
+				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+			else
+				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
 			
 			redirectURL("admin-campaign?id=".$id_campaign);
 		}
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$campaigns = new campaigns();
-			if ($campaigns->deleteCampaigns($_REQUEST['id'])) {
-				session::setFlashMessage( 'actions_message', "Registro eliminado correctamente", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
-			}
+			if ($campaigns->deleteCampaigns($_REQUEST['id'])) 
+				session::setFlashMessage('actions_message', "Registro eliminado correctamente", "alert alert-success");
+			else
+				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+
 			redirectURL("admin-campaigns");
 		}
 	}
@@ -111,7 +107,7 @@ class campaignsController{
 
 	public static function getItemTypesAction($id = 0){
 		$id = isset($_REQUEST['id']) ? $_REQUEST['id'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : 0);
-		if ($id!=0){
+		if ($id != 0){
 			$campaigns = new campaigns();
 			$plantilla = $campaigns->getCampaignsTypes(" AND id_campaign_type=".$id);	
 			return $plantilla[0];
@@ -119,51 +115,47 @@ class campaignsController{
 	}
 
 	public static function createTypeAction(){
-		if (isset($_POST['name']) and $_POST['name']!="" and $_POST['id']==0){
+		if (isset($_POST['name']) and $_POST['name']!="" and $_POST['id'] == 0){
 			$campaigns = new campaigns();
 			$id = 0;
 			$name = str_replace("'", "´", $_POST['name']);
 			$desc = str_replace("'", "´", $_POST['desc']);
 
 			if ($campaigns->insertCampaignsType($name,$desc)) {
-				session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
-				$id = connection::SelectMaxReg("id_campaign_type","campaigns_types","");
+				session::setFlashMessage('actions_message', "Registro insertado correctamente.", "alert alert-success");
+				$id = connection::SelectMaxReg("id_campaign_type", "campaigns_types", "");
 			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
-			}
+			else 
+				session::setFlashMessage('actions_message', "Error al insertar el registro.", "alert alert-danger");
 
 			redirectURL("admin-campaigns-type?id=".$id);
 		}		
 	}
 
 	public static function updateTypeAction(){
-		if (isset($_POST['name']) and $_POST['name']!="" and $_POST['id']>0){
+		if (isset($_POST['name']) and $_POST['name'] != "" and $_POST['id'] > 0){
 			$campaigns = new campaigns();
 			$id = $_POST['id'];
 			$name = str_replace("'", "´", $_POST['name']);
 			$desc = str_replace("'", "´", $_POST['desc']);
 
-			if ($campaigns->updateCampaignsType($id, $name, $desc)) {
-				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
-			}
+			if ($campaigns->updateCampaignsType($id, $name, $desc)) 
+				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+			else
+				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
 			
 			redirectURL("admin-campaigns-type?id=".$id);
 		}
 	}	
 
 	public static function deleteTypeAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$campaigns = new campaigns();
-			if ($campaigns->deleteCampaignsType($_REQUEST['id'])) {
-				session::setFlashMessage( 'actions_message', "Registro eliminado correctamente", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
-			}
+			if ($campaigns->deleteCampaignsType($_REQUEST['id'])) 
+				session::setFlashMessage('actions_message', "Registro eliminado correctamente", "alert alert-success");
+			else 
+				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+
 			redirectURL("admin-campaigns-types");
 		}
 	}			

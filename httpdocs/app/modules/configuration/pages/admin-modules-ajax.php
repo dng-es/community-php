@@ -19,7 +19,7 @@ session::ValidateSessionAjax();
 
 <?php
 
-if (isset($_REQUEST['module']) and $_REQUEST['module']!=""){
+if (isset($_REQUEST['module']) and $_REQUEST['module'] != ""){
 	$module_config = getModuleConfig($_REQUEST['module']);
 	if (isset($module_config['options'])): ?>
 		<form method="post" action="" role="form" class="form-horizontal" name="configForm" id="configForm">
@@ -35,7 +35,7 @@ if (isset($_REQUEST['module']) and $_REQUEST['module']!=""){
 						<div class="col-sm-offset-4 col-sm-8">
 							<div class="checkbox">
 								<label>
-									<input id="<?php echo $element;?>" name="<?php echo $element;?>" type="checkbox" <?php echo ($module_config['options'][$element]===true ? ' checked="checked" ' : ' data-d="no" ');?> /> 
+									<input id="<?php echo $element;?>" name="<?php echo $element;?>" type="checkbox" <?php echo ($module_config['options'][$element] === true ? ' checked="checked" ' : ' data-d="no" ');?> /> 
 									<?php echo $element_name;?>
 								</label>
 							</div>

@@ -73,7 +73,7 @@ templateload("cmbCanales","users");
 					<input type="submit" name="SubmitData" class="btn btn-primary btn-block" value="Guardar entrada" />
 					<hr />
 					<?php
-						if ( $id>0 ){
+						if ($id > 0){
 							$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$id." ");
 							echo '<a target="_blank" href="blog?id='.$id.'" title="ver entrada">Ver entrada</a><br />';
 							echo '<a href="admin-blog-foro?id='.$id.'" title="comentario">Comentarios de la entrada ('.$num_comentarios.')</a><br />';
@@ -87,7 +87,7 @@ templateload("cmbCanales","users");
 				<div class="panel-body">
 					<p>Selecciona la imágen principal de la entrada:</p>
 					<?php
-						if (isset($elements[0]['imagen_tema']) and $elements[0]['imagen_tema']!=""){
+						if (isset($elements[0]['imagen_tema']) and $elements[0]['imagen_tema'] != ""){
 							echo '<img src="images/foro/'.$elements[0]['imagen_tema'].'" style="width: 100%" class="responsive" />';
 						}
 					?>

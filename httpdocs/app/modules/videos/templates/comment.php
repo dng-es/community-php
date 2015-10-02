@@ -1,6 +1,6 @@
 <?php
 
-templateload("tipuser","users");
+templateload("tipuser", "users");
 
 function videoCommentGallery($comentarios, $destino = "videos-comentarios"){
 	if (count($comentarios) > 0){
@@ -8,12 +8,10 @@ function videoCommentGallery($comentarios, $destino = "videos-comentarios"){
 			videoComment($comentario, $destino);
 		endforeach;	
 	}
-	else{
-		echo '<br /><div class="alert alert-warning"><i class=" fa fa-info-circle"></i> '.strTranslate("No_video_comments").'</div>';
-	}
+	else echo '<br /><div class="alert alert-warning"><i class=" fa fa-info-circle"></i> '.strTranslate("No_video_comments").'</div>';
 }
 
-function videoComment($comentario, $destino = "videos-comentarios"){?>
+function videoComment($comentario, $destino = "videos-comentarios"){ ?>
 	<div class="media media-comment">
 		<?php userFicha($comentario);?>
 		<p>

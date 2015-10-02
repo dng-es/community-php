@@ -43,7 +43,7 @@ class connection extends connection_sql{
 	 * @return int 							Number of records
 	 */
 	public static function sumReg($table, $field, $filter){
-		$Sql="SELECT IFNULL(sum(".$field."), 0) AS table_sum FROM ".$table." WHERE 1=1 ".$filter;
+		$Sql = "SELECT IFNULL(sum(".$field."), 0) AS table_sum FROM ".$table." WHERE 1=1 ".$filter;
 		if (($result = self::execute_query($Sql)) !== false){
 			$row = self::get_result($result);
 			return $row['table_sum'];

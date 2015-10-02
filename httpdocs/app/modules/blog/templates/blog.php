@@ -8,7 +8,7 @@ function archivoBlog($elements){
 			  </button>
 			  <ul class="dropdown-menu" style="width:96%" role="menu">';
 				foreach($elements as $element):
-					$nombre=strftime("%B",mktime(0, 0, 0, $element['mes'], 1, 2000));
+					$nombre = strftime("%B",mktime(0, 0, 0, $element['mes'], 1, 2000));
 					//echo '<option value="'.$element['mes'].','.$element['ano'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</option>';
 					echo '<li><a href="blog-list?a='.$element['ano'].'&m='.$element['mes'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</a></li>';
 				endforeach;

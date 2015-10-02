@@ -15,22 +15,25 @@ $plantilla = campaignsController::getItemTypesAction();
 		<?php 
 		$columna = 1;
 		foreach($elements['items'] as $element): 
-			if ($columna ==1){echo '<div class="row">';}
+			if ($columna == 1) echo '<div class="row">';
 		?>	
 			<div class="col-md-3">
 				<a href="user-campaign?id=<?php echo $element['id_campaign'];?>">
 					<h3><?php echo $element['name_campaign'];?></h3>
 					<img src="images/banners/<?php echo $element['imagen_mini']?>" style="width:100%" />
-					<p class="legend"><?php echo $element['novedad']==1 ? '<span class="label label-success">novedad</span> ' : '';?><?php echo $element['desc_campaign'];?></p>
+					<p class="legend"><?php echo $element['novedad'] == 1 ? '<span class="label label-success">novedad</span> ' : '';?><?php echo $element['desc_campaign'];?></p>
 				</a>
 			</div>
 		<?php 
-			if ($columna == 4){echo '</div>';$columna=0;}
+			if ($columna == 4){
+				echo '</div>';
+				$columna = 0;
+			}
      		$columna++;
 		endforeach;
-		if ($columna == 2){echo '</div>';}
+		if ($columna == 2) echo '</div>';
 		?>
 
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
 </div>

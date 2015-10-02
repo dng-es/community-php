@@ -7,7 +7,7 @@ class campaigns{
 	 * @return array 				Array con registros
 	 */
 	public function getCampaigns($filter = ""){
-		$Sql="SELECT c.*,t.campaign_type_name AS tipo 
+		$Sql = "SELECT c.*,t.campaign_type_name AS tipo 
 			  FROM campaigns c LEFT JOIN campaigns_types t ON t.id_campaign_type=c.id_campaign_type 
 			  WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
@@ -23,7 +23,7 @@ class campaigns{
 	 * @return boolean 						Resultado de la SQL
 	 */
 	public function insertCampaigns( $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad){		
-		$Sql="INSERT INTO campaigns (name_campaign,desc_campaign, id_campaign_type, imagen_mini, imagen_big, novedad) 
+		$Sql = "INSERT INTO campaigns (name_campaign,desc_campaign, id_campaign_type, imagen_mini, imagen_big, novedad) 
 			  VALUES ('".$name_campaign."','".$desc_campaign."',".$id_type.",'".$imagen_mini."','".$imagen_big."',".$novedad.")";
 		return connection::execute_query($Sql);
 	}
@@ -34,7 +34,7 @@ class campaigns{
 	 * @return boolean 						Resultado de la SQL
 	 */
 	public function deleteCampaigns($id){
-		$Sql="UPDATE campaigns SET active=0 WHERE id_campaign=".$id;
+		$Sql = "UPDATE campaigns SET active=0 WHERE id_campaign=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -52,7 +52,7 @@ class campaigns{
 	public function updateCampaigns($id, $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad){
 		$Sql_file_mini = ($imagen_mini == "") ? "" : ", imagen_mini='".$imagen_mini."' ";
 		$Sql_file_big = ($imagen_big == "") ? "" : ", imagen_big='".$imagen_big."' ";
-		$Sql="UPDATE campaigns SET
+		$Sql = "UPDATE campaigns SET
 			 id_campaign_type=".$id_type.",
 			 novedad=".$novedad.",
 			 name_campaign='".$name_campaign."',
@@ -69,7 +69,7 @@ class campaigns{
 	 * @return array 						Array con registros
 	 */
 	public function getCampaignsTypes($filter = ""){
-		$Sql="SELECT * FROM campaigns_types WHERE 1=1 ".$filter;
+		$Sql = "SELECT * FROM campaigns_types WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}  
 
@@ -79,7 +79,7 @@ class campaigns{
 	 * @return boolean 						Resultado de la SQL
 	 */
 	public function deleteCampaignsType($id){
-		$Sql="DELETE FROM campaigns_types WHERE id_campaign_type=".$id;
+		$Sql = "DELETE FROM campaigns_types WHERE id_campaign_type=".$id;
 		return connection::execute_query($Sql);
 	}	
 
@@ -91,7 +91,7 @@ class campaigns{
 	 * @return boolean 						Resultado de la SQL
 	 */
 	public function updateCampaignsType($id, $name, $desc){
-		$Sql="UPDATE campaigns_types SET
+		$Sql = "UPDATE campaigns_types SET
 			 campaign_type_name='".$name."',
 			 campaign_type_desc='".$desc."' 
 			 WHERE id_campaign_type=".$id;
@@ -105,7 +105,7 @@ class campaigns{
 	 * @return boolean 						Resultado de la SQL
 	 */
 	public function insertCampaignsType($name, $desc){
-		$Sql="INSERT INTO campaigns_types (campaign_type_name, campaign_type_desc) VALUES ('".$name."','".$desc."')";
+		$Sql = "INSERT INTO campaigns_types (campaign_type_name, campaign_type_desc) VALUES ('".$name."','".$desc."')";
 		return connection::execute_query($Sql);
 	}	 	
 }

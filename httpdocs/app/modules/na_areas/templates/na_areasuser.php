@@ -41,6 +41,6 @@ function userNaAreas($username){
 		<?php endforeach; ?>
 	</table>
 	<?php 
-	if (count($elements)==0) echo '<div class="row"><div class="col-md-12"><div class="alert alert-warning">'.strTranslate("No_courses_finished")."</div></div></div>";
+	if (count($elements) == 0) echo '<div class="row"><div class="col-md-12"><div class="alert alert-warning">'.strTranslate("No_courses_finished")."</div></div></div>";
 }
 ?>

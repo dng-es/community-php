@@ -1,7 +1,7 @@
 <?php
 addJavascripts(array(getAsset("configuration")."js/admin-modules.js"));
 
-session::getFlashMessage( 'actions_message' ); 
+session::getFlashMessage('actions_message'); 
 configurationController::updateAction();
 $modules = configurationController::getListModulesAction();
 

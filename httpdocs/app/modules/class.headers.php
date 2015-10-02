@@ -11,7 +11,6 @@ class headers{
 		$Subject = (isset( $SUBJECT_META_PAGE ) ? $SUBJECT_META_PAGE : $ini_conf['SiteSubject']);
 		$Title = (isset( $TITLE_META_PAGE ) ? $ini_conf['SiteTitle']." - ".$TITLE_META_PAGE : $ini_conf['SiteTitle']);
 
-
 		?>
 
 		<!DOCTYPE html>
@@ -62,12 +61,12 @@ class headers{
 	* @param 	array 		$ini_conf 		Configuration values
 	* @param 	string 		$page 			Current page
 	*/
-	public static function PageBody($ini_conf,$page = ""){
+	public static function PageBody($ini_conf, $page = ""){
 		global $paginas_free; ?>
 		</head>
 			<body id="page-<?php echo $page;?>">
 			<img alt="fondo" id="bg" src="images/bg01.jpg" class="hidden-print" />
-		<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged']==true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
+		<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
 
 				<?php //if (class_exists('globaloptionsController')):	
 					//globaloptionsController::gettoken( $_SESSION['user_name'], $_SESSION['user_pass']);?>

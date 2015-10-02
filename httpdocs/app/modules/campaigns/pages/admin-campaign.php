@@ -1,7 +1,7 @@
 <?php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("campaigns")."js/admin-campaign.js"));
 
-session::getFlashMessage( 'actions_message' ); 
+session::getFlashMessage('actions_message'); 
 campaignsController::createAction();
 campaignsController::updateAction();
 $plantilla = campaignsController::getItemAction();	
@@ -22,7 +22,7 @@ $plantilla = campaignsController::getItemAction();
 					
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" name="novedad" id="novedad"<?php echo $plantilla['novedad']==1 ? ' checked="checked"' : "";?>> <?php echo strTranslate("News");?>
+							<input type="checkbox" name="novedad" id="novedad"<?php echo $plantilla['novedad'] == 1 ? ' checked="checked"' : "";?>> <?php echo strTranslate("News");?>
 						</label>
 					</div>
 
@@ -67,7 +67,7 @@ $plantilla = campaignsController::getItemAction();
 								<label for="nombre-fichero">Imagen Slide de la campaña</label>
 								<input name="nombre-fichero-big" id="nombre-fichero-big" type="file" class="btn btn-primary btn-block" title="<?php echo strTranslate("Choose_file");?>" />
 								<?php 
-								if (isset($plantilla['imagen_big']) and $plantilla['imagen_big']!=""){
+								if (isset($plantilla['imagen_big']) and $plantilla['imagen_big'] != ""){
 									echo '<br /><img src="images/banners/'.$plantilla['imagen_big'].'" style="width:100%" />';
 								}
 								?>

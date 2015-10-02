@@ -2,20 +2,20 @@
 
 addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact-free.js"));
 
-$mensaje='';
+$mensaje = '';
 if (isset($_POST['subject_form'])) {
 	//Enviar correo
-	$asunto='EMAIL DESDE '.strtoupper($ini_conf['SiteName']).': '.$_POST['subject_form'];
-	$cuerpo_mensaje=$_POST['email_form'].', escribio: 
+	$asunto = 'EMAIL DESDE '.strtoupper($ini_conf['SiteName']).': '.$_POST['subject_form'];
+	$cuerpo_mensaje = $_POST['email_form'].', escribio: 
 	
 	'.$_POST['body_form'];
-	if (SendEmail($_POST['email_form'],$ini_conf['ContactEmail'],$asunto,$cuerpo_mensaje,0)) {
-		$mensaje='<div class="message-form-ok">
+	if (SendEmail($_POST['email_form'], $ini_conf['ContactEmail'], $asunto, $cuerpo_mensaje,0)) {
+		$mensaje = '<div class="message-form-ok">
 					Su mensaje ha sido enviado correctamente, en breve nos pondremos en contacto.<br />
 					Gracias por tu consulta.
 				  </div>';
 	}
-	else { $mensaje='<div style="color: red;">Se ha producido un error durante el envío, Por favor intentelo más tarde.</div>';}
+	else { $mensaje = '<div style="color: red;">Se ha producido un error durante el envío, Por favor intentelo más tarde.</div>';}
 }?>
 	<div id="page-info"><?php echo strTranslate("Contact");?></div>
 	<?php echo $mensaje;?>

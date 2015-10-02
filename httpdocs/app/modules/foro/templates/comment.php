@@ -5,9 +5,9 @@
 * @param 	array 		$comment	comentario data
 * @param 	string		$destino 			Links destination (foros, blog, áreas de trabajo) used for "likes"
 */
-templateload("tipuser","users");
+templateload("tipuser", "users");
 
-function commentForo($comment,$destino="foro-comentarios"){
+function commentForo($comment, $destino = "foro-comentarios"){
 	
 	$foro = new foro ();
 	$page_num = isset($_GET['pag']) ? $_GET['pag'] : "";

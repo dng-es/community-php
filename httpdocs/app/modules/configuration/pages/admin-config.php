@@ -12,7 +12,7 @@ addJavascripts(array(getAsset("configuration")."js/admin-config.js"));
 			array("ItemLabel"=>strTranslate("Main_data"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' ); 
+		session::getFlashMessage('actions_message'); 
 		configurationController::updateAction();
 		$elements = configurationController::getItemAction();
 		?>

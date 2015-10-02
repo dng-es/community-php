@@ -13,14 +13,12 @@ class session {
 	public function validateUserSession(){
 		self::setUrlSession();
 	
-		if (isset($_POST['form-login-user'])) { self::createSession($_POST['form-login-user'],$_POST['form-login-password']);}
-		else { self::ValidateSession();}
+		if (isset($_POST['form-login-user'])) self::createSession($_POST['form-login-user'], $_POST['form-login-password']);
+		else self::ValidateSession();
 
 		global $page, $paginas_free;
-		if (in_array($page, $paginas_free)==false){
-			if (!isset($_SESSION['user_name']) or trim($_SESSION['user_name']) == "") {
-				self::destroySession();
-			}
+		if (in_array($page, $paginas_free) == false){
+			if (!isset($_SESSION['user_name']) or trim($_SESSION['user_name']) == "") self::destroySession();
 			else {
 				//obtener permisos el usuario
 				$this->getUserPermissions($_SESSION['user_name']);
@@ -28,9 +26,7 @@ class session {
 				$this->setPagePermission($page, $_SESSION['user_name']);
 				$user_permissions = $this->checkPageTypePermission("view", $this->user_page_permission);
 
-				if ($this->checkPageViewPermission($page, $_SESSION['user_perfil'], $user_permissions)){
-					visitasController::insertVisita($page);  
-				}
+				if ($this->checkPageViewPermission($page, $_SESSION['user_perfil'], $user_permissions)) visitasController::insertVisita($page);
 				else{
 					ErrorMsg(strTranslate("Access_denied"));
 					die();
@@ -87,16 +83,16 @@ class session {
 	 * @return boolean 						Resultado de la comprobacion
 	 */
 	public function checkPageViewPermission($page, $user_perfil, $user_permissions){
-		if (count($user_permissions)>0){
-			if ($user_permissions['permission_type_value']==1) return true;
+		if (count($user_permissions) > 0){
+			if ($user_permissions['permission_type_value'] == 1) return true;
 			else return false;
 		}
 		else{
 			//verificar permiso por perfil. Si es admin se permite todo acceso
-			if ($user_perfil=='admin') return true;
+			if ($user_perfil == 'admin') return true;
 			else{
-				if (strpos($page, 'admin')===0) return false;
-				elseif (strpos($page, 'supervisor')===0 and $user_perfil==='supervisor') return true;
+				if (strpos($page, 'admin') === 0) return false;
+				elseif (strpos($page, 'supervisor') === 0 and $user_perfil === 'supervisor') return true;
 				elseif (strpos($page, 'supervisor')===0 and $user_perfil!=='supervisor') return false;
 				else return true;
 			}
@@ -111,12 +107,8 @@ class session {
 		$pageURL = 'http';
 		if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
 		$pageURL .= "://";
-		if ($_SERVER["SERVER_PORT"] != "80") {
-			$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-		} 
-		else {
-			$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-		}
+		if ($_SERVER["SERVER_PORT"] != "80")  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+		else $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
 		return $pageURL;
 	}
 
@@ -127,20 +119,20 @@ class session {
 	public static function ValidateSession()
 	{
 		global $paginas_free;
-		if ((isset($_SESSION['user_logged']) and $_SESSION['user_logged'] != true) && in_array($_REQUEST['page'], $paginas_free)==false){
+		if ((isset($_SESSION['user_logged']) and $_SESSION['user_logged'] != true) && in_array($_REQUEST['page'], $paginas_free) == false){
 			//Si alguno de los datos ingresados son incorrectos redirigimos a la pÃ¡gina de
 			//error o de nuevo al formulario de ingreso.
 			header ("Location: " . APP_DEF_PAGE);
 		}
-		elseif( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) or (isset($_REQUEST['page']) and $_REQUEST['page']==""))){
+		elseif( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) or (isset($_REQUEST['page']) and $_REQUEST['page'] == ""))){
 			header ("Location: home");
 		}
 		else {
 			//SI HAN PASADO 15 MINUTOS DE INACTIVIDAD SE CIERRA LA SESION (60*15=900)
-			if ( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) and (time()-$_SESSION["session_time"] > SESSION_MAXTIME)){ self::destroySession();}
+			if ( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) and (time()-$_SESSION["session_time"] > SESSION_MAXTIME)) self::destroySession();
 			else {
 				$_SESSION["session_time"] = time();
-				if (isset($_SESSION['user_name']) && in_array($_REQUEST['page'], $paginas_free)==false){
+				if (isset($_SESSION['user_name']) && in_array($_REQUEST['page'], $paginas_free) == false){
 					$users = new users();
 					$users->deleteUserConn($_SESSION['user_name']);
 					$users->insertUserConn($_SESSION['user_name'],$_SESSION['user_canal']);
@@ -153,7 +145,7 @@ class session {
 	* Check if user is logged in Ajax pages. If not redirects to login page
 	* @param 	string 		$url 			redirect url if user is not logged	
 	*/
-	public static function ValidateSessionAjax($url="login"){
+	public static function ValidateSessionAjax($url = "login"){
 		if (!isset($_SESSION['user_logged']) or $_SESSION['user_logged'] != true){
 			header ("Location: ".$url);
 		}

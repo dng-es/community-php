@@ -2,7 +2,7 @@
 class configuration{
 
 	function getConfigIni($filter = ""){
-		$Sql="SELECT * FROM config WHERE 1=1 ".$filter;
+		$Sql = "SELECT * FROM config WHERE 1=1 ".$filter;
 		$result=connection::execute_query($Sql);
 		$array_data = array();
 		$array_data = connection::get_result($result);
@@ -10,12 +10,12 @@ class configuration{
 	} 
 
 	function getConfiguracion($filter = ""){
-		$Sql="SELECT * FROM config WHERE 1=1 ".$filter;
+		$Sql = "SELECT * FROM config WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	} 	    
 
-	public function updateConfiguracion($telefono,$telefono2,$fax,$direccion,$ContactEmail,$SiteName,$SiteTitle,$SiteDesc,$SiteSubject,$SiteKeywords,$SiteUrl,$MailingEmail){	 
-		$Sql="UPDATE config SET
+	public function updateConfiguracion($telefono, $telefono2, $fax, $direccion, $ContactEmail, $SiteName, $SiteTitle, $SiteDesc, $SiteSubject, $SiteKeywords, $SiteUrl, $MailingEmail){	 
+		$Sql = "UPDATE config SET
 			 telefono='".$telefono."',
 			 telefono2='".$telefono2."',
 			 fax='".$fax."',
