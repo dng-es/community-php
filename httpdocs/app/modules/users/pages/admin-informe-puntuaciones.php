@@ -42,7 +42,7 @@ $elements = usersPuntuacionesController::getListAction(100);
 						<?php endforeach; ?>
 					</table>
 				</div>
-				<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>

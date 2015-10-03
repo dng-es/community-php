@@ -1,6 +1,4 @@
-<?php
-addJavascripts(array("js/bootstrap.file-input.js", getAsset("users")."js/admin-cargas.js"));
-?>
+<?php addJavascripts(array("js/bootstrap.file-input.js", getAsset("users")."js/admin-cargas.js"));?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php

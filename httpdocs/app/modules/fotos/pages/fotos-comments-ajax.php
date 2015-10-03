@@ -22,7 +22,6 @@ $module_config = getModuleConfig("fotos");
 <body>
 <?php
 
-
 session::ValidateSessionAjax();
 
 $fotos = new fotos();
@@ -30,7 +29,7 @@ $id_file = 0;
 if(isset($_REQUEST['id']) and $_REQUEST['id'] != "") $id_file = $_REQUEST['id'];
 //OBTENCION DE LAS FOTOS
 $filtro = " AND estado=1 AND id_file=".$id_file." ";
-if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_perfil'] != 'formador') $filtro .= " AND f.canal='".$_SESSION['user_canal']."' ";
+if ($_SESSION['user_canal'] != 'admin') $filtro .= " AND f.canal='".$_SESSION['user_canal']."' ";
 $files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
 ?>
 <div class="row">

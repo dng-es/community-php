@@ -7,7 +7,7 @@ $users = new users();
 $puntos_user = $users->getUsers(" AND username='".$_SESSION['user_name']."' ");
 $puntuacion_user = $puntos_user[0]['puntos'];
 $posicion_user=users::posicionRanking($_SESSION['user_name']);
-if ($_SESSION['user_perfil']=='admin'){$posicion_user=0;}
+if ($_SESSION['user_perfil'] == 'admin') $posicion_user=0;
 
 $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username ASC LIMIT 15");
 
@@ -20,31 +20,9 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 			array("ItemLabel"=>strTranslate("Rankings"), "ItemUrl"=>"ranking"),
 			array("ItemLabel"=>strTranslate("Ranking_users"), "ItemClass"=>"active"),
 		));
-
-		//globaloptionsController::gettoken( $_SESSION['user_name'], $_SESSION['user_pass']);
-		//globaloptionsController::getParticipantData(globaloptionsController::store_id, 'Pepe');
-		//globaloptionsController::addParticipant("Pepe", "1234", "José", "Noguera", '', "dnoguera@imagar.com", '666666666', '', '', 'C/Niza 10 6ºC', 'Móstoles', 'Madrid', 'ES', '28921');
-		//globaloptionsController::updateParticipant("547668", "Pepe", "1234", "José", "Noguera", '', "dnoguera@imagar.com", '666666666', '', '', 'C/Niza 10 6ºC', 'Móstoles', 'Madrid', 'ES', '28921', 'Active');
-
 		?>
 		<p><?php echo strTranslate("Ranking_users_text");?>:</p><br />
 
-<!-- 		<div class="row container-fade">
-			<?php for ($i=0;$i<=5;$i++){ ?>
-			<div class="col-md-2 inset">
-				<?php if (isset($puntos[$i])):
-				$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg");?>
-				<img src="<?php echo $foto;?>" style="width:100%" />
-				<br />
-				<br />
-				<p class="text-center"><i class="fa fa-trophy fa-medium"><small><?php echo ($i+1);?></small></i></p>
-				<p class="text-center"><small><?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?><br />
-				<span class="text-muted"><?php echo $puntos[$i]['nombre_tienda'];?></span><br />
-				<span class="text-primary"><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></span></small></p>
-				<?php endif; ?>
-			</div>
-			<?php } ?>
-		</div>  -->
 		<div class="row">
 			<div class="col-md-12">
 				<br />

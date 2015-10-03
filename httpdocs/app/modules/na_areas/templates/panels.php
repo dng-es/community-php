@@ -13,7 +13,7 @@ function panelAreas(){
 				<ul>
 				<?php foreach($elements as $element):
 					$acceso = connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." AND username_area='".$_SESSION['user_name']."' ");
-					if (($acceso==1 or ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador')) and $i < 3){
+					if (($acceso==1 or ($_SESSION['user_canal'] == 'admin')) and $i < 3){
 						echo '<li><a href="areas_det?id='.$element['id_area'].'">'.$element['area_nombre'].': '.ShortText($element['area_descripcion'],50).'</a></li>';
 						$i++;
 					}

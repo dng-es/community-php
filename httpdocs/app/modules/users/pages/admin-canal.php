@@ -8,11 +8,10 @@
 			array("ItemLabel"=>strTranslate("Channel"), "ItemClass"=>"active"),
 		));
 		
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		usersCanalesController::createAction();
 		usersCanalesController::updateAction();
 		$elements = usersCanalesController::getItemAction();
-
 		?>	
 		<div class="panel">
 			<div class="panel-body">

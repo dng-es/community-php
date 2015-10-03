@@ -35,7 +35,7 @@ $empresa = usersTiendasController::getItemAction($cod_empresa);
 						<?php endforeach; ?>
 					</table>
 				</div>
-				<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 			</div>
 			<div class="col-md-5">
 				<div class="panel panel-default">

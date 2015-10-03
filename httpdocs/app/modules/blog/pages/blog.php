@@ -39,8 +39,8 @@ $filtro_blog = ($_SESSION['user_canal']=='admin' ? "" : " AND (canal='".$_SESSIO
 		}
 		if (isset($_REQUEST['f'])) $id_tema = $_REQUEST['f']; 
 		if (isset($id_tema) and $id_tema != ""){
-			if ($_SESSION['user_perfil'] != "admin" and $_SESSION['user_perfil'] != "formador" and $_SESSION['user_perfil'] != "foros") {
-				$filtro_tema = " AND (canal='".$_SESSION['user_canal']."' OR   canal='admin') ";
+			if ($_SESSION['user_canal'] != "admin") {
+				$filtro_tema = " AND (canal='".$_SESSION['user_canal']."' OR canal='admin') ";
 				$filtro_comentarios = " AND c.id_tema=".$id_tema." ";
 			}
 			$filtro_tema .= " AND id_tema=".$id_tema." AND activo=1 AND ocio=1 ";

@@ -1,7 +1,4 @@
-<?php
-set_time_limit(0);
-?>
-
+<?php set_time_limit(0);?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -20,9 +17,8 @@ set_time_limit(0);
 			$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 			$tamano_archivo = $fichero['size'];
 			//compruebo si las características del archivo son las que deseo
-			if ($tipo_archivo!="XLS") {
-				ErrorMsg("La extensión no es correcta.".$tipo_archivo);
-			}else{
+			if ($tipo_archivo!="XLS") ErrorMsg("La extensión no es correcta.".$tipo_archivo);
+			else{
 				if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 					//BORRAR FICHEROS ANTIGUOS
 					//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
@@ -40,8 +36,6 @@ set_time_limit(0);
 	</div>
 	<?php menu::adminMenu();?>
 </div>
-
-
 <?php
 
 function volcarMySQL($data) {	
@@ -63,18 +57,13 @@ function volcarMySQL($data) {
 		$email_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][11])));		
 		$activa = (int)$data->sheets[0]['cells'][$fila][12];
 
-		if (strtoupper($tipo_tienda)=='FRANQUICIA'){
-			$empresa_usuarios = "0002";
-		}
-		else{
-			//caso por defecto: TIENDAS PROPIAS
-			$empresa_usuarios = "0003";
-		}
+		if (strtoupper($tipo_tienda) == 'FRANQUICIA') $empresa_usuarios = "0002";
+		else $empresa_usuarios = "0003";
 
 		
 		if ($cod_tienda!=""){
 			//VERIFICAR QUE EXISTA LA TIENDA PARA ALTA Y ACTUALIZACION
-			if (connection::countReg("users_tiendas"," AND cod_tienda='".$cod_tienda."' ")>0){			
+			if (connection::countReg("users_tiendas"," AND cod_tienda='".$cod_tienda."' ") > 0){			
 				//actualizar tienda	
 				$users->updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa);
 				$contador_update++;
@@ -86,31 +75,22 @@ function volcarMySQL($data) {
 			}
 
 			//BAJA DE USUARIOS
-			if ($activa == 0){
-				$users->disableUsersTiendas($cod_tienda);
-			}
+			if ($activa == 0) $users->disableUsersTiendas($cod_tienda);
 			else{
 				//VERIFICAR QUE EXISTA EL REGIONAL PARA ALTA O MODIFICACION DE DATOS
 				if ($regional_tienda!="" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ")==0){		
 					//insertar usuario
 					$users->insertUser($regional_tienda,$regional_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL_DEF,'regional','','','','',0);
 				}
-				else{
-					$users->updateJerarquiaUsers($regional_tienda, 'regional', $empresa_usuarios);
-				}
+				else $users->updateJerarquiaUsers($regional_tienda, 'regional', $empresa_usuarios);
 
 				//VERIFICAR QUE EXISTA EL RESPONSABLE PARA ALTA O MODIFICACION DE DATOS
-				if ($responsable_tienda!="" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ")==0){		
+				if ($responsable_tienda != "" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ")==0){		
 					//insertar usuario
 					$users->insertUser($responsable_tienda,$responsable_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL_DEF,'responsable','','','','',0);
 				}
-				else{
-					$users->updateJerarquiaUsers($responsable_tienda, 'responsable', $empresa_usuarios);
-				}				
+				else $users->updateJerarquiaUsers($responsable_tienda, 'responsable', $empresa_usuarios);
 			}
-
-
-
 		}
     }
 
@@ -118,16 +98,14 @@ function volcarMySQL($data) {
 	//BAJA DE RESPONSABLES QUE NO ESTAN EN EL FICHERO
 	$usuarios_responsables = $users->getUsuariosPerfilBaja('responsable', 'responsable_tienda');
 	foreach($usuarios_responsables as $usuario_responsables):
-		$users->disableUser($usuario_responsables['username'],1);
+		$users->disableUser($usuario_responsables['username'], 1);
 	endforeach;
 
 	//BAJA DE REGIONALES QUE NO ESTAN EN EL FICHERO
 	$usuarios_regionales = $users->getUsuariosPerfilBaja('regional', 'regional_tienda');
 	foreach($usuarios_regionales as $usuario_regionales):
-		$users->disableUser($usuario_regionales['username'],1);
+		$users->disableUser($usuario_regionales['username'], 1);
 	endforeach;
-
-
 
 	echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atr&aacute;s</a></p>
 	<p>El proceso de importaci&oacute;n ha finalizado con &eacute;xito</p>';

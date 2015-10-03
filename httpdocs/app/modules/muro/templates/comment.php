@@ -1,5 +1,4 @@
 <?php
-
 templateload("tipuser", "users");
 
 function commentMuro($comment){
@@ -7,17 +6,14 @@ function commentMuro($comment){
 	//respuestas al comentario
 	$respuestas = connection::countReg("muro_comentarios", " AND id_comentario_id=".$comment['id_comentario']." AND estado=1 ");
 	$votado = connection::countReg("muro_comentarios_votaciones", " AND id_comentario=".$comment['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
-	if ($_SESSION['user_name']==$comment['user_comentario']) $votado_user = 1;
+	if ($_SESSION['user_name'] == $comment['user_comentario']) $votado_user = 1;
 	else $votado_user = 0;
 	echo '<div class="media">';
 	userFicha($comment);
 	echo '	<p>
 			<a href="user-profile?n='.$comment['nick'].'"><small>'.$comment['nick'].'</small></a>';
 	echo ' 	<small><span class="date-format-ago" data-date="'.$comment['date_comentario'].'">'.getDateFormat($comment['date_comentario'], "DATE_TIME").'</span></small>';
-    if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'formador'){  
-    	echo '<br /><small>'.strTranslate("Channel").': '.$comment['canal_comentario'].'</small>';
-    }
-    
+    if ($_SESSION['user_canal'] == 'admin') echo '<br /><small>'.strTranslate("Channel").': '.$comment['canal_comentario'].'</small>';
 
 	echo '	</p>
 			<p id="texto-comentario-'.$comment['id_comentario'].'">'.showHtmlLinks($comment['comentario']).'</p>			

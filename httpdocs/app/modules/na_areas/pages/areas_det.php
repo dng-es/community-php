@@ -44,7 +44,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 						//mostrar foros del area
 						$id_tema_parent = connection::SelectMaxReg("id_tema","foro_temas"," AND id_tema_parent=0 AND id_area=".$id_area." ");
 						$filtro = " AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ";
-						if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_canal'] != 'formador' and $_SESSION['user_canal'] != 'foros'){$filtro .= " AND canal='".$_SESSION['user_canal']."' ";}
+						if ($_SESSION['user_canal'] != 'admin') $filtro .= " AND canal='".$_SESSION['user_canal']."' ";
 						
 						$elements = foroController::getListTemasAction($module_config['options']['forums_per_page'], $filtro);
 
@@ -91,7 +91,7 @@ function printTareas($id_area){
 	foreach($elements as $element):
 		//VERIFICAR SI ES UNA TAREA PARA UN GRUPO Y SI EL USUARIO PERTENECE O NO AL GRUPO
 		$acceso_grupo = 1;
-		if ($_SESSION['user_perfil'] != 'admin' and $_SESSION['user_perfil'] != 'formador'){
+		if ($_SESSION['user_canal'] != 'admin'){
 			if ($element['tarea_grupo'] == 1){
 				$acceso_grupo = count($na_areas->getUsersTareaGrupos($element['id_tarea'],$_SESSION['user_name']));
 			}

@@ -1,7 +1,7 @@
 <?php
 addCss(array("css/bootstrap-datetimepicker.min.css"));
-templateload("addmessage","mensajes");
-templateload("tipuser","users");
+templateload("addmessage", "mensajes");
+templateload("tipuser", "users");
 
 addJavascripts(array(getAsset("mensajes")."js/inbox.js", 
 					 getAsset("users")."js/user-profile.js",
@@ -21,7 +21,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 
 		session::getFlashMessage( 'actions_message' );
 		mensajesController::createAction();
-		$filter = ($_SESSION['user_perfil']!="admin" ? " AND (canal='".$_SESSION['user_canal']."' OR canal='admin') " : "");
+		$filter = ($_SESSION['user_canal'] != "admin" ? " AND (canal='".$_SESSION['user_canal']."' OR canal='admin') " : "");
 		$nick = (isset($_REQUEST['n']) ? $_REQUEST['n'] : "");
 		$usuario = usersController::getPublicPerfilAction($nick, $filter);
 		?>
@@ -29,12 +29,12 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 		<ul class="nav nav-tabs">
 			<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
 			<?php if(getModuleExist("fotos")): ?>
-			<li <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' class="active"' : '');?>><a href="#fotos" data-toggle="tab"><?php echo strTranslate("Photos");?></a></li>
+			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#fotos" data-toggle="tab"><?php echo strTranslate("Photos");?></a></li>
 			<?php endif; ?>
 			<?php if(getModuleExist("videos")): 
 			$videos = videosController::getListAction(1000, " AND user_add='".$usuario['username']."' AND estado=1 ");
 			?>
-			<li <?php echo ((isset($_GET['t']) and $_GET['t']==3) ? ' class="active"' : '');?>><a href="#videos" data-toggle="tab"><?php echo strTranslate("Videos");?></a></li>
+			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#videos" data-toggle="tab"><?php echo strTranslate("Videos");?></a></li>
 			<?php endif; ?>
 		</ul>	
 		
@@ -130,7 +130,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 							</div>';
 					endforeach;
 
-					if ($videos['total_reg']==0) echo '<br /><div class="alert alert-warning"><b>'.$usuario['nick'].'</b> no ha subido videos</div>';
+					if ($videos['total_reg'] == 0) echo '<br /><div class="alert alert-warning"><b>'.$usuario['nick'].'</b> no ha subido videos</div>';
 					?>
 					<br />
 			</div>
@@ -139,7 +139,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<?php if (count($usuario)>0): ?>
+			<?php if (count($usuario) > 0): ?>
 			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" />  
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div>
 			<?php endif; ?>

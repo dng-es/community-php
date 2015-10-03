@@ -1,6 +1,4 @@
-<?php
-set_time_limit(0);
-?>
+<?php set_time_limit(0);?>
 
 <div class="row row-top">
 	<div class="app-main">
@@ -20,9 +18,8 @@ set_time_limit(0);
 			$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 			$tamano_archivo = $fichero['size'];
 			//compruebo si las características del archivo son las que deseo
-			if ($tipo_archivo!="XLS") {
-				ErrorMsg("La extensión no es correcta.".$tipo_archivo);
-			}else{
+			if ($tipo_archivo!="XLS") ErrorMsg("La extensión no es correcta.".$tipo_archivo);
+			else{
 				if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 					//BORRAR FICHEROS ANTIGUOS
 					//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
@@ -34,26 +31,25 @@ set_time_limit(0);
 					
 					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
 					volcarMySQL($data);				   
-				}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
+				}
+				else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
 			}
 		}?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>
-
-
 <?php
 
 function volcarMySQL($data) {	
 	$users = new users();
-	$contador=0;
-	$mensaje="";
-	$contador_ko=0;
-	$mensaje_ko="";
-	$contador_baja=0;
-	$mensaje_baja="";
+	$contador = 0;
+	$mensaje = "";
+	$contador_ko = 0;
+	$mensaje_ko = "";
+	$contador_baja = 0;
+	$mensaje_baja = "";
 		
-    for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1) {
+    for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1) {
 		$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
 		$user_pass = $username;
 		$nombre = sanitizeInput($data->sheets[0]['cells'][$fila][4]);
@@ -61,20 +57,19 @@ function volcarMySQL($data) {
 		$empresa = sanitizeInput($data->sheets[0]['cells'][$fila][5]);	
 		$user_email = $data->sheets[0]['cells'][$fila][6];
 		$telefono_user = $data->sheets[0]['cells'][$fila][7];
-		$perfil=strtolower($data->sheets[0]['cells'][$fila][8]);
+		$perfil = strtolower($data->sheets[0]['cells'][$fila][8]);
 
 		
 		if ($perfil == ""){$perfil = "usuario";}	       
 		if ($perfil == 'admin') {$canal = 'admin';}
-		elseif ($perfil == 'formador') {$canal = 'formador';}
 		else { $canal = "comercial";}
 		
-		if ($username!=""){
+		if ($username != ""){
 			//VERIFICAR QUE EXISTA EL USUARIO
 			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") == 0) {			
 				if ($users->insertUser($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user,$surname,0)) {
-				$contador++;
-				$mensaje .= $contador." - ".$username." insertado correctamente.<br />";		
+					$contador++;
+					$mensaje .= $contador." - ".$username." insertado correctamente.<br />";		
 				}					
 			}
 			// else {
@@ -91,10 +86,10 @@ function volcarMySQL($data) {
  //  $elements=$users->getUsers(" AND disabled=0 ");
  //  foreach($elements as $element):
  //    $encontrado=false;
-	// if ($element['perfil']!='admin' and $element['perfil']!='formador' and $element['username']!='comercial' and $element['username']!='gerente' and $element['perfil']!='foros' and $element['perfil']!='forosIns') {
-	// 	for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1)
+	// if ($element['perfil'] != 'admin') {
+	// 	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1)
 	// 	{
-	// 	  if (strtoupper($element['username'])==strtoupper($data->sheets[0]['cells'][$fila][1])) {$encontrado=true; }  	
+	// 	  if (strtoupper($element['username'])==strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
 	// 	}
 	// }
 	// else {$encontrado=true;}
@@ -102,7 +97,7 @@ function volcarMySQL($data) {
 	// if ($encontrado==false){
 	// 	$users->disableUser($element['username'],1);
 	// 	$contador_baja++;	
-	// 	$mensaje_baja.='<span>'.$contador_baja.' - '.$element['username'].' se ha dado de baja.</span><br />';
+	// 	$mensaje_baja .= '<span>'.$contador_baja.' - '.$element['username'].' se ha dado de baja.</span><br />';
 	// }
  //  endforeach;
    

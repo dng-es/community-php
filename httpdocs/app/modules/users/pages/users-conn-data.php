@@ -10,47 +10,46 @@ include_once($base_dir . "modules/users/templates/tipuser.php");
 
 session::ValidateSessionAjax();
 
-$pagina=$_REQUEST['pagina'];
-$reg=56;
+$pagina = $_REQUEST['pagina'];
+$reg = 56;
 $inicio = ($pagina - 1) * $reg;
 
 $users = new users();
-if ($_SESSION['user_canal']=='exclusivo' or $_SESSION['user_canal']=='rt'){$filtroCanal=" AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') ";}
-else{$filtroCanal="";}
+if ($_SESSION['user_canal'] != 'admin') $filtroCanal = " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') ";
+else $filtroCanal = "";
 //$users_conn = $users->getUsers(" AND confirmed=1 LIMIT ".$inicio.",".$reg);  
 $users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <LINK rel="stylesheet" type="text/css" href="css/styles.css" />
-    <script type="text/javascript" src="js/main.min.js"></script>
-    <script type="text/javascript">
-		
-		$(document).ready(function(){
-			$(".trigger-msg").click(function(e){
-				e.preventDefault();
-				var nick = $(this).attr("n");
-				if (nick!=""){location.href="inbox?n="+nick;}	
+	<head>
+		<LINK rel="stylesheet" type="text/css" href="css/styles.css" />
+		<script type="text/javascript" src="js/main.min.js"></script>
+		<script type="text/javascript">			
+			$(document).ready(function(){
+				$(".trigger-msg").click(function(e){
+					e.preventDefault();
+					var nick = $(this).attr("n");
+					if (nick!=""){location.href="inbox?n="+nick;}	
+				});
 			});
-		});
-    </script>
-</head>
-<body>	
-	<div id="users-connected-<?php echo $pagina;?>" style="display: none">
-		<?php foreach($users_conn as $user_conn):			
-		$foto = ($user_conn['foto']=="" ? "user.jpg" : $user_conn['foto']);?>
-		<div class="ficha-user panel panel-default">
-			<div class="panel-body">
-				<a href="#" class="trigger-msg" n="<?php echo $user_conn['nick'];?>">
-				<img class="comment-mini-img" src="images/usuarios/<?php echo $foto;?>" /></a>
-				<div class="ellipsis">
-					<?php echo $user_conn['nick'];?><br />
-					<?php echo userEstrellas($user_conn['participaciones']);?>
-				</div>					
+		</script>
+	</head>
+	<body>	
+		<div id="users-connected-<?php echo $pagina;?>" style="display: none">
+			<?php foreach($users_conn as $user_conn):			
+			$foto = ($user_conn['foto'] == "" ? "user.jpg" : $user_conn['foto']);?>
+			<div class="ficha-user panel panel-default">
+				<div class="panel-body">
+					<a href="#" class="trigger-msg" n="<?php echo $user_conn['nick'];?>">
+					<img class="comment-mini-img" src="images/usuarios/<?php echo $foto;?>" /></a>
+					<div class="ellipsis">
+						<?php echo $user_conn['nick'];?><br />
+						<?php echo userEstrellas($user_conn['participaciones']);?>
+					</div>					
+				</div>
 			</div>
+			<?php endforeach; ?>
 		</div>
-		<?php endforeach; ?>
-	</div>
-</body>
+	</body>
 </html>

@@ -17,11 +17,11 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 include_once($base_dir . "modules/muro/classes/class.muro.php");
 
 session::ValidateSessionAjax();
-$muro=new muro();
-  //VOTAR COMENTARIO
-  if (isset($_REQUEST['idvc']) and $_REQUEST['idvc'] != "") { 
-    $mensaje=$insercion_comentario = $muro->InsertVotacion($_REQUEST['idvc'],$_SESSION['user_name']);
-  }
+$muro = new muro();
+//VOTAR COMENTARIO
+if (isset($_REQUEST['idvc']) and $_REQUEST['idvc'] != "") { 
+	$mensaje = $insercion_comentario = $muro->InsertVotacion($_REQUEST['idvc'],$_SESSION['user_name']);
+}
 ?> 
 </body>
 </html>

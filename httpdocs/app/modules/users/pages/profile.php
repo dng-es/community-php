@@ -6,8 +6,8 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					"js/bootstrap-datepicker.es.js", 
 					getAsset("users")."js/profile.js"));
 
-templateload("tipuser","users");
-templateload("na_areasuser","na_areas");
+templateload("tipuser", "users");
+templateload("na_areasuser", "na_areas");
 
 ?>
 <div class="row row-top">
@@ -25,8 +25,8 @@ templateload("na_areasuser","na_areas");
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs">
 			<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
-			<?php if (1==1): ?>
-			<li <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' class="active"' : '');?>><a href="#<?php echo strTranslate("Na_areas");?>" data-toggle="tab"><?php echo strTranslate("Na_areas");?></a></li>
+			<?php if (1 == 1): ?>
+			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#<?php echo strTranslate("Na_areas");?>" data-toggle="tab"><?php echo strTranslate("Na_areas");?></a></li>
 			<?php endif;?>
 		</ul>	
 	
@@ -92,7 +92,7 @@ templateload("na_areasuser","na_areas");
 											startDate: "2014/01/01"
 										});
 										<?php 
-										if ($usuario['user_date']!=null){
+										if ($usuario['user_date'] != null){
 											echo "var fecha = '".date('D M d Y H:i:s O',strtotime($usuario['user_date']))."';";
 											echo '$("#datetimepicker1").data("datetimepicker").setLocalDate(new Date (fecha));';
 										}
@@ -130,7 +130,7 @@ templateload("na_areasuser","na_areas");
 					</div>
 				</div>
 			</div>
-			<?php if (1==1): ?>
+			<?php if ( 1== 1): ?>
 			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="<?php echo strTranslate("Na_areas");?>">
 				<?php userNaAreas($_SESSION['user_name']);?>
 			</div>

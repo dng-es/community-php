@@ -16,7 +16,7 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 	//INSERTAR TEMA
 	$foro = new foro();
 	if (isset($_POST['nombre-tema']) and $_POST['nombre-tema'] != ""){
-		if ($_SESSION['user_perfil'] != 'admin' and $_SESSION['user_perfil'] != 'formador' and $_SESSION['user_perfil'] != 'admin_responsables' and $_SESSION['user_perfil'] != 'foros') $canal = $_SESSION['user_canal'];
+		if ($_SESSION['user_canal'] != 'admin') $canal = $_SESSION['user_canal'];
 		else $canal = $_POST['canal_tema'];
 		if ($foro->InsertTema($_POST['id_tema_parent'],
 							$_POST['nombre-tema'],

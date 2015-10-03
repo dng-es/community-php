@@ -49,7 +49,7 @@ if (isset($_REQUEST['c'])) $nombre_muro = $_REQUEST['c'];
 if (isset($_POST['tipo_responder'])) $nombre_muro = $_POST['tipo_responder'];
 if (isset($_POST['tipo_muro'])) $nombre_muro = $_POST['tipo_muro'];
 if ($nombre_muro == "") $nombre_muro = "principal";
-if ($_SESSION['user_perfil'] != 'admin' and $_SESSION['user_perfil'] != 'formador') $filtro_comentarios .= " AND c.canal='".$_SESSION['user_canal']."' ";
+if ($_SESSION['user_canal'] != 'admin') $filtro_comentarios .= " AND c.canal='".$_SESSION['user_canal']."' ";
 $filtro_comentarios .= " AND id_comentario_id=0 AND estado=1 AND tipo_muro='".$nombre_muro."' 
 						 AND tipo_muro IN ('principal','responsable') ORDER BY date_comentario DESC";
 
@@ -62,13 +62,14 @@ else { $inicio = ($pag - 1) * $reg;}
 $total_reg = connection::countReg("muro_comentarios c",$filtro_comentarios);
 		
 $comentarios_muro = $muro->getComentarios($filtro_comentarios.' LIMIT '.$inicio.','.$reg);
-echo '<div id="muro-home" style="height: 100% !important">';
+echo '<div id="muro-home" style="height: 100% !important" class="panel panel-default">
+		<div class="panel-body">';
 foreach($comentarios_muro as $comentario_muro):
 	commentMuro($comentario_muro);
 endforeach;
 Paginator($pag,$reg,$total_reg,'muro-comentarios?id='.$nombre_muro,'comentarios',$find_reg,10,"selected-muro");
 if(count($comentarios_muro) == 0){ echo '<p>No hay comentarios en el muro</p>';}	
-echo '</div>';
+echo '</div></div>';
 ?> 
 
 </body>

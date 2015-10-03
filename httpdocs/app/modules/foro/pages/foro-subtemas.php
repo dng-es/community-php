@@ -32,7 +32,7 @@ $canal = "";
 		//OBTENCION DE LOS TEMAS DEL FORO
 		if (isset($id_tema_parent) and $id_tema_parent != ""){
 			$filtro = " AND id_tema=".$id_tema_parent." AND activo=1 AND ocio=0 ";
-			if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_canal'] != 'formador' and $_SESSION['user_canal'] != 'foros') $filtro .= " AND canal='".$_SESSION['user_canal']."' ";
+			if ($_SESSION['user_canal'] != 'admin') $filtro .= " AND canal='".$_SESSION['user_canal']."' ";
 			$temas = $foro->getTemas($filtro); 
 		}
 

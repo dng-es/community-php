@@ -2,10 +2,9 @@
 addJavascripts(array(getAsset("users")."js/users-conn.js"));
 
 //usuarios conectados
-$filtroCanal= ($_SESSION['user_canal']!="admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') " : "");
+$filtroCanal= ($_SESSION['user_canal'] != "admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') " : "");
 $users = new users();
 $users_conn = count($users->getUsersConn($filtroCanal));
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -18,14 +17,11 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 		<div class="inset">
 	  		<h4>Descubre qué usuarios están en este mismo momento en la comunidad.</h4>
 	  		<p class="hidden-md hidden-lg">Ahora mismo hay <strong><?php echo $users_conn;?></strong> usuarios conectados.<br /></p>
-	  		
-
-			  		<div id="mensajes">
-						<div class="mensaje">
-							<div id="cargando"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-						</div>
-					</div>	  				
-
+			<div id="mensajes">
+				<div class="mensaje">
+					<div id="cargando"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="app-sidebar hidden-xs hidden-sn">

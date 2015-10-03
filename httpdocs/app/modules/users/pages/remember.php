@@ -33,7 +33,7 @@ $module_config = getModuleConfig("users");
 			</div>
 		</form>		
 		<div class="container-separator">
-			<?php if ($module_config['options']['allow_registration']===true) :
+			<?php if ($module_config['options']['allow_registration'] === true) :
 				echo strTranslate("If_not_registered");?> <a  href="registration"><?php echo strTranslate("Register");?></a>
 			<?php endif;?>
 		</div>

@@ -3,7 +3,7 @@ addJavascripts(array("js/jquery.geturlparam.js",
 					getAsset("users")."js/connect-as.js",
 					getAsset("users")."js/admin-user.js"));
 
-templateload("cmbCanales","users");
+templateload("cmbCanales", "users");
 
 $modules = getListModules(); 
 $user_permissions = usersController::getUserPermissions($_REQUEST['id']);
@@ -208,16 +208,16 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									$permission_edit_found = false;
 									if(!in_array($page_name, $special_pages)):  
 										foreach($user_permissions as $permission):  
-											if ($permission['pagename']==$page_name and $permission['permission_type']=="view"){
-												if ($permission['permission_type_value']==1){
+											if ($permission['pagename'] == $page_name and $permission['permission_type'] == "view"){
+												if ($permission['permission_type_value'] == 1){
 													$permission_check_view = ' checked="checked" ';
 													$permission_input_view = 1;
 												}
 												$permission_view_found = true;
 											}
 
-											if ($permission['pagename']==$page_name and $permission['permission_type']=="edit"){
-												if ($permission['permission_type_value']==1){
+											if ($permission['pagename'] == $page_name and $permission['permission_type'] == "edit"){
+												if ($permission['permission_type_value'] == 1){
 													$permission_check_edit = ' checked="checked" ';
 													$permission_input_edit = 1;
 												}
@@ -226,7 +226,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 
 										endforeach;
 										
-										if ($elements[0]['perfil']=='admin'){
+										if ($elements[0]['perfil'] == 'admin'){
 											//permisos genericos administradores
 											if (!$permission_view_found){
 												$permission_check_view = ' checked="checked" ';

@@ -4,7 +4,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					 "js/bootstrap-datepicker.js",
 					 getAsset("users")."js/registration.js"));
 $module_config = getModuleConfig("users");
-if ($module_config['options']['allow_registration']===true):
+if ($module_config['options']['allow_registration'] === true):
 ?>
 <div id="confirm-container" class="row">			
 	<div class="col-md-5">
@@ -30,7 +30,7 @@ if ($module_config['options']['allow_registration']===true):
 										   $_POST['user-empresa']);
 
 
-			if ($confirmar==1){
+			if ($confirmar == 1){
 				$subject_mail = "Alta de usuario en ".$ini_conf['SiteName'];;
 				$template = new tpl("registration", "users");
 				$template->setVars(array(
@@ -44,21 +44,17 @@ if ($module_config['options']['allow_registration']===true):
 				messageProcess($subject_mail, array($ini_conf['MailingEmail'] => $ini_conf['SiteName']), array($_POST['user-email']), $body_mail, null);
 				redirectURL("registration?m=1");
 			}
-			elseif ($confirmar==2){
+			elseif ($confirmar==2)
 				ErrorMsg("<p>Se ha producido algun error al confirmar sus datos.</p>");
-			}
-			elseif ($confirmar==3){
+			elseif ($confirmar==3)
 				ErrorMsg("<p>El nick <b>".$_POST['user-nick']."</b> ya existe.</p>");
-			}	
-			elseif ($confirmar==4){
+			elseif ($confirmar==4)
 				ErrorMsg("<p>El código de tienda introducido no es válido.</p>");
-			}
-			elseif ($confirmar==5){
+			elseif ($confirmar==5)
 				ErrorMsg("<p>El DNI/usuario ya existe.</p>");
-			}	
 		}
 
-		if (isset($_REQUEST['m']) and $_REQUEST['m']==1){ ?>
+		if (isset($_REQUEST['m']) and $_REQUEST['m'] == 1){ ?>
 				<h1><?php echo strTranslate("Registration");?></h1>
 				<p>
 					Tus datos se han registrado correctamente.<br />
@@ -70,8 +66,8 @@ if ($module_config['options']['allow_registration']===true):
 		<?php }
 		else{
 		$pages = new pages();
-		$politica= $pages->getPages(" AND page_name='policy' ");
-		$declaracion= $pages->getPages(" AND page_name='declaracion' ");
+		$politica = $pages->getPages(" AND page_name='policy' ");
+		$declaracion = $pages->getPages(" AND page_name='declaracion' ");
 
 		$user_name = "";
 		$user_nombre = "";
@@ -84,10 +80,10 @@ if ($module_config['options']['allow_registration']===true):
 		$user_date = "";
 
 		if (isset($_POST['username-text'])) {
-			$user_name=$_POST['username-text'];
-			$user_nombre=$_POST['user-nombre'];
-			$user_apellidos=$_POST['user-apellidos'];
-			$user_email=$_POST['user-email'];
+			$user_name = $_POST['username-text'];
+			$user_nombre = $_POST['user-nombre'];
+			$user_apellidos = $_POST['user-apellidos'];
+			$user_email = $_POST['user-email'];
 			$user_nick = $_POST['user-nick'];
 			$user_pass = $_POST['user-pass'];
 			$user_repass = $_POST['user-repass'];
@@ -152,7 +148,7 @@ if ($module_config['options']['allow_registration']===true):
 						  language: "es-ES",
 						  startDate: "2014/01/01"
 						});
-						<?php if (isset($user_date) and $user_date!=""){
+						<?php if (isset($user_date) and $user_date != ""){
 							echo "var fecha = '".date('D M d Y H:i:s O',strtotime($user_date))."';";
 							echo '$("#datetimepicker1").data("datetimepicker").setLocalDate(new Date (fecha));';
 						}?>

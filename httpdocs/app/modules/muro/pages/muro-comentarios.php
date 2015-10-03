@@ -35,7 +35,7 @@ else $pagina = 1;
 				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />	  
 				<h4><?php echo strTranslate("New_comment_on_wall");?></h4>
 				<textarea maxlength="160" class="form-control muro-texto" id="texto-comentario" name="texto-comentario"></textarea>
-				<?php if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'formador'):?>
+				<?php if ($_SESSION['user_canal'] == 'admin'):?>
 				<select name="canal_comentario" id="canal_comentario" class="form-control">
 					<?php ComboCanales();?>
 				</select>

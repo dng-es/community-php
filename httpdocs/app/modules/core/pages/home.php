@@ -9,7 +9,7 @@ templateload("panels", "destacados");
 templateload("cmbCanales", "users");
 
 //usuarios conectados
-$filtroCanal = ($_SESSION['user_canal'] != "admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin' or connection_canal='formador') " : "");
+$filtroCanal = ($_SESSION['user_canal'] != "admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') " : "");
 $users = new users();
 $users_conn = count($users->getUsersConn($filtroCanal));
 
@@ -160,7 +160,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 					<?php echo strTranslate("New_comment_on_wall");?>
 				</h4>
 				<textarea maxlength="160" class="form-control" id="texto-comentario" name="texto-comentario"></textarea>
-				<?php if ($_SESSION['user_perfil']=='admin' or $_SESSION['user_perfil']=='formador'):?>
+				<?php if ($_SESSION['user_canal'] == 'admin'):?>
 				<select name="canal_comentario" id="canal_comentario" class="form-control">
 				<?php ComboCanales();?>
 				</select>

@@ -31,8 +31,6 @@ class users{
 
 	public function insertUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered = 0){
 		if ($perfil == 'admin') $canal = 'admin';
-		elseif ($perfil == 'formador') $canal = 'formador';
-		elseif ($perfil == 'foros') $canal = 'foros';
 		 
 		$Sql = "INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, 
 			  empresa, perfil, telefono, surname, user_comentarios, registered) 
@@ -43,8 +41,6 @@ class users{
 
 	public function updateUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered){
 		if ($perfil == 'admin') $canal = 'admin';
-		elseif ($perfil == 'formador') $canal = 'formador';
-		elseif ($perfil == 'foros') $canal = 'foros';
 		 
 		$Sql = "UPDATE users SET
 			 user_password='".$user_password."',

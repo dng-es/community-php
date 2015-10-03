@@ -3,8 +3,8 @@ class fotosController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$fotos = new fotos();
 		$find_reg = ((isset($_REQUEST['f']) and $_REQUEST['f'] != 'null') ? $_REQUEST['f'] : (isset($_POST['find_reg']) ? $_POST['find_reg'] : ""));
-		if ($find_reg !="" ) {$filter = " AND titulo LIKE '%".$find_reg."%' ".$filter;}
-		if ($_SESSION['user_canal'] != 'admin' and $_SESSION['user_perfil'] != 'formador'){$filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;}
+		if ($find_reg != "" ) $filter = " AND titulo LIKE '%".$find_reg."%' ".$filter;
+		if ($_SESSION['user_canal'] != 'admin') $filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("galeria_fotos f", $filter); 
 		return array('items' => $fotos->getFotos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -17,9 +17,8 @@ class fotosController{
 	public static function createAction(){
 		if (isset($_POST['titulo-foto']) and $_POST['titulo-foto'] != ""){
 			$fotos = new fotos();	
-			$canal = (($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil']!='formador') ? $_SESSION['user_canal'] : $_POST['canal-foto']);		
-			$formacion = (($_SESSION['user_perfil']=='formador') ? 1 : 0);	
-			$response = $fotos->insertFile($_FILES['nombre-foto'],PATH_FOTOS,$canal,$_POST['titulo-foto'],0,$formacion);
+			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-foto']);			
+			$response = $fotos->insertFile($_FILES['nombre-foto'], PATH_FOTOS, $canal, $_POST['titulo-foto'], 0, 0);
 			if ($response == 0)
 				session::setFlashMessage('actions_message', strTranslate("Photo_upload_ko0"), "alert alert-danger");
 			elseif ($response == 1)

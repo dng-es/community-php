@@ -13,7 +13,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 		<h1><?php echo strTranslate("Confirm_data");?></h1>
 		<?php
 		//CONFIRMAR USUARIO
-		if (isset($_POST['user-username']) and $_POST['user-username']!=""){
+		if (isset($_POST['user-username']) and $_POST['user-username'] != ""){
 			$users = new users();
 
 
@@ -28,17 +28,17 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 										   $_FILES['nombre-fichero'],
 										   $comentarios,
 										   $_POST['user-date']);
-			if ($confirmar==1){ ?>
+			if ($confirmar ==1 ){ ?>
 				<p><?php echo strTranslate("Confirmation_message");?> .</p>
 				<br />
 				<a href="login" class="btn btn-primary"><?php echo strTranslate("Identify_to_access");?></a>
 				</div>
 			<?php }
-			elseif ($confirmar==2) {
+			elseif ($confirmar == 2) {
 				ErrorMsg('<p>'.strTranslate("Error_procesing").'.</p>');
 				ShowForm();
 			}
-			elseif ($confirmar==3) {
+			elseif ($confirmar == 3) {
 				ErrorMsg('<p>'.strTranslate("Nick").' <b>'.$_POST['user-nick'].'</b> '.strTranslate("Already_exist").'.</p>');
 				ShowForm();
 			}	
@@ -56,11 +56,11 @@ function ShowForm()
   	$users = new users();
 	$pages = new pages();
 
-	$declaracion= $pages->getPages(" AND page_name='declaracion' ");
+	$declaracion = $pages->getPages(" AND page_name='declaracion' ");
 
-	$usuario=$users->getUsers(" AND username='".$_SESSION['user_name']."' ");
+	$usuario = $users->getUsers(" AND username='".$_SESSION['user_name']."' ");
 
-	if ($usuario[0]['confirmed']==1) {
+	if ($usuario[0]['confirmed'] == 1) {
 		echo '<div class="alert alert-warning">El usuario ya esta confirmado.
 			Para acceder a la comunidad pincha <a href="login" class="comunidad-color">aquí</a>.</div>';
 	}
@@ -82,7 +82,6 @@ function ShowForm()
 		if (isset($_POST['user-nick'])){$user_nick = $_POST['user-nick'];}
 		if (isset($_POST['user-pass'])){$user_pass = $_POST['user-pass'];}
 		if (isset($_POST['user-repass'])){$user_repass = $_POST['user-repass'];}
-
 		?>
 
   		<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">

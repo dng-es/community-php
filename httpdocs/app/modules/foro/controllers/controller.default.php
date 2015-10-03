@@ -40,10 +40,10 @@ class foroController{
 	}
 
 	public static function accesoForoAreaAction($id_area){
-		$acceso=1;
-		if ($_SESSION['user_perfil'] != 'admin' and $_SESSION['user_perfil'] != 'formador'){
+		$acceso = 1;
+		if ($_SESSION['user_canal'] != 'admin')
 			$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
-		}
+		
 		return $acceso;
 	}
 	public static function getListComentariosAction($reg = 0, $filtro = ""){

@@ -12,11 +12,10 @@ session::ValidateSessionAjax();
 $muro = new muro();
 //INSERTAR COMENTARIO
 if (isset($_POST['texto-comentario']) and $_POST['texto-comentario'] != ""){
-	if ($_SESSION['user_perfil']!='admin' and $_SESSION['user_perfil'] != 'formador'){ $canal = $_SESSION['user_canal']; }
+	if ($_SESSION['user_canal'] != 'admin') $canal = $_SESSION['user_canal'];
 	else { $canal = sanitizeInput($_POST['canal_comentario']); }
 	
 	$texto_comentario = nl2br(sanitizeInput($_POST['texto-comentario']));
-
 	ErrorMsg($insercion_comentario = $muro->InsertComentario($canal,
 														$texto_comentario,
 														$_SESSION['user_name'],
