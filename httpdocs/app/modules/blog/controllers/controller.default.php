@@ -5,6 +5,25 @@ class blogController{
 		return $foro->getTemas(" AND id_tema=".$id." ");
 	}
 
+	public static function getLastBlogAction($filtro_blog){
+		$foro = new foro();
+		$filtro_tema = "";
+		$tema = array();
+		if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0) $id_tema = $_REQUEST['id'];
+		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_tema = $_REQUEST['f']; 
+		else $id_tema = connection::SelectMaxReg("id_tema", "foro_temas", $filtro_blog." AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
+
+		if ($id_tema > 0){
+			if ($_SESSION['user_canal'] != "admin") $filtro_tema = " AND (canal='".$_SESSION['user_canal']."' OR canal='admin') ";
+
+			$filtro_tema .= " AND id_tema=".$id_tema." AND activo=1 AND ocio=1 ";
+			$tema = $foro->getTemas($filtro_tema); 
+		}
+
+		$tema[0]['num_visitas'] = connection::countReg("foro_visitas", " AND id_tema=".$tema[0]['id_tema']." ");
+		return $tema[0];
+	}
+
 	public static function createAction(){
 		if (isset($_POST['id']) and $_POST['id'] == 0){
 			$foro = new foro();
@@ -17,7 +36,6 @@ class blogController{
 
 			redirectURL("admin-blog-new?id=".$id);		
 		}
-	
 	}
 
 	public static function updateAction(){
@@ -41,7 +59,7 @@ class blogController{
 			$resume = $resume_array['main'];
 		else{
 			$resume = strip_tags($post);
-			if (strlen($resume) > 400) {$resume = substr($resume,0,400)."...";}
+			if (strlen($resume) > 400) $resume = substr($resume,0,400)."...";
 		}
 		return $resume;
 	}

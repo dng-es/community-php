@@ -1,5 +1,5 @@
 <?php
-session::getFlashMessage( 'actions_message' ); 
+session::getFlashMessage('actions_message'); 
 campaignsController::deleteAction();
 $elements = campaignsController::getListAction(20);
 ?>

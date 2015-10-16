@@ -2,7 +2,6 @@
 //EXPORT TIENDAS
 usersTiendasController::exportListAction();  
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -43,7 +42,7 @@ usersTiendasController::exportListAction();
 							<td><?php echo $element['regional_tienda'];?></td>	
 							<td><?php echo $element['responsable_tienda'];?></td>
 							<td><?php echo $element['tipo_tienda'];?></td>
-							<td><center><span class="label<?php echo ($element['activa']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['activa']==1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></center></td>
+							<td><center><span class="label<?php echo ($element['activa'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['activa'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></center></td>
 						</tr>   
 					<?php endforeach;?>
 					</table>

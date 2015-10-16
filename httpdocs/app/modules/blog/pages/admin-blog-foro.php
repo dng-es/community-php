@@ -7,22 +7,22 @@ $users = new users();
 
 //VALIDAR CONTENIDOS
 if (isset($_REQUEST['act'])) { 	 
-if ($_REQUEST['act'] == 'foro_ok'){
-  $foro->cambiarEstado($_REQUEST['id'],1);
-  $users->sumarPuntos($_REQUEST['u'],PUNTOS_FORO,PUNTOS_FORO_MOTIVO);
-}
-elseif ($_REQUEST['act'] == 'tema_ko'){$foro->cambiarEstadoTema($_REQUEST['id'],0);}
-elseif ($_REQUEST['act'] == 'foro_ko'){
-	$foro->cambiarEstado($_REQUEST['id'],2);
-	$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
-}
-header("Location: admin-blog-foro?id=".$_REQUEST['idt']); 
+	if ($_REQUEST['act'] == 'foro_ok'){
+		$foro->cambiarEstado($_REQUEST['id'],1);
+		$users->sumarPuntos($_REQUEST['u'], PUNTOS_FORO, PUNTOS_FORO_MOTIVO);
+	}
+	elseif ($_REQUEST['act'] == 'tema_ko') $foro->cambiarEstadoTema($_REQUEST['id'], 0);
+	elseif ($_REQUEST['act'] == 'foro_ko'){
+		$foro->cambiarEstado($_REQUEST['id'],2);
+		$users->restarPuntos($_REQUEST['u'], PUNTOS_MURO, PUNTOS_MURO_MOTIVO);
+	}
+	header("Location: admin-blog-foro?id=".$_REQUEST['idt']); 
 }
 
 //EXPORT EXCEL - SHOW AND GENERATE
 if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 	$foro = new foro(); 
-	$elements_exp=$foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['id']." ");
+	$elements_exp = $foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['id']." ");
   	download_send_headers("data_" . date("Y-m-d") . ".csv");
 	echo array2csv($elements_exp);
 	die();
@@ -65,20 +65,20 @@ $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." 
 				<th>Autor</th>
 				<th>Fecha</th>
 				</tr>
-			  <?php foreach($pendientes as $element):
-					echo '<tr>';
-					echo '<td nowrap="nowrap">					
-							<span class="fa fa-ban icon-table" title="Eliminar"
-							    onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
-								\'admin-blog-foro?act=foro_ko&id='.$element['id_comentario'].'&idt='.$id_tema.'&u='.$element['user_comentario'].'\')">
-							</span>			
-						 </td>';					
-					echo '<td>'.$element['id_comentario'].'</td>';
-					echo '<td><em class="legend">'.$element['comentario'].'</em></td>';
-					echo '<td>'.$element['user_comentario'].'</td>';
-					echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>';		
-					echo '<tr>';   
-			  endforeach;?>
+				<?php foreach($pendientes as $element): ?>
+				<tr>
+					<td nowrap="nowrap">					
+						<span class="fa fa-ban icon-table" title="Eliminar"
+						    onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
+							\'admin-blog-foro?act=foro_ko&id=<?php echo $element['id_comentario'];?>&idt=<?php echo $id_tema;?>&u=<?php echo $element['user_comentario'];?>\')">
+						</span>			
+					</td>				
+					<td><?php echo $element['id_comentario'];?></td>
+					<td><em class="legend"><?php echo $element['comentario'];?></em></td>
+					<td><?php echo $element['user_comentario'];?></td>
+					<td><?php echo getDateFormat($element['date_comentario'], "SHORT");?></td>	
+					<tr>
+				<?php endforeach;?>
 			</table>
 		</div>
 	<?php endif;?>

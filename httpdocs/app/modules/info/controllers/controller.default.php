@@ -31,21 +31,19 @@ class infoController{
 				$nombre_archivo = NormalizeText($nombre_archivo);
 
 				if (!move_uploaded_file($_FILES['info_file']['tmp_name'], PATH_INFO.$nombre_archivo)){
-					session::setFlashMessage( 'actions_message', "Ocurrió algún error al subir el contenido. No pudo guardarse el archivo.", "alert alert-danger");
+					session::setFlashMessage('actions_message', "Ocurrió algún error al subir el contenido. No pudo guardarse el archivo.", "alert alert-danger");
 					redirectURL("admin-info-doc?act=new");
 				}
 		  	}
-		  	else{
-		  		$nombre_archivo = $_POST['info_url'];
-		  	}			
+		  	else $nombre_archivo = $_POST['info_url'];
 
 			if ($info->insertInfo($nombre_archivo, $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $download)){
 				session::setFlashMessage( 'actions_message', "Registro insertado correctamente", "alert alert-success");
-				$id = connection::SelectMaxReg("id_info","info","");
+				$id = connection::SelectMaxReg("id_info", "info", "");
 				redirectURL("admin-info-doc?act=edit&id=".$id);
 			}
 			else {
-				session::setFlashMessage( 'actions_message', "Ocurrió algún error al subir el contenido. No pudo generarse el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', "Ocurrió algún error al subir el contenido. No pudo generarse el registro.", "alert alert-danger");
 				redirectURL("admin-info-doc?act=new");
 			}
 		}
@@ -61,24 +59,19 @@ class infoController{
 					$nombre_archivo = time().'_'.str_replace(" ", "_", $_FILES['info_file']['name']);
 					$nombre_archivo = strtolower($nombre_archivo);
 					$nombre_archivo = NormalizeText($nombre_archivo);	
-					if (move_uploaded_file($_FILES['info_file']['tmp_name'], PATH_INFO.$nombre_archivo)){
+					if (move_uploaded_file($_FILES['info_file']['tmp_name'], PATH_INFO.$nombre_archivo))
 						$info->updateInfoDoc($_POST['id'], $nombre_archivo);
-					}
-					else{
-						session::setFlashMessage( 'actions_message', "Ocurrió algún error al subir el contenido. No pudo guardarse el archivo.", "alert alert-danger");
-					}
+					else
+						session::setFlashMessage('actions_message', "Ocurrió algún error al subir el contenido. No pudo guardarse el archivo.", "alert alert-danger");
 				}
 		  	}
-		  	else{
-		  		$info->updateInfoDoc($_POST['id'], $_POST['info_url']);
-		  	}
+		  	else $info->updateInfoDoc($_POST['id'], $_POST['info_url']);
 
-			if ($info->updateInfo($_POST['id'], $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $download)) {
-				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
-			}
+			if ($info->updateInfo($_POST['id'], $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $download)) 
+				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+			else 
+				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
+
 			redirectURL("admin-info-doc?act=edit&id=".$id);
 		}
 	}
@@ -86,12 +79,11 @@ class infoController{
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$info = new info();
-			if ($info->deleteInfo($_REQUEST['id'], $_REQUEST['d'])) {
-				session::setFlashMessage( 'actions_message', "Registro eliminado correctamente", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
-			}
+			if ($info->deleteInfo($_REQUEST['id'], $_REQUEST['d'])) 
+				session::setFlashMessage('actions_message', "Registro eliminado correctamente", "alert alert-success");
+			else 
+				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+
 			redirectURL("admin-info");
 		}
 	}

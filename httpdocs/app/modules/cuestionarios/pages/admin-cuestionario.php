@@ -7,7 +7,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
-
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
@@ -38,7 +37,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
-					<?php if ($id_cuestionario>0 ):?>
+					<?php if ($id_cuestionario > 0 ):?>
 					<li><a href="#formquestions" data-toggle="tab"><?php echo strTranslate("Form_questions");?></a></li>
 					<?php endif;?>
 				</ul>	
@@ -54,7 +53,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 									<input type="text" name="nombre" id ="nombre" class="form-control form-big" value="<?php echo $cuestionario_nombre;?>" />
 									<br />
 									<?php
-									if ($id_cuestionario!=""){
+									if ($id_cuestionario > 0){
 										echo '<p>'.strTranslate("Form").' URL: <a href="'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'" target="_blank">'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'</a></p>';
 									}
 									?>
@@ -70,7 +69,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 						</div>
 					</div>
 
-				<?php if ($id_cuestionario>0 ):?>
+				<?php if ($id_cuestionario > 0 ):?>
 					<div class="tab-pane fade in" id="formquestions">
 						<div class="row">
 							<div class="col-md-12">
@@ -89,13 +88,11 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 
 
 <?php 
-
-
-function FormularioTarea($id_cuestionario,$cuestionario){
+function FormularioTarea($id_cuestionario, $cuestionario){
 		$cuestionarios = new cuestionarios();
 		$preguntas = $cuestionarios->getPreguntas(" AND id_cuestionario=".$id_cuestionario." "); 
 
-		if (count($preguntas)==0): ?>
+		if (count($preguntas) == 0): ?>
 			<div class="alert alert-warning">El cuestionario no tiene preguntas, puedes crearlas a continuación.</div>
 		<?php else: ?>
 			<table class="table">

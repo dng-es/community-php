@@ -2,7 +2,7 @@
 
 //addJavascripts(array(getAsset("users")."js/group.js"));
 $cod_empresa = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
-session::getFlashMessage( 'actions_message' ); 
+session::getFlashMessage('actions_message'); 
 usersController::deleteAction();
 $elements = usersController::getListAction(35, " AND empresa='".$cod_empresa."' AND disabled=0 ");
 $elements['items'] = arraySort($elements['items'], 'perfil', SORT_ASC);

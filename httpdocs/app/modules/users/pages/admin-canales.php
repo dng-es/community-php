@@ -2,7 +2,7 @@
 //EXPORT USERS
 usersCanalesController::exportListAction();
 
-session::getFlashMessage( 'actions_message' ); 
+session::getFlashMessage('actions_message'); 
 $elements = usersCanalesController::getListAction(35);
 ?>
 <div class="row row-top">

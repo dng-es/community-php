@@ -89,7 +89,7 @@ class fotos{
 		}
 	}
 
-	public function InsertVotacion($id,$usuario){
+	public function InsertVotacion($id, $usuario){
 		//VERIFICAR QUE EL USUARIO NO SE VOTE A SI MISMO
 		if (connection::countReg("galeria_fotos"," AND id_file=".$id." AND user_add='".$usuario."' ") == 0){
 			//VERIFICAR NO VOTO CON ANTERIORIDA AL MISMO ARCHIVO

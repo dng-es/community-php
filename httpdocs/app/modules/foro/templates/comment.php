@@ -8,10 +8,8 @@
 templateload("tipuser", "users");
 
 function commentForo($comment, $destino = "foro-comentarios"){
-	
 	$foro = new foro ();
 	$page_num = isset($_GET['pag']) ? $_GET['pag'] : "";
-
 	?>
 	<div class="media media-comment">
 		<?php userFicha($comment); ?>

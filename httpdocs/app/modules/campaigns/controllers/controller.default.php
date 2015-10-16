@@ -4,7 +4,7 @@ class campaignsController{
 		$campaigns = new campaigns();
 		$filtro = $filter." AND active=1 ORDER BY name_campaign ASC ";
 
-		$find_reg = (isset($_GET['f']) and $_GET['f']>0) ? $_GET['f'] : "";
+		$find_reg = (isset($_GET['f']) and $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("campaigns c",$filtro);
 		return array('items' => $campaigns->getCampaigns($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -18,12 +18,11 @@ class campaignsController{
 		$id_campaign = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;		
 		$name_campaign = isset($_POST['name_campaign']) ? $_POST['name_campaign'] : "";
 		$desc_campaign = isset($_POST['desc_campaign']) ? $_POST['desc_campaign'] : "";
-		if ($id_campaign!=0){
+		if ($id_campaign != 0){
 			$campaigns = new campaigns();
 			$plantilla = $campaigns->getCampaigns(" AND active=1 AND id_campaign=".$id_campaign);	
 			return  $plantilla[0];
-		}
-		
+		}	
 	}	
 
 	public static function exportListAction(){

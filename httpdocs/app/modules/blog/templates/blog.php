@@ -48,4 +48,31 @@ function categoriasBlog($elements){
 	endforeach;	
 	echo '</ul>';
 }
+
+function nextPost($id_tema){
+	$foro = new foro();
+	$siguiente_disabled = "";
+	$siguiente = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema<".$id_tema." ORDER BY id_tema DESC LIMIT 1");
+	if (count($siguiente) != 1){
+		$siguiente_disabled = "disabled";
+		$siguiente_enlace = "#";
+	}
+	else $siguiente_enlace = 'blog?id='.$siguiente[0]['id_tema']; ?>
+	<li class="next <?php echo $siguiente_disabled ;?>"><a href="<?php echo $siguiente_enlace;?>"><?php echo strTranslate("Next_post");?> &rarr;</a></li>
+	<?php 
+}
+
+function previousPost($id_tema){
+	$foro = new foro();
+	$anterior_disabled = "";
+	$anterior = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema>".$id_tema." ORDER BY id_tema ASC  LIMIT 1");
+	if (count($anterior)!=1){
+		$anterior_disabled = "disabled";
+		$anterior_enlace = "#";
+	}
+	else $anterior_enlace = "blog?id=".$anterior[0]['id_tema'];
+	?>
+	<li class="previous <?php echo $anterior_disabled;?>"><a href="<?php echo $anterior_enlace;?>">&larr; <?php echo strTranslate("Previous_post");?></a></li>
+	<?php 
+}
 ?>

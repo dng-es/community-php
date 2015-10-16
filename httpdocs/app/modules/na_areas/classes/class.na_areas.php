@@ -76,8 +76,7 @@ class na_areas{
 	public function insertGrupoArea($id_area, $nombre){	
 		$Sql = "INSERT INTO na_areas_grupos (id_area,grupo_nombre) VALUES
 		(".$id_area.",'".$nombre."')";
-		if (connection::execute_query($Sql)){ return "Grupo insertado correctamente";}
-		else { return "Se ha producido algún error al insertar el grupo, por favor intentelo otra vez";}
+		return connection::execute_query($Sql);
 	} 	
 
 	public function getGruposUsersUsuarios($filter = ""){
@@ -104,20 +103,10 @@ class na_areas{
 		return connection::getSQL($Sql); 
 	}	 
 
-	public function insertTarea($id_area, $titulo, $descripcion, $tipo, $grupo, $usuario, $fichero){	
-		$descripcion = nl2br(str_replace("'", "´", $descripcion));
-		//SUBIR FICHERO
-		if (isset($fichero) and $fichero['name'] != "") {			
-			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo=NormalizeText($nombre_archivo);		
-			move_uploaded_file($fichero['tmp_name'], PATH_TAREAS.$nombre_archivo);
-		}
-		else $nombre_archivo = "";
-
+	public function insertTarea($id_area, $titulo, $descripcion, $tipo, $grupo, $usuario, $nombre_archivo){
 		$Sql = "INSERT INTO na_tareas (id_area,tarea_titulo,tarea_descripcion,tipo,tarea_grupo,user_add,tarea_archivo) VALUES
 		(".$id_area.",'".$titulo."','".$descripcion."','".$tipo."',".$grupo.",'".$usuario."','".$nombre_archivo."')";
-		if (connection::execute_query($Sql)){ return "Tarea agregada correctamente";} 
-		else { return "Se ha producido algún error al agregar la tarea.";}
+		return connection::execute_query($Sql);
 	} 
 
 	public function updateTarea($id_tarea, $descripcion){	
@@ -144,22 +133,21 @@ class na_areas{
 	public function deleteGrupoTarea($id_grupo, $id_tarea){	
 		$Sql = "DELETE FROM na_tareas_grupos WHERE id_grupo=".$id_grupo." AND id_tarea=".$id_tarea." ";
 		if (connection::execute_query($Sql)){ 
-			$Sql="INSERT INTO na_tareas_grupos_history (id_tarea,id_grupo,user_history) VALUES(".$id_tarea.",".$id_grupo.",'".$_SESSION['user_name']."')";
+			$Sql = "INSERT INTO na_tareas_grupos_history (id_tarea,id_grupo,user_history) VALUES(".$id_tarea.",".$id_grupo.",'".$_SESSION['user_name']."')";
 			connection::execute_query($Sql);
-			return true;}
+			return true;
+		}
 		else return false;
 	}       
 
 	public function estadoTarea($id_tarea, $estado){	
 		$Sql = "UPDATE na_tareas SET activa=".$estado." WHERE id_tarea=".$id_tarea;
-		if (connection::execute_query($Sql)) return "Estado cambiado correctamente";
-		else return "Se ha producido algún error al cambiar el estado de la tarea.";
+		return connection::execute_query($Sql);
 	} 
 
 	public function estadoLinksTarea($id_tarea, $estado){	
 		$Sql = "UPDATE na_tareas SET activa_links=".$estado." WHERE id_tarea=".$id_tarea;
-		if (connection::execute_query($Sql)) return "Estado links cambiado correctamente";
-		else return "Se ha producido algún error al cambiar el estado de los links de la tarea.";
+		return connection::execute_query($Sql);
 	}       
 
 	public function getTareasDocumentos($filter = ""){

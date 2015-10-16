@@ -1,5 +1,4 @@
 <?php set_time_limit(0);?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -18,7 +17,7 @@
 			$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 			$tamano_archivo = $fichero['size'];
 			//compruebo si las características del archivo son las que deseo
-			if ($tipo_archivo!="XLS") ErrorMsg("La extensión no es correcta.".$tipo_archivo);
+			if ($tipo_archivo != "XLS") ErrorMsg("La extensión no es correcta.".$tipo_archivo);
 			else{
 				if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 					//BORRAR FICHEROS ANTIGUOS
@@ -60,14 +59,14 @@ function volcarMySQL($data) {
 		$perfil = strtolower($data->sheets[0]['cells'][$fila][8]);
 
 		
-		if ($perfil == ""){$perfil = "usuario";}	       
-		if ($perfil == 'admin') {$canal = 'admin';}
-		else { $canal = "comercial";}
+		if ($perfil == "") $perfil = "usuario";
+		if ($perfil == 'admin') $canal = 'admin';
+		else $canal = "comercial";
 		
 		if ($username != ""){
 			//VERIFICAR QUE EXISTA EL USUARIO
 			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") == 0) {			
-				if ($users->insertUser($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user,$surname,0)) {
+				if ($users->insertUser($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user, $surname, 0)) {
 					$contador++;
 					$mensaje .= $contador." - ".$username." insertado correctamente.<br />";		
 				}					

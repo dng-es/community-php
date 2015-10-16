@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("campaigns")."js/admin-campaign.js"));
 
 session::getFlashMessage('actions_message'); 

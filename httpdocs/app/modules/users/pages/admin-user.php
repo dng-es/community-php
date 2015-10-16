@@ -105,7 +105,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									  		  $users = new users();
 									  		  $centros = $users->getTiendas("");
 									  		  foreach($centros as $centro): ?>
-									  			<option value="<?php echo $centro['cod_tienda'];?>" <?php if ($elements[0]['empresa']==$centro['cod_tienda']){ echo ' selected="selected" ';}?>><?php echo $centro['nombre_tienda'];?></option>	
+									  			<option value="<?php echo $centro['cod_tienda'];?>" <?php if ($elements[0]['empresa'] == $centro['cod_tienda']) echo ' selected="selected" ';?>><?php echo $centro['nombre_tienda'];?></option>	
 									  	<?php endforeach; ?>
 									</select>
 								</div>
@@ -123,19 +123,19 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							<div class="row inset">
 								<div class="col-md-4">
 									<label checkbox-inline>
-										<input type="checkbox" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed']==1 ? "checked" : "";?>> <?php echo strTranslate("Confirmed");?>
+										<input type="checkbox" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed'] == 1 ? "checked" : "";?>> <?php echo strTranslate("Confirmed");?>
 									</label>
 								</div>
 
 								<div class="col-md-4">
 									<label checkbox-inline>
-										<input type="checkbox" id="registered_user"  name="registered_user" <?php echo $elements[0]['registered']==1 ? "checked" : "";?>> <?php echo strTranslate("Registered");?>
+										<input type="checkbox" id="registered_user"  name="registered_user" <?php echo $elements[0]['registered'] == 1 ? "checked" : "";?>> <?php echo strTranslate("Registered");?>
 									</label>
 								</div>
 
 								<div class="col-md-4">
 									<label checkbox-inline>
-										<input type="checkbox" id="disabled_user"  name="disabled_user" <?php echo $elements[0]['disabled']==1 ? "checked" : "";?>> <?php echo strTranslate("Disabled");?>
+										<input type="checkbox" id="disabled_user"  name="disabled_user" <?php echo $elements[0]['disabled'] == 1 ? "checked" : "";?>> <?php echo strTranslate("Disabled");?>
 									</label>
 								</div>
 							</div>
@@ -151,7 +151,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 						<div class="panel panel-default">
 							<div class="panel-heading"><?php echo strTranslate("Picture");?></div>
 							<div class="panel-body nopadding">
-								  <img src="<?php echo PATH_USERS_FOTO.(($elements[0]['foto']=="") ? "user.jpg" : $elements[0]['foto']);?>" style="width:100%" class="responsive" /><br /><br />
+								  <img src="<?php echo PATH_USERS_FOTO.(($elements[0]['foto'] == "") ? "user.jpg" : $elements[0]['foto']);?>" style="width:100%" class="responsive" /><br /><br />
 								<?php
 								echo '<div class="btn btn-primary btn-block" id="DeleteFoto" onClick="Confirma(\'¿Seguro que desea borrar la foto del usuario?\',
 									\'admin-user?id='.$elements[0]['username'].'&f='.$elements[0]['foto'].'\')" 

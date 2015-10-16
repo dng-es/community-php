@@ -9,7 +9,7 @@ function galleryPhotos($elements, $rating, $id_promocion, $cols, $pagina = "foto
 }
 
 function showFotoGaleria($file_galeria, $rating = true, $reto = 0, $pagina = "fotos", $comments = true){
-	$titulo =(strlen($file_galeria['titulo']) > 30 ? substr($file_galeria['titulo'],0,28)."..." : $file_galeria['titulo']);
+	$titulo = (strlen($file_galeria['titulo']) > 30 ? substr($file_galeria['titulo'], 0, 28)."..." : $file_galeria['titulo']);
 	$num_comentarios = connection::countReg("galeria_fotos_comentarios", " AND id_file=".$file_galeria['id_file']." AND estado=1 ");	
 	$nick = ($file_galeria['nick'] == "" ? "(sin nick)" : $file_galeria['nick']);
 	

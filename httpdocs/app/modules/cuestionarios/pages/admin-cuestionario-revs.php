@@ -13,7 +13,6 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
-
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
@@ -34,7 +33,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 			<li><a href="admin-cuestionario-revs?t3=1&id=<?php echo $id_cuestionario;?>"><?php echo strTranslate("Export");?></a></li>
 		</ul>
 		
-		<?php if (count($revisiones)==0): ?>
+		<?php if (count($revisiones) == 0): ?>
 			<br /><div class="tareas-row alert alert-warning">Los usuarios todavia no han finalizado el cuestionario.</div>
 		<?php else: ?>
 			<div class="table-responsive">
@@ -47,7 +46,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 						<th>Respuestas</th>
 					</tr>
 					<?php foreach($revisiones as $revision):
-						if ($revision['revision']==1){
+						if ($revision['revision'] == 1){
 							$imagen_revision='<i class="fa fa-check icon-ok"></i>';
 							$destino_validar_revision="";
 							$btn = "";

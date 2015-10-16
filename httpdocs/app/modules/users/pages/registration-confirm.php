@@ -6,7 +6,7 @@
 		<h1>Confirmación de usuario</h1>
 		<?php
 		$users = new users();
-		if (connection::countReg("users"," AND sha1(username)='".$_REQUEST['a']."' AND sha1(user_password)='".$_REQUEST['c']."' AND sha1(email)='".$_REQUEST['b']."' ")==1){
+		if (connection::countReg("users", " AND sha1(username)='".$_REQUEST['a']."' AND sha1(user_password)='".$_REQUEST['c']."' AND sha1(email)='".$_REQUEST['b']."' ") == 1){
 			if($users->confirmRegistration($_REQUEST['a'],$_REQUEST['b'], $_REQUEST['c'])){
 				echo '<p>Usuario confirmado correctamente. Pincha <a href="login">aquí</a> para acceder.</p>';
 			}

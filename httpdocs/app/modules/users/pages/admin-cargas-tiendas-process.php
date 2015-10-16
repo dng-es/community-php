@@ -13,11 +13,11 @@
 			$fichero=$_FILES['nombre-fichero'];
 			//SUBIR FICHERO		
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo=NormalizeText($nombre_archivo);
+			$nombre_archivo = NormalizeText($nombre_archivo);
 			$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 			$tamano_archivo = $fichero['size'];
 			//compruebo si las características del archivo son las que deseo
-			if ($tipo_archivo!="XLS") ErrorMsg("La extensión no es correcta.".$tipo_archivo);
+			if ($tipo_archivo != "XLS") ErrorMsg("La extensión no es correcta.".$tipo_archivo);
 			else{
 				if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 					//BORRAR FICHEROS ANTIGUOS
@@ -30,7 +30,8 @@
 					
 					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
 					volcarMySQL($data);				   
-				}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
+				}
+				else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
 			}
 		}?>
 	</div>
@@ -43,7 +44,7 @@ function volcarMySQL($data) {
 	$contador_insert = 0;
 	$contador_update = 0;
 
-	for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
+	for($fila = 2;$fila <= $data->sheets[0]['numRows']; $fila += 1){
 		$cod_tienda = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
 		$nombre_tienda = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
 		$regional_tienda = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][3]))));
@@ -61,9 +62,9 @@ function volcarMySQL($data) {
 		else $empresa_usuarios = "0003";
 
 		
-		if ($cod_tienda!=""){
+		if ($cod_tienda != ""){
 			//VERIFICAR QUE EXISTA LA TIENDA PARA ALTA Y ACTUALIZACION
-			if (connection::countReg("users_tiendas"," AND cod_tienda='".$cod_tienda."' ") > 0){			
+			if (connection::countReg("users_tiendas", " AND cod_tienda='".$cod_tienda."' ") > 0){			
 				//actualizar tienda	
 				$users->updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa);
 				$contador_update++;
@@ -78,16 +79,16 @@ function volcarMySQL($data) {
 			if ($activa == 0) $users->disableUsersTiendas($cod_tienda);
 			else{
 				//VERIFICAR QUE EXISTA EL REGIONAL PARA ALTA O MODIFICACION DE DATOS
-				if ($regional_tienda!="" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ")==0){		
+				if ($regional_tienda != "" and connection::countReg("users", " AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ") == 0){		
 					//insertar usuario
-					$users->insertUser($regional_tienda,$regional_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL_DEF,'regional','','','','',0);
+					$users->insertUser($regional_tienda, $regional_tienda, "", "", 0, 0, "", $empresa_usuarios, '', CANAL_DEF, 'regional', '', '', '', '', 0);
 				}
 				else $users->updateJerarquiaUsers($regional_tienda, 'regional', $empresa_usuarios);
 
 				//VERIFICAR QUE EXISTA EL RESPONSABLE PARA ALTA O MODIFICACION DE DATOS
-				if ($responsable_tienda != "" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ")==0){		
+				if ($responsable_tienda != "" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ") == 0){		
 					//insertar usuario
-					$users->insertUser($responsable_tienda,$responsable_tienda,"","",0,0,"",$empresa_usuarios,'',CANAL_DEF,'responsable','','','','',0);
+					$users->insertUser($responsable_tienda, $responsable_tienda, "", "", 0, 0, "", $empresa_usuarios, '', CANAL_DEF, 'responsable', '', '', '', '', 0);
 				}
 				else $users->updateJerarquiaUsers($responsable_tienda, 'responsable', $empresa_usuarios);
 			}
@@ -107,8 +108,8 @@ function volcarMySQL($data) {
 		$users->disableUser($usuario_regionales['username'], 1);
 	endforeach;
 
-	echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atr&aacute;s</a></p>
-	<p>El proceso de importaci&oacute;n ha finalizado con &eacute;xito</p>';
+	echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a></p>
+	<p>El proceso de importaci&oacute;n ha finalizado con éxito</p>';
 	echo '<p>Se ha actualizado <b>'.$contador_update.'</b> registros</p>';
 	echo '<p>Se ha insertado <b>'.$contador_insert.'</b> registros</p>';
 }  

@@ -17,7 +17,7 @@ if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') $foro->cambiarEstadoT
 $reg = 15;
 if (isset($_GET["pag"])) $pag = $_GET["pag"];
 if (!isset($pag)) { $inicio = 0; $pag = 1;}
-else { $inicio = ($pag - 1) * $reg;}
+else $inicio = ($pag - 1) * $reg;
 $total_reg = connection::countReg("foro_temas",$filtro);
 
 
@@ -79,8 +79,8 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 						echo $element['user'].'</td>';
 						echo '<td>'.$num_visitas.'</td>';
 						echo '<td>';
-						if ($num_comentarios == 0){ echo $num_comentarios;}
-						else{ echo '<a href="admin-blog-foro?id='.$element['id_tema'].'">'.$num_comentarios.'</a>';}
+						if ($num_comentarios == 0) echo $num_comentarios;
+						else echo '<a href="admin-blog-foro?id='.$element['id_tema'].'">'.$num_comentarios.'</a>';
 						echo '</td>';
 						echo '</tr>';   
 					endforeach;?>

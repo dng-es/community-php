@@ -12,7 +12,7 @@ include_once($base_dir . "modules/fotos/controllers/controller.default.php");
 include_once($base_dir . "modules/fotos/templates/gallery.php");
 
 session::ValidateSessionAjax();
-$fotos=new fotos();
+$fotos = new fotos();
 $module_config = getModuleConfig("fotos");
 $pagina = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1 );
 $filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (f.canal='".$_SESSION['user_canal']."' OR f.canal='todos') ");

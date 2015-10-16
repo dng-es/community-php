@@ -64,7 +64,7 @@ $elements = $na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 					<li><a href="admin-area?act=new"><?php echo strTranslate("Na_areas_new");?></a></li>
 					<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q=<?php echo $find_text;?>"><?php echo strTranslate("Export");?></a></li>
 					<div class="pull-right">
-						<?php echo SearchForm($elements['reg'],"admin-areas","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
+						<?php echo SearchForm($reg, "admin-areas", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>
 					</div>
 
 				</ul>

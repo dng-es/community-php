@@ -39,7 +39,7 @@ $plantilla = campaignsController::getItemAction();
 						$campaigns = new campaigns();
 						$tipo_campana = $campaigns->getCampaignsTypes("");
 						foreach($tipo_campana as $campana):
-							echo '<option value="'.$campana['id_campaign_type'].'" '.($campana['id_campaign_type']==$plantilla['id_campaign_type'] ? 'selected="selected"' : '').'>'.$campana['campaign_type_name'].'</option>';    
+							echo '<option value="'.$campana['id_campaign_type'].'" '.($campana['id_campaign_type'] == $plantilla['id_campaign_type'] ? 'selected="selected"' : '').'>'.$campana['campaign_type_name'].'</option>';    
 						endforeach;
 						?>
 						</select>
@@ -58,7 +58,7 @@ $plantilla = campaignsController::getItemAction();
 								<label for="nombre-fichero">Imagen miniatura de la campaña</label>
 								<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="<?php echo strTranslate("Choose_file");?>" />
 								<?php 
-								if (isset($plantilla['imagen_mini']) and $plantilla['imagen_mini']!=""){
+								if (isset($plantilla['imagen_mini']) and $plantilla['imagen_mini'] != ""){
 									echo '<br /><img src="images/banners/'.$plantilla['imagen_mini'].'" style="width:100%" />';
 								}
 								?>

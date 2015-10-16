@@ -15,7 +15,7 @@ if (isset($_POST['subject_form'])) {
 					Gracias por tu consulta.
 				  </div>';
 	}
-	else { $mensaje = '<div style="color: red;">Se ha producido un error durante el envío, Por favor intentelo más tarde.</div>';}
+	else $mensaje = '<div style="color: red;">Se ha producido un error durante el envío, Por favor intentelo más tarde.</div>';
 }?>
 	<div id="page-info"><?php echo strTranslate("Contact");?></div>
 	<?php echo $mensaje;?>

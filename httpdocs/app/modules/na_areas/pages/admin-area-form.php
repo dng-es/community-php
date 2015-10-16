@@ -19,36 +19,22 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
 			array("ItemLabel"=>strTranslate("Form"), "ItemClass"=>"active"),
 		));
-		?>
-		<p>Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
-		<a href="admin-area?act=edit&id=<?php echo $id_area;?>" class="comunidad-color">Volver a la gestión del curso</a></p>
 
-		<?php
-		//ELIMINAR PREGUNTA
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') { $na_areas->deletePregunta($_REQUEST['idp']);}
+		session::getFlashMessage('actions_message');
 
 		//INSERTAR PREGUNTA
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'new') { 
-			if (trim($_POST['pregunta_texto'])){
-				$na_areas->insertPregunta($id_tarea,$_POST['pregunta_texto'],$_POST['pregunta_tipo']);
-				$id_pregunta = connection::SelectMaxReg("id_pregunta","na_tareas_preguntas","");
-				
-				if ($_POST['pregunta_tipo']!='texto'){
-					//INSERTAR PREGUNTA-RESPUESTA
-					$num_repuestas=$_POST['contador-respuestas'];
-					for ($i = 1; $i <= $num_repuestas; $i++) { 
-						$campo_respuesta="respuesta".$i;
-						$valor = trim($_POST[$campo_respuesta]);
-						$valor = str_replace("'", "´", $valor);
-						$valor = str_replace('"', '´', $valor);
-						if ($valor != ""){$na_areas->insertPreguntaRespuesta($id_pregunta,$valor);}
-					}
-				}
-			}
-		}
+		na_areasController::insertPreguntaAction();
+		
+		//ELIMINAR PREGUNTA
+		na_areasController::deletePreguntaAction();
 
-		if (count($tarea) == 1 and $tarea[0]['tipo'] == 'formulario'){FormularioTarea($id_tarea,$id_area,$tarea);}
-		else{ErrorMsg("Error al cargar el formulario la tarea");} ?>
+		?>
+		<p>Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
+		<a href="admin-area?act=edit&t=2&id=<?php echo $id_area;?>" class="comunidad-color">Volver a la gestión del curso</a></p>
+
+		<?php
+		if (count($tarea) == 1 and $tarea[0]['tipo'] == 'formulario') FormularioTarea($id_tarea,$id_area,$tarea);
+		else ErrorMsg("Error al cargar el formulario la tarea"); ?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

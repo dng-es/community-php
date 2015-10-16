@@ -157,7 +157,7 @@ class cuestionariosController{
 						$campo = "respuesta_".$pregunta['id_pregunta']."_".$respuesta_usuario['id_respuesta'];  
 						if (isset($_POST[$campo]) and $_POST[$campo] != '') $respuesta_valor .= $_POST[$campo]."|";
 					endforeach;
-					$respuesta_valor=substr($respuesta_valor, 0,(strlen($respuesta_valor)-1));
+					$respuesta_valor=substr($respuesta_valor, 0, (strlen($respuesta_valor) - 1));
 				}
 
 				$respuesta_valor = str_replace("'", "´", $respuesta_valor);

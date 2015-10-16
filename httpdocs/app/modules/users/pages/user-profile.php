@@ -9,7 +9,6 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 					 "js/jquery.geturlparam.js", 
 					 getAsset("fotos")."js/fotos.js"));
 
-
 ?>
 <div class="row row-top">
 	<div class="app-main">

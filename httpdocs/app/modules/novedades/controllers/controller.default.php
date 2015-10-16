@@ -20,12 +20,11 @@ class novedadesController{
 			$activo = ($_POST['activo'] == "on" ? 1 : 0);
 			$canal = $_POST['canal'];
 
-			if ($novedades->updateNovedades($cuerpo,$activo, $canal)) {
-				session::setFlashMessage( 'actions_message', "Modificación realizada correctamente.", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al modificar registro.", "alert alert-danger");
-			}
+			if ($novedades->updateNovedades($cuerpo,$activo, $canal)) 
+				session::setFlashMessage('actions_message', "Modificación realizada correctamente.", "alert alert-success");
+			else
+				session::setFlashMessage('actions_message', "Error al modificar registro.", "alert alert-danger");
+
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}

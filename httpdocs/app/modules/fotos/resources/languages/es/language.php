@@ -40,7 +40,7 @@ Photos_comment_vote_own = "No puedes comentar tus comentarios"
 Photos_comment_vote_ok = "Votación realizada con éxito"
 Photos_comment_vote_repeat = "Ya has votado este comentario"
 Photo_vote = "Votar foto"
-No_more_photos = "No hay más imágenes"
+No_more_photos = "No hay más fotos"
 More_photos = "Más fotos"
 No_photos_uploaded = "No hay fotos subidas"
 ?>

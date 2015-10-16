@@ -8,7 +8,6 @@ addJavascripts(array("js/bootstrap.file-input.js",
 
 templateload("tipuser", "users");
 templateload("na_areasuser", "na_areas");
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -35,6 +34,7 @@ templateload("na_areasuser", "na_areas");
 				<div class="row"> 
 					<div class="col-md-8">
 					<br />
+					<span id="password-text-alert" class="alert-message alert alert-danger"></span>
 					<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
 						<input type="hidden" name="user-username" id="user-username" value="<?php echo $_SESSION['user_name'];?>">
 				  		<div class="row">

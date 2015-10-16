@@ -108,25 +108,28 @@ class usersController{
 			
 			$comentarios = sanitizeInput($_POST['user-comentarios']);
 
-			$confirmar=$users->perfilUser($_POST['user-username'],
-										   $_POST['user-nick'],
-										   $_POST['user-nombre'],
-										   $_POST['user-apellidos'],
-										   $_POST['user-pass'],
-										   $_POST['user-email'],
-										   $_FILES['nombre-fichero'],
-										   $comentarios,
-										   $_POST['user-date']);
-			if ($confirmar == 1){
-				session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ok"), "alert alert-success");
+			if (strlen(trim($_POST['user-pass'])) < 6) session::setFlashMessage( 'actions_message', "La contraseña tiene que tener mínimo 6 caracteres", "alert alert-danger");
+			else{
+				$confirmar = $users->perfilUser($_POST['user-username'],
+											   $_POST['user-nick'],
+											   $_POST['user-nombre'],
+											   $_POST['user-apellidos'],
+											   trim($_POST['user-pass']),
+											   $_POST['user-email'],
+											   $_FILES['nombre-fichero'],
+											   $comentarios,
+											   $_POST['user-date']);
+				if ($confirmar == 1){
+					session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ok"), "alert alert-success");
+				}
+				elseif ($confirmar == 2) {
+					session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ko"), "alert alert-danger");
+				}
+				elseif ($confirmar == 3) {
+					session::setFlashMessage( 'actions_message', $_POST['user-nick']." ".strTranslate("Update_profile_nick_ko"), "alert alert-danger");
+				}
 			}
-			elseif ($confirmar == 2) {
-				session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ko"), "alert alert-danger");
-			}
-			elseif ($confirmar == 3) {
-				session::setFlashMessage( 'actions_message', $_POST['user-nick']." ".strTranslate("Update_profile_nick_ko"), "alert alert-danger");
-			}
-			redirectURL("profile");	
+			redirectURL("profile");
 		}
 	}	
 

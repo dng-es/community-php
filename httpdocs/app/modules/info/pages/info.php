@@ -1,6 +1,6 @@
 <?php
 $info = new info();
-$elements=$info->getInfoTipos("");
+$elements = $info->getInfoTipos("");
 ?>
 <h1>Tu documentación</h1>
 <?php foreach($elements as $element):?>

@@ -7,12 +7,10 @@ templateload("searchfile","fotos");
 addJavascripts(array("js/bootstrap.file-input.js", 
 					 "js/jquery.geturlparam.js", 
 					 getAsset("fotos")."js/fotos.js"));
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
-
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Photo_gallery"), "ItemClass"=>"active"),

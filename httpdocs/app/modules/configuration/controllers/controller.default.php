@@ -30,30 +30,30 @@ class configurationController{
 	}
 
 	public static function getListModulesAction(){
+		global $modules;
 		$listModules = array();
-		$folders = getListModules();
-		foreach($folders as $folder):
-			$annotations = FileSystem::getClassAnnotations($folder['folder']."Core");
+		foreach($modules as $module):
+			$annotations = FileSystem::getClassAnnotations($module['folder']."Core");
 			$ano = $annotations[1];
 			$ann = "";
 			
 			$icon = "user";
 			foreach($ano as $annotation):
 				$thisann = isset($annotation) ? ucfirst($annotation) : "";
-				if (strpos($thisann, "Version 0.7")!==false)
+				if (strpos($thisann, "Version 0.7") !== false)
 					$thisann = '<span class="label label-warning">'.$thisann.'</span>';
-				elseif (strpos($thisann, "Version 0.8")!==false) 
+				elseif (strpos($thisann, "Version 0.8") !== false) 
 					$thisann = '<span class="label label-warning">'.$thisann.'</span>';
-				elseif (strpos($thisann, "Version 0.9")!==false) 
+				elseif (strpos($thisann, "Version 0.9") !== false) 
 					$thisann = '<span class="label label-warning">'.$thisann.'</span>';
-				elseif (strpos($thisann, "Version 0")!==false) 
+				elseif (strpos($thisann, "Version 0") !== false) 
 					$thisann = '<span class="label label-danger">'.$thisann.'</span>';
-				elseif (strpos($thisann, "Version")!==false) 
+				elseif (strpos($thisann, "Version") !== false) 
 					$thisann = '<span class="label label-success">'.$thisann.'</span>';
 
 				$ann .= $thisann."<br />";
 			endforeach;	
-			array_push($listModules, array("folder" => $folder['folder'], "ann" => $ann, "icon" => $icon));		
+			array_push($listModules, array("folder" => $module['folder'], "ann" => $ann, "icon" => $icon));		
 		endforeach;	
 		return $listModules;	
 	}	

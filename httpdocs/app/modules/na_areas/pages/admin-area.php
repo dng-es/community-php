@@ -1,21 +1,9 @@
 <?php
 //DESCARGAR USUARIOS DEL AREA
-if (isset($_REQUEST['t']) and $_REQUEST['t'] == 1){
-	$na_areas = new na_areas();
-	$elements = $na_areas->getAreasUsers(" AND id_area=".$_REQUEST['id']);
-	download_send_headers("data_" . date("Y-m-d") . ".csv");
-	echo array2csv($elements);
-	die();
-}
+na_areasController::exportUsersAreaAction();
 
 //DESCARGAR FORO
-if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
-	$foro = new foro(); 
-	$elements = $foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['idt']." ");
-	download_send_headers("data_" . date("Y-m-d") . ".csv");
-	echo array2csv($elements);
-	die();
-}
+na_areasController::exportForoAction();
 
 addJavascripts(array("js/jquery.numeric.js", 
 					 "js/bootstrap.file-input.js", 
@@ -36,94 +24,63 @@ templateload("cmbCanales","users");
 			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
 			array("ItemLabel"=> strTranslate("Edit")." ".strTranslate("Na_areas"), "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage('actions_message');
+
+		$na_areas = new na_areas();
+
+		$accion = isset($_GET['act']) ? $_GET['act'] : "";
+		$accion1 = isset($_GET['act1']) ? $_GET['act1'] : "";
+		$accion2 = isset($_GET['accion2']) ? $_GET['accion2'] : "";
+
+		$id = ($accion == 'edit' ? $_GET['id'] : 0);
+		if ($accion == 'edit' and $accion2 == 'ok' and $accion1 != "del") na_areasController::updateAction();
+		elseif ($accion == 'new' and $accion2 == 'ok') na_areasController::insertAction();
+
+		//VALIDAR CONTENIDOS FORO
+		na_areasController::validarComentarioAction();
+
+		//clasificar foro
+		na_areasController::cambiarTipoTemaAction();
+
+		//crear grupos
+		na_areasController::inserGrupoAction();
+
+		//crear tarea
+		na_areasController::inserTareaAction();
+
+		//activar/desactivar tarea
+		na_areasController::estadoTareaAction();
+
+		//eliminar tarea
+		na_areasController::eliminarTareaAction();
+
+		//activar/desactivar links tarea
+		na_areasController::estadoLinksTareaAction();
+
+
+		$elements = $na_areas->getAreas(" AND id_area=".$id." ");
+		$area_nombre = isset($elements[0]['area_nombre']) ? $elements[0]['area_nombre'] : "";
+		$area_descripcion = isset($elements[0]['area_descripcion']) ? $elements[0]['area_descripcion'] : "";
+		$puntos = isset($elements[0]['puntos']) ? $elements[0]['puntos'] : "";
+		$limite_users = isset($elements[0]['limite_users']) ? $elements[0]['limite_users'] : "";
+		$area_canal = isset($elements[0]['area_canal']) ? $elements[0]['area_canal'] : "";
+		$registro = isset($elements[0]['registro']) ? $elements[0]['registro'] : 0;
 		?>
-
-				<?php
-				session::getFlashMessage( 'actions_message' );
-
-				$na_areas = new na_areas();
-				$id=0;
-
-				$accion = isset($_GET['act']) ? $_GET['act'] : "";
-				$accion1 = isset($_GET['act1']) ? $_GET['act1'] : "";
-				$accion2 = isset($_GET['accion2']) ? $_GET['accion2'] : "";
-
-				if ($accion == 'edit'){ $id=$_GET['id'];}
-				if ($accion == 'edit' and $accion2 == 'ok' and $accion1!="del"){ UpdateData();}
-				elseif ($accion == 'new' and $accion2 == 'ok'){ $id=InsertData();$accion="edit";}
-
-				//VALIDAR CONTENIDOS FORO
-				if (isset($_REQUEST['act2'])) {   
-					$foro = new foro();
-					$users = new users();
-					if ($_REQUEST['act2'] == 'tema_ko'){
-						$foro->cambiarEstadoTema($_REQUEST['idt'],0);
-					}
-					elseif ($_REQUEST['act2'] == 'foro_ko'){
-						$foro->cambiarEstado($_REQUEST['idc'],2);
-						$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
-					}
-					session::setFlashMessage( 'actions_message', "Estado modificado.", "alert alert-warning"); 
-					redirectURL("admin-area?act=edit&id=".$_REQUEST['id']);
-				}
-
-				//clasificar foro
-				if (isset($_POST['find_tipo'])) {  
-					$foro = new foro(); 
-					$foro->cambiarTipoTema($_POST['id_tema_tipo'],$_POST['find_tipo']);
-					//header("Location: admin-validacion-foro"); 
-				}
-
-				//crear grupos
-				if (isset($_POST['id_area_grupo']) and $_POST['id_area_grupo'] != ""){
-					ErrorMsg($na_areas->insertGrupoArea($_POST['id_area_grupo'],$_POST['grupo_nombre']));
-				}
-
-				//crear tarea
-				if (isset($_POST['id_area_tarea']) and $_POST['id_area_tarea'] != ""){
-					if (isset($_POST['tarea_grupo']) and $_POST['tarea_grupo'] == 'on'){ $grupo = 1; }
-					else{ $grupo = 0; }
-					$mensaje = $na_areas->insertTarea($_POST['id_area_tarea'],$_POST['tarea_titulo'],$_POST['tarea_descripcion'],$_POST['tipo'],$grupo,$_SESSION['user_name'],$_FILES['fichero-tarea']);
-					session::setFlashMessage( 'actions_message', $mensaje, "alert alert-warning"); 
-					redirectURL($_SERVER['REQUEST_URI']);
-				}
-
-				//activar/desactivar tarea
-				if (isset($_REQUEST['e']) and $_REQUEST['e'] != ""){
-					ErrorMsg($na_areas->estadoTarea($_REQUEST['del_t'],$_REQUEST['e']));
-				}
-
-				//eliminar tarea
-				if (isset($_REQUEST['del_t2']) and $_REQUEST['del_t2'] != ""){
-					ErrorMsg($na_areas->estadoTarea($_REQUEST['del_t2'],2));
-				}
-
-				//activar/desactivar links tarea
-				if (isset($_REQUEST['el']) and $_REQUEST['el'] != ""){
-					ErrorMsg($na_areas->estadoLinksTarea($_REQUEST['del_t'],$_REQUEST['el']));
-				}  
-
-				$elements=$na_areas->getAreas(" AND id_area=".$id." ");
-				$area_nombre = isset($elements[0]['area_nombre']) ? $elements[0]['area_nombre'] : "";
-				$area_descripcion = isset($elements[0]['area_descripcion']) ? $elements[0]['area_descripcion'] : "";
-				$puntos = isset($elements[0]['puntos']) ? $elements[0]['puntos'] : "";
-				$limite_users = isset($elements[0]['limite_users']) ? $elements[0]['limite_users'] : "";
-				$area_canal = isset($elements[0]['area_canal']) ? $elements[0]['area_canal'] : "";
-				?>
 
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
-					<?php if ($accion=='edit'): ?>
-					<li><a href="#<?php echo strTranslate("Tasks");?>" data-toggle="tab"><?php echo strTranslate("Tasks");?></a></li>
-					<li><a href="#<?php echo strTranslate("Users");?>" data-toggle="tab"><?php echo strTranslate("Users");?></a></li>
-					<li><a href="#<?php echo strTranslate("Forums");?>" data-toggle="tab"><?php echo strTranslate("Forums");?></a></li>
+					<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
+					<?php if ($accion == 'edit'): ?>
+					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#<?php echo strTranslate("Tasks");?>" data-toggle="tab"><?php echo strTranslate("Tasks");?></a></li>
+					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#<?php echo strTranslate("Users");?>" data-toggle="tab"><?php echo strTranslate("Users");?></a></li>
+					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#<?php echo strTranslate("Forums");?>" data-toggle="tab"><?php echo strTranslate("Forums");?></a></li>
 					<?php endif;?>
 				</ul>	
 			
 				<div class="tab-content">
-					<div class="tab-pane fade in active" id="general">
+					<div class="tab-pane fade in <?php echo (!(isset($_GET['t'])) ? ' active' : '');?>" id="general">
 						<div class="row">
 						<div class="col-md-12">
 						<form role="form" id="formData" name="formData" method="post" action="admin-area?act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
@@ -164,7 +121,7 @@ templateload("cmbCanales","users");
 								<div class="form-group col-md-4">
 									<br />
 									<label checkbox-inline>
-										<input type="checkbox" id="area_registro"  name="area_registro" <?php echo $elements[0]['registro']==1 ? "checked" : "";?>> <small>Permitir registro</small>
+										<input type="checkbox" id="area_registro"  name="area_registro" <?php echo $registro == 1 ? "checked" : "";?>> <small>Permitir registro</small>
 									</label>
 								</div>                    
 							</div>
@@ -185,7 +142,7 @@ templateload("cmbCanales","users");
 					if ($accion == 'edit'){
 						$id_area = $elements[0]['id_area'];
 						$area_canal = $elements[0]['area_canal']; ?>
-						<div class="tab-pane fade in" id="<?php echo strTranslate("Tasks");?>">
+						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="<?php echo strTranslate("Tasks");?>">
 							<br />
 							<div class="row">
 								<div class="col-md-12">
@@ -194,7 +151,7 @@ templateload("cmbCanales","users");
 							</div>
 						</div>
 
-						<div class="tab-pane fade in" id="<?php echo strTranslate("Users");?>">
+						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==3) ? ' in active' : '');?>" id="<?php echo strTranslate("Users");?>">
 							<br />
 							<div class="row">
 								<div class="col-md-6">
@@ -207,7 +164,7 @@ templateload("cmbCanales","users");
 							</div>
 						</div>
 
-						<div class="tab-pane fade in" id="<?php echo strTranslate("Forums");?>">
+						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==4) ? ' in active' : '');?>" id="<?php echo strTranslate("Forums");?>">
 							<br />
 							<div class="row">
 								<div class="col-md-12">
@@ -224,8 +181,7 @@ templateload("cmbCanales","users");
 </div>
 
 
-<?php	
-
+<?php 
 function showUsuariosArea($id_area,$area_canal){
 	$na_areas = new na_areas;
 
@@ -310,19 +266,16 @@ function showGruposArea($id_area){
 
 function showForosArea($id_area){
 	$na_areas = new na_areas;
-
 	$elements = $na_areas->getGruposUsers(" AND id_area=".$id_area); 
 
  	//TEMAS FOROS
 	getForosActivos($id_area);
 	//COMENTARIOS FORO PENDIENTE DE VALIDAR
 	getForoPendientes($id_area);   
-
 }
 
 function getForosActivos($id_area){
 	$foro = new foro();
-
 	$temas = $foro->getTemas(" AND id_tema_parent<>0 AND activo=1 AND id_area=".$id_area);  
 		echo '<p>Hay los siguientes <span class="orange-color">TEMAS</span> creados en los foros</p><br />';
 		echo '<table class="table table-striped">';
@@ -387,8 +340,7 @@ function getForosActivos($id_area){
 }
 
 
-function getForoPendientes($id_area)
-{
+function getForoPendientes($id_area){
 	$foro = new foro();
 	$calculo = strtotime("-4 days");
 	$fecha_ayer = date("Y-m-d", $calculo);
@@ -483,7 +435,6 @@ function showTareasArea($id_area){
 					<input type="text" name="tarea_titulo" id="tarea_titulo" class="form-control" />
 					<span id="tarea-titulo-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 
-
 					<label for="tarea_descripcion" class="control-label"><?php echo strTranslate("Description");?>:</label>
 					<textarea name="tarea_descripcion" id="tarea_descripcion" class="form-control" /></textarea>
 					<span id="tarea-descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
@@ -491,8 +442,6 @@ function showTareasArea($id_area){
 					<label for="fichero-tarea" class="control-label">Fichero tarea:</label>
 					<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default btn-block" title="<?php echo strTranslate("Choose_file");?>" />
 					<span id="fichero-tarea-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_file");?></span>
-
-					
 
 					<div class="checkbox">
 						<label>
@@ -582,50 +531,10 @@ function showTareasArea($id_area){
 				</div>
 				<?php else: ?>
 				<p>No hay tareas incluidas en el curso</p>
-			php<?php endif; ?>
+			<?php endif; ?>
 			</div>
 		</div>
 
 	<?php
 }
-	
-function InsertData(){
-	$na_areas = new na_areas();
-	$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
-
-	if ($na_areas->insertArea($_POST['area_nombre'],
-				$_POST['area_descripcion'],
-				$_POST['area_canal'],
-				$_POST['area_puntos'],
-				$_POST['area_limite'],
-				0,
-				$registro)) {
-		OkMsg(strTranslate("Insert_procesing"));
-		$id_area = connection::SelectMaxReg("id_area","na_areas","");
-		return $id_area;
-	}
-}
-
-function UpdateData(){
-	$na_areas = new na_areas();
-	$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
-	$nombre = sanitizeInput($_POST['area_nombre']);
-	$descripcion = sanitizeInput($_POST['area_descripcion']);
-	if ($na_areas->updateArea($_POST['id_area'],
-						$nombre,
-						$descripcion,
-						$_POST['area_canal'],
-						$_POST['area_puntos'],
-						$_POST['area_limite'],
-						$registro)) {
-				//modificar foro
-				$foro = new foro();
-				$foro->updateTemaArea($_POST['id_area'],
-							$nombre,
-							$descripcion,
-							$_POST['area_canal']);
-				OkMsg(strTranslate("Update_procesing"));}
-	else { ErrorMsg("Se ha producido algun error durante la modificacion de los datos.");}
-}
-
 ?>

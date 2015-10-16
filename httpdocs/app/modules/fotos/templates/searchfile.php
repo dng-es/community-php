@@ -12,5 +12,5 @@ function SearchPhoto($pag, $formId = "searchForm", $labelForm = "Buscar:", $labe
 			</div>
 		</div>
 	</form>
-</div>'
+</div>
 <?php } ?>

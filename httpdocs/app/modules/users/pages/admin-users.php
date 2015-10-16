@@ -63,8 +63,8 @@ $elements = usersController::getListAction(35);
 							<td><?php echo $element['nick'];?></td>
 							<td><?php echo $element['nombre_tienda'];?></td>
 							<td><?php echo $element['email'];?></td>
-							<td><span class="label<?php echo ($element['confirmed']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['confirmed']==1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
-							<td><span class="label<?php echo ($element['disabled']==1 ? " label-danger" : " label-success");?>"><?php echo ($element['disabled']==0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
+							<td><span class="label<?php echo ($element['confirmed'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['confirmed'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
+							<td><span class="label<?php echo ($element['disabled'] == 1 ? " label-danger" : " label-success");?>"><?php echo ($element['disabled'] == 0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
 							<td><button type="button" class="btn btn-default btn-xs connect-as" title="<?php echo strTranslate("Connect_as");?>" data-u="<?php echo $element['username'];?>" data-p="<?php echo $element['user_password'];?>"><i class="fa fa-plug"></i></button></td>
 							</tr>  
 						<?php endforeach; ?>

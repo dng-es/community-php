@@ -93,8 +93,8 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 							<div class="form-group">
 								<small><label for="info_file">Selecciona el documento:
 								<?php
-								if ($elements[0]['file_info']!=""){ 
-									$enlace = ($elements[0]['download']==1 ? 'docs/showfile.php?file='.$elements[0]['file_info'] : $elements[0]['file_info']);
+								if ($elements[0]['file_info'] != ""){ 
+									$enlace = ($elements[0]['download'] == 1 ? 'docs/showfile.php?file='.$elements[0]['file_info'] : $elements[0]['file_info']);
 									echo '<a target="_blank" href="'.$enlace.'">Ver documento actual</a>';
 								}
 								?>

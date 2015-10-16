@@ -119,7 +119,7 @@ class mailing{
 	 * @param  	string 		$usuario				Email del usuario a insertar
 	 * @return 	boolean                				Resultado del proceso
 	 */
-	public function insertListsUsers($id_list,$usuario){
+	public function insertListsUsers($id_list, $usuario){
 		$Sql="INSERT INTO mailing_lists_users (id_list,email) 
 			VALUES(".$id_list.",'".$usuario."')";
 		return connection::execute_query($Sql);
@@ -154,7 +154,7 @@ class mailing{
 	 * @param  	date 		$birthday				Fecha de nacimiento de su email
 	 * @return 	boolean                				Resultado del proceso
 	 */
-	public function insertListsUsersData($email,$birthday){
+	public function insertListsUsersData($email, $birthday){
 		$Sql="INSERT INTO mailing_lists_users_data (email,birthday) 
 			VALUES('".$email."','".$birthday."')";
 		return connection::execute_query($Sql);
@@ -183,7 +183,7 @@ class mailing{
 	 * @param  	int 		$id_campaign 			Id de la campaña de template
 	 * @return 	boolean                				Resultado del proceso
 	 */
-	public function insertTemplate($template_name,$template_body, $template_mini, $id_type, $id_campaign){
+	public function insertTemplate($template_name, $template_body, $template_mini, $id_type, $id_campaign){
 		$Sql="INSERT INTO mailing_templates (template_name,template_body, template_mini, id_type, id_campaign) 
 			VALUES('".$template_name."','".$template_body."','".$template_mini."',".$id_type.",".$id_campaign.")";
 		return connection::execute_query($Sql);
@@ -199,7 +199,7 @@ class mailing{
 	 * @param  	int 		$id_campaign 			Id de la campaña de template
 	 * @return 	boolean                				Resultado del proceso
 	 */
-	public function updateTemplate($id,$template_name,$template_body, $template_mini, $id_type, $id_campaign){
+	public function updateTemplate($id, $template_name, $template_body, $template_mini, $id_type, $id_campaign){
 		$Sql_file = ($template_mini == "") ? "" : ", template_mini='".$template_mini."' ";
 		$Sql="UPDATE mailing_templates SET
 			 id_type=".$id_type.",
@@ -261,7 +261,7 @@ class mailing{
 	 * @param  	string 		$message_body2       	Cuerpo del mensaje2
 	 * @return 	boolean                     		Resultado del proceso
 	 */
-	public function insertMessage($id_template,$message_from_email, $message_from_name,$message_subject, $message_body, $message_lista, $username_add, $attachments, $date_scheduled = "NULL", $message_body2=""){
+	public function insertMessage($id_template, $message_from_email, $message_from_name, $message_subject, $message_body, $message_lista, $username_add, $attachments, $date_scheduled = "NULL", $message_body2=""){
 		$nombre_archivo = "";
 		if ($attachments['name']!="") {
 			$nombre_archivo = time().'_'.str_replace(" ","_",$attachments['name']);
@@ -281,7 +281,7 @@ class mailing{
 	 * @param  	string 		$email_message    		Email al que se ha de enviar el mensaje
 	 * @return 	boolean                   			Resultado del proceso
 	 */
-	public function insertMessageUser($id_message,$username_message,$email_message){
+	public function insertMessageUser($id_message, $username_message, $email_message){
 		//INSERTAR REGISTRO EN LA BBDD  
 		$Sql="INSERT INTO mailing_messages_users (id_message,username_message,email_message) 
 			 VALUES
@@ -295,7 +295,7 @@ class mailing{
 	 * @param  	string 		$message_status  		Nuevo estado del mensaje
 	 * @return 	boolean                  			Resultado del proceso
 	 */
-	public function updateMessageUser($id_message_user,$message_status){
+	public function updateMessageUser($id_message_user, $message_status){
 		$Sql="UPDATE mailing_messages_users 
 			  SET message_status='".$message_status."',
 			  date_send= NOW() 

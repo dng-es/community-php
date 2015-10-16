@@ -5,12 +5,12 @@ ini_set('memory_limit', '-1');
 //EXPORT ACCESOS
 visitasController::exportAction();
 
-$total1=0;
-$total2=0;
-$total3=0;
-$media1=0;
-$media2=0;
-$media3=0;
+$total1 = 0;
+$total2 = 0;
+$total3 = 0;
+$media1 = 0;
+$media2 = 0;
+$media3 = 0;
 $pagina_excluidas = "'admin','admin-informe-accesos','admin-informe-participaciones', 'admin-informe-puntuaciones','admin-users','admin-user','admin-users-tiendas','cargas-users','admin-area','admin-message','Inicio sesion','admin-validacion-foro',
 					 'admin-messages','admin-message-proccess','admin-message-proccess-step1',
 					 'admin-areas','admin-area-revs','admin-area-form','admin-area-docs','admin-config','admin-page', 'admin-puntos','admin-mystery','admin-validacion-fotos',
@@ -28,7 +28,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 global $total1,$total2,$total3,$media1,$media2,$media3,$pagina_excluidas;
 
 if (isset($_POST['generate-stats']) and !isset($_POST['export-stats'])):
-	$filtro_informe=" AND fecha BETWEEN '".$_POST['fecha_ini']." 00:00:00' AND '".$_POST['fecha_fin']." 23:59:59' ";
+	$filtro_informe = " AND fecha BETWEEN '".$_POST['fecha_ini']." 00:00:00' AND '".$_POST['fecha_fin']." 23:59:59' ";
 else:
 	$filtro_informe = " AND fecha>=DATE_ADD(NOW(), INTERVAL -1 MONTH) ";
 endif;
@@ -49,8 +49,8 @@ endforeach;
 $media = round(($visitas/count($elements)),2);
 $media1 = str_replace(",", ".",$media);
 $total1 = $visitas;
-$output_x = substr($output_x, 0,strlen($output_x)-1);
-$output_y = substr($output_y, 0,strlen($output_y)-1);
+$output_x = substr($output_x, 0, strlen($output_x) - 1);
+$output_y = substr($output_y, 0, strlen($output_y) - 1);
 
 //DATOS VISITAS POR HORA
 $filtro = $filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
@@ -63,11 +63,11 @@ foreach($elements as $element):
     $output_x5 .= "'".$element['date_hour']."',";
     $output_y5 .= $element['contador'].",";
 endforeach;
-$media = round(($visitas/count($elements)),2);
+$media = round(($visitas/count($elements)), 2);
 $media5 = str_replace(",", ".",$media);
 $total5 = $visitas;
-$output_x5 = substr($output_x5, 0,strlen($output_x5)-1);
-$output_y5 = substr($output_y5, 0,strlen($output_y5)-1);
+$output_x5 = substr($output_x5, 0, strlen($output_x5) - 1);
+$output_y5 = substr($output_y5, 0, strlen($output_y5) - 1);
 
 
 //DATOS VISITAS POR DIA
@@ -78,11 +78,11 @@ $output_y5 = substr($output_y5, 0,strlen($output_y5)-1);
  foreach($elements as $element):
 	$visitas+=$element['contador'];
 	$output_y2 .= $element['contador'].",";
-	$output_x2 .= "'".$element['anio']."-".($element['mes']-1)."-".$element['dia']."',";
+	$output_x2 .= "'".$element['anio']."-".($element['mes'] - 1)."-".$element['dia']."',";
  endforeach;
-$media = round(($visitas/count($elements)),2);
-$output_x2 = substr($output_x2, 0,strlen($output_x2)-1);
-$output_y2 = substr($output_y2, 0,strlen($output_y2)-1);
+$media = round(($visitas/count($elements)), 2);
+$output_x2 = substr($output_x2, 0, strlen($output_x2) - 1);
+$output_y2 = substr($output_y2, 0, strlen($output_y2) - 1);
 $media2 = str_replace(",", ".",$media);
 $total2 = $visitas;
 
@@ -95,11 +95,11 @@ $output_y3 = "";
 foreach($elements as $element):
 	$visitas+=$element['contador'];
 	$output_y3 .= $element['contador'].",";
-	$output_x3 .= "'".$element['anio']."-".($element['mes']-1)."-".$element['dia']."',";
+	$output_x3 .= "'".$element['anio']."-".($element['mes'] - 1)."-".$element['dia']."',";
 endforeach;
-$media = round(($visitas/count($elements)),2);
-$output_x3 = substr($output_x3, 0,strlen($output_x3)-1);
-$output_y3 = substr($output_y3, 0,strlen($output_y3)-1);
+$media = round(($visitas/count($elements)), 2);
+$output_x3 = substr($output_x3, 0, strlen($output_x3) - 1);
+$output_y3 = substr($output_y3, 0, strlen($output_y3) - 1);
 $media3 = str_replace(",", ".",$media);
 $total3 = $visitas;
 
@@ -111,7 +111,7 @@ $elements = visitas::getAccessBrowser($filtro_informe." AND webpage NOT IN (".$p
 foreach($elements as $element):
 	$outputBrowser.='{name: "'.$element['browser'].'",y: '.$element['contador'].'},';
 endforeach;
-$outputBrowser = substr($outputBrowser, 0,strlen($outputBrowser)-1);
+$outputBrowser = substr($outputBrowser, 0, strlen($outputBrowser) - 1);
 
 
 //DATOS VISITAS POR PLATAFORMA
@@ -120,7 +120,7 @@ $elements = visitas::getAccessPlatform($filtro_informe." AND webpage NOT IN (".$
 foreach($elements as $element):
 	$outputPlatform.='{name: "'.$element['platform'].'",y: '.$element['contador'].'},';
 endforeach;
-$outputPlatform = substr($outputPlatform, 0,strlen($outputPlatform)-1);
+$outputPlatform = substr($outputPlatform, 0, strlen($outputPlatform) - 1);
 
 ?>
 <script type="text/javascript">
@@ -399,7 +399,7 @@ $('#containerHoras').highcharts({
 <?php
 
   
-	global $total1,$total2,$total3,$media1,$media2,$media3;
+	global $total1, $total2, $total3, $media1, $media2, $media3;
 
 	$visitas = new visitas();
 
@@ -412,7 +412,7 @@ $('#containerHoras').highcharts({
 	}
 	else{
 		$fecha_fin = date('Y-m-d');
-		$fecha_ini = strtotime ( '-1 month' , strtotime ( $fecha_fin ) ) ;
+		$fecha_ini = strtotime ( '-1 month' , strtotime ($fecha_fin) ) ;
 		$fecha_ini = date ( 'Y-m-d' , $fecha_ini );
 	}?>
 
@@ -530,7 +530,6 @@ $('#containerHoras').highcharts({
 					</div>
 				</div>
 			</div>
-
 
 
 			<div class="row">

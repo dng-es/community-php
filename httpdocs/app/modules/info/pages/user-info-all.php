@@ -1,5 +1,5 @@
 <?php
-$filtro = ((isset($_REQUEST['id']) and $_REQUEST['id']>0) ? " AND i.id_campaign=".$_REQUEST['id'] : "");
+$filtro = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? " AND i.id_campaign=".$_REQUEST['id'] : "");
 $elements = infoController::getListAction(20, $filtro);
 ?>
 <div class="row row-top">

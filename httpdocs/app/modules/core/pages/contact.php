@@ -16,10 +16,7 @@ addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact.js")
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Contact"), "ItemClass"=>"active"),
 		));
-		?>
 
-		<?php 
-		//MESSAGES
 		session::getFlashMessage( 'actions_message' );
 		coreContactController::contactAction();
 		?>

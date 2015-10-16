@@ -20,13 +20,13 @@ class mailingController{
 		$html_content = $mailing->getTemplates(" AND id_template=".$_POST['template_message']);
 
 		$user_direccion = "";
-		if (isset($_POST['calle_direccion']) and $_POST['calle_direccion']!=""){ $user_direccion .= $_POST['calle_direccion'];}
-		if (isset($_POST['postal_direccion']) and $_POST['postal_direccion']!=""){ $user_direccion .= " - ".$_POST['postal_direccion'];}
-		if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion']!=""){ $user_direccion .= " - ".$_POST['poblacion_direccion'];}
-		if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion']!=""){ $user_direccion .= " - ".$_POST['provincia_direccion'];}
-		if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion']!=""){ $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];}
-		if (isset($_POST['email_message']) and $_POST['email_message']!=""){ $user_direccion .= "<br />".$_POST['email_message'];}
-		if (isset($_POST['web_direccion']) and $_POST['web_direccion']!=""){ $user_direccion .= "<br />".$_POST['web_direccion'];}
+		if (isset($_POST['calle_direccion']) and $_POST['calle_direccion'] != ""){ $user_direccion .= $_POST['calle_direccion'];}
+		if (isset($_POST['postal_direccion']) and $_POST['postal_direccion'] != ""){ $user_direccion .= " - ".$_POST['postal_direccion'];}
+		if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion'] != ""){ $user_direccion .= " - ".$_POST['poblacion_direccion'];}
+		if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion'] != ""){ $user_direccion .= " - ".$_POST['provincia_direccion'];}
+		if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion'] != ""){ $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];}
+		if (isset($_POST['email_message']) and $_POST['email_message'] != ""){ $user_direccion .= "<br />".$_POST['email_message'];}
+		if (isset($_POST['web_direccion']) and $_POST['web_direccion'] != ""){ $user_direccion .= "<br />".$_POST['web_direccion'];}
 
 		$content = $html_content[0]['template_body'];
 		$content = str_replace('[USER_DIRECCION]', $user_direccion, $content);
@@ -42,9 +42,7 @@ class mailingController{
 	}
 
 	public static function previewUserAction(){
-		if (isset($_POST['template_message']) and $_POST['template_message'] > 0){
-			return self::createMsgBodyAction();
-		}
+		if (isset($_POST['template_message']) and $_POST['template_message'] > 0) return self::createMsgBodyAction();
 	}
 
 	public static function createUserAction(){
@@ -138,21 +136,21 @@ class mailingController{
 					//redireccion a agenda de mensaje
 					$mensaje ="Envio programado correctamente. Si lo deseas puedes crear más envios.";
 					$mensaje = ($respuesta_black == true) ? $mensaje." Algunos destinatarios no se han cargado por que han solicitado la baja del servicio." : $mensaje;
-					session::setFlashMessage( 'actions_message', $mensaje, "alert alert-success");
+					session::setFlashMessage('actions_message', $mensaje, "alert alert-success");
 					redirectURL("user-message?act=new&a=2&id=".$_POST['template_message']);
 				}
 				else{
 					//redireccion a precesamiento del mensaje
 					$mensaje = "Envio creado correctamente.";
 					$mensaje = ($respuesta_black == true) ? $mensaje." Algunos destinatarios no se han cargado por que han solicitado la baja del servicio." : $mensaje;
-					session::setFlashMessage( 'actions_message', $mensaje, "alert alert-success");
+					session::setFlashMessage('actions_message', $mensaje, "alert alert-success");
 					redirectURL("admin-message-proccess?id=".$id_message);	
 				}	
 		    	
 			}
 			else{
 				$mensaje = "Error al crear mensaje.";
-				session::setFlashMessage( 'actions_message', $mensaje, "alert alert-danger"); 
+				session::setFlashMessage('actions_message', $mensaje, "alert alert-danger"); 
 		    	redirectURL("user-message?act=new&id=".$_POST['template_message']);
 			}
 		}
@@ -169,8 +167,8 @@ class mailingController{
 				//verificar no este mas de una vez
 				if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ") == 0){
 					//verificar no este en la lista negra
-					if (connection::countReg("mailing_blacklist"," AND email_black='".$username."' ")==0){
-						if ($username != "") $mailing->insertMessageUser($id_message,"",$username);	
+					if (connection::countReg("mailing_blacklist"," AND email_black='".$username."' ") == 0){
+						if ($username != "") $mailing->insertMessageUser($id_message, "", $username);	
 					}
 					else{ $respuesta = true;}		
 				}	
@@ -193,7 +191,7 @@ class mailingController{
 				if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ") == 0){
 					//verificar no este en la lista negra
 					if (connection::countReg("mailing_blacklist"," AND email_black='".$username."' ") == 0){
-						if ($username!="") $mailing->insertMessageUser($id_message,"",$username);	
+						if ($username!="") $mailing->insertMessageUser($id_message, "", $username);	
 					}
 					else{ $respuesta = true;}		
 				}
@@ -234,31 +232,31 @@ class mailingController{
 			    case "lista todos":
 			    	$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    	foreach($usuarios as $usuario):
-			    		$mailing->insertMessageUser($id_message,$usuario['username'],$usuario['email']);
+			    		$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 			    	endforeach;        
 			        break;
 			    case "lista comerciales":
 			    	$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND perfil='usuario' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    	foreach($usuarios as $usuario):
-			    		$mailing->insertMessageUser($id_message,$usuario['username'],$usuario['email']);
+			    		$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 			    	endforeach;  
 			        break;
 			    case "lista responsables":
 			    	$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND perfil='responsable' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    	foreach($usuarios as $usuario):
-			    		$mailing->insertMessageUser($id_message,$usuario['username'],$usuario['email']);
+			    		$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 			    	endforeach;  
 			        break;
 			    case "lista regionales":
 			    	$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND perfil='regional' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    	foreach($usuarios as $usuario):
-			    		$mailing->insertMessageUser($id_message,$usuario['username'],$usuario['email']);
+			    		$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 			    	endforeach;  
 			    	break;
 			    case "lista sede":
 			    	$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND perfil='sede' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    	foreach($usuarios as $usuario):
-			    		$mailing->insertMessageUser($id_message,$usuario['username'],$usuario['email']);
+			    		$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 			    	endforeach;  
 			    	break;			    	
 			    case "lista curso":
@@ -267,7 +265,7 @@ class mailingController{
 			    	$curso_sel = str_replace("lista curso : ", "", $lista_sel);
 			    	$usuarios = $na_areas->getAreasUsers(" AND u.registered=1 AND u.confirmed=1 AND u.disabled=0 AND nu.id_area=".$curso_sel." AND u.email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    	foreach($usuarios as $usuario):
-			    		$mailing->insertMessageUser($id_message,$usuario['username'],$usuario['email']);
+			    		$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 			    	endforeach;  
 			    	break;
 			    case "lista tienda":
@@ -276,7 +274,7 @@ class mailingController{
 			    	$tienda_sel = str_replace("lista tienda : ", "", $tienda_sel);
 			    	$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND empresa='".$tienda_sel."' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    	foreach($usuarios as $usuario):
-			    		$mailing->insertMessageUser($id_message,$usuario['username'],$usuario['email']);
+			    		$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 			    	endforeach;
 
 			    	//ademas añadimos al responsable de la tienda
@@ -284,7 +282,7 @@ class mailingController{
 			    	if (count($responsable_tienda) > 0){
 			    		$user_responsable = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND username='".$responsable_tienda[0]['responsable_tienda']."' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    		if (count($user_responsable) > 0){
-			    			$mailing->insertMessageUser($id_message,$user_responsable[0]['username'],$user_responsable[0]['email']);	
+			    			$mailing->insertMessageUser($id_message, $user_responsable[0]['username'], $user_responsable[0]['email']);	
 			    		}
 			    	}
 			    	break;
@@ -294,7 +292,7 @@ class mailingController{
 			    	$tienda_sel = str_replace("lista tienda tipo : ", "", $tienda_sel);
 			    	$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND t.tipo_tienda='".$tienda_sel."' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    	foreach($usuarios as $usuario):
-			    		$mailing->insertMessageUser($id_message,$usuario['username'],$usuario['email']);
+			    		$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 			    	endforeach;
 			    	break;			    	
 			    case "lista usuarios":
@@ -303,7 +301,7 @@ class mailingController{
 			    	$usuarios_envio = "'".str_replace(" ", "", $usuarios_envio)."'";
 			    	$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND username IN (".$usuarios_envio.") AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 			    	foreach($usuarios as $usuario):
-			    		$mailing->insertMessageUser($id_message,$usuario['username'],$usuario['email']);
+			    		$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 			    	endforeach;  
 			        break;			    	
 			    default:
@@ -333,9 +331,9 @@ class mailingController{
 									$_POST['asunto_message'],
 									$_POST['texto_message'],
 									$_POST['lista_message'])):
-			session::setFlashMessage( 'actions_message', "Comunicación modificacda correctamente", "alert alert-success");
+			session::setFlashMessage('actions_message', "Comunicación modificacda correctamente", "alert alert-success");
 		else: 
-			session::setFlashMessage( 'actions_message', "Se ha producido un error editando la comunicación.", "alert alert-danger");
+			session::setFlashMessage('actions_message', "Se ha producido un error editando la comunicación.", "alert alert-danger");
 		endif;
 		
 		redirectURL($_SERVER['REQUEST_URI']);	
@@ -344,12 +342,11 @@ class mailingController{
 	public static function cancelMessageAction($filtro = ""){	
 		if (isset($_REQUEST['del']) and $_REQUEST['del'] == true) {
 			$mailing = new mailing();
-			if ($mailing->updateMessageField($_REQUEST['id'],'message_status',"'cancelled'", " AND username_add='".$_SESSION['user_name']."' ")){
-				session::setFlashMessage( 'actions_message', "Comunicación cancelada correctamente", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Se ha producido un error cancelando la comunicación.", "alert alert-danger");
-			}
+			if ($mailing->updateMessageField($_REQUEST['id'],'message_status',"'cancelled'", " AND username_add='".$_SESSION['user_name']."' "))
+				session::setFlashMessage('actions_message', "Comunicación cancelada correctamente", "alert alert-success");
+			else
+				session::setFlashMessage('actions_message', "Se ha producido un error cancelando la comunicación.", "alert alert-danger");
+
 			redirectURL("user-messages");
 		} 
 	}	
@@ -390,11 +387,11 @@ class mailingController{
 			if ($mailing->insertBlackListUsser($_POST['email_black'])) {
 				//poner los posibles mensajes pendientes como lista negra
 				$mailing->updateMessageUserBlackList($_POST['email_black']);
-				session::setFlashMessage( 'actions_message', "Baja realizada correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', "Baja realizada correctamente", "alert alert-success");
 			}
-			else{
-				session::setFlashMessage( 'actions_message', "Ya se ha dado de baja de nuestros servicio con anterioridad.", "alert alert-danger");
-			}
+			else
+				session::setFlashMessage('actions_message', "Ya se ha dado de baja de nuestros servicio con anterioridad.", "alert alert-danger");
+
 			redirectURL("unsuscribe");
 		}
 	}	
@@ -415,11 +412,11 @@ class mailingController{
 
 		for($i=0; $i<count($links[2]); $i++){
 			$link = cleanUrl($links[2][$i]);
-			$link = str_replace('"','',$link);
-			if (preg_match('/\.$/',$link)) {
-				$link = substr($link,0,-1);
+			$link = str_replace('"', '', $link);
+			if (preg_match('/\.$/', $link)) {
+				$link = substr($link, 0, -1);
 			}
-			if ((preg_match('/^http|ftp/',$link)) && !strpos($link,$clicktrack_root)) {		
+			if ((preg_match('/^http|ftp/',$link)) && !strpos($link, $clicktrack_root)) {		
 				# take off personal uids
 				$url = cleanUrl($link,array('PHPSESSID','uid'));
 
@@ -449,12 +446,12 @@ class mailingController{
 
 		for($i=0; $i<count($links[2]); $i++){
 			$link = cleanUrl($links[2][$i]);
-			$link = str_replace('"','',$link);
-			if (preg_match('/\.$/',$link)) {
-				$link = substr($link,0,-1);
+			$link = str_replace('"', '', $link);
+			if (preg_match('/\.$/', $link)) {
+				$link = substr($link, 0, -1);
 			}
 			if ( preg_match('/^http|ftp/',$link) && strpos($link,$clicktrack_root) === false ) {	
-				$url = cleanUrl($link,array('PHPSESSID','uid'));		
+				$url = cleanUrl($link, array('PHPSESSID','uid'));		
 				$id_link = $mailing->getMessageLink(" AND id_message=".$id_message." AND link_name='".$links[4][$i]."' AND url='".$url."' ");
 				$messageid = urlencode(base64_encode($id_message_user));
 				$linkid = urlencode(base64_encode($id_link[0]['id_link']));

@@ -16,7 +16,7 @@ if (isset($_POST['modulename']) and $_POST['modulename'] != ""){
 			$form_field = substr($element, 0, strlen($element)-7);
 			switch ($_POST[$element]) {
 				case 'boolean':
-					$value = ((isset($_POST[$form_field]) and $_POST[$form_field]=='on') ? true : false);
+					$value = ((isset($_POST[$form_field]) and $_POST[$form_field] == 'on') ? true : false);
 					break;
 				case 'double':
 					$value = str_replace(",", ".", $_POST[$form_field]);

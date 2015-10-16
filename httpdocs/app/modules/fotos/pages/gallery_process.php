@@ -11,13 +11,13 @@ include_once($base_dir . "modules/users/templates/tipuser.php");
 include_once($base_dir . "modules/fotos/templates/comment.php");
 
 session::ValidateSessionAjax();
-$fotos=new fotos();
+$fotos = new fotos();
 
 //INSERTAR COMENTARIO
 if (isset($_POST['respuesta-texto']) and $_POST['respuesta-texto'] != ""){
 	$id = sanitizeInput($_POST['id_file']);
 	$texto_comentario = nl2br(sanitizeInput($_POST['respuesta-texto']));
-	echo $fotos->InsertComentario($id, $texto_comentario, $_SESSION['user_name'],1);
+	echo $fotos->InsertComentario($id, $texto_comentario, $_SESSION['user_name'], 1);
 }
 
 //VOTAR FOTO

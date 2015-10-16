@@ -5,6 +5,7 @@ jQuery(document).ready(function(){
 	
 	//verificación datos del formulario
 	$("#confirm-form").submit(function(evento){
+	   $(".alert-message").html("").css("display","none");
 	   
 	   var resultado_ok=true;   
 	   if (validateEmail($("#user-email").removeClass("input-alert").val())==false) {
@@ -29,6 +30,12 @@ jQuery(document).ready(function(){
 
 	   if ($("#user-date").removeClass("input-alert").val()!="" && esFechaValida($("#user-date").val())==false) {
 			$('#user-date').addClass("input-alert").attr("placeholder",$('#user-date').data("alert")).focus();
+			resultado_ok=false;
+	   }
+
+	   if (jQuery.trim($("#user-pass").removeClass("input-alert").val().length) < 6) {
+			$("#password-text-alert").html("La contraseña tiene que tener mínimo 6 caracteres.").fadeIn().css("display","block");
+			$('#user-pass').addClass("input-alert").focus();
 			resultado_ok=false;
 	   }
 

@@ -30,7 +30,7 @@ class menu{
 							$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
 							//se muestra el acceso a admin si tiene el permiso
 							if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
-								if ($_SESSION['user_perfil']=='admin'){
+								if ($_SESSION['user_perfil'] == 'admin'){
 									echo '<li class="hidden-md hidden-lg"><a href="admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
 								}
 							}
@@ -275,15 +275,18 @@ class menu{
 	 * @param  array 	$elems 		Elementos a mostrar en el breadcrub
 	 */
 	public static function breadcrumb($elems){
-		echo '<ol class="breadcrumb hidden-print">';
-		foreach($elems as $elem):		
-			echo '<li'.(isset($elem["ItemClass"]) ? ' class="'.$elem["ItemClass"].'" ': '').'>
-					'.(isset($elem["ItemUrl"]) ? '<a href="'.$elem["ItemUrl"].'">' : '').'
-					'.$elem["ItemLabel"].'
-					'.(isset($elem["ItemUrl"]) ? '</a>' : '').'
-				</li>';
-		endforeach;
-		echo '</ol>';
+		$module_config = getModuleConfig("configuration");
+		if ( $module_config['options']['breadcrumb'] == true){		
+			echo '<ol class="breadcrumb hidden-print">';
+			foreach($elems as $elem):		
+				echo '<li'.(isset($elem["ItemClass"]) ? ' class="'.$elem["ItemClass"].'" ': '').'>
+						'.(isset($elem["ItemUrl"]) ? '<a href="'.$elem["ItemUrl"].'">' : '').'
+						'.$elem["ItemLabel"].'
+						'.(isset($elem["ItemUrl"]) ? '</a>' : '').'
+					</li>';
+			endforeach;
+			echo '</ol>';
+		}
 	}
 	
 }?>

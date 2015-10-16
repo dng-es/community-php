@@ -29,7 +29,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					<input type="hidden" name="page_name" id="page_name" value="<?php echo $page_name;?>" />
 
 					<label for="page_name_new">Nombre de la página</label>
-					<input type="text" name="page_name_new" id ="page_name_new" class="form-control" <?php echo $page_name!='' ? ' disabled="disabled" value="'.$page_name.'" ' : '' ?> />
+					<input type="text" name="page_name_new" id ="page_name_new" class="form-control" <?php echo $page_name != '' ? ' disabled="disabled" value="'.$page_name.'" ' : '' ?> />
 					<br />
 					<?php
 						if ($page_name != ""){

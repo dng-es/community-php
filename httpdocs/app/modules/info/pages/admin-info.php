@@ -33,8 +33,8 @@ $elements = infoController::getListAction(20);
 							<td nowrap="nowrap">
 								  <a href="admin-info-doc?act=edit&id=<?php echo $element['id_info'];?>" title="<?php echo strTranslate("Edit");?>">
 								  <span class="fa fa-edit icon-table"></span></a>
-								  <a href="#" onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-info?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>')" 
-								  title="<?php echo strTranslate("Delete");?>" /><span class="fa fa-ban icon-table"></span></a>
+								  <span onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-info?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>')" 
+								  title="<?php echo strTranslate("Delete");?>" /><span class="fa fa-ban icon-table"></span></span>
 							   </td>     
 							<td><a target="_blank" href="<?php echo $enlace;?>"><?php echo $element['titulo_info'];?></a></td>
 							<td><?php echo $element['tipo'];?></td>
@@ -44,7 +44,7 @@ $elements = infoController::getListAction(20);
 						<?php endforeach;  ?>
 					</table>
 				</div>
-				<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>
