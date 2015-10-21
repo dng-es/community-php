@@ -17,7 +17,7 @@ $elements = usersParticipacionesController::getListAction(100);
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">     
-					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
+					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-informe-puntuaciones"><?php echo strTranslate("Report");?> <?php echo strTranslate("APP_points");?></a></li>
 					<li><a href="admin-informe-accesos"><?php echo strTranslate("Report");?> <?php echo strtolower(strTranslate("Visits"));?></a></li>
 					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php echo strTranslate("Export");?></a></li>
@@ -29,7 +29,7 @@ $elements = usersParticipacionesController::getListAction(100);
 						<th>Nick</th>
 						<th>Participacion</th>
 						<th>Fecha</th>
-						</tr>	
+						</tr>
 						<?php foreach($elements['items'] as $element): ?>
 							<tr>
 							<td>&nbsp;<?php echo $element['participacion_username'];?></td>

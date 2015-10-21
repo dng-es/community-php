@@ -4,8 +4,8 @@ campaignsController::deleteTypeAction();
 $elements = campaignsController::getListTypesAction(20);
 ?>
 <div class="row row-top">
-  	<div class="app-main">
-  		<?php menu::breadcrumb(array(
+	<div class="app-main">
+		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"admin-campaigns"),
@@ -34,7 +34,7 @@ $elements = campaignsController::getListTypesAction(20);
 								<a class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
 									onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-campaigns-types?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_campaign_type'];?>'); return false;">
 								</a>
-							</td>			
+							</td>
 							<td><?php echo $element['campaign_type_name'];?></td>
 							<td><?php echo $element['campaign_type_desc'];?></td>
 							</tr>

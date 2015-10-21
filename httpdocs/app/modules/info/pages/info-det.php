@@ -13,7 +13,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 
 	$elements=$info->getInfo($filtro_canal_info." AND tipo_info = ".$info_tipo." ");
 	foreach($elements as $element):
-		echo '<p><a target="_blank" href="docs/showfile.php?file='.$element['file_info'].'">'.$element['titulo_info'].'</a></p>';	  	  	
+		echo '<p><a target="_blank" href="docs/showfile.php?file='.$element['file_info'].'">'.$element['titulo_info'].'</a></p>';
 	endforeach;
 }
 ?>

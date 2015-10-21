@@ -54,7 +54,7 @@ function dirCarga($dir, $modulename){
 	}
 	else{
 		//windows
-		$dir_final = str_replace("app\\core", "app", $dir . str_replace("/", "\\\\", $modulename));       
+		$dir_final = str_replace("app\\core", "app", $dir . str_replace("/", "\\\\", $modulename));
 	}
 	return $dir_final;
 }
@@ -121,12 +121,12 @@ function getListModules(){
 	$i = 0;
 	$folders = FileSystem::showDirFolders(__DIR__."/../modules/");
 	foreach($folders as $folder):
-		if ($folder <>"core"){			
+		if ($folder <>"core"){
 			$listModules[$i]['folder'] = $folder;
 			$i++;	
 		}
-	endforeach;	
-	return $listModules;	
+	endforeach;
+	return $listModules;
 }
 
 /**
@@ -140,7 +140,7 @@ function getModuleExist($modulename){
 	foreach($folders as $folder):
 		if ($folder == $modulename) return true;
 	endforeach;	
-	return false;	
+	return false;
 }
 
 /**
@@ -155,7 +155,7 @@ function getModuleConfig($modulename){
 	if (file_exists($file)){
 		$config_params = readYml($file);
 	}	
-	return $config_params;	
+	return $config_params;
 }
 
 /**
@@ -234,7 +234,7 @@ function readYml($file){
 * @return 	boolean 				Result
 */
 function writeYml($data, $file){
-	require_once(dirname(__FILE__).'/spyc-0.5/spyc.php'); 
+	require_once(dirname(__FILE__).'/spyc-0.5/spyc.php');
 	$yaml = Spyc::YAMLDump($data,4,60); 
 	return FileSystem::createFile( $file, $yaml );
 }

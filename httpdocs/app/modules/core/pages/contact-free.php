@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact-free.js"));
 
 $mensaje = '';

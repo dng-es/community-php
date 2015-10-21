@@ -31,7 +31,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 			array("ItemLabel"=>strTranslate("User_info"), "ItemClass"=>"active"),
 		));
 		
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		usersController::insertUserAction();
 		usersController::updateUserAction();
 		usersController::deleteFotoAction();
@@ -47,12 +47,12 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 			<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
 			<li><a href="#statistics" data-toggle="tab"><?php echo strTranslate("Statistics");?></a></li>
 			<li><a href="#permissions" data-toggle="tab"><?php echo strTranslate("Permissions");?></a></li>
-		</ul>		
+		</ul>
 		
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="general">
 				<div class="row">
-					<div class="col-md-9 inset">	
+					<div class="col-md-9 inset">
 						<form id="formData" role="form" name="formData" method="post" action="">
 							<input type="hidden" name="level_user" value="3"/>
 							<input type="hidden" id="id_username" name="id_username" value="<?php echo $elements[0]['username'];?>" />
@@ -69,13 +69,13 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							<div class="row">
 								<div class="col-md-6">
 									<label for="user_password"><small><?php echo strTranslate("Password");?>:</small></label>
-							  		<input type="text" class="form-control" id="user_password" name="user_password" value="<?php echo $elements[0]['user_password'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
+									<input type="text" class="form-control" id="user_password" name="user_password" value="<?php echo $elements[0]['user_password'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 								</div>
 								<div class="col-md-6">
 									<label for="perfil_user"><small><?php echo strTranslate("Profile");?>:</small></label>
-							  		<select id="perfil_user" name="perfil_user" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
-							  			<option value="">--<?php echo strTranslate("Choose_profile");?>--</option>
-							  			<?php ComboPerfiles($elements[0]['perfil']);?>
+									<select id="perfil_user" name="perfil_user" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
+										<option value="">--<?php echo strTranslate("Choose_profile");?>--</option>
+										<?php ComboPerfiles($elements[0]['perfil']);?>
 									</select>
 								</div>
 							</div>
@@ -101,12 +101,12 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<label for="empresa_user"><small><?php echo strTranslate("Group_user");?>:</small></label>
 									<select id="empresa_user" name="empresa_user" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
 										<option value="">--<?php echo strTranslate("Choose_group");?>--</option>
-									  	<?php 
-									  		  $users = new users();
-									  		  $centros = $users->getTiendas("");
-									  		  foreach($centros as $centro): ?>
-									  			<option value="<?php echo $centro['cod_tienda'];?>" <?php if ($elements[0]['empresa'] == $centro['cod_tienda']) echo ' selected="selected" ';?>><?php echo $centro['nombre_tienda'];?></option>	
-									  	<?php endforeach; ?>
+										<?php 
+										$users = new users();
+										$centros = $users->getTiendas("");
+										foreach($centros as $centro): ?>
+										<option value="<?php echo $centro['cod_tienda'];?>" <?php if ($elements[0]['empresa'] == $centro['cod_tienda']) echo ' selected="selected" ';?>><?php echo $centro['nombre_tienda'];?></option>
+										<?php endforeach; ?>
 									</select>
 								</div>
 							</div>
@@ -116,7 +116,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<input type="text" class="form-control" name="telefono_user" value="<?php echo $elements[0]['telefono'];?>" />
 								</div>
 								<div class="col-md-6">
-							 		<label for="email_user"><small>Email:</small></label>
+									<label for="email_user"><small>Email:</small></label>
 									<input type="text" class="form-control" id="email_user" name="email_user" value="<?php echo $elements[0]['email'];?>" data-alert="<?php echo strTranslate("Required_email");?>" />
 								</div>
 							</div>
@@ -144,14 +144,14 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
 								</div>
 							</div>
-						</form>	
+						</form>
 					</div>
 					<div class="col-md-3 inset">
 						<br />
 						<div class="panel panel-default">
 							<div class="panel-heading"><?php echo strTranslate("Picture");?></div>
 							<div class="panel-body nopadding">
-								  <img src="<?php echo PATH_USERS_FOTO.(($elements[0]['foto'] == "") ? "user.jpg" : $elements[0]['foto']);?>" style="width:100%" class="responsive" /><br /><br />
+								<img src="<?php echo PATH_USERS_FOTO.(($elements[0]['foto'] == "") ? "user.jpg" : $elements[0]['foto']);?>" style="width:100%" class="responsive" /><br /><br />
 								<?php
 								echo '<div class="btn btn-primary btn-block" id="DeleteFoto" onClick="Confirma(\'¿Seguro que desea borrar la foto del usuario?\',
 									\'admin-user?id='.$elements[0]['username'].'&f='.$elements[0]['foto'].'\')" 
@@ -248,7 +248,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 											if (!$permission_edit_found and (strpos($page_name, 'admin') !== 0)){
 												$permission_check_edit = ' checked="checked" ';
 												$permission_input_edit = 1;
-											}							
+											}
 										}
 					
 										?>
@@ -272,10 +272,10 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							<br />
 						<?php endforeach;?>
 						<br />
-					</div>	
+					</div>
 				</div>
 			</div>
-		</div>			
+		</div>
 	</div>
 	</div>
 	</div>

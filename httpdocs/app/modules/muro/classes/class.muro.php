@@ -1,17 +1,17 @@
 <?php
 class muro{ 
 	public function getComentarios($filter = ""){
-		$Sql = "SELECT c.*,u.*,c.canal AS canal_comentario FROM muro_comentarios c
-			  JOIN users u ON u.username=c.user_comentario
-			  WHERE 1=1 ".$filter;
+		$Sql = "SELECT c.*,u.*,c.canal AS canal_comentario FROM muro_comentarios c 
+				JOIN users u ON u.username=c.user_comentario 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function InsertComentario($canal, $texto_comentario, $usuario, $estado, $tipo, $tipo_comentario = ''){
 		$Sql = "INSERT INTO muro_comentarios (canal,comentario,user_comentario,estado,tipo_muro,seccion_comentario) VALUES 
-			 ('".$canal."','".$texto_comentario."','".$usuario."',".$estado.",'".$tipo."','".$tipo_comentario."')";	 
+				('".$canal."','".$texto_comentario."','".$usuario."',".$estado.",'".$tipo."','".$tipo_comentario."')";	 
 		if (connection::execute_query($Sql)){ 
-			if ($estado==1){users::sumarPuntos($usuario,PUNTOS_MURO,PUNTOS_MURO_MOTIVO);}
+			if ($estado==1){users::sumarPuntos($usuario, PUNTOS_MURO, PUNTOS_MURO_MOTIVO);}
 			return "Comentario insertado correctamente.";
 		}
 		else return "Se ha producido un error en la inserción de su comentario. Por favor, inténtelo más tarde.";
@@ -19,11 +19,11 @@ class muro{
 
 	public function InsertRespuesta($canal, $texto_comentario, $usuario, $estado, $tipo, $id_responder){
 		$Sql = "INSERT INTO muro_comentarios (canal,comentario,user_comentario,estado,tipo_muro,id_comentario_id) VALUES 
-			 ('".$canal."','".$texto_comentario."','".$usuario."',".$estado.",'".$tipo."',".$id_responder.")";
+				('".$canal."','".$texto_comentario."','".$usuario."',".$estado.",'".$tipo."',".$id_responder.")";
 		if (connection::execute_query($Sql)){ 
 			//SUMAR PUNTOS
 			$users = new users();
-			$users->sumarPuntos($usuario,PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
+			$users->sumarPuntos($usuario, PUNTOS_MURO, PUNTOS_MURO_MOTIVO);
 			return "Comentario insertado correctamente.";
 		}
 		else return "Se ha producido un error en la inserción de su comentario. Por favor, inténtelo más tarde.";
@@ -42,9 +42,7 @@ class muro{
 		$Sql = "INSERT INTO muro_comentarios (canal,comentario,user_comentario,estado,tipo_muro,id_comentario_id) VALUES 
 			 ('".$comentario_original[0]['canal_comentario']."','".$texto_comentario."','".$usuario."',".$estado.",'".$comentario_original[0]['tipo_muro']."',".$id_comentario_responder.")";
 		echo $Sql;
-		if (connection::execute_query($Sql)){ 
-			return "Comentario insertado correctamente.";
-		}
+		if (connection::execute_query($Sql)) return "Comentario insertado correctamente.";
 		else return "Se ha producido un error en la inserción de su comentario. Por favor, inténtelo más tarde.";
 	}
 

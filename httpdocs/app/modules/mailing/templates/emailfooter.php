@@ -1,6 +1,4 @@
 <?php
-
-
 function footerMail($usuario_email){
 	global $ini_conf;
 

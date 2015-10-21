@@ -6,7 +6,7 @@ class menu{
 	static function PageMenu(){
 		global $session;
 		//MENU DE NAVAGACION
-		if ($_SESSION['user_logged'] == true){ ?>
+		if ($_SESSION['user_logged'] == true){?>
 			<nav class="navbar navbar-default" id="menu-main" role="navigation">
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
@@ -23,7 +23,7 @@ class menu{
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse" id="menu-main-container">
 						<ul class="nav navbar-nav">
-							<?php self::userMainMenu();?>				
+							<?php self::userMainMenu();?>
 							
 							<li class="hidden-md hidden-lg"><a href="profile"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php echo strTranslate("My_profile")?></a></li>
 							<?php 
@@ -42,7 +42,7 @@ class menu{
 				</div><!-- /.container-fluid -->
 			</nav>
 			<?php
-		}	
+		}
 	}
 
 	/**
@@ -66,9 +66,8 @@ class menu{
 								</ul>
 							</li>';
 			}
-			else{
+			else 
 				echo '<li><a '.$labelId.' target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
-			}
 		}
 	}
 
@@ -85,7 +84,6 @@ class menu{
 			$_SESSION['user_puntos'] = $puntos_user[0]['puntos'];
 			//MENSAJE NO LEIDOS
 			$contador_no_leidos=connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
-
 			?>
 			<div class="row header-info">
 				<a href="home"><img src="images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" /></a>
@@ -107,7 +105,7 @@ class menu{
 					echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
 					echo ' </p>';
 					?>
-					</div>		
+					</div>
 				</div>
 			</div>
 			<?php
@@ -123,11 +121,11 @@ class menu{
 	 * @param  string 	$icon        	Icono de la sección
 	 * @param  array 	$elems 			Elementos de cada sección
 	 */
-	static function getMenuSection($section, $icon, $elems){			
+	static function getMenuSection($section, $icon, $elems){
 		$header_name = "";
 		$content = "";
-		foreach($elems as $elem):				
-			if ($elem['LabelHeader'] == $section) {
+		foreach($elems as $elem):
+			if ($elem['LabelHeader'] == $section){
 				$main_url = explode("&", $elem['LabelUrl']);
 				$active = (($_GET['page'] == $main_url[0] or $_GET['page'] == $elem['LabelUrl']) ? " class=\"active\" " : "");
 				if($header_name != "" and $header_name != $elem['LabelSection']) $content .= '</ul>';
@@ -153,7 +151,7 @@ class menu{
 	 */
 	static function getAdminPanels($elems){
 		$header_name = "";
-		foreach($elems as $elem):	
+		foreach($elems as $elem):
 			if($header_name != "" and $header_name != $elem['LabelSection']){
 				echo '</dl></div>
 					</div>
@@ -193,7 +191,7 @@ class menu{
 			endforeach;
 			echo '</div>';
 		}
-	}	
+	}
 
 	/**
 	* Print administration menu
@@ -203,7 +201,7 @@ class menu{
 		if ($_SESSION['user_logged'] == true and $_SESSION['user_perfil'] == 'admin'){ 
 			global $array_adminmenu;
 			$array_final = $array_adminmenu;
-						
+
 			foreach ($array_final as $clave => $fila) {
 				$principal[$clave] = $fila['LabelHeader'];
 				$seccion[$clave] = $fila['LabelSection'];
@@ -218,16 +216,16 @@ class menu{
 				<?php self::getMenuSection("Modules", "fa fa-puzzle-piece", $array_final);?>
 				<?php self::getMenuSection("Tools", "fa fa-gears", $array_final);?>
 				<div class="text-right"><h3><small>v. <?php echo APP_VERSION;?></small></h3></div>
-			</div>	
+			</div>
 			<?php
 		}
-	}	
+	}
 
 	/**
 	 * Elementos para el menu de administración
 	 * @param 	array 		$elem 			Propiedades del elemento menu
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function addAdminMenu($elem){
 		global $session;	
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission($elem['PageName'], $_SESSION['user_name']));
@@ -239,16 +237,16 @@ class menu{
 							"LabelPos" => $elem['LabelPos']);
 			return $elem;
 		}
-	}	
+	}
 
 	/**
 	* Print administration menu
 	*
 	*/
 	static function adminPanels(){
-		if ($_SESSION['user_logged'] == true and $_SESSION['user_perfil'] == 'admin'){ 
+		if ($_SESSION['user_logged'] == true and $_SESSION['user_perfil'] == 'admin'){
 			$array_final = array();
-			$modules = getListModules();		
+			$modules = getListModules();
 			foreach($modules as $module):
 				if (file_exists(__DIR__."/".$module['folder']."/".$module['folder'].".php")){
 					include_once (__DIR__."/".$module['folder']."/".$module['folder'].".php");
@@ -276,9 +274,9 @@ class menu{
 	 */
 	public static function breadcrumb($elems){
 		$module_config = getModuleConfig("configuration");
-		if ( $module_config['options']['breadcrumb'] == true){		
+		if ( $module_config['options']['breadcrumb'] == true){
 			echo '<ol class="breadcrumb hidden-print">';
-			foreach($elems as $elem):		
+			foreach($elems as $elem):
 				echo '<li'.(isset($elem["ItemClass"]) ? ' class="'.$elem["ItemClass"].'" ': '').'>
 						'.(isset($elem["ItemUrl"]) ? '<a href="'.$elem["ItemUrl"].'">' : '').'
 						'.$elem["ItemLabel"].'
@@ -288,5 +286,4 @@ class menu{
 			echo '</ol>';
 		}
 	}
-	
 }?>

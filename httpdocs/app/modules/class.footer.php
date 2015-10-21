@@ -1,6 +1,5 @@
 <?php
 class footer{
-	
 	/**
 	* Print HTML footer. From <footer> until javascript
 	*/	
@@ -57,13 +56,13 @@ class footer{
 	*/	
 	public static function PageFooter(){
 	  	global $ini_conf, $paginas_free,$page;
-	  	if (!in_array($page, $paginas_free)){		
+	  	if (!in_array($page, $paginas_free)){
 			self::PageFooterInfo();
 			echo '</div>';
 		}
 		?>
 		</body>
 	</html>
-	<?php }		
+	<?php }
 }
 ?>

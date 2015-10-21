@@ -18,7 +18,6 @@ session::ValidateSessionAjax();
 	<body>
 
 	<?php
-
 	if (isset($_REQUEST['module']) and $_REQUEST['module'] != ""){
 		$module_config = getModuleConfig($_REQUEST['module']);
 		if (isset($module_config['options'])): ?>

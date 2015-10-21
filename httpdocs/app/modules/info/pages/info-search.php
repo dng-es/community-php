@@ -20,7 +20,7 @@ $elements = infoController::getListAction(20, $filtro);
 						<i class="fa fa-file-o"></i> <?php echo $elements_info['titulo_info'];?></a> <small>(<?php echo $elements_info['tipo']; ?>)</small><br /><small> <?php echo getDateFormat($elements_info['date_info'], "LONG"); ?></small></h4>
 				</div>
 			</div>
-		<?php endforeach;  ?>
+		<?php endforeach;?>
 
 		<?php if ($elements['total_reg'] == 0):?>
 		<div class="alert alert-warning">no existen documentos en la campaña</div>
@@ -37,6 +37,6 @@ $elements = infoController::getListAction(20, $filtro);
 				<li><a href="info-all">volver a todos los documentos</a></li>
 			</ul>
 			<p class="text-center"><i class="fa fa-newspaper-o fa-big"></i></p>
-		</div>	
+		</div>
 	</div>
 </div>

@@ -19,7 +19,7 @@ if ($ini_conf['underconstruction'] == true && ($page != "underconstruction" && $
 $array_usermenu = array();
 $array_adminmenu = array();
 $modules_data = array();
-$modules = getListModules();		
+$modules = getListModules();
 foreach($modules as $module):
 	if (file_exists(__DIR__."/../modules/".$module['folder']."/".$module['folder'].".php")){
 		include_once (__DIR__."/../modules/".$module['folder']."/".$module['folder'].".php");

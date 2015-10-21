@@ -4,7 +4,6 @@ templateload("comment", "foro");
 
 addJavascripts(array("js/jquery.jtextarea.js", 
 					 getAsset("foro")."js/foro-comentario.js"));
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -21,8 +20,8 @@ addJavascripts(array("js/jquery.jtextarea.js",
 		if (isset($_REQUEST['id'])) $id_tema = $_REQUEST['id'];
 		if (isset($_REQUEST['f'])) $id_tema = $_REQUEST['f'];
 		if (isset($id_tema) and $id_tema != ""){
-			$filtro_tema = " AND id_tema=".$id_tema." AND activo=1 ";		
-			if ($_SESSION['user_canal'] != "admin") $filtro_tema .= " AND canal='".$_SESSION['user_canal']."' ";				
+			$filtro_tema = " AND id_tema=".$id_tema." AND activo=1 ";
+			if ($_SESSION['user_canal'] != "admin") $filtro_tema .= " AND canal='".$_SESSION['user_canal']."' ";
 			$tema = $foro->getTemas($filtro_tema); 
 			
 			//VOLVER ATRAS: SI ES UN FORO DE AREAS VOLVERA A LA PAGINA DE AREAS,
@@ -43,7 +42,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 				<?php die();
 			endif;
 
-			if (count($tema) > 0){			
+			if (count($tema) > 0){
 				//PAGINATOR
 				$reg = $module_config['options']['comments_per_page'];
 				$pag = 1;
@@ -74,13 +73,13 @@ addJavascripts(array("js/jquery.jtextarea.js",
 								commentForo($comentario_foro);
 							endforeach;	?>
 						</div>
-						<br />				
+						<br />
 						<?php if ($total_reg == 0) echo '<div class="alert alert-warning">'.strTranslate("No_comments_yet").'</div>';
 						else Paginator($pag, $reg, $total_reg, 'foro-comentarios', 'comentarios', $id_tema, 10, "selected-foro"); ?>
 					</div>
 				</div>
 			<?php }
-		} ?> 
+		} ?>
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">

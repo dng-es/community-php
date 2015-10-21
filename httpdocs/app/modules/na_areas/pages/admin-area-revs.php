@@ -1,9 +1,9 @@
 <?php
 //VALIDAR REVISIONES FORMULARIOS
-if ( isset($_POST['id_tarea_rev']) and $_POST['id_tarea_rev']!='' ) na_areasController::RevisarFormAction(); 
+if ( isset($_POST['id_tarea_rev']) and $_POST['id_tarea_rev']!='' ) na_areasController::RevisarFormAction();
 
 //ELIMINACION DE FINALIZACION DE FORMULARIO
-if (isset($_REQUEST['act_f']) and $_REQUEST['act_f']=="del") na_areasController::FinalizacionDeleteAction(); 
+if (isset($_REQUEST['act_f']) and $_REQUEST['act_f']=="del") na_areasController::FinalizacionDeleteAction();
 
 //DESCARGAR FORMULARIO
 if (isset($_REQUEST['t']) and $_REQUEST['t']!="") na_areasController::ExportFormUserAction();
@@ -43,7 +43,6 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 		</ul>
 
 		<?php
-
 		if (count($tarea)==1){  
 
 			$id_grupo=0; 
@@ -77,7 +76,6 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 
 
 <?php
-
 function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 		$na_areas = new na_areas();
 		$users = new users();
@@ -104,7 +102,7 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 					$destino_validar_revision = 'onClick="Confirma(\'¿Seguro que desea marcar como revisada la tarea del usuario '.$revision['user_tarea'].'?\',
 								\'admin-area-revs?act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\'); return false"';}
 								
-				echo '<tr>';      
+				echo '<tr>';
 				echo '<td><a href="inbox?n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a> ';  
 				echo '<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a></td>';
 				echo '<td>('.getDateFormat($revision['fecha_tarea'], "DATE_TIME").')</td>';
@@ -116,88 +114,87 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 				echo '</tr>';
 			endforeach;
 			echo '</tbody></table>';
-		}  
+		}
 }
 
 function revisionesFormulario($id_tarea,$id_area,$id_grupo){
-		$na_areas = new na_areas();
-		$users = new users();
-		$filtro =" AND id_tarea=".$id_tarea." ";
-		if ($id_grupo!=0){$filtro .= " AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
-		$filtro.=" ORDER BY user_tarea";
-		$revisiones = $na_areas->getFormulariosFinalizados($filtro);   
+	$na_areas = new na_areas();
+	$users = new users();
+	$filtro =" AND id_tarea=".$id_tarea." ";
+	if ($id_grupo!=0){$filtro .= " AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
+	$filtro.=" ORDER BY user_tarea";
+	$revisiones = $na_areas->getFormulariosFinalizados($filtro);   
 
-		if (count($revisiones) == 0){
-			echo '<div class="tareas-row">Los usuarios todavia no han finalizado los formularios para esta tarea.</div>';
-		}
-		else{
-			echo '<table class="table">
-					<tr>
-						<th width="70px"></th>
-						<th>'.strTranslate("User").'</th>
-						<th>Puntuación</th>
-						<th>'.strTranslate("Date").'</th>
-						<th>Respuestas</th>
-					</tr>';
-			foreach($revisiones as $revision):
-				if ($revision['revision'] == 1){
-					$imagen_revision='<i class="fa fa-check icon-ok"></i>';
-					$destino_validar_revision = "";
-					$btn = "";
-					$txt = ' disabled="disabled" ';
-				}
-				else {
-					$imagen_revision = '<i class="fa fa-exclamation icon-alert"></i>';
-					$destino_validar_revision = '';
-					$btn = '<button type="submit" class="btn btn-default">validar</button>';
-					$txt = "";
-				}
-								
-				echo '<tr>';        
-				echo '<td width="70px"><span span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar la finalización del formulario?\',
-						\'admin-area-revs?a='.$id_area.'&act_f=del&id='.$id_tarea.'&ut='.$revision['user_tarea'].'\')" 
-						title="Eliminar finalizacion" /></span>
+	if (count($revisiones) == 0){
+		echo '<div class="tareas-row">Los usuarios todavia no han finalizado los formularios para esta tarea.</div>';
+	}
+	else{
+		echo '<table class="table">
+				<tr>
+					<th width="70px"></th>
+					<th>'.strTranslate("User").'</th>
+					<th>Puntuación</th>
+					<th>'.strTranslate("Date").'</th>
+					<th>Respuestas</th>
+				</tr>';
+		foreach($revisiones as $revision):
+			if ($revision['revision'] == 1){
+				$imagen_revision='<i class="fa fa-check icon-ok"></i>';
+				$destino_validar_revision = "";
+				$btn = "";
+				$txt = ' disabled="disabled" ';
+			}
+			else {
+				$imagen_revision = '<i class="fa fa-exclamation icon-alert"></i>';
+				$destino_validar_revision = '';
+				$btn = '<button type="submit" class="btn btn-default">validar</button>';
+				$txt = "";
+			}
 
-						<a href="admin-area-revs?t='.$revision['user_tarea'].'&a='.$id_area.'&id='.$id_tarea.'" class="fa fa-download icon-table" title="descargar"></a>
-						<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a>
-					</td>';        
-				//echo '<td><a href="inbox?n='.$revision['nick'].'">'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>'; 
-				echo '<td>'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>'; 
-				echo '<td>
-						<form role="form" class="form-inline" method="post" action="admin-area-revs?a='.$id_area.'&id='.$id_tarea.'" name="rev_'.$revision['user_tarea'].'" id="rev_'.$revision['user_tarea'].'">
-							<input type="hidden" name="id_tarea_rev" id="id_tarea_rev" value="'.$id_tarea.'" />
-							<input type="hidden" name="id_grupo_rev" id="id_grupo_rev" value="'.$id_grupo.'" />
-							<input type="hidden" name="id_area_rev" id="id_area_rev" value="'.$id_area.'" />
-							<input type="hidden" name="user_rev" id="user_rev" value="'.$revision['user_tarea'].'" />
-							<input type="text" '.$txt.' name="puntos_rev" id="puntos_rev" size="2" style="width: 50px;text-align:center" class="entero form-control" value="'.$revision['puntos'].'" />
-							'.$btn.'
-						</form>
-					</td>';
-				echo '<td>('.getDateFormat($revision['date_finalizacion'], "DATE_TIME").')</td>';
-				echo '<td><a href="#" onclick="createDialog('.$id_tarea.',\''.$revision['user_tarea'].'\'); return false;">ver respuestas</a></td>';       
-				echo '</tr>';
-			endforeach;
-			echo '</table>
+			echo '<tr>';
+			echo '<td width="70px"><span span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar la finalización del formulario?\',
+					\'admin-area-revs?a='.$id_area.'&act_f=del&id='.$id_tarea.'&ut='.$revision['user_tarea'].'\')" 
+					title="Eliminar finalizacion" /></span>
 
-					<!-- Modal -->
-					<div class="modal fade modal-resp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">Respuestas del usuario</h4>
-								</div>
-								<div class="modal-body">
+					<a href="admin-area-revs?t='.$revision['user_tarea'].'&a='.$id_area.'&id='.$id_tarea.'" class="fa fa-download icon-table" title="descargar"></a>
+					<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a>
+				</td>';
+			//echo '<td><a href="inbox?n='.$revision['nick'].'">'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>'; 
+			echo '<td>'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>'; 
+			echo '<td>
+					<form role="form" class="form-inline" method="post" action="admin-area-revs?a='.$id_area.'&id='.$id_tarea.'" name="rev_'.$revision['user_tarea'].'" id="rev_'.$revision['user_tarea'].'">
+						<input type="hidden" name="id_tarea_rev" id="id_tarea_rev" value="'.$id_tarea.'" />
+						<input type="hidden" name="id_grupo_rev" id="id_grupo_rev" value="'.$id_grupo.'" />
+						<input type="hidden" name="id_area_rev" id="id_area_rev" value="'.$id_area.'" />
+						<input type="hidden" name="user_rev" id="user_rev" value="'.$revision['user_tarea'].'" />
+						<input type="text" '.$txt.' name="puntos_rev" id="puntos_rev" size="2" style="width: 50px;text-align:center" class="entero form-control" value="'.$revision['puntos'].'" />
+						'.$btn.'
+					</form>
+				</td>';
+			echo '<td>('.getDateFormat($revision['date_finalizacion'], "DATE_TIME").')</td>';
+			echo '<td><a href="#" onclick="createDialog('.$id_tarea.',\''.$revision['user_tarea'].'\'); return false;">ver respuestas</a></td>';
+			echo '</tr>';
+		endforeach;
+		echo '</table>
 
+				<!-- Modal -->
+				<div class="modal fade modal-resp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">Respuestas del usuario</h4>
+							</div>
+							<div class="modal-body">
 
-								</div>
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->';
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->';
 
-			echo '<div id="dialog-confirm" title="Respuestas del usuario" style="display:none">
-					<div id="dialog-info"></div>
-				</div>';
-		}  
+		echo '<div id="dialog-confirm" title="Respuestas del usuario" style="display:none">
+				<div id="dialog-info"></div>
+			</div>';
+	}
 }
 ?>

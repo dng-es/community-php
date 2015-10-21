@@ -1,5 +1,4 @@
 <?php
-
 function userNaAreas($username){
 	$module_config = getModuleConfig("na_areas");
 	$points_to_success = $module_config['options']['points_to_success'];
@@ -25,20 +24,20 @@ function userNaAreas($username){
 					<?php endif; ?>
 				</td>
 				<td>
-					<?php if ($element['tipo'] == 'formulario'): ?>
+					<?php if ($element['tipo'] == 'formulario'):?>
 						<?php if ($element['revision'] == 1): ?>
 							<?php if ($element['puntos'] >= $points_to_success): ?>
 							<i class="fa fa-trophy fa-medium"><small><?php echo $element['puntos'];?></small></i>
-							<?php else: ?>
+							<?php else:?>
 							<small class="text-muted"><?php echo $element['puntos'];?></small>
-							<?php endif; ?>
+							<?php endif;?>
 						<?php else: ?>
 							<small class="text-muted">pendiente revision</small>
-						<?php endif; ?>
+						<?php endif;?>
 					<?php endif; ?>
 				</td>
 			</tr>
-		<?php endforeach; ?>
+		<?php endforeach;?>
 	</table>
 	<?php 
 	if (count($elements) == 0) echo '<div class="row"><div class="col-md-12"><div class="alert alert-warning">'.strTranslate("No_courses_finished")."</div></div></div>";

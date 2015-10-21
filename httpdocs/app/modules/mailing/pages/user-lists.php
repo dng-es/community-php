@@ -24,7 +24,7 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 			<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
 			<li><a href="user-messages">Mis comunicaciones enviadas</a></li>
 		</ul>
-    	<div class="table-responsive">
+		<div class="table-responsive">
 			<table class="table">
 				<tr>
 					<th width="40px">&nbsp;</th>
@@ -33,7 +33,7 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 					<th>Emails</th>
 				</tr>
 				<?php
-				foreach($elements['items'] as $element):		
+				foreach($elements['items'] as $element):
 					$total_emails = connection::countReg("mailing_lists_users"," AND id_list=".$element['id_list']." ");
 					?>
 					<tr>
@@ -41,11 +41,10 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 						<a class="fa fa-edit icon-table" title="Ver/editar" onClick="location.href='user-list?act=edit&id=<?php echo $element['id_list'];?>';return false">
 						</a>
 						<a href="<?php echo $_REQUEST['page'];?>?exportm=true&id=<?php echo $element['id_list'];?>" class="fa fa-download icon-table" title="Descargar"></a>		
-												<a class="fa fa-ban icon-table" title="Eliminar"
-							onClick="Confirma('¿Seguro que deseas eliminar la lista?', 'user-lists?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_list'];?>'); return false;">
+						<a class="fa fa-ban icon-table" title="Eliminar" onClick="Confirma('¿Seguro que deseas eliminar la lista?', 'user-lists?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_list'];?>'); return false;">
 						</a>
 					</td>
-					<?php			
+					<?php 
 					echo '<td>'.$element['name_list'].'</td>';
 					echo '<td>'.getDateFormat($element['date_list'], "SHORT").'</td>';
 					echo '<td><span class="label label-success">'.$total_emails.'</span></td>'; 

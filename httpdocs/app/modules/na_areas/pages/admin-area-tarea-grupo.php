@@ -22,7 +22,6 @@ $grupos_area = $na_areas->getGruposUsers(" AND id_area=".$id_area." AND id_grupo
 //grupos del area
 $grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tarea=".$id_tarea." ");
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php

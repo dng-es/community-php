@@ -27,7 +27,7 @@ class cuestionariosController{
 	public static function getItemAction($id, $filter = ""){
 		$cuestionarios = new cuestionarios();
 		return $cuestionarios->getCuestionarios(" AND id_cuestionario=".$id.$filter);
-	}	
+	}
 
 	public static function createAction(){
 		if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario'] == 0){
@@ -43,7 +43,7 @@ class cuestionariosController{
 				session::setFlashMessage('actions_message', "Error al insertar el registro.", "alert alert-danger");
 
 			redirectURL("admin-cuestionario?id=".$id_cuestionario);
-		}			
+		}
 	}
 
 	public static function updateAction(){
@@ -59,10 +59,10 @@ class cuestionariosController{
 
 			redirectURL("admin-cuestionario?id=".$id_cuestionario);
 		}
-	}			
+	}
 
 	public static function insertPreguntaAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'new') { 
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'new'){
 			if (trim($_POST['pregunta_texto'])){
 				$cuestionarios = new cuestionarios();
 				$id_cuestionario = sanitizeInput($_REQUEST['id']);
@@ -72,7 +72,7 @@ class cuestionariosController{
 				if ($_POST['pregunta_tipo'] != 'texto'){
 					//INSERTAR PREGUNTA-RESPUESTA
 					$num_repuestas=$_POST['contador-respuestas'];
-					for ($i = 1; $i <= $num_repuestas; $i++) { 
+					for ($i = 1; $i <= $num_repuestas; $i++){ 
 						$campo_respuesta = "respuesta".$i;
 						$valor = trim($_POST[$campo_respuesta]);
 						$valor = str_replace("'", "´", $valor);
@@ -84,22 +84,22 @@ class cuestionariosController{
 				redirectURL($_SERVER['REQUEST_URI']);
 			}
 		}
-	}	
+	}
 
 	public static function deletePreguntaAction(){
 		$cuestionarios = new cuestionarios();
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') { 
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			if ($cuestionarios->deletePregunta($_REQUEST['idp']))
 				session::setFlashMessage('actions_message', "Registro eliminado correctamente.", "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
 
 			redirectURL("admin-cuestionario?id=".$_REQUEST['id']);
-		}	
+		}
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$cuestionarios = new cuestionarios();
 			if ($cuestionarios->deleteCuestionarios($_REQUEST['id'], $_REQUEST['e'])) 
 				session::setFlashMessage('actions_message', "Estado modificado correctamente", "alert alert-success");
@@ -108,10 +108,10 @@ class cuestionariosController{
 
 			redirectURL("admin-cuestionarios");
 		}
-	}	
+	}
 
 	public static function cloneAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'clone') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'clone'){
 			$cuestionarios = new cuestionarios();
 			//datos del cuestionario original
 			$cuestionario = self::getItemAction($_REQUEST['id']);
@@ -135,7 +135,7 @@ class cuestionariosController{
 
 			redirectURL("admin-cuestionarios");
 		}
-	}	
+	}
 
 	public static function saveFormAction(){
 	    if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario'] != ""){
@@ -166,7 +166,7 @@ class cuestionariosController{
 			session::setFlashMessage('actions_message', "Respuestas enviadas.", "alert alert-success");
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
-	}	
+	}
 
 	public static function finalizarFormAction($id_cuestionario){
 		if (isset($_REQUEST['d']) and $_REQUEST['d'] == 1){
@@ -178,7 +178,7 @@ class cuestionariosController{
 
 			redirectURL("cuestionario?id=".$id_cuestionario);
 		}
-	}	
+	}
 
 	public static function RevisarFormAction(){
 		if ( isset($_POST['id_tarea_rev']) and $_POST['id_tarea_rev'] != '' ){
@@ -193,13 +193,13 @@ class cuestionariosController{
 
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
-	}	
+	}
 
 	public static function FinalizacionDeleteAction(){
 		if (isset($_REQUEST['act_f']) and $_REQUEST['act_f'] == "del"){
 			$cuestionarios = new cuestionarios();
 			$cuestionarios->deleteFinalizacionForm($_REQUEST['id'], " AND user_tarea='".$_REQUEST['ut']."'");
-			redirectURL("admin-cuestionario-revs?id=".$_REQUEST['id']);	
+			redirectURL("admin-cuestionario-revs?id=".$_REQUEST['id']);
 		}
 	}
 

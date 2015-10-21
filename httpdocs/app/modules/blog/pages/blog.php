@@ -20,12 +20,12 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 		));
 
 		$foro = new foro();
-		$module_config = getModuleConfig("blog");						
+		$module_config = getModuleConfig("blog");
 
 		blogController::insertAlerts();
-		session::getFlashMessage( 'actions_message' );	
+		session::getFlashMessage( 'actions_message' );
 		foroController::createRespuestaAction();
-		foroController::votarAction();		
+		foroController::votarAction();
 		$tema = blogController::getLastBlogAction($filtro_blog);
 		$id_tema = $tema['id_tema'];
 
@@ -44,7 +44,7 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 			} 
 			if ($filtro_comentarios == "") $filtro_comentarios = " AND c.id_tema=0 ";
 			$filtro_comentarios .= " AND estado=1 ";
-			 
+
 			//paginador. Valor muy alto de $reg para que se muestren todos los comentarios
 			$reg = 999999;
 			if (isset($_GET["pag"]) and $_GET["pag"] != "") $pag = $_GET["pag"];
@@ -53,7 +53,7 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 				$pag = 1;
 			}
 			else $inicio = ($pag - 1) * $reg;
-			$total_reg = connection::countReg("foro_comentarios c", $filtro_comentarios);			
+			$total_reg = connection::countReg("foro_comentarios c", $filtro_comentarios);
 
 
 			?>
@@ -78,16 +78,16 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 				<?php nextPost($id_tema);?>
 			</ul>
 			<?php
-		}    
+		}
 
-		if ($id_tema > 0){	
+		if ($id_tema > 0){
 			//INSERTAR VISITA EN EL FORO/POST
 			$foro->insertVisita($_SESSION['user_name'], $id_tema, 0);
 			
-			if ($module_config['options']['allow_comments'] == true){ 
+			if ($module_config['options']['allow_comments'] == true){
 				//COMENTARIOS DE LA ENTRADA
 				$filtro_comentarios .= " AND id_comentario_id=0 ORDER BY date_comentario DESC";
-				$comentarios_foro = $foro->getComentarios($filtro_comentarios.' LIMIT '.$inicio.','.$reg); 
+				$comentarios_foro = $foro->getComentarios($filtro_comentarios.' LIMIT '.$inicio.','.$reg);
 				?>
 				<div class="clearfix"></div>
 				<div class="panel-interior">

@@ -16,17 +16,17 @@ class mailing{
 	 */
 	public function setMsgsBlock($value){
 		$this->$msgs_block = $value;
-	}	
+	}
 
 	/**
 	 * Mensajes creados
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array 								Array con los mensajes
 	 */
-	public function getMessages($filter = "") {
+	public function getMessages($filter = ""){
 		$Sql = "SELECT * from mailing_messages  
-			  WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql);  
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
 	}
 
 	/**
@@ -34,10 +34,10 @@ class mailing{
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array         						Array con los mensajes
 	 */
-	public function getMessagesUsersSimple($filter = "") {
+	public function getMessagesUsersSimple($filter = ""){
 		$Sql = "SELECT * FROM mailing_messages_users 
-			  WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
 	}
 
 	/**
@@ -45,23 +45,23 @@ class mailing{
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array         						Array con los mensajes
 	 */
-	public function getMessagesUsers($filter = "") {
+	public function getMessagesUsers($filter = ""){
 		$Sql = "SELECT m.*,u.name,u.surname,t.nombre_tienda FROM mailing_messages_users m 
-			  LEFT JOIN users u ON u.username=m.username_message 
-			  LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa
-			  WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
-	}		
+				LEFT JOIN users u ON u.username=m.username_message 
+				LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
 
 	/**
 	 * Listas de mensajes
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array 								Array con los templates
 	 */
-	public function getLists($filter = "") {
+	public function getLists($filter = ""){
 		$Sql = "SELECT * from mailing_lists 
 			  WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
+		return connection::getSQL($Sql);
 	}
 
 	/**
@@ -72,7 +72,7 @@ class mailing{
 	 */
 	public function insertList($name, $usuario){
 		$Sql = "INSERT INTO mailing_lists (name_list,user_list) 
-			VALUES('".$name."','".$usuario."')";
+				VALUES('".$name."','".$usuario."')";
 		return connection::execute_query($Sql);
 	}
 
@@ -84,8 +84,8 @@ class mailing{
 	 */
 	public function updateList($id, $name){
 		$Sql = "UPDATE mailing_lists SET
-			 name_list='".$name."' 
-			 WHERE id_list=".$id;
+				name_list='".$name."' 
+				WHERE id_list=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -93,11 +93,11 @@ class mailing{
 	 * Elimina una lista (borrado lógico)
 	 * @param  	int 		$id            			Id del registro a modificar
 	 * @return 	boolean                				Resultado del proceso
-	 */	
+	 */
 	public function deleteList($id){
 		$Sql = "UPDATE mailing_lists SET
-			 activo=0  
-			 WHERE id_list=".$id;
+				activo=0  
+				WHERE id_list=".$id;
 		return connection::execute_query($Sql);
 	}	
 
@@ -106,11 +106,11 @@ class mailing{
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array 								Array con los templates
 	 */
-	public function getListsUsers($filter = "") {
+	public function getListsUsers($filter = ""){
 		$Sql = "SELECT u.*, d.birthday FROM mailing_lists_users u 
-			  LEFT JOIN mailing_lists_users_data d ON d.email=u.email
-			  WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
+				LEFT JOIN mailing_lists_users_data d ON d.email=u.email
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
 	}
 
 	/**
@@ -123,7 +123,7 @@ class mailing{
 		$Sql="INSERT INTO mailing_lists_users (id_list,email) 
 			VALUES(".$id_list.",'".$usuario."')";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	/**
 	 * Elimina un elemento de la tabla
@@ -142,11 +142,11 @@ class mailing{
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array 								Array con los templates
 	 */
-	public function getListsUsersData($filter = "") {
+	public function getListsUsersData($filter = ""){
 		$Sql="SELECT * FROM mailing_lists_users_data 
-			  WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
-	}	
+			WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
 
 	/**
 	 * Inserta un email con sus datos
@@ -158,14 +158,14 @@ class mailing{
 		$Sql="INSERT INTO mailing_lists_users_data (email,birthday) 
 			VALUES('".$email."','".$birthday."')";
 		return connection::execute_query($Sql);
-	}		
+	}
 
 	/**
 	 * Templates/plantillas de mensajes
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array 								Array con los templates
 	 */
-	public function getTemplates($filter = "") {
+	public function getTemplates($filter = ""){
 		$Sql="SELECT t.*,c.name_campaign AS campana,tt.name_type as tipo 
 			FROM mailing_templates t 
 			LEFT JOIN mailing_templates_types tt ON tt.id_type=t.id_type 
@@ -202,12 +202,12 @@ class mailing{
 	public function updateTemplate($id, $template_name, $template_body, $template_mini, $id_type, $id_campaign){
 		$Sql_file = ($template_mini == "") ? "" : ", template_mini='".$template_mini."' ";
 		$Sql="UPDATE mailing_templates SET
-			 id_type=".$id_type.",
-			 id_campaign=".$id_campaign.",
-			 template_name='".$template_name."', 
-			 template_body='".$template_body."' 
-			 ".$Sql_file."
-			 WHERE id_template=".$id;
+			id_type=".$id_type.",
+			id_campaign=".$id_campaign.",
+			template_name='".$template_name."',
+			template_body='".$template_body."' 
+			".$Sql_file." 
+			WHERE id_template=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -217,11 +217,11 @@ class mailing{
 	 * @return 	boolean                				Resultado del proceso
 	 */
 	public function deleteTemplate($id){
-		$Sql="UPDATE mailing_templates SET
-			 activo=2  
-			 WHERE id_template=".$id;
+		$Sql="UPDATE mailing_templates SET 
+			activo=2 
+			WHERE id_template=".$id;
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	/**
 	 * Activa/Desactiva un template
@@ -230,23 +230,23 @@ class mailing{
 	 * @return 	boolean                				Resultado del proceso
 	 */
 	public function updateEstadoTemplate($id, $activo){
-		$Sql="UPDATE mailing_templates SET
-			 activo=".$activo."  
-			 WHERE id_template=".$id;
+		$Sql="UPDATE mailing_templates SET 
+			activo=".$activo." 
+			WHERE id_template=".$id;
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	/**
 	 * Tipos de Templates/plantillas de mensajes
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array 								Array con los templates
 	 */
-	public function getTemplatesTypes($filter = "") {
+	public function getTemplatesTypes($filter = ""){
 		$Sql="SELECT * 
 			FROM mailing_templates_types 
-			  WHERE 1=1 ".$filter;
+			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
-	}		
+	}
 
 	/**
 	 * Inserta un mensaje
@@ -269,10 +269,10 @@ class mailing{
 			move_uploaded_file($attachments['tmp_name'], PATH_MAILING."attachments/".$nombre_archivo);
 		}
 		$Sql="INSERT INTO mailing_messages (id_template,message_from_email, message_from_name, message_subject,message_body, message_lista, username_add,message_attachment,date_scheduled, message_body2) 
-			 VALUES
-			 (".$id_template.",'".$message_from_email."','".$message_from_name."','".$message_subject."','".$message_body."','".$message_lista."','".$username_add."','".$nombre_archivo."',".$date_scheduled.",'".$message_body2."')";
+			VALUES 
+			(".$id_template.",'".$message_from_email."','".$message_from_name."','".$message_subject."','".$message_body."','".$message_lista."','".$username_add."','".$nombre_archivo."',".$date_scheduled.",'".$message_body2."')";
 		return connection::execute_query($Sql);
-	} 
+	}
 
 	/**
 	 * Inserta un mensaje para el usuario
@@ -284,10 +284,10 @@ class mailing{
 	public function insertMessageUser($id_message, $username_message, $email_message){
 		//INSERTAR REGISTRO EN LA BBDD  
 		$Sql="INSERT INTO mailing_messages_users (id_message,username_message,email_message) 
-			 VALUES
-			 (".$id_message.",'".$username_message."','".$email_message."')";
+			VALUES 
+			(".$id_message.",'".$username_message."','".$email_message."')";
 		return connection::execute_query($Sql);
-	} 	
+	}
 
 	/**
 	 * Actualiza el estado del mensaje de un usuario
@@ -297,11 +297,11 @@ class mailing{
 	 */
 	public function updateMessageUser($id_message_user, $message_status){
 		$Sql="UPDATE mailing_messages_users 
-			  SET message_status='".$message_status."',
-			  date_send= NOW() 
-			  WHERE id_message_user=".$id_message_user;
+			SET message_status='".$message_status."',
+			date_send= NOW() 
+			WHERE id_message_user=".$id_message_user;
 		return connection::execute_query($Sql);
-	} 
+	}
 
 	/**
 	 * Sumar una visualizacion al mensaje enviado al usuario
@@ -310,10 +310,10 @@ class mailing{
 	 */
 	public function updateMessageUserViews($id_message_user){
 		$Sql="UPDATE mailing_messages_users 
-			  SET views=1 
-			  WHERE id_message_user=".$id_message_user;
+			SET views=1 
+			WHERE id_message_user=".$id_message_user;
 		return connection::execute_query($Sql);
-	} 	
+	}
 
 	/**
 	 * Actualiza campos de los mensajes base
@@ -324,8 +324,8 @@ class mailing{
 	 */
 	public function updateMessageField($id_message, $field, $value){
 		$Sql="UPDATE mailing_messages 
-			  SET ".$field."=".$value." 
-			  WHERE id_message=".$id_message;
+			SET ".$field."=".$value." 
+			WHERE id_message=".$id_message;
 		return connection::execute_query($Sql);
 	}
 
@@ -336,9 +336,9 @@ class mailing{
 	 */
 	public function getBlackListUser($filter = "") {
 		$Sql="SELECT * from mailing_blacklist 
-			  WHERE 1=1 ".$filter;
+			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
-	}	
+	}
 
 	public function insertBlackListUsser($email_black){
 		//INSERTAR REGISTRO EN LA BBDD  
@@ -346,12 +346,12 @@ class mailing{
 			 VALUES
 			 ('".$email_black."')";
 		return connection::execute_query($Sql);
-	} 	
+	}
 
 	public function updateMessageUserBlackList($email_user){
 		$Sql="UPDATE mailing_messages_users 
-			  SET message_status='black_list' 
-			  WHERE email_message='".$email_user."' AND message_status='pending' ";
+			SET message_status='black_list' 
+			WHERE email_message='".$email_user."' AND message_status='pending' ";
 		return connection::execute_query($Sql);
 	}
 
@@ -364,7 +364,7 @@ class mailing{
 		$Sql="INSERT INTO mailing_messages_links (id_message, url, link_name) 
 			VALUES(".$id_message.",'".$url."','".$link_name."')";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	/**
 	 * Suma un click al link
@@ -372,8 +372,8 @@ class mailing{
 	 */
 	public function sumMessageLink($id_link){
 		$Sql="UPDATE mailing_messages_links 
-			  SET clicks=clicks+1 
-			  WHERE id_link=".$id_link;
+			SET clicks=clicks+1 
+			WHERE id_link=".$id_link;
 		return connection::execute_query($Sql);
 	}
 
@@ -387,31 +387,31 @@ class mailing{
 		$Sql="INSERT INTO mailing_messages_links_users (id_link, id_message, username, username_email) 
 			VALUES(".$id_link.",".$id_message.",'".$username."', '".$username_email."')";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	/**
 	 * links de los mensajes con formato para exportar
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array 								Array con los templates
 	 */
-	public function getMessageLinkUserExport($filter = "") {
+	public function getMessageLinkUserExport($filter = ""){
 		$Sql="SELECT l.username_email AS email, d.link_name AS name_link, d.url AS url_link, l.date_link AS date 
-			  FROM mailing_messages_links_users l 
-			  LEFT JOIN mailing_messages m ON m.id_message=l.id_message 
-			  LEFT JOIN mailing_messages_links d ON d.id_link=l.id_link
-			  WHERE 1=1 ".$filter;
+			FROM mailing_messages_links_users l 
+			LEFT JOIN mailing_messages m ON m.id_message=l.id_message 
+			LEFT JOIN mailing_messages_links d ON d.id_link=l.id_link 
+			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
-	}		
+	}
 
 	/**
 	 * links de los mensajes
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array 								Array con los templates
 	 */
-	public function getMessageLink($filter = "") {
+	public function getMessageLink($filter = ""){
 		$Sql="SELECT * from mailing_messages_links 
-			  WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
-	}			
+			WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
 }
 ?>

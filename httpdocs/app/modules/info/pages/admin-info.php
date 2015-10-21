@@ -1,5 +1,5 @@
 <?php
-session::getFlashMessage( 'actions_message' ); 
+session::getFlashMessage( 'actions_message' );
 infoController::deleteAction();
 $elements = infoController::getListAction(20);
 ?>
@@ -14,7 +14,7 @@ $elements = infoController::getListAction(20);
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">
-					<li class="disabled"><a href="#"><?php echo strTranslate("Items");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>       
+					<li class="disabled"><a href="#"><?php echo strTranslate("Items");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-info-doc?act=new"><?php echo strTranslate("Info_Documents_new");?></a></li>
 				</ul>
 				<div class="table-responsive">

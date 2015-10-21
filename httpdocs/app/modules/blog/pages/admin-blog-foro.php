@@ -2,33 +2,33 @@
 
 addJavascripts(array(getAsset("blog")."js/admin-blog-foro.js"));
 
-$foro = new foro(); 
+$foro = new foro();
 $users = new users();
 
 //VALIDAR CONTENIDOS
-if (isset($_REQUEST['act'])) { 	 
+if (isset($_REQUEST['act'])){
 	if ($_REQUEST['act'] == 'foro_ok'){
 		$foro->cambiarEstado($_REQUEST['id'],1);
 		$users->sumarPuntos($_REQUEST['u'], PUNTOS_FORO, PUNTOS_FORO_MOTIVO);
 	}
 	elseif ($_REQUEST['act'] == 'tema_ko') $foro->cambiarEstadoTema($_REQUEST['id'], 0);
 	elseif ($_REQUEST['act'] == 'foro_ko'){
-		$foro->cambiarEstado($_REQUEST['id'],2);
+		$foro->cambiarEstado($_REQUEST['id'], 2);
 		$users->restarPuntos($_REQUEST['u'], PUNTOS_MURO, PUNTOS_MURO_MOTIVO);
 	}
 	header("Location: admin-blog-foro?id=".$_REQUEST['idt']); 
 }
 
 //EXPORT EXCEL - SHOW AND GENERATE
-if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
+if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 	$foro = new foro(); 
 	$elements_exp = $foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['id']." ");
-  	download_send_headers("data_" . date("Y-m-d") . ".csv");
+	download_send_headers("data_" . date("Y-m-d") . ".csv");
 	echo array2csv($elements_exp);
 	die();
-}    
+}
 
-if (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") {
+if (isset($_POST['tipo_search']) and $_POST['tipo_search'] != ""){
 	$filtro_temas .= " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' ";
 	$find_tipo = $_POST['tipo_search'];
 }
@@ -48,7 +48,7 @@ $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." 
 			array("ItemLabel"=>"Comentarios en ".strTranslate("Blog"), "ItemClass"=>"active"),
 		));?>
 
-		<ul class="nav nav-pills navbar-default">       
+		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 			<li><a href="admin-blog-new?id=<?php echo $_REQUEST['id'];?>"><?php echo strtolower(strTranslate("Edit"));?></a></li>
 			<li><a href="blog?id=<?php echo $_REQUEST['id'];?>">Ver entrada</a></li>
@@ -67,16 +67,16 @@ $pendientes = $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." 
 				</tr>
 				<?php foreach($pendientes as $element): ?>
 				<tr>
-					<td nowrap="nowrap">					
-						<span class="fa fa-ban icon-table" title="Eliminar"
-						    onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
+					<td nowrap="nowrap">
+						<span class="fa fa-ban icon-table" title="Eliminar" 
+							onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
 							\'admin-blog-foro?act=foro_ko&id=<?php echo $element['id_comentario'];?>&idt=<?php echo $id_tema;?>&u=<?php echo $element['user_comentario'];?>\')">
-						</span>			
-					</td>				
+						</span>
+					</td>
 					<td><?php echo $element['id_comentario'];?></td>
 					<td><em class="legend"><?php echo $element['comentario'];?></em></td>
 					<td><?php echo $element['user_comentario'];?></td>
-					<td><?php echo getDateFormat($element['date_comentario'], "SHORT");?></td>	
+					<td><?php echo getDateFormat($element['date_comentario'], "SHORT");?></td>
 					<tr>
 				<?php endforeach;?>
 			</table>

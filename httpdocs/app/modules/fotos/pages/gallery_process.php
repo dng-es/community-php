@@ -31,8 +31,8 @@ else{
 	<html lang="es">
 		<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/css/styles.css" />	
-		<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/main.min.js"></script> 
+		<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/css/styles.css" />
+		<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/main.min.js"></script>
 	</head>
 	<body>
 	<?php
@@ -45,5 +45,5 @@ else{
 	}
 	?>
 	</body>
-</html>	
+</html>
 <?php } ?>

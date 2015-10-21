@@ -20,5 +20,5 @@ if (isset($_POST['cuestionario']) and $_POST['cuestionario'] != ""){
 	endforeach;
 	$datos.="</ul>";
 	echo $datos;
-} 
+}
 ?>

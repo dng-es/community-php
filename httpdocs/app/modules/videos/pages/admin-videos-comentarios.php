@@ -1,6 +1,6 @@
 <?php
-session::getFlashMessage( 'actions_message' );
-videosController::validateCommentAction();	  
+session::getFlashMessage('actions_message');
+videosController::validateCommentAction();
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -31,24 +31,23 @@ videosController::validateCommentAction();
 							</tr>
 							<?php foreach($pendientes as $element):
 								echo '<tr>';
-								echo '<td nowrap="nowrap">					
-										<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'"
-										    onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',
+								echo '<td nowrap="nowrap">
+										<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'" 
+											onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',
 											\'admin-videos-comentarios?act=elem_ko&idc='.$element['id_comentario'].'&id='.$id_file.'&u='.$element['user_comentario'].'\')">
-										</span>			
-									 </td>';					
+										</span>
+									 </td>';
 								echo '<td>'.$element['id_comentario'].'</td>';
 								echo '<td><em class="legend">'.$element['comentario'].'</em></td>';
 								echo '<td>'.$element['user_comentario'].'</td>';
-								echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>';		
-								echo '</tr>';   
+								echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>';
+								echo '</tr>';
 							endforeach; ?>
 						</table>
 					</div>
 				</div>
 			</div>
 		<?php endif; ?>
-
 	</div>
 	<?php menu::adminMenu();?>
 </div>

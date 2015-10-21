@@ -4,13 +4,13 @@ addJavascripts(array(getAsset("foro")."js/foro-temas.js"));
 templateload("tags","blog");
 templateload("blog","blog");
 templateload("list","blog");
-templateload("paginator","foro");	
+templateload("paginator","foro");
 
 $foro = new foro();
 $find_reg = "";
 $find_tipo = "";
 $url_filters = "";
-$titulo_page="";
+$titulo_page = "";
 ?>
 
 <div class="row row-top">
@@ -51,7 +51,7 @@ $titulo_page="";
 			$filtro_subtemas.= " AND t.nombre LIKE '%".$_REQUEST['f']."%' ";
 			$find_reg = $_REQUEST['f'];
 			$titulo_page = strTranslate("Search_results")." <b>".$_REQUEST['f']."</b>";
-		}	  
+		}
 		else if (isset($_POST['tipo-sel']) and $_POST['tipo-sel'] == 1) {
 			$filtro_subtemas .= " AND t.tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
 			$find_tipo = $_POST['find_tipo'];
@@ -68,12 +68,12 @@ $titulo_page="";
 		foreach($sub_temas as $sub_tema):
 		echo '<div class="row">
 				<div class="col-md-12">';
-		ForoList($sub_tema,"blog");	  
+		ForoList($sub_tema,"blog");
 		echo '	</div>
-			 </div>';			
-		endforeach;  
+			 </div>';
+		endforeach;
 
-		Paginator($pag, $reg, $total_reg, 'blog-list'.$url_filters, '', $find_reg); ?>	 
+		Paginator($pag, $reg, $total_reg, 'blog-list'.$url_filters, '', $find_reg); ?>
 
 	</div>
 	<div class="app-sidebar">
@@ -81,7 +81,7 @@ $titulo_page="";
 			<?php
 			//BUSCADOR
 			searchBlog();
-					  
+
 			//ENTRADAS RECIENTES
 			echo '<h4>'.strTranslate("Last_blog").'</h4>';
 			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 

@@ -90,7 +90,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 <?php 
 function FormularioTarea($id_cuestionario, $cuestionario){
 		$cuestionarios = new cuestionarios();
-		$preguntas = $cuestionarios->getPreguntas(" AND id_cuestionario=".$id_cuestionario." "); 
+		$preguntas = $cuestionarios->getPreguntas(" AND id_cuestionario=".$id_cuestionario." ");
 
 		if (count($preguntas) == 0): ?>
 			<div class="alert alert-warning">El cuestionario no tiene preguntas, puedes crearlas a continuación.</div>
@@ -104,15 +104,14 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 
 				<?php foreach($preguntas as $pregunta): ?>
 				<tr>
-				<td nowrap="nowrap">
+					<td nowrap="nowrap">
 						<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar la pregunta?',
 							'admin-cuestionario?act=del&id=<?php echo $id_cuestionario;?>&idp=<?php echo $pregunta['id_pregunta'];?>')" 
 							title="Eliminar pregunta" />
 						</span>
-					 </td>
-							
-				<td><?php echo $pregunta['pregunta_texto'];?></td>
-				<td><?php echo $pregunta['pregunta_tipo'];?></td>
+					</td>
+					<td><?php echo $pregunta['pregunta_texto'];?></td>
+					<td><?php echo $pregunta['pregunta_tipo'];?></td>
 				</tr>  
 				<?php endforeach; ?>
 			</table>

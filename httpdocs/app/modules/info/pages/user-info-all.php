@@ -25,8 +25,8 @@ $elements = infoController::getListAction(20, $filtro);
 					<td><a href="user-info?id=<?php echo $element['id_info'];?>"><?php echo $element['titulo_info'];?></a></td>
 					<td><?php echo $element['campana'];?></td>
 					<td><?php echo $element['tipo'];?></td>
-				</tr>   
-				<?php endforeach;  ?>
+				</tr>
+				<?php endforeach;?>
 			</table>
 		</div>
 		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
@@ -43,6 +43,6 @@ $elements = infoController::getListAction(20, $filtro);
 			</h4>
 			<p>Documentos de apoyo listos para descargar.</p>
 			<p class="text-center"><i class="fa fa-file-o fa-big"></i></p>
-		</div>	
+		</div>
 	</div>
 </div>

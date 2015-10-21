@@ -4,7 +4,7 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0.1 
 * 
-*/	
+*/
 class videosCore{
 	/**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario
@@ -17,10 +17,10 @@ class videosCore{
 		$num_comentarios = connection::countReg("galeria_videos_comentarios"," AND user_comentario='".$username."' ");
 		$num_comentarios_votaciones = connection::countReg("galeria_videos_comentarios_votaciones"," AND user_votacion='".$username."' ");
 		return array( strTranslate("Video_uploads") => $num,
-					  strTranslate("Votes_in_videos") => $num_votaciones,
-					  strTranslate("Comments_in_videos") => $num_comentarios,
-					  strTranslate("Votes_in_videos_comments") => $num_comentarios_votaciones);
-	}	
+				strTranslate("Votes_in_videos") => $num_votaciones,
+				strTranslate("Comments_in_videos") => $num_comentarios,
+				strTranslate("Votes_in_videos_comments") => $num_comentarios_votaciones);
+	}
 
 	public static function adminMenu(){
 		return array(
@@ -41,7 +41,7 @@ class videosCore{
 				"LabelPos" => 2,
 			))
 		);
-	}	
+	}
 
 	public static function userMenu(){
 		$array_final = array();
@@ -50,13 +50,13 @@ class videosCore{
 		if ($session->checkPageViewPermission("video", $_SESSION['user_perfil'], $user_permissions)){
 
 			array_push($array_final, array("LabelIcon" => "fa fa-video-camera",
-							"LabelItem" => strTranslate("Videos"),
-							"LabelUrl" => 'videos',
-							"LabelTarget" => '_self',
-							"LabelPos" => 2));
+						"LabelItem" => strTranslate("Videos"),
+						"LabelUrl" => 'videos',
+						"LabelTarget" => '_self',
+						"LabelPos" => 2));
 		}
-		return $array_final;		
-	}	
+		return $array_final;
+	}
 
 	public static function adminPanels(){
 		$num_pending = connection::countReg("galeria_videos"," AND estado=0 ");
@@ -70,7 +70,7 @@ class videosCore{
 							"LabelItem"=> strTranslate("Video_list"),
 							"LabelUrlText"=> strTranslate("Go_to"),
 							"LabelUrl"=>'admin-videos',
-							"LabelPos" => 1));	
-	}	
+							"LabelPos" => 1));
+	}
 }
 ?>

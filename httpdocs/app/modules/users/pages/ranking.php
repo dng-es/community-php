@@ -2,7 +2,7 @@
 templateload("tipuser", "users");
 
 addJavascripts(array(getAsset("users")."js/ranking.js"));
-	
+
 $users = new users();
 $puntos_user = $users->getUsers(" AND username='".$_SESSION['user_name']."' ");
 $puntuacion_user = $puntos_user[0]['puntos'];
@@ -54,7 +54,7 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<a href="ranking-empresas" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_companies_ranking");?></a>   
+			<a href="ranking-empresas" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_companies_ranking");?></a>
 			<h3><?php echo strTranslate("Your_ranking");?> <small><?php echo $posicion_user;?></small></h3>
 			<p><?php echo $puntos_user[0]['name'].' '.$puntos_user[0]['surname'];?><br />
 			<?php echo $puntos_user[0]['nombre_tienda'];?><br />

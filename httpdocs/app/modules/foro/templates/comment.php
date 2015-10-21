@@ -24,7 +24,7 @@ function commentForo($comment, $destino = "foro-comentarios"){
 				<span class="comment-reply-trigger label" title="<?php echo strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i></span> 
 				<span class="label" title="<?php echo strTranslate("Vote_comment");?>"><a href="<?php echo $destino.'?id='.$comment['id_tema'].'&idvf='.$comment['id_comentario'].'&pag='.$page_num;?>">
 				<i class="fa fa-heart"></i> <?php echo $comment['votaciones'];?></a></span>
-				<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label" title="ID del comentario">id: '.$comment['id_comentario'].'</span>'; ?>	
+				<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label" title="ID del comentario">id: '.$comment['id_comentario'].'</span>'; ?>
 			</div>
 			<div class="comment-reply">
 				<form role="form" method="post" action="" class="comment-reply-form">
@@ -36,7 +36,7 @@ function commentForo($comment, $destino = "foro-comentarios"){
 				</form>
 			</div>
 			<?php 
-				$respuestas = $foro->getComentarios(" AND estado=1 AND id_comentario_id=".$comment['id_comentario']." ORDER BY id_comentario DESC"); 
+				$respuestas = $foro->getComentarios(" AND estado=1 AND id_comentario_id=".$comment['id_comentario']." ORDER BY id_comentario DESC");
 				foreach($respuestas as $respuesta):
 					commentForo($respuesta, $destino);
 				endforeach;

@@ -15,25 +15,25 @@ class campaignsController{
 	}
 
 	public static function getItemAction($id = 0){
-		$id_campaign = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;		
+		$id_campaign = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 		$name_campaign = isset($_POST['name_campaign']) ? $_POST['name_campaign'] : "";
 		$desc_campaign = isset($_POST['desc_campaign']) ? $_POST['desc_campaign'] : "";
 		if ($id_campaign != 0){
 			$campaigns = new campaigns();
 			$plantilla = $campaigns->getCampaigns(" AND active=1 AND id_campaign=".$id_campaign);	
 			return  $plantilla[0];
-		}	
-	}	
+		}
+	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 			$campaigns = new campaigns();
 			$elements = $campaigns->getCampaigns(" AND active=1 ORDER BY name_campaign DESC ");
 			download_send_headers("campaigns_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
-		}	
-	}	
+		}
+	}
 
 	public static function createAction(){
 		if (isset($_POST['name_campaign']) and $_POST['name_campaign'] != "" and $_POST['id_campaign'] == 0){
@@ -43,7 +43,7 @@ class campaignsController{
 			$desc_campaign = str_replace("'", "´", $_POST['desc_campaign']);
 			$id_type = $_POST['id_type'];
 			$novedad = ($_POST['novedad'] == 'on') ? 1 : 0;
-			
+
 			$imagen_mini = uploadFileToFolder($_FILES['nombre-fichero'], "images/banners/");
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");
 
@@ -55,7 +55,7 @@ class campaignsController{
 				session::setFlashMessage('actions_message', "Error al insertar el registro.", "alert alert-danger");
 
 			redirectURL("admin-campaign?id=".$id_campaign);
-		}		
+		}
 	}
 
 	public static function updateAction(){
@@ -66,7 +66,7 @@ class campaignsController{
 			$desc_campaign = str_replace("'", "´", $_POST['desc_campaign']);
 			$id_type = $_POST['id_type'];
 			$novedad = ($_POST['novedad'] == 'on') ? 1 : 0;
-			
+
 			$imagen_mini = uploadFileToFolder($_FILES['nombre-fichero'], "images/banners/");
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");		
 
@@ -108,9 +108,9 @@ class campaignsController{
 		$id = isset($_REQUEST['id']) ? $_REQUEST['id'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : 0);
 		if ($id != 0){
 			$campaigns = new campaigns();
-			$plantilla = $campaigns->getCampaignsTypes(" AND id_campaign_type=".$id);	
+			$plantilla = $campaigns->getCampaignsTypes(" AND id_campaign_type=".$id);
 			return $plantilla[0];
-		}		
+		}
 	}
 
 	public static function createTypeAction(){
@@ -128,7 +128,7 @@ class campaignsController{
 				session::setFlashMessage('actions_message', "Error al insertar el registro.", "alert alert-danger");
 
 			redirectURL("admin-campaigns-type?id=".$id);
-		}		
+		}
 	}
 
 	public static function updateTypeAction(){
@@ -142,7 +142,7 @@ class campaignsController{
 				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
-			
+
 			redirectURL("admin-campaigns-type?id=".$id);
 		}
 	}	
@@ -157,6 +157,6 @@ class campaignsController{
 
 			redirectURL("admin-campaigns-types");
 		}
-	}			
+	}
 }
 ?>

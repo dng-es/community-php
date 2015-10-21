@@ -17,7 +17,7 @@ function archivoBlog($elements){
 }
 
 function entradasBlog($elements){
-	foreach($elements as $element):		
+	foreach($elements as $element):
 		echo '<div class="media-preview-container">
 				<a href="blog?id='.$element['id_tema'].'">
 				<img src="images/foro/'.$element['imagen_tema'].'" class="media-preview" alt="'.$element['nombre'].'" /></a>
@@ -26,7 +26,7 @@ function entradasBlog($elements){
 					<span><small>'.getDateFormat($element['date_tema'], "LONG").'</small></span>
 				</div>
 			  </div>';
-	endforeach;	
+	endforeach;
 }
 
 function searchBlog(){ ?>
@@ -45,7 +45,7 @@ function categoriasBlog($elements){
 	echo '<ul class="lista-lateral">';
 	foreach($elements as $element):
 		echo '<li><a href="blog-list?c='.$element.'">'.ucfirst($element).'</a></li>';
-	endforeach;	
+	endforeach;
 	echo '</ul>';
 }
 

@@ -1,6 +1,5 @@
 <?php
 class pages{
- 
 	public function getPages($filter = ""){
 		$Sql = "SELECT * FROM pages WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
@@ -13,9 +12,9 @@ class pages{
 	}
 
 	public function updatePage($id, $page_content){
-		$Sql = "UPDATE pages SET
-			 page_content='".$page_content."' 
-			 WHERE page_name='".$id."'";
+		$Sql = "UPDATE pages SET 
+				page_content='".$page_content."' 
+				WHERE page_name='".$id."'";
 		return connection::execute_query($Sql);
 	}
 
@@ -23,6 +22,6 @@ class pages{
 		$Sql = "DELETE FROM pages 
 			 WHERE page_name='".$id."'";
 		return connection::execute_query($Sql);
-	}	
+	}
 }
 ?>

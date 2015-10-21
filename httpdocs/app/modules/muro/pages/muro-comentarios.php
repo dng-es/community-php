@@ -5,7 +5,7 @@ templateload("reply","muro");
 templateload("cmbCanales","users");
 
 //OBTENCION DE LOS COMENTARIOS DEL MURO
-$muro = new muro();	
+$muro = new muro();
 if (isset($_REQUEST['id'])) $nombre_muro = $_REQUEST['id'];
 if (isset($_POST['tipo_responder'])) $nombre_muro = $_POST['tipo_responder'];
 if (isset($_POST['tipo_muro'])) $nombre_muro = $_POST['tipo_muro'];
@@ -13,7 +13,6 @@ if ($nombre_muro == "") $nombre_muro = "principal";
 
 if (isset($_REQUEST['pag'])) $pagina = $_REQUEST['pag'];
 else $pagina = 1;
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -27,12 +26,12 @@ else $pagina = 1;
 		<span id="pagina" data-val="<?php echo $pagina;?>"></span>
 		<div id="destino">
 			<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
-		</div>	
+		</div>
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<form id="muro-form" name="coment-form" action="" method="post" role="form">
-				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />	  
+				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />
 				<h4><?php echo strTranslate("New_comment_on_wall");?></h4>
 				<textarea maxlength="160" class="form-control muro-texto" id="texto-comentario" name="texto-comentario"></textarea>
 				<?php if ($_SESSION['user_canal'] == 'admin'):?>
@@ -40,8 +39,8 @@ else $pagina = 1;
 					<?php ComboCanales();?>
 				</select>
 				<?php endif;?>
-				<button class="muro-enviar btn btn-primary btn-block" type="button" id="muro-submit" value="Enviar" name="coment-submit"><?php echo strTranslate("Send");?></button>   
-			</form>	
+				<button class="muro-enviar btn btn-primary btn-block" type="button" id="muro-submit" value="Enviar" name="coment-submit"><?php echo strTranslate("Send");?></button>
+			</form>
 			<br /><div id="result-muro"></div>
 		</div>
 	</div>

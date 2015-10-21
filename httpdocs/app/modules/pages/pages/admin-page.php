@@ -1,11 +1,9 @@
 <?php
-
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 getAsset("pages")."js/admin-page.js"));
-
 ?>
-<div class="row row-top">	
+<div class="row row-top">
 	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
@@ -19,7 +17,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		pagesController::createAction();
 		pagesController::updateAction();
 
-		$page_name = isset($_REQUEST['p']) ? $_REQUEST['p'] : (isset($_POST['page_name']) ? $_POST['page_name'] : "");		
+		$page_name = isset($_REQUEST['p']) ? $_REQUEST['p'] : (isset($_POST['page_name']) ? $_POST['page_name'] : "");
 		$pages = new pages();
 		$pagina = $pages->getPages(" AND page_name='".$page_name."' "); 
 		?>

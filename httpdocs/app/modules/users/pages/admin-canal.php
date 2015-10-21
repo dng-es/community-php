@@ -12,7 +12,7 @@
 		usersCanalesController::createAction();
 		usersCanalesController::updateAction();
 		$elements = usersCanalesController::getItemAction();
-		?>	
+		?>
 		<div class="panel">
 			<div class="panel-body">
 				<form id="formData" role="form" name="formData" method="post" action="">
@@ -23,8 +23,8 @@
 							<input type="text" class="form-big form-control<?php if (isset($_REQUEST['id']) and $_REQUEST['id']!="") {echo ' TextDisabled" readonly="readonly';}?>" id="canal" name="canal" value="<?php echo $elements['canal'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 						</div>
 						<div class="col-md-6">
-					  		<label for="canal_name"><small><?php echo strTranslate("Description");?>:</small></label>
-					  		<input type="text" class="form-control TextDisabled" id="canal_name" name="canal_name" value="<?php echo $elements['canal_name'];?>" />
+							<label for="canal_name"><small><?php echo strTranslate("Description");?>:</small></label>
+							<input type="text" class="form-control TextDisabled" id="canal_name" name="canal_name" value="<?php echo $elements['canal_name'];?>" />
 						</div>
 					</div>
 					<br />
@@ -33,7 +33,7 @@
 							<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
 						</div>
 					</div>
-				</form>		
+				</form>
 			</div>
 		</div>
 	</div>

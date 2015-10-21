@@ -21,7 +21,6 @@ $module_config = getModuleConfig("fotos");
 	</head>
 	<body>
 	<?php
-
 	session::ValidateSessionAjax();
 
 	$fotos = new fotos();
@@ -70,6 +69,6 @@ function showFotoModal($file_galeria, $votaciones = true, $movil = 0, $reto = 0)
 	echo ' - <a href="#" data-id="'.$file_galeria['id_file'].'" data-v="'.$votado.'"  title="'.strTranslate("Photo_vote").'" class="fa fa-heart trigger-votar"> '.$file_galeria['fotos_puntos'].'</a>';
 	echo '</span> ';
 	echo '<div class="alert-votacion text-danger"></div>';
-	echo '</div></div>';		  
+	echo '</div></div>';
 }
 ?>

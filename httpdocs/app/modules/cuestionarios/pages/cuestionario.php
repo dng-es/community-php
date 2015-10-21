@@ -49,12 +49,12 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 					echo '<textarea class="form-control" name="respuesta_'.$element['id_pregunta'].'">'.$respuesta_user[0]['respuesta_valor'].'</textarea>';
 				}
 				elseif ($element['pregunta_tipo'] == 'unica'){
-					$respuestas=$cuestionarios->getRespuestas(" AND id_pregunta=".$element['id_pregunta']." ");             
+					$respuestas=$cuestionarios->getRespuestas(" AND id_pregunta=".$element['id_pregunta']." ");
 					foreach($respuestas as $respuesta):
 						if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']){$seleccionado='checked="checked"';}
 						else {$seleccionado="";}
 						echo '<input '.$seleccionado.' type="radio" id="respuesta_'.$element['id_pregunta'].'" name="respuesta_'.$respuesta['id_pregunta'].'" value="'.$respuesta['respuesta_texto'].'" /> '.$respuesta['respuesta_texto']."<br />";
-					endforeach;           
+					endforeach;
 				}
 				elseif ($element['pregunta_tipo'] == 'multiple'){
 					$respuestas=$cuestionarios->getRespuestas(" AND id_pregunta=".$element['id_pregunta']." ");
@@ -63,7 +63,7 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 						if (in_array($respuesta['respuesta_texto'],$respuesta_multiple)) $seleccionado='checked="checked"';
 						else $seleccionado = "";
 						echo '<input '.$seleccionado.' class="formTareaCheck" type="checkbox" id="respuesta_'.$element['id_pregunta'].'_'.$respuesta['id_respuesta'].'" name="respuesta_'.$element['id_pregunta'].'_'.$respuesta['id_respuesta'].'" value="'.$respuesta['respuesta_texto'].'" /> '.$respuesta['respuesta_texto']."<br />";
-					endforeach;                
+					endforeach;
 				}
 				echo '</div>';
 				echo '</div>';

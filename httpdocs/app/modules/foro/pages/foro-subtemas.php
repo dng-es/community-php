@@ -1,5 +1,4 @@
 <?php
-
 templateload("list","foro");
 templateload("paginator","foro");
 templateload("addforo","foro");
@@ -18,7 +17,7 @@ $canal = "";
 		<p><?php echo strTranslate("Forums_title");?></p>
 		
 		<?php
-		session::getFlashMessage( 'actions_message' ); 	
+		session::getFlashMessage( 'actions_message' );
 		$module_config = getModuleConfig("foro");
 
 		if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0){
@@ -38,7 +37,7 @@ $canal = "";
 
 		if (isset($id_tema_parent) and $id_tema_parent != ""){
 		//OBTENER SUBTEMAS DE FORO
-		$filtro_subtemas = " AND id_tema_parent=".$temas[0]['id_tema']." AND activo=1 AND ocio=0 "; 
+		$filtro_subtemas = " AND id_tema_parent=".$temas[0]['id_tema']." AND activo=1 AND ocio=0 ";
 		$reg = $module_config['options']['forums_per_page'];
 		$marca = 0;
 		$find_tipo = "";
@@ -49,7 +48,7 @@ $canal = "";
 			$pag = 1;
 		}
 		else $inicio = ($pag - 1) * $reg;
-		
+
 		if (isset($_POST['find_reg']) and $_POST['find_reg'] != "") {
 			$filtro_subtemas.=" AND (nombre LIKE  '%".$_POST['find_reg']."%') ";
 			$find_reg = $_POST['find_reg'];
@@ -73,7 +72,7 @@ $canal = "";
 		$sub_temas = $foro->getTemas($filtro_subtemas." ORDER BY id_tema DESC  LIMIT ".$inicio.",".$reg);
 		foreach($sub_temas as $sub_tema):
 			ForoList($sub_tema);		
-		endforeach;  
+		endforeach;
 		ForoPaginator($pag, $reg, $total_reg, 'foro-subtemas?id='.$id_tema_parent, 'temas', $find_reg, $find_tipo, $marca);	 
 		}?>
 

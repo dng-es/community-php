@@ -5,9 +5,8 @@ session::getFlashMessage('actions_message');
 campaignsController::createTypeAction();
 campaignsController::updateTypeAction();
 $plantilla = campaignsController::getItemTypesAction();	
-
 ?>
-<div class="row row-top">	
+<div class="row row-top">
 	<div class="app-main">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"=home"),

@@ -9,7 +9,7 @@ class cuestionariosCore{
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function adminMenu(){
 		$elems = array();
 
@@ -37,7 +37,7 @@ class cuestionariosCore{
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 /*	public static function userMenu(){
 		$array_final = array();
 		global $session;
@@ -62,9 +62,7 @@ class cuestionariosCore{
 								"LabelTarget" => '',
 								"SubItems" => $array_final_items,
 								"LabelPos" => 2));
-			endif; 
-
-
+			endif;
 
 		}
 		return $array_final;		

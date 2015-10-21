@@ -6,10 +6,9 @@ mailingController::exportListAction();
 mailingController::exportMessageAction();
 
 $elements = mailingController::getListAction(20);
-
 ?>
 <div class="row row-top">
-  	<div class="app-main">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -20,8 +19,8 @@ $elements = mailingController::getListAction(20);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-		  		<ul class="nav nav-pills navbar-default">
-					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
+				<ul class="nav nav-pills navbar-default">
+					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-message"><?php echo strTranslate("New_message");?></a></li>
 					<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?></a></li>
 				</ul>
@@ -44,9 +43,9 @@ $elements = mailingController::getListAction(20);
 							?>
 							<tr>
 							<td nowrap="nowrap">
-								<a href="admin-messages?exportm=true&id=<?php echo $element['id_message'];?>" class="fa fa-download icon-table" title="Descargar"></a>		
+								<a href="admin-messages?exportm=true&id=<?php echo $element['id_message'];?>" class="fa fa-download icon-table" title="Descargar"></a>
 							</td>
-							<?php			
+							<?php 
 							echo '<td>'.$element['message_subject'].'</td>';
 							echo '<td><a href="admin-message-proccess?id='.$element['id_message'].'" class="label '.$estado.'">'.$element['message_status'].'</a></td>';
 							echo '<td>'.getDateFormat($element['date_add'], "SHORT").'</td>';

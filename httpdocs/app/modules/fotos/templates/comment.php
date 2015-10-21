@@ -9,7 +9,7 @@ function commentFoto($comment, $destino = "fotos-comentarios"){ ?>
 		<p><?php echo showHtmlLinks($comment['comentario']);?></p>
 
 		<div class="comment-info">
-			<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label" title="ID del comentario">id: '.$comment['id_comentario'].'</span>'; ?>	
+			<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label" title="ID del comentario">id: '.$comment['id_comentario'].'</span>'; ?>
 		</div>
 	</div>
 <?php } ?>

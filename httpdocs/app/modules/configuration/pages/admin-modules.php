@@ -1,7 +1,7 @@
 <?php
 addJavascripts(array(getAsset("configuration")."js/admin-modules.js"));
 
-session::getFlashMessage('actions_message'); 
+session::getFlashMessage('actions_message');
 configurationController::updateAction();
 $modules = configurationController::getListModulesAction();
 
@@ -22,7 +22,7 @@ global $modules_data;
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
 						<?php foreach($modules as $module):
-							$module_config = getModuleConfig($module['folder']);	
+							$module_config = getModuleConfig($module['folder']);
 							$key = array_search($module['folder'], arraycolumn($modules_data, 'name'));
 							echo '<tr>
 							<td><h4>'.strTranslate(ucfirst($module['folder'])).'</h4></td>

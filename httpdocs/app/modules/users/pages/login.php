@@ -8,9 +8,9 @@ $module_config = getModuleConfig("users");
 	<div class="col-md-5">
 		<img src="images/logo01.png" alt="<?php echo $ini_conf['SiteName'];?>" class="responsive login-img" />
 	</div>
-	<div class="col-md-7 login-container">          
+	<div class="col-md-7 login-container">
 		<h1 class="inset"><?php echo strTranslate("Identify_to_access");?></h1>
-		<?php session::getFlashMessage( 'actions_message' );?>
+		<?php session::getFlashMessage('actions_message');?>
 		<form method="post" action="" name="form-login" id="form-login" role="form" class="form-horizontal">          
 			<div class="row">
 				<div class="col-md-5"> 

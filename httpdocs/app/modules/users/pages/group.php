@@ -1,5 +1,4 @@
 <?php
-
 //addJavascripts(array(getAsset("users")."js/group.js"));
 $cod_empresa = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
 session::getFlashMessage('actions_message'); 
@@ -8,7 +7,6 @@ $elements = usersController::getListAction(35, " AND empresa='".$cod_empresa."' 
 $elements['items'] = arraySort($elements['items'], 'perfil', SORT_ASC);
 $empresa = usersTiendasController::getItemAction($cod_empresa);
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -31,7 +29,7 @@ $empresa = usersTiendasController::getItemAction($cod_empresa);
 										<p class="text-muted"><?php echo $element['email'];?></p>
 									</td>
 									<td><?php $element['nombre_tienda'];?></td>
-								</tr>  
+								</tr>
 						<?php endforeach; ?>
 					</table>
 				</div>

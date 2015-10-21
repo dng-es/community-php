@@ -8,7 +8,6 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 					 "js/bootstrap.file-input.js", 
 					 "js/jquery.geturlparam.js", 
 					 getAsset("fotos")."js/fotos.js"));
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -35,12 +34,12 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 			?>
 			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#videos" data-toggle="tab"><?php echo strTranslate("Videos");?></a></li>
 			<?php endif; ?>
-		</ul>	
+		</ul>
 		
 		<div class="tab-content">
 			<div class="tab-pane fade in <?php echo (!(isset($_GET['t'])) ? ' active' : '');?>" id="general">
 				<div class="row inset"> 
-			  		<div class="col-md-12">
+					<div class="col-md-12">
 						<?php if (count($usuario)>0): ?>
 						<div class="row">
 							<div class="col-md-12">
@@ -68,7 +67,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 								<label class="control-label" for="user-surname"><small><?php echo strTranslate("Surname");?></small></label>
 								<input maxlength="100" name="user-surname" id="user-surname" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['surname'];?>" />
 							</div>
-						</div>					
+						</div>
 			
 						<div class="row">
 							<div class="col-md-12">
@@ -115,11 +114,11 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 			</div>
 			<?php endif; ?>
 			<?php if(getModuleExist("videos")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==3) ? ' in active' : '');?>" id="videos">
-
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' in active' : '');?>" id="videos">
+					<div class="row">
 					<?php
 					foreach($videos['items'] as $element):
-					echo '<div class="media-preview-container col-md-4 inset">
+					echo '<div class="media-preview-container col-md-4 inset" style="clear: none">
 								<a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'">
 								<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.$element['titulo'].'" /></a>
 								<div><a href="videos?id='.$element['id_file'].'">'.$element['titulo'].'</a><br />
@@ -131,6 +130,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 
 					if ($videos['total_reg'] == 0) echo '<br /><div class="alert alert-warning"><b>'.$usuario['nick'].'</b> no ha subido videos</div>';
 					?>
+					</div>
 					<br />
 			</div>
 			<?php endif; ?>
@@ -139,7 +139,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php if (count($usuario) > 0): ?>
-			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" />  
+			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" />
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div>
 			<?php endif; ?>
 		</div>

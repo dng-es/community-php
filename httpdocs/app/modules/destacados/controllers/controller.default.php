@@ -10,6 +10,6 @@ class destacadosController{
 			
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
-	}	
+	}
 }
 ?>

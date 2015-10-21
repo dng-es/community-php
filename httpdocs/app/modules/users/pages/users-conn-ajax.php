@@ -1,12 +1,11 @@
 <?php
-$base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__)));
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/users/classes/class.users.php");
-
 ?>
 <!DOCTYPE html>
 	<html lang="es">
@@ -25,7 +24,7 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 		$users = new users();
 		if ($_SESSION['user_canal'] != 'admin') $filtroCanal = " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') ";
 		else{$filtroCanal="";}
-		$users_conn = $users->getUsers(" LIMIT ".$inicio.",".$reg);  
+		$users_conn = $users->getUsers(" LIMIT ".$inicio.",".$reg);
 		//$users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
 		echo '<div class="users-connected" id="users-connected-'.$pagina.'" ><p>Total conectados: '.count($users_conn).'</p>';
 		foreach($users_conn as $user_conn):
@@ -36,8 +35,8 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 				<p class="media-heading"><?php echo $user_conn['nick'];?></p>
 				<?php echo $user_conn['name'];?> <?php echo $user_conn['surname'];?>
 				</div>
-			</div>	
-		<?php endforeach;?> 
+			</div>
+		<?php endforeach;?>
 		</div>
 	</body>
 </html>

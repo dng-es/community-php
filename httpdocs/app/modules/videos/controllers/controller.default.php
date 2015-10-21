@@ -1,14 +1,13 @@
 <?php
 class videosController{
-
 	public static function getItemAction($id = 0, $filter = ""){
 		$item = array();
 		if ($id != 0){
 			$videos = new videos();
-			$item = $videos->getVideos($filter." AND id_file=".$id);	
+			$item = $videos->getVideos($filter." AND id_file=".$id);
 		}
-		return $item[0];		
-	}	
+		return $item[0];
+	}
 
 	public static function getListAction($reg = 0, $filter = ""){
 		$videos = new videos();
@@ -30,43 +29,41 @@ class videosController{
 	public static function createAction(){
 		if (isset($_POST['titulo-video']) and $_POST['titulo-video']!=""){
 			$videos = new videos();	
-			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-video']);		
+			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-video']);
 			$response = $videos->insertFile($_FILES['nombre-video'],PATH_VIDEOS_TEMP,$canal,$_POST['titulo-video'], 0, 0);
 			if ($response == 0)
-				session::setFlashMessage( 'actions_message', strTranslate("Video_upload_ko0"), "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Video_upload_ko0"), "alert alert-warning");
 			elseif ($response == 1)
-				session::setFlashMessage( 'actions_message', strTranslate("Video_upload_ok"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Video_upload_ok"), "alert alert-success");
 			elseif ($response == 2)
-				session::setFlashMessage( 'actions_message', strTranslate("Video_upload_ko1"), "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Video_upload_ko1"), "alert alert-warning");
 			elseif ($response == 3)
-				session::setFlashMessage( 'actions_message', strTranslate("Video_upload_ko2"), "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Video_upload_ko2"), "alert alert-warning");
 		
 			redirectURL($_SERVER['REQUEST_URI']);
-		}			
+		}
 	}
 
 	public static function voteAction($destination = "videos"){
-		if (isset($_REQUEST['idvv']) and $_REQUEST['idvv'] != "") { 
+		if (isset($_REQUEST['idvv']) and $_REQUEST['idvv'] != ""){
 			$videos = new videos();
 			$response = $videos->InsertVotacion($_REQUEST['idvv'],$_SESSION['user_name']);
 			if ($response == 1)
-				session::setFlashMessage( 'actions_message', strTranslate("Video_vote_ok"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Video_vote_ok"), "alert alert-success");
 			elseif ($response == 2)
-				session::setFlashMessage( 'actions_message', strTranslate("Video_vote_repeat"), "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Video_vote_repeat"), "alert alert-warning");
 			elseif ($response == 3)
-				session::setFlashMessage( 'actions_message', strTranslate("Video_vote_own"), "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Video_vote_own"), "alert alert-warning");
 
 			if (isset($_REQUEST['f']) and $_REQUEST['f'] != "") $destination .= "&f=".$_REQUEST['f'];
 			if (isset($_REQUEST['pag']) and $_REQUEST['pag'] != "") $destination .= "&pag=".$_REQUEST['pag'];
 
 			redirectURL($destination."?id=".$_REQUEST['idvv']);
-		}		
+		}
 	}
 
 	public static function downloadZipFile(){
-		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] != "") {	
-			fileToZip($_REQUEST['exp'], PATH_VIDEOS_TEMP);
-		}		
+		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] != "") fileToZip($_REQUEST['exp'], PATH_VIDEOS_TEMP);
 	}	
 
 	///////////////////////////////////////////////////////////////////////////
@@ -127,8 +124,8 @@ class videosController{
 
 			session::setFlashMessage('actions_message', $message, "alert alert-warning");
 			redirectURL($destination);
-		}	
-	}	
+		}
+	}
 
 	/**
 	 * Funcion para obtener variables del paginador
@@ -138,13 +135,13 @@ class videosController{
 		$find_reg = "";
 		$pag = 1;
 		$inicio = 0;
-		if (isset($_GET["pag2"]) and $_GET["pag2"] != "") {
+		if (isset($_GET["pag2"]) and $_GET["pag2"] != ""){
 			$pag = $_GET["pag2"];
 			$inicio = ($pag - 1) * $reg;
 		}
 		return array('find_reg' => $find_reg,
 					'pag' => $pag,
 					'inicio' =>$inicio );
-	}	
+	}
 }
 ?>

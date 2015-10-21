@@ -4,14 +4,14 @@ templateload("cmbAlbumes","fotos");
 addJavascripts(array(getAsset("fotos")."js/admin-validacion-fotos.js"));
 
 //VALIDAR CONTENIDOS
-if (isset($_REQUEST['act'])) { 	
+if (isset($_REQUEST['act'])){
 	$users = new users();
 	$fotos = new fotos();
 
 	if ($_REQUEST['act'] == 'foto_ok'){
-	  $fotos->cambiarEstado($_REQUEST['id'], 1);
-	  $fotos->updateFotoAlbum($_REQUEST['id'], $_REQUEST['ida']);
-	  $users->sumarPuntos($_REQUEST['u'], PUNTOS_FOTO,PUNTOS_FOTO_MOTIVO);
+		$fotos->cambiarEstado($_REQUEST['id'], 1);
+		$fotos->updateFotoAlbum($_REQUEST['id'], $_REQUEST['ida']);
+		$users->sumarPuntos($_REQUEST['u'], PUNTOS_FOTO,PUNTOS_FOTO_MOTIVO);
 	}
 	elseif ($_REQUEST['act'] == 'foto_ko') $fotos->cambiarEstado($_REQUEST['id'], 2, 0);
 
@@ -33,7 +33,7 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default"> 
-					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b></a></li>      
+					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b></a></li>
 				</ul>
 
 				<div class="table-responsive">
@@ -48,7 +48,7 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 						</tr>
 						<?php foreach($pendientes as $element):
 							echo '<tr>';
-							echo '<td nowrap="nowrap">			
+							echo '<td nowrap="nowrap">
 									<span class="fa fa-ban icon-table" onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',
 										\'admin-validacion-fotos?act=foto_ko&id='.$element['id_file'].'&u='.$element['user_add'].'\')" 
 										title="'.strTranslate("Delete").'" />
@@ -59,7 +59,7 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 							echo'</td>';
 							echo '<td>';
 							ComboAlbumes(0, $albumes, "nombre_album_" .$element['id_file']);
-							echo '</td>';					
+							echo '</td>';
 							echo '<td>'.$element['user_add'].'</td>';
 							echo '<td>'.$element['canal_file'].'</td>';
 							echo '<td><a href="#" class="abrir-modal" title="MensajeFoto'.$element['id_file'].'">'.$element['titulo'].'</a>
@@ -80,7 +80,7 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 									</div><!-- /.modal -->
 
 								 </td>';
-							echo '<td>'.getDateFormat($element['date_foto'], "SHORT").'</td>';			
+							echo '<td>'.getDateFormat($element['date_foto'], "SHORT").'</td>';
 							echo '</tr>';   
 						endforeach;?>
 					</table>

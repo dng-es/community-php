@@ -7,7 +7,7 @@
 			array("ItemLabel"=>strTranslate("Pages"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Pages_list"), "ItemClass"=>"active"),
 		));
-		session::getFlashMessage( 'actions_message' ); 
+		session::getFlashMessage( 'actions_message' );
 		pagesController::deleteAction();
 		$elements = pagesController::getListAction(8);
 		?>
@@ -25,7 +25,7 @@
 							<th><?php echo strTranslate("Name");?></th>
 							<th>URL</th>
 						</tr>		
-						<?php foreach($elements['items'] as $element): ?>
+						<?php foreach($elements['items'] as $element):?>
 						<tr>
 							<td nowrap="nowrap">
 								<span class="fa fa-edit icon-table" title="Ver/editar"
@@ -35,14 +35,14 @@
 								<span class="fa fa-ban icon-table" title="Eliminar"
 									onClick="Confirma('¿Seguro que deseas eliminar la página?', 'admin-pages?pag=<?php echo $pag;?>&act=del&id=<?php echo $element['page_name'];?>')">
 								</span>
-							</td>						
+							</td>
 							<td><?php echo $element['page_name'];?></td>
 							<td><a href="<?php echo $ini_conf['SiteUrl'].'/pagename?id='.$element['page_name'];?>" target="_blank"><?php echo $ini_conf['SiteUrl'];?>/pagename?id=<?php echo $element['page_name'];?></a></td>
 						</tr>
-						<?php endforeach; ?>
+						<?php endforeach;?>
 					</table>
 				</div>
-				<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>

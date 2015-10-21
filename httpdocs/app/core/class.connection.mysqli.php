@@ -9,7 +9,7 @@
 
 
 class connection_sql {
-	const frameworkVersion=0.5;
+	const frameworkVersion = 0.5;
 	private $link;
 
 	//class constructor
@@ -39,14 +39,14 @@ class connection_sql {
 		global $ini_conf;
 		$link = self::conex();
 
-		//debugger control		
+		//debugger control
 		if ((isset($ini_conf['debug_app']) and ($ini_conf['debug_app'] == 1 or $ini_conf['debug_app'] == 2)) and $consulta != "") {
 			if (class_exists('debugger')) debugger::addError(0, $consulta, $_SERVER['SCRIPT_FILENAME'], 0, null, null, "sql");
 		}
 		
 		if ($da_query = mysqli_query($link, $consulta)) {
 			self::close_conex($link);
-			return $da_query;  
+			return $da_query;
 		}
 		else {	
 			if ($ini_conf['debug_app'] == 1 or $ini_conf['debug_app'] == 2) {
@@ -54,10 +54,10 @@ class connection_sql {
 			}
 			self::close_conex($link);
 			return false;
-		}  
+		}
 	}
-	   
-	public static function get_result($result, $tipo = MYSQLI_ASSOC) {  
+
+	public static function get_result($result, $tipo = MYSQLI_ASSOC) {
 		try {
 			return mysqli_fetch_array($result, $tipo); 
 		} catch (Exception $e) {

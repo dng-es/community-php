@@ -1,6 +1,5 @@
 <?php
 class usersParticipacionesController{
-
 	public static function getListAction($reg = 0){
 		$users = new users();
 		$filtro = " ORDER BY participacion_date DESC ";
@@ -21,7 +20,7 @@ class usersParticipacionesController{
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
-		}	
+		}
 	}
 }
 ?>

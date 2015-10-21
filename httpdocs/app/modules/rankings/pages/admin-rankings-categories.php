@@ -2,7 +2,6 @@
 //CONTROL NIVEL DE ACCESO
 $perfiles_autorizados = array("admin");
 session::AccessLevel($perfiles_autorizados);
-
 ?>
 
 <div class="row row-top">
@@ -20,7 +19,7 @@ session::AccessLevel($perfiles_autorizados);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default">      
+				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-rankings-category">nueva categoria</a></li>
 				</ul>
@@ -31,23 +30,23 @@ session::AccessLevel($perfiles_autorizados);
 					<th width="40px">&nbsp;</th>
 					<th><?php echo strTranslate("Name");?></th>
 					<th>num.rankings</th>
-					</tr>		
+					</tr>
 					<?php foreach($elements['items'] as $element): 
-					$num_rankings = connection::countReg("users_tiendas_rankings"," AND id_ranking_category=".$element['id_ranking_category']." ");
-					?>
+						$num_rankings = connection::countReg("users_tiendas_rankings", " AND id_ranking_category=".$element['id_ranking_category']." ");
+						?>
 						<tr>
 						<td nowrap="nowrap">
 							<span class="fa fa-edit icon-table" title="<?php echo strTranslate("Edit");?>"
 								onClick="location.href='admin-rankings-category?id=<?php echo $element['id_ranking_category'];?>'">
 							</span>
-						</td>						
+						</td>
 						<td><?php echo $element['ranking_category_name'];?></td>
 						<td><?php echo $num_rankings;?></td>
 						</tr>
 					<?php endforeach; ?>
 					</table>
 				</div>
-				<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>

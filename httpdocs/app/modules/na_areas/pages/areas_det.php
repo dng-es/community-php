@@ -17,7 +17,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 	$module_config = getModuleConfig("na_areas");
 	$acceso = foroController::accesoForoAreaAction($id_area);
 	$area = na_areasController::getItemAction($id_area);
-  	
+
   	if ( $acceso==1 ): ?>
 	<div class="row row-top">
 		<div class="app-main">
@@ -27,13 +27,12 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 				array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"areas"),
 				array("ItemLabel"=> $area[0]['area_nombre'], "ItemClass"=>"active"),
 			));
-		
+
 			na_areasController::uploadTareaAction();
-			session::getFlashMessage( 'actions_message' );	
+			session::getFlashMessage( 'actions_message' );
 			?>
 			<p><?php echo $area[0]['area_descripcion'];?></p>
 			<div class="clearfix"></div>
-
 			<div class="row">
 				<div class="col-md-6">
 					<h4>Tareas del curso</h4>
@@ -58,13 +57,11 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 					} ?>
 				</div>
 			</div>
-
 		</div>
 	<?php else: ?>
 	  	<div class="alert alert-warning"><?php echo strTranslate("Access_denied");?></div>
 	<?php endif;
 } ?>
-
 
 	<div class="app-sidebar">
 		<div class="panel-interior">
@@ -96,8 +93,8 @@ function printTareas($id_area){
 				$acceso_grupo = count($na_areas->getUsersTareaGrupos($element['id_tarea'],$_SESSION['user_name']));
 			}
 		}
-	  	if ($element['tarea_grupo'] == 0 or $acceso_grupo == 1){
-	  		$contador_tareas++;
+		if ($element['tarea_grupo'] == 0 or $acceso_grupo == 1){
+			$contador_tareas++;
 			echo '<div class="panel panel-default">
 				  <div class="panel-heading"><h3 class="panel-title">'.$element['tarea_titulo'].'</h3></div>
 				  <div class="panel-body">
@@ -135,11 +132,9 @@ function printTareas($id_area){
 
 			echo '</div></div>';
 		}
-	endforeach; 	
+	endforeach;
 	
-
-
-	if ($contador_tareas==0){ 
+	if ($contador_tareas == 0){ 
 		//echo '<div class="alert alert-info"><i class="fa fa-info-circle"></i> No hay tareas activas.</div>';
 	}
 }
@@ -148,19 +143,19 @@ function documentosTarea($id_tarea){
 	$na_areas = new na_areas();
 
 	$documentos = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
-	if (count($documentos)==0){
+	if (count($documentos) == 0){
 		echo '<p class="text-muted">'.strTranslate("No_files_for_this_task").'</p>';
 	}
 	else {
 		//echo '<h5>Ficheros</h5>';
 		foreach($documentos as $documento):
 				echo '<div class="panel-documentos">';
-				switch ($documento['documento_tipo']) {
+				switch ($documento['documento_tipo']){
 					case 'fichero':
 						echo '<p class="text-center">
 								<a target="_blank" href="docs/showfile.php?t=1&file='.$documento['documento_file'].'">
 								<i class="fa fa-file"></i> '.$documento['documento_nombre'].'</a>
-							</p>';		
+							</p>';
 						break;
 					case 'enlace':
 						echo '<p class="text-center">
@@ -170,11 +165,11 @@ function documentosTarea($id_tarea){
 							</p>';
 						break;
 					case 'video':
-						playVideo("video".$documento['id_documento'],PATH_VIDEOS.$documento['documento_file'],240,180,'bottom',false,0); 
+						playVideo("video".$documento['id_documento'], PATH_VIDEOS.$documento['documento_file'], 240, 180, 'bottom', false, 0);
 						echo '<p class="text-center">'.$documento['documento_nombre'].'</p>';
-						break;					
+						break;
 					case 'podcast':
-						playVideo("podcast".$documento['id_documento'],"docs/audio/".$documento['documento_file'],240,24,'bottom',false,0); 
+						playVideo("podcast".$documento['id_documento'], "docs/audio/".$documento['documento_file'], 240, 24, 'bottom', false, 0);
 						echo '<p class="text-center">'.$documento['documento_nombre'].'</p>';
 						break;
 				}

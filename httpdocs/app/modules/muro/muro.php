@@ -4,7 +4,7 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0
 * 
-*/	
+*/
 class muroCore{
 	/**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario
@@ -16,7 +16,7 @@ class muroCore{
 		$num_votaciones = connection::countReg("muro_comentarios_votaciones"," AND user_votacion='".$username."' ");
 		return array('Comentarios en el muro' => $num,
 					 'Votaciones realizadas en el muro' => $num_votaciones);
-	}	
+	}
 
 	public static function adminMenu(){
 		return array(

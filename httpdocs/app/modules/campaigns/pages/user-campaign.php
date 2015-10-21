@@ -6,9 +6,8 @@ $templates = mailingTemplatesController::getListAction(400000, "activos", " AND 
 $documentos = infotopdfController::getListAction(400000, " AND i.id_campaign=".$_GET['id']);
 $ficheros = infoController::getListAction(400000, " AND i.id_campaign=".$_GET['id']);
 $plantilla = campaignsController::getItemAction();	
-
 ?>
-<div class="row inset row-top">	
+<div class="row inset row-top">
 	<div class="col-md-12">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -16,7 +15,7 @@ $plantilla = campaignsController::getItemAction();
 			array("ItemLabel"=>$plantilla['name_campaign'], "ItemClass"=>"active"),
 		));?>
 		<p><?php echo $plantilla['novedad'] == 1 ? '<span class="label label-success">novedad</span> ' : '';?></p>
-		<p><?php echo $plantilla['desc_campaign'];?></p>	
+		<p><?php echo $plantilla['desc_campaign'];?></p>
 		<h4>Comunicaciones email</h4>
 		<?php
 			if (count($templates['items']) > 0):
@@ -52,6 +51,6 @@ $plantilla = campaignsController::getItemAction();
 			else:
 				echo '<div class="alert alert-info">No hay documentos en la sección</div>';
 			endif;
-		?>			
+		?>
 	</div>
 </div>

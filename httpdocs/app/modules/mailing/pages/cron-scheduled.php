@@ -13,15 +13,14 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 
 //OBTENER MENSAJES PROGRAMADOS
 $mailing = new mailing();
-$mensajes = $mailing->getMessages(" AND (date_scheduled<>'NULL()' AND date_scheduled<=NOW())  AND message_status='pending' "); 
-if (count($mensajes)>0){
+$mensajes = $mailing->getMessages(" AND (date_scheduled<>'NULL()' AND date_scheduled<=NOW())  AND message_status='pending' ");
+if (count($mensajes) > 0){
 	$id_message = $mensajes[0]['id_message'];
 	$action = "pending";
 	$pasada = 1;
 	pasadaProccess($id_message, $action, $pasada);
 	header ("Location: ".$_SERVER['REQUEST_URI']);
 }
-
 
 function pasadaProccess($id_message, $action, $pasada){
 	global $ini_conf;
@@ -30,7 +29,7 @@ function pasadaProccess($id_message, $action, $pasada){
 	$msgs_block = $mailing->getMsgsBlock();
 
 	//obtener datos del mesaje
-	$elements = $mailing->getMessages(" AND id_message=".$id_message." "); 	
+	$elements = $mailing->getMessages(" AND id_message=".$id_message." ");
 	$message_subject = $elements[0]['message_subject'];
 	$message_body = $elements[0]['message_body'];
 	$message_from = array($elements[0]['message_from_email'] => $elements[0]['message_from_name']);
@@ -69,7 +68,6 @@ function pasadaProccess($id_message, $action, $pasada){
 		endif;
 	endforeach;
 
-
 	//mensaje final
 	echo "Finalizada la pasada ".$pasada.". Mensajes enviados: ".$enviados;
 	echo " - Mensajes fallidos: ".$fallidos;
@@ -87,8 +85,6 @@ function pasadaProccess($id_message, $action, $pasada){
 		//actualizar datos del mensaje
 		$mailing->updateMessageField($id_message, "message_status", "'completed'");
 	}
-	else{
-		echo "<br />Esperado iniciar siguiente pasada...";	
-	}	
+	else echo "<br />Esperado iniciar siguiente pasada...";	
 }
 ?>

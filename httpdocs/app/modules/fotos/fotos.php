@@ -53,12 +53,12 @@ class fotosCore{
 		)));
 
 		return $elems;
-	}	
+	}
 
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 	public static function userMenu(){
 		$array_final = array();
 		global $session;
@@ -70,13 +70,13 @@ class fotosCore{
 							"LabelTarget" => '_self',
 							"LabelPos" => 3));
 		}
-		return $array_final;	
-	}		
+		return $array_final;
+	}
 
 	/**
 	 * Elementos para el panel de administración principal (?page=admin)
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function adminPanels(){
 		$num_pending = connection::countReg("galeria_fotos"," AND estado=0 ");
 		$num_pending = ($num_pending > 0 ? '<span class="label label-warning">'.$num_pending.'</span>' : $num_pending);
@@ -89,7 +89,7 @@ class fotosCore{
 							"LabelItem"=> strTranslate("Photos_pending"),
 							"LabelUrlText"=> $num_pending,
 							"LabelUrl"=>'admin-validacion-fotos',
-							"LabelPos" => 2));	
+							"LabelPos" => 2));
 	}
 }
 ?>

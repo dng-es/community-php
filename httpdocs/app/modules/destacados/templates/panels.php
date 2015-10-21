@@ -3,13 +3,13 @@ function PanelLastDestacado(){
 	$destacados = new destacados();
 	if ($_SESSION['user_canal'] != 'admin' ) $filtro_destacado .= " AND canal_destacado='".$_SESSION['user_canal']."' ";
 	$destacado = $destacados->getDestacados($filtro_destacado." AND activo=1 ");
-	$destacado_file = $destacados->getDestacadosFile(" AND d.activo=1 ".$filtro_destacado, $destacado[0]['destacado_tipo']);   
+	$destacado_file = $destacados->getDestacadosFile(" AND d.activo=1 ".$filtro_destacado, $destacado[0]['destacado_tipo']);
 	if (isset($destacado[0])): ?>
 		<div class="media-preview-container">
 			<?php
 			if ($destacado[0]['destacado_tipo'] == 'foto') {
 				echo '<a target="_blank" href="docs/fotos/'.$destacado_file[0]['name_file'].'">
-					  <img src="docs/fotos/'.$destacado_file[0]['name_file'].'" class="media-preview" alt="'.prepareString($destacado_file[0]['titulo']).'" /></a>';
+					<img src="docs/fotos/'.$destacado_file[0]['name_file'].'" class="media-preview" alt="'.prepareString($destacado_file[0]['titulo']).'" /></a>';
 			}
 			elseif ($destacado[0]['destacado_tipo'] == 'video') { 
 				echo '<a href="videos?id='.$destacado_file[0]['id_file'].'">

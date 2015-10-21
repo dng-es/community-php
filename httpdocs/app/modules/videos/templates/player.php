@@ -1,15 +1,15 @@
 <?php
-function playVideo($id_contenedor, $nombre_video, $ancho_video, $alto_video, $controlBar = "bottom", $autostart = false, $id_file = 0){ ?>
+function playVideo($id_contenedor, $nombre_video, $ancho_video, $alto_video, $controlBar = "bottom", $autostart = false, $id_file = 0){?>
 	<div class="videoplayer">
 		<div id="<?php echo $id_contenedor;?>"><?php echo strTranslate('Loading');?> ...</div> 
 		<script type="text/javascript"> 
 		jwplayer("<?php echo $id_contenedor;?>").setup({ 
-		    file: "<?php echo $nombre_video;?>", 
-		    image: "<?php echo $nombre_video;?>.jpg", 
-		    width: "100%",
+			file: "<?php echo $nombre_video;?>", 
+			image: "<?php echo $nombre_video;?>.jpg", 
+			width: "100%",
 			aspectratio: "16:9",
-		    autostart: "<?php echo $autostart;?>"
-		}); 
+			autostart: "<?php echo $autostart;?>"
+		});
 
 		//REGISTRO DE VISUALIZACION
 		jwplayer("<?php echo $id_contenedor;?>").onComplete(function(){
@@ -35,14 +35,13 @@ function playVideo($id_contenedor, $nombre_video, $ancho_video, $alto_video, $co
 			"download"
 		);*/
 
-
-		function playerReady(obj) {
+		function playerReady(obj){
 			var player;
 			player = document.getElementById(obj['id']);
 			player.addControllerListener("PLAY","registraReproduccion");
 		};
 
-		function registraReproduccion(obj) {
+		function registraReproduccion(obj){
 			var idvideo = obj.id;
 			if (obj.state===true){
 				idvideo = idvideo.substring(12,idvideo.length);
@@ -55,4 +54,4 @@ function playVideo($id_contenedor, $nombre_video, $ancho_video, $alto_video, $co
 		};
 		</script>
 	</div>
-<?php } ?>
+<?php }?>

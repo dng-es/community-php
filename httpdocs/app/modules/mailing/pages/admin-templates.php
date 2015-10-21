@@ -3,10 +3,9 @@ session::getFlashMessage( 'actions_message' );
 mailingTemplatesController::deleteAction();
 mailingTemplatesController::updateEstadoAction();
 $elements = mailingTemplatesController::getListAction(20);
-
 ?>
 <div class="row row-top">
-  	<div class="app-main">
+	<div class="app-main">
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -14,11 +13,11 @@ $elements = mailingTemplatesController::getListAction(20);
 			array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"admin-templates"),
 			array("ItemLabel"=>strTranslate("Mailing_templates"), "ItemClass"=>"active"),
 		));
-		?>	
+		?>
 		<div class="panel panel-default">
-			<div class="panel-body">	
-				<ul class="nav nav-pills navbar-default">     
-					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>    
+			<div class="panel-body">
+				<ul class="nav nav-pills navbar-default">
+					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-template?act=new"><?php echo strTranslate("New_template");?></a></li>
 				</ul>
 				<div class="table-responsive">
@@ -42,7 +41,7 @@ $elements = mailingTemplatesController::getListAction(20);
 								<a class="fa fa-ban icon-table" title="Eliminar"
 									onClick="Confirma('¿Seguro que deseas eliminar la plantilla?', 'admin-templates?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_template'];?>'); return false;">
 								</a>
-							</td>			
+							</td>
 							<td><?php echo $element['template_name'];?></td>
 							<td><?php echo $element['tipo'];?></td>
 							<td><?php echo $element['campana'];?></td>
@@ -55,7 +54,7 @@ $elements = mailingTemplatesController::getListAction(20);
 						<?php endforeach;?>
 					</table>
 				</div>
-				<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>

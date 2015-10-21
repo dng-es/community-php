@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/jquery.numeric.js", 
 					 "js/libs/ckeditor/ckeditor.js", 
 					 "js/bootstrap.file-input.js",
@@ -33,9 +32,9 @@ addJavascripts(array("js/jquery.numeric.js",
 			$accion = "edit";
 		}
 		else{
-			$elements=$mailing->getMessages(" AND id_message=".$id." "); 	
-			ShowData($elements,$id,$accion);	
-		}	
+			$elements=$mailing->getMessages(" AND id_message=".$id." ");
+			ShowData($elements,$id,$accion);
+		}
 		?>
 	</div>
 	<?php menu::adminMenu();?>
@@ -64,13 +63,13 @@ function ShowData($elements,$id,$accion){
 						<label for="nombre_message">Nombre completo remitente:</label>
 						<input class="form-control" type="text" id="nombre_message" name="nombre_message" value="<?php echo $ini_conf['SiteName']?>"/>
 						<span id="nombre-alert" class="alert-message alert alert-danger"></span>
-					</div> 
+					</div>
 
 					<div class="form-group">
 						<label for="asunto_message">Asunto del mensaje:</label>
 						<input class="form-control" type="text" id="asunto_message" name="asunto_message" value=""/>
 						<span id="asunto-alert" class="alert-message alert alert-danger"></span>
-					</div> 
+					</div>
 
 					<?php if (isset($_REQUEST['id']) and $_REQUEST['id']>0):?>
 						<input type="hidden" id="template_message" name="template_message" value="<?php echo $_REQUEST['id'];?>" />
@@ -104,7 +103,7 @@ function ShowData($elements,$id,$accion){
 						<span>Puedes emplear las siguientes etiquetas: [USER_USERNAME], [USER_NAME], [USER_SURNAME], [USER_TIENDA].</span><br /><br />
 						<textarea class="form-control" id="texto_message" name="texto_message" style="height:120px"></textarea>
 						<span id="texto-alert" class="alert-message alert alert-danger"></span>
-					</div> 										
+					</div>
 
 					<h2>PASO 4: Lista de envío</h2>
 					<label for="lista_message">Seleccionar una de las siguientes opciones:</label>
@@ -136,15 +135,14 @@ function ShowData($elements,$id,$accion){
 							<label>
 								<input type="radio" value="lista sede" id="lista_sede" name="lista_message"> Todos los SEDE
 							</label>
-						</div>							
-
+						</div>
 
 						<div class="form-group">
 							<div class="radio">
 								<label>
 									<input type="radio" value="lista curso" id="lista_curso" name="lista_message"> Curso 
 								</label>
-							</div>				
+							</div>
 						</div>
 						<select id="lista_curso_sel" name="lista_curso_sel" class="form-control">
 							<option value="">--selecciona el curso--</option>
@@ -154,7 +152,7 @@ function ShowData($elements,$id,$accion){
 							foreach($cursos as $curso):
 								echo '<option value="lista curso : '.$curso['id_area'].'">'.$curso['area_nombre'].'</option>';
 							endforeach;
-							?>		
+							?>
 						</select>
 						<span id="curso-alert" class="alert-message alert alert-danger"></span>
 
@@ -163,7 +161,7 @@ function ShowData($elements,$id,$accion){
 								<label>
 									<input type="radio" value="lista tienda" id="lista_tienda" name="lista_message"> Tienda 
 								</label>
-							</div>				
+							</div>
 						</div>
 						<select id="lista_tienda_sel" name="lista_tienda_sel" class="form-control">
 							<option value="">--selecciona la tienda--</option>
@@ -182,7 +180,7 @@ function ShowData($elements,$id,$accion){
 								<label>
 									<input type="radio" value="lista tienda tipo" id="lista_tienda_tipo" name="lista_message"> Tipo Tienda 
 								</label>
-							</div>				
+							</div>
 						</div>
 						<select id="lista_tienda_tipo_sel" name="lista_tienda_tipo_sel" class="form-control">
 							<option value="">--selecciona tipo tienda--</option>
@@ -192,9 +190,9 @@ function ShowData($elements,$id,$accion){
 							foreach($tiendas_tipos as $tiendas_tipo):
 								echo '<option value="lista tienda tipo : '.$tiendas_tipo['tipo_tienda'].'">'.$tiendas_tipo['tipo_tienda'].'</option>';
 							endforeach;
-							?>		
+							?>
 						</select>
-						<span id="tienda-tipo-alert" class="alert-message alert alert-danger"></span>						
+						<span id="tienda-tipo-alert" class="alert-message alert alert-danger"></span>
 
 						<div class="form-group">
 							<div class="radio">
@@ -202,11 +200,11 @@ function ShowData($elements,$id,$accion){
 									<input type="radio" value="lista usuarios" id="lista_usuarios" name="lista_message"> Usuarios
 								</label>
 								<span>. Introduce los usuarios separados por comas.</span>
-							</div>				
+							</div>
 						</div>
 						<input type="text" name="lista_users" id="lista_users" value="" class="form-control" />
-						<span id="lista-users-alert" class="alert-message alert alert-danger"></span>												
-	
+						<span id="lista-users-alert" class="alert-message alert alert-danger"></span>
+
 					<br />
 					<h2>PASO 5: Crear mensaje</h2>
 					<p>Para finalizar, pulsa en el botón "crear mensaje".</p>
@@ -219,7 +217,7 @@ function ShowData($elements,$id,$accion){
 					</div>
 					<hr />
 					<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary">Crear mensaje</button>
-				</form>	
+				</form>
 		</div>
 	</div>
 	<?php

@@ -52,10 +52,10 @@ $num_canales = usersCanalesController::getCanalesAction();
 							<dd><a href="admin-users?export=true"><?php echo strTranslate("Export");?> CSV</a></dd>
 						</dl>
 					</div>
-				</div>								
+				</div>
 			</div>
 		</div>
-		<div class="row">	
+		<div class="row">
 			<?php
 			//mostrar información sobre otros módulos activos
 			menu::adminPanels();

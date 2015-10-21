@@ -27,7 +27,7 @@ function pasadaProccess($id_message, $action, $pasada){
 	$msgs_block = $mailing->getMsgsBlock();
 
 	//obtener datos del mesaje
-	$elements=$mailing->getMessages(" AND id_message=".$id_message." "); 	
+	$elements=$mailing->getMessages(" AND id_message=".$id_message." ");
 	$message_subject = $elements[0]['message_subject'];
 	$message_body = $elements[0]['message_body'];
 	$message_body2 = $elements[0]['message_body2'];
@@ -89,7 +89,7 @@ function pasadaProccess($id_message, $action, $pasada){
 		$mailing->updateMessageField($id_message, "message_status", "'completed'");
 	}
 	else{
-		echo "<br />Esperado iniciar siguiente pasada...";	
-	}	
+		echo "<br />Esperado iniciar siguiente pasada...";
+	}
 }
 ?>

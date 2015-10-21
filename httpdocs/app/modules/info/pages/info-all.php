@@ -1,6 +1,5 @@
 <?php
 //infoController::getZipAction();
-
 addJavascripts(array(getAsset("info")."js/info-all.js"));
 ?>
 <div class="row row-top">
@@ -34,7 +33,7 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 					<div class="panel panel-danger">
 						<div class="panel-heading" role="tab" id="heading<?php echo $element['id_campaign'];?>">
 							<h4 class="panel-title">
-						        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $element['id_campaign'];?>" aria-expanded="false" aria-controls="collapse<?php echo $element['id_campaign'];?>">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $element['id_campaign'];?>" aria-expanded="false" aria-controls="collapse<?php echo $element['id_campaign'];?>">
 									<i class="fa fa-folder"></i> 
 									<?php echo $element['name_campaign'];?> 
 									<small><?php echo $num_docs;?> <?php echo strTranslate("Info_Documents");?></small>

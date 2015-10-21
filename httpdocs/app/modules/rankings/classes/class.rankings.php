@@ -1,6 +1,5 @@
 <?php
 class rankings{
-
 	/**
 	 * Devuelve array con los registros
 	 * @param  string 	$filter 	Filtro SQL
@@ -8,9 +7,9 @@ class rankings{
 	 */
 	public function getRankings($filter = ""){
 		$Sql = "SELECT r.*,c.ranking_category_name FROM users_tiendas_rankings r 
-			LEFT JOIN users_tiendas_ranking_category c ON c.id_ranking_category=r.id_ranking_category WHERE 1=1 ".$filter;
+				LEFT JOIN users_tiendas_ranking_category c ON c.id_ranking_category=r.id_ranking_category WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}  
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -23,7 +22,7 @@ class rankings{
 		WHERE r.activo=1
 		GROUP BY ranking_category_name HAVING COUNT(r.id_ranking) ";
 		return connection::getSQL($Sql);
-	}     
+	}
 
 	/**
 	 * Inserta registro en rankings
@@ -56,15 +55,15 @@ class rankings{
 	public function getRankingsCategories($filter = ""){
 		$Sql = "SELECT * FROM users_tiendas_ranking_category WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}     
+	}
 
 	/**
 	 * Inserta registro en rankings
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertRankingsCategory( $nombre ){		
+	public function insertRankingsCategory( $nombre ){
 		$Sql = "INSERT INTO users_tiendas_ranking_category (ranking_category_name) 
-			  VALUES ('".$nombre."')";
+				VALUES ('".$nombre."')";
 		return connection::execute_query($Sql);
 	}
 
@@ -75,9 +74,9 @@ class rankings{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function updateRankingsCategory($id, $nombre){
-		$Sql = "UPDATE users_tiendas_ranking_category SET
-			 ranking_category_name='".$nombre."' 
-			 WHERE id_ranking_category=".$id;
+		$Sql = "UPDATE users_tiendas_ranking_category SET 
+				ranking_category_name='".$nombre."' 
+				WHERE id_ranking_category=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -88,11 +87,11 @@ class rankings{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function updateRankings($id, $nombre_ranking, $descripcion_ranking, $id_ranking_category = 0){
-		$Sql = "UPDATE users_tiendas_rankings SET
-			 nombre_ranking='".$nombre_ranking."', 
-			 descripcion_ranking='".$descripcion_ranking."', 
-			 id_ranking_category='".$id_ranking_category."' 
-			 WHERE id_ranking=".$id;
+		$Sql = "UPDATE users_tiendas_rankings SET 
+				nombre_ranking='".$nombre_ranking."', 
+				descripcion_ranking='".$descripcion_ranking."', 
+				id_ranking_category='".$id_ranking_category."' 
+				WHERE id_ranking=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -100,9 +99,9 @@ class rankings{
 	 * Inserta registro en rankings
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertRankingsData( $id_ranking, $cod_tienda, $value_ranking ){		
+	public function insertRankingsData( $id_ranking, $cod_tienda, $value_ranking ){
 		$Sql = "INSERT INTO users_tiendas_rankings_data (id_ranking, cod_tienda, value_ranking) 
-			  VALUES (".$id_ranking.",'".$cod_tienda."','".$value_ranking."')";
+				VALUES (".$id_ranking.",'".$cod_tienda."','".$value_ranking."')";
 		return connection::execute_query($Sql);
 	}
 
@@ -114,7 +113,7 @@ class rankings{
 		$Sql = "DELETE FROM users_tiendas_rankings_data 
 				WHERE ".$filtro;
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -126,7 +125,7 @@ class rankings{
 				LEFT JOIN users_tiendas t ON t.cod_tienda=d.cod_tienda 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	} 
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -137,16 +136,16 @@ class rankings{
 		$Sql = "SELECT cod_tienda, value_ranking FROM users_tiendas_rankings_data 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	} 	
+	}
 
 	public static function posicionRankingEmpresa($cod_tienda, $id_ranking){
 		$Sql = "SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM 
 			(SELECT * FROM users_tiendas_rankings_data WHERE id_ranking=".$id_ranking." AND  value_ranking>=
-			(SELECT value_ranking FROM users_tiendas_rankings_data WHERE id_ranking=".$id_ranking." AND cod_tienda='".$cod_tienda."') ORDER BY value_ranking DESC,cod_tienda ASC) r,  
+			(SELECT value_ranking FROM users_tiendas_rankings_data WHERE id_ranking=".$id_ranking." AND cod_tienda='".$cod_tienda."') ORDER BY value_ranking DESC,cod_tienda ASC) r, 
 			(SELECT @rownum:=0) ro ) f WHERE cod_tienda='".$cod_tienda."'";
 		$result = connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
 		$row = connection::get_result($result);
 		return $row['rownum']; 
-	} 
+	}
 }
 ?>

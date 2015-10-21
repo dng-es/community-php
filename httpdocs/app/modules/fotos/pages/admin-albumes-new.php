@@ -4,7 +4,6 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
-
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
@@ -83,7 +82,7 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 							<td><?php echo $element['user_add'];?></td>
 							<td><?php echo $element['fotos_puntos'];?></td>
 							<td><?php echo $num_comentarios>0 ? '<a href="admin-fotos-comentarios?id='.$element['id_file'].'&ida='.$id.'">'.$num_comentarios.'</a>' : $num_comentarios; ?></td>
-						</tr> 
+						</tr>
 					<?php endforeach;?>
 				</table>
 			</div>
@@ -106,7 +105,7 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 		endif;
 	else:
 		echo '</div>';
-	endif; ?>	
+	endif; ?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

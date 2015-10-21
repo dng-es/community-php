@@ -5,8 +5,8 @@ $muro = new muro();
 $id_comentario = ((isset($_REQUEST['id']) and $_REQUEST['id'] != "" ) ? $_REQUEST['id'] : 0);
 
 //OBTENER DATOS DEL COMENTARIO
-$filtro_comentario = " AND id_comentario=".$id_comentario." ";					   
-$comentario_muro = $muro->getComentarios($filtro_comentario);   
+$filtro_comentario = " AND id_comentario=".$id_comentario." ";
+$comentario_muro = $muro->getComentarios($filtro_comentario);
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -18,11 +18,15 @@ $comentario_muro = $muro->getComentarios($filtro_comentario);
 		?>		
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<b><?php echo $comentario_muro[0]['nick'];?> <?php echo strTranslate("says");?>:</b> <em><?php echo $comentario_muro[0]['comentario'];?></em>
+				<i class="left-quote fa fa-quote-left"></i>
+				<p>
+					<small><b><?php echo $comentario_muro[0]['nick'];?> <?php echo strTranslate("says");?>:</b></small><br />
+					<em class="text-muted"><?php echo $comentario_muro[0]['comentario'];?></em>
+				</p>
 			</div>
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-body">		
+			<div class="panel-body">
 				<div id="cargando" style="display:none">
 					<i class="fa fa-spinner fa-spin ajax-load"></i>
 				</div>

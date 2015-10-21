@@ -136,7 +136,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 						<div class="text-muted">Todavía no se han subido vídeos</div>
 					<?php endif; ?>
 				</div>
-			</div>			
+			</div>
 			<div class="col-md-4 nopadding">
 				<div class="col-md-12 section full-height">
 					<h3><?php echo strTranslate("Highlights");?></h3>

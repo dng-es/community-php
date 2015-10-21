@@ -3,11 +3,11 @@ $fotos = new fotos();
 $users = new users();
 
 	//VALIDAR COMENTARIOS
-if (isset($_REQUEST['act'])) { 	 
+if (isset($_REQUEST['act'])){
 	if ($_REQUEST['act'] == 'foto_ko'){
 		$fotos->cambiarEstadoComentario($_REQUEST['id'], 2);
 	}
-	header("Location: admin-fotos-comentarios?id=".$_REQUEST['idt']."&ida=".$_REQUEST['ida']); 
+	header("Location: admin-fotos-comentarios?id=".$_REQUEST['idt']."&ida=".$_REQUEST['ida']);
 }
 
 $id_file = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
@@ -52,8 +52,8 @@ $pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_fi
 					<td><?php echo getDateFormat($element['date_comentario'], "SHORT");?></td>
 					</tr>
 				<?php endforeach; ?>
-			 </table>
-		 </div>
+			</table>
+		</div>
 		<?php endif;?>
 	</div>
 	<?php menu::adminMenu();?>

@@ -49,7 +49,7 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id']
 				}
 				foreach($elements as $element):
 					$respuesta_user = $na_areas->getRespuestasUser(" AND id_pregunta=".$element['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");
-					if  (count($respuesta_user) == 0) { $respuesta_user[0]['respuesta_valor'] = "";}
+					if (count($respuesta_user) == 0) $respuesta_user[0]['respuesta_valor'] = "";
 					echo '<div class="form-tarea-container">';
 					echo '<h5><span class="fa fa-chevron-circle-right "></span> '.$element['pregunta_texto'].'</h5>
 							<div>';
@@ -59,19 +59,19 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id']
 					elseif ($element['pregunta_tipo'] == 'unica'){
 						$respuestas=$na_areas->getRespuestas(" AND id_pregunta=".$element['id_pregunta']." ");             
 						foreach($respuestas as $respuesta):
-							if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']){$seleccionado='checked="checked"';}
-							else {$seleccionado = "";}
+							if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']) $seleccionado = 'checked="checked"';
+							else $seleccionado = "";
 							echo '<input '.$seleccionado.' type="radio" id="respuesta_'.$element['id_pregunta'].'" name="respuesta_'.$respuesta['id_pregunta'].'" value="'.$respuesta['respuesta_texto'].'" /> '.$respuesta['respuesta_texto']."<br />";
-						endforeach;           
+						endforeach;
 					}
 					elseif ($element['pregunta_tipo'] == 'multiple'){
 						$respuestas=$na_areas->getRespuestas(" AND id_pregunta=".$element['id_pregunta']." ");
-						$respuesta_multiple = explode("|",$respuesta_user[0]['respuesta_valor']);
+						$respuesta_multiple = explode("|", $respuesta_user[0]['respuesta_valor']);
 						foreach($respuestas as $respuesta):
-							if (in_array($respuesta['respuesta_texto'],$respuesta_multiple)){$seleccionado='checked="checked"';}
-							else {$seleccionado="";}
+							if (in_array($respuesta['respuesta_texto'],$respuesta_multiple)) $seleccionado = 'checked="checked"';
+							else $seleccionado = "";
 							echo '<input '.$seleccionado.' class="formTareaCheck" type="checkbox" id="respuesta_'.$element['id_pregunta'].'_'.$respuesta['id_respuesta'].'" name="respuesta_'.$element['id_pregunta'].'_'.$respuesta['id_respuesta'].'" value="'.$respuesta['respuesta_texto'].'" /> '.$respuesta['respuesta_texto']."<br />";
-						endforeach;                
+						endforeach;
 					}
 					echo '</div>';
 					echo '</div>';
@@ -87,9 +87,7 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id']
 				}
 			}
 		}
-		else{
-			ErrorMsg(strTranslate("Access_denied"));
-		}
+		else ErrorMsg(strTranslate("Access_denied"));
 		?>
 	</div>
 	<div class="app-sidebar hidden-sm hidden-xs">

@@ -13,15 +13,13 @@ class blogCore{
 	 */
 	public function userModuleStatistis($username){
 		$num = connection::countReg("foro_comentarios c LEFT JOIN foro_temas t ON c.id_tema=t.id_tema ", " AND t.ocio=1 AND c.user_comentario='".$username."' ");
-
-
 		return array('Comentarios en los blogs' => $num);	
 	}	
 
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 	public static function userMenu(){
 		$array_final = array();
 		global $session;
@@ -41,8 +39,8 @@ class blogCore{
 							"LabelTarget" => '_self',
 							"LabelPos" => 2));
 		}
-		return $array_final;		
-	}		
+		return $array_final;
+	}
 
 	/**
 	 * Elementos para el menu de administración

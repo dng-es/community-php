@@ -14,6 +14,6 @@ class mensajesCore{
 	public function userModuleStatistis($username){
 		$num = connection::countReg("mensajes"," AND user_remitente='".$username."' ");
 		return array('Mensajes internos enviados' => $num);
-	}	
+	}
 }
 ?>

@@ -4,7 +4,7 @@ addJavascripts(array(getAsset("destacados")."js/admin-destacados.js", "js/jquery
 templateload("cmbCanales", "users");
 
 session::getFlashMessage('actions_message');
-destacadosController::updateAction();		
+destacadosController::updateAction();
 ?>
 <div class="row row-top">
 	<div class="app-main">

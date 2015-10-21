@@ -10,9 +10,7 @@ class headers{
 		$Key_Words = (isset( $KEYWORDS_META_PAGE ) ? $KEYWORDS_META_PAGE : $ini_conf['SiteKeywords']);
 		$Subject = (isset( $SUBJECT_META_PAGE ) ? $SUBJECT_META_PAGE : $ini_conf['SiteSubject']);
 		$Title = (isset( $TITLE_META_PAGE ) ? $ini_conf['SiteTitle']." - ".$TITLE_META_PAGE : $ini_conf['SiteTitle']);
-
 		?>
-
 		<!DOCTYPE html>
 		<html lang="<?php echo $_SESSION['language'];?>" xml:lang="<?php echo $_SESSION['language'];?>">
 			<head>
@@ -27,7 +25,7 @@ class headers{
 				<meta name="robots" content="noarchive" />
 				<title><?php echo $Title;?></title>
 				<link rel="shortcut icon" href="favicon.ico">
-				<link rel="icon" type="image/ico"  href="favicon.ico" >		
+				<link rel="icon" type="image/ico"  href="favicon.ico" >
 				<link href="<?php echo $ini_conf['SiteUrl'];?>/css/styles.css" rel="stylesheet">
 				<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/main.min.js"></script>
 				<!-- <script type="text/javascript" src="js/notifications.js"></script> -->
@@ -62,7 +60,7 @@ class headers{
 	* @param 	string 		$page 			Current page
 	*/
 	public static function PageBody($ini_conf, $page = ""){
-		global $paginas_free; ?>
+		global $paginas_free;?>
 		</head>
 			<body id="page-<?php echo $page;?>">
 			<img alt="fondo" id="bg" src="images/bg01.jpg" class="hidden-print" />
@@ -83,7 +81,7 @@ class headers{
 					</div>
 					<div id="container-content">
 					<!-- Mantener todo el contenido de la página dentro del div page-content -->
-		<?php endif; ?>
+		<?php endif;?>
 <?php
 	}
 }?>

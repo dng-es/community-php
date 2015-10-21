@@ -4,7 +4,7 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version  1.0.1
 *
-*/	
+*/
 class foroCore{
 	/**
 	 * Para mostrar estadisticas de uso del modulo por parte de un usuario
@@ -18,34 +18,33 @@ class foroCore{
 		$num_visitas = connection::countReg("foro_visitas", " AND username='".$username."' ");
 
 		return array('Comentarios en los foros' => $num,
-					 'Temas creados en los foros' => $num_temas,
-					 'Votaciones realizadas en los foros' => $num_votaciones,
-					 'Visitas en los foros' => $num_visitas);	
-	}	
+					'Temas creados en los foros' => $num_temas,
+					'Votaciones realizadas en los foros' => $num_votaciones,
+					'Visitas en los foros' => $num_visitas);
+	}
 
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 	public static function userMenu(){
 		$array_final = array();
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("foro-subtemas", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("foro-subtemas", $_SESSION['user_perfil'], $user_permissions)){
-
 			array_push($array_final, array("LabelIcon" => "fa fa-comment",
 							"LabelItem" => strTranslate("Forums"),
 							"LabelUrl" => 'foro-subtemas',
 							"LabelTarget" => '_self',
 							"LabelPos" => 9));
 		}
-		return $array_final;		
-	}	
+		return $array_final;
+	}
 
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function adminMenu(){
 		$elems = array();
 

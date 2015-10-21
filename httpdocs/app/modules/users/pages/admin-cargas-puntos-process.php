@@ -11,7 +11,7 @@
 		
 		if (isset($_FILES['nombre-fichero']['name'])) {
 			$fichero = $_FILES['nombre-fichero'];
-			//SUBIR FICHERO		
+			//SUBIR FICHERO
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
 			$nombre_archivo = NormalizeText($nombre_archivo);
 
@@ -31,7 +31,7 @@
 					$data->read('docs/cargas/'.$nombre_archivo);
 					
 					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
-					volcarMySQL($data);				   
+					volcarMySQL($data);
 				}
 				else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
 			}
@@ -58,12 +58,10 @@ function volcarMySQL($data){
 				if ($users->sumarPuntos($username, $puntos, $motivo)) $contador++;	
 			}
 		}
-    }
-	
-	echo '<br />
-	   <p>
-	   	El proceso de importación ha finalizado con éxito. Se ha actualizado los '.strTranslate("App_points").' de <b>'.$contador.'</b> usuarios.<br /><br />
-	   	<a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a>
-	   </p>'; 
-}  
-?>
+	}?>
+	<br />
+	<p>
+		El proceso de importación ha finalizado con éxito. Se ha actualizado los <?php echo strTranslate("App_points");?> de <b><?php echo $contador;?></b> usuarios.<br /><br />
+		<a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a>
+	</p>
+<?php } ?>

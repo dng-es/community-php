@@ -6,7 +6,6 @@ session::AccessLevel($perfiles_autorizados);
 //EXPORT REGS.
 rankingsController::ExportRankingDataAction();
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -17,7 +16,7 @@ rankingsController::ExportRankingDataAction();
 			array("ItemLabel"=>strTranslate("Rankings_list"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' ); 
+		session::getFlashMessage( 'actions_message' );
 		rankingsController::deleteAction();
 		$elements = rankingsController::getListAction(15, " AND activo<>2 ");
 		?>
@@ -36,7 +35,7 @@ rankingsController::ExportRankingDataAction();
 					<th><?php echo strTranslate("Category");?></th>
 					<th><?php echo strTranslate("Active");?></th>
 					</tr>		
-					<?php foreach($elements['items'] as $element): ?>
+					<?php foreach($elements['items'] as $element):?>
 						<tr>
 						<td nowrap="nowrap">
 							<span class="fa fa-edit icon-table" title="<?php echo strTranslate("Edit");?>"
@@ -53,15 +52,15 @@ rankingsController::ExportRankingDataAction();
 								onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-rankings?e=2&act=del&id=<?php echo $element['id_ranking'];?>')">
 							</span>
 
-						</td>						
+						</td>
 						<td><?php echo $element['nombre_ranking'];?></td>
 						<td><?php echo $element['ranking_category_name'];?></td>
 						<td><a href="admin-rankings?act=del&e=<?php echo ($element['activo']==1 ? 0 : 1);?>&id=<?php echo $element['id_ranking'];?>"><span class="label<?php echo ($element['activo']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['activo']==1 ? "sí" : "no");?></span></a></td>
 						</tr>
-					<?php endforeach; ?>
+					<?php endforeach;?>
 					</table>
 				</div>
-				<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>

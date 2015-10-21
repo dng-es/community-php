@@ -46,7 +46,7 @@ class fotosAlbumController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') { 
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$fotos = new fotos();
 			if ($fotos->cambiarEstadoAlbum($_REQUEST['id'], 0))
 				session::setFlashMessage('actions_message', "Álbum eliminado correctamente", "alert alert-success");

@@ -1,11 +1,10 @@
 <?php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("campaigns")."js/admin-campaign.js"));
 
-session::getFlashMessage('actions_message'); 
+session::getFlashMessage('actions_message');
 campaignsController::createAction();
 campaignsController::updateAction();
-$plantilla = campaignsController::getItemAction();	
-
+$plantilla = campaignsController::getItemAction();
 ?>
 <div class="row row-top">	
 	<div class="app-main">
@@ -19,7 +18,7 @@ $plantilla = campaignsController::getItemAction();
 			<div class="panel-body">
 				<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
 					<input type="hidden" name="id_campaign" id="id_campaign" value="<?php echo $plantilla['id_campaign'];?>" />
-					
+
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" name="novedad" id="novedad"<?php echo $plantilla['novedad'] == 1 ? ' checked="checked"' : "";?>> <?php echo strTranslate("News");?>
@@ -71,8 +70,8 @@ $plantilla = campaignsController::getItemAction();
 									echo '<br /><img src="images/banners/'.$plantilla['imagen_big'].'" style="width:100%" />';
 								}
 								?>
-							</div>	
-						</div>			
+							</div>
+						</div>
 					</div>
 
 					<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php echo strTranslate("Save_data");?></button>

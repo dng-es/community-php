@@ -4,7 +4,7 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0
 *
-*/	
+*/
 class novedadesCore{
 	public static function adminMenu(){
 		return array(
@@ -17,6 +17,6 @@ class novedadesCore{
 				"LabelPos" => 1,
 			))
 		);
-	}	
+	}
 }
 ?>

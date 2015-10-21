@@ -28,7 +28,7 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 		} 
 		else session::setFlashMessage('actions_message', strTranslate("Error_while_creating_forum"), "alert alert-danger");
 		redirectURL($_SERVER['REQUEST_URI']);
-	} 	
+	}
 	
 	$title_add = ($ocio == 1) ? "Nueva noticia" : strTranslate("Create_new_forum");
 	$title_add_desc = ($ocio == 1) ? "Puedes insertar una nueva noticia. Para ello introduce su título y descripción." : strTranslate("Create_new_forum_label");
@@ -54,16 +54,16 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 			</select>
 	<?php else: ?>
 			<input type="hidden" name="id_tema_parent" id="id_tema_parent" value="<?php echo $id_tema_parent;?>"/>
-			<input type="hidden" name="canal_tema" id="canal_tema" value="<?php echo $canal;?>"/>  
-			<input type="hidden" name="id_area" id="id_area" value="<?php echo $id_area;?>"/>  
+			<input type="hidden" name="canal_tema" id="canal_tema" value="<?php echo $canal;?>"/>
+			<input type="hidden" name="id_area" id="id_area" value="<?php echo $id_area;?>"/>
 	<?php endif;?>	
 
 	<?php if ($ocio==1): ?>
 			<label for="imagen_contenido">Imágen (tamaño 730px X 80px):</label>
 			<input type="file" id="imagen_contenido" name="imagen_contenido" class="inputFile form-control">
-	<?php endif; ?>		
+	<?php endif; ?>
 			<label for="nombre-tema" class="sr-only"><?php echo $title_name;?></label>
-			<input type="text" maxlength="100" id="nombre-tema" name="nombre-tema" class="form-control" placeholder="<?php echo strTranslate('Title');?>" title="<?php echo strTranslate("Required_field");?>">   
+			<input type="text" maxlength="100" id="nombre-tema" name="nombre-tema" class="form-control" placeholder="<?php echo strTranslate('Title');?>" title="<?php echo strTranslate("Required_field");?>">
 			<label for="texto-descripcion" class="sr-only"><?php echo $title_desc;?></label>
 			<textarea id="texto-descripcion" name="texto-descripcion" class="form-control" placeholder="<?php echo strTranslate('Description');?>" title="<?php echo strTranslate("Required_field");?>"></textarea>
 			<input type="hidden" value="<?php $ocio;?>" name="ocio" id="ocio" />

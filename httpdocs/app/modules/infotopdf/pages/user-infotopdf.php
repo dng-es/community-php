@@ -1,5 +1,4 @@
 <?php
-
 infotopdfController::getHTMLtoPDF();
 
 addJavascripts(array("js/jquery.numeric.js", 
@@ -19,7 +18,6 @@ $provincia = '';
 $telefono = '';
 $web = '';
 $email = '';
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -64,7 +62,6 @@ $email = '';
 
 							<?php endif; ?>
 
-
 							<?php if (strpos($elements[0]['cuerpo_info'], '[CLAIM_PROMOCION]') !== FALSE): ?>
 							<label for="claim_promocion">Mensaje:</label>
 							<textarea class="form-control" id="claim_promocion" name="claim_promocion"></textarea>
@@ -88,7 +85,7 @@ $email = '';
 					</div>
 					<div class="col-md-4">
 						<img style="width:100%" src="docs/info/<?php echo $nombre_miniatura;?>" alt="banner" />
-					</div>		
+					</div>
 				</div>
 			</div>
 		</div>

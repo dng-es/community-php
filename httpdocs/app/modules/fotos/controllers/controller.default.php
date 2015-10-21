@@ -17,7 +17,7 @@ class fotosController{
 	public static function createAction(){
 		if (isset($_POST['titulo-foto']) and $_POST['titulo-foto'] != ""){
 			$fotos = new fotos();	
-			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-foto']);			
+			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-foto']);
 			$response = $fotos->insertFile($_FILES['nombre-foto'], PATH_FOTOS, $canal, $_POST['titulo-foto'], 0, 0);
 			if ($response == 0)
 				session::setFlashMessage('actions_message', strTranslate("Photo_upload_ko0"), "alert alert-danger");
@@ -29,11 +29,11 @@ class fotosController{
 				session::setFlashMessage('actions_message', strTranslate("Photo_upload_ko2"), "alert alert-danger");
 
 			redirectURL($_SERVER['REQUEST_URI']);
-		}			
+		}
 	}
 
 	public static function voteAction($destination = "fotos"){
-		if (isset($_REQUEST['idvf']) and $_REQUEST['idvf'] != "") { 
+		if (isset($_REQUEST['idvf']) and $_REQUEST['idvf'] != ""){
 			$fotos = new fotos();
 			$response = $fotos->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']);
 			if ($response == 1)
@@ -48,7 +48,7 @@ class fotosController{
 
 			session::setFlashMessage('actions_message', $message, "alert alert-warning");
 			redirectURL($destination);
-		}		
-	}		
+		}
+	}
 }
 ?>

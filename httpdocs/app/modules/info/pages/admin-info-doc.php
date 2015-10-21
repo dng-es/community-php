@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-info-doc.js"));
 
 templateload("cmbCanales","users");
@@ -16,8 +15,8 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemUrl"=>"admin-info"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Info_Document"), "ItemClass"=>"active"),
 		));
-		
-		session::getFlashMessage( 'actions_message' ); 
+
+		session::getFlashMessage( 'actions_message' );
 		infoController::createAction();
 		infoController::updateAction($id);
 		$elements = infoController::getItemAction($id);
@@ -56,7 +55,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 								<?php
 								$tipo_info = $info->getInfoTipos("");
 								foreach($tipo_info as $tipo):
-									echo '<option value="'.$tipo['id_tipo'].'" '.($tipo['id_tipo']==$elements[0]['tipo_info'] ? 'selected="selected"' : '').'>'.$tipo['nombre_info'].'</option>';    
+									echo '<option value="'.$tipo['id_tipo'].'" '.($tipo['id_tipo']==$elements[0]['tipo_info'] ? 'selected="selected"' : '').'>'.$tipo['nombre_info'].'</option>';
 								endforeach;
 								?>
 								</select>
@@ -69,7 +68,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 								<?php
 								$tipo_campana = $campaigns->getCampaigns(" AND active=1 ");
 								foreach($tipo_campana as $campana):
-									echo '<option value="'.$campana['id_campaign'].'" '.($campana['id_campaign']==$elements[0]['id_campaign'] ? 'selected="selected"' : '').'>'.$campana['name_campaign'].'</option>';    
+									echo '<option value="'.$campana['id_campaign'].'" '.($campana['id_campaign']==$elements[0]['id_campaign'] ? 'selected="selected"' : '').'>'.$campana['name_campaign'].'</option>';
 								endforeach;
 								?>
 								</select>
@@ -88,7 +87,6 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 							</div>
 						</div>
 
-
 						<div class="col-md-6">
 							<div class="form-group">
 								<small><label for="info_file">Selecciona el documento:
@@ -105,7 +103,6 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 						</div>
 					</div>
 
-					 
 					<br /><br />
 					<input type="button" name="SubmitData" id="SubmitData" class="btn btn-primary pull-right" value="<?php echo strTranslate("Save_data");?>" />
 				</form>	

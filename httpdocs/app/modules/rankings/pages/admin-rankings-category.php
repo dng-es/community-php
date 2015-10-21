@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js",
 					 "js/bootstrap.file-input.js", 
@@ -9,9 +8,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 $session = new session();
 $perfiles_autorizados = array("admin");
 $session->AccessLevel($perfiles_autorizados);
-
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -28,13 +25,11 @@ $session->AccessLevel($perfiles_autorizados);
 
 		//OBTENER DATOS DEL Cuestionario
 		$id_ranking = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
-		if ($id_ranking>0){
-			$ranking=rankingsController::getItemCategoryAction($id_ranking);
+		if ($id_ranking > 0){
+			$ranking = rankingsController::getItemCategoryAction($id_ranking);
 			$ranking_nombre = $ranking[0]['ranking_category_name'];
 		}
-		else{
-			$ranking_nombre = "";
-		}
+		else $ranking_nombre = "";
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -51,7 +46,7 @@ $session->AccessLevel($perfiles_autorizados);
 					<button class="btn btn-primary" id="SubmitCuestionario" name="SubmitForm" type="submit"><?php echo strTranslate("Save_data");?></button>
 					<br />
 				<br />
-				<?php if ($id_ranking>0 ): ?>
+				<?php if ($id_ranking>0 ):?>
 				<?php endif; ?>
 				</form>
 			</div>

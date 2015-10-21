@@ -15,8 +15,8 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 		));
 		?>
 		<div class="inset">
-	  		<h4>Descubre qué usuarios están en este mismo momento en la comunidad.</h4>
-	  		<p class="hidden-md hidden-lg">Ahora mismo hay <strong><?php echo $users_conn;?></strong> usuarios conectados.<br /></p>
+			<h4>Descubre qué usuarios están en este mismo momento en la comunidad.</h4>
+			<p class="hidden-md hidden-lg">Ahora mismo hay <strong><?php echo $users_conn;?></strong> usuarios conectados.<br /></p>
 			<div id="mensajes">
 				<div class="mensaje">
 					<div id="cargando"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
@@ -35,6 +35,6 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 			</h4>
 			<p>Ahora mismo hay <strong><?php echo $users_conn;?></strong> usuarios conectados.</p>
 			<p class="text-muted">Haciendo click sobre el usuario le puedes mandar un mensaje.</p>
-		</div>	
+		</div>
 	</div>
 </div>

@@ -209,8 +209,8 @@ function validateEmail($email){
  * @return boolean 						resultado de la verificacion
  */
 function validateDate($date, $format = 'Y-m-d H:i:s'){
-    $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) == $date;
+	$d = DateTime::createFromFormat($format, $date);
+	return $d && $d->format($format) == $date;
 }
 
 /**
@@ -222,63 +222,46 @@ function validateNifCifNie($cif){
 	$cif = strtoupper($cif);
 		
 	for ($i = 0; $i < 9; $i ++){
-	      $num[$i] = substr($cif, $i, 1);
+		$num[$i] = substr($cif, $i, 1);
 	}
 	//si no tiene un formato valido devuelve error
-	if (!ereg('((^[A-Z]{1}[0-9]{7}[A-Z0-9]{1}$|^[T]{1}[A-Z0-9]{8}$)|^[0-9]{8}[A-Z]{1}$)', $cif)){
-	      return 0;
-	}
-	//comprobacion de NIFs estandar
-	
+	if (!ereg('((^[A-Z]{1}[0-9]{7}[A-Z0-9]{1}$|^[T]{1}[A-Z0-9]{8}$)|^[0-9]{8}[A-Z]{1}$)', $cif)) return 0;
+
+	//comprobacion de NIFs estandar	
 	if (ereg('(^[0-9]{8}[A-Z]{1}$)', $cif)){
-		if ($num[8] == substr('TRWAGMYFPDXBNJZSQVHLCKE', substr($cif, 0, 8) % 23, 1)){
-			return 1;
-		}else {
-			return -1;
-		}
+		if ($num[8] == substr('TRWAGMYFPDXBNJZSQVHLCKE', substr($cif, 0, 8) % 23, 1)) return 1;
+		else return -1;
 	}
 	//algoritmo para comprobacion de codigos tipo CIF
 	$suma = $num[2] + $num[4] + $num[6];
 	for ($i = 1; $i < 8; $i += 2){
-	      $suma += substr((2 * $num[$i]),0,1) + substr((2 * $num[$i]),1,1);
+		$suma += substr((2 * $num[$i]),0,1) + substr((2 * $num[$i]),1,1);
 	}
 	$n = 10 - substr($suma, strlen($suma) - 1, 1);
 	//comprobacion de NIFs especiales (se calculan como CIFs)
 	if (ereg('^[KLM]{1}', $cif)){
-		if ($num[8] == chr(64 + $n)){
-	         return 1;
-		}else{
-	         return -1;
-		}
+		if ($num[8] == chr(64 + $n)) return 1;
+		else return -1;
 	}
 	//comprobacion de CIFs
 	if (ereg('^[ABCDEFGHJNPQRSUVW]{1}', $cif)){
-		if ($num[8] == chr(64 + $n) || $num[8] == substr($n, strlen($n) - 1, 1)){
-			return 2;
-		}else{
-			return -2;
-		}
+		if ($num[8] == chr(64 + $n) || $num[8] == substr($n, strlen($n) - 1, 1)) return 2;
+		else return -2;
 	}
 	//comprobacion de NIEs
 	//T
 	if (ereg('^[T]{1}', $cif)){
-		if ($num[8] == ereg('^[T]{1}[A-Z0-9]{8}$', $cif)){
-			return 3;
-		}else{
-			return -3;
-		}
+		if ($num[8] == ereg('^[T]{1}[A-Z0-9]{8}$', $cif)) return 3;
+		else return -3;
 	}
 	//XYZ
 	if (ereg('^[XYZ]{1}', $cif)){
-		if ($num[8] == substr('TRWAGMYFPDXBNJZSQVHLCKE', substr(str_replace(array('X','Y','Z'), array('0','1','2'), $cif), 0, 8) % 23, 1)){
-			return 3;
-		}else{
-			return -3;
-		}
+		if ($num[8] == substr('TRWAGMYFPDXBNJZSQVHLCKE', substr(str_replace(array('X','Y','Z'), array('0','1','2'), $cif), 0, 8) % 23, 1)) return 3;
+		else return -3;
 	}
 	//si todavia no se ha verificado devuelve error
 	return 0;
-}	
+}
 
 /**
  * Convierte un array a formato csv
@@ -337,17 +320,17 @@ function download_send_headers($filename){
  * @return  string 						 Cadena generada de forma aleatoria
  */
 function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz023456789"){
-	srand((double)microtime()*1000000); 
+	srand((double)microtime()*1000000);
 	$i = 0; 
-	$pass = '' ; 
+	$pass = '' ;
 	
-	while ($i <= $num_car) { 
+	while ($i <= $num_car) {
 		$num = rand() % 33; 
 		$tmp = substr($chars, $num, 1); 
 		$pass = $pass . $tmp; 
-		$i++; 
-	} 	
-	return $pass; 
+		$i++;
+	}
+	return $pass;
 }
 
 /**
@@ -361,7 +344,7 @@ function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz0
  * @param 	string 		$class_form  	Clase CSS para el form
  */
 
-function SearchForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "", $class_form = "", $method_form = "post"){	
+function SearchForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "", $class_form = "", $method_form = "post"){
 	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : ""); ?>
 	<div class="<?php echo $clase_css;?>">  
 		<form action="<?php echo $pag.'?regs='.$reg;?>" method="<?php echo $method_form;?>" name="<?php echo $formId;?>" id="<?php echo $formId;?>" class="<?php echo $class_form;?>">
@@ -382,11 +365,11 @@ function SearchForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", 
  * @param 	string 		$fichero 		Ruta completa del archivo a descargar
  */
 function DescargarArchivo($fichero){
-    $basefichero = basename($fichero);
-    header( "Content-Type: application/octet-stream");
-    header( "Content-Length: ".filesize($fichero));
-    header( "Content-Disposition:attachment;filename=" .$basefichero."");
-    readfile($fichero);
+	$basefichero = basename($fichero);
+	header( "Content-Type: application/octet-stream");
+	header( "Content-Length: ".filesize($fichero));
+	header( "Content-Disposition:attachment;filename=" .$basefichero."");
+	readfile($fichero);
 }
 
 /**
@@ -394,10 +377,9 @@ function DescargarArchivo($fichero){
  * @param 	string 		$tipo_tema 		Elemento del combo marcado
  */
 function ComboTiposTemas($tipo_tema){ ?>
-      <option value="Promociones" <?php if ($tipo_tema == 'Promociones') echo ' selected="selected" ';?>>Promociones</option>
-      <option value="Formacion" <?php if ($tipo_tema == 'Formacion') echo ' selected="selected" ';?>>Formacion</option>
-      <option value="Tarifas" <?php if ($tipo_tema == 'Tarifas') echo ' selected="selected" ';?>>Tarifas</option>
-
+	<option value="Promociones" <?php if ($tipo_tema == 'Promociones') echo ' selected="selected" ';?>>Promociones</option>
+	<option value="Formacion" <?php if ($tipo_tema == 'Formacion') echo ' selected="selected" ';?>>Formacion</option>
+	<option value="Tarifas" <?php if ($tipo_tema == 'Tarifas') echo ' selected="selected" ';?>>Tarifas</option>
 <?php	
 }
 
@@ -410,8 +392,7 @@ function ComboPerfiles($perfil){ ?>
 	<option value="responsable" <?php if ($perfil=='responsable') echo ' selected="selected" ';?>>Responsable</option>
 	<option value="regional" <?php if ($perfil=='regional') echo ' selected="selected" ';?>>Regional</option>
 	<option value="admin" <?php if ($perfil=='admin') echo ' selected="selected" ';?>>Administrador</option>
-
-<?php	
+<?php 
 }
 
 /**
@@ -421,30 +402,30 @@ function ComboPerfiles($perfil){ ?>
  * @return 	string             			Nombre del navegador
  */
 function getBrowser($user_agent){
-     $navegadores = array(
-     	  'IExplorer 11' => 'Trident/7+',
-          'IExplorer 10' => '(MSIE 10\.[0-9]+)',
-          'IExplorer 9' => '(MSIE 9\.[0-9]+)',
-          'IExplorer 8' => '(MSIE 8\.[0-9]+)',
-          'IExplorer 7' => '(MSIE 7\.[0-9]+)',
-          'IExplorer 6' => '(MSIE 6\.[0-9]+)',
-          'IExplorer 5' => '(MSIE 5\.[0-9]+)',
-          'IExplorer 4' => '(MSIE 4\.[0-9]+)',
-          'Opera' => 'Opera',
-          'Chrome' => 'Chrome',
-          'Safari' => 'Safari',
-          'Mozilla Firefox'=> '(Firebird)|(Firefox)',
-          'Galeon' => 'Galeon',
-          'Mozilla'=>'Gecko',
-          'MyIE'=>'MyIE',
-          'Lynx' => 'Lynx',
-          'Netscape' => '(Mozilla/4\.75)|(Netscape6)|(Mozilla/4\.08)|(Mozilla/4\.5)|(Mozilla/4\.6)|(Mozilla/4\.79)',
-          'Konqueror'=>'Konqueror',
+	$navegadores = array(
+		'IExplorer 11' => 'Trident/7+',
+		'IExplorer 10' => '(MSIE 10\.[0-9]+)',
+		'IExplorer 9' => '(MSIE 9\.[0-9]+)',
+		'IExplorer 8' => '(MSIE 8\.[0-9]+)',
+		'IExplorer 7' => '(MSIE 7\.[0-9]+)',
+		'IExplorer 6' => '(MSIE 6\.[0-9]+)',
+		'IExplorer 5' => '(MSIE 5\.[0-9]+)',
+		'IExplorer 4' => '(MSIE 4\.[0-9]+)',
+		'Opera' => 'Opera',
+		'Chrome' => 'Chrome',
+		'Safari' => 'Safari',
+		'Mozilla Firefox'=> '(Firebird)|(Firefox)',
+		'Galeon' => 'Galeon',
+		'Mozilla'=>'Gecko',
+		'MyIE'=>'MyIE',
+		'Lynx' => 'Lynx',
+		'Netscape' => '(Mozilla/4\.75)|(Netscape6)|(Mozilla/4\.08)|(Mozilla/4\.5)|(Mozilla/4\.6)|(Mozilla/4\.79)',
+		'Konqueror'=>'Konqueror',
 	);
 	foreach($navegadores as $navegador=>$pattern){
-	       if (preg_match("~".$pattern."~", $user_agent))
-	       return $navegador;
-	    }
+		if (preg_match("~".$pattern."~", $user_agent))
+		return $navegador;
+	}
 	return 'Otros';
 }
 
@@ -455,26 +436,26 @@ function getBrowser($user_agent){
  * @return 	string             			Nombre del SO
  */
 function getPlatform($user_agent){
-     $plataformas = array(
-          'Windows 8.1' => 'Windows NT 6.3+',
-          'Windows 8' => 'Windows NT 6.2+',
-          'Windows 7' => 'Windows NT 6.1+',
-          'Windows Vista' => 'Windows NT 6.0+',
-          'Windows XP' => 'Windows NT 5.1+',
-          'Windows 2003' => 'Windows NT 5.2+',
-          'Windows' => 'Windows otros',          
-          'iPhone' => 'iPhone',
-          'iPad' => 'iPad',
-          'Mac OS X' => '(Mac OS X+)|(CFNetwork+)',
-          'Mac otros' => 'Macintosh',          
-          'Android' => 'Android',
-          'BlackBerry' => 'BlackBerry',
-          'Linux' => 'Linux',
+	$plataformas = array(
+		'Windows 8.1' => 'Windows NT 6.3+',
+		'Windows 8' => 'Windows NT 6.2+',
+		'Windows 7' => 'Windows NT 6.1+',
+		'Windows Vista' => 'Windows NT 6.0+',
+		'Windows XP' => 'Windows NT 5.1+',
+		'Windows 2003' => 'Windows NT 5.2+',
+		'Windows' => 'Windows otros',          
+		'iPhone' => 'iPhone',
+		'iPad' => 'iPad',
+		'Mac OS X' => '(Mac OS X+)|(CFNetwork+)',
+		'Mac otros' => 'Macintosh',          
+		'Android' => 'Android',
+		'BlackBerry' => 'BlackBerry',
+		'Linux' => 'Linux',
 	);
 	foreach($plataformas as $plataforma=>$pattern){
-	       if (preg_match("/".$pattern."/", $user_agent))
-	       return $plataforma;
-	    }
+		if (preg_match("/".$pattern."/", $user_agent))
+		return $plataforma;
+	}
 	return 'Otras';
 }
 
@@ -492,8 +473,8 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
 	if (strtolower($message_protocol) == 'smtp'){
 		global $ini_conf;
 		if (!$transport = Swift_SmtpTransport::newInstance($ini_conf['smtp_domain'], $ini_conf['smtp_port'])
-		  ->setUsername($ini_conf['smtp_user'])
-		  ->setPassword($ini_conf['smtp_pass'])) return false;
+			->setUsername($ini_conf['smtp_user'])
+			->setPassword($ini_conf['smtp_pass'])) return false;
 	}
 	if (strtolower($message_protocol) == 'sendmail'){
 		global $ini_conf;
@@ -528,12 +509,12 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
 		->addPart($message_body, 'text/html')
 
 		// Optionally add any attachments
-  		//->attach(Swift_Attachment::fromPath('my-document.pdf'))
+		//->attach(Swift_Attachment::fromPath('my-document.pdf'))
 
 		//Attachemts
 		//->attach(Swift_Attachment::fromPath($message_attachment))
 
-	; 
+	;
 
 	if ($message_attachment != ""){
 		$attachment = Swift_Attachment::fromPath($message_attachment);
@@ -566,10 +547,10 @@ function uploadFileToFolder($fichero, $destino){
  * @return 	string      $size				tamaño del PDF
  */
 function HTMLtoPDF($content, $size = 'A4'){
-    require_once('html2pdf/html2pdf.class.php');
-    $html2pdf = new HTML2PDF('P', $size, 'es');
-    $html2pdf->WriteHTML($content);
-    $html2pdf->Output('exemple.pdf');
+	require_once('html2pdf/html2pdf.class.php');
+	$html2pdf = new HTML2PDF('P', $size, 'es');
+	$html2pdf->WriteHTML($content);
+	$html2pdf->Output('exemple.pdf');
 }
 
 /**
@@ -591,7 +572,6 @@ function imgThumbnail($nombre_archivo, $path_archivo, $width, $height = 0){
 		$nombre_sinext = substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
 		return $thumb->save_jpg($path_archivo, "mini".$nombre_sinext);
 	}
-
 }
 
 /**
@@ -633,7 +613,6 @@ function filesToZip($array_files){
 	echo $zipfile->file();
 }
 
-
 /**
  * Limpia URL. Función de PhpList
  * @param  string 		$url 				URL a limpiar
@@ -651,8 +630,8 @@ function cleanUrl($url, $disallowed_params = array('PHPSESSID')){
 	if (strpos($parsed['query'],'&amp;')) {
 		$pairs = explode('&amp;',$parsed['query']);
 		foreach ($pairs as $pair) {
-		  list($key,$val) = explode('=',$pair);
-		  $params[$key] = $val;
+			list($key,$val) = explode('=',$pair);
+			$params[$key] = $val;
 		}
 	} else {
 		parse_str($parsed['query'],$params);
@@ -692,7 +671,7 @@ function arraycolumn($array, $column, $index_key = null){
 	else{
 		$ret = array();
 		foreach ($array as $row) $ret[] = $row[$column];
-		return $ret;		
+		return $ret;
 	}
 }
 
@@ -704,12 +683,12 @@ function arraycolumn($array, $column, $index_key = null){
  * @return array            	Array ordenado
  */
 function arraySort($array, $field, $sort_mode = SORT_DESC){
-		foreach ($array as $clave => $fila) {
-			$posicion[$clave] = $fila[$field];
-		}
+	foreach ($array as $clave => $fila) {
+		$posicion[$clave] = $fila[$field];
+	}
 
-		array_multisort($posicion, $sort_mode, $array);
-		return $array;
+	array_multisort($posicion, $sort_mode, $array);
+	return $array;
 }
 
 /**
@@ -718,7 +697,6 @@ function arraySort($array, $field, $sort_mode = SORT_DESC){
  * @return string            	Cadena reemplazada
  */
 function showHtmlLinks($string){
-
 	//filtro los enlaces normales
 	$string = preg_replace("/((http|https|www)[^\s]+)/", '<a target=\"_blank\" href="$1">$0</a>', $string);
 	//miro si hay enlaces con solamente www, si es así le añado el http://

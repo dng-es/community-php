@@ -9,7 +9,7 @@ class infoCore{
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 	public static function userMenu(){
 		$array_final = array();
 		global $session;
@@ -29,13 +29,13 @@ class infoCore{
 							"LabelTarget" => '_self',
 							"LabelPos" => 1));
 		}
-		return $array_final;		
+		return $array_final;
 	}
 
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 	public static function adminMenu(){
 		$elems = array();
 
@@ -57,7 +57,7 @@ class infoCore{
 			"LabelPos" => 2,
 		)));
 
-		return $elems;	
+		return $elems;
 	}
 }
 ?>

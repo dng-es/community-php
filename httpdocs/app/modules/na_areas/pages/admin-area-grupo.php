@@ -26,7 +26,7 @@ $usuarios_grupo = $na_areas->getGruposUsersUsuarios(" AND id_grupo=".$id_grupo."
 			array("ItemLabel"=>"Asignación de usuarios al grupo", "ItemClass"=>"active"),
 		));
 		?>
-		<ul class="nav nav-pills navbar-default">     
+		<ul class="nav nav-pills navbar-default">
 			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>"><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Go_back");?></a></li>
 		</ul>
 		<div class="row">
@@ -37,7 +37,7 @@ $usuarios_grupo = $na_areas->getGruposUsersUsuarios(" AND id_grupo=".$id_grupo."
 				<select class="grupos-container-cmb form-control" size="15" name="user_add" id="user_add">
 				<?php
 				foreach($usuarios_area as $usuario_area):
-				  echo '<option value="'.$usuario_area['username_area'].'">'.$usuario_area['username_area'].'</option>';
+					echo '<option value="'.$usuario_area['username_area'].'">'.$usuario_area['username_area'].'</option>';
 				endforeach;
 				?>
 				</select>
@@ -60,7 +60,7 @@ $usuarios_grupo = $na_areas->getGruposUsersUsuarios(" AND id_grupo=".$id_grupo."
 				<select class="grupos-container-cmb form-control" id="user_del" name="user_del" size="15">
 				<?php
 				foreach($usuarios_grupo as $usuario_grupo):
-				  echo '<option value="'.$usuario_grupo['grupo_username'].'">'.$usuario_grupo['grupo_username'].'</option>';
+					echo '<option value="'.$usuario_grupo['grupo_username'].'">'.$usuario_grupo['grupo_username'].'</option>';
 				endforeach;
 				?>
 				</select>

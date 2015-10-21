@@ -4,7 +4,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 					 "js/bootstrap.file-input.js",
 					 getAsset("users")."js/user-confirm.js"));
 ?>
-<div id="confirm-container" class="row">			
+<div id="confirm-container" class="row">
 	<div class="col-md-5">
 		<img src="images/logo01.png" alt="<?php echo $ini_conf['SiteName'];?>" class="responsive login-img" />
 	</div>
@@ -17,51 +17,50 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 			$users = new users();
 			$comentarios = sanitizeInput($_POST['user-piensas']);
 			$confirmar=$users->confirmUser($_POST['user-username'],
-										   $_POST['user-nick'],
-										   $_POST['user-nombre'],
-										   $_POST['user-apellidos'],
-										   $_POST['user-pass'],
-										   $_POST['user-email'],
-										   $_FILES['nombre-fichero'],
-										   $comentarios,
-										   $_POST['user-date']);
-			if ($confirmar ==1 ){ ?>
+											$_POST['user-nick'],
+											$_POST['user-nombre'],
+											$_POST['user-apellidos'],
+											$_POST['user-pass'],
+											$_POST['user-email'],
+											$_FILES['nombre-fichero'],
+											$comentarios,
+											$_POST['user-date']);
+			if ($confirmar ==1 ){?>
 				<p><?php echo strTranslate("Confirmation_message");?> .</p>
 				<br />
 				<a href="login" class="btn btn-primary"><?php echo strTranslate("Identify_to_access");?></a>
 				</div>
 			<?php }
-			elseif ($confirmar == 2) {
+			elseif ($confirmar == 2){
 				ErrorMsg('<p>'.strTranslate("Error_procesing").'.</p>');
 				ShowForm();
 			}
-			elseif ($confirmar == 3) {
+			elseif ($confirmar == 3){
 				ErrorMsg('<p>'.strTranslate("Nick").' <b>'.$_POST['user-nick'].'</b> '.strTranslate("Already_exist").'.</p>');
 				ShowForm();
-			}	
+			}
 		}
-		else {ShowForm();}
-  
+		else ShowForm();
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PAGE FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////
 
 function ShowForm(){
-  	//VERIFICAR QUE EL USUARIO NO ESTE YA CONFIRMADO
-  	$users = new users();
+	//VERIFICAR QUE EL USUARIO NO ESTE YA CONFIRMADO
+	$users = new users();
 	$pages = new pages();
 
 	$declaracion = $pages->getPages(" AND page_name='declaracion' ");
 
 	$usuario = $users->getUsers(" AND username='".$_SESSION['user_name']."' ");
 
-	if ($usuario[0]['confirmed'] == 1) {
+	if ($usuario[0]['confirmed'] == 1){
 		echo '<div class="alert alert-warning">El usuario ya esta confirmado.
 			Para acceder a la comunidad pincha <a href="login" class="comunidad-color">aquí</a>.</div>';
 	}
 	else {
-		if (isset($_POST['user-nombre'])) {
+		if (isset($_POST['user-nombre'])){
 			$user_nombre=$_POST['user-nombre'];
 			$user_apellidos=$_POST['user-apellidos'];
 			$user_email=$_POST['user-email'];
@@ -75,12 +74,12 @@ function ShowForm(){
 		$user_pass = "";
 		$user_repass = "";
 
-		if (isset($_POST['user-nick'])){$user_nick = $_POST['user-nick'];}
-		if (isset($_POST['user-pass'])){$user_pass = $_POST['user-pass'];}
-		if (isset($_POST['user-repass'])){$user_repass = $_POST['user-repass'];}
+		if (isset($_POST['user-nick'])) $user_nick = $_POST['user-nick'];
+		if (isset($_POST['user-pass'])) $user_pass = $_POST['user-pass'];
+		if (isset($_POST['user-repass'])) $user_repass = $_POST['user-repass'];
 		?>
 
-  		<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
+		<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
 			<input type="hidden" name="user-username" id="user-username" value="<?php echo $_SESSION['user_name'];?>">
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="username-text"><?php echo strTranslate("Username");?>:</label>
@@ -147,7 +146,7 @@ function ShowForm(){
 					<input name="nombre-fichero" id="nombre-fichero" type="file"  class="btn btn-default" title="<?php echo strTranslate("Choose_file");?>" />
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
 					<div class="checkbox">
@@ -158,8 +157,8 @@ function ShowForm(){
 						<span id="user-declaracion-alert" class="alert-message alert alert-danger"></span>
 					</div>
 				</div>
-			</div>					 					 
-			
+			</div>
+
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8 col-md-4">
 					<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary btn-block"><?php echo strTranslate("Send_data");?></button>
@@ -186,6 +185,6 @@ function ShowForm(){
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	<?php
-  	}
+	}
 }
 ?>

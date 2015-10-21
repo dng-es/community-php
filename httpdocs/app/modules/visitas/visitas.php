@@ -20,6 +20,6 @@ class visitasCore{
 				"LabelPos" => 1,
 			))
 		);
-	}	
+	}
 }
 ?>

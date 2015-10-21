@@ -4,12 +4,12 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.1.6
 *
-*/	
+*/
 class pagesCore{
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function adminMenu(){
 		return array(
 			menu::addAdminMenu(array(
@@ -29,6 +29,6 @@ class pagesCore{
 				"LabelPos" => 2,
 			))
 		);
-	}		
+	}
 }
 ?>

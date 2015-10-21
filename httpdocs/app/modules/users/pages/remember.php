@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__)));
 include_once($base_dir . "modules/class.headers.php");
 
 addJavascripts(array(getAsset("users")."js/remember.js"));
@@ -10,7 +10,7 @@ $module_config = getModuleConfig("users");
 		<img src="images/logo01.png" alt="<?php echo $ini_conf['SiteName'];?>" class="responsive login-img" />
 	</div>
 	<div class="col-md-7 login-container">
-		<h1 class="inset"><?php echo strTranslate("Recover_password");?></h1>            
+		<h1 class="inset"><?php echo strTranslate("Recover_password");?></h1>
 		<?php
 		session::getFlashMessage( 'actions_message' ); 
 		usersController::recoverPasswordAction();?>
@@ -31,7 +31,7 @@ $module_config = getModuleConfig("users");
 					</div>
 				</div>
 			</div>
-		</form>		
+		</form>
 		<div class="container-separator">
 			<?php if ($module_config['options']['allow_registration'] === true) :
 				echo strTranslate("If_not_registered");?> <a  href="registration"><?php echo strTranslate("Register");?></a>

@@ -3,14 +3,14 @@ $elements = campaignsController::getListAction(4, " AND c.id_campaign_type=".$_R
 $plantilla = campaignsController::getItemTypesAction();	
 ?>
 <div class="row inset row-top">
-  	<div class="col-md-12">
-  		<?php menu::breadcrumb(array(
+	<div class="col-md-12">
+		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Campaigns"), "ItemClass"=>"active"),
 		));?>
-  		<h1><?php echo $plantilla['campaign_type_name']?></h1>
-  		<p class="legend-table"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strTranslate("Items");?></p>
-  		<p><?php echo $plantilla['campaign_type_desc']?></p>
+		<h1><?php echo $plantilla['campaign_type_name']?></h1>
+		<p class="legend-table"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strTranslate("Items");?></p>
+		<p><?php echo $plantilla['campaign_type_desc']?></p>
 
 		<?php 
 		$columna = 1;
@@ -29,11 +29,10 @@ $plantilla = campaignsController::getItemTypesAction();
 				echo '</div>';
 				$columna = 0;
 			}
-     		$columna++;
+			$columna++;
 		endforeach;
 		if ($columna == 2) echo '</div>';
-		?>
-
-		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
+		
+		Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
 </div>

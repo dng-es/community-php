@@ -71,7 +71,7 @@ class connection extends connection_sql{
 		$result = self::execute_query($Sql);	
 		$registros = array();  
 		while ($registro = self::get_result($result)){  
-		  $registros[] = $registro;  
+			$registros[] = $registro;  
 		}
 		return $registros;  
 	}

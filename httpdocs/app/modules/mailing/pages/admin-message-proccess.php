@@ -6,17 +6,16 @@ mailingController::exportMessageAction(" AND id_message IN (SELECT id_message FR
 mailingController::exportLinksAction(" AND username_add='".$_SESSION['user_name']."' ");
 
 addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
 		$mailing = new mailing();
 		session::getFlashMessage( 'actions_message' );
-			
+
 		//datos del mensaje
 		$id=$_REQUEST['id'];
-		$elements=$mailing->getMessages(" AND id_message=".$id." "); 	
+		$elements=$mailing->getMessages(" AND id_message=".$id." ");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-heading">Procesar envío del mensaje</div>

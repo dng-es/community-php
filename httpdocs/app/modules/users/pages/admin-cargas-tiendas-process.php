@@ -29,7 +29,7 @@
 					$data->read('docs/cargas/'.$nombre_archivo);
 					
 					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
-					volcarMySQL($data);				   
+					volcarMySQL($data);
 				}
 				else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
 			}
@@ -39,7 +39,7 @@
 </div>
 <?php
 
-function volcarMySQL($data) {	
+function volcarMySQL($data){
 	$users = new users();
 	$contador_insert = 0;
 	$contador_update = 0;
@@ -55,16 +55,15 @@ function volcarMySQL($data) {
 		$ciudad_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][8])));
 		$provincia_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][9])));
 		$telefono_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][10])));
-		$email_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][11])));		
+		$email_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][11])));
 		$activa = (int)$data->sheets[0]['cells'][$fila][12];
 
 		if (strtoupper($tipo_tienda) == 'FRANQUICIA') $empresa_usuarios = "0002";
 		else $empresa_usuarios = "0003";
 
-		
 		if ($cod_tienda != ""){
 			//VERIFICAR QUE EXISTA LA TIENDA PARA ALTA Y ACTUALIZACION
-			if (connection::countReg("users_tiendas", " AND cod_tienda='".$cod_tienda."' ") > 0){			
+			if (connection::countReg("users_tiendas", " AND cod_tienda='".$cod_tienda."' ") > 0){
 				//actualizar tienda	
 				$users->updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa);
 				$contador_update++;
@@ -79,22 +78,21 @@ function volcarMySQL($data) {
 			if ($activa == 0) $users->disableUsersTiendas($cod_tienda);
 			else{
 				//VERIFICAR QUE EXISTA EL REGIONAL PARA ALTA O MODIFICACION DE DATOS
-				if ($regional_tienda != "" and connection::countReg("users", " AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ") == 0){		
+				if ($regional_tienda != "" and connection::countReg("users", " AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ") == 0){
 					//insertar usuario
 					$users->insertUser($regional_tienda, $regional_tienda, "", "", 0, 0, "", $empresa_usuarios, '', CANAL_DEF, 'regional', '', '', '', '', 0);
 				}
 				else $users->updateJerarquiaUsers($regional_tienda, 'regional', $empresa_usuarios);
 
 				//VERIFICAR QUE EXISTA EL RESPONSABLE PARA ALTA O MODIFICACION DE DATOS
-				if ($responsable_tienda != "" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ") == 0){		
+				if ($responsable_tienda != "" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ") == 0){
 					//insertar usuario
 					$users->insertUser($responsable_tienda, $responsable_tienda, "", "", 0, 0, "", $empresa_usuarios, '', CANAL_DEF, 'responsable', '', '', '', '', 0);
 				}
 				else $users->updateJerarquiaUsers($responsable_tienda, 'responsable', $empresa_usuarios);
 			}
 		}
-    }
-
+	}
 
 	//BAJA DE RESPONSABLES QUE NO ESTAN EN EL FICHERO
 	$usuarios_responsables = $users->getUsuariosPerfilBaja('responsable', 'responsable_tienda');
@@ -112,5 +110,5 @@ function volcarMySQL($data) {
 	<p>El proceso de importaci&oacute;n ha finalizado con éxito</p>';
 	echo '<p>Se ha actualizado <b>'.$contador_update.'</b> registros</p>';
 	echo '<p>Se ha insertado <b>'.$contador_insert.'</b> registros</p>';
-}  
+}
 ?>

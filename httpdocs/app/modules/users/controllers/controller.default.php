@@ -1,11 +1,10 @@
 <?php
 class usersController{
-
 	public static function getItemAction(){
 		if (isset($_GET['id']) and $_GET['id'] != ''){ 
 			$users = new users();
-	  		return $users->getUsers(" AND username='".$_GET['id']."'");
-  		}
+			return $users->getUsers(" AND username='".$_GET['id']."'");
+		}
 	}
 
 	public static function getUserPermissions($username, $filter = ""){
@@ -21,7 +20,7 @@ class usersController{
 		$filtro .= " ORDER BY username";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("users",$filtro); 
+		$total_reg = connection::countReg("users",$filtro);
 		return array('items' => $users->getUsers($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -31,13 +30,13 @@ class usersController{
 
 	public static function getPerfilesAction($filter = ""){
 		$users = new users();	
-		$elements = $users->getPerfiles($filter." ORDER BY perfil"); 
+		$elements = $users->getPerfiles($filter." ORDER BY perfil");
 		$string_format = "";
 		foreach ($elements as $element):
 			$string_format.= (trim($element['perfil']) != "" ? '<span class="label label-warning">'.$element['perfil']."</span> " : '<span class="label label-danger" title="Hay usuarios sin perfil. Esto es potencialmente peligroso.">Hay usuarios sin perfil</span> ');
 		endforeach;
 		return $string_format;
-	}		
+	}
 
 	public static function exportListAction(){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
@@ -46,8 +45,8 @@ class usersController{
 			download_send_headers("users_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
-		}  		
-	}	
+		}
+	}
 
 	public static function exportStatisticsAction(){
 		if (isset($_REQUEST['export_s']) and $_REQUEST['export_s'] == true){
@@ -62,17 +61,17 @@ class usersController{
 			download_send_headers("statistics" . date("Y-m-d") . ".csv");
 			echo array2csv($usuarios);
 			die();
-		}  		
+		}
 	}
 
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$users = new users();
 			if ($users->disableUser($_REQUEST['id'])) {
-				session::setFlashMessage( 'actions_message', "Usuario deshabilitado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', "Usuario deshabilitado correctamente.", "alert alert-success");
 			}
 			else{
-				session::setFlashMessage( 'actions_message', "Error al deshabilitar usuario.", "alert alert-danger");
+				session::setFlashMessage('actions_message', "Error al deshabilitar usuario.", "alert alert-danger");
 			}
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
 			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
@@ -87,7 +86,7 @@ class usersController{
 			$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto'] == "" ? "user.jpg" : $plantilla[0]['foto']);
 			$plantilla[0]["user_foto"] = $user_foto;
 			return $plantilla[0];	
-		}	
+		}
 	}
 
 	public static function getPublicPerfilAction($nick, $filter=""){
@@ -98,9 +97,9 @@ class usersController{
 				$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto'] == "" ? "user.jpg" : $plantilla[0]['foto']);
 				$plantilla[0]["user_foto"] = $user_foto;
 				return $plantilla[0];
-			}		
-		}	
-	}		
+			}
+		}
+	}
 
 	public static function updatePerfilAction(){
 		$users = new users();
@@ -111,33 +110,28 @@ class usersController{
 			if (strlen(trim($_POST['user-pass'])) < 6) session::setFlashMessage( 'actions_message', "La contraseña tiene que tener mínimo 6 caracteres", "alert alert-danger");
 			else{
 				$confirmar = $users->perfilUser($_POST['user-username'],
-											   $_POST['user-nick'],
-											   $_POST['user-nombre'],
-											   $_POST['user-apellidos'],
-											   trim($_POST['user-pass']),
-											   $_POST['user-email'],
-											   $_FILES['nombre-fichero'],
-											   $comentarios,
-											   $_POST['user-date']);
-				if ($confirmar == 1){
-					session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ok"), "alert alert-success");
-				}
-				elseif ($confirmar == 2) {
-					session::setFlashMessage( 'actions_message', strTranslate("Update_profile_ko"), "alert alert-danger");
-				}
-				elseif ($confirmar == 3) {
-					session::setFlashMessage( 'actions_message', $_POST['user-nick']." ".strTranslate("Update_profile_nick_ko"), "alert alert-danger");
-				}
+												$_POST['user-nick'],
+												$_POST['user-nombre'],
+												$_POST['user-apellidos'],
+												trim($_POST['user-pass']),
+												$_POST['user-email'],
+												$_FILES['nombre-fichero'],
+												$comentarios,
+												$_POST['user-date']);
+				if ($confirmar == 1) 
+					session::setFlashMessage('actions_message', strTranslate("Update_profile_ok"), "alert alert-success");
+				elseif ($confirmar == 2) 
+					session::setFlashMessage('actions_message', strTranslate("Update_profile_ko"), "alert alert-danger");
+				elseif ($confirmar == 3) 
+					session::setFlashMessage('actions_message', $_POST['user-nick']." ".strTranslate("Update_profile_nick_ko"), "alert alert-danger");
 			}
 			redirectURL("profile");
 		}
-	}	
+	}
 
 	public static function getUserStatistics(){
-		if (isset($_GET['id']) and $_GET['id'] != ''){ 
-			return self::userStatistics($_GET['id']);
-		}
-	}		
+		if (isset($_GET['id']) and $_GET['id'] != '') return self::userStatistics($_GET['id']);
+	}
 
 	public static function recoverPasswordAction(){
 		if (isset($_POST['form-lostpw-user'])){
@@ -153,35 +147,30 @@ class usersController{
 
 				$template = new tpl("remember", "users");
 				$template->setVars(array(
-				        "title_email" => strTranslate("Recover_password"),
-				        "text_email" => strTranslate("Your_details_access").' '.$ini_conf['SiteName'],
-				        "label_username" => strTranslate("Username"),
-				        "field_username" => $_POST['form-lostpw-user'],
-				        "label_userpassword" => strTranslate("Password"),
-				        "field_userpassword" => $user[0]['user_password']
+							"title_email" => strTranslate("Recover_password"),
+							"text_email" => strTranslate("Your_details_access").' '.$ini_conf['SiteName'],
+							"label_username" => strTranslate("Username"),
+							"field_username" => $_POST['form-lostpw-user'],
+							"label_userpassword" => strTranslate("Password"),
+							"field_userpassword" => $user[0]['user_password']
 				));
 
 				$cuerpo_mensaje = $template->getTpl();
 
 				//if (SendEmail($ini_conf['ContactEmail'],$user[0]['email'],$asunto,$cuerpo_mensaje,0)) {
-				if (messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp')) {
-					session::setFlashMessage( 'actions_message', strTranslate("Recover_password_alert"), "alert alert-success");
-				}
-				else { session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");}
+				if (messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp')) 
+					session::setFlashMessage('actions_message', strTranslate("Recover_password_alert"), "alert alert-success");
+				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
-			else { session::setFlashMessage( 'actions_message', strTranslate("User_not_valid"), "alert alert-danger");}
+			else { session::setFlashMessage('actions_message', strTranslate("User_not_valid"), "alert alert-danger");}
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}
 
 	public static function loginRedirectAction(){
 		if (isset($_SESSION['user_logged']) and $_SESSION['user_logged']) {		
-			if (isset($_SESSION['url_request']) and $_SESSION['url_request'] != ""){
-				redirectURL($_SESSION['url_request']);
-			}
-			else{
-				redirectURL("home");
-			}		
+			if (isset($_SESSION['url_request']) and $_SESSION['url_request'] != "") redirectURL($_SESSION['url_request']);
+			else redirectURL("home");
 		}
 	}
 
@@ -206,14 +195,14 @@ class usersController{
 							$_POST['surname'],
 							$registered
 							)) {
-					session::setFlashMessage( 'actions_message', "Usuario insertado correctamente.", "alert alert-success");
+					session::setFlashMessage('actions_message', "Usuario insertado correctamente.", "alert alert-success");
 					redirectURL("admin-user?id=".$_POST['username']);
 				}
 			}
 			else { 
-				session::setFlashMessage( 'actions_message', "El usuario ya existe.", "alert alert-warning");
+				session::setFlashMessage('actions_message', "El usuario ya existe.", "alert alert-warning");
 				redirectURL("admin-user");
-			}		
+			}
 		}
 	}
 
@@ -236,21 +225,21 @@ class usersController{
 								$_POST['telefono_user'],
 								$_POST['surname'],
 								$registered)) {
-						session::setFlashMessage( 'actions_message', "Usuario modificado correctamente.", "alert alert-success");}
-			else { 
-				session::setFlashMessage( 'actions_message', "Se ha producido algun error durante la modificacion de los datos.", "alert alert-danger");}
+						session::setFlashMessage('actions_message', "Usuario modificado correctamente.", "alert alert-success");}
+			else 
+				session::setFlashMessage('actions_message', "Se ha producido algun error durante la modificacion de los datos.", "alert alert-danger");
 
 			redirectURL("admin-user?id=".$_POST['id_username']);
 		}
-	}	
+	}
 
 	public static function deleteFotoAction(){
 		$users = new users();
 		if (isset($_REQUEST['f']) and $_REQUEST['f'] != ""){
-			if ($users->deleteFoto($_REQUEST['id'],$_REQUEST['f'])) { 
-				session::setFlashMessage( 'actions_message', "foto borrada correctamente.", "alert alert-success");}
-			else { 
-				session::setFlashMessage( 'actions_message', "No se ha podido eliminar la foto.", "alert alert-danger");}
+			if ($users->deleteFoto($_REQUEST['id'],$_REQUEST['f'])) 
+				session::setFlashMessage('actions_message', "foto borrada correctamente.", "alert alert-success");
+			else 
+				session::setFlashMessage('actions_message', "No se ha podido eliminar la foto.", "alert alert-danger");
 			redirectURL("admin-user?id=".$_REQUEST['id']);
 		}
 	}
@@ -276,7 +265,7 @@ class usersController{
 					}
 				}
 			endforeach;
-			session::setFlashMessage( 'actions_message', "Permisos actualizados.", "alert alert-success");
+			session::setFlashMessage('actions_message', "Permisos actualizados.", "alert alert-success");
 			redirectURL("admin-user?t=2&id=".$_POST['user_permission']);
 		}
 	}
@@ -298,7 +287,7 @@ class usersController{
 		$usuario = $users->getUsers(" AND username='".$username."' ");
 		$last_access = ($usuario[0]['last_access']!= null ? getDateFormat($usuario[0]['last_access'], "DATE_TIME") : "sin accesos");
 		$array_final = array_merge($array_final, array(strTranslate("Last_access") => $last_access));
-		$modules = getListModules();		
+		$modules = getListModules();
 		foreach($modules as $module):
 			if (file_exists(__DIR__."/../../".$module['folder']."/".$module['folder'].".php")){
 				include_once (__DIR__."/../../".$module['folder']."/".$module['folder'].".php");
@@ -310,6 +299,6 @@ class usersController{
 			}
 		endforeach;
 		return $array_final;
-	}	
+	}
 }
 ?>

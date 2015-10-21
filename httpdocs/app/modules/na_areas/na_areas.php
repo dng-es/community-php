@@ -4,12 +4,12 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.1.1
 *
-*/	
+*/
 class na_areasCore{
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 	public static function userMenu(){
 		$array_final = array();
 		global $session;
@@ -21,13 +21,13 @@ class na_areasCore{
 							"LabelTarget" => '_self',
 							"LabelPos" => 6));
 		}
-		return $array_final;		
+		return $array_final;
 	}
 
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 	public static function adminMenu(){
 		return array(
 			menu::addAdminMenu(array(
@@ -47,6 +47,6 @@ class na_areasCore{
 				"LabelPos" => 2,
 			))
 		);
-	}	
+	}
 }
 ?>

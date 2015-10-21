@@ -2,7 +2,7 @@
 session_start();
 session::setLanguage();
 
-class session {    
+class session {
 
 	public $user_permissions = array();
 	private $user_page_permission = array();
@@ -62,7 +62,7 @@ class session {
 	 */
 	public function setPagePermission($page, $username){
 		$this->user_page_permission = $this->checkPagePermission($page, $username);
-	}	
+	}
 
 	/**
 	 * Check specific permission type for user page permissions
@@ -74,7 +74,7 @@ class session {
 		foreach($user_page_permission as $permission):
 			if ($permission['permission_type'] == $permission_type) return $permission;
 		endforeach;
-	}	
+	}
 
 	/**
 	 * Verifica el acceso a una pagina especifica según el usuaio y su perfil
@@ -103,7 +103,7 @@ class session {
 	* Return current URL.
 	* @return 	string 		Current URL
 	*/
-	public static function curPageURL() {
+	public static function curPageURL(){
 		$pageURL = 'http';
 		if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
 		$pageURL .= "://";
@@ -116,8 +116,7 @@ class session {
 	* Check if user is currently logged, if so redirects to the correct page, if not redirects to login. 
 	* If no page is specified, redirects to home page.
 	*/
-	public static function ValidateSession()
-	{
+	public static function ValidateSession(){
 		global $paginas_free;
 		if ((isset($_SESSION['user_logged']) and $_SESSION['user_logged'] != true) && in_array($_REQUEST['page'], $paginas_free) == false){
 			//Si alguno de los datos ingresados son incorrectos redirigimos a la pÃ¡gina de
@@ -161,8 +160,8 @@ class session {
 		$users = new users();
 		$result_user=$users->getUsers(" AND username ='".$Login_user."'  
 										AND user_password COLLATE utf8_bin ='".$Login_pass."' 
-										AND disabled=0 ");			
-																
+										AND disabled=0 ");
+
 		if (count($result_user) == 1){
 			$_SESSION['user_name'] = $Login_user;
 			$_SESSION['user_logged'] = false;
@@ -192,12 +191,12 @@ class session {
 			}
 			elseif ($result_user[0]['confirmed'] == 0 and $result_user[0]['registered'] == 0) {
 				//Redirijimos a la pagina de confirmacion de datos.
-				header ("Location: ".$url_confirm);			  
+				header ("Location: ".$url_confirm);
 			}
 		}
 		else{
 			session::setFlashMessage( 'actions_message', "Usuario o contraseña incorrecta", "alert alert-warning");
-		}	
+		}
 	}
 
 	/**
@@ -210,7 +209,7 @@ class session {
 			if (in_array($_REQUEST['page'], $paginas_free) == false){
 				$_SESSION['url_request'] = self::curPageURL();
 			}
-		}		
+		}
 	}
 
 	/**
@@ -226,7 +225,7 @@ class session {
 		}
 
 		session_unset();
-		session_destroy();		
+		session_destroy();
 		self::setUrlSession();
 		header ("Location: ".$url);
 		die();
@@ -266,8 +265,8 @@ class session {
 			$class = !empty( $_SESSION[$name.'_class'] ) ? $_SESSION[$name.'_class'] : 'success';
 			echo '<div class="msg-flash '.$class.'">'.$_SESSION[$name].'</div>';
 			unset($_SESSION[$name]);
-			unset($_SESSION[$name.'_class']);	
-		}	
+			unset($_SESSION[$name.'_class']);
+		}
 	}
 
 	/**

@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__)));
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/constants.php");
@@ -17,7 +17,7 @@ $inicio = ($pagina - 1) * $reg;
 $users = new users();
 if ($_SESSION['user_canal'] != 'admin') $filtroCanal = " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') ";
 else $filtroCanal = "";
-//$users_conn = $users->getUsers(" AND confirmed=1 LIMIT ".$inicio.",".$reg);  
+//$users_conn = $users->getUsers(" AND confirmed=1 LIMIT ".$inicio.",".$reg);
 $users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -25,19 +25,19 @@ $users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
 	<head>
 		<LINK rel="stylesheet" type="text/css" href="css/styles.css" />
 		<script type="text/javascript" src="js/main.min.js"></script>
-		<script type="text/javascript">			
+		<script type="text/javascript">
 			$(document).ready(function(){
 				$(".trigger-msg").click(function(e){
 					e.preventDefault();
 					var nick = $(this).attr("n");
-					if (nick!=""){location.href="inbox?n="+nick;}	
+					if (nick!=""){location.href="inbox?n="+nick;}
 				});
 			});
 		</script>
 	</head>
 	<body>	
 		<div id="users-connected-<?php echo $pagina;?>" style="display: none">
-			<?php foreach($users_conn as $user_conn):			
+			<?php foreach($users_conn as $user_conn):
 			$foto = ($user_conn['foto'] == "" ? "user.jpg" : $user_conn['foto']);?>
 			<div class="ficha-user panel panel-default">
 				<div class="panel-body">
@@ -46,10 +46,10 @@ $users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
 					<div class="ellipsis">
 						<?php echo $user_conn['nick'];?><br />
 						<?php echo userEstrellas($user_conn['participaciones']);?>
-					</div>					
+					</div>
 				</div>
 			</div>
-			<?php endforeach; ?>
+			<?php endforeach;?>
 		</div>
 	</body>
 </html>

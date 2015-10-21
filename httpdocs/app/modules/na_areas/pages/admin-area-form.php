@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array(getAsset("na_areas")."js/admin-area-form.js"));
 
 $na_areas = new na_areas();
@@ -9,7 +8,6 @@ $id_tarea = $_REQUEST['id'];
 //OBTENER DATOS DE LA TAREA
 $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -19,7 +17,6 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
 			array("ItemLabel"=>strTranslate("Form"), "ItemClass"=>"active"),
 		));
-
 		session::getFlashMessage('actions_message');
 
 		//INSERTAR PREGUNTA
@@ -27,11 +24,9 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 		
 		//ELIMINAR PREGUNTA
 		na_areasController::deletePreguntaAction();
-
 		?>
 		<p>Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
 		<a href="admin-area?act=edit&t=2&id=<?php echo $id_area;?>" class="comunidad-color">Volver a la gestión del curso</a></p>
-
 		<?php
 		if (count($tarea) == 1 and $tarea[0]['tipo'] == 'formulario') FormularioTarea($id_tarea,$id_area,$tarea);
 		else ErrorMsg("Error al cargar el formulario la tarea"); ?>
@@ -69,10 +64,10 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 							
 				echo '<td>'.$pregunta['pregunta_texto'].'</td>';
 				echo '<td>'.$pregunta['pregunta_tipo'].'</td>';
-				echo '</tr>';   
+				echo '</tr>';
 				endforeach;
 				echo '</table>';
-		}  
+		}
 		//INSERTAR NUEVA PREGUNTA
 		?>
 		<h3>Insertar nueva pregunta</h3>

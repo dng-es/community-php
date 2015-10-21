@@ -4,12 +4,12 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0.1
 * 
-*/	
+*/
 class rankingsCore{
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 	// public static function userMenu(){
 	// 	$array_final = array();
 	// 	global $session;
@@ -27,7 +27,7 @@ class rankingsCore{
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function adminMenu(){
 		return array(
 			menu::addAdminMenu(array(

@@ -12,9 +12,7 @@ addJavascripts(array("js/jquery.numeric.js",
 					 getAsset("na_areas")."js/admin-cargas.js"));
 
 templateload("cmbCanales","users");
-
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -28,7 +26,6 @@ templateload("cmbCanales","users");
 		session::getFlashMessage('actions_message');
 
 		$na_areas = new na_areas();
-
 		$accion = isset($_GET['act']) ? $_GET['act'] : "";
 		$accion1 = isset($_GET['act1']) ? $_GET['act1'] : "";
 		$accion2 = isset($_GET['accion2']) ? $_GET['accion2'] : "";
@@ -116,14 +113,14 @@ templateload("cmbCanales","users");
 								<div class="form-group col-md-2">
 									<label for="area_limite"><small>Límite de usuarios:</small></label>
 									<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
-								</div>  
+								</div>
 
 								<div class="form-group col-md-4">
 									<br />
 									<label checkbox-inline>
 										<input type="checkbox" id="area_registro"  name="area_registro" <?php echo $registro == 1 ? "checked" : "";?>> <small>Permitir registro</small>
 									</label>
-								</div>                    
+								</div>
 							</div>
 							
 							<div class="clearfix"></div>
@@ -136,7 +133,6 @@ templateload("cmbCanales","users");
 						</div>
 						</div>
 					</div>
-				
 
 					<?php
 					if ($accion == 'edit'){
@@ -180,30 +176,29 @@ templateload("cmbCanales","users");
 	<?php menu::adminMenu();?>
 </div>
 
-
 <?php 
 function showUsuariosArea($id_area,$area_canal){
 	$na_areas = new na_areas;
 
 	echo '<div class="panel panel-default">
-	        <div class="panel-heading">Importar usuarios al curso</div>
-	        <div class="panel-body">
-	          <p>Los usuarios actuales serán reemplazados por los incluídos en el fichero. El fichero <strong>Excel XLS</strong> deberá contener una única columna con el nombre de usuario. 
-	          La primera fila será considerada como encabezado y no será importada.</p>
-	          <form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="admin-cargas-user-areas-process?id='.$id_area.'">
-	            <input type="hidden" name="id_area" id="id_area" value="'.$id_area.'" />
-	            <input type="hidden" name="area_canal" id="area_canal" value="'.$area_canal.'" />
-	            <input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
-	            <button type="submit" id="inputFile" name="inputFile" class="btn btn-primary">importar fichero</button>
-	            <div id="fichero-alert" class="alert-message alert alert-danger alert alert-danger"></div>
-	          </form>
-	        </div>
-	      </div>';
+			<div class="panel-heading">Importar usuarios al curso</div>
+			<div class="panel-body">
+				<p>Los usuarios actuales serán reemplazados por los incluídos en el fichero. El fichero <strong>Excel XLS</strong> deberá contener una única columna con el nombre de usuario. 
+				La primera fila será considerada como encabezado y no será importada.</p>
+				<form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="admin-cargas-user-areas-process?id='.$id_area.'">
+					<input type="hidden" name="id_area" id="id_area" value="'.$id_area.'" />
+					<input type="hidden" name="area_canal" id="area_canal" value="'.$area_canal.'" />
+					<input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
+					<button type="submit" id="inputFile" name="inputFile" class="btn btn-primary">importar fichero</button>
+					<div id="fichero-alert" class="alert-message alert alert-danger alert alert-danger"></div>
+				</form>
+			</div>
+		</div>';
 
 	$elements = $na_areas->getAreasUsers(" AND id_area=".$id_area); 
 	echo '<div class="panel panel-default full-height">
-					<div class="panel-heading">Usuarios incluídos en el curso</div>
-					<div class="panel-body">';
+				<div class="panel-heading">Usuarios incluídos en el curso</div>
+				<div class="panel-body">';
 
 	if (count($elements) > 0){
 		echo '  <p>Total usuarios inscritos: <b>'.count($elements).'</b>. Puedes descargar un fichero CSV con los usuarios inscritos en el curso: <br /><br />
@@ -254,9 +249,9 @@ function showGruposArea($id_area){
 						<th>Nombre del grupo</th>
 					</tr>
 					<?php foreach($elements as $element):
-						echo '<tr>';          
+						echo '<tr>';
 						echo '<td><a href="admin-area-grupo?a='.$id_area.'&g='.$element['id_grupo'].'">'.$element['grupo_nombre'].'</a></td>';
-						echo '</tr>';   
+						echo '</tr>';
 					endforeach;?>
 				</table>
 			<?php endif; ?>
@@ -268,77 +263,76 @@ function showForosArea($id_area){
 	$na_areas = new na_areas;
 	$elements = $na_areas->getGruposUsers(" AND id_area=".$id_area); 
 
- 	//TEMAS FOROS
+	//TEMAS FOROS
 	getForosActivos($id_area);
 	//COMENTARIOS FORO PENDIENTE DE VALIDAR
-	getForoPendientes($id_area);   
+	getForoPendientes($id_area);
 }
 
 function getForosActivos($id_area){
 	$foro = new foro();
-	$temas = $foro->getTemas(" AND id_tema_parent<>0 AND activo=1 AND id_area=".$id_area);  
-		echo '<p>Hay los siguientes <span class="orange-color">TEMAS</span> creados en los foros</p><br />';
-		echo '<table class="table table-striped">';
-		echo '	<tr>';
-		echo '	<th width="40px">&nbsp;</th>';
-		echo '	<th>ID</th>';
-		echo '	<th>'.strTranslate("Type").'</th>';
-		echo '	<th>'.strTranslate("Name").'</th>';
-		echo '	<th>'.strTranslate("Username").'</th>';
-		echo '	<th><span class="fa fa-comment"></span></th>';
-		echo '	<th><span class="fa fa-eye"></span></th>';
-		echo '	</tr>';
+	$temas = $foro->getTemas(" AND id_tema_parent<>0 AND activo=1 AND id_area=".$id_area);
+	echo '<p>Hay los siguientes <span class="orange-color">TEMAS</span> creados en los foros</p><br />';
+	echo '<table class="table table-striped">';
+	echo '	<tr>';
+	echo '	<th width="40px">&nbsp;</th>';
+	echo '	<th>ID</th>';
+	echo '	<th>'.strTranslate("Type").'</th>';
+	echo '	<th>'.strTranslate("Name").'</th>';
+	echo '	<th>'.strTranslate("Username").'</th>';
+	echo '	<th><span class="fa fa-comment"></span></th>';
+	echo '	<th><span class="fa fa-eye"></span></th>';
+	echo '	</tr>';
 
-		foreach($temas as $element):
-			$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
-			$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");
-			echo '<tr>';
-			echo '<td nowrap="nowrap">
-					<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el tema '.$element['id_tema'].'?\',
-						\'admin-area?act=edit&act2=tema_ko&id='.$id_area.'&idt='.$element['id_tema'].'&u='.$element['user'].'\')" 
-						title="Eliminar" />
-					</span>
+	foreach($temas as $element):
+		$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
+		$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");
+		echo '<tr>';
+		echo '<td nowrap="nowrap">
+				<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el tema '.$element['id_tema'].'?\',
+					\'admin-area?act=edit&act2=tema_ko&id='.$id_area.'&idt='.$element['id_tema'].'&u='.$element['user'].'\')" 
+					title="Eliminar" />
+				</span>
 
-					<a class="fa fa-download icon-table" href="admin-area?act=edit&export=true&id='.$id_area.'&idt='.$element['id_tema'].'" title="Exportar"></a>     
-				 </td>';          
-			echo '<td><a href="#" class="abrir-modal" title="TemaForo'.$element['id_tema'].'">'.$element['id_tema'].'</a>
+				<a class="fa fa-download icon-table" href="admin-area?act=edit&export=true&id='.$id_area.'&idt='.$element['id_tema'].'" title="Exportar"></a>     
+			 </td>';          
+		echo '<td><a href="#" class="abrir-modal" title="TemaForo'.$element['id_tema'].'">'.$element['id_tema'].'</a>
 
-					<!-- Modal -->
-					<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">Tema en el foro</h4>
-								</div>
-								<div class="modal-body">
-								<p><b>'.$element['user'].'</b> creó el tema: '.$element['nombre'].'</p>
-								<p><em>'.$element['descripcion'].'</em></p>
-								</div>
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->
+				<!-- Modal -->
+				<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">Tema en el foro</h4>
+							</div>
+							<div class="modal-body">
+							<p><b>'.$element['user'].'</b> creó el tema: '.$element['nombre'].'</p>
+							<p><em>'.$element['descripcion'].'</em></p>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 
-			</td>';
-			echo '<td nowrap="nowrap">
-			<form action="" method="post" role="form" class="form-inline">
-			<input type="hidden" name="id_tema_tipo" value="'.$element['id_tema'].'">
-			<select name="find_tipo" id="find_tipo" class="form-control">
-					<option>---Seleccionar tipo---</option>';         
-						ComboTiposTemas($element['tipo_tema']);
-			echo '</select>
-			<button type="submit" class="btn btn-default">Modificar</button>
-			</form>
-			</td>';
-			echo '<td>'.$element['nombre'].'</td>';
-			echo '<td>'.$element['user'].'</td>';
-			echo '<td>'.$num_comentarios.'</td>';
-			echo '<td>'.$num_visitas.'</td>';   
-			echo '</tr>';   
-		endforeach;
-		echo '</table><br />';  
+		</td>';
+		echo '<td nowrap="nowrap">
+		<form action="" method="post" role="form" class="form-inline">
+		<input type="hidden" name="id_tema_tipo" value="'.$element['id_tema'].'">
+		<select name="find_tipo" id="find_tipo" class="form-control">
+				<option>---Seleccionar tipo---</option>';         
+					ComboTiposTemas($element['tipo_tema']);
+		echo '</select>
+		<button type="submit" class="btn btn-default">Modificar</button>
+		</form>
+		</td>';
+		echo '<td>'.$element['nombre'].'</td>';
+		echo '<td>'.$element['user'].'</td>';
+		echo '<td>'.$num_comentarios.'</td>';
+		echo '<td>'.$num_visitas.'</td>';   
+		echo '</tr>';
+	endforeach;
+	echo '</table><br />';
 }
-
 
 function getForoPendientes($id_area){
 	$foro = new foro();
@@ -399,9 +393,9 @@ function getForoPendientes($id_area){
 			echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>'; 
 			echo '<td>'.$element['nombre'].'</td>';
 			echo '<td>'.$element['tipo_tema'].'</td>';    
-			echo '</tr>';   
+			echo '</tr>';
 		endforeach;
-		echo '</table><br />';  
+		echo '</table><br />';
 	}
 }
 
@@ -455,7 +449,7 @@ function showTareasArea($id_area){
 					
 				</form>
 			</div>
-			<div class="col-md-7">	
+			<div class="col-md-7">
 				<?php if (count($elements) > 0): ?>
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
@@ -464,9 +458,7 @@ function showTareasArea($id_area){
 							<th><?php echo strTranslate("Task");?></th>
 							<th>&nbsp;</th>
 						</tr>
-			
 						<?php foreach($elements as $element):
-
 							if($element['activa'] == 1){
 								$imagen_revision = '<i class="fa fa-check text-success"></i>';
 								$valor_activar = 0;
@@ -489,7 +481,7 @@ function showTareasArea($id_area){
 								$texto_activar_links_v = strTranslate("App_No");
 							}
 
-							echo '<tr>';     
+							echo '<tr>';
 							echo '<td nowrap="nowrap">
 										<span class="icon-table" onClick="Confirma(\'¿Seguro que quieres '.$texto_activar.' la tarea?\',
 										\'admin-area?act=edit&e='.$valor_activar.'&del_t='.$element['id_tarea'].'&id='.$id_area.'\')" 
@@ -499,9 +491,6 @@ function showTareasArea($id_area){
 										\'admin-area?act=edit&del_t2='.$element['id_tarea'].'&id='.$id_area.'\')" 
 										title="Eliminar tarea" />
 										</span>
-
-						
-
 									</td>
 									<td>';
 							
@@ -524,8 +513,8 @@ function showTareasArea($id_area){
 										if ($element['tarea_grupo'] == 1){
 											echo '<a class="btn btn-default btn-xs" href="admin-area-tarea-grupo?a='.$id_area.'&id='.$element['id_tarea'].'">'.strTranslate("Groups").'</a>';
 										}
-							echo '</td>';		
-							echo '</tr>';   
+							echo '</td>';
+							echo '</tr>';
 						endforeach; ?>
 					</table>
 				</div>
@@ -534,7 +523,6 @@ function showTareasArea($id_area){
 			<?php endif; ?>
 			</div>
 		</div>
-
 	<?php
 }
 ?>

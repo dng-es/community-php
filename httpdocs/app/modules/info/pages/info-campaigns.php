@@ -14,7 +14,7 @@
 			if ($i==0) echo '<div class="row">';?>
 			<div class="col-md-3">
 				<div class="col-md-12 section full-height section-hover">
-					<section>					
+					<section>
 						<a href="user-info-all?id=<?php echo $element['id_campaign'];?>" >
 						<i class="fa fa-newspaper-o section-icon"></i><br />
 							<h3><?php echo $element['name_campaign'];?></h3>
@@ -23,13 +23,13 @@
 					</section>
 				</div>
 			</div>
-			<?php if ($i==3) {
+			<?php if ($i==3){
 				echo '</div><br />';
 				$i = 0;
 			}
 			else $i++; ?>
 		<?php endforeach;?>
-		<?php if ($i <= 3 and $i > 0) echo '</div>'; ?>
+		<?php if ($i <= 3 and $i > 0) echo '</div>';?>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		<br />
 	</div>

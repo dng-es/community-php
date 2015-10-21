@@ -17,7 +17,7 @@ $elements = usersCanalesController::getListAction(35);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default">       
+				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-canal"><?php echo strTranslate("Channel_new");?></a></li>
 					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php echo strTranslate("Export");?></a></li>
@@ -35,7 +35,7 @@ $elements = usersCanalesController::getListAction(35);
 							<td nowrap="nowrap">
 								<span class="fa fa-edit icon-table" title="<?php echo strTranslate("Edit");?>" onClick="location.href='admin-canal?id=<?php echo $element['canal'];?>'">
 								</span>
-							</td>					
+							</td>
 							<td><?php echo $element['canal'];?></td>
 							<td><?php echo $element['canal_name'];?></td>
 							</tr>  

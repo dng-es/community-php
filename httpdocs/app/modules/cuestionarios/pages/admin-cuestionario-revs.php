@@ -20,7 +20,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 			array("ItemLabel"=>"Revisiones <b>".$cuestionario[0]['nombre']."</b>", "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		cuestionariosController::deleteCuestionarioAction($id_cuestionario);
 		cuestionariosController::RevisarFormAction(); 
 		cuestionariosController::FinalizacionDeleteAction(); 
@@ -58,17 +58,17 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 							$btn = '<button type="submit" class="btn btn-default">validar</button>';
 							$txt = "";
 						}
-										
-						echo '<tr>';        
+
+						echo '<tr>';
 						echo '<td><span span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que deseas eliminar la finalización del cuestionario?\',
 								\'admin-cuestionario-revs?act_f=del&id='.$id_cuestionario.'&ut='.$revision['user_tarea'].'\')" 
 								title="Eliminar finalizacion" /></span>
 
 								<a href="admin-cuestionario-revs?t='.$revision['user_tarea'].'&id='.$id_cuestionario.'" class="fa fa-download icon-table" title="descargar"></a>
 								<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a>
-							</td>';        
+							</td>';
 						//echo '<td><a href="inbox?n='.$revision['nick'].'">'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>'; 
-						echo '<td>'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>'; 
+						echo '<td>'.$revision['user_tarea'].' ('.$revision['name'].')</a></td>';
 						echo '<td>
 								<form role="form" class="form-inline" method="post" action="admin-cuestionario-revs?id='.$id_cuestionario.'" name="rev_'.$revision['user_tarea'].'" id="rev_'.$revision['user_tarea'].'">
 									<input type="hidden" name="id_tarea_rev" id="id_tarea_rev" value="'.$id_cuestionario.'" />
@@ -78,7 +78,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 								</form>
 							</td>';
 						echo '<td>('.getDateFormat($revision['date_finalizacion'], "DATE_TIME").')</td>';
-						echo '<td><a href="#" onclick="createDialog('.$id_cuestionario.',\''.$revision['user_tarea'].'\')">ver respuestas</a></td>';       
+						echo '<td><a href="#" onclick="createDialog('.$id_cuestionario.',\''.$revision['user_tarea'].'\')">ver respuestas</a></td>';
 						echo '</tr>';
 					endforeach; ?>
 				</table>

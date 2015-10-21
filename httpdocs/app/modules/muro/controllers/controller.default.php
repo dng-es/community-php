@@ -12,10 +12,6 @@ class muroController{
 					'total_reg' => $total_reg);
 	}
 
-	public static function createAction(){
-		
-	}
-
 	public static function validateAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'muro_ok'){
 			$users = new users();
@@ -36,6 +32,6 @@ class muroController{
 			session::setFlashMessage( 'actions_message', "Comentario cancelado correctamente.", "alert alert-success");
 			redirectURL("admin-validacion-muro?pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
 		}
-	}	
+	}
 }
 ?>

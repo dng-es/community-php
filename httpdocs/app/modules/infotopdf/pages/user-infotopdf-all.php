@@ -26,7 +26,7 @@ $elements = infotopdfController::getListAction(20);
 		</div>
 		<?php 
 			if ($columna == 4){echo '</div>'; $columna = 0;}
-     		$columna++;
+			$columna++;
 		endforeach;
 		if ($columna == 2){echo '</div>';}
 		?>

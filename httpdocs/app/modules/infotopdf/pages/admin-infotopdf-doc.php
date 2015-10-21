@@ -6,7 +6,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					 getAsset("infotopdf")."js/admin-infotopdf-doc.js"));
 
 templateload("cmbCanales","users");
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -23,7 +22,7 @@ templateload("cmbCanales","users");
 		$id ='';
 		if ($accion == 'edit'){ $id=$_GET['id'];}
 		if ($accion == 'edit' and (isset($_GET['accion2']) and $_GET['accion2'] == 'ok')) UpdateData($id);
-		if ($accion == 'new' and (isset($_GET['accion2']) and $_GET['accion2'] == 'ok')){ $id = InsertData();$accion="edit";}  
+		if ($accion == 'new' and (isset($_GET['accion2']) and $_GET['accion2'] == 'ok')){ $id = InsertData();$accion="edit";}
 
 		$info = new infotopdf();
 		$campaigns = new campaigns();
@@ -46,7 +45,7 @@ templateload("cmbCanales","users");
 					<?php
 					$tipo_info = $info->getInfoTipos("");
 					foreach($tipo_info as $tipo):
-						echo '<option value="'.$tipo['id_tipo'].'">'.$tipo['nombre_info'].'</option>';    
+						echo '<option value="'.$tipo['id_tipo'].'">'.$tipo['nombre_info'].'</option>';
 					endforeach;
 					?>
 					</select>
@@ -58,7 +57,7 @@ templateload("cmbCanales","users");
 						echo '<option value="'.$campana['id_campaign'].'" '.($campana['id_campaign']==$elements[0]['id_campaign'] ? 'selected="selected"' : '').'>'.$campana['name_campaign'].'</option>';    
 					endforeach;
 					?>
-					</select>					
+					</select>
 					<br />
 					<div class="row">
 						<div class="col-md-6">
@@ -72,12 +71,12 @@ templateload("cmbCanales","users");
 							$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
 							$nombre_sinext = substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
 							$nombre_miniatura = "mini".$nombre_sinext.".jpeg";
-						  	echo '<img style="width:100%;border:0;height:auto" src="docs/info/'.$nombre_miniatura.'" alt="banner" />';
+							echo '<img style="width:100%;border:0;height:auto" src="docs/info/'.$nombre_miniatura.'" alt="banner" />';
 						}
 
 						?>
 						</div>
-					</div>				 
+					</div>
 					<span id="file-alert" class="alert-message"></span>
 
 					<label for="cuerpo_info">Contenido de la plantilla:</label>
@@ -96,25 +95,22 @@ templateload("cmbCanales","users");
 	</div>
 	<?php menu::adminMenu();?>
 </div>
-
-
-
 <?php 
 
 function insertData(){
 	$info = new infotopdf();
-	$resultado=$info->insertInfo($_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info']);
-	if ($resultado == "") {
+	$resultado=$info->insertInfo($_FILES['info_file'], $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $_POST['cuerpo_info']);
+	if ($resultado == ""){
 		OkMsg('Registro insertado correctamente.');
 		$id = connection::SelectMaxReg("id_info","infotopdf","");
 		return $id;
 	}
-	else{ErrorMsg($resultado);}
+	else ErrorMsg($resultado);
 }
 
 function UpdateData($id){
 	$info = new infotopdf();
-	if ($info->updateInfo($id,$_FILES['info_file'],$_POST['info_title'],$_POST['info_canal'],$_POST['info_tipo'],$_POST['info_campana'],$_POST['cuerpo_info'])) 
+	if ($info->updateInfo($id, $_FILES['info_file'], $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $_POST['cuerpo_info'])) 
 		OkMsg('Registro modificado correctamente.');
 	else
 		ErrorMsg('Error al modificar el documento.');

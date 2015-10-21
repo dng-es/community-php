@@ -10,11 +10,10 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 
 //OBTENER MENSAJES PROGRAMADOS
 $mailing = new mailing();
-$mensajes = $mailing->getListsUsersData(" AND  (DAY(birthday)=DAY(NOW()) AND MONTH(birthday)=MONTH(NOW()) ) "); 
-if (count($mensajes)>0){
+$mensajes = $mailing->getListsUsersData(" AND  (DAY(birthday)=DAY(NOW()) AND MONTH(birthday)=MONTH(NOW()) ) ");
+if (count($mensajes) > 0){
 	pasadaProccess($mensajes);
 }
-
 
 function pasadaProccess($mensajes){
 	global $ini_conf;
@@ -29,6 +28,6 @@ function pasadaProccess($mensajes){
 		if (messageProcess($message_subject, $message_from, $usuario['email'] , $message_body_user, null)){
 			echo "Mensaje enviado a ".$usuario['email']."(".date("d-m-Y").")\n";
 		}
-	endforeach;	
+	endforeach;
 }
 ?>

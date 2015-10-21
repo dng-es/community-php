@@ -43,6 +43,5 @@ function pasadaProccess(){
 		$message_body_user .= footerMail($usuario);
 		messageProcess($message_subject, $message_from, $message_to , $message_body_user, $message_attachment);
 	endforeach;
-
 }
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js",
 					 "js/bootstrap.file-input.js", 
@@ -9,9 +8,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 $session = new session();
 $perfiles_autorizados = array("admin");
 $session->AccessLevel($perfiles_autorizados);
-
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -47,7 +44,7 @@ $session->AccessLevel($perfiles_autorizados);
 					<?php if ($id_ranking>0):?>
 					<li><a href="#import" data-toggle="tab"><?php echo strTranslate("Import_file");?></a></li>
 					<?php endif; ?>
-				</ul>		
+				</ul>
 				
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="general">
@@ -70,7 +67,7 @@ $session->AccessLevel($perfiles_autorizados);
 											$rankings = new rankings();
 											$categorias = $rankings->getRankingsCategories("");
 											foreach($categorias as $categoria):
-												echo '<option value="'.$categoria['id_ranking_category'].'" '.($categoria['id_ranking_category']==$id_category ? 'selected="selected"' : '').'>'.$categoria['ranking_category_name'].'</option>';    
+												echo '<option value="'.$categoria['id_ranking_category'].'" '.($categoria['id_ranking_category']==$id_category ? 'selected="selected"' : '').'>'.$categoria['ranking_category_name'].'</option>';
 											endforeach;
 											?>
 											</select>
@@ -96,7 +93,7 @@ $session->AccessLevel($perfiles_autorizados);
 						</div>
 					</div>
 
-					<?php if ($id_ranking>0):?>
+					<?php if ($id_ranking > 0):?>
 					<div class="tab-pane fade" id="import">
 						<div class="inset">
 							<div class="form-group">
@@ -106,7 +103,7 @@ $session->AccessLevel($perfiles_autorizados);
 							</div>
 						</div>
 					</div>
-					<?php endif; ?>
+					<?php endif;?>
 					</form>
 				</div>
 			</div>

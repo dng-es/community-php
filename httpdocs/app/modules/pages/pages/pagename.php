@@ -8,9 +8,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 			<?php echo $page[0]['page_content'];?>
 		</div>
 		<div class="app-sidebar">
-			<div class="panel-interior hidden-xs hidden-sm">
-
-			</div>
+			<div class="panel-interior hidden-xs hidden-sm"></div>
 		</div>
 	</div>
 <?php } ?>

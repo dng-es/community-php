@@ -24,11 +24,11 @@ templateload("na_areasuser", "na_areas");
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs">
 			<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
-			<?php if (1 == 1): ?>
+			<?php if(getModuleExist("na_areas")):  ?>
 			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#<?php echo strTranslate("Na_areas");?>" data-toggle="tab"><?php echo strTranslate("Na_areas");?></a></li>
 			<?php endif;?>
-		</ul>	
-	
+		</ul>
+
 		<div class="tab-content">
 			<div class="tab-pane fade in <?php echo (!(isset($_GET['t'])) ? ' active' : '');?>" id="general">
 				<div class="row"> 
@@ -37,14 +37,14 @@ templateload("na_areasuser", "na_areas");
 					<span id="password-text-alert" class="alert-message alert alert-danger"></span>
 					<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
 						<input type="hidden" name="user-username" id="user-username" value="<?php echo $_SESSION['user_name'];?>">
-				  		<div class="row">
-				  		<div class="col-md-12">
+						<div class="row">
+						<div class="col-md-12">
 						<label class="control-label" for="user-empresa"><small><?php echo strTranslate("Group_user");?></small></label>
 						<input type="text" name="user-empresa" id="user-empresa" class="form-control" disabled="disabled" value="<?php echo $usuario['nombre_tienda'];?>" />
 						</div>
 						</div>
-				  		<div class="row">
-					  		<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
 								<label class="control-label" for="username-text"><small><?php echo strTranslate("Username");?></small></label>
 								<input type="text" name="username-text" id="username-text" class="form-control" disabled="disabled" value="<?php echo $_SESSION['user_name'];?>" />
 							</div>
@@ -53,7 +53,7 @@ templateload("na_areasuser", "na_areas");
 								<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" value="<?php echo $usuario['nick'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 							</div>
 						</div>
-				  		<div class="row">
+						<div class="row">
 							<div class="col-md-6">
 								<label class="control-label" for="user-pass"><small><?php echo strTranslate("Password");?></small></label>
 								<input maxlength="100" name="user-pass" id="user-pass" type="password" class="form-control" value="<?php echo $usuario['user_password'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
@@ -63,17 +63,17 @@ templateload("na_areasuser", "na_areas");
 								<input maxlength="100" name="user-repass" id="user-repass" type="password" class="form-control" value="<?php echo $usuario['user_password'];?>" data-alert="<?php echo strTranslate("Password_not_match");?>" />
 							</div>
 						</div>
-				  		<div class="row">
+						<div class="row">
 							<div class="col-md-6">
 								<label class=" control-label" for="user-nombre"><small><?php echo strTranslate("Name");?></small></label>
 								<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" value="<?php echo $usuario['name'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 							</div>
-							<div class="col-md-6">							
+							<div class="col-md-6">
 								<label class="control-label" for="user-apellidos"><small><?php echo strTranslate("Surname");?></small></label>
 								<input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $usuario['surname'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 							</div>
 						</div>
-				  		<div class="row">
+						<div class="row">
 							<div class="col-md-6">
 								<label class="control-label" for="user-email"><small>Email</small></label>
 								<input maxlength="100" name="user-email" id="user-email" type="text" class="form-control" value="<?php echo $usuario['email'];?>" data-alert="<?php echo strTranslate("Required_email");?>" />
@@ -126,11 +126,11 @@ templateload("na_areasuser", "na_areas");
 							<tr><td><label><small><?php echo ucfirst(strTranslate("Last_access"));?></small></label></td><td><small class="text-muted"><?php echo getDateFormat($usuario['last_access'], "DATE_TIME");?></small></td></tr>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_points"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['puntos'];?></small></td></tr>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_shares"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['participaciones'];?></small></td></tr>
-						</table>		
+						</table>
 					</div>
 				</div>
 			</div>
-			<?php if ( 1== 1): ?>
+			<?php if(getModuleExist("na_areas")): ?>
 			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="<?php echo strTranslate("Na_areas");?>">
 				<?php userNaAreas($_SESSION['user_name']);?>
 			</div>

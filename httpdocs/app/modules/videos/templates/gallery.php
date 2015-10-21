@@ -1,5 +1,4 @@
 <?php
-
 templateload("tipuser", "users");
 templateload("player", "videos");
 
@@ -15,15 +14,15 @@ function galleryVideos($elements, $rating, $id_promocion, $cols){
 	if ($cols == 3){ $grid_cols = "col-md-4";}
 	else{$grid_cols = "col-md-3";}
 	foreach($elements as $element):
-	     if ($columna == 1) echo '<div class="row">';
-	     echo '<div class="'.$grid_cols.'">';
-	     showVideoGaleria($element, $rating, 0, $id_promocion);
-	     echo "</div>";
-	     if ($columna == $cols){
-	     	echo '</div>';
-	     	$columna = 0;
-	     }
-	     $columna++;
+		if ($columna == 1) echo '<div class="row">';
+		echo '<div class="'.$grid_cols.'">';
+		showVideoGaleria($element, $rating, 0, $id_promocion);
+		echo "</div>";
+		if ($columna == $cols){
+			echo '</div>';
+			$columna = 0;
+		}
+		$columna++;
 	endforeach;
 	if ($columna <= $cols and $columna > 1) echo '</div>';
 }
@@ -52,16 +51,16 @@ function showVideoGaleria($file_galeria, $rating = true, $id_promocion = 0){
 	if (isset($_REQUEST['pag']) and $_REQUEST['pag'] != "") $destination .= "&pag=".$_REQUEST['pag'];
 	?>
 
-	<div class="thumbnail">	
+	<div class="thumbnail">
 		<?php playVideo("VideoGaleria".$file_galeria['id_file'], PATH_VIDEOS.$file_galeria['name_file'], 240, 180);?>
 		<div class="caption">
 			<div><?php echo $title;?></div>
 			<div>
 				<?php 
 				echo '<a id="a'.$file_galeria['id_file'].'" href="$a'.$file_galeria['id_file'].'Tip?width=350" class="betterTip comunidad-color" title="'.strTranslate("User_info").' <em>'.$file_galeria['nick'].'</em>">
-				<b>'.$nick.'</b> - '.getDateFormat($file_galeria['date_video'], "SHORT").'</a>';							
+				<b>'.$nick.'</b> - '.getDateFormat($file_galeria['date_video'], "SHORT").'</a>';
 				userTip($file_galeria['id_file'], $file_galeria, userEstrellas($file_galeria['participaciones']), 0);
-				?>			
+				?>
 			</div>
 			<div>
 				<?php 
@@ -72,7 +71,7 @@ function showVideoGaleria($file_galeria, $rating = true, $id_promocion = 0){
 				if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="comunidad-color"><b>id:</b></span> '.$file_galeria['id_file'];
 				?>
 			</div>
-		</div>	
+		</div>
 	</div>
 	<?php
 }

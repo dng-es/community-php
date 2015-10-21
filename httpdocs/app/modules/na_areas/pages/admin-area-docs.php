@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
 $na_areas = new na_areas();
@@ -10,7 +9,6 @@ $id_tarea = $_REQUEST['id'];
 $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -26,7 +24,7 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 		na_areasController::deleteDocAction();
 		?>
 
-		<ul class="nav nav-pills navbar-default">     
+		<ul class="nav nav-pills navbar-default">
 			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>">Volver a la gestión del curso</a></li>
 		</ul>
 
@@ -55,7 +53,7 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 			</div>
 		</div>
 
-	<?php if (count($elements)>0){
+	<?php if (count($elements) > 0){
 		echo '<table class="table">';
 		echo '<tr">';
 		echo '<th width="40px">&nbsp;</th>';
@@ -70,19 +68,15 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 			</span>
 			</td>';
 			$ruta = "docs/showfile.php?t=1&file=";
-			if ($element['documento_tipo'] == 'enlace'){$ruta="";}
-			elseif ($element['documento_tipo'] == 'video'){$ruta=PATH_VIDEOS;}
+			if ($element['documento_tipo'] == 'enlace') $ruta = "";
+			elseif ($element['documento_tipo'] == 'video') $ruta = PATH_VIDEOS;
 			echo '<td><a target="_blank" href="'.$ruta.$element['documento_file'].'">'.$element['documento_nombre'].'<a></td>';
 			echo '<td>'.$element['documento_tipo'].'</td>';
-			echo '</tr>';   
+			echo '</tr>';
 		endforeach;
 		echo '</table>';
 	}
-	else{
-		echo '<p>No hay documentos en la tarea</p>';
-	}
-	?>
-  
+	else echo '<p>No hay documentos en la tarea</p>';?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

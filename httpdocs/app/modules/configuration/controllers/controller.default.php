@@ -52,10 +52,10 @@ class configurationController{
 					$thisann = '<span class="label label-success">'.$thisann.'</span>';
 
 				$ann .= $thisann."<br />";
-			endforeach;	
+			endforeach;
 			array_push($listModules, array("folder" => $module['folder'], "ann" => $ann, "icon" => $icon));		
 		endforeach;	
-		return $listModules;	
+		return $listModules;
 	}	
 }
 ?>

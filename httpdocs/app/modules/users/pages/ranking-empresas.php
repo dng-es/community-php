@@ -26,7 +26,7 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 						<?php 	
 						//LOS 10 PRIMEROS DEL RANKING
 						//$total_empresas=$users->getTotalEmpresas();
-						for ($i = 0; $i <= 14; $i++){	
+						for ($i = 0; $i <= 14; $i++){
 							if (isset($puntos[$i])): ?>
 						<tr>
 							<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i+1);?></small></i></td>
@@ -37,7 +37,7 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 							<?php endif;
 						} ?>
 					</table>
-				</div>								
+				</div>
 			</div>
 		</div>
 	</div>
@@ -48,5 +48,5 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 			<p><?php echo $puntos_empresa[0]['nombre_tienda'];?><br />
 			<?php echo $puntos_empresa[0]['puntos_empresa'];?> <?php echo strTranslate("APP_points");?></p>
 		</div>
-	</div>        
+	</div>
 </div>

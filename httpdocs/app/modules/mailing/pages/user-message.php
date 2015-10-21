@@ -1,5 +1,4 @@
 <?php
-
 templateload("cmbListas","mailing");
 
 addJavascripts(array("js/jquery.numeric.js", 
@@ -8,7 +7,6 @@ addJavascripts(array("js/jquery.numeric.js",
 					 "js/bootstrap-datepicker.es.js", 
 					 getAsset("mailing")."js/user-message.js", 
 					 getAsset("mailing")."js/user-message-test.js"));
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -39,8 +37,8 @@ addJavascripts(array("js/jquery.numeric.js",
 					<div class="col-md-6">
 
 						<form role="form" id="formData" name="formData" enctype="multipart/form-data" method="post" action="user-message?id=<?php echo $id;?>&amp;accion2=ok">
-		<!-- 				<input type="hidden" id="email_message" name="email_message" value="<?php echo $ini_conf['MailingEmail']?>"/>
-						<input type="hidden" id="nombre_message" name="nombre_message" value="<?php echo $_SESSION['name'].''.$_SESSION['surname'];?>"/> -->
+		<!-- 				<input type="hidden" id="email_message" name="email_message" value="<?php //echo $ini_conf['MailingEmail']?>"/>
+						<input type="hidden" id="nombre_message" name="nombre_message" value="<?php //echo $_SESSION['name'].''.$_SESSION['surname'];?>"/> -->
 						<input type="hidden" id="template_message" name="template_message" value="<?php echo $id;?>" />
 
 
@@ -96,10 +94,10 @@ addJavascripts(array("js/jquery.numeric.js",
 						<?php if (strpos($plantilla['template_body'], '[DATE_PROMOCION]') !== FALSE): ?>
 						<label for="date_promocion">Fecha fin promoción:</label>
 						<div id="datetimepicker2" class="input-group date">
-						    <input data-format="dd/MM/yyyy" readonly type="text" id="date_promocion" class="form-control" name="date_promocion"></input>
-						    <span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+							<input data-format="dd/MM/yyyy" readonly type="text" id="date_promocion" class="form-control" name="date_promocion"></input>
+							<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 						</div>
-						<?php endif; ?>							
+						<?php endif; ?>
 
 					</div>
 					<div class="col-md-6">
@@ -121,9 +119,9 @@ addJavascripts(array("js/jquery.numeric.js",
 									<br /><span class="text-muted"><small>Realiza el envío a una de tus listas personalizadas</small></span>
 								</label>
 								<br /><br />
-								<?php ComboListas(0);?>	
-								<span id="lista-alert" class="alert-message alert alert-danger"></span>			
-							</div>					
+								<?php ComboListas(0);?> 
+								<span id="lista-alert" class="alert-message alert alert-danger"></span>
+							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="radio">
@@ -134,31 +132,31 @@ addJavascripts(array("js/jquery.numeric.js",
 								<br /><br />
 								<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary pull-right" title="Seleccionar fichero" />
 								<span id="fichero-alert" class="alert-message alert alert-danger"></span>
-							</div>						
+							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="radio">
 								<label>
 									<input type="radio" name="tipo-lista" id="tipo-lista-todos" value="todos" />Todos los usuarios activos
 									<br /><span class="text-muted"><small>Envío a todos los usuarios activos y confirmados</small></span>
-								</label>	
-							</div>					
-						</div>	
-					</div>	
+								</label>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3 class="panel-title"><big>PASO 3</big> - Generar envio</h3></div>
-				<div class="panel-body">					
+				<div class="panel-body">
 					<div class="row"><div class="col-md-12" style="background-color:#fff;padding-top:15px">				
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs">
-						  <li class="active"><a href="#envio" data-toggle="tab">Realizar el envío</a></li>
-						  <li><a href="#prueba" data-toggle="tab">Probar el envío</a></li>
-						  <li><a href="#agenda" data-toggle="tab">Programar el envío</a></li>
-						</ul>		
-							
+							<li class="active"><a href="#envio" data-toggle="tab">Realizar el envío</a></li>
+							<li><a href="#prueba" data-toggle="tab">Probar el envío</a></li>
+							<li><a href="#agenda" data-toggle="tab">Programar el envío</a></li>
+						</ul>
+
 						<div class="tab-content">
 			  				<div class="tab-pane fade in active" id="envio">
 								<div class="col-md-6">
@@ -175,9 +173,9 @@ addJavascripts(array("js/jquery.numeric.js",
 									<p class="text-muted">Envio de prueba: introduce los usuarios separados por coma:</p>
 									<input type="text" name="email_test" id="email_test" value="" class="form-control" />
 								</div>
-								<div class="col-md-6">				
+								<div class="col-md-6">
 									<button type="button" id="SubmitTest" name="SubmitTest" class="btn btn-primary" style="margin-top:48px"><i class="glyphicon glyphicon-envelope"></i> Enviar prueba</button>	
-								</div>									
+								</div>
 							</div>
 
 							<div class="tab-pane fade" id="agenda">
@@ -188,8 +186,8 @@ addJavascripts(array("js/jquery.numeric.js",
 									<div id="datetimepicker1" class="input-group date">
 									    <input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" name="user-date"></input>
 									    <span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-									</div>									
-									<span id="user-date-alert" class="alert-message alert alert-danger"></span>			
+									</div>
+									<span id="user-date-alert" class="alert-message alert alert-danger"></span>
 								</div>
 								<div class="col-md-4">
 									<br />

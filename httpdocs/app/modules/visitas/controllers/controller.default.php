@@ -23,11 +23,10 @@ class visitasController{
 		$visitas ->insertVisita($_SESSION['user_name'], $page, $webpage_id);  
 
 		//puntuacion semanal
-		if(connection::countReg("accesscontrol"," AND username='".$_SESSION['user_name']."' AND WEEK(fecha)=WEEK(NOW()) AND YEAR(fecha)=YEAR(NOW())")==1){
-			users::sumarPuntos($username,PUNTOS_ACCESO_SEMANA,PUNTOS_ACCESO_SEMANA_MOTIVO);
-		}
-		  
+		if(connection::countReg("accesscontrol"," AND username='".$_SESSION['user_name']."' AND WEEK(fecha)=WEEK(NOW()) AND YEAR(fecha)=YEAR(NOW())") == 1) 
+			users::sumarPuntos($username, PUNTOS_ACCESO_SEMANA, PUNTOS_ACCESO_SEMANA_MOTIVO);
+
 		return true;
-	}	
+	}
 }
 ?>

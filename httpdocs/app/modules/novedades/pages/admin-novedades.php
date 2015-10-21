@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 getAsset("novedades")."js/admin-novedades.js"));
@@ -16,13 +15,12 @@ templateload("cmbCanales", "users");
 			array("ItemLabel"=>strTranslate("News_update"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' ); 
+		session::getFlashMessage( 'actions_message' );
 		novedadesController::updateAction();
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form id="formData" name="formData" method="post" enctype="multipart/form-data" action="" role="form">
-
 					<label><?php echo strTranslate("Channel");?>:</label>
 					<select name="canal" id="canal" class="form-control">
 					<?php ComboCanales();?>
@@ -37,7 +35,7 @@ templateload("cmbCanales", "users");
 						var editor=CKEDITOR.replace('texto',{customConfig : 'config-page.js'});
 						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 					</script>
-					<br />	
+					<br />
 					<input type="submit" name="SubmitData" class="btn btn-primary" value="<?php echo strTranslate("Save_data");?>" />
 					<br /><br />
 				</form>

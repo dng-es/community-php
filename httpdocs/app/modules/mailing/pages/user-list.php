@@ -19,7 +19,7 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 		session::getFlashMessage( 'actions_message' );
 		mailingListsController::createAction();
 		mailingListsController::updateAction();
-		$lista = mailingListsController::getItemAction();	
+		$lista = mailingListsController::getItemAction();
 		?>
 		<br />
 		<form role="form" id="formData" name="formData" enctype="multipart/form-data" method="post" action="user-list?id=<?php echo $lista['id_list'];?>">
@@ -29,7 +29,7 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 				<label for="asunto_message">Nombre de la lista:</label>
 				<input class="form-control" type="text" id="name_list" name="name_list" value="<?php echo $lista['name_list']?>"/>
 				<span id="name-alert" class="alert-message alert alert-danger"></span>
-			</div> 
+			</div>
 
 			<div class="form-group">
 				<label for="nombre-fichero">Fichero:</label>
@@ -41,8 +41,8 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 					<div class="col-md-3">
 						<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary">Guardar datos</button>
 					</div>
-				</div>		
-			</div>		
+				</div>
+			</div>
 		</form>
 	</div>
 	<div class="app-sidebar">

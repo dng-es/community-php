@@ -5,20 +5,19 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					 "js/libs/jwplayer/jwplayer.js", 
 					 getAsset("videos")."js/videos.js"));
 
-if (isset($_REQUEST['id']) and $_REQUEST['id']>0){
+if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0){
 	$id_video = $_REQUEST['id'];
 }
 else{
 	//SELECCION ULTIMO VIDEO
-	$filter_videos = ($_SESSION['user_canal']!='admin' ? " AND canal='".$_SESSION['user_canal']."' " : "");			
+	$filter_videos = ($_SESSION['user_canal'] != 'admin' ? " AND canal='".$_SESSION['user_canal']."' " : "");
 	$id_video = connection::SelectMaxReg("id_file", "galeria_videos", $filter_videos." AND estado=1 ");
 }
 
 $pagina_sig = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1 );
 $pagina_com = (isset($_REQUEST['pag2']) ? $_REQUEST['pag2'] : 1 );
 $num_videos = 6;
-
-?>		
+?>
 
 <div class="row row-top">
 	<div class="app-main">
@@ -47,7 +46,7 @@ $num_videos = 6;
 			$comments = videosController::getCommentsListAction(2000, " AND estado=1 AND id_file=".$id_video." ORDER BY id_comentario DESC ");
 			$elements = videosController::getListAction($num_videos, " AND estado=1 ");
 			?>
-			<?php playVideo("VideoGaleria".$id_video,PATH_VIDEOS.$video['name_file'],100,100, "bottom", false, $id_video);?>
+			<?php playVideo("VideoGaleria".$id_video, PATH_VIDEOS.$video['name_file'], 100, 100, "bottom", false, $id_video);?>
 			<h3><?php echo $video['titulo'];?>
 			<small>
 			<span class="legend"><?php echo strTranslate("uploaded_by");?> <b><?php echo $video['nick'];?></b> - <span><?php echo getDateFormat($video['date_video'], "LONG");?></span>
@@ -57,7 +56,7 @@ $num_videos = 6;
 			</span>
 			</small>
 			</h3>
-			<?php if ($module_config['options']['allow_comments']==true): ?>
+			<?php if ($module_config['options']['allow_comments'] == true): ?>
 			<?php addVideoComment($id_video);?>
 			<br />
 			<?php videoCommentGallery($comments['items'], "videos?id=".$id_video."&pag2=".$pagina_com);?>
@@ -67,7 +66,7 @@ $num_videos = 6;
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<?php SearchVideo(1000,"videos?id=".$id_video,"searchForm", strTranslate("Search_video_by_title"), strTranslate("Search"));?>
+			<?php SearchVideo(1000, "videos?id=".$id_video, "searchForm", strTranslate("Search_video_by_title"), strTranslate("Search"));?>
 			<?php PanelSubirVideo(0);?>
 			<div class="alert-message alert alert-danger" id="alertas-participa"></div>
 			<br />
@@ -89,9 +88,9 @@ $num_videos = 6;
 								 <span><small>'.getDateFormat($element['date_video'], "LONG").'</small></span>
 							</div>
 						</div>';
-			endforeach;			
+			endforeach;
 			?>
-			<?php if (($num_videos*$pagina_sig) < $elements['total_reg']): ?>
+			<?php if (($num_videos*$pagina_sig) < $elements['total_reg']):?>
 			<div class="ver-mas">
 				<a href="videos?id=<?php echo $id_video;?>&v=1&pag=<?php echo $pagina_sig+1;?>">
 				<span class="fa fa-search"></span> <?php echo strTranslate("See_more_videos");?></a>

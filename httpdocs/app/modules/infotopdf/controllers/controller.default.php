@@ -23,25 +23,16 @@ class infotopdfController{
 	public static function getItemAction($id){
 		$info = new infotopdf();
 		return $info->getInfo(" AND id_info=".$id);
-	}	
-
-	public static function createAction(){
-		
-	}
-
-	public static function updateAction(){
-
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$info = new infotopdf();
-			if ($info->deleteInfo($_REQUEST['id'],$_REQUEST['d'])) {
-				session::setFlashMessage( 'actions_message', "Registro eliminado correctamente", "alert alert-success");
-			}
-			else{
-				session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
-			}
+			if ($info->deleteInfo($_REQUEST['id'],$_REQUEST['d'])) 
+				session::setFlashMessage('actions_message', "Registro eliminado correctamente", "alert alert-success");
+			else
+				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+
 			redirectURL("admin-info");
 		}
 	}
@@ -61,13 +52,11 @@ class infotopdfController{
 			if (isset($_POST['web_direccion']) and $_POST['web_direccion'] != "") $user_direccion .= "<br />".$_POST['web_direccion'];
 			if (isset($_POST['email_direccion']) and $_POST['email_direccion'] != "") $user_direccion .= "<br />".$_POST['email_direccion'];
 
-
 			$content = $html_content[0]['cuerpo_info'];
 			$content = str_replace($ini_conf['SiteUrl']."/", '', $content);
 			$content = str_replace('[USER_DIRECCION]', $user_direccion, $content);
 			$content = str_replace('[USER_EMPRESA]', $_SESSION['user_empresa'], $content);
 			$content = str_replace('[USER_LOGO]', '<img src="images/usuarios/'.$_SESSION['user_foto'].'" />', $content);
-
 
 			if (isset($_POST['claim_promocion'])) $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);
 			if (isset($_POST['descuento_promocion'])) $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);
@@ -75,7 +64,6 @@ class infotopdfController{
 
 			HTMLtoPDF($content, $html_content[0]['tipo']);
 		}
-	    
 	}
 }
 ?>

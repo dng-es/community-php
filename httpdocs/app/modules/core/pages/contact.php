@@ -7,7 +7,6 @@ include_once($base_dir . "modules/info/classes/class.info.php");
 include_once($base_dir . "modules/info/controllers/controller.default.php");
 
 addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact.js"));
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -38,7 +37,7 @@ addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact.js")
 					<div class="form-group">
 						<label for="subject_form" class="sr-only">Asunto:</label>
 						<input type="text" name="subject_form" id="subject_form" class="form-control"placeholder="<?php echo strTranslate('Message_subject');?>" />
-						<div class="message-form alert alert-danger" id="message-form-subject"><?php echo strTranslate('Introduce_subject');?></div>				
+						<div class="message-form alert alert-danger" id="message-form-subject"><?php echo strTranslate('Introduce_subject');?></div>
 						<br /><textarea cols="56" rows="8" name="body_form" id="body_form" class="jtextarea form-control" placeholder="<?php echo strTranslate('Your_message');?>"></textarea>
 						<div class="message-form alert alert-danger" id="message-form-body"><?php echo strTranslate('Introduce_your_message');?></div>
 					</div>

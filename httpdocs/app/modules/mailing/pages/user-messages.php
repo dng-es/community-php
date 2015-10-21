@@ -60,7 +60,7 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 						<?php endif;?>
 						title="Cancelar" ></span>
 					</td>
-					<?php			
+					<?php 
 					echo '<td>'.$element['message_subject'].'</td>';
 					echo '<td><a href="admin-message-proccess?id='.$element['id_message'].'" class="label '.$estado.'">'.$element['message_status'].'</a></td>';
 					echo '<td>'.getDateFormat($element['date_add'], "SHORT").'</td>';

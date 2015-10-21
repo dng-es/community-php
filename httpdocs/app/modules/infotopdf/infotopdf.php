@@ -4,7 +4,7 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.1.1
 *
-*/	
+*/
 class infotopdfCore{
 	public static function userMenu(){
 		$array_final = array();
@@ -17,8 +17,8 @@ class infotopdfCore{
 							"LabelTarget" => '_self',
 							"LabelPos" => 4));
 		}
-		return $array_final;		
-	}		
+		return $array_final;
+	}
 
 	public static function adminMenu(){
 		return array( 
@@ -39,6 +39,6 @@ class infotopdfCore{
 				"LabelPos" => 2,
 			))
 		);
-	}		
+	}
 }
 ?>

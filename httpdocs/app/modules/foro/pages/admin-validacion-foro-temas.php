@@ -1,5 +1,4 @@
 <?php
-
 foroController::exportTemasAction();
 
 addJavascripts(array(getAsset("foro")."js/admin-validacion-foro-temas.js"));
@@ -54,32 +53,30 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 						$num_visitas = connection::countReg("foro_visitas", " AND id_tema=".$element['id_tema']." ");	  
 						echo '<tr>';
 						echo '<td nowrap="nowrap">
-								<span class="fa fa-ban icon-table" title="Eliminar"
-								    onClick="Confirma(\'¿Seguro que desea eliminar el tema '.$element['id_tema'].'?\',
+								<span class="fa fa-ban icon-table" title="Eliminar" 
+									onClick="Confirma(\'¿Seguro que desea eliminar el tema '.$element['id_tema'].'?\',
 									\'admin-validacion-foro-temas?pag='.(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1).'&act=tema_ko&id='.$element['id_tema'].'&u='.$element['user'].'\')">
 								</span>
 
 								<span class="fa fa-download icon-table" title="Exportar datos"
 									onClick="location.href=\'admin-validacion-foro-temas?export=true&id='.$element['id_tema'].'\'">
 								</span>
-										
-							 </td>';					
+							 </td>';
 						echo '<td><a href="#" class="abrir-modal" title="TemaForo'.$element['id_tema'].'">'.$element['id_tema'].'</a>
-
 								<!-- Modal -->
 								<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								  <div class="modal-dialog">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								        <h4 class="modal-title" id="myModalLabel">Tema en el foro</h4>
-								      </div>
-								      <div class="modal-body">
-										<p><b>'.$element['user'].'</b> cre&oacute; el tema: '.$element['nombre'].'</p>
-										<p><em>'.$element['descripcion'].'</em></p>
-								      </div>
-								    </div><!-- /.modal-content -->
-								  </div><!-- /.modal-dialog -->
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h4 class="modal-title" id="myModalLabel">Tema en el foro</h4>
+											</div>
+											<div class="modal-body">
+												<p><b>'.$element['user'].'</b> cre&oacute; el tema: '.$element['nombre'].'</p>
+												<p><em>'.$element['descripcion'].'</em></p>
+											</div>
+										</div><!-- /.modal-content -->
+									</div><!-- /.modal-dialog -->
 								</div><!-- /.modal -->
 						</td>';
 						$responsables = ($element['responsables'] == 1 ? 'SI' : 'NO');
@@ -89,8 +86,8 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 						echo '<td>'.$element['user'].'</td>';
 						echo '<td>'.$element['canal'].'</td>';
 						echo '<td align="center">'.$num_comentarios.'</td>';
-						echo '<td align="center">'.$num_visitas.'</td>';			
-						echo '</tr>';   
+						echo '<td align="center">'.$num_visitas.'</td>';
+						echo '</tr>';
 					endforeach;?>
 					</table>
 				</div>
@@ -102,9 +99,8 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 	<?php menu::adminMenu();?>
 </div>
 
-
 <?php
-function SearchTemas($tipo_tema){	
+function SearchTemas($tipo_tema){
 	$marcado = ($marca_tipo == 1 ? ' checked="checked" ' : '');
 	?>
 	<form name="SearchTemas" id="SearchTemas" action="" method="post" role="form">

@@ -4,12 +4,12 @@
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0.1
 * 
-*/	
+*/
 class usersCore{
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 */
 	public static function userMenu(){
 		$array_final = array();
 		global $session;
@@ -21,8 +21,8 @@ class usersCore{
 							"LabelTarget" => '_self',
 							"LabelPos" => 8));
 		}
-		return $array_final;		
-	}	
+		return $array_final;
+	}
 
 	/**
 	 * Elementos para el menu de administración
@@ -77,7 +77,7 @@ class usersCore{
 				"LabelItem" => strTranslate("Channel_list"),
 				"LabelUrl" => "admin-canales",
 				"LabelPos" => 6,
-			)),		
+			)),
 /*			menu::addAdminMenu(array(
 				"PageName" => "admin-canal",
 				"LabelHeader" => "Tools",
@@ -103,6 +103,6 @@ class usersCore{
 				"LabelPos" => 3,
 			))
 		);
-	}	
+	}
 }
 ?>

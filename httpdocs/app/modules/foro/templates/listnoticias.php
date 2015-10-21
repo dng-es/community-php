@@ -18,7 +18,7 @@ function ForoList($sub_tema){
 					<span class="contador-foro-counter">'.$num_comentarios.'</span> 
 					<span class="icon-eye-open menuicon-foros" title="visitas al foro"></span>
 					<span class="contador-foro-counter">'.$num_visitas.'</span>'.$tipo_tema.'			
-				</div>		
-			</article>';		
+				</div>
+			</article>';
 }
 ?>

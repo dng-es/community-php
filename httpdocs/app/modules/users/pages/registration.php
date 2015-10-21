@@ -19,23 +19,23 @@ if ($module_config['options']['allow_registration'] === true):
 		if (isset($_POST['username-text']) and $_POST['username-text']!=""){
 			$users = new users();
 			$confirmar=$users->registerUser($_POST['username-text'],
-										   $_POST['user-nick'],
-										   $_POST['user-nombre'],
-										   $_POST['user-apellidos'],
-										   $_POST['user-pass'],
-										   $_POST['user-email'],
-										   $_FILES['nombre-fichero'],
-										   '',
-										   $_POST['user-date'],
-										   $_POST['user-empresa']);
+											$_POST['user-nick'],
+											$_POST['user-nombre'],
+											$_POST['user-apellidos'],
+											$_POST['user-pass'],
+											$_POST['user-email'],
+											$_FILES['nombre-fichero'],
+											'',
+											$_POST['user-date'],
+											$_POST['user-empresa']);
 
 
 			if ($confirmar == 1){
 				$subject_mail = "Alta de usuario en ".$ini_conf['SiteName'];;
 				$template = new tpl("registration", "users");
 				$template->setVars(array(
-				        "title_email" => strTranslate("Registration"),
-				        "registration_link" => 'registration-confirm?a='.sha1($_POST['username-text']).'&b='.sha1($_POST['user-email']).'&c='.sha1($_POST['user-pass'])
+					"title_email" => strTranslate("Registration"),
+					"registration_link" => 'registration-confirm?a='.sha1($_POST['username-text']).'&b='.sha1($_POST['user-email']).'&c='.sha1($_POST['user-pass'])
 				));
 
 				$body_mail = $template->getTpl();
@@ -133,7 +133,7 @@ if ($module_config['options']['allow_registration'] === true):
 					<input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $user_apellidos;?>" placeholder="" />
 					<span id="user-apellidos-alert" class="alert-message alert alert-danger"></span>
 				</div>
-			</div>					
+			</div>
 			<div class="form-group" style="display:none">
 				<label class="col-sm-4 control-label" for="user-date"><?php echo strTranslate("Born_date");?>:</label>
 				<div class="col-sm-8">
@@ -153,7 +153,7 @@ if ($module_config['options']['allow_registration'] === true):
 							echo '$("#datetimepicker1").data("datetimepicker").setLocalDate(new Date (fecha));';
 						}?>
 					});
-				</script>							
+				</script>
 
 				<span id="user-date-alert" class="alert-message alert alert-danger"></span>
 			</div>
@@ -215,7 +215,6 @@ if ($module_config['options']['allow_registration'] === true):
 	</div>
 </div>
 
-
 <!-- Modal -->
 <div class="modal modal-wide fade" id="declaracionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -231,7 +230,7 @@ if ($module_config['options']['allow_registration'] === true):
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<?php } ?>
+<?php }?>
 <?php else: ?>
 	<h1><?php echo strTranslate("Access_denied");?></h1>
 <?php endif; ?>

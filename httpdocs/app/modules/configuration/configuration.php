@@ -8,7 +8,7 @@ class configurationCore{
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function adminMenu(){
 		$elems = array();
 
@@ -29,7 +29,7 @@ class configurationCore{
 			"LabelUrl" => "admin-modules",
 			"LabelPos" => 2,
 		)));
-		
+
 		return $elems;
 	}
 }

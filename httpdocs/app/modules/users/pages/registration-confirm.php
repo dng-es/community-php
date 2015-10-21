@@ -1,4 +1,4 @@
-<div id="confirm-container" class="row">      
+<div id="confirm-container" class="row">
 	<div class="col-md-6">
 		<img src="images/logo01.png" alt="<?php echo $ini_conf['SiteName'];?>" class="responsive login-img" />
 	</div>
@@ -7,9 +7,8 @@
 		<?php
 		$users = new users();
 		if (connection::countReg("users", " AND sha1(username)='".$_REQUEST['a']."' AND sha1(user_password)='".$_REQUEST['c']."' AND sha1(email)='".$_REQUEST['b']."' ") == 1){
-			if($users->confirmRegistration($_REQUEST['a'],$_REQUEST['b'], $_REQUEST['c'])){
+			if($users->confirmRegistration($_REQUEST['a'],$_REQUEST['b'], $_REQUEST['c'])) 
 				echo '<p>Usuario confirmado correctamente. Pincha <a href="login">aquí</a> para acceder.</p>';
-			}
 			else echo '<p>No se encuentran sus datos para realizar la activación</p>';
 		}
 		else echo '<p>No se encuentran sus datos para realizar la activación</p>';

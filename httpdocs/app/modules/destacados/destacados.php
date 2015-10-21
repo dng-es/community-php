@@ -8,7 +8,7 @@ class destacadosCore{
 		/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function adminMenu(){
 		$elems = array();
 
@@ -21,7 +21,7 @@ class destacadosCore{
 			"LabelPos" => 1,
 		)));
 		
-		return $elems;	
+		return $elems;
 	}
 }
 ?>

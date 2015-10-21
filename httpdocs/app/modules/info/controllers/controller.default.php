@@ -6,7 +6,7 @@ class infoController{
 		$filtro = $filter." ORDER BY titulo_info";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("info i",$filtro); 
+		$total_reg = connection::countReg("info i",$filtro);
 		return array('items' => $info->getInfo($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -34,7 +34,7 @@ class infoController{
 					session::setFlashMessage('actions_message', "Ocurrió algún error al subir el contenido. No pudo guardarse el archivo.", "alert alert-danger");
 					redirectURL("admin-info-doc?act=new");
 				}
-		  	}
+			}
 		  	else $nombre_archivo = $_POST['info_url'];
 
 			if ($info->insertInfo($nombre_archivo, $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $download)){
@@ -64,7 +64,7 @@ class infoController{
 					else
 						session::setFlashMessage('actions_message', "Ocurrió algún error al subir el contenido. No pudo guardarse el archivo.", "alert alert-danger");
 				}
-		  	}
+			}
 		  	else $info->updateInfoDoc($_POST['id'], $_POST['info_url']);
 
 			if ($info->updateInfo($_POST['id'], $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $download)) 
@@ -98,11 +98,11 @@ class infoController{
 		$info = new info();
 		$info -> insertAlerts();
 	}
-	
+
 	public static function getAlerts(){
 		$info = new info();
 		$noLeidos = connection::countReg("info", " AND id_info NOT IN (SELECT id_info FROM info_alerts WHERE username_alert = '".$_SESSION['user_name']."')");
 		return $noLeidos;
-	}		
+	}
 }
 ?>
