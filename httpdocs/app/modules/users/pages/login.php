@@ -37,8 +37,8 @@ $module_config = getModuleConfig("users");
 			</div>
 		</form>
 		<div class="container-separator">
-			<?php echo strTranslate("Forgot_your_password");?> <a href="remember" ><?php echo strTranslate("Click_here");?></a><br />
-			<?php if ($module_config['options']['allow_registration'] === true)  echo strTranslate("If_not_registered") .' <a href="registration">'.strTranslate("Register").'</a>';?>
+			<a href="remember" class="login-link"><?php echo strTranslate("Forgot_your_password");?> <i class="fa fa-chevron-circle-right"></i></a>
+			<?php if ($module_config['options']['allow_registration'] === true)  echo '<a href="registration" class="login-link">'.strTranslate("Register").' <i class="fa fa-chevron-circle-right"></i></a>';?>
 			<br /><br />
 		</div>
 	</div>
