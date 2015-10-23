@@ -605,7 +605,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	color: $color1;
 }
 .comment-mini-img{
-	@include border-radius(40px);
+	@include border-radius(100%);
 	@include box-shadow(rgba(0, 0, 0, 0.1) 0 1px 7px 0);
 	display:block;
 	width: 40px;
@@ -1077,7 +1077,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 /*Perfil usuario*/
 .user-perfil-img{
-	border: 10px solid #fff;
+	border: 0px solid #fff;
 	@include border-radius(100%);
 	@include box-shadow(#999 2px 2px 10px);
 	margin: 15px 20% 20px 20%;
@@ -1964,10 +1964,10 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 }
 
 .login-link{
-	color: $color1;
+	color: #e0e0e0 !important;
 	display:block;
-	font-size: $font-size-community + 1;
-	height: 25px;
+	font-size: $font-size-community - 1;
+	height: 20px;
 	margin-right: 10%;
 	padding: 0 20px 10px 20px;
 	outline:none;
@@ -1975,15 +1975,15 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 	@include text-shadow(#000 1px 1px 1px);
 	@include transition(all, 0.3s, ease);
 	&:hover{
-		color:#e0e0e0 !important;
-		font-size: $font-size-community + 5;
+		color:$color1 !important;
+		font-size: $font-size-community + 2;
 		.fa{
 			color: #999;
-			font-size: $font-size-community + 3;
+			font-size: $font-size-community + 1;
 		}
 	}
 	.fa{
 		color: #e0e0e0;
-		font-size: $font-size-community - 2;
+		font-size: $font-size-community - 4;
 	}
 }

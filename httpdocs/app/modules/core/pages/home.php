@@ -82,7 +82,6 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 						<?php endif; ?>
 					</div>
 				</div>
-				<br />
 				<div class="row">
 					<div class="col-md-12 section full-height panel panel-default">
 						<h3><?php echo strTranslate("Last_formus");?></h3>
