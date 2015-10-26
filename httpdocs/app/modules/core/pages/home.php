@@ -99,52 +99,46 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 		<br />
 		<div class="row">
 			<div class="col-md-12">
-		<div class="panel panel-default">
-		<div class="row">
-			<div class="col-md-4 nopadding">
-				<div class="col-md-12 section full-height">
-					<h3><?php echo strTranslate("Last_photos");?></h3>
-					<?php if (isset($last_photo['items'][0])): ?>
-					<div class="media-preview-container">
-						<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo prepareString($last_photo['items'][0]['titulo']);?>" /></a>
-						<div>
-							<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
-							<?php echo $last_photo['items'][0]['nick'];?><br />
-							<span><small><?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></small></span><br />
+				<div class="panel panel-default">
+					<div class="row">
+						<div class="col-md-4 section full-height">
+							<h3><?php echo strTranslate("Last_photos");?></h3>
+							<?php if (isset($last_photo['items'][0])): ?>
+							<div class="media-preview-container">
+								<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo prepareString($last_photo['items'][0]['titulo']);?>" /></a>
+								<div>
+									<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
+									<?php echo $last_photo['items'][0]['nick'];?><br />
+									<span><small><?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></small></span><br />
+								</div>
+							</div>
+							<?php else: ?>
+								<div class="text-muted">Todavía no se han subido fotos</div>
+							<?php endif; ?>
+						</div>
+						<div class="col-md-4 section full-height">
+							<h3><?php echo strTranslate("Last_videos");?></h3>
+							<?php if (isset($last_video['items'][0])): ?>
+							<div class="media-preview-container">
+								<a href="videos">
+								<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo prepareString($last_video['items'][0]['titulo']);?>" /></a>
+								<div>
+									<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
+									<?php echo $last_video['items'][0]['nick'];?><br />
+									<small><span><?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></small></span><br />
+								</div>
+							</div>
+							<?php else: ?>
+								<div class="text-muted">Todavía no se han subido vídeos</div>
+							<?php endif; ?>
+						</div>
+						<div class="col-md-4 section full-height">
+							<h3><?php echo strTranslate("Highlights");?></h3>
+							<?php PanelLastDestacado();?>
 						</div>
 					</div>
-					<?php else: ?>
-						<div class="text-muted">Todavía no se han subido fotos</div>
-					<?php endif; ?>
 				</div>
 			</div>
-			<div class="col-md-4 nopadding">
-				<div class="col-md-12 section full-height">
-					<h3><?php echo strTranslate("Last_videos");?></h3>
-					<?php if (isset($last_video['items'][0])): ?>
-					<div class="media-preview-container">
-						<a href="videos">
-						<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo prepareString($last_video['items'][0]['titulo']);?>" /></a>
-						<div>
-							<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
-							<?php echo $last_video['items'][0]['nick'];?><br />
-							<small><span><?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></small></span><br />
-						</div>
-					</div>
-					<?php else: ?>
-						<div class="text-muted">Todavía no se han subido vídeos</div>
-					<?php endif; ?>
-				</div>
-			</div>
-			<div class="col-md-4 nopadding">
-				<div class="col-md-12 section full-height">
-					<h3><?php echo strTranslate("Highlights");?></h3>
-					<?php PanelLastDestacado();?>
-				</div>
-			</div>
-		</div>
-		</div>
-		</div>
 		</div>
 	</div>
 	<div class="app-sidebar">

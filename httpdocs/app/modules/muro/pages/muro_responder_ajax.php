@@ -48,24 +48,24 @@ include_once($base_dir . "modules/muro/classes/class.muro.php");
 		$votado = connection::countReg("muro_comentarios_votaciones"," AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
 		if ($_SESSION['user_name'] == $comentario_muro['user_comentario']) $votado_user = 1;
 		else $votado_user = 0;
-		echo '<div class="media">';
+		echo '<div class="media">
+				<div class="pull-right text-primary">
+					<span class="muro-votado" id="'.$comentario_muro['id_comentario'].'" value="'.$votado.'"></span>
+					
+					<span class="muro-votado-user" id="user_'.$comentario_muro['id_comentario'].'" value="'.$votado_user.'"></span>
+					<span class="murogusta fa fa-heart '.$comentario_muro['id_comentario'].'" 
+						value="'.$comentario_muro['id_comentario'].'" 
+						href="'.$comentario_muro['votaciones'].'" 
+						title="'.strTranslate("Vote_comment").'">
+						'.$comentario_muro['votaciones'].'
+					</span>
+				</div>';
 		userFicha($comentario_muro);
 		echo '		<p class="comunidad-color"><b>'.$comentario_muro['nick'].'</b> <span class="date-format-ago" data-date="'.$comentario_muro['date_comentario'].'">'.getDateFormat($comentario_muro['date_comentario'], "DATE_TIME").'</span>:';
 		//SOLO LOS ADMIN PUEDEN VER EL CANAL
 		if ($_SESSION['user_canal'] == 'admin'){  echo ' ('.strTranslate("Channel").': '.$comentario_muro['canal_comentario'].')';}
 		echo '		</p>
-					<p id="texto-comentario-'.$comentario_muro['id_comentario'].'">'.$comentario_muro['comentario'].'</p>
-					<div>
-						<span class="muro-votado" id="'.$comentario_muro['id_comentario'].'" value="'.$votado.'"></span>
-						
-						<span class="muro-votado-user" id="user_'.$comentario_muro['id_comentario'].'" value="'.$votado_user.'"></span>
-						<span class="murogusta fa fa-heart '.$comentario_muro['id_comentario'].'" 
-							value="'.$comentario_muro['id_comentario'].'" 
-							href="'.$comentario_muro['votaciones'].'" 
-							title="'.strTranslate("Vote_comment").'">
-							'.$comentario_muro['votaciones'].'
-						</span>
-					</div>';
+					<p id="texto-comentario-'.$comentario_muro['id_comentario'].'">'.$comentario_muro['comentario'].'</p>';
 
 		echo '<div id="muro-result-megusta'.$comentario_muro['id_comentario'].'" class="text-danger"></div>';
 		echo ' <hr>
