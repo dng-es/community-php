@@ -54,12 +54,10 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 			}
 			else $inicio = ($pag - 1) * $reg;
 			$total_reg = connection::countReg("foro_comentarios c", $filtro_comentarios);
-
-
 			?>
 			<div class="panel panel-default panel-comunidad">
 				<div class="panel-footer">
-					<h4><a href="<?php echo $destino.'?id='.$sub_tema['id_tema'];?>"><?php echo $tema['nombre'];?></a></h4>
+					<h2><?php echo $tema['nombre'];?></h2>
 					<span><?php echo getDateFormat($tema['date_tema'], "LONG");?></span>
 					<?php if ($module_config['options']['allow_comments'] == true ):?>
 					<span class="fa fa-comment" title="comentarios en el foro"></span>
@@ -74,8 +72,8 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 				</div>
 			</div>
 			<ul class="pager">
-				<?php previousPost($id_tema);?>
-				<?php nextPost($id_tema);?>
+				<?php previousPost($id_tema, $filtro_blog);?>
+				<?php nextPost($id_tema, $filtro_blog);?>
 			</ul>
 			<?php
 		}

@@ -15,6 +15,8 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 	<head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="css/libs/customscrollbar/jquery.mCustomScrollbar.css" />
+	<script language="JavaScript" src="js/libs/customscrollbar/jquery.mCustomScrollbar.min.js"></script>
 	<script language="JavaScript" src="app/modules/muro/resources/js/muro-respuestas-ajax.js"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function(){

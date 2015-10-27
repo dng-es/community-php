@@ -39,8 +39,8 @@ class cuestionariosCore{
 	 * @return 	array           			Array con los elementos del menu
 	 */
 /*	public static function userMenu(){
-		$array_final = array();
 		global $session;
+		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("cuestionario", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("cuestionario", $_SESSION['user_perfil'], $user_permissions)){
 
@@ -65,6 +65,7 @@ class cuestionariosCore{
 			endif;
 
 		}
+
 		return $array_final;		
 	}*/
 }

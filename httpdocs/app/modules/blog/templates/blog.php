@@ -49,7 +49,7 @@ function categoriasBlog($elements){
 	echo '</ul>';
 }
 
-function nextPost($id_tema){
+function nextPost($id_tema, $filtro_blog){
 	$foro = new foro();
 	$siguiente_disabled = "";
 	$siguiente = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema<".$id_tema." ORDER BY id_tema DESC LIMIT 1");
@@ -62,7 +62,7 @@ function nextPost($id_tema){
 	<?php 
 }
 
-function previousPost($id_tema){
+function previousPost($id_tema, $filtro_blog){
 	$foro = new foro();
 	$anterior_disabled = "";
 	$anterior = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema>".$id_tema." ORDER BY id_tema ASC  LIMIT 1");

@@ -6,10 +6,10 @@ addJavascripts(array(getAsset("users")."js/ranking.js"));
 $users = new users();
 $puntos_user = $users->getUsers(" AND username='".$_SESSION['user_name']."' ");
 $puntuacion_user = $puntos_user[0]['puntos'];
-$posicion_user=users::posicionRanking($_SESSION['user_name']);
+$posicion_user = users::posicionRanking($_SESSION['user_name']);
 if ($_SESSION['user_perfil'] == 'admin') $posicion_user = 0;
 
-$puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username ASC LIMIT 15");
+$puntos = $users->getUsers(" AND perfil<>'admin' AND confirmed=1 AND disabled=0 ORDER BY puntos DESC,username ASC LIMIT 15");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -33,11 +33,12 @@ $puntos = $users->getUsers(" AND perfil<>'admin' ORDER BY puntos DESC,username A
 						//echo '	<p>Los mejores en el ranking, total de usuarios activos: '.$total_usuarios.'</p>';
 
 						for ($i=0;$i<=14;$i++){	
-							if (isset($puntos[$i])):
-								$foto = PATH_USERS_FOTO. ($puntos[$i]['foto'] != "" ? $puntos[$i]['foto'] : "user.jpg"); ?>
+							if (isset($puntos[$i])): ?>
 								<tr>
 									<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i + 1);?></small></i></td>
-									<td width="50px"><img src="<?php echo $foto;?>" width="50px" height="50px" /></td>
+									<td width="60px">
+										<?php userFicha($puntos[$i]); ?>
+									</td>
 									<td>
 										<a href="user-profile?n=<?php echo $puntos[$i]['nick'];?>"><?php echo $puntos[$i]['nick'];?></a> - <?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?>
 										<p class="text-muted"><?php echo $puntos[$i]['nombre_tienda'];?><br />

@@ -62,6 +62,8 @@ $num_videos = 6;
 			<?php videoCommentGallery($comments['items'], "videos?id=".$id_video."&pag2=".$pagina_com);?>
 			<?php Paginator($comments['pag'],$comments['reg'],$comments['total_reg'],$_REQUEST['page']."?id=".$id_video,'',$comments['find_reg'], 10, "", "pag2");?>
 			<?php endif; ?>
+		<?php else:?>
+			<div class="alert alert-warning"><?php echo strTranslate("No_video_uploads");?></div>
 		<?php endif;?>
 	</div>
 	<div class="app-sidebar">
@@ -79,18 +81,21 @@ $num_videos = 6;
 			</h4>
 			<br />
 			<?php	
-			foreach($elements['items'] as $element):
-				echo '<div class="media-preview-container">
-							<a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'">
-							<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.prepareString($element['titulo']).'" /></a>
-							<div><a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'">'.$element['titulo'].'</a><br />
-								 '.$element['nick'].'<br />
-								 <span><small>'.getDateFormat($element['date_video'], "LONG").'</small></span>
-							</div>
-						</div>';
-			endforeach;
+			if ($id_video > 0):
+				foreach($elements['items'] as $element):
+					echo '<div class="media-preview-container">
+								<a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'">
+								<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.prepareString($element['titulo']).'" /></a>
+								<div><a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'">'.$element['titulo'].'</a><br />
+									 '.$element['nick'].'<br />
+									 <span><small>'.getDateFormat($element['date_video'], "LONG").'</small></span>
+								</div>
+							</div>';
+				endforeach;
+			
+				if (($num_videos*$pagina_sig) < $elements['total_reg']):
+			endif;
 			?>
-			<?php if (($num_videos*$pagina_sig) < $elements['total_reg']):?>
 			<div class="ver-mas">
 				<a href="videos?id=<?php echo $id_video;?>&v=1&pag=<?php echo $pagina_sig+1;?>">
 				<span class="fa fa-search"></span> <?php echo strTranslate("See_more_videos");?></a>

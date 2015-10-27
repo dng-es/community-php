@@ -21,8 +21,8 @@ class mailingCore{
 	 * @return 	array           			Array con los elementos del menu
 	 */	
 /*	public static function userMenu(){
-		$array_final = array();
 		global $session;
+		$array_final = array();
 		$array_final_items = array();
 
 		//menu ver todas las comunicaciones	
@@ -64,7 +64,6 @@ class mailingCore{
 								"SubItems" => $array_final_items,
 								"LabelPos" => 2));
 		}
-
 
 		return $array_final;		
 	}*/		

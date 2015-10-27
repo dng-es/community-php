@@ -170,7 +170,6 @@ class session {
 				$_SESSION["session_time"] = time();
 				$_SESSION['user_logged'] = true;
 				$_SESSION['user_name'] = $result_user[0]['username'];
-				$_SESSION['user_name'] = $result_user[0]['username'];
 				$_SESSION['name'] = $result_user[0]['name'];
 				$_SESSION['surname'] = $result_user[0]['surname'];
 				$_SESSION['user_pass'] = $result_user[0]['user_password'];

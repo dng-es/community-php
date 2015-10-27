@@ -1,17 +1,19 @@
 <?php
 function PanelLastDestacado(){
 	$destacados = new destacados();
+	$filtro_destacado = "";
 	if ($_SESSION['user_canal'] != 'admin' ) $filtro_destacado .= " AND canal_destacado='".$_SESSION['user_canal']."' ";
 	$destacado = $destacados->getDestacados($filtro_destacado." AND activo=1 ");
-	$destacado_file = $destacados->getDestacadosFile(" AND d.activo=1 ".$filtro_destacado, $destacado[0]['destacado_tipo']);
-	if (isset($destacado[0])): ?>
+	if (count($destacado) > 0):
+		$destacado_file = $destacados->getDestacadosFile(" AND d.activo=1 ".$filtro_destacado, $destacado[0]['destacado_tipo']);
+		?>
 		<div class="media-preview-container">
 			<?php
-			if ($destacado[0]['destacado_tipo'] == 'foto') {
+			if ($destacado[0]['destacado_tipo'] == 'foto'){
 				echo '<a target="_blank" href="docs/fotos/'.$destacado_file[0]['name_file'].'">
 					<img src="docs/fotos/'.$destacado_file[0]['name_file'].'" class="media-preview" alt="'.prepareString($destacado_file[0]['titulo']).'" /></a>';
 			}
-			elseif ($destacado[0]['destacado_tipo'] == 'video') { 
+			elseif ($destacado[0]['destacado_tipo'] == 'video'){ 
 				echo '<a href="videos?id='.$destacado_file[0]['id_file'].'">
 				<img src="'.PATH_VIDEOS.$destacado_file[0]['name_file'].'.jpg" class="media-preview" alt="'.prepareString($destacado_file[0]['titulo']).'" /></a>';
 			}
@@ -24,7 +26,7 @@ function PanelLastDestacado(){
 				</p>
 			</div>
 		</div>
-	<?php else: ?>
+	<?php else:?>
 		<div class="text-muted">No hay destacado en día de hoy</div>
-	<?php endif; ?>
+	<?php endif;?>
 <?php } ?>

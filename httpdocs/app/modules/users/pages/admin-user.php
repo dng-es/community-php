@@ -5,8 +5,10 @@ addJavascripts(array("js/jquery.geturlparam.js",
 
 templateload("cmbCanales", "users");
 
+$id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
+
 $modules = getListModules(); 
-$user_permissions = usersController::getUserPermissions($_REQUEST['id']);
+$user_permissions = usersController::getUserPermissions($id);
 $special_pages = array("login", "registration", "registration_process", "registration-confirm", "remember", "user-confirm", "users-conn-ajax", "users-conn-data", "admin-puntos-ajax", 
 						"admin-cargas-user-process", "admin-cargas-puntos-process",  
 						"muro_responder_ajax", "muro_process", "muro_todos_ajax", "muro-respuestas", 
@@ -59,7 +61,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							<div class="row">
 								<div class="col-md-6">
 									<label for="username"><small><?php echo strTranslate("Username");?>:</small></label>
-									<input type="text" class="form-big form-control<?php if (isset($_REQUEST['id']) and $_REQUEST['id']!="") {echo ' TextDisabled" readonly="readonly';}?>" id="username" name="username" value="<?php echo $elements[0]['username'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
+									<input type="text" class="form-big form-control<?php if ($id != "") echo ' TextDisabled" readonly="readonly';?>" id="username" name="username" value="<?php echo $elements[0]['username'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
 								</div>
 								<div class="col-md-6">
 									<label for="nick_user"><small><?php echo strTranslate("Nick");?>:</small></label>

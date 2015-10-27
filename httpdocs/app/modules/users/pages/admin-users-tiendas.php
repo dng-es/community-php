@@ -12,7 +12,7 @@ usersTiendasController::exportListAction();
 			array("ItemLabel"=>strTranslate("Users_groups_list"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		$elements = usersTiendasController::getListAction(15);
 		?>
 		<div class="panel panel-default">
@@ -22,7 +22,7 @@ usersTiendasController::exportListAction();
 					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php echo strTranslate("Export");?></a></li>
 					<li><a href="admin-cargas-tiendas"><?php echo strTranslate("Groups_import");?></a></li>
 					<div class="pull-right">
-						<?php SearchForm($reg,"admin-users-tiendas","searchForm",strTranslate("Search_group"),strTranslate("Search"),"","navbar-form navbar-left");?>
+						<?php SearchForm($elements['reg'], "admin-users-tiendas", "searchForm", strTranslate("Search_group"), strTranslate("Search"), "", "navbar-form navbar-left");?>
 					</div>
 				</ul>
 				<div class="table-responsive">

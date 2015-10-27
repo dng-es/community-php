@@ -227,15 +227,17 @@ class menu{
 	 * @return 	array           			Array con datos
 	 */
 	public static function addAdminMenu($elem){
-		global $session;	
-		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission($elem['PageName'], $_SESSION['user_name']));
-		if ($session->checkPageViewPermission($elem['PageName'], $_SESSION['user_perfil'], $user_permissions)){
-			$elem = array("LabelHeader" => $elem['LabelHeader'],
-							"LabelSection" => $elem['LabelSection'],
-							"LabelItem" => $elem['LabelItem'],
-							"LabelUrl" => $elem['LabelUrl'],
-							"LabelPos" => $elem['LabelPos']);
-			return $elem;
+		if (isset($_SESSION['user_logged'])){
+			global $session;	
+			$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission($elem['PageName'], $_SESSION['user_name']));
+			if ($session->checkPageViewPermission($elem['PageName'], $_SESSION['user_perfil'], $user_permissions)){
+				$elem = array("LabelHeader" => $elem['LabelHeader'],
+								"LabelSection" => $elem['LabelSection'],
+								"LabelItem" => $elem['LabelItem'],
+								"LabelUrl" => $elem['LabelUrl'],
+								"LabelPos" => $elem['LabelPos']);
+				return $elem;
+			}
 		}
 	}
 

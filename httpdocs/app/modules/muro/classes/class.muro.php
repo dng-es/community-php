@@ -2,7 +2,7 @@
 class muro{ 
 	public function getComentarios($filter = ""){
 		$Sql = "SELECT c.*,u.*,c.canal AS canal_comentario FROM muro_comentarios c 
-				JOIN users u ON u.username=c.user_comentario 
+				INNER JOIN users u ON u.username=c.user_comentario 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}

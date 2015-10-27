@@ -1,8 +1,8 @@
 <?php
 
-function userTip($id, $user_data, $estrellas_print){
+function userTip($user_data, $estrellas_print){
 	$foto = ($user_data['foto'] == "" ? "user.jpg" : $user_data['foto']);
-	$output = '<div id="a'.$id.'Tip" class="text-left tooltip-media">
+	$output = '<div class="text-left tooltip-media">
 			<table cellpadding="3" cellspacing="0">
 				<tr>
 					<td valign="top">
@@ -23,10 +23,10 @@ function userTip($id, $user_data, $estrellas_print){
 		$fecha_nacimiento=$dia." de ".$mes;
 		$output .= '<span>'.strTranslate("Born_date").': <span class="ficha-user-tip-info">'.$fecha_nacimiento.'</span></span><br />';
 	}
-	//echo '	<span class="ficha-user-tip-info">Centro de trabajo: <span>'.$user_data['nombre_tienda'].'</span></span><br />';
-	//echo '	<span class="ficha-user-tip-info">Provincia: <span>'.$user_data['provincia'].'</span></span><br />';
+	//$output .= '	<span class="ficha-user-tip-info">Centro de trabajo: <span>'.$user_data['nombre_tienda'].'</span></span><br />';
+	//$output .= '	<span class="ficha-user-tip-info">Provincia: <span>'.$user_data['provincia'].'</span></span><br />';
 	$output .= '	<span>'.ucfirst(strTranslate("APP_points")).': <span class="ficha-user-tip-info">'.$user_data['puntos'].'</span></span><br />';
-	$output .= (trim($user_data['user_comentarios'])!="" ? '<br /><i class="left-quote fa fa-quote-left"></i><span class="text-muted"><em><small>'.$user_data['user_comentarios'].'</small></em></span><br />' : "");
+	$output .= (trim($user_data['user_comentarios']) != "" ? '<br /><i class="left-quote fa fa-quote-left"></i><span class="text-muted"><em><small>'.$user_data['user_comentarios'].'</small></em></span><br />' : "");
 	$output .= '	</span>
 					</td>
 				</tr>
@@ -39,7 +39,7 @@ function userTip($id, $user_data, $estrellas_print){
 function userFicha($user_data){
 	$foto = ($user_data['foto'] == "" ? "user.jpg" : $user_data['foto']);
 	$estrellas_print = userEstrellas($user_data['participaciones']);
-	echo '<a data-html="true" class="user-tip pull-left" title="'.str_replace('"', '\'', userTip($user_data['id_comentario'],$user_data,$estrellas_print)).'" id="a'.$user_data['id_comentario'].'" href="user-profile?n='.$user_data['nick'].'" >
+	echo '<a data-html="true" class="user-tip pull-left" title="'.str_replace('"', '\'', userTip($user_data,$estrellas_print)).'" href="user-profile?n='.$user_data['nick'].'" >
 			<img alt="'.prepareString($user_data['nick']).'" class="comment-mini-img" src="'.PATH_USERS_FOTO.$foto.'" />';
 	echo $estrellas_print;
 	echo '</a>';
@@ -48,7 +48,7 @@ function userFicha($user_data){
 function userEstrellas($participaciones){
 	$estrellas = $participaciones/APORTACIONES_VALORACION;
 	$estrellas_print = "";
-	for ($i = 1; $i <= 5; $i++) {
+	for ($i = 1; $i <= 5; $i++){
 		if ($estrellas >= $i) $clase = "fa fa-star star-on";
 		else $clase = "fa fa-star star-off";
 		$estrellas_print .= '<span class="'.$clase.'"></span>';

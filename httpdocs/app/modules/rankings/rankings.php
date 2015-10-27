@@ -11,8 +11,8 @@ class rankingsCore{
 	 * @return 	array           			Array con los elementos del menu
 	 */
 	// public static function userMenu(){
-	// 	$array_final = array();
 	// 	global $session;
+	// 	$array_final = array();
 	// 	$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("ranking", $_SESSION['user_name']));
 	// 	if ($session->checkPageViewPermission("ranking", $_SESSION['user_perfil'], $user_permissions)){
 	// 		array_push($array_final, array("LabelIcon" => "fa fa-trophy",
@@ -21,7 +21,7 @@ class rankingsCore{
 	// 						"LabelTarget" => '_self',
 	// 						"LabelPos" => 8));
 	// 	}
-	// 	return $array_final;		
+	// 	return $array_final;
 	// }	
 
 	/**

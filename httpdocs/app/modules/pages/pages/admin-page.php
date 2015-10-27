@@ -19,7 +19,9 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 
 		$page_name = isset($_REQUEST['p']) ? $_REQUEST['p'] : (isset($_POST['page_name']) ? $_POST['page_name'] : "");
 		$pages = new pages();
-		$pagina = $pages->getPages(" AND page_name='".$page_name."' "); 
+		$pagina = $pages->getPages(" AND page_name='".$page_name."' ");
+
+		$page_content = (isset($pagina[0]['page_content']) ? $pagina[0]['page_content'] : "");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -34,7 +36,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 							echo '<p>URL: <a href="'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'</a></p>';
 						}
 					?>
-					<textarea cols="40" rows="5" id="page_content" name="page_content"><?php echo $pagina[0]['page_content'];?></textarea>
+					<textarea cols="40" rows="5" id="page_content" name="page_content"><?php echo $page_content;?></textarea>
 					<script type="text/javascript">
 						var editor=CKEDITOR.replace('page_content',{customConfig : 'config-page.js'});
 						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;

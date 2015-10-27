@@ -11,8 +11,8 @@ class infoCore{
 	 * @return 	array           			Array con los elementos del menu
 	 */
 	public static function userMenu(){
-		$array_final = array();
 		global $session;
+		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-info-all", $_SESSION['user_name']));
 
 		$module_config = getModuleConfig("info");
@@ -29,6 +29,7 @@ class infoCore{
 							"LabelTarget" => '_self',
 							"LabelPos" => 1));
 		}
+
 		return $array_final;
 	}
 

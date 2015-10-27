@@ -33,7 +33,7 @@
 								</span>
 
 								<span class="fa fa-ban icon-table" title="Eliminar"
-									onClick="Confirma('¿Seguro que deseas eliminar la página?', 'admin-pages?pag=<?php echo $pag;?>&act=del&id=<?php echo $element['page_name'];?>')">
+									onClick="Confirma('¿Seguro que deseas eliminar la página?', 'admin-pages?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['page_name'];?>')">
 								</span>
 							</td>
 							<td><?php echo $element['page_name'];?></td>

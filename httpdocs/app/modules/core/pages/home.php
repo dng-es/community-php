@@ -61,7 +61,6 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<div class="row">
 			<div class="col-md-6">
@@ -129,7 +128,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 								</div>
 							</div>
 							<?php else: ?>
-								<div class="text-muted">Todavía no se han subido vídeos</div>
+								<div class="text-muted"><?php echo strTranslate("No_video_uploads");?></div>
 							<?php endif; ?>
 						</div>
 						<div class="col-md-4 section full-height">

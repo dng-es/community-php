@@ -1,6 +1,8 @@
 <?php
 $foro = new foro();
 $filtro = " AND ocio=1 AND activo=1 ";
+
+$find_reg = "";
 if (isset($_POST['find_reg'])){
 	$filtro .= " AND nombre LIKE '%".$_POST['find_reg']."%' ";
 	$find_reg = $_POST['find_reg'];
@@ -46,7 +48,7 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 					<li><a href="admin-blog-new">Nueva entrada</a></li>
 					<li><a href="<?php echo $_REQUEST['page'];?>?export=true"><?php echo strTranslate("Export");?></a></li>
 					<div class="pull-right">
-						<?php echo SearchForm($elements['reg'], "admin-blog", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>
+						<?php echo SearchForm($reg, "admin-blog", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>
 					</div>
 				</ul>
 

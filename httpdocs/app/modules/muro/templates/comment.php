@@ -2,7 +2,6 @@
 templateload("tipuser", "users");
 
 function commentMuro($comment){
-	global $page, $muro;
 	//respuestas al comentario
 	$respuestas = connection::countReg("muro_comentarios", " AND id_comentario_id=".$comment['id_comentario']." AND estado=1 ");
 	$votado = connection::countReg("muro_comentarios_votaciones", " AND id_comentario=".$comment['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");

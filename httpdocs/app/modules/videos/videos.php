@@ -55,6 +55,7 @@ class videosCore{
 						"LabelTarget" => '_self',
 						"LabelPos" => 2));
 		}
+
 		return $array_final;
 	}
 

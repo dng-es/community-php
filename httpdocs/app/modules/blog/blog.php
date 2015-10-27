@@ -21,8 +21,8 @@ class blogCore{
 	 * @return 	array           			Array con los elementos del menu
 	 */
 	public static function userMenu(){
-		$array_final = array();
 		global $session;
+		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("blog", $_SESSION['user_name']));
 		
 		$module_config = getModuleConfig("blog");
@@ -39,6 +39,7 @@ class blogCore{
 							"LabelTarget" => '_self',
 							"LabelPos" => 2));
 		}
+
 		return $array_final;
 	}
 

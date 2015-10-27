@@ -21,8 +21,16 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 		infoController::updateAction($id);
 		$elements = infoController::getItemAction($id);
 
+		$titulo_info = (isset($elements[0]['titulo_info']) ? $elements[0]['titulo_info'] : "");
+		$canal_info = (isset($elements[0]['canal_info']) ? $elements[0]['canal_info'] : "");
+		$tipo_info = (isset($elements[0]['tipo_info']) ? $elements[0]['tipo_info'] : "");
+		$id_campaign = (isset($elements[0]['id_campaign']) ? $elements[0]['id_campaign'] : "");
+		$download = (isset($elements[0]['download']) ? $elements[0]['download'] : "");
+		$file_info = (isset($elements[0]['download']) ? $elements[0]['file_info'] : "");
+
 		$info = new info();
 		$campaigns = new campaigns();
+
 		?>
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo strTranslate("Edit")." ".strTranslate("Info_Document");?></div>
@@ -33,7 +41,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 						<div class="col-md-6">
 							<div class="form-group">
 								<small><label for="info_title"><?php echo strTranslate("Title");?>:</label></small>
-								<input class="form-control form-bigi" type="text" id="info_title" name="info_title" value="<?php echo $elements[0]['titulo_info'];?>" />
+								<input class="form-control form-bigi" type="text" id="info_title" name="info_title" value="<?php echo $titulo_info;?>" />
 								<span id="title-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
 							</div>
 						</div>
@@ -41,8 +49,8 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 							<div class="form-group">
 								<small><label for="info_canal"><?php echo strTranslate("Channel");?>:</label></small>
 								<select name="info_canal" id="info_canal" class="form-control">
-								<option tp="1" value="todos" <?php if ($elements[0]['canal_info']=='todos'){ echo ' selected="selected" ';}?>>todos los canales</option>
-								<?php ComboCanales($elements[0]['canal_info']); ?>
+								<option tp="1" value="todos" <?php if ($canal_info=='todos'){ echo ' selected="selected" ';}?>>todos los canales</option>
+								<?php ComboCanales($canal_info); ?>
 								</select>
 							</div>
 						</div>
@@ -55,7 +63,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 								<?php
 								$tipo_info = $info->getInfoTipos("");
 								foreach($tipo_info as $tipo):
-									echo '<option value="'.$tipo['id_tipo'].'" '.($tipo['id_tipo']==$elements[0]['tipo_info'] ? 'selected="selected"' : '').'>'.$tipo['nombre_info'].'</option>';
+									echo '<option value="'.$tipo['id_tipo'].'" '.($tipo['id_tipo']==$tipo_info ? 'selected="selected"' : '').'>'.$tipo['nombre_info'].'</option>';
 								endforeach;
 								?>
 								</select>
@@ -68,7 +76,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 								<?php
 								$tipo_campana = $campaigns->getCampaigns(" AND active=1 ");
 								foreach($tipo_campana as $campana):
-									echo '<option value="'.$campana['id_campaign'].'" '.($campana['id_campaign']==$elements[0]['id_campaign'] ? 'selected="selected"' : '').'>'.$campana['name_campaign'].'</option>';
+									echo '<option value="'.$campana['id_campaign'].'" '.($campana['id_campaign'] == $id_campaign ? 'selected="selected"' : '').'>'.$campana['name_campaign'].'</option>';
 								endforeach;
 								?>
 								</select>
@@ -80,10 +88,10 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 							<div class="form-group">
 
 								<small><label for="download">
-									<input type="checkbox" name="download" id="download" <?php echo $elements[0]['download'] == 1 ? 'checked="checked"' : '';?>> Fichero descargable <span class="text-muted">(si no marcas esta opción introducir URL del documento)</span>
+									<input type="checkbox" name="download" id="download" <?php echo $download == 1 ? 'checked="checked"' : '';?>> Fichero descargable <span class="text-muted">(si no marcas esta opción introducir URL del documento)</span>
 								</label></small>
 
-								<input class="form-control" type="text" id="info_url" name="info_url" value="<?php echo $elements[0]['download'] == 1 ? "" : $elements[0]['titulo_info'];?>" />
+								<input class="form-control" type="text" id="info_url" name="info_url" value="<?php echo $download == 1 ? "" : $titulo_info;?>" />
 							</div>
 						</div>
 
@@ -91,8 +99,8 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 							<div class="form-group">
 								<small><label for="info_file">Selecciona el documento:
 								<?php
-								if ($elements[0]['file_info'] != ""){ 
-									$enlace = ($elements[0]['download'] == 1 ? 'docs/showfile.php?file='.$elements[0]['file_info'] : $elements[0]['file_info']);
+								if ($file_info != ""){ 
+									$enlace = ($download == 1 ? 'docs/showfile.php?file='.$file_info : $file_info);
 									echo '<a target="_blank" href="'.$enlace.'">Ver documento actual</a>';
 								}
 								?>
