@@ -36,9 +36,9 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			<div class="panel-body">
 
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
+					<li class="active"><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
 					<?php if ($id_cuestionario > 0 ):?>
-					<li><a href="#formquestions" data-toggle="tab"><?php echo strTranslate("Form_questions");?></a></li>
+					<li><a href="#formquestions" data-toggle="tab"><?php e_strTranslate("Form_questions");?></a></li>
 					<?php endif;?>
 				</ul>	
 
@@ -49,7 +49,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 								<form method="post" name="form-cuestionario" id="form-cuestionario" role="form">
 									<input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $id_cuestionario;?>" />
 
-									<label for="nombre"><?php echo strTranslate("Name");?></label>
+									<label for="nombre"><?php e_strTranslate("Name");?></label>
 									<input type="text" name="nombre" id ="nombre" class="form-control form-big" value="<?php echo $cuestionario_nombre;?>" />
 									<br />
 									<?php
@@ -57,13 +57,13 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 										echo '<p>'.strTranslate("Form").' URL: <a href="'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'" target="_blank">'.$ini_conf['SiteUrl'].'/cuestionario?id='.$id_cuestionario.'</a></p>';
 									}
 									?>
-									<label for="descripcion"><?php echo strTranslate("Description");?>:</label></td></tr>
+									<label for="descripcion"><?php e_strTranslate("Description");?>:</label></td></tr>
 									<textarea cols="40" rows="5" id="descripcion" name="descripcion"><?php echo $cuestionario_descripcion;?></textarea>
 									<script type="text/javascript">
 										var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
 										CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 									</script>
-									<br /><button class="btn btn-primary" id="SubmitCuestionario" name="SubmitCuestionario" type="submit"><?php echo strTranslate("Save");?></button>
+									<br /><button class="btn btn-primary" id="SubmitCuestionario" name="SubmitCuestionario" type="submit"><?php e_strTranslate("Save");?></button>
 								</form>
 							</div>
 						</div>
@@ -98,8 +98,8 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 			<table class="table">
 				<tr>
 					<th width="20px">&nbsp;</th>
-					<th><?php echo strTranslate("Form_question");?></th>
-					<th><?php echo strTranslate("Form_question_type");?></th>
+					<th><?php e_strTranslate("Form_question");?></th>
+					<th><?php e_strTranslate("Form_question_type");?></th>
 				</tr>
 
 				<?php foreach($preguntas as $pregunta): ?>
@@ -116,28 +116,28 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 				<?php endforeach; ?>
 			</table>
 		<?php endif; ?>
-		<h3><?php echo strTranslate("Form_new_question");?></h3>
+		<h3><?php e_strTranslate("Form_new_question");?></h3>
 
 		<div class="area-detalle">
 		<form id="formData" name="formData" method="post" action="admin-cuestionario?act=new&amp;id=<?php echo $id_cuestionario;?>&amp;">
-			<label for="pregunta_texto"><?php echo strTranslate("Form_question");?>:</label>
+			<label for="pregunta_texto"><?php e_strTranslate("Form_question");?>:</label>
 			<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
-			<span id="pregunta-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+			<span id="pregunta-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
 
-			<label for="pregunta_tipo"><?php echo strTranslate("Form_question_type");?>:</label>
+			<label for="pregunta_tipo"><?php e_strTranslate("Form_question_type");?>:</label>
 			<select id="pregunta_tipo" name="pregunta_tipo" class="form-control">
-				<option selected="selected" value="texto"><?php echo strTranslate("Form_question_type_text");?></option>
-				<option value="unica"/><?php echo strTranslate("Form_question_type_radio");?></option>
-				<option value="multiple"><?php echo strTranslate("Form_question_type_check");?></option>
+				<option selected="selected" value="texto"><?php e_strTranslate("Form_question_type_text");?></option>
+				<option value="unica"/><?php e_strTranslate("Form_question_type_radio");?></option>
+				<option value="multiple"><?php e_strTranslate("Form_question_type_check");?></option>
 			</select>
 			<div id="container-respuestas">
-				<a href="#" id="agregar-respuestas" class="btn btn-primary"><?php echo strTranslate("Form_new_answer");?></a><br /><br />
+				<a href="#" id="agregar-respuestas" class="btn btn-primary"><?php e_strTranslate("Form_new_answer");?></a><br /><br />
 				<input type="hidden" name="contador-respuestas" id="contador-respuestas" value="1" />
 				<label id="textoRespuesta1" style="width:70px;display:block;clear:both">Respuesta1:</label>
 				<input class="form-control" id="respuesta1" name="respuesta1" value=""/>
 			</div>
 			<br />
-			<div id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Form_add_question");?></div></td></tr>
+			<div id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Form_add_question");?></div></td></tr>
 		</form>
 		</div>
 		<br />

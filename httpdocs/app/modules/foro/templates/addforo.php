@@ -63,9 +63,9 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 			<input type="file" id="imagen_contenido" name="imagen_contenido" class="inputFile form-control">
 	<?php endif; ?>
 			<label for="nombre-tema" class="sr-only"><?php echo $title_name;?></label>
-			<input type="text" maxlength="100" id="nombre-tema" name="nombre-tema" class="form-control" placeholder="<?php echo strTranslate('Title');?>" title="<?php echo strTranslate("Required_field");?>">
+			<input type="text" maxlength="100" id="nombre-tema" name="nombre-tema" class="form-control" placeholder="<?php e_strTranslate('Title');?>" title="<?php e_strTranslate("Required_field");?>">
 			<label for="texto-descripcion" class="sr-only"><?php echo $title_desc;?></label>
-			<textarea id="texto-descripcion" name="texto-descripcion" class="form-control" placeholder="<?php echo strTranslate('Description');?>" title="<?php echo strTranslate("Required_field");?>"></textarea>
+			<textarea id="texto-descripcion" name="texto-descripcion" class="form-control" placeholder="<?php e_strTranslate('Description');?>" title="<?php e_strTranslate("Required_field");?>"></textarea>
 			<input type="hidden" value="<?php $ocio;?>" name="ocio" id="ocio" />
 			<button type="submit" id="tema-submit" name="tema-submit" class="btn btn-primary btn-block"><?php echo $title_btn;?></button>
 		</form>

@@ -23,8 +23,8 @@ $elements = mailingController::getListAction(20, " AND username_add='".$_SESSION
 		));
 		?>
 		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
+			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+			<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q='.$elements['find_text'].'"><?php e_strTranslate("Export");?> CSV</a></li>
 			<li><a href="user-lists">Mis listas de envío</a></li>
 		</ul>
 		<div class="table-responsive">

@@ -2,7 +2,7 @@
 	<div class="col-md-6">
 		<div class="panel panel-warning">
 			<div class="panel-heading">
-				<h1 class="panel-title"><?php echo strTranslate("Underconstruction");?></h1>
+				<h1 class="panel-title"><?php e_strTranslate("Underconstruction");?></h1>
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -10,7 +10,7 @@
 						<h2 class="text-warning pull-right"><i class="fa fa-coffee fa-big"></i></h2>
 					</div>
 					<div class="col-md-7">
-						<h3 class=" text-warning pull-left"><?php echo strTranslate("Underconstruction_text");?></h3>
+						<h3 class=" text-warning pull-left"><?php e_strTranslate("Underconstruction_text");?></h3>
 					</div>
 				</div>
 			</div>

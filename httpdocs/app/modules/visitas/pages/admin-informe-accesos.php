@@ -434,7 +434,7 @@ $('#containerHoras').highcharts({
 								</div>
 								<div class="col-md-4 label-success inset panel-color full-height">
 									<p class="text-center"><big><?php echo number_format($num_users, 0, ',', '.');?></big><br />
-										<?php echo strTranslate("Users");?>
+										<?php e_strTranslate("Users");?>
 									</p>
 								</div>
 							</div>
@@ -447,7 +447,7 @@ $('#containerHoras').highcharts({
 						<div class="panel-body nopadding">
 							<div class="row">
 								<div class="col-md-8 inset panel-description">
-									<h4><?php echo strTranslate("Groups_user");?> activas</h4>
+									<h4><?php e_strTranslate("Groups_user");?> activas</h4>
 									<div class="text-small">Total <?php echo strtolower(strTranslate("Groups_user"));?> activas en la comunidad<br /><br /></div>
 								</div>
 								<div class="col-md-4 label-info inset panel-color full-height">
@@ -455,7 +455,7 @@ $('#containerHoras').highcharts({
 										$num_empresas = number_format(connection::countReg("users_tiendas", " AND activa=1 "), 0, ',', '.');
 									?>
 									<p class="text-center"><big><?php echo $num_empresas;?></big><br />
-										<?php echo strTranslate("Groups_user");?>
+										<?php e_strTranslate("Groups_user");?>
 									</p>
 								</div>
 							</div>

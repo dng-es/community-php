@@ -55,8 +55,8 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 			<div class="panel-interior">
 				<h4>Envío de comunicaciones</h4>
 				<ul class="list-funny">
-					<li><a href="user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br /></li>
-					<li><a href="user-messages" class="comunidad-color">Mis comunicaciones enviadas</a></li>
+					<li><a href="user-templates" class="text-primary">Ir a todas las comunicaciones</a><br /></li>
+					<li><a href="user-messages" class="text-primary">Mis comunicaciones enviadas</a></li>
 			</div>
 		</div>
 	</div>

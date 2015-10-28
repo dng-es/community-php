@@ -57,8 +57,7 @@ function showVideoGaleria($file_galeria, $rating = true, $id_promocion = 0){
 			<div><?php echo $title;?></div>
 			<div>
 				<?php 
-				echo '<a id="a'.$file_galeria['id_file'].'" href="$a'.$file_galeria['id_file'].'Tip?width=350" class="betterTip comunidad-color" title="'.strTranslate("User_info").' <em>'.$file_galeria['nick'].'</em>">
-				<b>'.$nick.'</b> - '.getDateFormat($file_galeria['date_video'], "SHORT").'</a>';
+				echo '<span class="text-primary"><b>'.$nick.'</b> - '.getDateFormat($file_galeria['date_video'], "SHORT").'</span>';
 				userTip($file_galeria['id_file'], $file_galeria, userEstrellas($file_galeria['participaciones']), 0);
 				?>
 			</div>
@@ -68,7 +67,7 @@ function showVideoGaleria($file_galeria, $rating = true, $id_promocion = 0){
 				if ($rating) $votes = ' <a href="'.$page.'&id='.$id_promocion.'&idvv='.$file_galeria['id_file'].$destination.'" title="'.strTranslate("Vote_video").'" class="fa fa-heart"></a> '.$file_galeria['videos_puntos'];
 				else $votes = ' <span class="fa fa-heart"></span> '.$file_galeria['videos_puntos'];
 				echo $votes;
-				if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="comunidad-color"><b>id:</b></span> '.$file_galeria['id_file'];
+				if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="text-primary"><b>id:</b></span> '.$file_galeria['id_file'];
 				?>
 			</div>
 		</div>

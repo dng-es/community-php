@@ -18,7 +18,7 @@ global $modules_data;
 
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<p><?php echo strTranslate("Modules_installed");?></p><br />
+				<p><?php e_strTranslate("Modules_installed");?></p><br />
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
 						<?php foreach($modules as $module):
@@ -44,7 +44,7 @@ global $modules_data;
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel"><?php echo strTranslate("Configuration");?> <small></small></h4>
+				<h4 class="modal-title" id="myModalLabel"><?php e_strTranslate("Configuration");?> <small></small></h4>
 			</div>
 			<div class="modal-body"></div>
 		</div><!-- /.modal-content -->

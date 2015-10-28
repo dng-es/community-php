@@ -32,14 +32,14 @@ else $pagina = 1;
 		<div class="panel-interior">
 			<form id="muro-form" name="coment-form" action="" method="post" role="form">
 				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />
-				<h4><?php echo strTranslate("New_comment_on_wall");?></h4>
+				<h4><?php e_strTranslate("New_comment_on_wall");?></h4>
 				<textarea maxlength="160" class="form-control muro-texto" id="texto-comentario" name="texto-comentario"></textarea>
 				<?php if ($_SESSION['user_canal'] == 'admin'):?>
 				<select name="canal_comentario" id="canal_comentario" class="form-control">
 					<?php ComboCanales();?>
 				</select>
 				<?php endif;?>
-				<button class="muro-enviar btn btn-primary btn-block" type="button" id="muro-submit" value="Enviar" name="coment-submit"><?php echo strTranslate("Send");?></button>
+				<button class="muro-enviar btn btn-primary btn-block" type="button" id="muro-submit" value="Enviar" name="coment-submit"><?php e_strTranslate("Send");?></button>
 			</form>
 			<br /><div id="result-muro"></div>
 		</div>

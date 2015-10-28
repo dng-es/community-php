@@ -33,7 +33,7 @@ $grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tar
 		));
 		?>
 		<ul class="nav nav-pills navbar-default"> 
-			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>"><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Go_back");?></a></li>
+			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>"><i class="fa fa-mail-reply"></i> <?php e_strTranslate("Go_back");?></a></li>
 		</ul>
 		<div class="row">
 			<form id="formData" name="formData" method="post" action="">

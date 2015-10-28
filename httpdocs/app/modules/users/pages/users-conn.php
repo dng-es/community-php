@@ -31,7 +31,7 @@ $users_conn = count($users->getUsersConn($filtroCanal));
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-plug fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Users_connected");?>
+				<?php e_strTranslate("Users_connected");?>
 			</h4>
 			<p>Ahora mismo hay <strong><?php echo $users_conn;?></strong> usuarios conectados.</p>
 			<p class="text-muted">Haciendo click sobre el usuario le puedes mandar un mensaje.</p>

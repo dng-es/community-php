@@ -13,8 +13,8 @@ $pendientes = blogController::getCommentsAction();
 		));?>
 
 		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="admin-blog-new?id=<?php echo $_REQUEST['id'];?>"><?php echo strTranslate("Edit");?></a></li>
+			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+			<li><a href="admin-blog-new?id=<?php echo $_REQUEST['id'];?>"><?php e_strTranslate("Edit");?></a></li>
 			<li><a href="admin-blog-foro?id=<?php echo $_REQUEST['id'];?>&export=true">Exportar</a></li>
 			<li><a href="blog?id=<?php echo $_REQUEST['id'];?>">Ver entrada</a></li>
 		</ul>

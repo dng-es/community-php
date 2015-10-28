@@ -20,7 +20,7 @@ $puntos = $users->getUsers(" AND perfil<>'admin' AND confirmed=1 AND disabled=0 
 			array("ItemLabel"=>strTranslate("Ranking_users"), "ItemClass"=>"active"),
 		));
 		?>
-		<p><?php echo strTranslate("Ranking_users_text");?>:</p><br />
+		<p><?php e_strTranslate("Ranking_users_text");?>:</p><br />
 
 		<div class="row">
 			<div class="col-md-12">
@@ -55,14 +55,14 @@ $puntos = $users->getUsers(" AND perfil<>'admin' AND confirmed=1 AND disabled=0 
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<a href="ranking-empresas" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_companies_ranking");?></a>
-			<h3><?php echo strTranslate("Your_ranking");?> <small><?php echo $posicion_user;?></small></h3>
+			<a href="ranking-empresas" class="btn btn-primary btn-block"><?php e_strTranslate("Go_to_companies_ranking");?></a>
+			<h3><?php e_strTranslate("Your_ranking");?> <small><?php echo $posicion_user;?></small></h3>
 			<p><?php echo $puntos_user[0]['name'].' '.$puntos_user[0]['surname'];?><br />
 			<?php echo $puntos_user[0]['nombre_tienda'];?><br />
-			<?php echo $puntos_user[0]['puntos'];?> <?php echo strTranslate("APP_points");?>
+			<?php echo $puntos_user[0]['puntos'];?> <?php e_strTranslate("APP_points");?>
 			</p>
 			<hr />
-			<h3>¿Cómo ganar <?php echo strTranslate("APP_points");?>?</h3>
+			<h3>¿Cómo ganar <?php e_strTranslate("APP_points");?>?</h3>
 			<ul class="list-funny">
 			<li><span class="text-primary"><?php echo PUNTOS_ACCESO_SEMANA." ".strTranslate("APP_points");?></span> por entrar 1 vez a la semana en la comunidad</li>
 			<li><span class="text-primary"><?php echo PUNTOS_FORO_SEMANA." ".strTranslate("APP_points");?></span> por participar 1 vez por semana en los foros</li>

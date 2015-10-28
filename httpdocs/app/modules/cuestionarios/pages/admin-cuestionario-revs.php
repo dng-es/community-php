@@ -28,9 +28,9 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 		$revisiones = $cuestionarios->getFormulariosFinalizados($filtro);   
 		?>
 		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($revisiones);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="#" onClick="Confirma('¿Estas seguro de vaciar los registros?, los datos no podrán ser recuperados.', 'admin-cuestionario-revs?act=del&id=<?php echo $id_cuestionario;?>')"><?php echo strTranslate("Delete_items");?></a></li>
-			<li><a href="admin-cuestionario-revs?t3=1&id=<?php echo $id_cuestionario;?>"><?php echo strTranslate("Export");?></a></li>
+			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo count($revisiones);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+			<li><a href="#" onClick="Confirma('¿Estas seguro de vaciar los registros?, los datos no podrán ser recuperados.', 'admin-cuestionario-revs?act=del&id=<?php echo $id_cuestionario;?>')"><?php e_strTranslate("Delete_items");?></a></li>
+			<li><a href="admin-cuestionario-revs?t3=1&id=<?php echo $id_cuestionario;?>"><?php e_strTranslate("Export");?></a></li>
 		</ul>
 		
 		<?php if (count($revisiones) == 0): ?>
@@ -40,9 +40,9 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 				<table class="table table-striped table-hover">
 					<tr>
 						<th width="70px"></th>
-						<th><?php echo strTranslate("User");?></th>
+						<th><?php e_strTranslate("User");?></th>
 						<th>Puntuación</th>
-						<th><?php echo strTranslate("Date");?></th>
+						<th><?php e_strTranslate("Date");?></th>
 						<th>Respuestas</th>
 					</tr>
 					<?php foreach($revisiones as $revision):

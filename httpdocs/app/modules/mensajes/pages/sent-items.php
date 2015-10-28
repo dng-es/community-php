@@ -20,15 +20,15 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<p><?php echo strTranslate("Mailing_messages");?> <span id="contador-leidos"><?php echo $elements['total_reg'];?></span> | 
-				<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message_app");?></a> | <a href="inbox"><?php echo strTranslate("Mailing_inbox");?></a></p>
+				<p><?php e_strTranslate("Mailing_messages");?> <span id="contador-leidos"><?php echo $elements['total_reg'];?></span> | 
+				<a href="#" id="mensaje-new-trigger"><?php e_strTranslate("New_message_app");?></a> | <a href="inbox"><?php e_strTranslate("Mailing_inbox");?></a></p>
 				<div class="table-responsive container-min">
 					<table class="table">
 					<?php foreach($elements['items'] as $mensaje): ?>
 						<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo MensajeLeido">
 							<td nowrap="nowrap" valign="top">
 								<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'sent-items?act=ko&id=<?php echo $mensaje['id_mensaje'];?>')" title="<?php echo  strTranslate("Delete");?>"></span>
-								<span class="fa fa-reply icon-table message-forward" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php echo strTranslate("Forward");?>"></span>			
+								<span class="fa fa-reply icon-table message-forward" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php e_strTranslate("Forward");?>"></span>			
 							</td>
 							<td valign="top" nowrap="nowrap"><span id="leidoMensajeNick<?php echo $mensaje['id_mensaje'];?>"><span id="message-nick-<?php echo $mensaje['id_mensaje'];?>"><?php echo $mensaje['nick'];?></span></span></td>
 							<td width="100%" valign="top">
@@ -52,8 +52,8 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php echo SearchForm(0, "sent-items", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "");?>
-			<h4><?php echo strTranslate("Your_messages");?></h4>
-			<p><?php echo strTranslate("Mailing_text");?></p>
+			<h4><?php e_strTranslate("Your_messages");?></h4>
+			<p><?php e_strTranslate("Mailing_text");?></p>
 		</div>
 	</div>
 </div>

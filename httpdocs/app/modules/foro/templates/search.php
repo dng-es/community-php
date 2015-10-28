@@ -13,7 +13,7 @@ function ForoSearch($reg, $pag, $iniValue, $marca_tipo, $tipo_tema){ ?>
 		<form action="<?php echo $pag.'&regs='.$reg;?>" method="post" role="search">
 		<div class="input-group">
 			<label class="sr-only" for="find_reg">Introduce el nombre del foro a buscar</label>
-			<input id="find_reg" name="find_reg" type="text" value="<?php echo $iniValue;?>" class="form-control" placeholder="<?php echo strTranslate("Search");?>" />
+			<input id="find_reg" name="find_reg" type="text" value="<?php echo $iniValue;?>" class="form-control" placeholder="<?php e_strTranslate("Search");?>" />
 			<input type="hidden" name="registros_form" value="<?php echo $reg;?>" />
 			<!-- <?php //if ($_SESSION['user_perfil']=='admin'): ?>
 				<div class="form-group">

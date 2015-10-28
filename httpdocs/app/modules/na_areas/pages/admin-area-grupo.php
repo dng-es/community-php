@@ -27,7 +27,7 @@ $usuarios_grupo = $na_areas->getGruposUsersUsuarios(" AND id_grupo=".$id_grupo."
 		));
 		?>
 		<ul class="nav nav-pills navbar-default">
-			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>"><i class="fa fa-mail-reply"></i> <?php echo strTranslate("Go_back");?></a></li>
+			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>"><i class="fa fa-mail-reply"></i> <?php e_strTranslate("Go_back");?></a></li>
 		</ul>
 		<div class="row">
 			<div class="col-md-5">

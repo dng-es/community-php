@@ -33,21 +33,21 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 
 		?>
 		<div class="panel panel-default">
-			<div class="panel-heading"><?php echo strTranslate("Edit")." ".strTranslate("Info_Document");?></div>
+			<div class="panel-heading"><?php e_strTranslate("Edit")." ".strTranslate("Info_Document");?></div>
 			<div class="panel-body">
 				<form id="formData" role="form" name="formData" method="post" enctype="multipart/form-data" action="">
 					<input type="hidden" name="id" value="<?php echo $id;?>" />
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<small><label for="info_title"><?php echo strTranslate("Title");?>:</label></small>
+								<small><label for="info_title"><?php e_strTranslate("Title");?>:</label></small>
 								<input class="form-control form-bigi" type="text" id="info_title" name="info_title" value="<?php echo $titulo_info;?>" />
-								<span id="title-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+								<span id="title-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<small><label for="info_canal"><?php echo strTranslate("Channel");?>:</label></small>
+								<small><label for="info_canal"><?php e_strTranslate("Channel");?>:</label></small>
 								<select name="info_canal" id="info_canal" class="form-control">
 								<option tp="1" value="todos" <?php if ($canal_info=='todos'){ echo ' selected="selected" ';}?>>todos los canales</option>
 								<?php ComboCanales($canal_info); ?>
@@ -58,7 +58,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<small><label for="info_tipo"><?php echo strTranslate("Type");?>:</label></small>
+								<small><label for="info_tipo"><?php e_strTranslate("Type");?>:</label></small>
 								<select name="info_tipo" id="info_tipo" class="form-control">
 								<?php
 								$tipo_info = $info->getInfoTipos("");
@@ -71,7 +71,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<small><label for="info_campana"><?php echo strTranslate("Campaign");?>:</label></small>
+								<small><label for="info_campana"><?php e_strTranslate("Campaign");?>:</label></small>
 								<select name="info_campana" id="info_campana" class="form-control">
 								<?php
 								$tipo_campana = $campaigns->getCampaigns(" AND active=1 ");
@@ -105,14 +105,14 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 								}
 								?>
 								</label></small>
-								<br /><input name="info_file" id="info_file" type="file" class="btn btn-primary" title="<?php echo strTranslate("Choose_file");?>" />
+								<br /><input name="info_file" id="info_file" type="file" class="btn btn-primary" title="<?php e_strTranslate("Choose_file");?>" />
 								<span id="file-alert" class="alert-message"></span>
 							</div>
 						</div>
 					</div>
 
 					<br /><br />
-					<input type="button" name="SubmitData" id="SubmitData" class="btn btn-primary pull-right" value="<?php echo strTranslate("Save_data");?>" />
+					<input type="button" name="SubmitData" id="SubmitData" class="btn btn-primary pull-right" value="<?php e_strTranslate("Save_data");?>" />
 				</form>	
 			</div>
 		</div>

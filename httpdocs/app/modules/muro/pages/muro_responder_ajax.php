@@ -61,7 +61,7 @@ include_once($base_dir . "modules/muro/classes/class.muro.php");
 					</span>
 				</div>';
 		userFicha($comentario_muro);
-		echo '		<p class="comunidad-color"><b>'.$comentario_muro['nick'].'</b> <span class="date-format-ago" data-date="'.$comentario_muro['date_comentario'].'">'.getDateFormat($comentario_muro['date_comentario'], "DATE_TIME").'</span>:';
+		echo '		<p class="text-primary"><b>'.$comentario_muro['nick'].'</b> <span class="date-format-ago" data-date="'.$comentario_muro['date_comentario'].'">'.getDateFormat($comentario_muro['date_comentario'], "DATE_TIME").'</span>:';
 		//SOLO LOS ADMIN PUEDEN VER EL CANAL
 		if ($_SESSION['user_canal'] == 'admin'){  echo ' ('.strTranslate("Channel").': '.$comentario_muro['canal_comentario'].')';}
 		echo '		</p>

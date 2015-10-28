@@ -18,8 +18,8 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p><?php echo strTranslate("Info_collapse");?></p>
-						<p class="text-muted"><small>Total <?php echo strTranslate("Campaigns");?> <?php echo $elements['total_reg'];?></small></p>
+						<p><?php e_strTranslate("Info_collapse");?></p>
+						<p class="text-muted"><small>Total <?php e_strTranslate("Campaigns");?> <?php echo $elements['total_reg'];?></small></p>
 					</div>
 				</div>
 			</div>
@@ -36,7 +36,7 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 								<a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $element['id_campaign'];?>" aria-expanded="false" aria-controls="collapse<?php echo $element['id_campaign'];?>">
 									<i class="fa fa-folder"></i> 
 									<?php echo $element['name_campaign'];?> 
-									<small><?php echo $num_docs;?> <?php echo strTranslate("Info_Documents");?></small>
+									<small><?php echo $num_docs;?> <?php e_strTranslate("Info_Documents");?></small>
 								</a>
 							</h4>
 						</div>
@@ -48,13 +48,13 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 								?>
 									<div class="row">
 										<div class="col-md-12">
-											<h5><a title="<?php echo strTranslate("Download_file");?>" <?php echo $enlace;?> >
+											<h5><a title="<?php e_strTranslate("Download_file");?>" <?php echo $enlace;?> >
 												<i class="fa fa-file-o"></i> <?php echo $elements_info['titulo_info'];?></a><br /><small><?php echo getDateFormat($elements_info['date_info'], "LONG"); ?></small></h5>
 										</div>
 									</div>
 								<?php endforeach;?>
 								<?php if ($num_docs == 0):?>
-									<p class="text-muted"><?php echo strTranslate("No_files_in_this_section");?>.</p>
+									<p class="text-muted"><?php e_strTranslate("No_files_in_this_section");?>.</p>
 								<?php endif;?>
 							</div>
 						</div>
@@ -69,8 +69,8 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 		<div class="panel-interior">
 
 			<?php echo SearchForm(0, "info-search", "searchForm", strTranslate("Info_search"), strTranslate("Search"), "", "", "get");?>
-			<h4><?php echo strTranslate("Info_Documents");?></h4>
-			<p><?php echo strTranslate("Info_Documents_Text");?>.</p>
+			<h4><?php e_strTranslate("Info_Documents");?></h4>
+			<p><?php e_strTranslate("Info_Documents_Text");?>.</p>
 			<p class="text-center"><i class="fa fa-newspaper-o fa-big"></i></p>
 		</div>
 	</div>

@@ -1,7 +1,7 @@
 <?php
 function playVideo($id_contenedor, $nombre_video, $ancho_video, $alto_video, $controlBar = "bottom", $autostart = false, $id_file = 0){?>
 	<div class="videoplayer">
-		<div id="<?php echo $id_contenedor;?>"><?php echo strTranslate('Loading');?> ...</div> 
+		<div id="<?php echo $id_contenedor;?>"><?php e_strTranslate('Loading');?> ...</div> 
 		<script type="text/javascript"> 
 		jwplayer("<?php echo $id_contenedor;?>").setup({ 
 			file: "<?php echo $nombre_video;?>", 

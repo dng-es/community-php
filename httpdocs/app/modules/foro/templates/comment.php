@@ -21,8 +21,8 @@ function commentForo($comment, $destino = "foro-comentarios"){
 			<p><?php echo showHtmlLinks($comment['comentario']);?></p>
 			
 			<div class="comment-info">
-				<span class="comment-reply-trigger label" title="<?php echo strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i></span> 
-				<span class="label" title="<?php echo strTranslate("Vote_comment");?>"><a href="<?php echo $destino.'?id='.$comment['id_tema'].'&idvf='.$comment['id_comentario'].'&pag='.$page_num;?>">
+				<span class="comment-reply-trigger label" title="<?php e_strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i></span> 
+				<span class="label" title="<?php e_strTranslate("Vote_comment");?>"><a href="<?php echo $destino.'?id='.$comment['id_tema'].'&idvf='.$comment['id_comentario'].'&pag='.$page_num;?>">
 				<i class="fa fa-heart"></i> <?php echo $comment['votaciones'];?></a></span>
 				<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label" title="ID del comentario">id: '.$comment['id_comentario'].'</span>'; ?>
 			</div>
@@ -32,7 +32,7 @@ function commentForo($comment, $destino = "foro-comentarios"){
 					<input type="hidden" name="id_tema" value="<?php echo $comment['id_tema'];?>" />
 					<textarea class="form-control" name="comment-reply-txt"  class="comment-reply-txt"></textarea>
 					<div class="alert-message alert alert-danger">Introduce tu respuesta</div>
-					<button type="submit" class="btn btn-primary"><?php echo strTranslate("Reply");?></button>
+					<button type="submit" class="btn btn-primary"><?php e_strTranslate("Reply");?></button>
 				</form>
 			</div>
 			<?php 

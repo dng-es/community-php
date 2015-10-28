@@ -20,7 +20,7 @@ $comentario_muro = $muro->getComentarios($filtro_comentario);
 			<div class="panel-body">
 				<i class="left-quote fa fa-quote-left"></i>
 				<p>
-					<small><b><?php echo $comentario_muro[0]['nick'];?> <?php echo strTranslate("says");?>:</b></small><br />
+					<small><b><?php echo $comentario_muro[0]['nick'];?> <?php e_strTranslate("says");?>:</b></small><br />
 					<em class="text-muted"><?php echo $comentario_muro[0]['comentario'];?></em>
 				</p>
 			</div>
@@ -38,9 +38,9 @@ $comentario_muro = $muro->getComentarios($filtro_comentario);
 		<div class="panel-interior">
 			<form id="form-responder-muro" name="form-responder-muro" action="" method="post" role="form">
 				<input type="hidden" name="id_comentario_responder" id ="id_comentario_responder" value="<?php echo $id_comentario;?>" />
-				<h4><?php echo strTranslate("New_comment_on_wall");?></h4>
+				<h4><?php e_strTranslate("New_comment_on_wall");?></h4>
 				<textarea maxlength="160" class="form-control" id="texto-responder" name="texto-responder"></textarea>
-				<button class="btn btn-primary btn-block" type="button" id="muro-submit" name="muro-submit"><?php echo strTranslate("Reply");?></button>
+				<button class="btn btn-primary btn-block" type="button" id="muro-submit" name="muro-submit"><?php e_strTranslate("Reply");?></button>
 			</form>	
 			<div id="result-muro"></div>
 		</div>

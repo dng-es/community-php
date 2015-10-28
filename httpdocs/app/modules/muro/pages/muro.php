@@ -53,12 +53,12 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 			commentMuro($comentario_muro);
 		endforeach;
 		if (count($comentarios_muro) == 0):?>
-		<div class="alert alert-warning"><?php echo strTranslate("No_comments_on_wall");?></div>
+		<div class="alert alert-warning"><?php e_strTranslate("No_comments_on_wall");?></div>
 		<?php endif;?>
 		</div>
 		<div class="ver-mas">
 			<a href="muro-comentarios?id=principal">
-			<span class="fa fa-search"></span> <?php echo strTranslate("More_comments");?></a>
+			<span class="fa fa-search"></span> <?php e_strTranslate("More_comments");?></a>
 		</div>
 	</body>
 </html>

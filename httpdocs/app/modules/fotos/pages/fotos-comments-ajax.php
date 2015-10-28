@@ -36,10 +36,10 @@ $module_config = getModuleConfig("fotos");
 			<?php showFotoModal($files_galeria[0], true, 0, 0);?>
 			<?php if ($module_config['options']['allow_comments'] == true): ?>
 			<form action="" method="post" role="form" id="form-comentario-fotos" name="form-comentario-fotos" class="panel-interior">
-				<label for="respuesta-texto"><?php echo strTranslate("Photo_comment_new");?></label>
+				<label for="respuesta-texto"><?php e_strTranslate("Photo_comment_new");?></label>
 				<input type="hidden" name="id_file" id="id_file" value="<?php echo $files_galeria[0]['id_file'];?>" />
 				<textarea class="form-control" name="respuesta-texto" id="respuesta-texto"></textarea>
-				<button type="submit" class="btn btn-primary btn-block"><?php echo strTranslate("Send");?></button>
+				<button type="submit" class="btn btn-primary btn-block"><?php e_strTranslate("Send");?></button>
 				<div id="respuesta-alert" class="alert-message alert alert-danger"></div>
 			</form>
 			<div id="respuestas-result" class="alert-message alert alert-success"></div>

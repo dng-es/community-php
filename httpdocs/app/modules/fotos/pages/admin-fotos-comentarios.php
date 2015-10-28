@@ -33,9 +33,9 @@ $pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_fi
 				<tr>
 					<th width="40px">&nbsp;</th>
 					<th>ID</th>
-					<th><?php echo strTranslate("Comment");?></th>
-					<th><?php echo strTranslate("Author");?></th>
-					<th><?php echo strTranslate("Date");?></th>
+					<th><?php e_strTranslate("Comment");?></th>
+					<th><?php e_strTranslate("Author");?></th>
+					<th><?php e_strTranslate("Date");?></th>
 				</tr>
 
 				<?php foreach($pendientes as $element):

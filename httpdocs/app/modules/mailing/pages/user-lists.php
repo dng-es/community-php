@@ -19,17 +19,17 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 		));
 		?>
 		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
-			<li><a href="user-list?act=new"><?php echo strTranslate("New_list")?></a></li>
-			<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q='.$elements['find_text'].'"><?php echo strTranslate("Export");?> CSV</a></li>
+			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>  
+			<li><a href="user-list?act=new"><?php e_strTranslate("New_list")?></a></li>
+			<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q='.$elements['find_text'].'"><?php e_strTranslate("Export");?> CSV</a></li>
 			<li><a href="user-messages">Mis comunicaciones enviadas</a></li>
 		</ul>
 		<div class="table-responsive">
 			<table class="table">
 				<tr>
 					<th width="40px">&nbsp;</th>
-					<th><?php echo strTranslate("Name");?></th>
-					<th><?php echo strTranslate("Date");?></th>
+					<th><?php e_strTranslate("Name");?></th>
+					<th><?php e_strTranslate("Date");?></th>
 					<th>Emails</th>
 				</tr>
 				<?php
@@ -62,7 +62,7 @@ $elements = mailingListsController::getListAction(20, $_SESSION['user_name']);
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Mailing_lists")?></h4>
+				<?php e_strTranslate("Mailing_lists")?></h4>
 			<p>Estas son tus listas de envío.</p>
 			<p class="text-center"><i class="fa fa-envelope-o fa-big"></i></p>
 		</div>

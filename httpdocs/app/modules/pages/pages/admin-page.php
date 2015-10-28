@@ -41,7 +41,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 						var editor=CKEDITOR.replace('page_content',{customConfig : 'config-page.js'});
 						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 					</script>
-					<br /><button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php echo strTranslate("Save_data");?></button>
+					<br /><button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php e_strTranslate("Save_data");?></button>
 				</form>
 			</div>
 		</div>

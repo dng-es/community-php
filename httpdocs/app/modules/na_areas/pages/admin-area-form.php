@@ -26,7 +26,7 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 		na_areasController::deletePreguntaAction();
 		?>
 		<p>Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
-		<a href="admin-area?act=edit&t=2&id=<?php echo $id_area;?>" class="comunidad-color">Volver a la gestión del curso</a></p>
+		<a href="admin-area?act=edit&t=2&id=<?php echo $id_area;?>" class="text-primary">Volver a la gestión del curso</a></p>
 		<?php
 		if (count($tarea) == 1 and $tarea[0]['tipo'] == 'formulario') FormularioTarea($id_tarea,$id_area,$tarea);
 		else ErrorMsg("Error al cargar el formulario la tarea"); ?>
@@ -76,7 +76,7 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 		<table cellspacing="0" cellpadding="2px" class="Tam11">
 			<tr><td valign="top" width="150px">Pregunta:</td><td>
 			<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
-			<span id="pregunta-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+			<span id="pregunta-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
 			</td></tr>
 			<tr><td valign="top">Tipo de pregunta:</td><td>
 			<select id="pregunta_tipo" name="pregunta_tipo" class="form-control">

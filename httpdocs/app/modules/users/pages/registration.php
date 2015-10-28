@@ -55,13 +55,13 @@ if ($module_config['options']['allow_registration'] === true):
 		}
 
 		if (isset($_REQUEST['m']) and $_REQUEST['m'] == 1){ ?>
-				<h1><?php echo strTranslate("Registration");?></h1>
+				<h1><?php e_strTranslate("Registration");?></h1>
 				<p>
 					Tus datos se han registrado correctamente.<br />
 					Recibirás en tu cuenta de correo un email para confirmar tu registro, sigue las instrucciones del mensaje para acceder.
 				</p>
 				<br />
-				<a href="login" class="btn btn-default btn-lg"><?php echo strTranslate("Identify_to_access");?></a>	
+				<a href="login" class="btn btn-default btn-lg"><?php e_strTranslate("Identify_to_access");?></a>	
 			</div>
 		<?php }
 		else{
@@ -91,17 +91,17 @@ if ($module_config['options']['allow_registration'] === true):
 			$user_date = $_POST['user-date'];
 		}
 		?>
-		<h1><?php echo strTranslate("Registration");?></h1>
+		<h1><?php e_strTranslate("Registration");?></h1>
 		<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="username-text"><?php echo strTranslate("Username");?>:</label>
+				<label class="col-sm-4 control-label" for="username-text"><?php e_strTranslate("Username");?>:</label>
 				<div class="col-sm-8">	
 					<input name="username-text" id="username-text" type="text" class="form-control" value="<?php echo $user_name;?>" placeholder="" />
 					<span id="username-text-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="user-empresa"><?php echo strTranslate("Group_user");?>:</label>
+				<label class="col-sm-4 control-label" for="user-empresa"><?php e_strTranslate("Group_user");?>:</label>
 				<div class="row">
 					<div class="col-xs-5">
 						<input name="user-empresa" id="user-empresa" date-c="0" type="text" class="form-control" value="<?php echo $user_empresa;?>" placeholder="" />
@@ -114,28 +114,28 @@ if ($module_config['options']['allow_registration'] === true):
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="user-nick"><?php echo strTranslate("Nick");?>:</label>
+				<label class="col-sm-4 control-label" for="user-nick"><?php e_strTranslate("Nick");?>:</label>
 				<div class="col-sm-8">
 					<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" value="<?php echo $user_nick;?>" placeholder="" />
 					<span id="user-nick-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="user-nombre"><?php echo strTranslate("Name");?>:</label>
+				<label class="col-sm-4 control-label" for="user-nombre"><?php e_strTranslate("Name");?>:</label>
 				<div class="col-sm-8">
 					<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" value="<?php echo $user_nombre;?>" placeholder="" />
 					<span id="user-nombre-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="user-apellidos"><?php echo strTranslate("Surname");?>:</label>
+				<label class="col-sm-4 control-label" for="user-apellidos"><?php e_strTranslate("Surname");?>:</label>
 				<div class="col-sm-8">
 					<input maxlength="100" name="user-apellidos" id="user-apellidos" type="text" class="form-control" value="<?php echo $user_apellidos;?>" placeholder="" />
 					<span id="user-apellidos-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
 			<div class="form-group" style="display:none">
-				<label class="col-sm-4 control-label" for="user-date"><?php echo strTranslate("Born_date");?>:</label>
+				<label class="col-sm-4 control-label" for="user-date"><?php e_strTranslate("Born_date");?>:</label>
 				<div class="col-sm-8">
 					<div id="datetimepicker1" class="input-group date">
 						<input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" name="user-date"></input>
@@ -165,14 +165,14 @@ if ($module_config['options']['allow_registration'] === true):
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="user-pass"><?php echo strTranslate("Password");?>:</label>
+				<label class="col-sm-4 control-label" for="user-pass"><?php e_strTranslate("Password");?>:</label>
 				<div class="col-sm-8">
 					<input maxlength="100" name="user-pass" id="user-pass" type="password" class="form-control" value="<?php echo $user_pass;?>" />
 					<span id="user-pass-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="user-repass"><?php echo strTranslate("Password_re");?>:</label>
+				<label class="col-sm-4 control-label" for="user-repass"><?php e_strTranslate("Password_re");?>:</label>
 				<div class="col-sm-8">
 					<input maxlength="100" name="user-repass" id="user-repass" type="password" class="form-control" value="<?php echo $user_repass;?>" />
 					<span id="user-repass-alert" class="alert-message alert alert-danger"></span>
@@ -181,7 +181,7 @@ if ($module_config['options']['allow_registration'] === true):
 			<div class="form-group" style="display:none">
 				<label class="col-sm-4 control-label" for="nombre-fichero">Foto:</label>
 				<div class="col-sm-8">
-					<input name="nombre-fichero" id="nombre-fichero" type="file"  class="btn btn-default" title="<?php echo strTranslate("Choose_file");?>" />
+					<input name="nombre-fichero" id="nombre-fichero" type="file"  class="btn btn-default" title="<?php e_strTranslate("Choose_file");?>" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -189,8 +189,8 @@ if ($module_config['options']['allow_registration'] === true):
 					<div class="checkbox">
 						<label>
 							<input id="user-declaracion" name="user-declaracion" type="checkbox" value="1" /> 
-							<?php echo strTranslate("Acept");?> 
-							<a href="#" id="declaracion-trigger"><?php echo strTranslate("Terms_and_conditions");?></a>
+							<?php e_strTranslate("Acept");?> 
+							<a href="#" id="declaracion-trigger"><?php e_strTranslate("Terms_and_conditions");?></a>
 						</label>
 						<span id="user-declaracion-alert" class="alert-message alert alert-danger"></span>
 				</div>
@@ -200,11 +200,11 @@ if ($module_config['options']['allow_registration'] === true):
 					<div class="row">
 						<div class="col-md-5">
 							<br />
-							<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary btn-block"><?php echo strTranslate("Register");?></button>
+							<button type="submit" name="confirm-submit" id="confirm-submit" class="btn btn-primary btn-block"><?php e_strTranslate("Register");?></button>
 						</div>
 						<div class="col-md-7">
 							<br />
-							<a href="login" class="btn btn-default btn-block"><?php echo strTranslate("Identify_to_access");?></a>
+							<a href="login" class="btn btn-default btn-block"><?php e_strTranslate("Identify_to_access");?></a>
 						</div>
 					</div>
 				</div>
@@ -232,5 +232,5 @@ if ($module_config['options']['allow_registration'] === true):
 
 <?php }?>
 <?php else: ?>
-	<h1><?php echo strTranslate("Access_denied");?></h1>
+	<h1><?php e_strTranslate("Access_denied");?></h1>
 <?php endif; ?>

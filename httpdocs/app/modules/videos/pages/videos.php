@@ -5,9 +5,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					 "js/libs/jwplayer/jwplayer.js", 
 					 getAsset("videos")."js/videos.js"));
 
-if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0){
-	$id_video = $_REQUEST['id'];
-}
+if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0)	$id_video = $_REQUEST['id'];
 else{
 	//SELECCION ULTIMO VIDEO
 	$filter_videos = ($_SESSION['user_canal'] != 'admin' ? " AND canal='".$_SESSION['user_canal']."' " : "");
@@ -49,8 +47,8 @@ $num_videos = 6;
 			<?php playVideo("VideoGaleria".$id_video, PATH_VIDEOS.$video['name_file'], 100, 100, "bottom", false, $id_video);?>
 			<h3><?php echo $video['titulo'];?>
 			<small>
-			<span class="legend"><?php echo strTranslate("uploaded_by");?> <b><?php echo $video['nick'];?></b> - <span><?php echo getDateFormat($video['date_video'], "LONG");?></span>
-			 - <b><?php echo strTranslate("Views");?></b> : <?php echo $video['views'];?> 
+			<span class="legend"><?php e_strTranslate("uploaded_by");?> <b><?php echo $video['nick'];?></b> - <span><?php echo getDateFormat($video['date_video'], "LONG");?></span>
+			 - <b><?php e_strTranslate("Views");?></b> : <?php echo $video['views'];?> 
 			 - <a href="videos?id=<?php echo $video['id_file'].'&idvv='.$video['id_file'];?>"><i class="fa fa-heart"></i> <?php echo $video['videos_puntos'];?></a> 
 			 <?php if($_SESSION['user_perfil'] == 'admin') echo " ID - ".$id_video;?>
 			</span>
@@ -63,7 +61,7 @@ $num_videos = 6;
 			<?php Paginator($comments['pag'],$comments['reg'],$comments['total_reg'],$_REQUEST['page']."?id=".$id_video,'',$comments['find_reg'], 10, "", "pag2");?>
 			<?php endif; ?>
 		<?php else:?>
-			<div class="alert alert-warning"><?php echo strTranslate("No_video_uploads");?></div>
+			<div class="alert alert-warning"><?php e_strTranslate("No_video_uploads");?></div>
 		<?php endif;?>
 	</div>
 	<div class="app-sidebar">
@@ -77,7 +75,7 @@ $num_videos = 6;
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Last_videos");?>
+				<?php e_strTranslate("Last_videos");?>
 			</h4>
 			<br />
 			<?php	
@@ -93,12 +91,12 @@ $num_videos = 6;
 							</div>';
 				endforeach;
 			
-				if (($num_videos*$pagina_sig) < $elements['total_reg']):
+				if (($num_videos * $pagina_sig) < $elements['total_reg']):
 			endif;
 			?>
 			<div class="ver-mas">
-				<a href="videos?id=<?php echo $id_video;?>&v=1&pag=<?php echo $pagina_sig+1;?>">
-				<span class="fa fa-search"></span> <?php echo strTranslate("See_more_videos");?></a>
+				<a href="videos?id=<?php echo $id_video;?>&v=1&pag=<?php echo $pagina_sig + 1;?>">
+				<span class="fa fa-search"></span> <?php e_strTranslate("See_more_videos");?></a>
 			</div>
 			<?php endif; ?>
 		</div>

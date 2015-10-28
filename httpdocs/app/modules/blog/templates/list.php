@@ -17,9 +17,9 @@ function ForoList($sub_tema, $destino = "foro-comentarios"){
 			<h4><a href="<?php echo $destino.'?id='.$sub_tema['id_tema'];?>"><?php echo $nombre;?></a></h4>
 			<span><?php echo getDateFormat($sub_tema['date_tema'], "LONG");?></span>
 			<span class="fa fa-comment" title="comentarios en el foro"></span>
-			<span class="contador-foro-counter"><?php echo $num_comentarios;?></span> <?php echo strTranslate("Comments");?> 
+			<span class="contador-foro-counter"><?php echo $num_comentarios;?></span> <?php e_strTranslate("Comments");?> 
 			<span class="fa fa-eye" title="visitas al foro"></span> 
-			<span class="contador-foro-counter"><?php echo $num_visitas;?></span> <?php echo strTranslate("Visits");?> 
+			<span class="contador-foro-counter"><?php echo $num_visitas;?></span> <?php e_strTranslate("Visits");?> 
 			<?php showTags($sub_tema['tipo_tema']);?>
 		</div>
 		<div class="panel-body">

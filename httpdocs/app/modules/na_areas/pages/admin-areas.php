@@ -57,9 +57,9 @@ $elements = $na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">     
-					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $total_reg;?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-					<li><a href="admin-area?act=new"><?php echo strTranslate("Na_areas_new");?></a></li>
-					<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q=<?php echo $find_text;?>"><?php echo strTranslate("Export");?></a></li>
+					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $total_reg;?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+					<li><a href="admin-area?act=new"><?php e_strTranslate("Na_areas_new");?></a></li>
+					<li><a href="<?php echo $_REQUEST['page'];?>?export=true&q=<?php echo $find_text;?>"><?php e_strTranslate("Export");?></a></li>
 					<div class="pull-right">
 						<?php echo SearchForm($reg, "admin-areas", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>
 					</div>
@@ -68,8 +68,8 @@ $elements = $na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 					<table class="table table-striped table-hover">
 						<tr>
 							<th width="40px">&nbsp;</th>
-							<th><?php echo strTranslate("Na_areas");?></th>
-							<th><?php echo strTranslate("Channel");?></th>
+							<th><?php e_strTranslate("Na_areas");?></th>
+							<th><?php e_strTranslate("Channel");?></th>
 						</tr>		
 						<?php foreach($elements as $element): ?>
 							<?php
@@ -86,12 +86,12 @@ $elements = $na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 							?>
 								<tr>
 								<td nowrap="nowrap">
-									<span class="fa fa-edit icon-table" title="<?php echo strTranslate("Edit");?>"
+									<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>"
 										onClick="location.href='admin-area?act=edit&id=<?php echo $element['id_area'];?>'">
 									</span>
 
-									<span class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
-										onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-areas?pag=<?php echo $pag;?>&act=del&id=<?php echo $element['id_area'];?>&e=2')">
+									<span class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
+										onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-areas?pag=<?php echo $pag;?>&act=del&id=<?php echo $element['id_area'];?>&e=2')">
 									</span>
 
 									<a href="admin-areas?id=<?php echo $element['id_area'];?>" class="fa fa-download icon-table" title="Descargar usuarios"></a>

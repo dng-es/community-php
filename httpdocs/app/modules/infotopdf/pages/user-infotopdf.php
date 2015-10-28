@@ -99,7 +99,7 @@ $email = '';
 				</span>
 				Comunicaciones impresas
 			</h4>
-			<a href="user-infotopdf-all" class="comunidad-color">Ir a todos los documentos</a>
+			<a href="user-infotopdf-all" class="text-primary">Ir a todos los documentos</a>
 			<p class="text-center"><i class="fa fa-file-pdf-o fa-big"></i></p>
 		</div>
 	</div>

@@ -13,15 +13,15 @@ $elements = infoController::getListAction(20, $filtro);
 			<table class="table table-striped table-hover">
 				<tr>
 					<th width="40px">&nbsp;</th>
-					<th><?php echo strTranslate("Name");?></th>
-					<th><?php echo strTranslate("Campaign");?></th>
-					<th><?php echo strTranslate("Type");?></th>
+					<th><?php e_strTranslate("Name");?></th>
+					<th><?php e_strTranslate("Campaign");?></th>
+					<th><?php e_strTranslate("Type");?></th>
 				</tr>
 				<?php foreach($elements['items'] as $element): 
 				$enlace = ($element['download']==1 ? ' href="user-info?id='.$element['id_info'].'&exp='.$element['file_info'].'" ' : ' target="_blank" href="'.$element['file_info'].'" ');
 				?>
 				<tr>
-					<td><a title="<?php echo strTranslate("Download_file");?>" <?php echo $enlace;?> ><i class="fa fa-download icon-table"></i></a></td>
+					<td><a title="<?php e_strTranslate("Download_file");?>" <?php echo $enlace;?> ><i class="fa fa-download icon-table"></i></a></td>
 					<td><a href="user-info?id=<?php echo $element['id_info'];?>"><?php echo $element['titulo_info'];?></a></td>
 					<td><?php echo $element['campana'];?></td>
 					<td><?php echo $element['tipo'];?></td>
@@ -39,7 +39,7 @@ $elements = infoController::getListAction(20, $filtro);
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-file fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Info_Documents");?>
+				<?php e_strTranslate("Info_Documents");?>
 			</h4>
 			<p>Documentos de apoyo listos para descargar.</p>
 			<p class="text-center"><i class="fa fa-file-o fa-big"></i></p>

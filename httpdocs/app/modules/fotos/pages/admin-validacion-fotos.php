@@ -33,7 +33,7 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default"> 
-					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b></a></li>
+					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b></a></li>
 				</ul>
 
 				<div class="table-responsive">
@@ -41,10 +41,10 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 						<tr>
 							<th width="40px">&nbsp;</th>
 							<th>Álbum</th>
-							<th><?php echo strTranslate("Author");?></th>
-							<th><?php echo strTranslate("Channel");?></th>
-							<th><?php echo strTranslate("Title");?></th>
-							<th><?php echo strTranslate("Date");?></th>
+							<th><?php e_strTranslate("Author");?></th>
+							<th><?php e_strTranslate("Channel");?></th>
+							<th><?php e_strTranslate("Title");?></th>
+							<th><?php e_strTranslate("Date");?></th>
 						</tr>
 						<?php foreach($pendientes as $element):
 							echo '<tr>';

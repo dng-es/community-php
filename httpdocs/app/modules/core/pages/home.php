@@ -31,7 +31,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 								<h4>
 									<?php echo $_SESSION['user_nick'];?>
 								</h4>
-								<?php echo strTranslate("Wellcome_to");?> <?php echo $ini_conf['SiteName'];?>.
+								<?php e_strTranslate("Wellcome_to");?> <?php echo $ini_conf['SiteName'];?>.
 							</div>
 							<div class="col-md-4 label-success inset panel-color">
 								<p class="text-center"><big><?php echo $_SESSION['user_puntos'];?></big><br />
@@ -48,13 +48,13 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 						<div class="row">
 							<div class="col-md-8 inset">
 								<h4>
-									<?php echo strTranslate("Users_connected");?>
+									<?php e_strTranslate("Users_connected");?>
 								</h4>
-								<?php echo strTranslate("Go_to");?> <a href="users-conn"><?php echo strTranslate("Users_connected");?></a>
+								<?php e_strTranslate("Go_to");?> <a href="users-conn"><?php e_strTranslate("Users_connected");?></a>
 							</div>
 							<div class="col-md-4 label-info inset panel-color">
 								<p class="text-center"><big><?php echo $users_conn;?></big><br />
-									<?php echo strTranslate(($users_conn > 1 ? "Users" : "User"));?>
+									<?php e_strTranslate(($users_conn > 1 ? "Users" : "User"));?>
 								</p>
 							</div>
 						</div>
@@ -69,11 +69,11 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-12 section panel panel-default">
-						<h3><?php echo strTranslate("Last_blog");?></h3>
+						<h3><?php e_strTranslate("Last_blog");?></h3>
 						<?php if (isset($last_blog['items'][0])): ?>
 						<div class="media-preview-container">
 							<a href="blog"><?php echo $last_blog['items'][0]['nombre'];?></a><br />
-							<span class="text-muted"><small><?php echo getDateFormat($last_blog['items'][0]['date_tema'], "LONG");?></small></span>
+							<span class="text-muted"><small><?php echo ucfirst(getDateFormat($last_blog['items'][0]['date_tema'], "LONG"));?></small></span>
 							<p><?php echo blogController::get_resume($last_blog['items'][0]['descripcion']);?></p>
 						</div>
 						<?php else: ?>
@@ -83,8 +83,8 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 				</div>
 				<div class="row">
 					<div class="col-md-12 section full-height panel panel-default">
-						<h3><?php echo strTranslate("Last_formus");?></h3>
-						<p><?php echo strTranslate("Discover_last_formus");?>.</p>
+						<h3><?php e_strTranslate("Last_formus");?></h3>
+						<p><?php e_strTranslate("Discover_last_formus");?>.</p>
 						<ul class="list-funny">
 						<?php foreach($last_foros as $last_foro): ?>
 							<?php $foro_tema = foroController::getItemTemaAction($last_foro['id_tema']);?>
@@ -101,14 +101,14 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 				<div class="panel panel-default">
 					<div class="row">
 						<div class="col-md-4 section full-height">
-							<h3><?php echo strTranslate("Last_photos");?></h3>
+							<h3><?php e_strTranslate("Last_photos");?></h3>
 							<?php if (isset($last_photo['items'][0])): ?>
 							<div class="media-preview-container">
 								<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo prepareString($last_photo['items'][0]['titulo']);?>" /></a>
 								<div>
 									<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
 									<?php echo $last_photo['items'][0]['nick'];?><br />
-									<span><small><?php echo getDateFormat($last_photo['items'][0]['date_foto'], "LONG");?></small></span><br />
+									<span><small><?php echo ucfirst(getDateFormat($last_photo['items'][0]['date_foto'], "LONG"));?></small></span><br />
 								</div>
 							</div>
 							<?php else: ?>
@@ -116,7 +116,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 							<?php endif; ?>
 						</div>
 						<div class="col-md-4 section full-height">
-							<h3><?php echo strTranslate("Last_videos");?></h3>
+							<h3><?php e_strTranslate("Last_videos");?></h3>
 							<?php if (isset($last_video['items'][0])): ?>
 							<div class="media-preview-container">
 								<a href="videos">
@@ -124,15 +124,15 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 								<div>
 									<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
 									<?php echo $last_video['items'][0]['nick'];?><br />
-									<small><span><?php echo getDateFormat($last_video['items'][0]['date_video'], "LONG");?></small></span><br />
+									<small><span><?php echo ucfirst(getDateFormat($last_video['items'][0]['date_video'], "LONG"));?></small></span><br />
 								</div>
 							</div>
 							<?php else: ?>
-								<div class="text-muted"><?php echo strTranslate("No_video_uploads");?></div>
+								<div class="text-muted"><?php e_strTranslate("No_video_uploads");?></div>
 							<?php endif; ?>
 						</div>
 						<div class="col-md-4 section full-height">
-							<h3><?php echo strTranslate("Highlights");?></h3>
+							<h3><?php e_strTranslate("Highlights");?></h3>
 							<?php PanelLastDestacado();?>
 						</div>
 					</div>
@@ -149,7 +149,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 						<i class="fa fa-circle fa-stack-2x"></i>
 						<i class="fa fa-comment fa-stack-1x fa-inverse"></i>
 					</span>
-					<?php echo strTranslate("New_comment_on_wall");?>
+					<?php e_strTranslate("New_comment_on_wall");?>
 				</h4>
 				<textarea maxlength="160" class="form-control" id="texto-comentario" name="texto-comentario"></textarea>
 				<?php if ($_SESSION['user_canal'] == 'admin'):?>
@@ -157,7 +157,7 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 				<?php ComboCanales();?>
 				</select>
 				<?php endif;?>
-				<button class="btn btn-primary btn-block" type="button" id="muro-submit" name="coment-submit"><?php echo strTranslate("Send");?></button>
+				<button class="btn btn-primary btn-block" type="button" id="muro-submit" name="coment-submit"><?php e_strTranslate("Send");?></button>
 			</form>
 		</div>
 		<div id="result-muro"></div>

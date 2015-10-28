@@ -25,14 +25,14 @@ $plantilla = mailingTemplatesController::getItemAction();
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<small><label for="template_name"><?php echo strTranslate("Name");?></label></small>
+						<small><label for="template_name"><?php e_strTranslate("Name");?></label></small>
 						<input type="text" name="template_name" id ="template_name" class="form-control form-big" value="<?php echo $plantilla['template_name'];?>" />
 						<span id="nombre-alert" class="alert-message alert alert-danger"></span>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<small><label><?php echo strTranslate("Type");?>:</label></small>
+						<small><label><?php e_strTranslate("Type");?>:</label></small>
 						<select name="template_tipo" id="template_tipo" class="form-control">
 						<?php
 						$mailing = new mailing();
@@ -49,7 +49,7 @@ $plantilla = mailingTemplatesController::getItemAction();
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<small><label><?php echo strTranslate("Campaign");?>:</label></small>
+						<small><label><?php e_strTranslate("Campaign");?>:</label></small>
 						<select name="template_campana" id="template_campana" class="form-control">
 						<?php
 						$campaigns = new campaigns();
@@ -64,7 +64,7 @@ $plantilla = mailingTemplatesController::getItemAction();
 				<div class="col-md-6">
 					<div class="form-group">
 						<small><label for="nombre-fichero">Imagen miniatura de la plantilla</label></small>
-						<br /><input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary" title="<?php echo strTranslate("Choose_file");?>" />
+						<br /><input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary" title="<?php e_strTranslate("Choose_file");?>" />
 					</div>
 				</div>
 			</div>
@@ -80,7 +80,7 @@ $plantilla = mailingTemplatesController::getItemAction();
 							CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 						</script>
 					</div>
-					<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php echo strTranslate("Save_data");?></button>
+					<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php e_strTranslate("Save_data");?></button>
 				</div>
 			</div>
 		</form>	

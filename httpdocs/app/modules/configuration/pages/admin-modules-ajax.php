@@ -74,8 +74,8 @@ session::ValidateSessionAjax();
 				
 				<div class="modal-footer">
 					<div id="configForm-result" class="pull-left"></div>
-					<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo strTranslate("Close");?></button>
-					<button type="submit" class="btn btn-primary pull-right"><?php echo strTranslate("Save");?></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><?php e_strTranslate("Close");?></button>
+					<button type="submit" class="btn btn-primary pull-right"><?php e_strTranslate("Save");?></button>
 				</div>
 			</form>
 		<?php endif;

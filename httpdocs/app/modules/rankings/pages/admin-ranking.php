@@ -40,9 +40,9 @@ $session->AccessLevel($perfiles_autorizados);
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-tabs" id="myTab">
-					<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
+					<li class="active"><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
 					<?php if ($id_ranking>0):?>
-					<li><a href="#import" data-toggle="tab"><?php echo strTranslate("Import_file");?></a></li>
+					<li><a href="#import" data-toggle="tab"><?php e_strTranslate("Import_file");?></a></li>
 					<?php endif; ?>
 				</ul>
 				
@@ -55,7 +55,7 @@ $session->AccessLevel($perfiles_autorizados);
 								
 								<div class="row">
 									<div class="col-md-6">
-										<label for="nombre"><small><?php echo strTranslate("Name");?>:</small></label>
+										<label for="nombre"><small><?php e_strTranslate("Name");?>:</small></label>
 										<input type="text" name="nombre" id ="nombre" class="form-control" value="<?php echo $ranking_nombre;?>" />
 										<div class="alert-message alert alert-danger" id="nombre-alert">Introduce el nombre del ranking</div>
 									</div>
@@ -76,7 +76,7 @@ $session->AccessLevel($perfiles_autorizados);
 								
 								<div class="row">
 									<div class="col-md-12">
-										<label for="descripcion"><small><?php echo strTranslate("Description");?>:</small></label>
+										<label for="descripcion"><small><?php e_strTranslate("Description");?>:</small></label>
 										<textarea name="descripcion" id ="descripcion" class="form-control"><?php echo $ranking_descripcion;?></textarea>
 										<script type="text/javascript">
 											var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
@@ -87,7 +87,7 @@ $session->AccessLevel($perfiles_autorizados);
 								<br />
 								<div class="row">
 									<div class="col-md-12">
-										<button class="btn btn-primary" id="SubmitCuestionario" name="SubmitForm" type="submit"><?php echo strTranslate("Save_data");?></button>
+										<button class="btn btn-primary" id="SubmitCuestionario" name="SubmitForm" type="submit"><?php e_strTranslate("Save_data");?></button>
 									</div>
 								</div>
 						</div>
@@ -97,9 +97,9 @@ $session->AccessLevel($perfiles_autorizados);
 					<div class="tab-pane fade" id="import">
 						<div class="inset">
 							<div class="form-group">
-								<label for="fichero">Selecciona el fichero con los datos del ranking, los datos existentes se borran y se insertan los del fichero. El fichero deberá tener la estructura especificada, puedes descargar el fichero modelo <a href="docs/model_rankings.xls"><b><?php echo strTranslate("Click_here")?></b></a></label>
+								<label for="fichero">Selecciona el fichero con los datos del ranking, los datos existentes se borran y se insertan los del fichero. El fichero deberá tener la estructura especificada, puedes descargar el fichero modelo <a href="docs/model_rankings.xls"><b><?php e_strTranslate("Click_here")?></b></a></label>
 								<br />
-								<input type="file" class="btn btn-default" name="fichero" id="fichero" title="<?php echo strTranslate("Choose_file");?>" />
+								<input type="file" class="btn btn-default" name="fichero" id="fichero" title="<?php e_strTranslate("Choose_file");?>" />
 							</div>
 						</div>
 					</div>

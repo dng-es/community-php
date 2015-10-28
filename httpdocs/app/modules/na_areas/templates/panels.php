@@ -7,7 +7,7 @@ function panelAreas(){
 		<div class="row">
 			<div class="col-md-2 text-center">
 				<img src="images/areas.png" /><br />
-					<h4><?php echo strTranslate("Na_areas");?></h4>
+					<h4><?php e_strTranslate("Na_areas");?></h4>
 			</div>
 			<div class="col-md-10">
 				<ul>
@@ -20,7 +20,7 @@ function panelAreas(){
 				endforeach;?>
 				</ul>
 				<?php if($i == 0):?>
-					<p><?php echo strTranslate("No_enrollments_yet");?></p>
+					<p><?php e_strTranslate("No_enrollments_yet");?></p>
 				<?php endif;?>
 			</div>
 		</div>

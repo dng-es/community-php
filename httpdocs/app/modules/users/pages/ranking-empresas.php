@@ -19,7 +19,7 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 		?>
 		<div class="row">
 			<div class="col-md-12 container-fade">
-				<p>Cada una de tus aportaciones ayuda a tu empresa a acumular <?php echo strTranslate("APP_points");?>. ¿Cuántos <?php echo strTranslate("APP_points");?>, tenéis? 
+				<p>Cada una de tus aportaciones ayuda a tu empresa a acumular <?php e_strTranslate("APP_points");?>. ¿Cuántos <?php e_strTranslate("APP_points");?>, tenéis? 
 				¿estáis entre los primeros? descúbrelo en este ranking:</p>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
@@ -43,10 +43,10 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<a href="ranking" class="btn btn-primary btn-block"><?php echo strTranslate("Go_to_users_ranking");?></a>
+			<a href="ranking" class="btn btn-primary btn-block"><?php e_strTranslate("Go_to_users_ranking");?></a>
 			<h3>Posición <small><?php echo $posicion_empresa_user;?></small></h3>
 			<p><?php echo $puntos_empresa[0]['nombre_tienda'];?><br />
-			<?php echo $puntos_empresa[0]['puntos_empresa'];?> <?php echo strTranslate("APP_points");?></p>
+			<?php echo $puntos_empresa[0]['puntos_empresa'];?> <?php e_strTranslate("APP_points");?></p>
 		</div>
 	</div>
 </div>

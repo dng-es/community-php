@@ -68,11 +68,11 @@ templateload("cmbCanales","users");
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-tabs">
-					<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
+					<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
 					<?php if ($accion == 'edit'): ?>
-					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#<?php echo strTranslate("Tasks");?>" data-toggle="tab"><?php echo strTranslate("Tasks");?></a></li>
-					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#<?php echo strTranslate("Users");?>" data-toggle="tab"><?php echo strTranslate("Users");?></a></li>
-					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#<?php echo strTranslate("Forums");?>" data-toggle="tab"><?php echo strTranslate("Forums");?></a></li>
+					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Tasks");?>" data-toggle="tab"><?php e_strTranslate("Tasks");?></a></li>
+					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Users");?>" data-toggle="tab"><?php e_strTranslate("Users");?></a></li>
+					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Forums");?>" data-toggle="tab"><?php e_strTranslate("Forums");?></a></li>
 					<?php endif;?>
 				</ul>	
 			
@@ -84,35 +84,35 @@ templateload("cmbCanales","users");
 							<input type="hidden" id="id_area" name="id_area" value="<?php echo $id;?>" />
 							<div class="row">
 								<div class="form-group col-md-12">
-									<label for="area_nombre"><small><?php echo strTranslate("Name");?>:</small></label>
-									<input class="form-control form-big" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"  data-alert="<?php echo strTranslate("Required_field");?>" />
+									<label for="area_nombre"><small><?php e_strTranslate("Name");?>:</small></label>
+									<input class="form-control form-big" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"  data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
 							</div>
 
 							<div class="row">
 								<div class="form-group col-md-12">
-									<label for="area_descripcion"><small><?php echo strTranslate("Description");?>:</small></label>
-									<textarea class="form-control" id="area_descripcion" name="area_descripcion" data-alert="<?php echo strTranslate("Required_field");?>"><?php echo $area_descripcion;?></textarea>
+									<label for="area_descripcion"><small><?php e_strTranslate("Description");?>:</small></label>
+									<textarea class="form-control" id="area_descripcion" name="area_descripcion" data-alert="<?php e_strTranslate("Required_field");?>"><?php echo $area_descripcion;?></textarea>
 								</div>
 							</div>
 							
 							<div class="row">
 								<div class="form-group col-md-4">
-									<label for="area_canal"><small><?php echo strTranslate("Channel");?>:</small></label>
-									<select id="area_canal" name="area_canal" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
-										<option value="">--<?php echo strTranslate("Choose_channel");?>--</option>
+									<label for="area_canal"><small><?php e_strTranslate("Channel");?>:</small></label>
+									<select id="area_canal" name="area_canal" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
+										<option value="">--<?php e_strTranslate("Choose_channel");?>--</option>
 										<?php ComboCanales($area_canal);?>
 									</select>
 								</div>
 
 								<div class="form-group col-md-2">
 									<label for="area_puntos"><small><?php echo ucfirst(strTranslate("APP_points"));?>:</small></label>
-									<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
+									<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>  
 
 								<div class="form-group col-md-2">
 									<label for="area_limite"><small>Límite de usuarios:</small></label>
-									<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" data-alert="<?php echo strTranslate("Required_field");?>" />
+									<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
 
 								<div class="form-group col-md-4">
@@ -126,7 +126,7 @@ templateload("cmbCanales","users");
 							<div class="clearfix"></div>
 							<div class="row">
 								<div class="form-group col-md-12">
-									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Save_data");?></button>
 								</div>
 							</div>
 						</form>
@@ -138,7 +138,7 @@ templateload("cmbCanales","users");
 					if ($accion == 'edit'){
 						$id_area = $elements[0]['id_area'];
 						$area_canal = $elements[0]['area_canal']; ?>
-						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="<?php echo strTranslate("Tasks");?>">
+						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="<?php e_strTranslate("Tasks");?>">
 							<br />
 							<div class="row">
 								<div class="col-md-12">
@@ -147,7 +147,7 @@ templateload("cmbCanales","users");
 							</div>
 						</div>
 
-						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==3) ? ' in active' : '');?>" id="<?php echo strTranslate("Users");?>">
+						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==3) ? ' in active' : '');?>" id="<?php e_strTranslate("Users");?>">
 							<br />
 							<div class="row">
 								<div class="col-md-6">
@@ -160,7 +160,7 @@ templateload("cmbCanales","users");
 							</div>
 						</div>
 
-						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==4) ? ' in active' : '');?>" id="<?php echo strTranslate("Forums");?>">
+						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==4) ? ' in active' : '');?>" id="<?php e_strTranslate("Forums");?>">
 							<br />
 							<div class="row">
 								<div class="col-md-12">
@@ -238,7 +238,7 @@ function showGruposArea($id_area){
 				<input type="hidden" name="id_area_grupo" id="id_area_grupo" value="<?php echo $id_area;?>" />
 				<label class="sr-only" for="grupo_nombre">Nuevo grupo:</label> 
 				<input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control" placeholder="nombre del nuevo grupo" />
-				<span id="grupo-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+				<span id="grupo-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
 			</div>
 			<button type="button" id="SubmitGrupo" name="SubmitGrupo" class="btn btn-primary">guardar grupo</button>
 			</form>
@@ -412,30 +412,30 @@ function showTareasArea($id_area){
 						<div class="col-md-6 nopadding">
 							<div class="radio">
 								<label>
-									<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> <?php echo strTranslate("Form");?>
+									<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> <?php e_strTranslate("Form");?>
 								</label>
 							</div>
 						</div>
 						<div class="col-md-6 nopadding">
 							<div class="radio">
 								<label>
-									<input type="radio" id="tipo" name="tipo" value="fichero" /> <?php echo strTranslate("File");?>
+									<input type="radio" id="tipo" name="tipo" value="fichero" /> <?php e_strTranslate("File");?>
 								</label>
 							</div>
 						</div>
 					</div>
 
-					<label for="tarea_titulo" class="control-label"><?php echo strTranslate("Name");?>:</label>
+					<label for="tarea_titulo" class="control-label"><?php e_strTranslate("Name");?>:</label>
 					<input type="text" name="tarea_titulo" id="tarea_titulo" class="form-control" />
-					<span id="tarea-titulo-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+					<span id="tarea-titulo-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
 
-					<label for="tarea_descripcion" class="control-label"><?php echo strTranslate("Description");?>:</label>
+					<label for="tarea_descripcion" class="control-label"><?php e_strTranslate("Description");?>:</label>
 					<textarea name="tarea_descripcion" id="tarea_descripcion" class="form-control" /></textarea>
-					<span id="tarea-descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+					<span id="tarea-descripcion-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
 
 					<label for="fichero-tarea" class="control-label">Fichero tarea:</label>
-					<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default btn-block" title="<?php echo strTranslate("Choose_file");?>" />
-					<span id="fichero-tarea-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_file");?></span>
+					<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default btn-block" title="<?php e_strTranslate("Choose_file");?>" />
+					<span id="fichero-tarea-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_file");?></span>
 
 					<div class="checkbox">
 						<label>
@@ -455,7 +455,7 @@ function showTareasArea($id_area){
 					<table class="table table-hover table-striped">
 						<tr>
 							<th width="40px">&nbsp;</th>
-							<th><?php echo strTranslate("Task");?></th>
+							<th><?php e_strTranslate("Task");?></th>
 							<th>&nbsp;</th>
 						</tr>
 						<?php foreach($elements as $element):

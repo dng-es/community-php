@@ -32,7 +32,7 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default"> 
-					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<div class="pull-right">
 						<?php echo SearchForm($elements['reg'], "admin-validacion-foro-temas", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>	
 					</div>
@@ -42,11 +42,11 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 						<tr>
 							<th width="40px">&nbsp;</th>
 							<th>ID</th>
-							<th><?php echo strTranslate("Name");?></th>
-							<th><?php echo strTranslate("Author");?></th>
-							<th><?php echo strTranslate("Channel");?></th>
-							<th><span class="fa fa-comment" title="<?php echo strTranslate("Comments");?>"></span></th>
-							<th><span class="fa fa-eye" title="<?php echo strTranslate("Visits");?>"></span></th>
+							<th><?php e_strTranslate("Name");?></th>
+							<th><?php e_strTranslate("Author");?></th>
+							<th><?php e_strTranslate("Channel");?></th>
+							<th><span class="fa fa-comment" title="<?php e_strTranslate("Comments");?>"></span></th>
+							<th><span class="fa fa-eye" title="<?php e_strTranslate("Visits");?>"></span></th>
 						</tr>
 
 						<?php foreach($elements['items'] as $element):

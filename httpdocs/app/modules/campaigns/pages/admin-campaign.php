@@ -21,18 +21,18 @@ $plantilla = campaignsController::getItemAction();
 
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" name="novedad" id="novedad"<?php echo $plantilla['novedad'] == 1 ? ' checked="checked"' : "";?>> <?php echo strTranslate("News");?>
+							<input type="checkbox" name="novedad" id="novedad"<?php echo $plantilla['novedad'] == 1 ? ' checked="checked"' : "";?>> <?php e_strTranslate("News");?>
 						</label>
 					</div>
 
 					<div class="form-group">
-						<label for="name_campaign"><?php echo strTranslate("Name");?>:</label>
+						<label for="name_campaign"><?php e_strTranslate("Name");?>:</label>
 						<input type="text" name="name_campaign" id ="name_campaign" class="form-control form-big" value="<?php echo $plantilla['name_campaign'];?>" />
-						<span id="nombre-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+						<span id="nombre-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
 					</div>
 
 					<div class="form-group">
-						<label><?php echo strTranslate("Type");?>:</label>
+						<label><?php e_strTranslate("Type");?>:</label>
 						<select name="id_type" id="id_type" class="form-control">
 						<?php
 						$campaigns = new campaigns();
@@ -45,9 +45,9 @@ $plantilla = campaignsController::getItemAction();
 					</div>
 
 					<div class="form-group">
-						<label for="desc_campaign"><?php echo strTranslate("Description");?>:</label>
+						<label for="desc_campaign"><?php e_strTranslate("Description");?>:</label>
 						<textarea class="form-control" rows="8" id="desc_campaign" name="desc_campaign"><?php echo $plantilla['desc_campaign'];?></textarea>
-						<span id="descripcion-alert" class="alert-message alert alert-danger"><?php echo strTranslate("Required_field");?></span>
+						<span id="descripcion-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
 					</div>
 
 
@@ -55,7 +55,7 @@ $plantilla = campaignsController::getItemAction();
 						<div class="row">
 							<div class="col-md-3">
 								<label for="nombre-fichero">Imagen miniatura de la campaña</label>
-								<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="<?php echo strTranslate("Choose_file");?>" />
+								<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="<?php e_strTranslate("Choose_file");?>" />
 								<?php 
 								if (isset($plantilla['imagen_mini']) and $plantilla['imagen_mini'] != ""){
 									echo '<br /><img src="images/banners/'.$plantilla['imagen_mini'].'" style="width:100%" />';
@@ -64,7 +64,7 @@ $plantilla = campaignsController::getItemAction();
 							</div>	
 							<div class="col-md-3">
 								<label for="nombre-fichero">Imagen Slide de la campaña</label>
-								<input name="nombre-fichero-big" id="nombre-fichero-big" type="file" class="btn btn-primary btn-block" title="<?php echo strTranslate("Choose_file");?>" />
+								<input name="nombre-fichero-big" id="nombre-fichero-big" type="file" class="btn btn-primary btn-block" title="<?php e_strTranslate("Choose_file");?>" />
 								<?php 
 								if (isset($plantilla['imagen_big']) and $plantilla['imagen_big'] != ""){
 									echo '<br /><img src="images/banners/'.$plantilla['imagen_big'].'" style="width:100%" />';
@@ -74,7 +74,7 @@ $plantilla = campaignsController::getItemAction();
 						</div>
 					</div>
 
-					<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php echo strTranslate("Save_data");?></button>
+					<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php e_strTranslate("Save_data");?></button>
 				</form>
 			</div>
 		</div>

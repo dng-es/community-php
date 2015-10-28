@@ -41,14 +41,14 @@
 						</div>
 					</div>
 				</div>
-				<?php if ( $i==1 ){
+				<?php if ($i == 1){
 					echo '</div>';
 					$i = 0;
 				}
 				else $i++; ?>
 			<?php endif; ?>
 		<?php endforeach;?>
-		<?php if ($i==1) echo '</div>';?>
+		<?php if ($i == 1) echo '</div>';?>
 		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 		<br />
 	</div>
@@ -59,9 +59,9 @@
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-bookmark fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Na_areas");?>
+				<?php e_strTranslate("Na_areas");?>
 			</h4>
-			<p><?php echo strTranslate("Registration_text");?></p>
+			<p><?php e_strTranslate("Registration_text");?></p>
 			<p class="text-center"><i class="fa fa-mortar-board fa-big"></i></p>
 		</div>
 	</div>

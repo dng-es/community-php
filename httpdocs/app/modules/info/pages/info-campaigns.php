@@ -35,7 +35,7 @@
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<h4><?php echo strTranslate("Info_Documents");?></h4>
+			<h4><?php e_strTranslate("Info_Documents");?></h4>
 			<p>toda la documentación que necesitas, ordenada por categorías.</p>
 			<p class="text-center"><i class="fa fa-newspaper-o fa-big"></i></p>
 		</div>

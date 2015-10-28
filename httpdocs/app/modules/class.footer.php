@@ -10,9 +10,9 @@ class footer{
 		?>
 		</div>
 		<div class="footer hidden-print">
-			<p><a href="contact"><?php echo strTranslate("Contact");?></a> 
-			<a href="#" id="declaracion-trigger"><?php echo strTranslate("Rights_and_responsabilities");?></a> 
-			<a href="#" id="policy-trigger"><?php echo strTranslate("Private_policy");?></a><br />
+			<p><a href="contact"><?php e_strTranslate("Contact");?></a> 
+			<a href="#" id="declaracion-trigger"><?php e_strTranslate("Rights_and_responsabilities");?></a> 
+			<a href="#" id="policy-trigger"><?php e_strTranslate("Private_policy");?></a><br />
 			powered by Grass Roots <?php echo date("Y");?></p>
 		</div>
 
@@ -22,7 +22,7 @@ class footer{
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel"><?php echo strTranslate("Rights_and_responsabilities");?></h4>
+						<h4 class="modal-title" id="myModalLabel"><?php e_strTranslate("Rights_and_responsabilities");?></h4>
 					</div>
 					<div class="modal-body">
 					<?php echo $declaracion[0]['page_content'];?>
@@ -37,7 +37,7 @@ class footer{
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel"><?php echo strTranslate("Private_policy");?></h4>
+						<h4 class="modal-title" id="myModalLabel"><?php e_strTranslate("Private_policy");?></h4>
 					</div>
 					<div class="modal-body">
 					<?php echo $politica[0]['page_content'];?>

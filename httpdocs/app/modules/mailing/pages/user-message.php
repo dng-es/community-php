@@ -206,8 +206,8 @@ addJavascripts(array("js/jquery.numeric.js",
 			<div class="panel panel-default">
 				<div class="panel-heading">Envío de comunicaciones</div>
 				<div class="panel-body">
-					<a href="user-templates" class="comunidad-color">Ir a todas las comunicaciones</a><br />
-					<a href="user-messages" class="comunidad-color">Mis comunicaciones enviadas</a>
+					<a href="user-templates" class="text-primary">Ir a todas las comunicaciones</a><br />
+					<a href="user-messages" class="text-primary">Mis comunicaciones enviadas</a>
 				</div>
 			</div>
 		</div>

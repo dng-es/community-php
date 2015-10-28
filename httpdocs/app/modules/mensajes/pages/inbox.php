@@ -23,8 +23,8 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<p><?php echo strTranslate("Mailing_messages");?> <?php echo $elements['total_reg'];?> | <?php echo strTranslate("Mailing_unread");?> <span id="contador-no-leidos"><?php echo $contador_no_leidos;?></span> | 
-				<a href="#" id="mensaje-new-trigger"><?php echo strTranslate("New_message_app");?></a> | <a href="inbox"><?php echo strTranslate("Refresh");?> <?php echo strtolower(strTranslate("Mailing_inbox"));?></a> | <a href="sent-items"><?php echo strTranslate("Mailing_sent");?></a></p>
+				<p><?php e_strTranslate("Mailing_messages");?> <?php echo $elements['total_reg'];?> | <?php e_strTranslate("Mailing_unread");?> <span id="contador-no-leidos"><?php echo $contador_no_leidos;?></span> | 
+				<a href="#" id="mensaje-new-trigger"><?php e_strTranslate("New_message_app");?></a> | <a href="inbox"><?php e_strTranslate("Refresh");?> <?php echo strtolower(strTranslate("Mailing_inbox"));?></a> | <a href="sent-items"><?php e_strTranslate("Mailing_sent");?></a></p>
 				<div class="table-responsive container-min">
 					<table class="table">
 					<?php foreach($elements['items'] as $mensaje):
@@ -33,8 +33,8 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 						
 						<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo <?php echo $estilo_leido;?>">
 							<td nowrap="nowrap" valign="top">
-								<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'inbox?act=ko&id=<?php echo $mensaje['id_mensaje'];?>')" title="<?php echo strTranslate("Delete");?>"></span>
-								<span class="fa fa-reply icon-table message-reply" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php echo strTranslate("Reply");?>"></span>
+								<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'inbox?act=ko&id=<?php echo $mensaje['id_mensaje'];?>')" title="<?php e_strTranslate("Delete");?>"></span>
+								<span class="fa fa-reply icon-table message-reply" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php e_strTranslate("Reply");?>"></span>
 							</td>
 							<td valign="top" nowrap="nowrap"><span id="leidoMensajeNick<?php echo $mensaje['id_mensaje'];?>"><span id="message-nick-<?php echo $mensaje['id_mensaje'];?>"><?php echo $mensaje['nick'];?></span></span></td>
 							<td width="100%" valign="top">
@@ -58,8 +58,8 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php echo SearchForm(0, "inbox", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "");?>
-			<h4><?php echo strTranslate("Your_messages");?></h4>
-			<p><?php echo strTranslate("Mailing_text");?></p>
+			<h4><?php e_strTranslate("Your_messages");?></h4>
+			<p><?php e_strTranslate("Mailing_text");?></p>
 		</div>
 	</div>
 </div>

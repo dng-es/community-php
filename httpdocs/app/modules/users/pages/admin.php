@@ -19,7 +19,7 @@ $num_canales = usersCanalesController::getCanalesAction();
 				<div class="panel panel-primary">
 					<div class="panel-heading" role="tab">
 						<h3 class="panel-title">
-							<?php echo strTranslate("Overview");?> 
+							<?php e_strTranslate("Overview");?> 
 							<small><i class="fa fa-pie-chart pull-right text-muted"></i></small>
 						</h3>
 					</div>
@@ -27,7 +27,7 @@ $num_canales = usersCanalesController::getCanalesAction();
 						<dl class="dl-horizontal">
 							<dt>Usuarios activos</dt>
 							<dd><?php echo $num_users;?></dd>
-							<dt><?php echo strTranslate("Groups_user");?> activas</dt>
+							<dt><?php e_strTranslate("Groups_user");?> activas</dt>
 							<dd><?php echo $num_empresas;?></dd>
 							<dt>Perfiles activos</dt>
 							<dd><?php echo $num_perfiles;?></dd>
@@ -39,17 +39,17 @@ $num_canales = usersCanalesController::getCanalesAction();
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-default">
-					<div class="panel-heading"><h3 class="panel-title"><?php echo strTranslate("Reports");?> <small><i class="fa fa-area-chart pull-right text-muted"></i></small></h3></div>
+					<div class="panel-heading"><h3 class="panel-title"><?php e_strTranslate("Reports");?> <small><i class="fa fa-area-chart pull-right text-muted"></i></small></h3></div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
-							<dt><?php echo strTranslate("Visits_title");?></dt>
-							<dd><a href="admin-informe-accesos"><?php echo strTranslate("Go_to");?></a> <span class="text-muted"><small>- <?php echo strTranslate("Page_views");?> <?php echo $num_access;?></small></span></dd>
+							<dt><?php e_strTranslate("Visits_title");?></dt>
+							<dd><a href="admin-informe-accesos"><?php e_strTranslate("Go_to");?></a> <span class="text-muted"><small>- <?php e_strTranslate("Page_views");?> <?php echo $num_access;?></small></span></dd>
 							<dt><?php echo ucfirst(strTranslate("APP_points"));?></dt>
-							<dd><a href="admin-informe-puntuaciones"><?php echo strTranslate("Go_to");?></a></dd>
+							<dd><a href="admin-informe-puntuaciones"><?php e_strTranslate("Go_to");?></a></dd>
 							<dt><?php echo ucfirst(strTranslate("APP_shares"));?></dt>
-							<dd><a href="admin-informe-participaciones"><?php echo strTranslate("Go_to");?></a></dd>
-							<dt><?php echo strTranslate("Users_list");?></dt>
-							<dd><a href="admin-users?export=true"><?php echo strTranslate("Export");?> CSV</a></dd>
+							<dd><a href="admin-informe-participaciones"><?php e_strTranslate("Go_to");?></a></dd>
+							<dt><?php e_strTranslate("Users_list");?></dt>
+							<dd><a href="admin-users?export=true"><?php e_strTranslate("Export");?> CSV</a></dd>
 						</dl>
 					</div>
 				</div>

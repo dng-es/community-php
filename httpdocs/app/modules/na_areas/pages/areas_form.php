@@ -97,7 +97,7 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id']
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-bookmark fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Na_areas");?>
+				<?php e_strTranslate("Na_areas");?>
 			</h4>
 			<br />
 			<p class="text-center"><i class="fa fa-mortar-board fa-big"></i></p>

@@ -66,7 +66,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 				<div class="panel pane-default">
 					<div class="panel-body">
 						<h2><?php echo $tema[0]['nombre'];?></h2>
-						<p class="legend"><span class="fa fa-comment"></span> <?php echo $total_reg_resp.' '.strTranslate("Comments");?> <span class="fa fa-eye"></span> <?php echo $num_visitas.' '.strTranslate("Visits");?> <i class="fa fa-mail-reply"></i> <a href="<?php echo $volver;?>" title="<?php echo strTranslate("Go_back");?>"><?php echo strTranslate("Go_back");?></a></p>
+						<p class="legend"><span class="fa fa-comment"></span> <?php echo $total_reg_resp.' '.strTranslate("Comments");?> <span class="fa fa-eye"></span> <?php echo $num_visitas.' '.strTranslate("Visits");?> <i class="fa fa-mail-reply"></i> <a href="<?php echo $volver;?>" title="<?php e_strTranslate("Go_back");?>"><?php e_strTranslate("Go_back");?></a></p>
 						<p><?php echo $tema[0]['descripcion'];?></p>
 						<div class="panel-container-foro">
 							<?php foreach($comentarios_foro as $comentario_foro):
@@ -88,9 +88,9 @@ addJavascripts(array("js/jquery.jtextarea.js",
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-share-alt fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Insert_comment_forum");?>
+				<?php e_strTranslate("Insert_comment_forum");?>
 			</h4>
-			<p><?php echo strTranslate("Insert_comment_forum_label");?></p>
+			<p><?php e_strTranslate("Insert_comment_forum_label");?></p>
 			<?php addForoComment($id_tema); 
 			//INSERTAR VISITA EN EL FORO
 			if (!isset($_POST['texto-comentario'])) $foro->insertVisita($_SESSION['user_name'], $id_tema, 0); ?>

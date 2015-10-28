@@ -27,7 +27,7 @@ class videosController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['titulo-video']) and $_POST['titulo-video']!=""){
+		if (isset($_POST['titulo-video']) and $_POST['titulo-video'] != ""){
 			$videos = new videos();	
 			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-video']);
 			$response = $videos->insertFile($_FILES['nombre-video'],PATH_VIDEOS_TEMP,$canal,$_POST['titulo-video'], 0, 0);
@@ -101,7 +101,7 @@ class videosController{
 	public static function validateCommentAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'elem_ko'){
 			$videos = new videos();
-			$videos->cambiarEstadoComentario($_REQUEST['idc'],2);
+			$videos->cambiarEstadoComentario($_REQUEST['idc'], 2);
 
 			session::setFlashMessage('actions_message', "Comentario cancelado", "alert alert-warning");
 			redirectURL("admin-videos-comentarios?id=".$_REQUEST['id']);

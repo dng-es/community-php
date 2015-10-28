@@ -9,7 +9,7 @@ $plantilla = campaignsController::getItemTypesAction();
 			array("ItemLabel"=>strTranslate("Campaigns"), "ItemClass"=>"active"),
 		));?>
 		<h1><?php echo $plantilla['campaign_type_name']?></h1>
-		<p class="legend-table"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strTranslate("Items");?></p>
+		<p class="text-muted"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php e_strTranslate("Items");?></p>
 		<p><?php echo $plantilla['campaign_type_desc']?></p>
 
 		<?php 

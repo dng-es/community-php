@@ -59,7 +59,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 			</div>
 		</div>
 	<?php else: ?>
-	  	<div class="alert alert-warning"><?php echo strTranslate("Access_denied");?></div>
+	  	<div class="alert alert-warning"><?php e_strTranslate("Access_denied");?></div>
 	<?php endif;
 } ?>
 

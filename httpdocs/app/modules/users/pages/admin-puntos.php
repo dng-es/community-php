@@ -43,7 +43,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p>Selecciona un fichero Excel con los usuarios a  sumar o restar <?php echo strTranslate("APP_points");?>. 
+						<p>Selecciona un fichero Excel con los usuarios a  sumar o restar <?php e_strTranslate("APP_points");?>. 
 						El fichero deberá tener la estructura especificada, puedes descargar el fichero modelo pinchando <a href="docs/model_puntos.xls"><b>aquí</b></a>.</p>
 						<form id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="admin-cargas-puntos-process" role="form">
 							<label for="nombre-fichero">Selecciona el fichero excel (.xls): </label><br />

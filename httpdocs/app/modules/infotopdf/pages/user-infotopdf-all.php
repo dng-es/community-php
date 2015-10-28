@@ -39,7 +39,7 @@ $elements = infotopdfController::getListAction(20);
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-file fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Infotopdf_Documents");?></h4>
+				<?php e_strTranslate("Infotopdf_Documents");?></h4>
 			<p>Puedes pesonalizar y descargar en PDF las comunicaciones</p>
 			<p class="text-center"><i class="fa fa-file-pdf-o fa-big"></i></p>
 		</div>

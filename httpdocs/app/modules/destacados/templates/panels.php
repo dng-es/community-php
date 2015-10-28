@@ -22,7 +22,7 @@ function PanelLastDestacado(){
 				<p>
 					<a href="<?php echo ($destacado[0]['destacado_tipo'] == 'foto' ? 'fotos' : 'videos?id='.$destacado_file[0]['id_file']);?>"><?php echo $destacado_file[0]['destacado_texto'];?></a><br />
 					<?php echo $destacado_file[0]['nick'];?><br />
-					<span><small><?php echo getDateFormat($destacado[0]['destacado_fecha'], "LONG");?></small></span><br />
+					<span><small><?php echo ucfirst(getDateFormat($destacado[0]['destacado_fecha'], "LONG"));?></small></span><br />
 				</p>
 			</div>
 		</div>

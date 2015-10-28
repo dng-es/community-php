@@ -184,6 +184,14 @@ function strTranslate($str){
 }
 
 /**
+ * echo strTranslate
+ * @param  string 		$str 		string to echo
+ */
+function e_strTranslate($str){
+	echo strTranslate($str);
+}
+
+/**
  * Return string translation from a given file
  * @param  string 		$path 		file path where to find the string ($str)
  * @param  string 		$str  		String to translate

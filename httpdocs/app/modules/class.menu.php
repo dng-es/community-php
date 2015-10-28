@@ -25,7 +25,7 @@ class menu{
 						<ul class="nav navbar-nav">
 							<?php self::userMainMenu();?>
 							
-							<li class="hidden-md hidden-lg"><a href="profile"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php echo strTranslate("My_profile")?></a></li>
+							<li class="hidden-md hidden-lg"><a href="profile"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php e_strTranslate("My_profile")?></a></li>
 							<?php 
 							$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
 							//se muestra el acceso a admin si tiene el permiso
@@ -35,8 +35,8 @@ class menu{
 								}
 							}
 							?>
-							<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Mailing_messages")?></a></li>
-							<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-power-off visible-xs-inline-block text-primary"></i> <?php echo strTranslate("Logout")?></a></li>
+							<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Mailing_messages")?></a></li>
+							<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-power-off visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Logout")?></a></li>
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container-fluid -->
@@ -212,7 +212,7 @@ class menu{
 
 			?>
 			<div class="app-sidebar-admin hidden-print" id="admin-panel">
-				<h2><a href="admin"><?php echo strTranslate("Go_to_main_panel");?></a></h2>
+				<h2><a href="admin"><?php e_strTranslate("Go_to_main_panel");?></a></h2>
 				<?php self::getMenuSection("Modules", "fa fa-puzzle-piece", $array_final);?>
 				<?php self::getMenuSection("Tools", "fa fa-gears", $array_final);?>
 				<div class="text-right"><h3><small>v. <?php echo APP_VERSION;?></small></h3></div>

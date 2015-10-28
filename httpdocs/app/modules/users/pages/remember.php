@@ -10,23 +10,23 @@ $module_config = getModuleConfig("users");
 		<img src="images/logo01.png" alt="<?php echo $ini_conf['SiteName'];?>" class="responsive login-img" />
 	</div>
 	<div class="col-md-7 login-container">
-		<h1 class="inset"><?php echo strTranslate("Recover_password");?></h1>
+		<h1 class="inset"><?php e_strTranslate("Recover_password");?></h1>
 		<?php
 		session::getFlashMessage( 'actions_message' ); 
 		usersController::recoverPasswordAction();?>
 		<form method="post" action="" name="formRemember" id="formRemember" role="form" class="form-signin form-horizontal">
 			<div class="row">
 				<div class="col-md-10">
-					<label for="form-lostpw-user"><?php echo strTranslate("Recover_password_info");?></label>
-					<input type="text" name="form-lostpw-user" id="form-lostpw-user" class="form-control" placeholder="<?php echo strTranslate("Username");?>" required autofocus />
+					<label for="form-lostpw-user"><?php e_strTranslate("Recover_password_info");?></label>
+					<input type="text" name="form-lostpw-user" id="form-lostpw-user" class="form-control" placeholder="<?php e_strTranslate("Username");?>" required autofocus />
 					<div class="row nopadding">
 						<div class="col-md-6 nopadding">
 							<br />
-							<button type="submit" name="rememberSubmit" id="rememberSubmit" class="btn btn-primary btn-block"><?php echo strTranslate("Recover_password");?></button>
+							<button type="submit" name="rememberSubmit" id="rememberSubmit" class="btn btn-primary btn-block"><?php e_strTranslate("Recover_password");?></button>
 						</div>
 						<div class="col-md-6 nopadding">
 							<br />
-							<a href="login" class="btn btn-default btn-block"><?php echo strTranslate("Identify_to_access");?></a>
+							<a href="login" class="btn btn-default btn-block"><?php e_strTranslate("Identify_to_access");?></a>
 						</div>
 					</div>
 				</div>
@@ -34,7 +34,7 @@ $module_config = getModuleConfig("users");
 		</form>
 		<div class="container-separator">
 			<?php if ($module_config['options']['allow_registration'] === true) :
-				echo strTranslate("If_not_registered");?> <a  href="registration"><?php echo strTranslate("Register");?></a>
+				e_strTranslate("If_not_registered");?> <a  href="registration"><?php e_strTranslate("Register");?></a>
 			<?php endif;?>
 		</div>
 	</div>

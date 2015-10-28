@@ -17,17 +17,17 @@ $elements = mailingTemplatesController::getListAction(20);
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">
-					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-					<li><a href="admin-template?act=new"><?php echo strTranslate("New_template");?></a></li>
+					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+					<li><a href="admin-template?act=new"><?php e_strTranslate("New_template");?></a></li>
 				</ul>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
 						<tr>
 							<th width="40px">&nbsp;</th>
-							<th><?php echo strTranslate("Title");?></th>
-							<th><?php echo strTranslate("Type");?></th>
-							<th><?php echo strTranslate("Campaign");?></th>
-							<th><center><?php echo strTranslate("Active");?></center></th>
+							<th><?php e_strTranslate("Title");?></th>
+							<th><?php e_strTranslate("Type");?></th>
+							<th><?php e_strTranslate("Campaign");?></th>
+							<th><center><?php e_strTranslate("Active");?></center></th>
 						</tr>
 						<?php foreach($elements['items'] as $element): 
 							$new_act = ($element['activo'] == 1 ? 0 : 1);

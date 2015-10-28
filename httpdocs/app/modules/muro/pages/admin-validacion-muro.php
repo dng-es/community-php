@@ -17,7 +17,7 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default"> 
-					<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_MURO;?></b></a></li>
+					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_MURO;?></b></a></li>
 				</ul>
 
 				<div class="table-responsive">
@@ -25,7 +25,7 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 						<tr>
 							<th width="40px">&nbsp;</th>
 							<th>ID</th>
-							<th><?php echo strTranslate("Comment");?></th>
+							<th><?php e_strTranslate("Comment");?></th>
 						</tr>
 					 	<?php foreach($elements['items'] as $element):
 							echo '<tr>';

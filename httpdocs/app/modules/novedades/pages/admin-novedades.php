@@ -21,13 +21,13 @@ templateload("cmbCanales", "users");
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form id="formData" name="formData" method="post" enctype="multipart/form-data" action="" role="form">
-					<label><?php echo strTranslate("Channel");?>:</label>
+					<label><?php e_strTranslate("Channel");?>:</label>
 					<select name="canal" id="canal" class="form-control">
 					<?php ComboCanales();?>
 					</select>
 
 					<label checkbox-inline>
-						<input type="checkbox" id="activo"  name="activo" checked="checked"> <?php echo strTranslate("Active");?>
+						<input type="checkbox" id="activo"  name="activo" checked="checked"> <?php e_strTranslate("Active");?>
 					</label>
 					
 					<textarea cols="40" rows="5" name="texto"></textarea>
@@ -36,7 +36,7 @@ templateload("cmbCanales", "users");
 						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 					</script>
 					<br />
-					<input type="submit" name="SubmitData" class="btn btn-primary" value="<?php echo strTranslate("Save_data");?>" />
+					<input type="submit" name="SubmitData" class="btn btn-primary" value="<?php e_strTranslate("Save_data");?>" />
 					<br /><br />
 				</form>
 			</div>

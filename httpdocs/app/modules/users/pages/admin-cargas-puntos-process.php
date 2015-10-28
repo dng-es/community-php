@@ -61,7 +61,7 @@ function volcarMySQL($data){
 	}?>
 	<br />
 	<p>
-		El proceso de importación ha finalizado con éxito. Se ha actualizado los <?php echo strTranslate("App_points");?> de <b><?php echo $contador;?></b> usuarios.<br /><br />
+		El proceso de importación ha finalizado con éxito. Se ha actualizado los <?php e_strTranslate("App_points");?> de <b><?php echo $contador;?></b> usuarios.<br /><br />
 		<a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a>
 	</p>
 <?php } ?>

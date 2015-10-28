@@ -20,7 +20,7 @@ function videoComment($comentario, $destino = "videos-comentarios"){?>
 		<p><a name="comentario-id-'.$comentario['id_comentario'].'" id="comentario-id-'.$comentario['id_comentario'].'"></a></p>
 		<p><?php echo showHtmlLinks($comentario['comentario']);?></p>
 		<div class="comment-info">
-			<span class="label tooltip-bottom" title="<?php echo strTranslate("Vote_comment");?>"><a class="trigger-video" href="<?php echo $destino.'&idvc='.$comentario['id_comentario'];?>" data-id="'.$comentario['id_comentario'].'">
+			<span class="label tooltip-bottom" title="<?php e_strTranslate("Vote_comment");?>"><a class="trigger-video" href="<?php echo $destino.'&idvc='.$comentario['id_comentario'];?>" data-id="'.$comentario['id_comentario'].'">
 			<i class="fa fa-heart"></i> <?php echo $comentario['votaciones'];?></a></span>
 			<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label tooltip-bottom" title="ID del comentario">id: '.$comentario['id_comentario'].'</span>'; ?>
 		</div>

@@ -44,11 +44,11 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 		<div class="panel panel-default">
 			<div class="panel-body">
 		<!-- Nav tabs -->
-		<button type="button" class="btn btn-default btn-xs connect-as pull-right" data-u="<?php echo $elements[0]['username'];?>" data-p="<?php echo $elements[0]['user_password'];?>"><i class="fa fa-plug"></i> <?php echo strTranslate("Connect_as");?></button>
+		<button type="button" class="btn btn-default btn-xs connect-as pull-right" data-u="<?php echo $elements[0]['username'];?>" data-p="<?php echo $elements[0]['user_password'];?>"><i class="fa fa-plug"></i> <?php e_strTranslate("Connect_as");?></button>
 		<ul class="nav nav-tabs" id="myTab">
-			<li class="active"><a href="#general" data-toggle="tab"><?php echo strTranslate("Main_data");?></a></li>
-			<li><a href="#statistics" data-toggle="tab"><?php echo strTranslate("Statistics");?></a></li>
-			<li><a href="#permissions" data-toggle="tab"><?php echo strTranslate("Permissions");?></a></li>
+			<li class="active"><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
+			<li><a href="#statistics" data-toggle="tab"><?php e_strTranslate("Statistics");?></a></li>
+			<li><a href="#permissions" data-toggle="tab"><?php e_strTranslate("Permissions");?></a></li>
 		</ul>
 		
 		<div class="tab-content">
@@ -60,49 +60,49 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							<input type="hidden" id="id_username" name="id_username" value="<?php echo $elements[0]['username'];?>" />
 							<div class="row">
 								<div class="col-md-6">
-									<label for="username"><small><?php echo strTranslate("Username");?>:</small></label>
-									<input type="text" class="form-big form-control<?php if ($id != "") echo ' TextDisabled" readonly="readonly';?>" id="username" name="username" value="<?php echo $elements[0]['username'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
+									<label for="username"><small><?php e_strTranslate("Username");?>:</small></label>
+									<input type="text" class="form-big form-control<?php if ($id != "") echo ' TextDisabled" readonly="readonly';?>" id="username" name="username" value="<?php echo $elements[0]['username'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
 								<div class="col-md-6">
-									<label for="nick_user"><small><?php echo strTranslate("Nick");?>:</small></label>
+									<label for="nick_user"><small><?php e_strTranslate("Nick");?>:</small></label>
 									<input type="text" class="form-control TextDisabled" readonly="readonly" id="nick_user" name="nick_user" value="<?php echo $elements[0]['nick'];?>" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6">
-									<label for="user_password"><small><?php echo strTranslate("Password");?>:</small></label>
-									<input type="text" class="form-control" id="user_password" name="user_password" value="<?php echo $elements[0]['user_password'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
+									<label for="user_password"><small><?php e_strTranslate("Password");?>:</small></label>
+									<input type="text" class="form-control" id="user_password" name="user_password" value="<?php echo $elements[0]['user_password'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
 								<div class="col-md-6">
-									<label for="perfil_user"><small><?php echo strTranslate("Profile");?>:</small></label>
-									<select id="perfil_user" name="perfil_user" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
-										<option value="">--<?php echo strTranslate("Choose_profile");?>--</option>
+									<label for="perfil_user"><small><?php e_strTranslate("Profile");?>:</small></label>
+									<select id="perfil_user" name="perfil_user" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
+										<option value="">--<?php e_strTranslate("Choose_profile");?>--</option>
 										<?php ComboPerfiles($elements[0]['perfil']);?>
 									</select>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6">
-									<label for="name_user"><small><?php echo strTranslate("Name");?>:</small></label>
-									<input type="text" class="form-control" id="name_user" name="name_user" value="<?php echo $elements[0]['name'];?>" data-alert="<?php echo strTranslate("Required_field");?>" />
+									<label for="name_user"><small><?php e_strTranslate("Name");?>:</small></label>
+									<input type="text" class="form-control" id="name_user" name="name_user" value="<?php echo $elements[0]['name'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
 								<div class="col-md-6">
-									<label for="surname"><small><?php echo strTranslate("Surname");?>:</small></label>
+									<label for="surname"><small><?php e_strTranslate("Surname");?>:</small></label>
 									<input type="text" class="form-control" name="surname" value="<?php echo $elements[0]['surname'];?>" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6">
-									<label for="canal_user"><small><?php echo strTranslate("Channel");?>:</small></label>
-									<select id="canal_user" name="canal_user" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
-										<option value="">--<?php echo strTranslate("Choose_channel");?>--</option>
+									<label for="canal_user"><small><?php e_strTranslate("Channel");?>:</small></label>
+									<select id="canal_user" name="canal_user" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
+										<option value="">--<?php e_strTranslate("Choose_channel");?>--</option>
 										<?php ComboCanales($elements[0]['canal'], "");?>
 									</select>
 								</div>
 								<div class="col-md-6">
-									<label for="empresa_user"><small><?php echo strTranslate("Group_user");?>:</small></label>
-									<select id="empresa_user" name="empresa_user" class="form-control" data-alert="<?php echo strTranslate("Required_field");?>">
-										<option value="">--<?php echo strTranslate("Choose_group");?>--</option>
+									<label for="empresa_user"><small><?php e_strTranslate("Group_user");?>:</small></label>
+									<select id="empresa_user" name="empresa_user" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
+										<option value="">--<?php e_strTranslate("Choose_group");?>--</option>
 										<?php 
 										$users = new users();
 										$centros = $users->getTiendas("");
@@ -119,31 +119,31 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 								</div>
 								<div class="col-md-6">
 									<label for="email_user"><small>Email:</small></label>
-									<input type="text" class="form-control" id="email_user" name="email_user" value="<?php echo $elements[0]['email'];?>" data-alert="<?php echo strTranslate("Required_email");?>" />
+									<input type="text" class="form-control" id="email_user" name="email_user" value="<?php echo $elements[0]['email'];?>" data-alert="<?php e_strTranslate("Required_email");?>" />
 								</div>
 							</div>
 							<div class="row inset">
 								<div class="col-md-4">
 									<label checkbox-inline>
-										<input type="checkbox" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed'] == 1 ? "checked" : "";?>> <?php echo strTranslate("Confirmed");?>
+										<input type="checkbox" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed'] == 1 ? "checked" : "";?>> <?php e_strTranslate("Confirmed");?>
 									</label>
 								</div>
 
 								<div class="col-md-4">
 									<label checkbox-inline>
-										<input type="checkbox" id="registered_user"  name="registered_user" <?php echo $elements[0]['registered'] == 1 ? "checked" : "";?>> <?php echo strTranslate("Registered");?>
+										<input type="checkbox" id="registered_user"  name="registered_user" <?php echo $elements[0]['registered'] == 1 ? "checked" : "";?>> <?php e_strTranslate("Registered");?>
 									</label>
 								</div>
 
 								<div class="col-md-4">
 									<label checkbox-inline>
-										<input type="checkbox" id="disabled_user"  name="disabled_user" <?php echo $elements[0]['disabled'] == 1 ? "checked" : "";?>> <?php echo strTranslate("Disabled");?>
+										<input type="checkbox" id="disabled_user"  name="disabled_user" <?php echo $elements[0]['disabled'] == 1 ? "checked" : "";?>> <?php e_strTranslate("Disabled");?>
 									</label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Save_data");?></button>
 								</div>
 							</div>
 						</form>
@@ -151,7 +151,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 					<div class="col-md-3 inset">
 						<br />
 						<div class="panel panel-default">
-							<div class="panel-heading"><?php echo strTranslate("Picture");?></div>
+							<div class="panel-heading"><?php e_strTranslate("Picture");?></div>
 							<div class="panel-body nopadding">
 								<img src="<?php echo PATH_USERS_FOTO.(($elements[0]['foto'] == "") ? "user.jpg" : $elements[0]['foto']);?>" style="width:100%" class="responsive" /><br /><br />
 								<?php
@@ -170,7 +170,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 					<div class="col-md-12 inset">
 						<p class="text-muted">Estadísticas de uso de la comunidad por el usuario <b><?php echo $elements[0]['username'];?></b></p>
 						<table class="table table-striped">
-							<tr><td><label><?php echo strTranslate("Date_add");?></label></td><td><?php echo getDateFormat($elements[0]['date_add'], "DATE_TIME");?></td></tr>
+							<tr><td><label><?php e_strTranslate("Date_add");?></label></td><td><?php echo getDateFormat($elements[0]['date_add'], "DATE_TIME");?></td></tr>
 							<tr><td><label><?php echo ucfirst(strTranslate("APP_points"));?></label></td><td><?php echo $elements[0]['puntos'];?></td></tr>
 							<tr><td><label><?php echo ucfirst(strTranslate("APP_shares"));?></label></td><td><?php echo $elements[0]['participaciones'];?></td></tr>
 							<?php if (count($estadisticas)>0): ?>
@@ -196,9 +196,9 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 								<input type="hidden" name="user_permission_module" id="user_permission_module" value="<?php echo $module['folder'];?>" />
 								<table class="table table-striped">
 									<tr>
-										<th><?php echo strTranslate(ucfirst($module['folder']));?></th>
-										<th width="80px"><?php echo strTranslate("View");?></th>
-										<th width="80px"><?php echo strTranslate("Edit");?></th>
+										<th><?php e_strTranslate(ucfirst($module['folder']));?></th>
+										<th width="80px"><?php e_strTranslate("View");?></th>
+										<th width="80px"><?php e_strTranslate("Edit");?></th>
 									</tr>
 									<?php foreach($pages as $page):  
 									$page_name = str_replace(".php", "", $page);
@@ -268,7 +268,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<?php endif;?>
 									<?php endforeach;?>
 								</table>
-								<button type="submit" class="btn btn-default btn-xs pull-right"><?php echo strTranslate("Save");?> <?php echo strTranslate("Permissions");?></button>
+								<button type="submit" class="btn btn-default btn-xs pull-right"><?php e_strTranslate("Save");?> <?php e_strTranslate("Permissions");?></button>
 								<div class="clearfix"></div>
 							</form>
 							<br />

@@ -24,14 +24,14 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 		<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
-				<div class="panel-heading"><?php echo strTranslate("Photo_albums");?></div>
+				<div class="panel-heading"><?php e_strTranslate("Photo_albums");?></div>
 				<div class="panel-body">
 					<form id="formData" name="formData" method="post" action="" role="form">
 						<input type="hidden" name="id" value="<?php echo $id;?>" />
-						<label class="sr-only" for="nombre"><?php echo strTranslate("Title");?></label>
-						<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo isset($album[0]) ? $album[0]['nombre_album'] : '';?>" placeholder="<?php echo strTranslate("Title");?>" />
+						<label class="sr-only" for="nombre"><?php e_strTranslate("Title");?></label>
+						<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo isset($album[0]) ? $album[0]['nombre_album'] : '';?>" placeholder="<?php e_strTranslate("Title");?>" />
 						<br />
-						<input type="submit" name="SubmitData" class="btn btn-primary" value="<?php echo strTranslate("Save_data");?>" />
+						<input type="submit" name="SubmitData" class="btn btn-primary" value="<?php e_strTranslate("Save_data");?>" />
 					</form>
 				</div>
 			</div>
@@ -64,9 +64,9 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 					<tr>
 						<th width="40px">&nbsp;</th>
 						<th>ID</th>
-						<th><?php echo strTranslate("Title");?></th>
-						<th><?php echo strTranslate("Date");?></th>
-						<th><?php echo strTranslate("User");?></th>
+						<th><?php e_strTranslate("Title");?></th>
+						<th><?php e_strTranslate("Date");?></th>
+						<th><?php e_strTranslate("User");?></th>
 						<th><span class="fa fa-heart"></span></th>
 						<th><span class="fa fa-comment"></span></th>
 					</tr>
@@ -74,7 +74,7 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 						$num_comentarios = connection::countReg("galeria_fotos_comentarios"," AND estado=1 AND id_file=".$element['id_file']." ");?>
 						<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-ban icon-table" onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-albumes-new?act=foto_ko&id=<?php echo $id.'&idf='.$element['id_file'].'&u='.$element['user_add'];?>')" title="<?php echo strTranslate("Delete");?>" /></span>
+								<span class="fa fa-ban icon-table" onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-albumes-new?act=foto_ko&id=<?php echo $id.'&idf='.$element['id_file'].'&u='.$element['user_add'];?>')" title="<?php e_strTranslate("Delete");?>" /></span>
 							</td>
 							<td><?php echo $element['id_file'];?></td>
 							<td><a href="#" data-img="<?php echo $element['name_file'];?>" class="abrir-modal"><?php echo $element['titulo'];?></a></td>
@@ -93,7 +93,7 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel"><?php echo strTranslate("Photo");?></h4>
+							<h4 class="modal-title" id="myModalLabel"><?php e_strTranslate("Photo");?></h4>
 						</div>
 						<div class="modal-body">
 							<img class="galeria-fotos" style="width:100%" />

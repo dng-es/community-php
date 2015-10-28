@@ -86,7 +86,7 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-bookmark fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Forms");?>
+				<?php e_strTranslate("Forms");?>
 			</h4>
 			<p>Responde las preguntas y demuestra lo que sabes!!</p>
 			<p class="text-center"><i class="fa fa-thumbs-up fa-big"></i></p>

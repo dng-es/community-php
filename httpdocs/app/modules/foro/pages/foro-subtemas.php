@@ -14,7 +14,7 @@ $canal = "";
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Forums"), "ItemClass"=>"active"),
 		));?>
-		<p><?php echo strTranslate("Forums_title");?></p>
+		<p><?php e_strTranslate("Forums_title");?></p>
 		
 		<?php
 		session::getFlashMessage( 'actions_message' );

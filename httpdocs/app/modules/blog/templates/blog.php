@@ -23,7 +23,7 @@ function entradasBlog($elements){
 				<img src="images/foro/'.$element['imagen_tema'].'" class="media-preview" alt="'.$element['nombre'].'" /></a>
 				<div>
 					<a href="blog?id='.$element['id_tema'].'">'.$element['nombre'].'</a><br />
-					<span><small>'.getDateFormat($element['date_tema'], "LONG").'</small></span>
+					<span><small>'.ucfirst(getDateFormat($element['date_tema'], "LONG")).'</small></span>
 				</div>
 			  </div>';
 	endforeach;
@@ -32,7 +32,7 @@ function entradasBlog($elements){
 function searchBlog(){ ?>
 	<form role="form" action="blog-list" method="get" id="form-blog">
 		<div class="input-group">
-			<label class="sr-only" for="find_reg"><?php echo strTranslate("Search");?></label>
+			<label class="sr-only" for="find_reg"><?php e_strTranslate("Search");?></label>
 			<input class="form-control" id="find_reg" name="find_reg" placeholder="<?php echo strtolower(strTranslate("Search"));?>">
 			<div class="input-group-btn">
 				<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
@@ -58,7 +58,7 @@ function nextPost($id_tema, $filtro_blog){
 		$siguiente_enlace = "#";
 	}
 	else $siguiente_enlace = 'blog?id='.$siguiente[0]['id_tema']; ?>
-	<li class="next <?php echo $siguiente_disabled ;?>"><a href="<?php echo $siguiente_enlace;?>"><?php echo strTranslate("Next_post");?> &rarr;</a></li>
+	<li class="next <?php echo $siguiente_disabled ;?>"><a href="<?php echo $siguiente_enlace;?>"><?php e_strTranslate("Next_post");?> &rarr;</a></li>
 	<?php 
 }
 
@@ -72,7 +72,7 @@ function previousPost($id_tema, $filtro_blog){
 	}
 	else $anterior_enlace = "blog?id=".$anterior[0]['id_tema'];
 	?>
-	<li class="previous <?php echo $anterior_disabled;?>"><a href="<?php echo $anterior_enlace;?>">&larr; <?php echo strTranslate("Previous_post");?></a></li>
+	<li class="previous <?php echo $anterior_disabled;?>"><a href="<?php echo $anterior_enlace;?>">&larr; <?php e_strTranslate("Previous_post");?></a></li>
 	<?php 
 }
 ?>

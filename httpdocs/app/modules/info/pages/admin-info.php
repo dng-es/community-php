@@ -14,16 +14,16 @@ $elements = infoController::getListAction(20);
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">
-					<li class="disabled"><a href="#"><?php echo strTranslate("Items");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-					<li><a href="admin-info-doc?act=new"><?php echo strTranslate("Info_Documents_new");?></a></li>
+					<li class="disabled"><a href="#"><?php e_strTranslate("Items");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+					<li><a href="admin-info-doc?act=new"><?php e_strTranslate("Info_Documents_new");?></a></li>
 				</ul>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
 						<tr>
 							<th width="50px">&nbsp;</th>
-							<th><?php echo strTranslate("Name");?></th>
-							<th><?php echo strTranslate("Type");?></th>
-							<th><?php echo strTranslate("Campaign");?></th>
+							<th><?php e_strTranslate("Name");?></th>
+							<th><?php e_strTranslate("Type");?></th>
+							<th><?php e_strTranslate("Campaign");?></th>
 							<th><center>Descargable</center></th>
 						</tr>
 						<?php foreach($elements['items'] as $element): 
@@ -31,10 +31,10 @@ $elements = infoController::getListAction(20);
 						?>
 						<tr>
 							<td nowrap="nowrap">
-								  <a href="admin-info-doc?act=edit&id=<?php echo $element['id_info'];?>" title="<?php echo strTranslate("Edit");?>">
+								  <a href="admin-info-doc?act=edit&id=<?php echo $element['id_info'];?>" title="<?php e_strTranslate("Edit");?>">
 								  <span class="fa fa-edit icon-table"></span></a>
-								  <span onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-info?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>')" 
-								  title="<?php echo strTranslate("Delete");?>" /><span class="fa fa-ban icon-table"></span></span>
+								  <span onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-info?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>')" 
+								  title="<?php e_strTranslate("Delete");?>" /><span class="fa fa-ban icon-table"></span></span>
 							   </td>     
 							<td><a target="_blank" href="<?php echo $enlace;?>"><?php echo $element['titulo_info'];?></a></td>
 							<td><?php echo $element['tipo'];?></td>

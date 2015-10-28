@@ -12,7 +12,7 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 		));
 		?>
 		<ul class="nav nav-pills navbar-default">
-			<li><a href="user-list?act=new"><?php echo strTranslate("New_list")?></a></li>
+			<li><a href="user-list?act=new"><?php e_strTranslate("New_list")?></a></li>
 			<li><a href="user-messages">Mis comunicaciones enviadas</a></li>
 		</ul>
 		<?php
@@ -33,7 +33,7 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 
 			<div class="form-group">
 				<label for="nombre-fichero">Fichero:</label>
-				<p>Selecciona un fichero Excel con los usuarios a cargar. El fichero deberá tener la estructura especificada, puedes descargar el fichero modelo <a href="docs/mailing_list.xls"><b><?php echo strTranslate("Click_here")?></b></a>.</p>
+				<p>Selecciona un fichero Excel con los usuarios a cargar. El fichero deberá tener la estructura especificada, puedes descargar el fichero modelo <a href="docs/mailing_list.xls"><b><?php e_strTranslate("Click_here")?></b></a>.</p>
 				<div class="row">
 					<div class="col-md-3">
 						<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="Seleccionar fichero" />
@@ -52,7 +52,7 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Mailing_lists")?></h4>
+				<?php e_strTranslate("Mailing_lists")?></h4>
 			<p>Estas son tus listas de envío.</p>
 			<p class="text-center"><i class="fa fa-envelope-o fa-big"></i></p>
 		</div>

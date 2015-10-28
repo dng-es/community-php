@@ -16,7 +16,7 @@ videosController::validateCommentAction();
 		$id_file= $_REQUEST['id'];
 		$pendientes = $videos->getComentariosVideo(" AND c.estado=1 AND c.id_file=".$id_file." ORDER BY id_comentario DESC");
 		if (count($pendientes)==0): ?>
-			<div class="alert alert-danger"><?php echo strTranslate("No_video_comments");?></div>
+			<div class="alert alert-danger"><?php e_strTranslate("No_video_comments");?></div>
 		<?php else: ?>
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -25,9 +25,9 @@ videosController::validateCommentAction();
 							<tr>
 								<th width="40px">&nbsp;</th>
 								<th>ID</th>
-								<th><?php echo strTranslate("Comment");?></th>
-								<th><?php echo strTranslate("Author");?></th>
-								<th><?php echo strTranslate("Date");?></th>
+								<th><?php e_strTranslate("Comment");?></th>
+								<th><?php e_strTranslate("Author");?></th>
+								<th><?php e_strTranslate("Date");?></th>
 							</tr>
 							<?php foreach($pendientes as $element):
 								echo '<tr>';

@@ -12,6 +12,6 @@ session::ValidateSessionAjax();
 $videos = new videos();
 //REGISTRAR REPRODUCCION
 if (isset($_POST['v']) and $_POST['v'] != ""){
-	echo $videos->insertVideoView($_POST['v'],$_SESSION['user_name']);
+	echo $videos->insertVideoView($_POST['v'], $_SESSION['user_name']);
 }
 ?>

@@ -55,19 +55,21 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 			else $inicio = ($pag - 1) * $reg;
 			$total_reg = connection::countReg("foro_comentarios c", $filtro_comentarios);
 			?>
-			<div class="panel panel-default panel-comunidad">
-				<div class="panel-footer">
-					<h2><?php echo $tema['nombre'];?></h2>
-					<span><?php echo getDateFormat($tema['date_tema'], "LONG");?></span>
-					<?php if ($module_config['options']['allow_comments'] == true ):?>
-					<span class="fa fa-comment" title="comentarios en el foro"></span>
-					<span class="contador-foro-counter"><?php echo $total_reg;?></span> <?php echo strTranslate("Comments");?> 
-					<?php endif;?>
-					<span class="fa fa-eye" title="visitas al foro"></span> 
-					<span class="contador-foro-counter"><?php echo $tema['num_visitas'];?></span> <?php echo strTranslate("Visits");?> 
-					<?php showTags($tema['tipo_tema']);?>
-				</div>
+			<div class="panel panel-default panel-blog">
 				<div class="panel-body">
+					<div class="panel-blog-header">
+						<h2><?php echo $tema['nombre'];?></h2>
+						<small class="text-muted">
+							<span><?php echo ucfirst(getDateFormat($tema['date_tema'], "LONG"));?></span>
+							<?php if ($module_config['options']['allow_comments'] == true ):?>
+							<span class="fa fa-comment text-primary" title="comentarios en el foro"></span>
+							<span class="contador-foro-counter"><?php echo $total_reg;?></span> <?php e_strTranslate("Comments");?> 
+							<?php endif;?>
+							<span class="fa fa-eye text-primary" title="visitas al foro"></span> 
+							<span class="contador-foro-counter"><?php echo $tema['num_visitas'];?></span> <?php e_strTranslate("Visits");?> 
+							<?php showTags($tema['tipo_tema']);?>
+						</small>
+					</div>
 					<p><?php echo $tema['descripcion'];?></p>
 				</div>
 			</div>
@@ -89,7 +91,7 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 				?>
 				<div class="clearfix"></div>
 				<div class="panel-interior">
-					<label><?php echo strTranslate("Comment_this_post");?>:</label>
+					<label><?php e_strTranslate("Comment_this_post");?>:</label>
 					<?php addForoComment($id_tema);?>
 				</div>
 				
@@ -147,7 +149,7 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Last_blog");?>
+				<?php e_strTranslate("Last_blog");?>
 			</h4>
 			<?php 			
 			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
@@ -158,7 +160,7 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Archive");?>
+				<?php e_strTranslate("Archive");?>
 			</h4>
 			<?php
 			$elements = $foro->getArchivoBlog($filtro_blog);
@@ -169,7 +171,7 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
 				</span>
-				<?php echo strTranslate("Categories");?>
+				<?php e_strTranslate("Categories");?>
 			</h4>
 			<?php
 			$elements = $foro->getCategorias($filtro_blog." AND ocio=1 ");

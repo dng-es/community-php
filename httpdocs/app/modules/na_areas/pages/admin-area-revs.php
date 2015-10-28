@@ -39,7 +39,7 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 
 		<ul class="nav nav-pills navbar-default">
 			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>">Volver al curso</a></li>
-			<li><a href="admin-area-revs?t3=1&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>"><?php echo strTranslate("Export");?></a></li>
+			<li><a href="admin-area-revs?t3=1&a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>"><?php e_strTranslate("Export");?></a></li>
 		</ul>
 
 		<?php
