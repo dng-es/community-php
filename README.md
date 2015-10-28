@@ -178,6 +178,7 @@ Se puede activar desde app/core/config.php con la variable debug_app. Opciones:
 * [showHtmlLinks](#showhtmllinks)
 * [shortText](#shorttext)
 * [strTranslate](#strtranslate)
+* [e_strTranslate](#e_strtranslate)
 
 ### Validaciones
 * [validateDate](#validatedate)
@@ -376,6 +377,11 @@ echo strTranslate("Home"); //mostrará la traducción de la palabra 'Home'
 ```
 La cadena de texto a traducir figurará en los ficheros general de idiomas - *httpdocs/app/languages/lan/language.php* o en los ficheros de idionas de los módulos - *httpdocs/app/modules/module_name/resources/languages/lan/language.php*.
 
+### e_strTranslate
+Escribe la cadena de texto traducida pasada por parámetro en el idioma establecido por defecto. Uso: 
+```php
+e_strTranslate("Home"); //mostrará la traducción de la palabra 'Home'
+```
 
 ## Validaciones
 <span style="float:right">[Inicio](#community-php)</span>
