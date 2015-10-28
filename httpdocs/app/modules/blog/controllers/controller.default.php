@@ -108,5 +108,40 @@ class blogController{
 		$noLeidos = connection::countReg("foro_temas", " AND activo=1 AND ocio=1 ".$filtro_canal." AND id_tema NOT IN (SELECT id_tema FROM blog_alerts WHERE username_alert = '".$_SESSION['user_name']."')");
 		return $noLeidos;
 	}
+
+	public static function getCommentsAction(){
+		$foro = new foro();
+		$calculo = strtotime("-4 days");
+		$fecha_ayer = date("Y-m-d", $calculo);
+		$id_tema = $_REQUEST['id'];
+		return $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." ORDER BY id_comentario DESC");
+	}
+
+	public static function exportCommentsAction(){
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+			$foro = new foro(); 
+			$elements_exp = $foro->getComentariosExport(" AND c.estado=1 AND c.id_tema=".$_REQUEST['id']." ");
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements_exp);
+			die();
+		}
+	}
+
+	public static function validateCommentsAction(){
+		if (isset($_REQUEST['act'])){
+			$foro = new foro();
+			$users = new users();
+			if ($_REQUEST['act'] == 'foro_ok'){
+				$foro->cambiarEstado($_REQUEST['id'],1);
+				$users->sumarPuntos($_REQUEST['u'], PUNTOS_FORO, PUNTOS_FORO_MOTIVO);
+			}
+			elseif ($_REQUEST['act'] == 'tema_ko') $foro->cambiarEstadoTema($_REQUEST['id'], 0);
+			elseif ($_REQUEST['act'] == 'foro_ko'){
+				$foro->cambiarEstado($_REQUEST['id'], 2);
+				$users->restarPuntos($_REQUEST['u'], PUNTOS_MURO, PUNTOS_MURO_MOTIVO);
+			}
+			header("Location: admin-blog-foro?id=".$_REQUEST['idt']); 
+		}
+	}
 }
 ?>

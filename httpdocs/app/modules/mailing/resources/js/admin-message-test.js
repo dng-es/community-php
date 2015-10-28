@@ -1,6 +1,5 @@
 // JavaScript Document
-jQuery(document).ready(function(){	
-
+jQuery(document).ready(function(){
 	var timerProcess, 
 		elpasedTime = 15000, 
 		pasada = 0,
@@ -11,7 +10,7 @@ jQuery(document).ready(function(){
 	$("#SubmitTest").click(function(evento){
 		evento.preventDefault();
 
-		if (jQuery.trim($("#email_test").val())=="") {
+		if (jQuery.trim($("#email_test").val()) == ""){
 			 alert("Debes introducir los destinatarios.");
 		}
 		else{
@@ -20,12 +19,12 @@ jQuery(document).ready(function(){
 				url: "app/modules/mailing/pages/admin-message-test.php",
 				data: $('#formData').serialize()
 			})
-			.fail(function(data) {
+			.fail(function(data){
 				alert("Error al enviar mensaje");
 			})
-			.always(function(data) {
+			.always(function(data){
 				alert("Mensaje enviado");
 			});
-		}	
+		}
 	});
 });

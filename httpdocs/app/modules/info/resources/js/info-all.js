@@ -1,3 +1,3 @@
 jQuery(document).ready(function(){
-	$("#contador-documentos-header").css("display","none");
+	$("#contador-documentos-header").css("display", "none");
 });

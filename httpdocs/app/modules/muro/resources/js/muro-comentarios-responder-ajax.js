@@ -7,38 +7,38 @@ jQuery(document).ready(function(){
 		ValidateMuro();
 	});
 	
-	function showMuro(id_comentario){	
+	function showMuro(id_comentario){
 		/*$("#cargando").css("display", "inline");*/
-		$("#destino").load("app/modules/muro/pages/muro_responder_ajax.php?id="+id_comentario, function(){
+		$("#destino").load("app/modules/muro/pages/muro_responder_ajax.php?id=" + id_comentario, function(){
 		/*$("#cargando").css("display", "none");*/
-	    });
+		});
 	}
 	
 	function ShowMensaje(mensaje){
 		$("#result-muro").removeClass("alert")
-						 .removeClass("alert-danger")
-						 .removeClass("alert-success")
-						 .html('<p>'+mensaje+'</p>')
-						 .fadeIn()
-						 .css("display","block");		
+						.removeClass("alert-danger")
+						.removeClass("alert-success")
+						.html('<p>' + mensaje + '</p>')
+						.fadeIn()
+						.css("display","block");
 	}
 	
 	function ValidateMuro(){
-	    $("#result-muro").html("");
-	    var resultado_ok = true;   
-		if ($('#texto-responder').val() == "") {
-			 ShowMensaje("Debes insertar algo de texto en el comentario.");
-			 $("#result-muro").addClass("alert alert-danger");
-			 resultado_ok = false;
+		$("#result-muro").html("");
+		var resultado_ok = true;
+		if ($('#texto-responder').val() == ""){
+			ShowMensaje("Debes insertar algo de texto en el comentario.");
+			$("#result-muro").addClass("alert alert-danger");
+			resultado_ok = false;
 		}
 
-		if (document.getElementById('texto-responder').value.length > 160) {
-			 ShowMensaje("Has superado el límite de caracteres. Máximo 160 caracteres.");
-			 $("#result-muro").addClass("alert alert-danger");
-			 resultado_ok = false;
+		if (document.getElementById('texto-responder').value.length > 160){
+			ShowMensaje("Has superado el límite de caracteres. Máximo 160 caracteres.");
+			$("#result-muro").addClass("alert alert-danger");
+			resultado_ok = false;
 		}	
 
-		if (resultado_ok == true) {
+		if (resultado_ok == true){
 			$.ajax({
 				type: 'POST',
 				url: 'app/modules/muro/pages/muro_process.php',
@@ -50,8 +50,8 @@ jQuery(document).ready(function(){
 					$("#result-muro").addClass("alert alert-success");
 					showMuro(id_comentario);
 				}
-			})      		
+			})
 		}
-		return false;				
+		return false;
 	}
 });

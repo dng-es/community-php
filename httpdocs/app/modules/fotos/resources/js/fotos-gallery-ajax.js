@@ -5,19 +5,17 @@ jQuery(document).ready(function(){
 		$("#respuestas-textos").load("app/modules/fotos/pages/gallery_process.php?idf=" + id);
 	}
 
-
 	$("#form-comentario-fotos").submit(function(event) {
 		/* Validaciones */
 		$(".alert-message").html("").css("display","none");
 
 		var resultado_ok=true;   
-		if (jQuery.trim($("#respuesta-texto").val())=="") 
-		{
-			 $("#respuesta-alert").html("Debes intruducir algo de texto.")
-			 				.fadeIn()
-			 				.css("display","block");
-			 resultado_ok=false;
-		}	
+		if (jQuery.trim($("#respuesta-texto").val()) == ""){
+			$("#respuesta-alert").html("Debes intruducir algo de texto.")
+							.fadeIn()
+							.css("display","block");
+			resultado_ok = false;
+		}
 
 		if (resultado_ok){
 			$.ajax({
@@ -31,13 +29,13 @@ jQuery(document).ready(function(){
 					$("#respuesta-texto").val("");
 					CargarComentarios(idf);
 				}
-			}) 
-		}					
+			})
+		}
 
 		return false;
 	});
 
-	$(".modal-img-container img").click(function(event) {
+	$(".modal-img-container img").click(function(event){
 		var ruta = $(this).attr("src"),
 			titulo = $(this).attr("title"),
 			id_file = $(this).attr("data-id"),
@@ -62,7 +60,7 @@ jQuery(document).ready(function(){
 
 	});
 
-	$(".trigger-votar").click(function(event) {
+	$(".trigger-votar").click(function(event){
 		event.preventDefault();
 		var id = $(this).attr("data-id"),
 			contador = parseInt($(".trigger-votar").html());
@@ -74,15 +72,15 @@ jQuery(document).ready(function(){
 			success: function(data) {
 				var msg = "error";
 				
-				if (data==1){
+				if (data == 1){
 					msg = "Votación realizada con éxito.";
 					$(".trigger-votar").html(" " + (contador + 1));
-					$("#img-mini"+id).attr("data-votaciones",(contador + 1))
+					$("#img-mini"+id).attr("data-votaciones", (contador + 1));
 				}
-				else if (data==2){
+				else if (data == 2){
 					msg = "Ya has votado esta foto.";
 				}
-				else if (data==3){
+				else if (data == 3){
 					msg = "No puedes votar tus propias fotos.";
 				}
 

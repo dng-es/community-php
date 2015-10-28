@@ -7,13 +7,13 @@ jQuery(document).ready(function(){
 		$("#configurationModal .modal-title small").html(modulename);
 
 		$('#configurationModal').modal();
-		$.ajax( {
+		$.ajax({
 			type: "GET",
 			url: "app/modules/configuration/pages/admin-modules-ajax.php",
-			data: { module: modulename },
+			data: {module: modulename},
 			cache: false
 			})
-			.done(function(data) {
+			.done(function(data){
 				$("#configurationModal .modal-body").html(data);
 			});
 	});

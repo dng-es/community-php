@@ -20,7 +20,7 @@ jQuery(document).ready(function(){
 				async: false,
 				url: 'home',
 				data:{"form-login-user": user, "form-login-password": pass},
-				success: function(data) {
+				success: function(data){
 					location.href = "login";
 				}
 			});

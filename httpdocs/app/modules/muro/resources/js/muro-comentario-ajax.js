@@ -2,20 +2,20 @@
 jQuery(document).ready(function(){
 	showMuro();
 	var timer = setInterval( showMuro, 30000);
-	
+
 	$("#muro-submit").click(function(e){
 		ValidateMuro();
 	});
-	
-	$("#muro-responder-submit").click(function(e){		
+
+	$("#muro-responder-submit").click(function(e){
 		ValidateResponder();
-	});	
-		
+	});
+
 	$("#muro-responder-cerrar").click(function(e){
 		$('#muro-responder-result').html('');
 		$("#muro-responder").slideUp();
 	});
-	
+
 	function showMuro(){
 		$("#cargando").css("display", "inline");
 		$('.user-tip').tooltip('destroy');
@@ -23,22 +23,22 @@ jQuery(document).ready(function(){
 			$("#cargando").css("display", "none");
 		});
 	}
-	
+
 	function ShowMensaje(mensaje){
 		$("#result-muro").removeClass("alert")
 						 .removeClass("alert-danger")
 						 .removeClass("alert-success")
-						 .html('<p>'+mensaje+'</p>')
+						 .html('<p>' + mensaje + '</p>')
 						 .fadeIn()
-						 .css("display","block");		
+						 .css("display","block");
 	}
-	
+
 	function ShowMensajeResponder(mensaje){
-		$('#muro-responder-result').html('<p>'+mensaje+'</p>');
+		$('#muro-responder-result').html('<p>' + mensaje + '</p>');
 		$("#muro-responder-result").fadeIn();
-		$("#muro-responder-result").css("display","block");		
+		$("#muro-responder-result").css("display","block");
 	}
-	
+
 	function ValidateResponder(){
 		$("#muro-responder-result").html("");
 		var resultado_ok = true;
@@ -46,7 +46,7 @@ jQuery(document).ready(function(){
 			ShowMensajeResponder("Debes insertar algo de texto.");
 			resultado_ok = false;
 		}
-		if (document.getElementById('texto-responder').value.length>160){
+		if (document.getElementById('texto-responder').value.length > 160){
 			ShowMensajeResponder("Has superado el límite de caracteres. Máximo 160 caracteres.");
 			resultado_ok = false;
 		}
@@ -66,20 +66,20 @@ jQuery(document).ready(function(){
 		}
 		return false;
 	}
-	
+
 	function ValidateMuro(){
 		$("#result-muro").html("");
 		var resultado_ok = true;
-		if (jQuery.trim($('#texto-comentario').val()) == "") {
+		if (jQuery.trim($('#texto-comentario').val()) == ""){
 			ShowMensaje("Debes insertar algo de texto en el comentario.");
 			$("#result-muro").addClass("alert alert-danger");
 			resultado_ok = false;
 		}
-		if (document.getElementById('texto-comentario').value.length>160) {
+		if (document.getElementById('texto-comentario').value.length > 160){
 			ShowMensaje("Has superado el límite de caracteres. Máximo 160 caracteres.");
 			$("#result-muro").addClass("alert alert-danger");
 			resultado_ok = false;
-		}		
+		}
 		if (resultado_ok == true){
 			$.ajax({
 				type: 'POST',
@@ -94,6 +94,7 @@ jQuery(document).ready(function(){
 				}
 			})
 		}
+
 		return false;
 	}
 });
