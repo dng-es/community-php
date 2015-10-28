@@ -3,7 +3,6 @@ $base_dir_config = realpath(dirname(__FILE__)) ;
 include_once ($base_dir_config."/functions.php");
 include_once ($base_dir_config."/constants.php");
 
-
 /**
 * Redirect to $url
 *
@@ -74,7 +73,7 @@ function templateload($template, $classname){
 *
 * @param 	string 		$classname 			CLass name
 */
-function __autoload($classname){    
+function __autoload($classname){
 	global $ini_conf;
 	if ($classname == "connection" || $classname == "session" || $classname == "FileSystem" || $classname == "tpl")
 		include_once (dirname(__FILE__) ."/class.".strtolower($classname).".php");
@@ -88,7 +87,7 @@ function __autoload($classname){
 		$controller_name = "default";
 		//$camels = split(" ", preg_replace('/(?<!^)[A-Z]/e', 'strtolower(" $0")', $classname));
 		$camels = preg_split("/ /", preg_replace_callback('/(?<!^)[A-Z]/', function($m) { return strtolower(" ".$m[0]);}, $classname));
-		if (count($camels) == 3) { 
+		if (count($camels) == 3){
 			$classname = $camels[0];
 			$controller_name = strtolower($camels[1]);
 		}
@@ -139,7 +138,7 @@ function getModuleExist($modulename){
 	$folders = FileSystem::showDirFolders(__DIR__."/../modules/");
 	foreach($folders as $folder):
 		if ($folder == $modulename) return true;
-	endforeach;	
+	endforeach;
 	return false;
 }
 
@@ -154,7 +153,7 @@ function getModuleConfig($modulename){
 	$file = __DIR__."/../modules/".$modulename."/config.yaml";
 	if (file_exists($file)){
 		$config_params = readYml($file);
-	}	
+	}
 	return $config_params;
 }
 
@@ -223,7 +222,7 @@ function addCss($scripts){
 * @return 	boolean 				Result
 */
 function readYml($file){
-	require_once(dirname(__FILE__).'/spyc-0.5/spyc.php'); 
+	require_once(dirname(__FILE__).'/spyc-0.5/spyc.php');
 	return Spyc::YAMLLoad($file); 
 }
 /**
@@ -235,7 +234,7 @@ function readYml($file){
 */
 function writeYml($data, $file){
 	require_once(dirname(__FILE__).'/spyc-0.5/spyc.php');
-	$yaml = Spyc::YAMLDump($data,4,60); 
-	return FileSystem::createFile( $file, $yaml );
+	$yaml = Spyc::YAMLDump($data, 4, 60);
+	return FileSystem::createFile($file, $yaml);
 }
 ?>

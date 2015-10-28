@@ -2,7 +2,7 @@
 session_start();
 session::setLanguage();
 
-class session {
+class session{
 
 	public $user_permissions = array();
 	private $user_page_permission = array();
@@ -52,7 +52,7 @@ class session {
 	 */
 	public function checkPagePermission($pagename, $username){
 		//return array_filter($this->user_permissions, function ($var){ global $page; return ($var['pagename']==$page);} );
-		return array_values(array_filter($this->user_permissions, function($arrayValue) use($pagename) { return $arrayValue['pagename'] == $pagename; } ));
+		return array_values(array_filter($this->user_permissions, function($arrayValue) use($pagename) { return $arrayValue['pagename'] == $pagename; }));
 	}
 
 	/**
@@ -105,7 +105,7 @@ class session {
 	*/
 	public static function curPageURL(){
 		$pageURL = 'http';
-		if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+		if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] == "on") $pageURL .= "s";
 		$pageURL .= "://";
 		if ($_SERVER["SERVER_PORT"] != "80")  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
 		else $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
@@ -148,7 +148,7 @@ class session {
 		if (!isset($_SESSION['user_logged']) or $_SESSION['user_logged'] != true){
 			header ("Location: ".$url);
 		}
-	}	
+	}
 
 	/**
 	* Verify user data sent from login form
@@ -158,7 +158,7 @@ class session {
 	*/
 	public static function createSession($Login_user, $Login_pass, $url_confirm = "user-confirm"){
 		$users = new users();
-		$result_user=$users->getUsers(" AND username ='".$Login_user."'  
+		$result_user = $users->getUsers(" AND username ='".$Login_user."'  
 										AND user_password COLLATE utf8_bin ='".$Login_pass."' 
 										AND disabled=0 ");
 
@@ -188,14 +188,12 @@ class session {
 				visitasController::insertVisita("Inicio sesion");
 				$users->updateLastAccess($_SESSION['user_name']);
 			}
-			elseif ($result_user[0]['confirmed'] == 0 and $result_user[0]['registered'] == 0) {
+			elseif ($result_user[0]['confirmed'] == 0 and $result_user[0]['registered'] == 0){
 				//Redirijimos a la pagina de confirmacion de datos.
 				header ("Location: ".$url_confirm);
 			}
 		}
-		else{
-			session::setFlashMessage( 'actions_message', "Usuario o contraseña incorrecta", "alert alert-warning");
-		}
+		else session::setFlashMessage( 'actions_message', "Usuario o contraseña incorrecta", "alert alert-warning");
 	}
 
 	/**
@@ -218,7 +216,7 @@ class session {
 	*/
 	public static function destroySession( $url = APP_DEF_PAGE ){
 		$users = new users();
-		if (isset($_SESSION['user_name'])) {
+		if (isset($_SESSION['user_name'])){
 			$users->deleteUserConn($_SESSION['user_name']);
 			visitas::updateVisitaSeconds($_SESSION['user_name']);
 		}
@@ -238,17 +236,14 @@ class session {
 	* @param 	string 	$class 		display class
 	* @return 	string 	message
 	*/
-	public static function setFlashMessage( $name = '', $message = '', $class = 'alert alert-danger' ){
+	public static function setFlashMessage($name = '', $message = '', $class = 'alert alert-danger' ){
 		//We can only do something if the name isn't empty
-		if( !empty( $name ) ){
+		if(!empty( $name)){
 			//No message, create it
-			if( !empty( $message ) && empty( $_SESSION[$name] ) ) {
-				if( !empty( $_SESSION[$name] ) ) {
-					unset( $_SESSION[$name] );
-				}
-				if( !empty( $_SESSION[$name.'_class'] ) ) {
-					unset( $_SESSION[$name.'_class'] );
-				}
+			if(!empty($message) && empty( $_SESSION[$name])){
+				if(!empty($_SESSION[$name])) unset($_SESSION[$name]);
+				if(!empty($_SESSION[$name.'_class'])) unset($_SESSION[$name.'_class']);
+
 				$_SESSION[$name] = $message;
 				$_SESSION[$name.'_class'] = $class;
 			}

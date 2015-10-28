@@ -1,12 +1,11 @@
 <?php
 set_time_limit(0);
 global $ini_conf;
-$base_dir_config = realpath(dirname(__FILE__)) ;
+$base_dir_config = realpath(dirname(__FILE__));
 $conector = (isset($ini_conf['sql_connector']) ? $ini_conf['sql_connector'] : "mysqli");
 include ($base_dir_config."/class.connection.".$conector.".php");
 
 class connection extends connection_sql{
-	
 	/**
 	 * Select max value from a given field in a specific table
 	 * @param string 		$field  		Field to get max value
@@ -14,7 +13,7 @@ class connection extends connection_sql{
 	 * @param string 		$filter 		filter to apply
 	 * @return int 							Max value
 	 */
-	public static function SelectMaxReg($field, $table, $filter){	
+	public static function SelectMaxReg($field, $table, $filter){
 		$Sql = "SELECT IFNULL(max(".$field."),0) AS max_counter FROM ".$table." WHERE 1=1 ".$filter;
 		if (($result = self::execute_query($Sql)) !== false){
 			$row = self::get_result($result);
@@ -33,7 +32,7 @@ class connection extends connection_sql{
 		if (($result = self::execute_query($Sql)) !== false){
 			$row = self::get_result($result);
 			return $row['table_counter'];
-		}	
+		}
 	}
 
 	/**
@@ -47,8 +46,8 @@ class connection extends connection_sql{
 		if (($result = self::execute_query($Sql)) !== false){
 			$row = self::get_result($result);
 			return $row['table_sum'];
-		}	
-	}	
+		}
+	}
 
 	/**
 	 * Get date-time from server
@@ -68,12 +67,12 @@ class connection extends connection_sql{
 	 * @return array      SQL query result
 	 */
 	public static function getSQL($Sql){
-		$result = self::execute_query($Sql);	
+		$result = self::execute_query($Sql);
 		$registros = array();  
 		while ($registro = self::get_result($result)){  
-			$registros[] = $registro;  
+			$registros[] = $registro;
 		}
-		return $registros;  
+		return $registros;
 	}
 }
 ?>

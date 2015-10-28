@@ -23,7 +23,7 @@ function ErrorMsg($msg, $msg_show = 1){
  * @param 	integer 	$msg_show 		Opción para mostrar o no alertas
  */
 function OkMsg($msg,$msg_show = 1){
-	if ($msg_show == 1) {echo '<div class="alert alert-success">'.$msg.'</div>';}
+	if ($msg_show == 1) echo '<div class="alert alert-success">'.$msg.'</div>';
 }
 
 /**
@@ -34,8 +34,7 @@ function OkMsg($msg,$msg_show = 1){
  */
 function NormalizeText( $text, $text_separator = "_"){
 	//utilizada para subida de ficheros, elimina todos los caracteres extraños
-	$text = strtolower($text);
-	return ereg_replace( '[^ A-Za-z0-9_.-]', $text_separator, $text);
+	return ereg_replace( '[^ A-Za-z0-9_.-]', $text_separator, strtolower($text));
 }
 
 /**
@@ -45,8 +44,8 @@ function NormalizeText( $text, $text_separator = "_"){
  * @return 	string  	        		Texto acortado con puntos suspensivos si es mas largo que $num_car
  */
 function shortText($text_html, $num_car){
-	if (strlen($text_html) <= $num_car) { return $text_html; }
-	else { return substr(strip_tags($text_html),0,strpos(strip_tags($text_html),' ',$num_car))."..."; }
+	if (strlen($text_html) <= $num_car) return $text_html;
+	else return substr(strip_tags($text_html), 0, strpos(strip_tags($text_html), ' ', $num_car))."...";
 }
 
 /**
@@ -101,7 +100,7 @@ function getDateFormat($date, $format){
  */
 function SendEmail($from_mail, $to_mail, $subject_mail, $body_mail, $html_mode = 0, $from_mail_real = ''){
 	$headers_mail = "";
-	if ($html_mode == 1) {
+	if ($html_mode == 1){
 		$headers_mail = "MIME-Version: 1.0\r\n";
 		$headers_mail .= "Content-type: text/html; charset=utf8\r\n";
 	}
@@ -276,9 +275,8 @@ function validateNifCifNie($cif){
  *		
  */
 function array2csv(array &$array){
-	if (count($array) == 0) {
-		return null;
-	}
+	if (count($array) == 0) return null;
+
 	ob_start();
 	$df = fopen("php://output", 'w');
 	fputcsv($df, array_keys(reset($array)), ";");
@@ -321,10 +319,10 @@ function download_send_headers($filename){
  */
 function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz023456789"){
 	srand((double)microtime()*1000000);
-	$i = 0; 
-	$pass = '' ;
-	
-	while ($i <= $num_car) {
+	$i = 0;
+	$pass = '';
+
+	while ($i <= $num_car){
 		$num = rand() % 33; 
 		$tmp = substr($chars, $num, 1); 
 		$pass = $pass . $tmp; 
@@ -376,7 +374,7 @@ function DescargarArchivo($fichero){
  * Print HTML combo para los temas de los foros
  * @param 	string 		$tipo_tema 		Elemento del combo marcado
  */
-function ComboTiposTemas($tipo_tema){ ?>
+function ComboTiposTemas($tipo_tema){?>
 	<option value="Promociones" <?php if ($tipo_tema == 'Promociones') echo ' selected="selected" ';?>>Promociones</option>
 	<option value="Formacion" <?php if ($tipo_tema == 'Formacion') echo ' selected="selected" ';?>>Formacion</option>
 	<option value="Tarifas" <?php if ($tipo_tema == 'Tarifas') echo ' selected="selected" ';?>>Tarifas</option>
@@ -387,7 +385,7 @@ function ComboTiposTemas($tipo_tema){ ?>
  * Print HTML combo para los perfiles de la comunidad
  * @param 	string 		$perfil 		Elemento del combo marcado
  */
-function ComboPerfiles($perfil){ ?>
+function ComboPerfiles($perfil){?>
 	<option value="usuario" <?php if ($perfil=='usuario') echo ' selected="selected" ';?>>Comercial</option>
 	<option value="responsable" <?php if ($perfil=='responsable') echo ' selected="selected" ';?>>Responsable</option>
 	<option value="regional" <?php if ($perfil=='regional') echo ' selected="selected" ';?>>Regional</option>
@@ -480,9 +478,7 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
 		global $ini_conf;
 		$transport = Swift_SendmailTransport::newInstance($ini_conf['sendmail_command']);
 	}
-	else{
-		$transport = Swift_MailTransport::newInstance();	
-	}
+	else $transport = Swift_MailTransport::newInstance();
 	
 	$remitente = array_keys($message_from);
 
@@ -521,7 +517,7 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
 		// Attach it to the message
 		$message->attach($attachment);
 	}
-	return $mailer->send($message) ;
+	return $mailer->send($message);
 }
 
 /**
@@ -532,10 +528,10 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
  */
 function uploadFileToFolder($fichero, $destino){
 	$nombre_archivo = "";
-	if (isset($fichero) and $fichero['name'] != "") {			
+	if (isset($fichero) and $fichero['name'] != ""){
 		$nombre_archivo = time().'_'.str_replace(" ", "_", $fichero['name']);
 		$nombre_archivo = strtolower($nombre_archivo);
-		$nombre_archivo = NormalizeText($nombre_archivo);		
+		$nombre_archivo = NormalizeText($nombre_archivo);
 		move_uploaded_file($fichero['tmp_name'], $destino.$nombre_archivo);
 	}
 	return $nombre_archivo;
@@ -562,14 +558,13 @@ function HTMLtoPDF($content, $size = 'A4'){
  * @return boolean 							Resultado del proceso
  */
 function imgThumbnail($nombre_archivo, $path_archivo, $width, $height = 0){
-	require_once ("class.resizeimage.php");		
+	require_once ("class.resizeimage.php");
 	$thumb = new Thumbnail($path_archivo.$nombre_archivo);
-	if($thumb->error) {
-		return false;
-	} else {
+	if($thumb->error) return false;
+	else{
 		$thumb->resize($width, $height);
-		$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
-		$nombre_sinext = substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
+		$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo, ".") + 1));
+		$nombre_sinext = substr($nombre_archivo,0,(strlen($nombre_archivo) - strlen($ext)) - 1);
 		return $thumb->save_jpg($path_archivo, "mini".$nombre_sinext);
 	}
 }
@@ -578,13 +573,12 @@ function imgThumbnail($nombre_archivo, $path_archivo, $width, $height = 0){
  * Comprime a zip el fichero especificado por $filename alojado en la ruta $path
  * @param  string 		$filename   	archivo a comprimir
  * @param  string 		$path 			ruta del archivo a comprimir
- * @return          					resultado de la verificacion
+ * @return								resultado de la verificacion
  */
 function fileToZip($filename, $path){
 	require_once ("class.zipfile.php");
 	$zipfile = new zipfile();
-
-	$zipfile->add_file(implode("",file($path.$filename)), $filename);
+	$zipfile->add_file(implode("", file($path.$filename)), $filename);
 
 	header("Content-type: application/octet-stream");
 	header("Content-disposition: attachment; filename=".$filename.".zip");
@@ -599,10 +593,10 @@ function fileToZip($filename, $path){
 function filesToZip($array_files){
 	set_time_limit(0);
 	ini_set("memory_limit","-1");
-	require_once ("class.zipfile.php");
+	require_once("class.zipfile.php");
 	$zipfile = new zipfile();
 
-	for ($i = 0; $i <= count($array_files); $i++) {
+	for($i = 0; $i <= count($array_files); $i++){
 		if (file_exists($array_files[$i][0].$array_files[$i][1])){
 			$zipfile->add_file(implode("", file($array_files[$i][0].$array_files[$i][1])), $array_files[$i][1]);
 		}
@@ -623,13 +617,13 @@ function cleanUrl($url, $disallowed_params = array('PHPSESSID')){
 	$parsed = @parse_url($url);
 	$params = array();
 
-	if (empty($parsed['query'])) {
+	if (empty($parsed['query'])){
 		$parsed['query'] = '';
 	}
 	# hmm parse_str should take the delimiters as a parameter
-	if (strpos($parsed['query'],'&amp;')) {
+	if (strpos($parsed['query'],'&amp;')){
 		$pairs = explode('&amp;',$parsed['query']);
-		foreach ($pairs as $pair) {
+		foreach ($pairs as $pair){
 			list($key,$val) = explode('=',$pair);
 			$params[$key] = $val;
 		}
@@ -683,7 +677,7 @@ function arraycolumn($array, $column, $index_key = null){
  * @return array            	Array ordenado
  */
 function arraySort($array, $field, $sort_mode = SORT_DESC){
-	foreach ($array as $clave => $fila) {
+	foreach ($array as $clave => $fila){
 		$posicion[$clave] = $fila[$field];
 	}
 
@@ -700,7 +694,7 @@ function showHtmlLinks($string){
 	//filtro los enlaces normales
 	$string = preg_replace("/((http|https|www)[^\s]+)/", '<a target=\"_blank\" href="$1">$0</a>', $string);
 	//miro si hay enlaces con solamente www, si es así le añado el http://
-	$string = preg_replace("/href=\"www/", 'href="http://www', $string);	 
+	$string = preg_replace("/href=\"www/", 'href="http://www', $string);
 	//saco los enlaces de twitter
 	$string = preg_replace("/(@[^\s]+)/", '<a target=\"_blank\"  href="http://twitter.com/intent/user?screen_name=$1">$0</a>', $string);
 	$string = preg_replace("/(#[^\s]+)/", '<a target=\"_blank\"  href="http://twitter.com/search?q=$1">$0</a>', $string);
