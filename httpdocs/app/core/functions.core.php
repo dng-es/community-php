@@ -251,4 +251,26 @@ function hook_sidebar_right(){
 	echo $hook_sidebar_rigth;
 }
 
+
+function add_sidebar_right($page, $function){
+	add_hook($destination, $page, $function);
+}
+
+function add_hook($destination, $page, $function){
+	global $modules;
+	foreach($modules as $module):
+		if (file_exists(__DIR__."/../modules/".$module['folder']."/".$module['folder'].".php")){
+			include_once (__DIR__."/../modules/".$module['folder']."/".$module['folder'].".php");
+			$moduleClass = $module['folder']."Core";
+			$instance = new $moduleClass();
+			
+			//sidebar-right hook
+			if (method_exists($instance, "add_sidebar_right_hook")) 
+				$hook_sidebar_rigth .= $instance->add_sidebar_right_hook();
+
+
+			array_push($modules_data, array("name" => $module['folder']));
+		}
+	endforeach;
+}
 ?>
