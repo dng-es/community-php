@@ -83,6 +83,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
+			<?php hook_sidebar_right();?>
 			<h4>
 				<span class="fa-stack fa-sx">
 					<i class="fa fa-circle fa-stack-2x"></i>

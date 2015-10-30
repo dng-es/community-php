@@ -69,5 +69,15 @@ class foroCore{
 
 		return $elems;
 	}
+
+	public static function HolaHook(){
+		return "Hola soy el gancho";
+	}	
+
+	add_sidebar_right('foro-subtemas', 'HolaHook');
+	
+	public static function add_sidebar_right_hook(){
+		return "Hola soy el gancho";
+	}
 }
 ?>

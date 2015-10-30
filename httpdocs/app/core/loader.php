@@ -18,6 +18,7 @@ if ($ini_conf['underconstruction'] == true && ($page != "underconstruction" && $
 //Load modules
 $array_usermenu = array();
 $array_adminmenu = array();
+$hook_sidebar_rigth = "";
 $modules_data = array();
 $modules = getListModules();
 foreach($modules as $module):

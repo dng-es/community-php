@@ -80,6 +80,9 @@ $canal = "";
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php
+			hook_sidebar_right();
+
+
 			//BUSCADOR
 			ForoSearch($reg,'foro-subtemas?id='.$id_tema_parent, $find_reg, $marca, $find_tipo);
 

@@ -245,4 +245,10 @@ function writeYml($data, $file){
 	$yaml = Spyc::YAMLDump($data, 4, 60);
 	return FileSystem::createFile($file, $yaml);
 }
+
+function hook_sidebar_right(){
+	global $hook_sidebar_rigth;
+	echo $hook_sidebar_rigth;
+}
+
 ?>
