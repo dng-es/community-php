@@ -28,5 +28,6 @@ function PanelSubirVideo($id_promocion = 0){
 		<div class="alert alert-danger" id="alertas-participa" style="display: none"><?php e_strTranslate("Required_all_fields");?></div>
 		<button type="submit" class="btn btn-primary btn-block" id="video-submit" name="video-submit"><?php e_strTranslate("Send_video");?></button>
 	</form>
+	<div id="cargando" style="background-color: red;display:none">cargando....</div>
 	<?php }?>
 <?php }?>

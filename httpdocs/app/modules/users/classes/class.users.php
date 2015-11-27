@@ -153,7 +153,7 @@ class users{
 		return connection::execute_query($Sql);
 	}
 
-	public function confirmUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date, $movil = 0){
+	public function confirmUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date){
 		//verificar si el nick existe, Devolvera: 1->ok, 2-> Error SQL, 3->Nick existe,
 		if (connection::countReg("users"," AND nick='".$nick."' AND username<>'".$username."' ") == 0){
 			 $nombre_archivo = "";

@@ -44,16 +44,16 @@ $num_videos = 6;
 			$comments = videosController::getCommentsListAction(2000, " AND estado=1 AND id_file=".$id_video." ORDER BY id_comentario DESC ");
 			$elements = videosController::getListAction($num_videos, " AND estado=1 ");
 			?>
+			<h2>
+				<?php echo $video['titulo'];?>
+				<?php if($_SESSION['user_perfil'] == 'admin') echo " <small>id ".$id_video."</small>";?>
+			</h2>
+			<p class="text-muted"><small>
+				<?php echo ucfirst(getDateFormat($video['date_video'], "LONG"));?> <i class="fa fa-user text-primary"></i> <?php echo ucfirst(strTranslate("uploaded_by"));?> <?php echo $video['nick'];?>
+				<i class="fa fa-youtube-play text-primary"></i> <?php echo $video['views'];?>  <?php e_strTranslate("Views");?> 
+			 	<a href="videos?id=<?php echo $video['id_file'].'&idvv='.$video['id_file'];?>"><i class="fa fa-heart"></i> <?php echo $video['videos_puntos'];?></a> 
+			</small></p>
 			<?php playVideo("VideoGaleria".$id_video, PATH_VIDEOS.$video['name_file'], 100, 100, "bottom", false, $id_video);?>
-			<h3><?php echo $video['titulo'];?>
-			<small>
-			<span class="legend"><?php e_strTranslate("uploaded_by");?> <b><?php echo $video['nick'];?></b> - <span><?php echo getDateFormat($video['date_video'], "LONG");?></span>
-			 - <b><?php e_strTranslate("Views");?></b> : <?php echo $video['views'];?> 
-			 - <a href="videos?id=<?php echo $video['id_file'].'&idvv='.$video['id_file'];?>"><i class="fa fa-heart"></i> <?php echo $video['videos_puntos'];?></a> 
-			 <?php if($_SESSION['user_perfil'] == 'admin') echo " ID - ".$id_video;?>
-			</span>
-			</small>
-			</h3>
 			<?php if ($module_config['options']['allow_comments'] == true): ?>
 			<?php addVideoComment($id_video);?>
 			<br />

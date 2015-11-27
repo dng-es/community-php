@@ -19,15 +19,15 @@ function commentMuro($comment){
 			<div class="legend">
 				<span class="muro-votado" id="'.$comment['id_comentario'].'" value="'.$votado.'"></span>
 				<span class="muro-votado-user" id="user_'.$comment['id_comentario'].'" value="'.$votado_user.'"></span>
-				<span class="murogusta fa fa-heart '.$comment['id_comentario'].'" 
+				<a href="#" class="murogusta fa fa-heart '.$comment['id_comentario'].'" 
 					value="'.$comment['id_comentario'].'" 
 					href="'.$comment['votaciones'].'" 
 					title="'.strTranslate("Vote_comment").'">
 					'.$comment['votaciones'].'
-				</span>
+				</a>
 				
 				<span value="'.$comment['comentario'].'">
-					<span class="responder-triger fa fa-comment" title="'.strTranslate("Reply").'" tipom="'.$comment['tipo_muro'].'" value="'.$comment['id_comentario'].'"> '.$respuestas.'</span>
+					<a href="#" class="responder-triger fa fa-comment" title="'.strTranslate("Reply").'" tipom="'.$comment['tipo_muro'].'" value="'.$comment['id_comentario'].'"> '.$respuestas.'</a>
 				</span>
 				
 				<span style="margin-left:5px">

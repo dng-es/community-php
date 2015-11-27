@@ -5,6 +5,7 @@ addJavascripts(array("js/jquery.geturlparam.js",
 
 templateload("cmbCanales", "users");
 
+
 $id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
 
 $modules = getListModules(); 
@@ -38,6 +39,11 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 		usersController::updateUserAction();
 		usersController::deleteFotoAction();
 		usersController::updatePermissionsAction();
+		if(getModuleExist("recompensas")):
+			templateload("user_recompensa", "recompensas");
+			recompensasController::deleteUserRewardAction();
+			recompensasController::insertUserRewardAction();
+		endif;
 		$elements = usersController::getItemAction();
 		$estadisticas = usersController::getUserStatistics();
 		?>
@@ -46,13 +52,16 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 		<!-- Nav tabs -->
 		<button type="button" class="btn btn-default btn-xs connect-as pull-right" data-u="<?php echo $elements[0]['username'];?>" data-p="<?php echo $elements[0]['user_password'];?>"><i class="fa fa-plug"></i> <?php e_strTranslate("Connect_as");?></button>
 		<ul class="nav nav-tabs" id="myTab">
-			<li class="active"><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
+			<li><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
 			<li><a href="#statistics" data-toggle="tab"><?php e_strTranslate("Statistics");?></a></li>
+			<?php if(getModuleExist("recompensas")): ?>
+			<li><a href="#rewards" data-toggle="tab"><?php e_strTranslate("Rewards");?></a></li>
+			<?php endif; ?>
 			<li><a href="#permissions" data-toggle="tab"><?php e_strTranslate("Permissions");?></a></li>
 		</ul>
 		
 		<div class="tab-content">
-			<div class="tab-pane fade in active" id="general">
+			<div class="tab-pane fade in" id="general">
 				<div class="row">
 					<div class="col-md-9 inset">
 						<form id="formData" role="form" name="formData" method="post" action="">
@@ -183,6 +192,17 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 					</div>
 				</div>
 			</div>
+
+			<?php if(getModuleExist("recompensas")): ?>
+			<div class="tab-pane fade" id="rewards">
+				<div class="row">
+					<div class="col-md-12 inset">
+						<?php userRecompensaAdmin($elements[0]['username']);?>
+					</div>
+				</div>
+			</div>
+			<?php endif; ?>
+
 
 			<div class="tab-pane fade" id="permissions">
 				<div class="row">

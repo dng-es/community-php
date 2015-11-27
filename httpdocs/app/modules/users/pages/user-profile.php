@@ -2,6 +2,7 @@
 addCss(array("css/bootstrap-datetimepicker.min.css"));
 templateload("addmessage", "mensajes");
 templateload("tipuser", "users");
+templateload("user_recompensa", "recompensas");
 
 addJavascripts(array(getAsset("mensajes")."js/inbox.js", 
 					 getAsset("users")."js/user-profile.js",
@@ -141,6 +142,9 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 			<?php if (count($usuario) > 0): ?>
 			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" />
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div>
+			<?php if(getModuleExist("recompensas")): ?>
+			<?php userRecompensa($usuario['username']);?>
+			<?php endif; ?>
 			<?php endif; ?>
 		</div>
 	</div>

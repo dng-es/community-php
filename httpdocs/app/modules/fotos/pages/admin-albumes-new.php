@@ -86,7 +86,7 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 					<?php endforeach;?>
 				</table>
 			</div>
-			<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page']."&id=".$id, '', $elements['find_reg']);?>
+			<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page']."?id=".$id, '', $elements['find_reg']);?>
 			<!-- Modal -->
 			<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="modal-images">
 				<div class="modal-dialog">

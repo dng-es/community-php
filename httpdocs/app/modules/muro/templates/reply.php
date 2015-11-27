@@ -3,7 +3,7 @@ function replyMuro(){ ?>
 <div id="muro-responder" class="panel panel-default">
 	<div id="muro-responder-cerrar"><span class="fa fa-times"></span></div>
 	<div class="panel-heading"><?php e_strTranslate("Reply_comment");?></div>
-	<div id="muro-responder-content" class="panel-body">'
+	<div id="muro-responder-content" class="panel-body">
 		<span id="muro-respuesta-comentario"></span>
 		<form action="" name="form-responder-muro" id="form-responder-muro" method="post" role="form" class="form-horizontal">
 			<input type="hidden" id="id_comentario_responder" name="id_comentario_responder" value="" />

@@ -16,6 +16,8 @@ jQuery(document).ready(function(){
 			resultado_ok = false;
 		}
 
+		$("#cargando").show();
+
 		if (resultado_ok !== true){
 			$("#alertas-participa").fadeIn().css("display", "block");
 			return false;

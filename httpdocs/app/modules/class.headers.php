@@ -74,7 +74,23 @@ class headers{
 					</form> -->
 				<?php //endif; ?>
 				<div class="container" id="container-main">
-				<!-- Page content -->
+
+					<!-- Buscador -->
+<!-- 					<div id="search-main">  
+						<form action="" method="get" name="search-main" id="search-main" class="">
+							<div class="input-group">
+								<label class="sr-only" for="find_reg"><?php //e_strTranslate("Search");?></label>
+								<input type="text" class="form-control" id="search-main-find" name="search-main-find" placeholder="<?php //e_strTranslate("Search");?>" value="<?php //(isset($_REQUEST['search-main-find']) ? $_REQUEST['search-main-find'] : '');?>">
+								<div class="input-group-btn">
+									<button type="submit" class="btn btn-default" title="<?php //e_strTranslate("Search");?>"><i class="glyphicon glyphicon-search"></i></button>
+								</div>
+							</div>
+						</form>
+					</div> -->
+					<!-- Fin Buscador -->
+
+
+					<!-- Page content -->
 					<div id="header-container" class="hidden-print">
 						<?php menu::UserInfoMenu();?>
 						<?php menu::PageMenu();?>

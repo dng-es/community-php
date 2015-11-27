@@ -137,7 +137,8 @@ class usersController{
 		if (isset($_POST['form-lostpw-user'])){
 			global $ini_conf;
 			$users = new users();
-			$user = $users->getUsers(" AND username='".$_POST['form-lostpw-user']."'");
+			$username = sanitizeInput($_POST['form-lostpw-user']);
+			$user = $users->getUsers(" AND username='".$username."'");
 
 
 			if ($user[0]['user_password'] <> ''){
@@ -150,7 +151,7 @@ class usersController{
 							"title_email" => strTranslate("Recover_password"),
 							"text_email" => strTranslate("Your_details_access").' '.$ini_conf['SiteName'],
 							"label_username" => strTranslate("Username"),
-							"field_username" => $_POST['form-lostpw-user'],
+							"field_username" => $username,
 							"label_userpassword" => strTranslate("Password"),
 							"field_userpassword" => $user[0]['user_password']
 				));

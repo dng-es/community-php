@@ -8,6 +8,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 
 templateload("tipuser", "users");
 templateload("na_areasuser", "na_areas");
+templateload("user_recompensa", "recompensas");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -131,7 +132,7 @@ templateload("na_areasuser", "na_areas");
 				</div>
 			</div>
 			<?php if(getModuleExist("na_areas")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="<?php e_strTranslate("Na_areas");?>">
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' in active' : '');?>" id="<?php e_strTranslate("Na_areas");?>">
 				<?php userNaAreas($_SESSION['user_name']);?>
 			</div>
 			<?php endif; ?>
@@ -144,6 +145,9 @@ templateload("na_areasuser", "na_areas");
 			<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
 			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" /> 
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div><br />
+			<?php if(getModuleExist("recompensas")): ?>
+					<?php userRecompensa($_SESSION['user_name']);?>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

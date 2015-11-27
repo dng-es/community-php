@@ -26,6 +26,7 @@ jQuery(document).ready(function(){
 	$(".comment-reply-trigger").click(function(e){
 		e.preventDefault();
 		$(this).closest(".comment-info").next(".comment-reply").slideToggle();
+		$(this).closest(".comment-info").next(".comment-reply").find("form").find("textarea").focus();
 	});
 
 	$(".comment-reply-form").submit(function(evento){

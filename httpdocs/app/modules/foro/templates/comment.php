@@ -21,7 +21,7 @@ function commentForo($comment, $destino = "foro-comentarios"){
 			<p><?php echo showHtmlLinks($comment['comentario']);?></p>
 			
 			<div class="comment-info">
-				<span class="comment-reply-trigger label" title="<?php e_strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i></span> 
+				<a href="#" class="comment-reply-trigger label" title="<?php e_strTranslate("Reply_comment");?> "><i class="fa fa-mail-reply"></i></a> 
 				<span class="label" title="<?php e_strTranslate("Vote_comment");?>"><a href="<?php echo $destino.'?id='.$comment['id_tema'].'&idvf='.$comment['id_comentario'].'&pag='.$page_num;?>">
 				<i class="fa fa-heart"></i> <?php echo $comment['votaciones'];?></a></span>
 				<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label" title="ID del comentario">id: '.$comment['id_comentario'].'</span>'; ?>

@@ -3,6 +3,7 @@ jQuery(document).ready(function(){
 	$(".tooltip-top").tooltip({placement:"top"});
 
 	$(".responder-triger").tooltip({placement:"top"}).click(function(e){
+		e.preventDefault();
 		//$("#muro-responder").css("display","block");
 		$("#muro-responder").slideToggle();
 		var id_comentario = $(this).attr("value");
@@ -12,6 +13,7 @@ jQuery(document).ready(function(){
 		$('#muro-responder-result').html('');
 		$("#id_comentario_responder").val(id_comentario);
 		$("#tipo_muro").val(tipo_muro);
+		//$("#texto-responder").focus();
 	});
 
 	$(".murogusta").tooltip({placement:"top"}).click(function(e){

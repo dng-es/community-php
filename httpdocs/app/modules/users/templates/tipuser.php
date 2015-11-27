@@ -26,7 +26,13 @@ function userTip($user_data, $estrellas_print){
 	//$output .= '	<span class="ficha-user-tip-info">Centro de trabajo: <span>'.$user_data['nombre_tienda'].'</span></span><br />';
 	//$output .= '	<span class="ficha-user-tip-info">Provincia: <span>'.$user_data['provincia'].'</span></span><br />';
 	$output .= '	<span>'.ucfirst(strTranslate("APP_points")).': <span class="ficha-user-tip-info">'.$user_data['puntos'].'</span></span><br />';
-	$output .= (trim($user_data['user_comentarios']) != "" ? '<br /><i class="left-quote fa fa-quote-left"></i><span class="text-muted"><em><small>'.$user_data['user_comentarios'].'</small></em></span><br />' : "");
+
+	if(getModuleExist("recompensas")):
+		templateload("user_recompensa", "recompensas");
+		$output .= userRecompensaTip($user_data['username']);
+	endif;
+
+	$output .= (trim($user_data['user_comentarios']) != "" ? '<br /><i class="left-quote fa fa-quote-left"></i><span class="text-muted"><em><small>'.$user_data['user_comentarios'].'</small></em></span><br />' : "");	
 	$output .= '	</span>
 					</td>
 				</tr>
