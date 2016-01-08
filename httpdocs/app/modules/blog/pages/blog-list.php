@@ -77,7 +77,7 @@ $titulo_page = "";
 
 	</div>
 	<div class="app-sidebar">
-		<div class="panel-interior">
+		<div class="panel-interior full-height">
 			<?php
 			//BUSCADOR
 			searchBlog();

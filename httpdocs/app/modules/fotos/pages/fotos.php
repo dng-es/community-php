@@ -42,7 +42,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 				</span>
 				<?php e_strTranslate("Photo_albums");?>
 			</h4>
-			<ul class="list-funny">
+			<ul class="lista-lateral">
 			<?php foreach($albums['items'] as $album): ?>
 				<li><a href="fotos?id=<?php echo $album['id_album'];?>"><?php echo $album['nombre_album'];?></a></li>
 			<?php endforeach;?>

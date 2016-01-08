@@ -139,7 +139,7 @@ $filtro_blog = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESS
 		}?>
 	</div>
 	<div class="app-sidebar">
-		<div class="panel-interior">
+		<div class="panel-interior full-height">
 			<?php
 			//BUSCADOR
 			searchBlog();
