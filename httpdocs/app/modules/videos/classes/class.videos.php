@@ -2,7 +2,7 @@
 class videos{
 	public function getVideos($filter = ""){
 		$Sql = "SELECT v.*,u.*,v.canal AS canal_file FROM galeria_videos v 
-				JOIN users u ON u.username=v.user_add WHERE 1=1 ".$filter;
+				JOIN users u ON u.username=v.user_add WHERE 1=1 ".$filter; //echo $Sql."<br />";
 		return connection::getSQL($Sql); 
 	}
 
@@ -31,10 +31,11 @@ class videos{
 
 	public function convertirVideo($video, $ruta_video, $ruta_video_export){
 		//convertir video a MP4
-		exec("ffmpeg -i ".$ruta_video.$video." -vcodec libx264 -vpre hq -acodec libfaac ".$ruta_video_export.$video.".mp4");
+		//exec("ffmpeg -i ".$ruta_video.$video." -vcodec libx264 -vpre hq -acodec libfaac ".$ruta_video_export.$video.".mp4");
+		exec("ffmpeg -i ".$ruta_video.$video." -vcodec libx264 ".$ruta_video_export.$video.".mp4");
+		//echo "ffmpeg -i ".$ruta_video.$video." -vcodec libx264 ".$ruta_video_export.$video.".mp4";
 		//exec("ffmpeg -i ".$ruta_video.$video." -vcodec mpeg4 -s qvga -r 16 -acodec libfaac -ar 22050 -ac 2 -ab 48k ".$ruta_video_export.$video.".mp4");
 		//exec("ffmpeg -i ".$ruta_video.$video." -f mp4 -vcodec mpeg4 -b 400k -r 24 -s 320x240 -aspect 4:3 -acodec aac -ar 22050 -ac 2 -ab 48k ".$ruta_video_export.$video.".mp4");
-
 		//sacar imagen del video
 		exec("ffmpeg -y -ss 2 -i ".$ruta_video.$video." -f mjpeg -vframes 1 -s 400x300 -an ".$ruta_video_export.$video.".mp4.jpg",$output2);
 		return true;

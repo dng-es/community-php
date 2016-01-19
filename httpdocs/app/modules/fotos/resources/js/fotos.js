@@ -1,12 +1,13 @@
 // JavaScript Document
 var page_num = 1,
 	id_album = 0,
+	id_promocion = 0,
 	nick = "";
 
 function getImages(){
 	$.ajax({
 		url: "app/modules/fotos/pages/fotos-load-ajax.php",
-		data: {pag: page_num, id: id_album, f: decodeURIComponent(find_text), n: nick},
+		data: {pag: page_num, id: id_album, idp: id_promocion, f: decodeURIComponent(find_text), n: nick},
 		cache: false,
 		success: function(html){
 			if(html){
@@ -42,6 +43,7 @@ $(window).scroll(function(){
 
 jQuery(document).ready(function(){
 	id_album = $.getURLParam("id");
+	id_promocion = $.getURLParam("idp");
 	nick = $.getURLParam("n");
 	find_text = $.getURLParam("find_reg");
 

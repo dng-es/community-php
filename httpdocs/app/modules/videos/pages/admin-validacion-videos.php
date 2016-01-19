@@ -5,35 +5,9 @@ addJavascripts(array("js/libs/jwplayer/jwplayer.js"));
 
 videosController::downloadZipFile();
 
-//VALIDAR CONTENIDOS
-if (isset($_REQUEST['act'])) {
-	$users = new users();
-	$videos = new videos();
-	if ($_REQUEST['act']=='video_ok'){
-		if (copy(PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4", PATH_VIDEOS.$_REQUEST['f'].".mp4")){
-			copy(PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4.jpg", PATH_VIDEOS.$_REQUEST['f'].".mp4.jpg");
-			//unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4");
-			unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4.jpg");
-			//unlink (PATH_VIDEOS_TEMP.$_REQUEST['f']);
-			$videos->cambiarEstado($_REQUEST['id'],1);
-			$videos->cambiarNombre($_REQUEST['id']);
-			$users->sumarPuntos($_REQUEST['u'], PUNTOS_VIDEO, PUNTOS_VIDEO_MOTIVO);
-		}
-		else ErrorMsg("No se ha podido validar el video.");
-	}
-	elseif ($_REQUEST['act'] == 'video_conv') $videos->convertirVideo($_REQUEST['f'], PATH_VIDEOS_TEMP, PATH_VIDEOS_CONVERT);
-	elseif ($_REQUEST['act'] == 'video_ko'){
-		unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4");
-		unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4.jpg");
-		unlink (PATH_VIDEOS_TEMP.$_REQUEST['f']);
-		$videos->cambiarEstado($_REQUEST['id'], 2);
-	}
-
-	header("Location: admin-validacion-videos"); 
-}
-
 $videos = new videos();
-$pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
+//$pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");
+$pendientes = $videos->getVideos(" AND estado=0 ");?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -43,6 +17,9 @@ $pendientes = $videos->getVideos(" AND estado=0 AND id_promocion=0 ");?>
 			array("ItemLabel"=>strTranslate("Videos"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Video_validation"), "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage( 'actions_message' );
+		videosController::adminActions();
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por video: <b><?php echo PUNTOS_VIDEO;?></b></a></li>

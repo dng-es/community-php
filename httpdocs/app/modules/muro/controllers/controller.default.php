@@ -33,5 +33,17 @@ class muroController{
 			redirectURL("admin-validacion-muro?pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
 		}
 	}
+
+	public static function createAction(){
+		if (isset($_POST['texto-comentario']) and trim($_POST['texto-comentario']) != ''){
+			$muro = new muro();
+			if ($muro->InsertComentario($_SESSION['user_canal'], sanitizeInput(trim($_POST['texto-comentario'])), $_SESSION['user_name'], 1, sanitizeInput($_POST['tipo_muro']), '') == 1)
+				session::setFlashMessage( 'actions_message', "Respuesta insertada correctamente.", "alert alert-success");
+			else
+				session::setFlashMessage( 'actions_message', "Se ha producido un error en la inserción de la respuesta. Por favor, inténtalo más tarde.", "alert alert-danger");
+
+			redirectURL($_SERVER['REQUEST_URI']);
+		}
+	}
 }
 ?>

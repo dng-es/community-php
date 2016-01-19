@@ -16,11 +16,15 @@ if (isset($_POST['texto-comentario']) and $_POST['texto-comentario'] != ""){
 	else $canal = sanitizeInput($_POST['canal_comentario']);
 
 	$texto_comentario = nl2br(sanitizeInput($_POST['texto-comentario']));
-	ErrorMsg($insercion_comentario = $muro->InsertComentario($canal,
+	$insercion_comentario = $muro->InsertComentario($canal,
 														$texto_comentario,
 														$_SESSION['user_name'],
 														ESTADO_COMENTARIOS_MURO,
-														$_POST['tipo_muro']));
+														$_POST['tipo_muro']);
+	if ($insercion_comentario == 1) $mensaje_insert = "Comentario insertado correctamente.";
+	else $mensaje_insert = "Se ha producido un error en la inserción del comentario. Por favor, inténtalo más tarde.";
+
+	ErrorMsg($mensaje_insert);
 }
 //RESPONDER COMENTARIO
 if (isset($_POST['id_comentario_responder']) and $_POST['id_comentario_responder'] != ""){ 

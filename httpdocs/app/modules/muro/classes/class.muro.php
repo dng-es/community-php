@@ -3,7 +3,7 @@ class muro{
 	public function getComentarios($filter = ""){
 		$Sql = "SELECT c.*,u.*,c.canal AS canal_comentario FROM muro_comentarios c 
 				INNER JOIN users u ON u.username=c.user_comentario 
-				WHERE 1=1 ".$filter;
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -12,9 +12,9 @@ class muro{
 				('".$canal."','".$texto_comentario."','".$usuario."',".$estado.",'".$tipo."','".$tipo_comentario."')";	 
 		if (connection::execute_query($Sql)){ 
 			if ($estado==1){users::sumarPuntos($usuario, PUNTOS_MURO, PUNTOS_MURO_MOTIVO);}
-			return "Comentario insertado correctamente.";
+			return 1;
 		}
-		else return "Se ha producido un error en la inserción de su comentario. Por favor, inténtelo más tarde.";
+		else return 2;
 	}
 
 	public function InsertRespuesta($canal, $texto_comentario, $usuario, $estado, $tipo, $id_responder){

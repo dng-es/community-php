@@ -3,6 +3,7 @@ addJavascripts(array(getAsset("muro")."js/muro-comentarios-todos-ajax.js"));
 
 templateload("reply","muro");
 templateload("cmbCanales","users");
+templateload("addcomment","muro");
 
 //OBTENCION DE LOS COMENTARIOS DEL MURO
 $muro = new muro();
@@ -30,17 +31,7 @@ else $pagina = 1;
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<form id="muro-form" name="coment-form" action="" method="post" role="form">
-				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />
-				<h4><?php e_strTranslate("New_comment_on_wall");?></h4>
-				<textarea maxlength="160" class="form-control muro-texto" id="texto-comentario" name="texto-comentario"></textarea>
-				<?php if ($_SESSION['user_canal'] == 'admin'):?>
-				<select name="canal_comentario" id="canal_comentario" class="form-control">
-					<?php ComboCanales();?>
-				</select>
-				<?php endif;?>
-				<button class="muro-enviar btn btn-primary btn-block" type="button" id="muro-submit" value="Enviar" name="coment-submit"><?php e_strTranslate("Send");?></button>
-			</form>
+			<?php  addComment('principal', true, $title_label = "New_comment_on_wall");?>
 			<br /><div id="result-muro"></div>
 		</div>
 	</div>

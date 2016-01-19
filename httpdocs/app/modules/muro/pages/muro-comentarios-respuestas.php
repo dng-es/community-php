@@ -36,9 +36,15 @@ $comentario_muro = $muro->getComentarios($filtro_comentario);
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
+		<h4>
+			<span class="fa-stack fa-sx">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-share-alt fa-stack-1x fa-inverse"></i>
+			</span>
+			<?php e_strTranslate("New_comment_on_wall");?>
+		</h4>
 			<form id="form-responder-muro" name="form-responder-muro" action="" method="post" role="form">
 				<input type="hidden" name="id_comentario_responder" id ="id_comentario_responder" value="<?php echo $id_comentario;?>" />
-				<h4><?php e_strTranslate("New_comment_on_wall");?></h4>
 				<textarea maxlength="160" class="form-control" id="texto-responder" name="texto-responder"></textarea>
 				<button class="btn btn-primary btn-block" type="button" id="muro-submit" name="muro-submit"><?php e_strTranslate("Reply");?></button>
 			</form>	

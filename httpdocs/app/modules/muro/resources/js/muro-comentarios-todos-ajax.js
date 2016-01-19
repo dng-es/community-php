@@ -85,9 +85,15 @@ jQuery(document).ready(function(){
 				data: $('#muro-form').serialize(),
 				// Mostramos un mensaje con la respuesta de PHP
 				success: function(data) {
-					ShowMensaje("Mensaje correctamente insertado en el muro");
-					$('#texto-comentario').val('');
-					$("#result-muro").addClass("alert alert-success");
+
+					window.sweetAlertInitialize();
+					swal({
+						title: "Muy bien!",
+						text: "Mensaje correctamente insertado en el muro",
+						timer: 3000,
+						type: "success",
+						confirmButtonText: "Cerrar"
+					});
 					showMuro(id_muro, pagina);
 				}
 			})

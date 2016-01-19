@@ -30,7 +30,7 @@ class usersCanalesController{
 	public static function exportListAction(){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$users = new users();
-			$elements=$users->getCanales("");
+			$elements = $users->getCanales("");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
@@ -40,11 +40,11 @@ class usersCanalesController{
 	public static function createAction(){
 		if (isset($_POST['id_canal']) and $_POST['id_canal'] == ''){
 			$canal = sanitizeInput($_POST['canal']);
-			$canal = str_replace(" ","_",$canal);
+			$canal = str_replace(" ", "_", $canal);
 			$canal = NormalizeText($canal);
 			$canal_name = sanitizeInput($_POST['canal_name']);
 			$users = new users;
-			if ($users->insertCanal($canal,$canal_name)){
+			if ($users->insertCanal($canal, $canal_name)){
 				//crear foro asociado
 				$foro = new foro();
 				$foro->InsertTema(0, "Foro ".$canal_name, '', '', 'admin', $canal, 0, 1, '', 0, 0, "");
@@ -62,7 +62,7 @@ class usersCanalesController{
 			$canal = sanitizeInput($_POST['id_canal']);
 			$canal_name = sanitizeInput($_POST['canal_name']);
 			$users = new users;
-			if ($users->updateCanal($canal,$canal_name))
+			if ($users->updateCanal($canal, $canal_name))
 				session::setFlashMessage('actions_message', "Canal modificado correctamente.", "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', "Error al modificar canal.", "alert alert-danger");

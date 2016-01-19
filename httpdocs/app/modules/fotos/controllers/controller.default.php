@@ -18,7 +18,8 @@ class fotosController{
 		if (isset($_POST['titulo-foto']) and $_POST['titulo-foto'] != ""){
 			$fotos = new fotos();	
 			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-foto']);
-			$response = $fotos->insertFile($_FILES['nombre-foto'], PATH_FOTOS, $canal, $_POST['titulo-foto'], 0, 0);
+			$id_promocion = ((isset($_POST['id_promocion']) and $_POST['id_promocion'] > 0) ? sanitizeInput($_POST['id_promocion']) : 0);
+			$response = $fotos->insertFile($_FILES['nombre-foto'], PATH_FOTOS, $canal, $_POST['titulo-foto'], $id_promocion, 0);
 			if ($response == 0)
 				session::setFlashMessage('actions_message', strTranslate("Photo_upload_ko0"), "alert alert-danger");
 			elseif ($response == 1)

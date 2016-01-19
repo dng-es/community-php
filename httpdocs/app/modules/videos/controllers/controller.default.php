@@ -30,7 +30,9 @@ class videosController{
 		if (isset($_POST['titulo-video']) and $_POST['titulo-video'] != ""){
 			$videos = new videos();	
 			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-video']);
-			$response = $videos->insertFile($_FILES['nombre-video'],PATH_VIDEOS_TEMP,$canal,$_POST['titulo-video'], 0, 0);
+			$id_promocion = ((isset($_POST['id_promocion']) and $_POST['id_promocion'] > 0) ? sanitizeInput($_POST['id_promocion']) : 0);
+
+			$response = $videos->insertFile($_FILES['nombre-video'],PATH_VIDEOS_TEMP,$canal,$_POST['titulo-video'], $id_promocion, 0);
 			if ($response == 0)
 				session::setFlashMessage('actions_message', strTranslate("Video_upload_ko0"), "alert alert-warning");
 			elseif ($response == 1)
@@ -64,7 +66,41 @@ class videosController{
 
 	public static function downloadZipFile(){
 		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] != "") fileToZip($_REQUEST['exp'], PATH_VIDEOS_TEMP);
-	}	
+	}
+
+	public static function adminActions(){
+		if (isset($_REQUEST['act'])) {
+			$users = new users();
+			$videos = new videos();
+			if ($_REQUEST['act']=='video_ok'){
+				if (copy(PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4", PATH_VIDEOS.$_REQUEST['f'].".mp4")){
+					copy(PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4.jpg", PATH_VIDEOS.$_REQUEST['f'].".mp4.jpg");
+					//unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4");
+					unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4.jpg");
+					//unlink (PATH_VIDEOS_TEMP.$_REQUEST['f']);
+					$videos->cambiarEstado($_REQUEST['id'],1);
+					$videos->cambiarNombre($_REQUEST['id']);
+					$users->sumarPuntos($_REQUEST['u'], PUNTOS_VIDEO, PUNTOS_VIDEO_MOTIVO);
+				}
+				else session::setFlashMessage('actions_message', "No se ha podido validar el video.", "alert alert-warning"); 
+			}
+			elseif ($_REQUEST['act'] == 'video_conv') {
+				$videos->convertirVideo($_REQUEST['f'], PATH_VIDEOS_TEMP, PATH_VIDEOS_CONVERT);
+				session::setFlashMessage('actions_message', "Conversión finalizada.", "alert alert-success");
+			}
+			elseif ($_REQUEST['act'] == 'video_ko'){
+				unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4");
+				unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4.jpg");
+				unlink (PATH_VIDEOS_TEMP.$_REQUEST['f']);
+				if ($videos->cambiarEstado($_REQUEST['id'], 2))
+					session::setFlashMessage('actions_message', "Video cancelado correctamente.", "alert alert-success");
+				else
+					session::setFlashMessage('actions_message', "Error durante el proceso.", "alert alert-danger");
+			}
+
+			redirectURL("admin-validacion-videos");
+		}
+	}
 
 	///////////////////////////////////////////////////////////////////////////
 	/// VIDEO COMMENTS
