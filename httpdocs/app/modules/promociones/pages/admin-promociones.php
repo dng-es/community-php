@@ -17,7 +17,7 @@ $elements = promocionesController::getListAction(35);
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">       
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-					<li><a href="admin-user"><?php e_strTranslate("Nuevo reto");?></a></li>
+					<li><a href="admin-promociones-new"><?php e_strTranslate("Nuevo reto");?></a></li>
 					<div class="pull-right">
 						<?php echo SearchForm($elements['reg'],"admin-promociones","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>	
 					</div>

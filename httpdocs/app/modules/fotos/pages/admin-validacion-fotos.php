@@ -19,7 +19,8 @@ if (isset($_REQUEST['act'])){
 }
 
 $fotos = new fotos();
-$pendientes = $fotos->getFotos(" AND estado=0 AND id_promocion=0 ");
+//$pendientes = $fotos->getFotos(" AND estado=0 AND id_promocion=0 ");
+$pendientes = $fotos->getFotos(" AND estado=0 ");
 $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 
 <div class="row row-top">

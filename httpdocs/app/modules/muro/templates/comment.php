@@ -9,7 +9,8 @@ function commentMuro($comment, $allow_reply = true){
 	else $votado_user = 0;
 	echo '<div class="media">';
 	userFicha($comment);
-	echo '	<p>
+	echo '	<div class="media-body">
+			<p>
 			<a href="user-profile?n='.$comment['nick'].'"><small>'.$comment['nick'].'</small></a>';
 	echo '	<small><span class="date-format-ago" data-date="'.$comment['date_comentario'].'">'.getDateFormat($comment['date_comentario'], "DATE_TIME").'</span></small>';
 	if ($_SESSION['user_canal'] == 'admin') echo '<br /><small>'.strTranslate("Channel").': '.$comment['canal_comentario'].'</small>';
@@ -35,6 +36,7 @@ function commentMuro($comment, $allow_reply = true){
 				</span>';
 	endif;
 	echo '	</div>
+		</div>
 		</div>';
 	echo '	<div id="muro-result-megusta'.$comment['id_comentario'].'" class="text-danger"></div>';
 	echo '	<hr>';

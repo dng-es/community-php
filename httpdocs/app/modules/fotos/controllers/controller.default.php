@@ -35,6 +35,7 @@ class fotosController{
 
 	public static function voteAction($destination = "fotos"){
 		if (isset($_REQUEST['idvf']) and $_REQUEST['idvf'] != ""){
+			$destination .= (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?1=1" : "");
 			$fotos = new fotos();
 			$response = $fotos->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']);
 			if ($response == 1)
@@ -46,6 +47,7 @@ class fotosController{
 
 			if (isset($_REQUEST['f']) and $_REQUEST['f'] != "") $destination .= "&f=".$_REQUEST['f'];
 			if (isset($_REQUEST['pag']) and $_REQUEST['pag'] != "") $destination .= "&pag=".$_REQUEST['pag'];
+			if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") $destination .= "&id=".$_REQUEST['id'];
 
 			session::setFlashMessage('actions_message', $message, "alert alert-warning");
 			redirectURL($destination);

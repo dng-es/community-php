@@ -17,7 +17,6 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		cuestionariosController::saveFormAction();
-		cuestionariosController::finalizarFormAction($id_cuestionario);
 		
 		$cuestionarios = new cuestionarios();
 		$elements = $cuestionarios->getPreguntas(" AND id_cuestionario=".$id_cuestionario." ");
@@ -36,6 +35,7 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 		if (count($elements)>0){
 			if ($finalizados==0){
 			echo '<form action="" method="post" name="formTarea" id="formTarea" role="form" >
+					<input type="hidden" id="type-save" name="type-save" value="" />
 					<input type="hidden" id="id_cuestionario" name="id_cuestionario" value="'.$id_cuestionario.'" />';
 			}
 			
@@ -71,7 +71,7 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 			if ($finalizados==0){
 				echo '<br /><input id="SubmitForm" class="btn btn-primary" type="submit" value="'.strTranslate("Save").'" />';
 				if (count($respuesta_user)>0){
-					echo ' <button id="FinalizarForm" onClick="Confirma(\'¿Seguro que desea finalizar el cuestionario?.\nRecuerda  que previamente tienes que guardar tus respuestas.\',\'cuestionario?id='.$id_cuestionario.'&d=1\')" class="btn btn-primary" type="button">Finalizar cuestionario</button>';
+					echo ' <button id="FinalizarForm" class="btn btn-primary pull-right" type="button">Finalizar cuestionario</button>';
 				}
 				echo '</form>';
 				echo '<br /><br /><div class="alert alert-warning">Asegúrate de haber contestado todas las preguntas correctamente antes de finalizar el cuestionario.</div>';

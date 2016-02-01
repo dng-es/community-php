@@ -16,7 +16,7 @@ class promocionesCore {
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("reto", $_SESSION['user_name']));
 
-		$id_promocion = connection::SelectMaxReg("id_promocion", "promociones", $filtro_promocion." AND active=1 ");
+		$id_promocion = connection::SelectMaxReg("id_promocion", "promociones", " AND active=1 ");
 
 		if ($session->checkPageViewPermission("reto", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-globe",

@@ -1,13 +1,13 @@
 <?php
 //templateload("tipuser","users");
 
-function galleryPhotos($elements, $rating, $id_promocion, $cols, $pagina = "fotos", $comments = true){
+function galleryPhotos($elements, $rating, $id_promocion, $cols, $pagina = "fotos", $comments = true, $id_album = 0){
 	foreach($elements as $element):
-	     showFotoGaleria($element,$rating,$id_promocion, $pagina, $comments);
+	     showFotoGaleria($element, $rating, $id_promocion, $pagina, $comments, $id_album);
 	endforeach;
 }
 
-function showFotoGaleria($file_galeria, $rating = true, $reto = 0, $pagina = "fotos", $comments = true){
+function showFotoGaleria($file_galeria, $rating = true, $id_promocion = 0, $pagina = "fotos", $comments = true, $id_album = 0){
 	$titulo = (strlen($file_galeria['titulo']) > 30 ? substr($file_galeria['titulo'], 0, 28)."..." : $file_galeria['titulo']);
 	$num_comentarios = connection::countReg("galeria_fotos_comentarios", " AND id_file=".$file_galeria['id_file']." AND estado=1 ");
 	$nick = ($file_galeria['nick'] == "" ? "(sin nick)" : $file_galeria['nick']);
@@ -20,7 +20,7 @@ function showFotoGaleria($file_galeria, $rating = true, $reto = 0, $pagina = "fo
 	echo '		<p><a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="'.strTranslate("Full_screen").'" ><i class="fa fa-desktop"></i></a> '.$titulo.' </p>
 			</div>
 			<span class="photo-likes">';
-	if ($rating){echo ' <a href="'.$pagina.'?id='.$reto.'&idvf='.$file_galeria['id_file'].'"  title="'.strTranslate("Photo_vote").'">'.$file_galeria['fotos_puntos'].' <span class="fa fa-heart"></span></a>';}
+	if ($rating){echo ' <a href="'.$pagina.'?id='.$id_album.'&idp='.$id_promocion.'&idvf='.$file_galeria['id_file'].'"  title="'.strTranslate("Photo_vote").'">'.$file_galeria['fotos_puntos'].' <span class="fa fa-heart"></span></a>';}
 	else {echo $file_galeria['fotos_puntos'].' <span class="fa fa-heart"></span>';}
 	echo '</span>
 	</div>';

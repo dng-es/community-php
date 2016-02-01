@@ -19,6 +19,9 @@ $filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (f.canal='".$_S
 $filtro_album = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? " AND id_album=".$_REQUEST['id']." " : "" );
 $filtro_promocion = ((isset($_REQUEST['idp']) and $_REQUEST['idp'] > 0) ? " AND id_promocion=".$_REQUEST['idp']." " : "" );
 $filtro_nick = ((isset($_REQUEST['n']) and $_REQUEST['n'] != "") ? " AND nick='".urldecode($_REQUEST['n'])."' " : "" );
+$id_promocion = ((isset($_REQUEST['idp']) and $_REQUEST['idp'] > 0) ? $_REQUEST['idp'] : 0 );
+$id_album = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0 );
 $elements = fotosController::getListAction(18, $filtro_canal.$filtro_album.$filtro_nick.$filtro_promocion." AND estado=1 ORDER BY id_file DESC ");
-galleryPhotos($elements['items'], true, 0, 4, "fotos", $module_config['options']['allow_comments']);
+$destino = ((isset($_REQUEST['idp']) and $_REQUEST['idp'] > 0) ? 'reto' : 'fotos' );
+galleryPhotos($elements['items'], true, $id_promocion, 4, $destino, $module_config['options']['allow_comments'], $id_album);
 ?>

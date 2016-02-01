@@ -163,21 +163,19 @@ class cuestionariosController{
 				$respuesta_valor = str_replace("'", "´", $respuesta_valor);
 				$cuestionarios->insertRespuesta($pregunta['id_pregunta'], $_SESSION['user_name'], $respuesta_valor);
 			endforeach; 
-			session::setFlashMessage('actions_message', "Respuestas enviadas.", "alert alert-success");
+			if ($_POST['type-save'] == "1") self::finalizarFormAction($id_cuestionario);
+			else session::setFlashMessage( 'actions_message', "Respuestas enviadas.", "alert alert-success");
+			
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}
 
 	public static function finalizarFormAction($id_cuestionario){
-		if (isset($_REQUEST['d']) and $_REQUEST['d'] == 1){
-			$cuestionarios = new cuestionarios();
-			if($cuestionarios->insertFormulariosFinalizados($id_cuestionario, $_SESSION['user_name'])) 
-				session::setFlashMessage('actions_message', "Cuestionario finalizado correctamente. Próximamente podrás consultar la nota de tu evaluación.", "alert alert-success");
-			else 
-				session::setFlashMessage('actions_message', "Se ha producido algún error al finalizar el cuestionario.", "alert alert-danger");
-
-			redirectURL("cuestionario?id=".$id_cuestionario);
+		$cuestionarios = new cuestionarios();
+		if($cuestionarios->insertFormulariosFinalizados($id_cuestionario,$_SESSION['user_name'])){
+			session::setFlashMessage( 'actions_message', "Cuestionario finalizado correctamente. Próximamente podrás consultar la nota de tu evaluación.", "alert alert-success");
 		}
+		else session::setFlashMessage( 'actions_message', "Se ha producido algún error al finalizar el cuestionario.", "alert alert-danger");
 	}
 
 	public static function RevisarFormAction(){

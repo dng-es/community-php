@@ -17,8 +17,6 @@ addJavascripts(array("js/jquery.jtextarea.js",
 					getAsset("videos")."js/videos.js",
 					getAsset("fotos")."js/fotos.js",
 					getAsset("promociones")."js/reto.js"));
-
-$filtro_promocion = " AND active=1 ";
 ?>
 
 <div class="row row-top">
@@ -26,17 +24,17 @@ $filtro_promocion = " AND active=1 ";
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
-			array("ItemLabel"=>strTranslate("Blog"), "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Reto"), "ItemClass"=>"active"),
 		));
 
 		session::getFlashMessage( 'actions_message' );
 		videosController::voteAction();
 		videosController::createAction();
 		muroController::createAction();
-		fotosController::voteAction();
+		fotosController::voteAction("reto?idp=".$_REQUEST['idp']);
 		fotosController::createAction();
 
-		$promocion = promocionesController::getLastPromocionAction($filtro_promocion);
+		$promocion = promocionesController::getLastPromocionAction(" AND active=1 ");
 		$id_promocion = $promocion['id_promocion'];
 
 
@@ -138,13 +136,18 @@ $filtro_promocion = " AND active=1 ";
 				<?php endif; ?>
 			<?php endif; ?>
 
+		<?php } 
+		else{ ?>
+			<div class="alert alert-info">No hay retos activos</div>
 		<?php } ?>
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior full-height">
-			<?php if ($promocion['galeria_videos'] ==1 or $_SESSION['user_perfil'] == 'admin') PanelSubirVideo($promocion['id_promocion']);?>
-			<?php if ($promocion['galeria_fotos'] ==1) PanelSubirFoto($promocion['id_promocion']);?>
-			<?php if ($promocion['galeria_comentarios'] ==1) addComment($promocion['id_promocion'], false, "Enviar respuesta");?>
+			<?php if (isset($id_promocion) and $id_promocion != ""): ?>
+				<?php if ($promocion['galeria_videos'] ==1 or $_SESSION['user_perfil'] == 'admin') PanelSubirVideo($promocion['id_promocion']);?>
+				<?php if ($promocion['galeria_fotos'] ==1) PanelSubirFoto($promocion['id_promocion']);?>
+				<?php if ($promocion['galeria_comentarios'] ==1) addComment($promocion['id_promocion'], false, "Enviar respuesta");?>
+			<?php endif;?>
 			<br />
 		</div>
 	</div>

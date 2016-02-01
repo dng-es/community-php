@@ -1314,6 +1314,15 @@ table th {
 			font-family:'fjallaoneregular';
 			
 		}
+
+		p{
+			img{
+				@media screen and (max-width: $break-medium) {
+					width: 100% !important;
+					height: auto !important;
+				}
+			}
+		}
 	}
 	.panel-blog-header{
 		margin-bottom: 20px;

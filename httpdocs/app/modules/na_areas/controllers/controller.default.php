@@ -202,19 +202,21 @@ class na_areasController{
 				$respuesta_valor = str_replace("'", "´", $respuesta_valor);
 				$na_areas->insertRespuesta($pregunta['id_pregunta'], $_SESSION['user_name'], $respuesta_valor);
 			endforeach; 
-			session::setFlashMessage('actions_message', "Respuestas enviadas.", "alert alert-success");
+			
+			if ($_POST['type-save'] == "1")
+				self::finalizarFormAction($id_tarea);
+			else
+				session::setFlashMessage( 'actions_message', "Respuestas enviadas.", "alert alert-success");
+			
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}
 
 	public static function finalizarFormAction($id_tarea){
-		if (isset($_REQUEST['d']) and $_REQUEST['d'] == 1){
-			$na_areas = new na_areas();
-			if($na_areas->insertFormulariosFinalizados($id_tarea,$_SESSION['user_name']))
-				session::setFlashMessage('actions_message', "Tarea finalizada correctamente. Próximamente podrás consultar la nota de tu evaluación.", "alert alert-success");
-			else session::setFlashMessage('actions_message', "Se ha producido algún error al finalizar la tarea.", "alert alert-danger");
-			redirectURL("areas_form?id=".$id_tarea);
-		}
+		$na_areas = new na_areas();
+		if($na_areas->insertFormulariosFinalizados($id_tarea,$_SESSION['user_name']))
+			session::setFlashMessage('actions_message', "Tarea finalizada correctamente. Próximamente podrás consultar la nota de tu evaluación.", "alert alert-success");
+		else session::setFlashMessage('actions_message', "Se ha producido algún error al finalizar la tarea.", "alert alert-danger");
 	}
 
 	public static function accesoAreaAction($id_area){

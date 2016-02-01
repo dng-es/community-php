@@ -45,6 +45,7 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id']
 			if (count($elements) > 0){
 				if ($finalizados == 0){
 					echo '<form action="" method="post" name="formTarea" id="formTarea" role="form" >
+								<input type="hidden" id="type-save" name="type-save" value="" />
 								<input type="hidden" id="id_tarea" name="id_tarea" value="'.$id_tarea.'" />';
 				}
 				foreach($elements as $element):
@@ -79,7 +80,7 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id']
 				if ($finalizados == 0){
 					echo '<br /><input id="SubmitForm" class="btn btn-primary" type="submit" value="'.strTranslate("Save").'" /">';
 					if (count($respuesta_user) > 0){
-						echo ' <button id="FinalizarForm" class="btn btn-primary" type="button">'.strTranslate("End_task").'</button>';
+						echo ' <button id="FinalizarForm" class="btn btn-primary pull-right" type="button">'.strTranslate("End_task").'</button>';
 					}
 
 					echo '</form>';
