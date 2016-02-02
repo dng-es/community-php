@@ -1,12 +1,3 @@
----
-Title:  Community-php  
-Author: David Noguera Gutierrez
-Date:   February 2, 2016
-heroimage: "https://github.com/dng-es/community-php/blob/master/documentacion/cuore.png"
-tags:
-- Community
-- php
----
 # Community-php
 v. 0.4.6
 > Comunidad de usuarios php5 y mysql, creada por componentes/módulos. Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
@@ -28,6 +19,12 @@ v. 0.4.6
 - PHP 5.3 o superior.
 - FFMPEG para la conversión de videos. Librerias libx264 y libfaac necesarias.
 
+
+You can find a demo of a site[^Demo] built with PostCSS in our footnotes, or you can checkout the [^Github Repo] for the project.
+
+#### Footnotes
+[Demo](http://iviewsource.com/exercises/postcsslayouts)
+[Github Repo](https://github.com/planetoftheweb/postcsslayouts)
 
 ## Instalación
 Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto de directorios y ficheros solo son necesarios para desarrollo.
