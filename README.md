@@ -1,3 +1,12 @@
+---
+Title:  Community-php  
+Author: David Noguera Gutierrez
+Date:   February 2, 2016
+heroimage: "https://github.com/dng-es/community-php/blob/master/documentacion/cuore.png"
+tags:
+- Community
+- php
+---
 # Community-php
 v. 0.4.6
 > Comunidad de usuarios php5 y mysql, creada por componentes/módulos. Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
