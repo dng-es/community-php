@@ -20,12 +20,6 @@ v. 0.4.6
 - FFMPEG para la conversión de videos. Librerias libx264 y libfaac necesarias.
 
 
-You can find a demo of a site[^Demo] built with PostCSS in our footnotes, or you can checkout the [^Github Repo] for the project.
-
-#### Footnotes
-[Demo](http://iviewsource.com/exercises/postcsslayouts)
-[Github Repo](https://github.com/planetoftheweb/postcsslayouts)
-
 ## Instalación
 Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto de directorios y ficheros solo son necesarios para desarrollo.
 - Establecer configuración principal en el fichero: app/core/config.php (<b>IMPORTANTE</b>: desactivar debug mode en servidores de producción o establecer salida a fichero de log)
