@@ -1,0 +1,154 @@
+<html lang="<?php echo $_SESSION['language'];?>" xml:lang="<?php echo $_SESSION['language'];?>">
+	<head>
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Flexbox test</title>
+
+		<link href="css/styles.css" rel="stylesheet">
+		<script type="js/main.min.js"></script>
+
+		<<style type="text/css" media="screen">
+		/* PRUEBAS FLEXBOX */
+		#container-flex{
+			background-color: #333;
+
+			@include display-flex;
+			@include flex-wrap(wrap);
+			@include flex-direction(row);
+			@include align-content(flex-start);
+			@include align-items(flex-start);
+			@include justify-content(center);
+
+			margin: 20px 15%;
+			width: 70%;
+
+			@media screen and (max-width: $break-medium) {
+				@include flex-direction(column);
+
+				margin: 20px 0%;
+				width: 100%;
+			}	
+		}
+
+		#container-flex .elemento-flex{
+			@include align-self(stretch);
+			padding: 15px;
+			margin: 15px;
+			
+			button {
+				$flex-legacy-enabled: true;
+				margin-top: auto;
+				@include align-self(center);
+				width:30%;
+				$flex-legacy-enabled: false;
+				margin-bottom: 15px;
+
+				@media screen and (max-width: $break-medium) {
+					width: 100%;
+				}
+			}
+
+			img{
+				@include order(1);
+				/* @include align-self(center); */
+
+				width: 100%;
+			}
+
+			@media screen and (max-width: $break-medium) {
+				@include flex(1 1 100%);
+				@include justify-content(center);
+				overflow: hidden;
+			}
+		}
+
+		.uno{
+			background-color:#ffcc00;
+			@include flex(1 1 250px);
+		}
+		.dos{
+			background-color:#ff6600;
+			@include flex(1 1 250px);
+		}
+		.tres{
+			background-color:#ff9900;
+			@include flex(1 1 250px);
+		}
+		.cuatro{
+			background-color:#ff0000;
+			@include flex(1 1 250px);
+			@media screen and (max-width: $break-medium) {
+				@include order(-1);
+			}
+		} 
+		.cinco{
+			background-color:#ffee00;
+			@include flex(4 1 250px);
+		}
+
+		.seis{
+			background-color:#aaee00;
+			@include flex(1 1 250px);
+		}
+		/* FIN PRUEBAS FLEXBOX */
+		</style>
+	</head>
+	<body>
+		<div class="row" id="container-flex">
+			<div class="uno elemento-flex">
+				<h2>El Quijote</h2>
+				<p>
+					1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, nunc ut cursus sagittis, urna sem venenatis odio, sit amet congue lorem augue feugiat lacus. Aenean ac blandit orci, eget vestibulum odio. 	
+				</p>
+				<img src='images/foro/1412935026_postal5_quijote.jpeg' alt='' />
+				<button class="btn btn-primary">Ver más</button>
+			</div>
+			<div class="dos elemento-flex">
+				<h2>Los mejores frutos secos</h2>
+				<p>
+					2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+				</p>
+				<img src='images/foro/1415008210_tumblr_n8psyhbag61slhhf0o1_1280.jpg' alt='' />
+				<button class="btn btn-primary">Ver más</button>
+			</div>
+			<div class="tres elemento-flex">
+				<h2>El titular de la entrada</h2>
+				<p>
+					3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, 		
+				</p>
+				<img src='images/foro/1412935026_postal5_quijote.jpeg' alt='' />
+				<button class="btn btn-primary">Ver más</button>
+			</div>
+			<div class="cuatro elemento-flex">
+				<h2>Lorem ipsum</h2>
+				<p>
+					4 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, nunc ut cursus sagittis, urna sem venenatis odio, sit amet congue lorem augue feugiat lacus. Aenean ac blandit orci, eget vestibulum odio. Phasellus velit ipsum, ultricies quis semper in, luctus ut magna. Maecenas ultricies malesuada ipsum, eget tincidunt ante semper a.		
+				</p>
+				<img src='images/foro/1412935528_lorem-ipsum.jpg' alt='' />
+				<button class="btn btn-primary">Ver más</button>
+			</div>
+			<div class="cinco elemento-flex">
+				<h2>El titular de la entrada</h2>
+				<p>
+					5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, nunc ut cursus sagittis, urna sem venenatis odio, sit amet congue lorem augue feugiat lacus. Aenean ac blandit orci, .		
+				</p>
+				<img src='images/foro/1412935026_postal5_quijote.jpeg' alt='' />
+				<button class="btn btn-primary">Ver más</button>
+			</div>
+
+			<div class="seis elemento-flex">
+				<h2>El titular de la entrada</h2>
+				<p>
+					6 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, nunc ut cursus sagittis, urna sem venenatis odio, sit amet congue lorem augue feugiat lacus. Aenean ac blandit orci, .		
+				</p>
+				<p>
+					6 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, nunc ut cursus sagittis, urna sem venenatis odio, sit amet congue lorem augue feugiat lacus. Aenean ac blandit orci, .		
+				</p>
+				<img src='images/foro/1412935026_postal5_quijote.jpeg' alt='' />
+				<button class="btn btn-primary">Ver más</button>
+			</div>
+		</div>
+	</body>
+</html>

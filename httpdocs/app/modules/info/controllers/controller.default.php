@@ -38,7 +38,7 @@ class infoController{
 		  	else $nombre_archivo = $_POST['info_url'];
 
 			if ($info->insertInfo($nombre_archivo, $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $download)){
-				session::setFlashMessage( 'actions_message', "Registro insertado correctamente", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id = connection::SelectMaxReg("id_info", "info", "");
 				redirectURL("admin-info-doc?act=edit&id=".$id);
 			}
@@ -68,9 +68,9 @@ class infoController{
 		  	else $info->updateInfoDoc($_POST['id'], $_POST['info_url']);
 
 			if ($info->updateInfo($_POST['id'], $_POST['info_title'], $_POST['info_canal'], $_POST['info_tipo'], $_POST['info_campana'], $download)) 
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-info-doc?act=edit&id=".$id);
 		}
@@ -80,9 +80,9 @@ class infoController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$info = new info();
 			if ($info->deleteInfo($_REQUEST['id'], $_REQUEST['d'])) 
-				session::setFlashMessage('actions_message', "Registro eliminado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-info");
 		}

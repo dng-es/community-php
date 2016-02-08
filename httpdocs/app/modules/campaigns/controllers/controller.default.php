@@ -48,11 +48,11 @@ class campaignsController{
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");
 
 			if ($campaigns->insertCampaigns($name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad)) {
-				session::setFlashMessage('actions_message', "Registro insertado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_campaign = connection::SelectMaxReg("id_campaign","campaigns","");
 			}
 			else
-				session::setFlashMessage('actions_message', "Error al insertar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-campaign?id=".$id_campaign);
 		}
@@ -71,9 +71,9 @@ class campaignsController{
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");		
 
 			if ($campaigns->updateCampaigns($id_campaign, $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad)) 
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			
 			redirectURL("admin-campaign?id=".$id_campaign);
 		}
@@ -83,9 +83,9 @@ class campaignsController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$campaigns = new campaigns();
 			if ($campaigns->deleteCampaigns($_REQUEST['id'])) 
-				session::setFlashMessage('actions_message', "Registro eliminado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-campaigns");
 		}
@@ -121,11 +121,11 @@ class campaignsController{
 			$desc = str_replace("'", "´", $_POST['desc']);
 
 			if ($campaigns->insertCampaignsType($name,$desc)) {
-				session::setFlashMessage('actions_message', "Registro insertado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id = connection::SelectMaxReg("id_campaign_type", "campaigns_types", "");
 			}
 			else 
-				session::setFlashMessage('actions_message', "Error al insertar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-campaigns-type?id=".$id);
 		}
@@ -139,9 +139,9 @@ class campaignsController{
 			$desc = str_replace("'", "´", $_POST['desc']);
 
 			if ($campaigns->updateCampaignsType($id, $name, $desc)) 
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-campaigns-type?id=".$id);
 		}
@@ -151,9 +151,9 @@ class campaignsController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$campaigns = new campaigns();
 			if ($campaigns->deleteCampaignsType($_REQUEST['id'])) 
-				session::setFlashMessage('actions_message', "Registro eliminado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-campaigns-types");
 		}

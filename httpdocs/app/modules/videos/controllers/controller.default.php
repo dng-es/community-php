@@ -95,7 +95,7 @@ class videosController{
 				if ($videos->cambiarEstado($_REQUEST['id'], 2))
 					session::setFlashMessage('actions_message', "Video cancelado correctamente.", "alert alert-success");
 				else
-					session::setFlashMessage('actions_message', "Error durante el proceso.", "alert alert-danger");
+					session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
 
 			redirectURL("admin-validacion-videos");

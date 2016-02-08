@@ -22,12 +22,12 @@ class fotosAlbumController{
 		if (isset($_POST['id']) and $_POST['id'] == 0){
 			$fotos = new fotos();
 			if ($fotos->InsertAlbum($_POST['nombre'], $_SESSION['user_name'])) {
-				session::setFlashMessage( 'actions_message', "álbum creado correctamente", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_album = connection::SelectMaxReg("id_album","galeria_fotos_albumes"," AND activo=1 ");
 				redirectURL("admin-albumes-new?id=".$id_album);
 			}
 			else{
-				session::setFlashMessage('actions_message', "Error al crear álbum", "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
 				redirectURL("admin-albumes-new");
 			}
 		}
@@ -37,9 +37,9 @@ class fotosAlbumController{
 		if (isset($_POST['id']) and $_POST['id'] > 0){
 			$fotos = new fotos();
 			if ($fotos->updateAlbum($_POST['id'], $_POST['nombre'], $_SESSION['user_name'])) 
-				session::setFlashMessage('actions_message', "Álbum modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al modificar álbum", "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
 
 			redirectURL("admin-albumes-new?id=".$_POST['id']);
 		}
@@ -49,9 +49,9 @@ class fotosAlbumController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$fotos = new fotos();
 			if ($fotos->cambiarEstadoAlbum($_REQUEST['id'], 0))
-				session::setFlashMessage('actions_message', "Álbum eliminado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al eliminar álbum", "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
 
 			redirectURL("admin-albumes");
 		}
@@ -76,9 +76,9 @@ class fotosAlbumController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'foto_ko'){
 			$fotos = new fotos();
 			if ($fotos->cambiarEstado($_REQUEST['idf'], 2, 0))
-				session::setFlashMessage( 'actions_message', "Imágen eliminada correctamente", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', "Error al eliminar imágen", "alert alert-warning");
+				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-warning");
 
 			redirectURL("admin-albumes-new?id=".$_REQUEST['id']);
 		}
@@ -88,9 +88,9 @@ class fotosAlbumController{
 		if (isset($_POST['file_id'])){
 			$fotos = new fotos();
 			if ($fotos->updateFotoAlbum($_POST['file_id'], $_POST['id_album']))
-				session::setFlashMessage( 'actions_message', "Imágen agregada correctamente", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', "Error al agregar imágen", "alert alert-warning");
+				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-warning");
 			
 			redirectURL("admin-albumes-new?id=".$_POST['id_album']);
 		}

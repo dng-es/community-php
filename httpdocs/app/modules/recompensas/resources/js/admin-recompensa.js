@@ -10,10 +10,10 @@ jQuery(document).ready(function(){
 			$("#recompensa_nombre").addClass("input-alert").attr("placeholder",$('#recompensa_nombre').data("alert")).focus();
 		}
 
-		if (jQuery.trim($("#recompensa_image").removeClass("input-alert").val()) == ""){
+/*		if (jQuery.trim($("#recompensa_image").removeClass("input-alert").val()) == ""){
 			form_ok = false;
 			$("#recompensa_image").addClass("input-alert").attr("placeholder",$('#recompensa_image').data("alert")).focus();
-		}
+		}*/
 
 
 		return form_ok;

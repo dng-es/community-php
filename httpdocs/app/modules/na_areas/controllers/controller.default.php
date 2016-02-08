@@ -21,7 +21,7 @@ class na_areasController{
 			session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 		}
 		else 
-			session::setFlashMessage('actions_message', "Se ha producido algun error durante la modificacion de los datos.", "alert alert-danger");
+			session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 		redirectURL("admin-area?act=edit&id=".$_REQUEST['id_area']);
 	}
 
@@ -40,7 +40,7 @@ class na_areasController{
 			session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 		}
 		else
-			session::setFlashMessage('actions_message', "Se ha producido algun error durante la inserción de los datos.", "alert alert-danger");
+			session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 		redirectURL("admin-area?act=edit&id=".$id_area);
 	}
@@ -77,14 +77,21 @@ class na_areasController{
 		$tarea_user = $_POST['id_tarea_rev'];
 		$id_area = $_POST['id_area_rev'];
 		$puntos = $_POST['puntos_rev'];
+		$id_recompensa = $_POST['id_recompensa_rev'];
 		if ($na_areas->RevisarTareaFormUser($user_tarea,$tarea_user,$puntos,$_SESSION['user_name'])){
-			//sumar horas de vuelo si la puntuacion es mayor o igual que $points_to_success
+			//sumar puntos si la puntuacion es mayor o igual que $points_to_success
 			if ($puntos >= $points_to_success){
 				//obtener datos del area
 				$area = $na_areas->getAreas(" AND id_area=".$id_area." ");
 				$users = new users();
 				$puntos = (count($area)>0 ? $area[0]['puntos']: 0 );
 				$users->sumarPuntos($user_tarea,$puntos,"Superación curso ID: ".$id_area);
+
+				//agregar recompensa
+				if ($id_recompensa > 0){
+					$recompensas = new recompensas();
+					$recompensas->insertRecompensaUser($id_recompensa, $user_tarea, $_SESSION['user_name'], "Finalizacion tarea ID: ".$tarea_user);
+				}
 			}
 		}
 		redirectURL($_SERVER['REQUEST_URI']);
@@ -216,7 +223,7 @@ class na_areasController{
 		$na_areas = new na_areas();
 		if($na_areas->insertFormulariosFinalizados($id_tarea,$_SESSION['user_name']))
 			session::setFlashMessage('actions_message', "Tarea finalizada correctamente. Próximamente podrás consultar la nota de tu evaluación.", "alert alert-success");
-		else session::setFlashMessage('actions_message', "Se ha producido algún error al finalizar la tarea.", "alert alert-danger");
+		else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 	}
 
 	public static function accesoAreaAction($id_area){
@@ -239,9 +246,9 @@ class na_areasController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$na_areas = new na_areas();
 			if($na_areas->deleteTareaDoc($_REQUEST['idd']))
-				session::setFlashMessage('actions_message', "Documento eliminado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al eliminar el documento.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-area-docs?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
 		}
@@ -253,7 +260,7 @@ class na_areasController{
 			if($na_areas->insertGrupoArea($_POST['id_area_grupo'],$_POST['grupo_nombre']))
 				session::setFlashMessage('actions_message', "Grupo creado correctamente.", "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al crear grupo.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL($_SERVER['REQUEST_URI']."&t=3");
 		}
@@ -277,10 +284,12 @@ class na_areasController{
 			}
 			else $nombre_archivo = "";
 
-			if($na_areas->insertTarea($_POST['id_area_tarea'], $titulo, $descripcion, $tipo, $grupo, $_SESSION['user_name'], $nombre_archivo))
-				session::setFlashMessage('actions_message', "Tarea creada correctamente.", "alert alert-success"); 
+			$id_recompensa = (isset($_POST['id_recompensa']) ? sanitizeInput($_POST['id_recompensa']) : 0);
+
+			if($na_areas->insertTarea($_POST['id_area_tarea'], $titulo, $descripcion, $tipo, $grupo, $_SESSION['user_name'], $nombre_archivo, $id_recompensa))
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success"); 
 			else 
-				session::setFlashMessage('actions_message', "Error al crear tarea.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL($_SERVER['REQUEST_URI']."&t=2");
 		}
@@ -290,9 +299,9 @@ class na_areasController{
 		if (isset($_REQUEST['e']) and $_REQUEST['e'] != ""){
 			$na_areas = new na_areas();
 			if($na_areas->estadoTarea($_REQUEST['del_t'], $_REQUEST['e']))
-				session::setFlashMessage('actions_message', "Estado modificado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al modificar estado.", "alert alert-danger"); 
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger"); 
 
 			redirectURL("admin-area?act=edit&t=2&id=".$_REQUEST['id']);
 		}
@@ -302,9 +311,9 @@ class na_areasController{
 		if (isset($_REQUEST['del_t2']) and $_REQUEST['del_t2'] != ""){
 			$na_areas = new na_areas();
 			if($na_areas->estadoTarea($_REQUEST['del_t2'], 2))
-				session::setFlashMessage('actions_message', "Tarea eliminada correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al eliminar tarea.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-area?act=edit&t=2&id=".$_REQUEST['id']);
 		}
@@ -314,9 +323,9 @@ class na_areasController{
 		if (isset($_REQUEST['el']) and $_REQUEST['el'] != ""){
 			$na_areas = new na_areas();
 			if($na_areas->estadoLinksTarea($_REQUEST['del_t'], $_REQUEST['el']))
-				session::setFlashMessage('actions_message', "Estado modificado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al modificar estado.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-area?act=edit&t=2&id=".$_REQUEST['id']);
 		}
@@ -326,9 +335,9 @@ class na_areasController{
 		if (isset($_POST['find_tipo'])){
 			$foro = new foro();
 			if($foro->cambiarTipoTema($_POST['id_tema_tipo'],$_POST['find_tipo']))
-				session::setFlashMessage('actions_message', "Tipo modificado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al modificar tipo.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-area?act=edit&t=4&id=".$_REQUEST['id']);
 		}
@@ -344,7 +353,7 @@ class na_areasController{
 				$foro->cambiarEstado($_REQUEST['idc'],2);
 				$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
 			}
-			session::setFlashMessage('actions_message', "Estado modificado.", "alert alert-warning");
+			session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-warning");
 			redirectURL("admin-area?act=edit&t=4&id=".$_REQUEST['id']);
 		}
 	}
@@ -387,7 +396,7 @@ class na_areasController{
 						if ($valor != "") $na_areas->insertPreguntaRespuesta($id_pregunta,$valor);
 					}
 				}
-				session::setFlashMessage('actions_message', "Pregunta creada correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}
 			redirectURL("admin-area-form?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
 		}
@@ -397,9 +406,9 @@ class na_areasController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$na_areas = new na_areas();
 			if ($na_areas->deletePregunta($_REQUEST['idp']))
-				session::setFlashMessage('actions_message', "Pregunta eliminada correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al eliminar pregunta.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-area-form?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
 		}

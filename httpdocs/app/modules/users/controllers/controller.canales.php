@@ -48,10 +48,10 @@ class usersCanalesController{
 				//crear foro asociado
 				$foro = new foro();
 				$foro->InsertTema(0, "Foro ".$canal_name, '', '', 'admin', $canal, 0, 1, '', 0, 0, "");
-				session::setFlashMessage('actions_message', "Canal creado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}
 			else 
-				session::setFlashMessage('actions_message', "Error al crear canal.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-canal?id=".$canal);
 		}
@@ -63,9 +63,9 @@ class usersCanalesController{
 			$canal_name = sanitizeInput($_POST['canal_name']);
 			$users = new users;
 			if ($users->updateCanal($canal, $canal_name))
-				session::setFlashMessage('actions_message', "Canal modificado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al modificar canal.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-canal?id=".$canal);
 		}

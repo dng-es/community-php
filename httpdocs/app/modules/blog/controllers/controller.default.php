@@ -30,9 +30,9 @@ class blogController{
 			$id = 0;
 			if ($foro->InsertTema(0, $_POST['nombre'], stripslashes($_POST['descripcion']), $_FILES['imagen-tema'], $_SESSION['user_name'], $_POST['canal'], 0, 1, '', 0, 1, $_POST['etiquetas'])) {
 				$id = connection::SelectMaxReg("id_tema", "foro_temas", " AND ocio=1 ");
-				session::setFlashMessage('actions_message', "Registro insertado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}else 
-				session::setFlashMessage('actions_message', "Error al insertar registro", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-blog-new?id=".$id);
 		}
@@ -44,9 +44,9 @@ class blogController{
 			$nombre = sanitizeInput($_POST['nombre']);
 			$descripcion = sanitizeInput(stripslashes($_POST['descripcion']));
 			if ($foro->updateTema($_POST['id'], $nombre, $descripcion, $_POST['etiquetas'], $_FILES['imagen-tema'])) {
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			}	
-			else session::setFlashMessage('actions_message', "Error al modificar registro", "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-blog-new?id=".$_POST['id']);
 		}

@@ -8,7 +8,6 @@ addJavascripts(array("js/bootstrap.file-input.js",
 
 templateload("tipuser", "users");
 templateload("na_areasuser", "na_areas");
-templateload("user_recompensa", "recompensas");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -146,6 +145,7 @@ templateload("user_recompensa", "recompensas");
 			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" /> 
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div><br />
 			<?php if(getModuleExist("recompensas")): ?>
+					<?php templateload("user_recompensa", "recompensas");?>
 					<?php userRecompensa($_SESSION['user_name']);?>
 			<?php endif; ?>
 		</div>

@@ -37,7 +37,7 @@ $elements = recompensasController::getListAction(35);
 								</span>
 							</td>
 							<td><?php echo $element['recompensa_name'];?></td>
-							<td><img src="images/<?php echo $element['recompensa_image'];?>" width="40px" /></td>
+							<td><img src="<?php echo PATH_REWARDS.$element['recompensa_image'];?>" width="25px" /></td>
 							</tr>
 						<?php endforeach; ?>
 					</table>

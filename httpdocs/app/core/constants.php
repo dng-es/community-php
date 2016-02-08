@@ -73,6 +73,7 @@ define('PATH_INFO',"docs/info/");
 define('PATH_INCENTIVOS_IMG',"images/incentivos/");
 define('PATH_PUBLICIDAD_IMG',"images/publicidad/");
 define('PATH_MAILING',"images/mailing/");
+define('PATH_REWARDS',"images/recompensas/");
 
 //ESTADOS POR DEFECTO DE LOS CONTENIDOS ENVIADOS
 define('ESTADO_COMENTARIOS_MURO',1);

@@ -12,6 +12,8 @@ addJavascripts(array("js/jquery.numeric.js",
 					 getAsset("na_areas")."js/admin-cargas.js"));
 
 templateload("cmbCanales","users");
+if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas");
+
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -54,7 +56,6 @@ templateload("cmbCanales","users");
 
 		//activar/desactivar links tarea
 		na_areasController::estadoLinksTareaAction();
-
 
 		$elements = $na_areas->getAreas(" AND id_area=".$id." ");
 		$area_nombre = isset($elements[0]['area_nombre']) ? $elements[0]['area_nombre'] : "";
@@ -437,11 +438,18 @@ function showTareasArea($id_area){
 					<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default btn-block" title="<?php e_strTranslate("Choose_file");?>" />
 					<span id="fichero-tarea-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_file");?></span>
 
+					<?php if(getModuleExist("recompensas")): ?>
+					<label for="id_recompensa" class="control-label"><?php e_strTranslate("Reward");?>: 
+					<span class="text-muted"><small>Recompensa que recibirá el usuario el aprobar el curso</small></span></label>
+					<?php comboRecompensas(0, "", "id_recompensa");?>
+					<?php endif; ?>
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" name="tarea_grupo"  id="tarea_grupo"> Tarea de grupos
 						</label>
 					</div>
+
+
 
 					<br />
 					<button type="button" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary btn-block">Guardar tarea</button>
@@ -456,6 +464,7 @@ function showTareasArea($id_area){
 						<tr>
 							<th width="40px">&nbsp;</th>
 							<th><?php e_strTranslate("Task");?></th>
+							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 						</tr>
 						<?php foreach($elements as $element):
@@ -513,6 +522,9 @@ function showTareasArea($id_area){
 										if ($element['tarea_grupo'] == 1){
 											echo '<a class="btn btn-default btn-xs" href="admin-area-tarea-grupo?a='.$id_area.'&id='.$element['id_tarea'].'">'.strTranslate("Groups").'</a>';
 										}
+							echo '</td>';
+							echo '<td>';
+							echo ((isset($element['id_recompensa']) and $element['id_recompensa']>0) ? '<img width="25px" title="'.$element['recompensa_name'].'" src="'.PATH_REWARDS.$element['recompensa_image'].'" />' : '');
 							echo '</td>';
 							echo '</tr>';
 						endforeach; ?>

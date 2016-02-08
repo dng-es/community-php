@@ -96,7 +96,10 @@ function printTareas($id_area){
 		if ($element['tarea_grupo'] == 0 or $acceso_grupo == 1){
 			$contador_tareas++;
 			echo '<div class="panel panel-default">
-				  <div class="panel-heading"><h3 class="panel-title">'.$element['tarea_titulo'].'</h3></div>
+				  <div class="panel-heading">
+					';
+					echo ((isset($element['id_recompensa']) and $element['id_recompensa']>0) ? '<img class="pull-right" width="15px" title="'.$element['recompensa_name'].'" src="'.PATH_REWARDS.$element['recompensa_image'].'" />' : '');
+			echo ' <h3 class="panel-title">'.$element['tarea_titulo'].'</h3></div>
 				  <div class="panel-body">
 				  <p>'.$element['tarea_descripcion'].'</p>';
 

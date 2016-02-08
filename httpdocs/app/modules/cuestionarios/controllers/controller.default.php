@@ -36,11 +36,11 @@ class cuestionariosController{
 			$nombre = sanitizeInput($_POST['nombre']);
 			$descripcion = sanitizeInput($_POST['descripcion']);
 			if ($cuestionarios->insertCuestionarios($nombre, $descripcion)) {
-				session::setFlashMessage('actions_message', "Registro insertado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_cuestionario = connection::SelectMaxReg("id_cuestionario", "cuestionarios");
 			}
 			else
-				session::setFlashMessage('actions_message', "Error al insertar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-cuestionario?id=".$id_cuestionario);
 		}
@@ -53,9 +53,9 @@ class cuestionariosController{
 			$nombre = sanitizeInput($_POST['nombre']);
 			$descripcion = sanitizeInput($_POST['descripcion']);
 			if ($cuestionarios->updateCuestionarios($id_cuestionario, $nombre, $descripcion)) 
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-cuestionario?id=".$id_cuestionario);
 		}
@@ -80,7 +80,7 @@ class cuestionariosController{
 						if ($valor!=""){$cuestionarios->insertPreguntaRespuesta($id_pregunta, $valor);}
 					}
 				}
-				session::setFlashMessage('actions_message', "Pregunta insertada correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				redirectURL($_SERVER['REQUEST_URI']);
 			}
 		}
@@ -90,9 +90,9 @@ class cuestionariosController{
 		$cuestionarios = new cuestionarios();
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			if ($cuestionarios->deletePregunta($_REQUEST['idp']))
-				session::setFlashMessage('actions_message', "Registro eliminado correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-cuestionario?id=".$_REQUEST['id']);
 		}
@@ -102,9 +102,9 @@ class cuestionariosController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$cuestionarios = new cuestionarios();
 			if ($cuestionarios->deleteCuestionarios($_REQUEST['id'], $_REQUEST['e'])) 
-				session::setFlashMessage('actions_message', "Estado modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al modificar estado.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-cuestionarios");
 		}
@@ -131,7 +131,7 @@ class cuestionariosController{
 				session::setFlashMessage('actions_message', "Registro clonado correctamente", "alert alert-success");
 			}
 			else 
-				session::setFlashMessage('actions_message', "Error al clonar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-cuestionarios");
 		}

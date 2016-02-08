@@ -29,9 +29,9 @@ class infotopdfController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$info = new infotopdf();
 			if ($info->deleteInfo($_REQUEST['id'],$_REQUEST['d'])) 
-				session::setFlashMessage('actions_message', "Registro eliminado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-info");
 		}

@@ -97,14 +97,16 @@ class na_areas{
 	}
 
 	public function getTareas($filter = ""){
-		$Sql = "SELECT * FROM na_tareas 
+		$Sql = "SELECT t.*,r.recompensa_name, r.recompensa_image 
+				FROM na_tareas t 
+				LEFT JOIN recompensas r ON r.id_recompensa=t.id_recompensa 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
 
-	public function insertTarea($id_area, $titulo, $descripcion, $tipo, $grupo, $usuario, $nombre_archivo){
-		$Sql = "INSERT INTO na_tareas (id_area,tarea_titulo,tarea_descripcion,tipo,tarea_grupo,user_add,tarea_archivo) VALUES
-		(".$id_area.",'".$titulo."','".$descripcion."','".$tipo."',".$grupo.",'".$usuario."','".$nombre_archivo."')";
+	public function insertTarea($id_area, $titulo, $descripcion, $tipo, $grupo, $usuario, $nombre_archivo, $id_recompensa){
+		$Sql = "INSERT INTO na_tareas (id_area,tarea_titulo,tarea_descripcion,tipo,tarea_grupo,user_add,tarea_archivo, id_recompensa) VALUES
+		(".$id_area.",'".$titulo."','".$descripcion."','".$tipo."',".$grupo.",'".$usuario."','".$nombre_archivo."',".$id_recompensa.")";
 		return connection::execute_query($Sql);
 	}
 

@@ -60,9 +60,9 @@ class promocionesController{
 
 			if ($promociones->insertPromociones(sanitizeInput($_POST['nombre_promocion']), sanitizeInput(stripslashes($_POST['texto_promocion'])), 0, $galeria_videos, $galeria_fotos, $galeria_comentarios)) {
 				$id = connection::SelectMaxReg("id_promocion", "promociones", "");
-				session::setFlashMessage('actions_message', "Registro insertado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}else 
-				session::setFlashMessage('actions_message', "Error al insertar registro", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-danger");
 
 			redirectURL("admin-promociones-new?id=".$id);
 		}
@@ -88,9 +88,9 @@ class promocionesController{
 			}
 
 			if ($promociones->updatePromociones(sanitizeInput($_POST['id']), sanitizeInput($_POST['nombre_promocion']), sanitizeInput(stripslashes($_POST['texto_promocion'])), $galeria_videos, $galeria_fotos, $galeria_comentarios)) {
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			}	
-			else session::setFlashMessage('actions_message', "Error al modificar registro", "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-promociones-new?id=".$_POST['id']);
 		}
@@ -104,9 +104,9 @@ class promocionesController{
 			if ($promociones->updateActive(sanitizeInput($_REQUEST['id']), sanitizeInput($_REQUEST['idd']))) {
 					//desactivar resto de registros
 				if (sanitizeInput($_REQUEST['idd']) == 1) $promociones->updateActiveTodos(0 , " AND id_promocion<>".sanitizeInput($_REQUEST['id'])." ");
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			}	
-			else session::setFlashMessage('actions_message', "Error al modificar registro", "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-promociones");
 		}

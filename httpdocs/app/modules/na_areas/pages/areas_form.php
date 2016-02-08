@@ -10,7 +10,7 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id']
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		na_areasController::saveFormAction();
-		na_areasController::finalizarFormAction($id_tarea);
+		//na_areasController::finalizarFormAction($id_tarea);
 		$tarea = na_areasController::getItemTareaAction($id_tarea);
 		$id_area = ( isset($tarea[0]['id_area']) ? $tarea[0]['id_area'] : 0 );
 		$acceso = na_areasController::accesoAreaAction($id_area);

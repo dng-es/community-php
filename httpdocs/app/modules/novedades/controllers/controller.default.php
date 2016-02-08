@@ -21,9 +21,9 @@ class novedadesController{
 			$canal = $_POST['canal'];
 
 			if ($novedades->updateNovedades($cuerpo,$activo, $canal)) 
-				session::setFlashMessage('actions_message', "Modificación realizada correctamente.", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al modificar registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL($_SERVER['REQUEST_URI']);
 		}

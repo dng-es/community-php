@@ -16,9 +16,9 @@ class configurationController{
 										 $_POST['site-url'],
 										 $_POST['email-mailing'])) 
 				
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			
 			redirectURL($_SERVER['REQUEST_URI']);
 		}

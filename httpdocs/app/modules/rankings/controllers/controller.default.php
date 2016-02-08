@@ -38,9 +38,9 @@ class rankingsController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$rankings = new rankings();
 			if ($rankings->updateEstadoRankings($_REQUEST['id'], $_REQUEST['e'])) 
-				session::setFlashMessage('actions_message', "estado modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "error al modificar estado.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-rankings");
 		}
@@ -55,11 +55,11 @@ class rankingsController{
 			$id_ranking_category = $_POST['id_ranking_category'];
 
 			if ($rankings->insertRankings($nombre, $descripcion, $id_ranking_category)) {
-				session::setFlashMessage('actions_message', "registro insertado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_ranking = connection::SelectMaxReg("id_ranking", "users_tiendas_rankings");
 			}
 			else 
-				session::setFlashMessage('actions_message', "error al insertar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-ranking?id=".$id_ranking);
 		}
@@ -77,9 +77,9 @@ class rankingsController{
 			self::uploadRankingData($_POST['id_ranking']);
 
 			if ($rankings->updateRankings($id_ranking, $nombre, $descripcion, $id_ranking_category)) 
-				session::setFlashMessage('actions_message', "registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "error al modificar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-danger");
 
 			redirectURL("admin-ranking?id=".$id_ranking);
 		}
@@ -92,11 +92,11 @@ class rankingsController{
 			$nombre = str_replace("'","´",$_POST['nombre']);
 
 			if ($rankings->insertRankingsCategory($nombre)) {
-				session::setFlashMessage('actions_message', "registro insertado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_ranking = connection::SelectMaxReg("id_ranking", "users_tiendas_rankings");
 			}
 			else 
-				session::setFlashMessage('actions_message', "error al insertar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-rankings-category?id=".$id_ranking);
 		}
@@ -112,9 +112,9 @@ class rankingsController{
 			self::uploadRankingData($_POST['id_ranking']);
 
 			if ($rankings->updateRankingsCategory($id_ranking, $nombre)) 
-				session::setFlashMessage('actions_message', "registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "error al modificar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-rankings-category?id=".$id_ranking);
 		}

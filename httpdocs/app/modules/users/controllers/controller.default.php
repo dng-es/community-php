@@ -71,7 +71,7 @@ class usersController{
 				session::setFlashMessage('actions_message', "Usuario deshabilitado correctamente.", "alert alert-success");
 			}
 			else{
-				session::setFlashMessage('actions_message', "Error al deshabilitar usuario.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
 			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
@@ -226,9 +226,9 @@ class usersController{
 								$_POST['telefono_user'],
 								$_POST['surname'],
 								$registered)) {
-						session::setFlashMessage('actions_message', "Usuario modificado correctamente.", "alert alert-success");}
+						session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");}
 			else 
-				session::setFlashMessage('actions_message', "Se ha producido algun error durante la modificacion de los datos.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-user?id=".$_POST['id_username']);
 		}
@@ -240,7 +240,7 @@ class usersController{
 			if ($users->deleteFoto($_REQUEST['id'],$_REQUEST['f'])) 
 				session::setFlashMessage('actions_message', "foto borrada correctamente.", "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "No se ha podido eliminar la foto.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			redirectURL("admin-user?id=".$_REQUEST['id']);
 		}
 	}

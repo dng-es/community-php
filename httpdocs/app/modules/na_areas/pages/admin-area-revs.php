@@ -24,6 +24,7 @@ $na_areas = new na_areas();
 $id_area = $_REQUEST['a'];
 $id_tarea = $_REQUEST['id'];
 $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
+$id_recompensa = (isset($tarea[0]['id_recompensa']) ? $tarea[0]['id_recompensa'] : 0);
 ?>
 
 <div class="row row-top">
@@ -65,10 +66,10 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 						<div id="btn_search" style="margin:-4px 0 0 5px">filtrar grupo</div>
 					</form>';
 			}
-			if ($tarea[0]['tipo'] == 'formulario'){revisionesFormulario($id_tarea,$id_area,$id_grupo);}
-			else{revisionesFicheros($id_tarea,$id_area,$id_grupo);} 
+			if ($tarea[0]['tipo'] == 'formulario') revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa);
+			else revisionesFicheros($id_tarea, $id_area, $id_grupo, $id_recompensa);
 		}
-		else{ErrorMsg("Error al cargar la tarea");}
+		else ErrorMsg("Error al cargar la tarea");
 		?>
 	</div>
 	<?php menu::adminMenu();?>
@@ -76,7 +77,7 @@ $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 
 
 <?php
-function revisionesFicheros($id_tarea,$id_area,$id_grupo){
+function revisionesFicheros($id_tarea, $id_area, $id_grupo, $id_recompensa){
 		$na_areas = new na_areas();
 		$users = new users();
 		$filtro = " AND id_tarea=".$id_tarea." ";
@@ -117,7 +118,7 @@ function revisionesFicheros($id_tarea,$id_area,$id_grupo){
 		}
 }
 
-function revisionesFormulario($id_tarea,$id_area,$id_grupo){
+function revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa){
 	$na_areas = new na_areas();
 	$users = new users();
 	$filtro =" AND id_tarea=".$id_tarea." ";
@@ -164,6 +165,7 @@ function revisionesFormulario($id_tarea,$id_area,$id_grupo){
 			echo '<td>
 					<form role="form" class="form-inline" method="post" action="admin-area-revs?a='.$id_area.'&id='.$id_tarea.'" name="rev_'.$revision['user_tarea'].'" id="rev_'.$revision['user_tarea'].'">
 						<input type="hidden" name="id_tarea_rev" id="id_tarea_rev" value="'.$id_tarea.'" />
+						<input type="hidden" name="id_recompensa_rev" id="id_recompensa_rev" value="'.$id_recompensa.'" />
 						<input type="hidden" name="id_grupo_rev" id="id_grupo_rev" value="'.$id_grupo.'" />
 						<input type="hidden" name="id_area_rev" id="id_area_rev" value="'.$id_area.'" />
 						<input type="hidden" name="user_rev" id="user_rev" value="'.$revision['user_tarea'].'" />

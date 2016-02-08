@@ -58,13 +58,13 @@ class mailingListsController{
 			$name = str_replace("'", "´", $_POST['name_list']);
 			$usuario = $_SESSION['user_name'];
 			if ($mailing->insertList($name,$usuario)) {
-				session::setFlashMessage( 'actions_message', "Registro insertado correctamente.", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_list = connection::SelectMaxReg("id_list","mailing_lists","");
 
 				//agregar usuarios
 				self::importAction($id_list);
 			}
-			else session::setFlashMessage( 'actions_message', "Error al insertar el registro.", "alert alert-danger");
+			else session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("user-list?act=editid=".$id_list);
 		}
@@ -79,9 +79,9 @@ class mailingListsController{
 			if ($mailing->updateList($id_list, $name_list)) {
 				//agregar usuarios
 				self::importAction($id_list);
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			}
-			else session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("user-list?id=".$id_list);
 		}
@@ -91,9 +91,9 @@ class mailingListsController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$mailing = new mailing();
 			if ($mailing->deleteList($_REQUEST['id'])) {
-				session::setFlashMessage( 'actions_message', "Registro eliminado correctamente", "alert alert-success");
+				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			}
-			else session::setFlashMessage( 'actions_message', "Error al eliminar el registro.", "alert alert-danger");
+			else session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("user-lists");
 		}

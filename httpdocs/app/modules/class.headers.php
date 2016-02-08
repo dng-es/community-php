@@ -16,8 +16,8 @@ class headers{
 			<head>
 				<base href="<?php echo $ini_conf['SiteUrl'];?>/">
 				<meta charset="utf-8">
-		    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		    	<meta name="viewport" content="width=device-width, initial-scale=1">
+				<meta http-equiv="X-UA-Compatible" content="IE=edge">
+				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<meta name="description" content="<?php echo $ini_conf['SiteDesc'];?>" />
 				<meta NAME="Subject" CONTENT="<?php echo $Subject;?>" />
 				<meta NAME="Keywords" CONTENT="<?php echo $Key_Words;?>" />

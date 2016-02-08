@@ -19,9 +19,9 @@ class pagesController{
 			$page_name = str_replace(" ", "_", NormalizeText($_POST['page_name_new']));
 			$page_content = stripslashes($_POST['page_content']);
 			if ($pages->insertPage($page_name,$page_content)) 
-				session::setFlashMessage('actions_message', "Registro insertado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al insertar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-page?p=".$page_name);
 		}
@@ -32,10 +32,10 @@ class pagesController{
 			$pages = new pages();
 			$page_content = stripslashes($_POST['page_content']);
 			if ($pages->updatePage($_POST['page_name'],$page_content))
-				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 
 			else 
-				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-page?p=".$_POST['page_name']);
 		}
@@ -45,9 +45,9 @@ class pagesController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$pages = new pages();
 			if ($pages->deletePage($_REQUEST['id'])) 
-				session::setFlashMessage('actions_message', "Registro eliminado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage('actions_message', "Error al eliminar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-pages");
 		}
