@@ -146,4 +146,9 @@ jQuery(document).ready(function(){
 		e.preventDefault();
 		$('#formGlobalOptions').submit();
 	})
+
+	$("#test-drop-trigger").click(function(e){
+		e.preventDefault();
+		$("#test-drop").addClass('test-drop-visible');
+	})
 });

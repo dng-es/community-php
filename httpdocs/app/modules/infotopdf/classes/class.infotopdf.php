@@ -16,7 +16,7 @@ class infotopdf{
 	}
 
 	public function deleteInfo($id, $documento){
-		unlink(PATH_INFO.$documento);
+		unlink(PATH_BANNERS.$documento);
 		$Sql = "DELETE FROM infotopdf
 				WHERE id_info=".$id;
 		return connection::execute_query($Sql);
@@ -27,10 +27,10 @@ class infotopdf{
 		$nombre_archivo = time().'_'.str_replace(" ", "_", $fichero['name']);
 		$nombre_archivo = NormalizeText($nombre_archivo);
 
-		if (move_uploaded_file($fichero['tmp_name'], PATH_INFO.$nombre_archivo)){
+		if (move_uploaded_file($fichero['tmp_name'], PATH_BANNERS.$nombre_archivo)){
 
 			//generar miniatura
-			imgThumbnail($nombre_archivo, PATH_INFO, 200, 100);
+			imgThumbnail($nombre_archivo, PATH_BANNERS, 200, 100);
 			//INSERTAR REGISTRO EN LA BBDD
 			$Sql="INSERT INTO infotopdf (titulo_info,file_info,canal_info,tipo_info,id_campaign,cuerpo_info) 
 					VALUES
@@ -45,9 +45,9 @@ class infotopdf{
 		if ($document_file['name'] != ''){
 			$nombre_archivo = time().'_'.str_replace(" ", "_", $document_file['name']);
 			$nombre_archivo = NormalizeText($nombre_archivo);
-			if (move_uploaded_file($document_file['tmp_name'], PATH_INFO.$nombre_archivo)){
+			if (move_uploaded_file($document_file['tmp_name'], PATH_BANNERS.$nombre_archivo)){
 				//generar miniatura
-				imgThumbnail($nombre_archivo, PATH_INFO, 200, 100);
+				imgThumbnail($nombre_archivo, PATH_BANNERS, 200, 100);
 				$SqlUpdate = "file_info='".$nombre_archivo."', ";
 			}
 			else{ ErrorMsg('Error al subir el documento.'); return false;}

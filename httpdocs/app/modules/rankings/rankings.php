@@ -16,8 +16,8 @@ class rankingsCore{
 	// 	$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("ranking", $_SESSION['user_name']));
 	// 	if ($session->checkPageViewPermission("ranking", $_SESSION['user_perfil'], $user_permissions)){
 	// 		array_push($array_final, array("LabelIcon" => "fa fa-trophy",
-	// 						"LabelItem" => 'Ranking',
-	// 						"LabelUrl" => 'ranking',
+	// 						"LabelItem" => 'Rankings',
+	// 						"LabelUrl" => 'rankings',
 	// 						"LabelTarget" => '_self',
 	// 						"LabelPos" => 8));
 	// 	}

@@ -21,7 +21,7 @@ $elements = infotopdfController::getListAction(20);
 			<a href="user-infotopdf?id=<?php echo $element['id_info'];?>">
 				<h3><?php echo $element['titulo_info'];?></h3>
 				<p class="legend"><?php echo $element['campana'];?> (<?php echo $element['tipo'];?>)</p>
-				<img src="docs/info/<?php echo $nombre_miniatura;?>" style="width:100%" />
+				<img src="<?php echo PATH_BANNERS.$nombre_miniatura;?>" style="width:100%" />
 			</a>
 		</div>
 		<?php 

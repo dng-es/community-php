@@ -75,7 +75,8 @@ $output_y2 = "";
 foreach($elements as $element):
 	$visitas+=$element['contador'];
 	$output_y2 .= $element['contador'].",";
-	$output_x2 .= "'".$element['anio']."-".($element['mes'] - 1)."-".$element['dia']."',";
+	//$output_x2 .= "'".$element['anio']."-".($element['mes'] - 1)."-".$element['dia']."',";
+	$output_x2 .= "'".$element['anio']."-".($element['mes'])."-".$element['dia']."',";
 endforeach;
 $media = round(($visitas/count($elements)), 2);
 $output_x2 = substr($output_x2, 0, strlen($output_x2) - 1);
@@ -91,7 +92,8 @@ $output_y3 = "";
 foreach($elements as $element):
 	$visitas+=$element['contador'];
 	$output_y3 .= $element['contador'].",";
-	$output_x3 .= "'".$element['anio']."-".($element['mes'] - 1)."-".$element['dia']."',";
+	//$output_x3 .= "'".$element['anio']."-".($element['mes'] - 1)."-".$element['dia']."',";
+	$output_x3 .= "'".$element['anio']."-".($element['mes'])."-".$element['dia']."',";
 endforeach;
 $media = round(($visitas/count($elements)), 2);
 $output_x3 = substr($output_x3, 0, strlen($output_x3) - 1);

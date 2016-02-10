@@ -38,14 +38,13 @@ class cuestionariosCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
-/*	public static function userMenu(){
+	public static function userMenu(){
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("cuestionario", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("cuestionario", $_SESSION['user_perfil'], $user_permissions)){
-
 			//OBTENCION DE CUESTIONARIOS ACTIVOS
-			$cuestionarios_menu = cuestionariosController::getListAction(999, " AND activo=1 ORDER BY nombre ");
+			$cuestionarios_menu = cuestionariosController::getListAction(999, " AND activo=1 ");
 
 			if ($cuestionarios_menu['total_reg']>0):
 				$array_final_items = array();
@@ -67,6 +66,6 @@ class cuestionariosCore{
 		}
 
 		return $array_final;		
-	}*/
+	}
 }
 ?>

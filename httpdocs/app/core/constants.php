@@ -67,7 +67,7 @@ define('PATH_OCIO',"docs/ocio/");
 define('PATH_DESCARGAS',"docs/descargas/");
 define('PATH_TAREAS',"docs/tareas/");
 define('PATH_APPS_IMG',"images/apps/");
-define('PATH_BANCO_IMAGENES_IMG',"images/banco/");
+define('PATH_BANNERS',"images/banners/");
 define('PATH_DOCUMENTOS_IMG',"docs/territorial/");
 define('PATH_INFO',"docs/info/");
 define('PATH_INCENTIVOS_IMG',"images/incentivos/");

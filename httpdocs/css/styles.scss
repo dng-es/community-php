@@ -242,7 +242,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .menu-alert{
 	background-color: $color2;
 	@include border-radius(20px);
-	color: #000 !important;
+	color: #fff !important;
 	display:inline-block;
 	font-size: 12px;
 	line-height: 17px;
@@ -1966,4 +1966,44 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 			color: $color1;
 		}
 	}
+}
+
+#test-drop{
+	position: absolute;;
+	top: 50px;
+	right: 0;
+	width: 250px;
+	height: 150px;
+	background-color: #d0d0d0;
+
+	/* visibility: hidden; */
+    transition: opacity 0.3s, visibility 0.3s;
+
+    z-index: 999999999999;
+
+}
+
+.test-drop-visible{
+	transform-origin: center top;
+    animation: cd-3d-rotation 0.5s 0.3s;
+    animation-fill-mode: backwards;
+
+}
+
+@keyframes cd-slide-in {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+ 
+@keyframes cd-3d-rotation {
+  0% {
+    transform: perspective(1000px) rotateX(-90deg);
+  }
+  100% {
+    transform: perspective(1000px) translateY(0);
+  }
 }
