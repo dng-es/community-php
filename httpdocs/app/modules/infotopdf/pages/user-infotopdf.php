@@ -84,7 +84,7 @@ $email = '';
 						</form>
 					</div>
 					<div class="col-md-4">
-						<img style="width:100%" src="docs/info/<?php echo $nombre_miniatura;?>" alt="banner" />
+						<img style="width:100%" src="<?php echo PATH_BANNERS.$nombre_miniatura;?>" alt="banner" />
 					</div>
 				</div>
 			</div>

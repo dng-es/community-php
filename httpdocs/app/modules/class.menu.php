@@ -34,6 +34,10 @@ class menu{
 									echo '<li class="hidden-md hidden-lg"><a href="admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
 								}
 							}
+
+							if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'responsable'){
+								echo '<li class="hidden-md hidden-lg"><a href="mygroup"><i class="fa fa-users visible-xs-inline-block text-primary"></i> <span class="visible-xs-inline-block text-primary">'.strTranslate("My_team").'</span></a></li>';
+							}							
 							?>
 							<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Mailing_messages")?></a></li>
 							<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-power-off visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Logout")?></a></li>
@@ -96,9 +100,14 @@ class menu{
 					echo '<a href="profile">'.$_SESSION['user_nick'].'</a><br />';
 					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-power-off faa-pulse animated-hover"></i></a>';
 					$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
+					
 					//se muestra el acceso a admin si tiene el permiso
 					if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
 						if ($_SESSION['user_perfil'] == 'admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
+					}
+
+					if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'responsable'){
+						echo '<a href="mygroup" title="'.strTranslate("My_team").'"><i class="fa fa-users"></i></a>';
 					}
 					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
 					echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope faa-shake animated-hover"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';	

@@ -35,7 +35,7 @@ class fotosController{
 
 	public static function voteAction($destination = "fotos"){
 		if (isset($_REQUEST['idvf']) and $_REQUEST['idvf'] != ""){
-			$destination .= (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?1=1" : "");
+			$destination .= (strpos($destination, "?") == 0  ? "?1=1" : "");
 			$fotos = new fotos();
 			$response = $fotos->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']);
 			if ($response == 1)

@@ -28,6 +28,14 @@ class users{
 		return connection::getSQL($Sql);
 	}
 
+	public function getUsersListado($filter = ""){
+		$Sql="SELECT u.username AS Usuario,u.nick AS Nick,u.name AS Nombre,u.surname AS Apellidos,u.email AS Email,u.telefono AS Telefono, u.empresa AS IdGroup,t.nombre_tienda AS NameGroup 
+			  FROM users u  
+			  LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
+			  WHERE 1=1 ".$filter; //echo "<br />".$Sql."<br />";
+		return connection::getSQL($Sql);  
+	}	
+
 	public function insertUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered = 0){
 		if ($perfil == 'admin') $canal = 'admin';
 		 
@@ -37,6 +45,33 @@ class users{
 			  '".$canal."','".$empresa."','".$perfil."','".$telefono."','".$surname."','',".$registered.")";
 		return connection::execute_query($Sql);
 	}
+
+	public function insertUserEquipo($username, $empresa, $name_user, $surname, $email, $telefono){
+		$Sql="INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, 
+			  empresa, perfil, telefono, surname, user_comentarios, registered) 
+			  VALUES ('".$username."','".$username."','".$email."','".$name_user."',0,0,
+			  'comercial','".$empresa."','usuario','".$telefono."','".$surname."','',0)";
+		return connection::execute_query($Sql);
+	}	
+
+	public function updateUserEquipo($username,$empresa){		 
+		$Sql="UPDATE users SET
+			 empresa='".$empresa."' 
+			 WHERE username='".$username."'"; //echo $Sql."<br />";
+		return connection::execute_query($Sql);
+	}	
+
+	public function reactivarUserEquipo($username, $empresa, $name_user, $surname, $email, $telefono){		 
+		$Sql="UPDATE users SET
+			 empresa='".$empresa."',
+			 name='".$name_user."',
+			 surname='".$surname."',
+			 email='".$email."',
+			 telefono='".$telefono."', 
+			 disabled=0  
+			 WHERE username='".$username."'"; //echo $Sql;
+		return connection::execute_query($Sql);
+	}	
 
 	public function updateUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered){
 		if ($perfil == 'admin') $canal = 'admin';
@@ -467,5 +502,11 @@ class users{
 				WHERE username='".$username."' AND pagename='".$pagename."' AND permission_type='".$permission_type."' ";
 		return connection::execute_query($Sql);
 	}
+
+	public function getUsersTiendasMessages($filter = ""){
+		$Sql = "SELECT * FROM users_tiendas_messages 
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}	
 }
 ?>

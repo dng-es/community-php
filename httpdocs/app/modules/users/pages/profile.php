@@ -4,7 +4,8 @@ addCss(array("css/bootstrap-datetimepicker.min.css"));
 addJavascripts(array("js/bootstrap.file-input.js", 
 					"js/bootstrap-datepicker.js", 
 					"js/bootstrap-datepicker.es.js", 
-					getAsset("users")."js/profile.js"));
+					getAsset("users")."js/profile.js",
+					getAsset("users")."js/groupmessages.js"));
 
 templateload("tipuser", "users");
 templateload("na_areasuser", "na_areas");
@@ -138,6 +139,9 @@ templateload("na_areasuser", "na_areas");
 		</div>
 	</div>
 	<div class="app-sidebar">
+		<div id="destinoGroupMessages">
+			<div id="cargandoGroupMessages" style="display:none"><i class="fa fa-spinner fa-spin"></i></div>
+		</div>
 		<div class="panel-interior">
 			<a class="btn btn-primary btn-block" href="group?id=<?php echo $_SESSION['user_empresa'];?>"><?php e_strTranslate("My_group");?></a>
 			<br />

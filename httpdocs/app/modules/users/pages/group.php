@@ -1,5 +1,7 @@
 <?php
 //addJavascripts(array(getAsset("users")."js/group.js"));
+addJavascripts(array(getAsset("users")."js/groupmessages.js"));
+
 $cod_empresa = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
 session::getFlashMessage('actions_message'); 
 usersController::deleteAction();
@@ -48,6 +50,10 @@ $empresa = usersTiendasController::getItemAction($cod_empresa);
 							<?php echo $empresa['email_tienda'];?>
 						</p>
 					</div>
+				</div>
+
+				<div id="destinoGroupMessages">
+					<div id="cargandoGroupMessages" style="display:none"><i class="fa fa-spinner fa-spin"></i></div>
 				</div>
 			</div>
 		</div>

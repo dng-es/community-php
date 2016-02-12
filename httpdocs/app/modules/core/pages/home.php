@@ -1,7 +1,8 @@
 <?php
 
 addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js", 
-					 getAsset("core")."js/home.js"));
+					 getAsset("core")."js/home.js",
+					 getAsset("users")."js/groupmessages.js"));
 
 templateload("reply", "muro");
 templateload("show", "novedades");
@@ -141,6 +142,9 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 		</div>
 	</div>
 	<div class="app-sidebar">
+		<div id="destinoGroupMessages">
+			<div id="cargandoGroupMessages" style="display:none"><i class="fa fa-spinner fa-spin"></i></div>
+		</div>
 		<div id="muro-insert">
 			<form id="muro-form" name="coment-form" action="" method="post" role="form">
 				<input type="hidden" name="tipo_muro" id ="tipo_muro" value="principal" />   

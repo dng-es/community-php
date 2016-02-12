@@ -301,5 +301,135 @@ class usersController{
 		endforeach;
 		return $array_final;
 	}
+
+	public static function exportEquipoListAction(){
+		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+			$users = new users();
+
+			$filtro_tienda = ($_SESSION['user_perfil'] == 'responsable' ? " AND responsable_tienda='".$_SESSION['user_name']."' " : "");
+			$filtro = " AND disabled=0 AND perfil='usuario' ".$filtro_tienda." ORDER BY empresa, username ";
+
+			$elements = $users->getUsersListado($filtro);
+			download_send_headers("users_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}
+	}
+
+public static function insertEquipoAction(){
+		if (isset($_POST['id_username']) and $_POST['id_username'] != ""){
+			$users = new users();
+			//VERIFICAR NOMBRE USUARIO YA EXISTE
+			$old_user = $users->getUsers(" AND username='".$_POST['id_username']."' ");
+			if (count($old_user)==0){
+
+				if ($users->insertUserEquipo(sanitizeInput($_POST['id_username']),
+							sanitizeInput($_POST['empresa_user']),
+							sanitizeInput($_POST['user-nombre']),
+							sanitizeInput($_POST['user-apellidos']),
+							sanitizeInput($_POST['user-email']),
+							sanitizeInput($_POST['telefono'])
+							)) {
+					session::setFlashMessage( 'actions_message', "Usuario insertado correctamente.", "alert alert-success");
+				}
+			}
+			elseif($old_user[0]['disabled'] == 1){
+				//reactivar usuario
+				if ($users->reactivarUserEquipo(sanitizeInput($_POST['id_username']),
+							sanitizeInput($_POST['empresa_user']),
+							sanitizeInput($_POST['user-nombre']),
+							sanitizeInput($_POST['user-apellidos']),
+							sanitizeInput($_POST['user-email']),
+							sanitizeInput($_POST['telefono'])
+							))
+					session::setFlashMessage( 'actions_message', "Usuario reactivado correctamente", "alert alert-success");
+				else
+					session::setFlashMessage( 'actions_message', "Error al reactivar usuario.", "alert alert-warning");
+
+			}
+			else { 
+				//aviso de usuario activo. Obtner datos del responsable de la tienda donde esta activo
+				$user_responsable = $users->getUsers(" AND username='".$old_user[0]['responsable_tienda']."' ");
+				$responsable_alert = (isset($user_responsable[0]) ? "Ponte en contacto son su responsable ".$user_responsable[0]['name']." ".$user_responsable[0]['surname']."(".$user_responsable[0]['email'].") para que realice la baja.": "");
+				session::setFlashMessage( 'actions_message', "El usuario ya existe en la tienda ".$old_user[0]['nombre_tienda'].". ". $responsable_alert, "alert alert-warning");
+			}		
+			redirectURL("mygroup");
+		}
+	}
+
+	public static function updateEquipoAction(){
+		if (isset($_POST['id_user_edit']) and $_POST['id_user_edit'] != ""){
+			$users = new users();
+			$id_user_edit = sanitizeInput($_POST['id_user_edit']);
+			//VERIFICAR QUE EL USUARIO PERTENECE AL RESPONSABLE
+			$contador = connection::countReg("users"," AND username='".$id_user_edit."' 
+													AND empresa IN (SELECT DISTINCT cod_tienda FROM users_tiendas WHERE responsable_tienda='".$_SESSION['user_name']."') ");
+			
+			//echo "Contador: ".$contador."<br/>";
+			if ($contador > 0 or $_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'territorial'){
+				$empresa = sanitizeInput($_POST['user_edit_empresa']);
+				if ($users->updateUserEquipo($id_user_edit, $empresa)) 
+					session::setFlashMessage( 'actions_message', "Usuario modificado correctamente.", "alert alert-success");
+				else 
+					session::setFlashMessage( 'actions_message', "Error al modificar usuario.", "alert alert-warning");
+			}
+			else 
+				session::setFlashMessage( 'actions_message', "Usuario no encontrado.", "alert alert-warning");
+
+			redirectURL($_SERVER['REQUEST_URI']);
+		}
+	}
+
+
+	public static function deleteEquipoAction(){
+		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+			$username = sanitizeInput($_REQUEST['id']);
+			$users = new users();
+			$acceso = 1;
+			if ($_SESSION['user_perfil'] == 'responsable'){
+				//verificar que el usuario pertenezca al usuario conectado
+				$acceso = count($users->getUsers(" AND username='".$username."' AND responsable_tienda='".$_SESSION['user_name']."' "));
+			}
+
+			if ($acceso > 0){
+				if ($users->disableUser($username)) {
+					session::setFlashMessage( 'actions_message', "Usuario desactivado correctamente.", "alert alert-success");
+				}
+				else{
+					session::setFlashMessage( 'actions_message', "Error al dar de baja usuario.", "alert alert-danger");
+				}
+			}
+			else{
+				session::setFlashMessage( 'actions_message', "Usuario no encontrado.", "alert alert-danger");	
+			}
+
+			
+			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
+			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
+			redirectURL("mygroup?pag=".$pag."&f=".$find_reg);
+		}
+	}
+
+	public static function getListEquipoAction($reg = 0, $filtro = ""){
+		$users = new users();
+		$find_reg = "";
+		if (isset($_REQUEST['find_reg'])) {$filtro .= " AND username LIKE '%".$_REQUEST['find_reg']."%' ";$find_reg=$_REQUEST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filtro .= " AND username LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
+		$filtro .= " ORDER BY empresa, username";
+		$paginator_items = PaginatorPages($reg);
+		
+		$Sql = "SELECT count(*) AS table_counter FROM users u  
+			  LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
+			  WHERE 1=1 ".$filtro; //echo $Sql."<br />";
+		$result = connection::execute_query($Sql);
+		$row = connection::get_result($result);
+		$total_reg = $row['table_counter'];
+
+		return array('items' => $users->getUsers($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+					'pag' 		=> $paginator_items['pag'],
+					'reg' 		=> $reg,
+					'find_reg' 	=> $find_reg,
+					'total_reg' => $total_reg);
+	}		
 }
 ?>
