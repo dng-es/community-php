@@ -11,6 +11,9 @@ include_once($base_dir . "modules/batallas/classes/class.batallas.php");
 session::ValidateSessionAjax();
 $batallas = new batallas();
 
+$module_config = getModuleConfig("batallas");
+$puntos_batalla = $module_config['options']['battle_points'];
+
 //datos del usuario
 $users = new users();
 $user_data = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
@@ -22,7 +25,8 @@ $contrincante = getContrincante($puntos_batalla);
 
 function getContrincante($puntos_batalla){
 	$users = new users();
-	$contrincante = $users->getUsers(" AND puntos>'".$puntos_batalla."' AND perfil<>'admin' AND disabled=0 AND confirmed=1 AND username<>'".$_SESSION['user_name']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 1 ");
+	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal='".$_SESSION['user_canal']."' " : "");
+	$contrincante = $users->getUsers($filtro_canal." AND puntos>'".$puntos_batalla."' AND perfil<>'admin' AND disabled=0 AND confirmed=1 AND username<>'".$_SESSION['user_name']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 1 ");
 	$puntos_reservados_contrincante = connection::sumReg("batallas", "puntos", " AND finalizada=0 AND (user_create='".$contrincante[0]['username']."' or user_retado='".$contrincante[0]['username']."') ");
 	$puntos_disponibles_contrincante = $contrincante[0]['puntos'] - $puntos_reservados_contrincante;
 	if ($puntos_disponibles_contrincante >= $puntos_batalla){
@@ -79,7 +83,7 @@ if ($puntos_disponibles < $puntos_batalla) echo '<div class="alert alert-warning
 //elseif ($puntos_disponibles_contrincante < $puntos_batalla) echo '<div class="alert alert-warning">Tu contrincante no tiene puntos suficientes</div>';
 elseif ($contrincante == 0) echo '<div class="alert alert-warning">No se encuentra contrincario</div>';
 else{ 
-		if ($batallas->insertBatalla($_SESSION['user_name'], $contrincante[0]['username'], $_POST['batalla-categoria'], $puntos_batalla)){
+		if ($batallas->insertBatalla($_SESSION['user_name'], $contrincante[0]['username'], $_POST['batalla-categoria'], $puntos_batalla, $contrincante[0]['canal'])){
 			//obtener preguntas de la batalla
 			$preguntas = $batallas->getBatallasPreguntas(" AND activa=1 AND pregunta_tipo='".$_POST['batalla-categoria']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 3");
 

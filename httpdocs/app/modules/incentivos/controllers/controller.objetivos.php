@@ -30,8 +30,9 @@ class incentivosObjetivosController{
 			$tipo_objetivo = sanitizeInput( $_POST['tipo_objetivo'] );
 			$date_ini = sanitizeInput( $_POST['date_ini'] );
 			$date_fin = sanitizeInput( $_POST['date_fin'] );
+			$canal_objetivo = sanitizeInput( $_POST['canal_objetivo'] );
 			$incentivos = new incentivos();
-			if ($incentivos->insertIncentivesObjetivos( $nombre_objetivo, $tipo_objetivo, $date_ini, $date_fin ))
+			if ($incentivos->insertIncentivesObjetivos( $nombre_objetivo, $tipo_objetivo, $date_ini, $date_fin, $canal_objetivo ))
 				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");

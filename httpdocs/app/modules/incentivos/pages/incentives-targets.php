@@ -6,7 +6,8 @@ addJavascripts(array("js/libs/highcharts/highcharts.js",
 $referencia_acelerador = (isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
 
 session::getFlashMessage( 'actions_message' ); 
-$elements = incentivosObjetivosController::getListAction(35, " AND NOW() BETWEEN date_ini_objetivo AND date_fin_objetivo ");
+$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_objetivo='".$_SESSION['user_canal']."' " : "");
+$elements = incentivosObjetivosController::getListAction(35, $filtro_canal." AND NOW() BETWEEN date_ini_objetivo AND date_fin_objetivo ");
 $incentivos = new incentivos();
 $users = new users();
 ?>
@@ -30,9 +31,6 @@ $users = new users();
 				$filtro_objetivo = ($element['tipo_objetivo'] == 'Usuario' ? "='".$_SESSION['user_name']."'": " IN (SELECT username FROM users WHERE empresa='".$_SESSION['user_empresa']."') ");
 
 				$objetivos = $incentivos->getIncentivesObjetivosDetalle(" AND id_objetivo=".$element['id_objetivo']." AND destino_objetivo".$filtro_usuario." ");
-				if (count($objetivos)>0):
-					$total_objetivo = 0;
-					$total_conseguido = 0;
 				?>
 				<div class="panel panel-default">
 			
@@ -44,6 +42,11 @@ $users = new users();
 								<?php echo strTranslate("Date_start");?>: <?php echo getDateFormat( $element['date_ini_objetivo'], 'SHORT');?> - 
 								<?php echo strTranslate("Date_end");?>: <?php echo getDateFormat( $element['date_fin_objetivo'], 'SHORT');?></p>
 								<p><small><a href="incentives-rankings?id=<?php echo $element['id_objetivo'];?>">ver ranking del objetivo</a></small></p>
+								<?php 
+								if (count($objetivos)>0):
+									$total_objetivo = 0;
+									$total_conseguido = 0;
+								?>
 								<div class="table-responsive">
 									<table class="table table-striped table-hover">
 										<tr>
@@ -77,19 +80,21 @@ $users = new users();
 									<?php endforeach; ?>
 									</table>
 								</div>
+								<?php else: ?>
+									<div class="text-warning"><i class="fa fa-warning"></i> No tienes objetivos fijados</div>
+								<?php endif; ?>
 							</div>
 							<div class="col-md-5">
 								<?php 
-								$pendiente = ($total_conseguido >= $total_objetivo ? 0 : ($total_objetivo - $total_conseguido));
-								showGraph($element['id_objetivo'], $total_conseguido, $pendiente);
+								if (count($objetivos)>0):
+									$pendiente = ($total_conseguido >= $total_objetivo ? 0 : ($total_objetivo - $total_conseguido));
+									showGraph($element['id_objetivo'], $total_conseguido, $pendiente);
+								endif;
 								?>
 							</div>
 						</div>
 					</div>
-				</div>  
-				<?php else: ?>
-					<div class="alert alert-warning">No tienes objetivos fijados</div>
-				<?php endif; ?>
+				</div>
 				<?php endforeach; ?>
 
 			</div>

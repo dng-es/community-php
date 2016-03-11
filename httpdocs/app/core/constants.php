@@ -8,7 +8,6 @@ $configuration = new configuration();
 
 $site_config=$configuration->getConfigIni("");
 $ini_conf = array_merge($ini_conf, $site_config);
-$puntos_batalla = 5;
 
 //LOCALE, DATE AND TIME DEFINITIONS
 //include($base_dir_config."/../languages/".(isset($_SESSION['language']) ? $_SESSION['language'] : $ini_conf['language'])."/options.php");

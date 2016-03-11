@@ -1,9 +1,12 @@
 <?php
 templateload("showbatallas","batallas");
 templateload("paginator","batallas");
-templateload("avataruser","users");
+templateload("tipuser","users");
 
 addJavascripts(array("js/jquery.numeric.js",getAsset("batallas")."js/batallas.js"));
+
+$module_config = getModuleConfig("batallas");
+$puntos_batalla = $module_config['options']['battle_points'];
 
 //eliminar batallas caducadas
 batallasController::deleteBatallasCaducadasAction();
@@ -18,17 +21,18 @@ $puntos_reservados = connection::sumReg("batallas", "puntos", " AND finalizada=0
 $puntos_disponibles = $usuario['puntos'] - $puntos_reservados;
 
 //resultados de las batallas
-$filtro =  " AND finalizada=1 AND ganador='".$_SESSION['user_name']."' ";
+$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_batalla='".$_SESSION['user_canal']."' " : "");
+$filtro =  $filtro_canal." AND finalizada=1 AND ganador='".$_SESSION['user_name']."' ";
 $ganadas_total_reg = connection::countReg("batallas",$filtro);
 
 
-$filtro =  " AND finalizada=1 AND ganador<>'' AND ganador<>'".$_SESSION['user_name']."' AND (user_create='".$_SESSION['user_name']."' OR user_retado='".$_SESSION['user_name']."') ";
+$filtro =  $filtro_canal." AND finalizada=1 AND ganador<>'' AND ganador<>'".$_SESSION['user_name']."' AND (user_create='".$_SESSION['user_name']."' OR user_retado='".$_SESSION['user_name']."') ";
 $perdidas_total_reg = connection::countReg("batallas",$filtro);
 
-$filtro =  " AND finalizada=0 AND user_retado='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$_SESSION['user_name']."' ) ";
+$filtro =  $filtro_canal." AND finalizada=0 AND user_retado='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$_SESSION['user_name']."' ) ";
 $pendientes_usuario_total_reg = connection::countReg("batallas",$filtro);
 
-$filtro =  " AND finalizada=0 AND user_create='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha<>'".$_SESSION['user_name']."' )";
+$filtro =  $filtro_canal." AND finalizada=0 AND user_create='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha<>'".$_SESSION['user_name']."' )";
 $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 ?>
 <!-- Modal Batallas-->
@@ -92,8 +96,8 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 			<br />
 			<p>
 				Reta a otros jugadores a una batalla.
-				En cada batalla te juegas <big><span class="text-primary"><?php echo $puntos_batalla;?></span></big> powers.
-				Cuando retes a otro jugador los powers quedarán pendientes hasta que se acepte tu reto.
+				En cada batalla te juegas <big><span class="text-primary"><?php echo $puntos_batalla;?></span></big> <?php e_strTranslate("APP_points");?>.
+				Cuando retes a otro jugador los <?php e_strTranslate("APP_points");?> quedarán pendientes hasta que se acepte tu reto.
 			</p>
 
 			<form action="" method="post" name="form-batalla" id="form-batalla">

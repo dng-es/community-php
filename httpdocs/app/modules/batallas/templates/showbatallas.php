@@ -38,7 +38,8 @@ function showBatallas($tipo, $total_reg){
         break;                        
 	}
 
-	$elements = $batallas->getBatallas($filtro." ORDER BY date_batalla DESC  LIMIT ".$inicio.",".$reg);
+	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_batalla='".$_SESSION['user_canal']."' " : "");
+	$elements = $batallas->getBatallas($filtro_canal.$filtro." ORDER BY date_batalla DESC  LIMIT ".$inicio.",".$reg);
 
 	echo '<div class="row">';
 	echo '<div class="col-md-12 nopadding">';
@@ -64,11 +65,6 @@ function showBatallas($tipo, $total_reg){
 
   		//datos partida oponente
   		$su_partida = $batallas->getBatallasLuchas(" AND id_batalla=".$element['id_batalla']." AND user_lucha<>'".$_SESSION['user_name']."' ");
-		
-
-		//fotos de los usuario
-		$contrincario_foto = ((isset($contrincario_data[0]['foto']) and trim($contrincario_data[0]['foto']) != "") ? $contrincario_data[0]['foto'] : "user.jpg");
-		$usuario_foto = ((isset($_SESSION['user_foto']) and trim($_SESSION['user_foto']) != "") ? $_SESSION['user_foto'] : "user.jpg");
 
 		echo '		<div class="row">
 						<div class="col-md-12">
@@ -80,17 +76,19 @@ function showBatallas($tipo, $total_reg){
 							<div class="row">
 								<div class="col-md-5 col-sm-5 nopadding">
 									<div class="row">
-										<div class="col-md-1 col-xs-2 nopadding">
-											<img class="comment-mini-img" src="images/usuarios/'.$contrincario_foto.'" />
-										</div>
-										<div class="col-md-11 col-xs-10">
-											<span class="text-primary">Jugador</span>: '.$contrincario_data[0]['nick'].' 
-											('.$contrincario_data[0]['nombre_tienda'].')<br />';
-									if ($tipo!='pendientes usuario'){
+										<div class="col-md-2 col-xs-3 nopadding">';
+										userFicha($contrincario_data[0]);
+									echo '</div>
+										<div class="col-md-10 col-xs-9">
+											<ul class="list-unstyled">
+												<li><small><span class="text-primary">Jugador:</span> '.$contrincario_data[0]['nick'].' 
+												('.$contrincario_data[0]['nombre_tienda'].')</small></li>';
+												if ($tipo!='pendientes usuario'){
 
-									echo '	<span class="text-primary">Sus aciertos:</span> '.(isset($su_partida[0]['aciertos_lucha']) ? $su_partida[0]['aciertos_lucha'] : "").' ('.(isset($su_partida[0]['tiempo_lucha']) ? $su_partida[0]['tiempo_lucha'] : "").' seg.)';
-										}
-									echo '	</div>
+												echo '	<li><small><span class="text-primary">Sus aciertos:</span> '.(isset($su_partida[0]['aciertos_lucha']) ? $su_partida[0]['aciertos_lucha'] : "").' ('.(isset($su_partida[0]['tiempo_lucha']) ? $su_partida[0]['tiempo_lucha'] : "").' seg.)</small></li>';
+												}
+									echo '	</ul>
+										</div>
 									</div>
 								</div>
 
@@ -103,12 +101,13 @@ function showBatallas($tipo, $total_reg){
 		echo '					</div>
 								<div class="col-md-5 col-sm-5">
 									<div class="row">
-										<div class="col-md-1 col-xs-2 nopadding">
-											<img class="comment-mini-img" src="images/usuarios/'.$_SESSION['user_foto'].'" />
+										<div class="col-md-2 col-xs-3 nopadding">
+											<img class="comment-mini-img pull-right" src="'.$_SESSION['user_foto'].'" />
 										</div>
-										<div class="col-md-11 col-xs-10">
-											<span class="text-primary">Mis aciertos:</span> '.$mi_partida[0]['aciertos_lucha'].'
-											('.$mi_partida[0]['tiempo_lucha'].' seg.)
+										<div class="col-md-10 col-xs-9">
+											<ul class="list-unstyled">
+												<li><small><span class="text-primary">Mis aciertos:</span> '.$mi_partida[0]['aciertos_lucha'].'
+											('.$mi_partida[0]['tiempo_lucha'].' seg.)</small></li>
 										</div>
 									</div>
 								</div>';

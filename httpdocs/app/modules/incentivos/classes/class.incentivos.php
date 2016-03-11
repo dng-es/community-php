@@ -34,7 +34,7 @@ class incentivos{
 	public function getObjetivosRanking($filter = ""){
 		$Sql="SELECT destino_objetivo,SUM(valor_objetivo) AS suma, GROUP_CONCAT(id_producto) AS productos,u.name,u.surname,u.nick FROM incentives_objetivos_detalle o 
 			LEFT JOIN users u ON u.username=o.destino_objetivo
-			WHERE 1=1 ".$filter." GROUP BY destino_objetivo"; echo $Sql."<br /><br />";
+			WHERE 1=1 ".$filter." GROUP BY destino_objetivo"; //echo $Sql."<br /><br />";
 		return connection::getSQL($Sql);
 	}
 
@@ -218,9 +218,9 @@ class incentivos{
 	 * @param  date 	$date_fin_objetivo 		Fecha fin del objetivo
 	 * @return boolean 							Resultado de la SQL
 	 */
-	public function insertIncentivesObjetivos( $nombre_objetivo, $tipo_objetivo, $date_ini_objetivo, $date_fin_objetivo ){		
-		$Sql="INSERT INTO incentives_objetivos (nombre_objetivo, tipo_objetivo, date_ini_objetivo, date_fin_objetivo) 
-			  VALUES ('".$nombre_objetivo."','".$tipo_objetivo."', '".$date_ini_objetivo."','".$date_fin_objetivo."')";
+	public function insertIncentivesObjetivos( $nombre_objetivo, $tipo_objetivo, $date_ini_objetivo, $date_fin_objetivo, $canal_objetivo){		
+		$Sql="INSERT INTO incentives_objetivos (nombre_objetivo, tipo_objetivo, date_ini_objetivo, date_fin_objetivo, canal_objetivo) 
+			  VALUES ('".$nombre_objetivo."','".$tipo_objetivo."', '".$date_ini_objetivo."','".$date_fin_objetivo."','".$canal_objetivo."')";
 		return connection::execute_query($Sql);
 	}
 

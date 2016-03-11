@@ -1,6 +1,8 @@
 <?php
 incentivosObjetivosController::exportAction();
 
+templateload("cmbCanales", "users");
+
 addJavascripts(	array("js/bootstrap-datepicker.js", 
 			"js/bootstrap-datepicker.es.js", 
 			"js/jquery.numeric.js", 
@@ -38,8 +40,7 @@ $users = new users();
 						<th width="40px"></th>
 						<th><?php echo strTranslate("Name");?></th>
 						<th><?php echo strTranslate("Type");?></th>
-						<th><?php echo strTranslate("Date_start");?></th>
-						<th><?php echo strTranslate("Date_end");?></th>
+						<th><?php echo strTranslate("Channel");?></th>
 						<th width="40px"></th>
 						</tr>	
 						<?php foreach($elements['items'] as $element):?>
@@ -49,11 +50,15 @@ $users = new users();
 									onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-targets?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_objetivo'];?>&ref=<?php echo $element['referencia_acelerador'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>')">
 								</span>
 							</td>					
-							<td><?php echo $element['nombre_objetivo'];?></td>
-							<td><?php echo $element['tipo_objetivo'];?></td>
-							<td><?php echo getDateFormat( $element['date_ini_objetivo'], 'SHORT');?></td>
-							<td><?php echo getDateFormat( $element['date_fin_objetivo'], 'SHORT');?></td>
-							<td><a href="admin-incentives-targets-detail?id=<?php echo $element['id_objetivo'];?>" class="btn btn-default btn-xs">detalle</a></td>
+							<td>
+								<small>
+									<?php echo $element['nombre_objetivo'];?><br />
+									<?php echo getDateFormat( $element['date_ini_objetivo'], 'SHORT');?> - <?php echo getDateFormat( $element['date_fin_objetivo'], 'SHORT');?>
+								</small>
+							</td>
+							<td><small><?php echo $element['tipo_objetivo'];?></small></td>
+							<td><small><?php echo $element['canal_objetivo'];?></small></td>
+							<td><small><a href="admin-incentives-targets-detail?id=<?php echo $element['id_objetivo'];?>" class="btn btn-default btn-xs">detalle</a></small></td>
 							</tr>  
 						<?php endforeach; ?>
 					</table>
@@ -86,7 +91,7 @@ $users = new users();
 							</div>
 
 							<div class="form-group">
-								<label class=" control-label" for="date_ini"><?php echo strTranslate("Date_start");?></label>
+								<label class="control-label" for="date_ini"><?php echo strTranslate("Date_start");?></label>
 								<div id="datetimepicker1" class="input-group date">
 									<input data-format="yyyy/MM/dd" readonly type="text" id="date_ini" class="form-control" name="date_ini" data-alert="<?php echo strTranslate("Required_date");?>"></input>
 									<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -94,12 +99,19 @@ $users = new users();
 							</div>
 
 							<div class="form-group">
-								<label class=" control-label" for="date_fin"><?php echo strTranslate("Date_end");?></label>
+								<label class="control-label" for="date_fin"><?php echo strTranslate("Date_end");?></label>
 								<div id="datetimepicker2" class="input-group date">
 									<input data-format="yyyy/MM/dd" readonly type="text" id="date_fin" class="form-control" name="date_fin" data-alert="<?php echo strTranslate("Required_date");?>"></input>
 									<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 								</div>							
-							</div>							
+							</div>
+
+							<div class="form-group">
+								<label class="control-label" for="canal_objetivo"><?php echo strTranslate("Channel");?></label>
+								<select class="form-control" name="canal_objetivo" id="canal_objetivo">
+									<?php ComboCanales("");?>
+								</select>
+							</div>	
 	
 							<button type="submit" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
 						</form>

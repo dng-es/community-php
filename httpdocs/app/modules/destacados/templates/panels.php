@@ -1,5 +1,5 @@
 <?php
-function PanelLastDestacado(){
+function panelDestacado(){
 	$destacados = new destacados();
 	$filtro_destacado = "";
 	if ($_SESSION['user_canal'] != 'admin' ) $filtro_destacado .= " AND canal_destacado='".$_SESSION['user_canal']."' ";
@@ -7,6 +7,7 @@ function PanelLastDestacado(){
 	if (count($destacado) > 0):
 		$destacado_file = $destacados->getDestacadosFile(" AND d.activo=1 ".$filtro_destacado, $destacado[0]['destacado_tipo']);
 		?>
+		<h3><?php e_strTranslate("Highlights");?></h3>
 		<div class="media-preview-container">
 			<?php
 			if ($destacado[0]['destacado_tipo'] == 'foto'){

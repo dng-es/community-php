@@ -21,9 +21,9 @@ class batallas{
 	 * Inserta registro en batallas
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertBatalla($user_create, $user_retado, $tipo_batalla, $puntos){		
-		$Sql = "INSERT INTO batallas (user_create,user_retado,tipo_batalla,puntos) 
-					VALUES ('".$user_create."','".$user_retado."','".$tipo_batalla."', ".$puntos.")"; //echo $Sql;
+	public function insertBatalla($user_create, $user_retado, $tipo_batalla, $puntos, $canal_batalla){		
+		$Sql = "INSERT INTO batallas (user_create,user_retado,tipo_batalla,puntos,canal_batalla) 
+					VALUES ('".$user_create."','".$user_retado."','".$tipo_batalla."', ".$puntos.",'".$canal_batalla."')"; //echo $Sql;
 		return connection::execute_query($Sql);
 	}
 

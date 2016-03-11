@@ -15,8 +15,7 @@ class batallasCore {
 		$array_final = array();
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("batallas", $_SESSION['user_name']));
-		if ($session->checkPageViewPermission("batallas", $_SESSION['user_perfil'], $user_permissions) and (($_SESSION['user_perfil'] == 'comercial' and $_SESSION['user_canal'] <> '') or $_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'responsable')){
-
+		if ($session->checkPageViewPermission("batallas", $_SESSION['user_perfil'], $user_permissions)){
 			//batallas pendientes
 			$filtro_batallas =  " AND finalizada=0 AND user_retado='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$_SESSION['user_name']."' ) ";
 			$pendientes_batallas = connection::countReg("batallas",$filtro_batallas);

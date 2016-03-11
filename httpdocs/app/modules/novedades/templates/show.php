@@ -1,7 +1,7 @@
 <?php
 templateload("player", "videos");
 
-function showNovedades(){
+function panelNovedades(){
 	$filter = " AND activo=1 ";
 	if ($_SESSION['user_canal'] != "admin") $filter .= " AND n.canal='".$_SESSION['user_canal']."' ";
 	$elements = novedadesController::getListAction(100, $filter);?>	
