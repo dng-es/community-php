@@ -1,5 +1,5 @@
 # Community-php
-v. 0.4.7
+v. 0.5.1
 > Comunidad de usuarios php5 y mysql, creada por componentes/módulos. Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
 * [Requisitos y dependencias](#requisitos-y-dependencias)
@@ -32,7 +32,7 @@ Copiar a servidores de producción el contenido de la carpeta httpdocs, el resto
 Para la creación de un entorno de desarrollo con <a target="_blank" href="https://www.vagrantup.com/">Vagrant</a> emplear los archivos Vagrant y bootstrap.sh. Configurar correctamente rutas necesarias, ver <a href="#instalacion">instalación</a> - *utils/Vagrant*. Ver el archivo README para mas detalles - *utils/Vagrant/README*.
 
 - GRUNT para la generación de ficheros CSS y JS (gruntfile.js esta en /bin)
-- La hoja de estilos .CSS esta creada con SASS y COMPASS (styles.scss)
+- Las hojas de estilos .CSS están creadas con SASS y COMPASS. La hoja de estilos css/main.scss contiene la estructura principal de maquetación. El fichero css/_variables.scss contiene los valores por defecto de las variables empleadas en main.scss, los cuales serán sobreescritos por los valores establecidos en el fichero _variables.scss de cada tema
 
 En la carpeta *utils/VirtualHost* esta el fichero de ejemplo para crear un host vistual: *comunidad.local.com.conf*. Ver el archivo README para mas detalles - *utils/VirtualHost/README*.
 
@@ -46,7 +46,7 @@ Para el desarrollo con **SublimeText**, existen snipets con funciones de la app 
 - **Bootstrap FileInput**: *js/bootstrap.file-input.js* - Javascript. modifica aspecto de los input file
 - **CKEditor**: *js/libs/ckeditor* - Javascript. Editor WYSIWYG
 - **CKFinder**: *js/libs/ckfinder* - Javascript. Subida de archivos integrado en CKEditor
-- **amCharts**: *js/libs/amcharts* - Javascript. Generación de gráficos
+- **highcharts**: *js/libs/highcharts* - Javascript. Generación de gráficos
 - **JWPlayer**: *js/libs/jwplayer* - Javascript. Reproductor de video
 - **SweetAlert**: *js/libs/sweetalert* - Javascript. Muestra pop-ups para los avisos.
 - **SwiftMailer**: *app/core/Swift-5.1.0* - php. Envío de emials
@@ -72,7 +72,8 @@ La estructura de archivos y directorios básica es la siguiente:
     │   │   ├── languajes       - archivos generales de traducciones
     │   │   └── modules         - directorio que contiene todos los módulos
     │   │
-    │   └── js                  - archivos javascript generales de la comunidad
+    │   ├── js                  - archivos javascript generales de la comunidad
+    │   └── themes              - temas
     │
     └── utils                   - herramientas utiles para desarrollo
 
@@ -94,6 +95,13 @@ Módulos con versión menor 1.0 no están completamente testeados o finalizados.
     │   └── my_module.php       - fichero de general del módulo
     │
 
+###Estructura de un tema
+Un tema esta compuesto por hojas de estilo e imágenes. Para la generación de las hojas de estilo se requiere grunt. Durante la compilación se tomará el fichero general de estilos (css/main.scss), al cual se le asignarán las variables especificas del tema (my_theme/css/_variable.scss) y los estilos específicos del tema definidos en my_theme/css/styles.scss. Es decir, para la creación de las hojas de estilo de cada tema se tomarán los ficheros: css/main.scss; themes/my_theme/css/_variables.scss; themes/my_theme/css/styles.scss
+
+    ├── my_theme
+    │   ├── css         		- Hojas de estilo del tema
+    │   └── images     			- Imagenes del tema
+    │
 
 ## Herramienta console
 >Aplicación de consola para la realizacion de tareas como la creación de módulos, búsqueda de páginas en la estructura de directorios de la app, etc.
