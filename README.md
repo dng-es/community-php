@@ -1,5 +1,5 @@
 # Community-php
-v. 0.4.6
+v. 0.4.7
 > Comunidad de usuarios php5 y mysql, creada por componentes/módulos. Incluye soporte para idiomas, herramienta console para generación de módulos y otras tareas.
 
 * [Requisitos y dependencias](#requisitos-y-dependencias)

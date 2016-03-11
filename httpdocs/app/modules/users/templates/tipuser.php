@@ -1,12 +1,12 @@
 <?php
 
 function userTip($user_data, $estrellas_print){
-	$foto = ($user_data['foto'] == "" ? "user.jpg" : $user_data['foto']);
+	$foto = ($user_data['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$user_data['foto']);
 	$output = '<div class="text-left inset-small">
 			<table cellpadding="3" cellspacing="0">
 				<tr>
 					<td valign="top">
-						<img alt="'.prepareString($user_data['nick']).'" src="'.PATH_USERS_FOTO.$foto.'" class="imgUserTip" />
+						<img alt="'.prepareString($user_data['nick']).'" src="'.$foto.'" class="imgUserTip" />
 						<p>'.$estrellas_print.'</p>';
 
 	if(getModuleExist("recompensas")):
@@ -43,10 +43,10 @@ function userTip($user_data, $estrellas_print){
 }
 
 function userFicha($user_data){
-	$foto = ($user_data['foto'] == "" ? "user.jpg" : $user_data['foto']);
+	$foto = ($user_data['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$user_data['foto']);
 	$estrellas_print = userEstrellas($user_data['participaciones']);
 	echo '<a data-html="true" class="user-tip pull-left" title="'.str_replace('"', '\'', userTip($user_data,$estrellas_print)).'" href="user-profile?n='.$user_data['nick'].'" >
-			<img alt="'.prepareString($user_data['nick']).'" class="comment-mini-img" src="'.PATH_USERS_FOTO.$foto.'" />';
+			<img alt="'.prepareString($user_data['nick']).'" class="comment-mini-img" src="'.$foto.'" />';
 	echo $estrellas_print;
 	echo '</a>';
 }

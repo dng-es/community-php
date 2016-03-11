@@ -3,6 +3,7 @@ class na_areasController{
 	public static function updateAction(){
 		$na_areas = new na_areas();
 		$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
+		$todos = (isset($_POST['area_todos']) and $_POST['area_todos'] == "on") ? 1 : 0;
 		$nombre = sanitizeInput($_POST['area_nombre']);
 		$descripcion = sanitizeInput($_POST['area_descripcion']);
 		if ($na_areas->updateArea($_POST['id_area'],
@@ -11,7 +12,8 @@ class na_areasController{
 							$_POST['area_canal'],
 							$_POST['area_puntos'],
 							$_POST['area_limite'],
-							$registro)) {
+							$registro,
+							$todos)) {
 			//modificar foro
 			$foro = new foro();
 			$foro->updateTemaArea($_POST['id_area'],
@@ -28,6 +30,7 @@ class na_areasController{
 	public static function insertAction(){
 		$na_areas = new na_areas();
 		$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
+		$todos = (isset($_POST['area_todos']) and $_POST['area_todos'] == "on") ? 1 : 0;
 
 		if ($na_areas->insertArea($_POST['area_nombre'],
 					$_POST['area_descripcion'],
@@ -35,7 +38,8 @@ class na_areasController{
 					$_POST['area_puntos'],
 					$_POST['area_limite'],
 					0,
-					$registro)) {
+					$registro, 
+					$todos)) {
 			$id_area = connection::SelectMaxReg("id_area","na_areas","");
 			session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 		}

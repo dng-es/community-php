@@ -580,9 +580,11 @@ function fileToZip($filename, $path){
 	$zipfile = new zipfile();
 	$zipfile->add_file(implode("", file($path.$filename)), $filename);
 
-	header("Content-type: application/octet-stream");
+	header("Content-type: application/zip");
+	header("Content-Transfer-Encoding: Binary");
 	header("Content-disposition: attachment; filename=".$filename.".zip");
 	echo $zipfile->file();
+	die();
 }
 
 /**

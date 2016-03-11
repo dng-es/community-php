@@ -12,6 +12,7 @@
 		usersCanalesController::createAction();
 		usersCanalesController::updateAction();
 		$elements = usersCanalesController::getItemAction();
+		$temas = FileSystem::showDirFolders(__DIR__."/../../../../themes/");
 		?>
 		<div class="panel">
 			<div class="panel-body">
@@ -27,6 +28,16 @@
 							<input type="text" class="form-control TextDisabled" id="canal_name" name="canal_name" value="<?php echo $elements['canal_name'];?>" />
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<label for="theme"><small><?php e_strTranslate("Theme");?>:</small></label>
+							<select class="form-control" id="theme" name="theme">
+								<?php foreach($temas as $tema): ?>
+								<option <?php echo ($tema == $elements['theme'] ? ' selected="selected" ' : "");?> value="<?php echo $tema;?>"><?php echo $tema;?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>					
 					<br />
 					<div class="row">
 						<div class="col-md-12">

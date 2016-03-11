@@ -8,6 +8,7 @@ $configuration = new configuration();
 
 $site_config=$configuration->getConfigIni("");
 $ini_conf = array_merge($ini_conf, $site_config);
+$puntos_batalla = 5;
 
 //LOCALE, DATE AND TIME DEFINITIONS
 //include($base_dir_config."/../languages/".(isset($_SESSION['language']) ? $_SESSION['language'] : $ini_conf['language'])."/options.php");
@@ -18,7 +19,7 @@ $paginas_free = array("underconstruction", "login","user-confirm","logout","cont
 $videos_types = array("MP4","MOV","AVI","3GP","WMV");
 $fotos_types = array("GIF","JPG","JPEG","PNG");
 //APP VERSION
-define('APP_VERSION',"0.4.6");
+define('APP_VERSION',"0.5.1");
 define('APP_DEF_PAGE',"login");
 //TIEMPO DE SESION
 define('SESSION_MAXTIME',1800);

@@ -2,7 +2,8 @@
 /**
 * @Control de accesos e informes estadísticos
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0
+* @version 1.1
+* 
 */
 class visitasCore{
 	/**

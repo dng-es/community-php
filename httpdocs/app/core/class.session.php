@@ -1,6 +1,8 @@
 <?php
 session_start();
 session::setLanguage();
+session::setChannel();
+session::setDefaultTheme($result_user[0]['canal']);
 
 class session{
 
@@ -167,6 +169,7 @@ class session{
 			$_SESSION['user_logged'] = false;
 			if ($result_user[0]['confirmed'] == 1 and $result_user[0]['registered'] == 1){
 				//Si ambos datos son correctos guardamos estos datos en la session.
+				self::setTheme($result_user[0]['canal']);
 				$_SESSION["session_time"] = time();
 				$_SESSION['user_logged'] = true;
 				$_SESSION['user_name'] = $result_user[0]['username'];
@@ -181,8 +184,10 @@ class session{
 				$_SESSION['user_canal_nombre'] = "";
 				$_SESSION['user_perfil'] = $result_user[0]['perfil'];
 				$_SESSION['user_mail'] = $result_user[0]['email'];
-				$_SESSION['user_foto'] = ($result_user[0]['foto'] != "" ? $result_user[0]['foto'] : DEFAULT_IMG_PROFILE);
+				$user_foto = ($result_user[0]['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$result_user[0]['foto']);
+				$_SESSION['user_foto'] = $user_foto;
 				$_SESSION['user_canal_nombre'] = ($result_user[0]['canal'] == 'admin') ? "Administración" : ucfirst($result_user[0]['canal']);
+
 
 				//crear estadistica de acceso
 				visitasController::insertVisita("Inicio sesion");
@@ -285,5 +290,30 @@ class session{
 		setlocale(LC_ALL, $LANGUAGE_LOCALE);
 		date_default_timezone_set($LANGUAGE_TIMEZONE);
 	}
+
+	/**
+	* Set user channel
+	*/
+	public static function setChannel(){
+		if (isset($_POST['chooseFormValue']) and $_POST['chooseFormValue'] != "") {
+			$_SESSION['user_canal'] = sanitizeInput($_POST['chooseFormValue']);
+			self::setTheme(sanitizeInput($_POST['chooseFormValue']));
+		}
+	}
+
+	/**
+	* Set user default channel
+	*/
+	public static function setDefaultTheme(){
+		if (!isset($_SESSION['user_theme']) or $_SESSION['user_theme'] == "") $_SESSION['user_theme'] = "default";
+	}	
+
+	/**
+	* Set user theme
+	*/
+	public static function setTheme($channel){
+		$channels = usersCanalesController::getListAction(1, " AND canal='".$channel."' ");
+		$_SESSION['user_theme'] = ((isset($channels['items'][0]['theme']) and is_file("themes/".$channels['items'][0]['theme']."/css/styles.css")) ? $channels['items'][0]['theme'] : "default");
+	}		
 }
 ?>

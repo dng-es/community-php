@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'Community-Font';
+    font-family: 'HELVNEUE35';
     src: url('fonts/HELVNEUE35_CYR_0.eot');
     src: url('fonts/HELVNEUE35_CYR_0.eot?#iefix') format('embedded-opentype'),
          url('fonts/HELVNEUE35_CYR_0.woff') format('woff'),
@@ -10,68 +10,88 @@
 }
 
 @font-face {
-    font-family: 'fjallaoneregular';
+    font-family: 'FjallaOne';
     src: url('fonts/FjallaOne-Regular-webfont.eot');
-    src: url('fonts/FjallaOne-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/FjallaOne-Regular-webfont.woff2') format('woff2'),
-         url('fonts/FjallaOne-Regular-webfont.woff') format('woff'),
-         url('fonts/FjallaOne-Regular-webfont.ttf') format('truetype'),
+    src: url('fonts/FjallaOne-Regular-webfont.eot?#iefix') format('embedded-opentype') ,
+         url('fonts/FjallaOne-Regular-webfont.woff2') format('woff2') ,
+         url('fonts/FjallaOne-Regular-webfont.woff') format('woff') ,
+         url('fonts/FjallaOne-Regular-webfont.ttf') format('truetype') ,
          url('fonts/FjallaOne-Regular-webfont.svg#fjallaoneregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
 
-$primary-font: "Open Sans", sans-serif;
-$color1 : #e30613;	//color principal
-$color2 : lighten($color1, 10%);	//color claro
+$primary-font: "Open Sans", sans-serif !default;
+$community-font1: 'HELVNEUE35' !default;
+$community-font2: 'FjallaOne' !default;
+
+$color1 : #e30613 !default;	//color principal
+$color2 : lighten($color1, 10%) !default;	//color claro
 //$color2 : #fff;
-$color3 : darken($color1, 10%);	//color oscuro o de contraste respecto el color principal
+$color3 : darken($color1, 10%) !default;	//color oscuro o de contraste respecto el color principal
 
-$font-size-community: 14px;
-$border-def: 0px;
-$container-color: #f9f9f9;
-$container-panel-color: #fff;
-$panels-color: #fff;
-$panels-color-title: #333;
-$panels-color-text: #999;
+$font-size-community: 14px !default;
+$border-def: 0px !default;
 
-$app_width : 100%;
-$main-container-width : 100%;
+$body-bg: #fff !default;
+$body-text: #333 !default;
+$container-color: #f9f9f9 !default;
+$container-panel-color: #fff !default;
+$header-color: #e5e5e5 !default;
+$header-color-text: #bbb !default;
+$menu-color: #f0f0f0 !default;
+$menu-color-text: $color1 !default;
+$footer-color: rgba(0, 0, 0, 0.8) !default;
+$footer-color-text: #f0f0f0 !default;
+$panels-color: #fff !default;
+$panels-color-title: #333 !default;
+$panels-color-text: #999 !default;
 
-$break-small: 768px;
-$break-medium: 992px;
-$break-large: 1200px;
+$app_width : 100% !default;
+$main-container-width : 100% !default;
+
+$break-small: 768px !default;
+$break-medium: 992px !default;
+$break-large: 1200px !default;
 
 /*font-awesome*/
-$fa-font-path: "libs/font-awesome-4.2.0/fonts";
+$fa-font-path: "libs/font-awesome-4.2.0/fonts" !default;
 
 /*Bootstrap*/
-$icon-font-path: "libs/bootstrap-sass-3.2.0/assets/fonts/bootstrap/";
-$font-family-base: $primary-font;
-$brand-primary: $color1;
-$font-size-base: $font-size-community;
-$border-radius-base: $border-def;
-$input-color-placeholder: #ccc;
-$input-border-focus: $color1;
-$nav-link-padding: 10px 15px 0 15px;
-$nav-link-hover-bg: #e0e0e0;
-$navbar-height: 40px;
-$navbar-default-bg: $panels-color;
-$navbar-default-color: $panels-color-text;
-$navbar-default-link-color: $panels-color-text;
-$navbar-default-link-active-bg: $color1;
-$navbar-default-link-active-color: #fff;
-$navbar-default-link-hover-bg: $color1;
-$navbar-default-link-hover-color: #fff;
-$navbar-default-toggle-hover-bg: transparent;
-$navbar-default-toggle-icon-bar-bg: $color1;
-$navbar-default-toggle-border-color: none;
-$dropdown-bg: $color1;
-$dropdown-link-color: #fff;
-$panel-primary-border: #e5e5e5;
-/* $panel-default-heading-bg : $panels-color; */
-$breadcrumb-bg: darken($container-color, 2%);
-$breadcrumb-padding-vertical: 6px;
-$table-bg-hover: lighten($color1, 47%);
-$tooltip-max-width: 350px;
+$icon-font-path: "libs/bootstrap-sass-3.2.0/assets/fonts/bootstrap/" !default;
+$font-family-base: $primary-font !default;
+$brand-primary: $color1 !default;
+$font-size-base: $font-size-community !default;
+$border-radius-base: $border-def !default;
+$input-color-placeholder: #ccc !default;
+$input-border-focus: $color1 !default;
+$modal-content-bg: $panels-color !default;
+$nav-link-padding: 10px 15px 0 15px !default;
+$nav-link-hover-bg: #e0e0e0 !default;
+$nav-tabs-border-color:darken($panels-color, 10%);
+$nav-tabs-active-link-hover-border-color:darken($panels-color, 10%) !default;
+$nav-tabs-justified-link-border-color:darken($panels-color, 10%) !default;
+$navbar-height: 40px !default;
+$navbar-default-bg: $panels-color !default;
+$navbar-default-color: $panels-color-text !default;
+$navbar-default-link-color: $panels-color-text !default;
+$navbar-default-link-active-bg: $color1 !default;
+$navbar-default-link-active-color: #fff  !default;
+$navbar-default-link-hover-bg: $color1 !default;
+$navbar-default-link-hover-color: #fff  !default;
+$navbar-default-toggle-hover-bg: transparent  !default;
+$navbar-default-toggle-icon-bar-bg: $color1 !default;
+$navbar-default-toggle-border-color: none  !default;
+$dropdown-bg: $color1 !default;
+$dropdown-link-color: #fff  !default;
+$panel-bg: #fff !default;
+$panel-default-heading-bg: $color3 !default;
+$panel-default-text: $color2 !default;
+$panel-primary-border: #e5e5e5 !default;
+$panel-default-heading-bg: #f5f5f5 !default;
+$breadcrumb-bg: darken($container-color, 2%)  !default;
+$breadcrumb-padding-vertical: 6px  !default;
+$table-bg-hover: lighten($color1, 47%)  !default;
+$table-bg-accent:#f9f9f9 !default;
+$tooltip-max-width: 350px  !default;

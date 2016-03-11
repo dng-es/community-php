@@ -10,14 +10,17 @@ class users{
 		return connection::getSQL($Sql);
 	}
 
-	public function insertCanal($canal, $canal_name){
-		$Sql = "INSERT INTO canales (canal, canal_name) 
-				VALUES ('".$canal."','".$canal_name."')";
+	public function insertCanal($canal, $canal_name, $theme){
+		$Sql = "INSERT INTO canales (canal, canal_name, theme) 
+				VALUES ('".$canal."','".$canal_name."', '".$theme."')";
 		return connection::execute_query($Sql);
 	}
 
-	public function updateCanal($canal, $canal_name){
-		$Sql = "UPDATE canales SET canal_name='".$canal_name."' WHERE canal='".$canal."' ";
+	public function updateCanal($canal, $canal_name, $theme){
+		$Sql = "UPDATE canales SET 
+				canal_name='".$canal_name."', 
+				theme='".$theme."' 
+				WHERE canal='".$canal."' ";
 		return connection::execute_query($Sql);
 	}
 	
@@ -27,6 +30,12 @@ class users{
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
+
+	public function getUsersSimple($filter = ""){
+		$Sql = "SELECT * FROM users 
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}	
 
 	public function getUsersListado($filter = ""){
 		$Sql="SELECT u.username AS Usuario,u.nick AS Nick,u.name AS Nombre,u.surname AS Apellidos,u.email AS Email,u.telefono AS Telefono, u.empresa AS IdGroup,t.nombre_tienda AS NameGroup 
@@ -502,11 +511,5 @@ class users{
 				WHERE username='".$username."' AND pagename='".$pagename."' AND permission_type='".$permission_type."' ";
 		return connection::execute_query($Sql);
 	}
-
-	public function getUsersTiendasMessages($filter = ""){
-		$Sql = "SELECT * FROM users_tiendas_messages 
-				WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql);
-	}	
 }
 ?>

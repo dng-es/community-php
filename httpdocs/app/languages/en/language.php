@@ -128,4 +128,5 @@ Confirm_text = "Confirm"
 show_alarms = "Show alarms"
 Underconstruction = "Underconstruction"
 Underconstruction_text = "The site is currently closed due maintenance issues. Please try in few minutes."
+Theme = "Theme"
 ?>

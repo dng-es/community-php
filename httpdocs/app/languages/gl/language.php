@@ -126,4 +126,5 @@ Confirm_text = "Confirmar"
 show_alarms = "Mostrar alarmas"
 Underconstruction = "En construcción"
 Underconstruction_text = "La Web esta actualmente cerrada por tareas de mantenimiento. Vuelve a intentarlo en unos minutos."
+Theme = "Tema"
 ?>

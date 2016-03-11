@@ -5,7 +5,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					"js/bootstrap-datepicker.js", 
 					"js/bootstrap-datepicker.es.js", 
 					getAsset("users")."js/profile.js",
-					getAsset("users")."js/groupmessages.js"));
+					getAsset("alerts")."js/alerts.js"));
 
 templateload("tipuser", "users");
 templateload("na_areasuser", "na_areas");
@@ -122,12 +122,20 @@ templateload("na_areasuser", "na_areas");
 					<div class="col-md-4">
 						<br />
 						<br />
+						<a class="btn btn-default btn-block" href="group?id=<?php echo $_SESSION['user_empresa'];?>"><?php e_strTranslate("My_group");?></a>
+						<br />
 						<table class="table table-striped">
 							<tr><td><label><small><?php e_strTranslate("Date_add");?></small></label></td><td><small class="text-muted"><?php echo getDateFormat($usuario['date_add'], "DATE_TIME");?></small></td></tr>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("Last_access"));?></small></label></td><td><small class="text-muted"><?php echo getDateFormat($usuario['last_access'], "DATE_TIME");?></small></td></tr>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_points"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['puntos'];?></small></td></tr>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_shares"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['participaciones'];?></small></td></tr>
 						</table>
+
+
+						<div id="destinoGroupMessages">
+							<div id="cargandoGroupMessages" style="display:none"><i class="fa fa-spinner fa-spin"></i></div>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -139,12 +147,7 @@ templateload("na_areasuser", "na_areas");
 		</div>
 	</div>
 	<div class="app-sidebar">
-		<div id="destinoGroupMessages">
-			<div id="cargandoGroupMessages" style="display:none"><i class="fa fa-spinner fa-spin"></i></div>
-		</div>
 		<div class="panel-interior">
-			<a class="btn btn-primary btn-block" href="group?id=<?php echo $_SESSION['user_empresa'];?>"><?php e_strTranslate("My_group");?></a>
-			<br />
 			<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
 			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" /> 
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div><br />

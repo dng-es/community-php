@@ -11,7 +11,7 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 	<html lang="es">
 		<head>
 			<meta charset="utf-8">
-			<link rel="stylesheet" type="text/css" href="css/styles.css" />
+			<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/themes/<?php echo $_SESSION['user_theme'];?>/css/styles.css" />
 			<script type="text/javascript" src="js/main.min.js"></script>
 		</head>
 		<body>

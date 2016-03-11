@@ -83,7 +83,7 @@ class usersController{
 		if ( $username != "" ){
 			$users = new users();
 			$plantilla = $users->getUsers(" AND username='".$username."' ".$filter);
-			$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto'] == "" ? "user.jpg" : $plantilla[0]['foto']);
+			$user_foto = ($plantilla[0]['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$plantilla[0]['foto']);
 			$plantilla[0]["user_foto"] = $user_foto;
 			return $plantilla[0];	
 		}
@@ -94,7 +94,7 @@ class usersController{
 			$users = new users();
 			$plantilla = $users->getUsers(" AND nick='".$nick."' ".$filter);
 			if (count($plantilla)>0){
-				$user_foto = PATH_USERS_FOTO.($plantilla[0]['foto'] == "" ? "user.jpg" : $plantilla[0]['foto']);
+				$user_foto = ($plantilla[0]['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$plantilla[0]['foto']);
 				$plantilla[0]["user_foto"] = $user_foto;
 				return $plantilla[0];
 			}

@@ -30,7 +30,7 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 					$elements_info = infoController::getListAction(2000000, $filtro);
 					$num_docs = $elements_info['total_reg'];
 					?>
-					<div class="panel panel-danger">
+					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="heading<?php echo $element['id_campaign'];?>">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $element['id_campaign'];?>" aria-expanded="false" aria-controls="collapse<?php echo $element['id_campaign'];?>">

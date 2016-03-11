@@ -11,9 +11,11 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					"js/bootstrap-datepicker.js", 
 					"js/bootstrap-datepicker.es.js", 
 					"js/jquery.numeric.js", 
-					getAsset("users")."js/mygroup.js"));
+					getAsset("users")."js/mygroup.js", 
+					getAsset("alerts")."js/addalert.js"));
 
 
+templateload("addalert", "alerts");
 
 ?>
 <div class="row row-top">
@@ -32,6 +34,8 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		usersController::deleteEquipoAction();
 		usersController::insertEquipoAction();
 		usersController::updateEquipoAction();
+		alertsController::createAction();
+
 		$filtro_tienda = ($_SESSION['user_perfil'] == 'responsable' ? " AND responsable_tienda='".$_SESSION['user_name']."' " : "");
 		$elements = usersController::getListEquipoAction(20, " AND disabled=0 AND perfil='usuario' ".$filtro_tienda);
 
@@ -140,7 +144,17 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		</div>
 		<div class="app-sidebar">
 			<div class="panel-interior">
-				<?php echo SearchForm($elements['reg'],"mygroup","searchForm",strTranslate("Search"), strTranslate("Search"), "", "", "get");?>
+				<?php echo SearchForm($elements['reg'],"mygroup","searchForm", "Buscar usuario", strTranslate("Search"), "", "", "get");?>
+				<?php if(getModuleExist("na_areas")): ?>
+				<h4>
+					<span class="fa-stack fa-sx">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-share-alt fa-stack-1x fa-inverse"></i>
+					</span>
+					Nueva alerta
+				</h4>
+				<?php addAlert();?>
+			<?php endif; ?>
 			</div>
 		</div>
 </div>

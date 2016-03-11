@@ -6,9 +6,9 @@ class visitas{
 		return connection::getSQL($Sql);
 	}
 
-	public static function insertVisita($username, $ruta, $webpage_id, $movil=0){
-		$Sql = "insert into accesscontrol (username,webpage,movil,ip,agent,browser,platform, webpage_id) 
-				values ('".$username."','".$ruta."',".$movil.",'".$_SERVER['REMOTE_ADDR']."','".$_SERVER['HTTP_USER_AGENT']."','".getBrowser($_SERVER['HTTP_USER_AGENT'])."','".getPlatform($_SERVER['HTTP_USER_AGENT'])."', '".$webpage_id."');";
+	public static function insertVisita($username, $ruta, $webpage_id, $perfil_access, $empresa_access, $canal_access){
+		$Sql = "insert into accesscontrol (username,webpage,ip,agent,browser,platform, webpage_id, perfil_access, empresa_access, canal_access) 
+				values ('".$username."','".$ruta."','".$_SERVER['REMOTE_ADDR']."','".$_SERVER['HTTP_USER_AGENT']."','".getBrowser($_SERVER['HTTP_USER_AGENT'])."','".getPlatform($_SERVER['HTTP_USER_AGENT'])."', '".$webpage_id."', '".$perfil_access."', '".$empresa_access."','".$canal_access."');";
 		return connection::execute_query($Sql);
 	}
 

@@ -2,12 +2,12 @@
 
 addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js", 
 					 getAsset("core")."js/home.js",
-					 getAsset("users")."js/groupmessages.js"));
+					 getAsset("alerts")."js/alerts.js"));
 
 templateload("reply", "muro");
 templateload("show", "novedades");
 templateload("panels", "destacados");
-templateload("cmbCanales", "users");
+templateload("panels", "na_areas");
 
 //usuarios conectados
 $filtroCanal = ($_SESSION['user_canal'] != "admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') " : "");
@@ -65,7 +65,12 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<?php showNovedades();?>
+				<div class="col-md-12 section panel panel-default">
+					<?php showNovedades();?>
+				</div>
+				<div class="col-md-12 section full-height panel panel-default">
+					<?php panelAreas();?>
+				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="row">
@@ -92,6 +97,9 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 							<li class="ellipsis"><a href="foro-comentarios?id=<?php echo $foro_tema[0]['id_tema'];?>"><?php echo $foro_tema[0]['nombre'];?></a></li>
 						<?php endforeach; ?>
 						</ul>
+						<div class="ver-mas">
+							<a href="foro-subtemas"><span class="fa fa-search"></span> ver más foros</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -99,43 +107,41 @@ $last_blog = foroController::getListTemasAction(1, $filtro_blog." AND ocio=1 AND
 		<br />
 		<div class="row">
 			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="row">
-						<div class="col-md-4 section full-height">
-							<h3><?php e_strTranslate("Last_photos");?></h3>
-							<?php if (isset($last_photo['items'][0])): ?>
-							<div class="media-preview-container">
-								<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo prepareString($last_photo['items'][0]['titulo']);?>" /></a>
-								<div>
-									<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
-									<?php echo $last_photo['items'][0]['nick'];?><br />
-									<span><small><?php echo ucfirst(getDateFormat($last_photo['items'][0]['date_foto'], "LONG"));?></small></span><br />
-								</div>
+				<div class="row">
+					<div class="col-md-4 section full-height">
+						<h3><?php e_strTranslate("Last_photos");?></h3>
+						<?php if (isset($last_photo['items'][0])): ?>
+						<div class="media-preview-container">
+							<a href="fotos"><img class="media-preview" src="<?php echo PATH_FOTOS.$last_photo['items'][0]['name_file'];?>" alt="<?php echo prepareString($last_photo['items'][0]['titulo']);?>" /></a>
+							<div>
+								<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
+								<?php echo $last_photo['items'][0]['nick'];?><br />
+								<span><small><?php echo ucfirst(getDateFormat($last_photo['items'][0]['date_foto'], "LONG"));?></small></span><br />
 							</div>
-							<?php else: ?>
-								<div class="text-muted">Todavía no se han subido fotos</div>
-							<?php endif; ?>
 						</div>
-						<div class="col-md-4 section full-height">
-							<h3><?php e_strTranslate("Last_videos");?></h3>
-							<?php if (isset($last_video['items'][0])): ?>
-							<div class="media-preview-container">
-								<a href="videos">
-								<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo prepareString($last_video['items'][0]['titulo']);?>" /></a>
-								<div>
-									<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
-									<?php echo $last_video['items'][0]['nick'];?><br />
-									<small><span><?php echo ucfirst(getDateFormat($last_video['items'][0]['date_video'], "LONG"));?></small></span><br />
-								</div>
+						<?php else: ?>
+							<div class="text-muted">Todavía no se han subido fotos</div>
+						<?php endif; ?>
+					</div>
+					<div class="col-md-4 section full-height">
+						<h3><?php e_strTranslate("Last_videos");?></h3>
+						<?php if (isset($last_video['items'][0])): ?>
+						<div class="media-preview-container">
+							<a href="videos">
+							<img class="media-preview" src="<?php echo PATH_VIDEOS.$last_video['items'][0]['name_file'].'.jpg';?>" alt="<?php echo prepareString($last_video['items'][0]['titulo']);?>" /></a>
+							<div>
+								<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
+								<?php echo $last_video['items'][0]['nick'];?><br />
+								<small><span><?php echo ucfirst(getDateFormat($last_video['items'][0]['date_video'], "LONG"));?></small></span><br />
 							</div>
-							<?php else: ?>
-								<div class="text-muted"><?php e_strTranslate("No_video_uploads");?></div>
-							<?php endif; ?>
 						</div>
-						<div class="col-md-4 section full-height">
-							<h3><?php e_strTranslate("Highlights");?></h3>
-							<?php PanelLastDestacado();?>
-						</div>
+						<?php else: ?>
+							<div class="text-muted"><?php e_strTranslate("No_video_uploads");?></div>
+						<?php endif; ?>
+					</div>
+					<div class="col-md-4 section full-height">
+						<h3><?php e_strTranslate("Highlights");?></h3>
+						<?php PanelLastDestacado();?>
 					</div>
 				</div>
 			</div>

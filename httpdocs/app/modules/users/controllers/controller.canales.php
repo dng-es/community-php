@@ -43,8 +43,9 @@ class usersCanalesController{
 			$canal = str_replace(" ", "_", $canal);
 			$canal = NormalizeText($canal);
 			$canal_name = sanitizeInput($_POST['canal_name']);
+			$theme = sanitizeInput($_POST['theme']);
 			$users = new users;
-			if ($users->insertCanal($canal, $canal_name)){
+			if ($users->insertCanal($canal, $canal_name, $theme)){
 				//crear foro asociado
 				$foro = new foro();
 				$foro->InsertTema(0, "Foro ".$canal_name, '', '', 'admin', $canal, 0, 1, '', 0, 0, "");
@@ -61,8 +62,9 @@ class usersCanalesController{
 		if (isset($_POST['id_canal']) and $_POST['id_canal'] != ''){
 			$canal = sanitizeInput($_POST['id_canal']);
 			$canal_name = sanitizeInput($_POST['canal_name']);
+			$theme = sanitizeInput($_POST['theme']);
 			$users = new users;
-			if ($users->updateCanal($canal, $canal_name))
+			if ($users->updateCanal($canal, $canal_name, $theme))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

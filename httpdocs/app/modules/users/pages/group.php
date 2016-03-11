@@ -1,6 +1,6 @@
 <?php
 //addJavascripts(array(getAsset("users")."js/group.js"));
-addJavascripts(array(getAsset("users")."js/groupmessages.js"));
+addJavascripts(array(getAsset("alerts")."js/alerts.js"));
 
 $cod_empresa = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
 session::getFlashMessage('actions_message'); 

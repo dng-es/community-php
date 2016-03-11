@@ -29,6 +29,7 @@ $elements = usersCanalesController::getListAction(35);
 						<th width="40px"></th>
 						<th><?php e_strTranslate("Channel");?></th>
 						<th><?php e_strTranslate("Description");?></th>
+						<th><?php e_strTranslate("Theme");?></th>
 						</tr>	
 						<?php foreach($elements['items'] as $element):?>
 							<tr>
@@ -38,6 +39,7 @@ $elements = usersCanalesController::getListAction(35);
 							</td>
 							<td><?php echo $element['canal'];?></td>
 							<td><?php echo $element['canal_name'];?></td>
+							<td><?php echo $element['theme'];?></td>
 							</tr>  
 						<?php endforeach; ?>
 					</table>

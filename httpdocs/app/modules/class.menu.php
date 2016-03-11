@@ -1,4 +1,6 @@
 <?php
+templateload("cmbCanales", "users");
+
 class menu{
 	/**
 	* Print Main menu. User must be logged
@@ -90,14 +92,16 @@ class menu{
 			$contador_no_leidos=connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 			?>
 			<div class="row header-info">
-				<a href="home"><img src="images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" /></a>
+				<a href="home"><img src="themes/<?php echo $_SESSION['user_theme'];?>/images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" /></a>
 				<div id="user-info">
 					<div class="pull-right" style="width:75%">
 					<?php 
-					echo '<a href="profile"><img alt="'.prepareString($_SESSION['user_nick']).'" src="images/usuarios/'.$_SESSION['user_foto'].'" /></a>';
+					echo '<a href="profile"><img alt="'.prepareString($_SESSION['user_nick']).'" src="'.$_SESSION['user_foto'].'" /></a>';
 					
 					echo '<p>';
-					echo '<a href="profile">'.$_SESSION['user_nick'].'</a><br />';
+					echo '<a href="profile">'.$_SESSION['user_nick'].'</a>';
+					echo '</p>';
+					echo '<p>';
 					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-power-off faa-pulse animated-hover"></i></a>';
 					$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
 					
@@ -117,11 +121,14 @@ class menu{
 					</div>
 				</div>
 			</div>
+			<div id="menu-selector">
 			<?php
-
 			//Print language selector
 			self::languageSelector();
-		}
+			self::channelSelector();
+			?>
+			</div>
+		<?php }
 	}
 
 	/**
@@ -184,6 +191,20 @@ class menu{
 	}
 
 	/**
+	* Print channel selector
+	*
+	*/
+	static function channelSelector(){	
+		if ($_SESSION['user_perfil'] == 'admin' or trim($_SESSION['user_canal']) == ''): ?>
+		<form role="form" name="chooseForm" id="chooseForm" action="" method="post" class="form-inline">
+			<select name="chooseFormValue" id="chooseFormValue" class="form-control input-xs">
+				<?php ComboCanales($_SESSION['user_canal'], ($_SESSION['user_perfil'] == 'admin' ? "": " AND visible=1 "));?>
+			</select>
+		</form>
+		<?php endif;
+	}
+
+	/**
 	* Print language selector
 	*
 	*/
@@ -193,12 +214,10 @@ class menu{
 			$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
 			$destination = str_replace("&lan=", "&lano=", $_SERVER['REQUEST_URI']);
 			$destination = str_replace("?lan=", "?lano=", $_SERVER['REQUEST_URI']);
-			$separator = (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?" : "&");
-			echo '<div id="language-selector">';
+			$separator = (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?" : "&");		
 			foreach($folders as $folder):
 				echo '<a href="'.$destination.$separator.'lan='.$folder.'" title="'.$folder.'"><img alt="<?php echo $folder;?>" src="app/languages/'.$folder.'/images/flag.png" /></a>';
 			endforeach;
-			echo '</div>';
 		}
 	}
 

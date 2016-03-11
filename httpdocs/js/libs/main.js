@@ -1,4 +1,7 @@
 jQuery(document).ready(function(){
+	$("#chooseFormValue").change(function(){
+		$("#chooseForm").submit();
+	});
 
 	$(".user-tip").tooltip({
 		placement : 'auto top',

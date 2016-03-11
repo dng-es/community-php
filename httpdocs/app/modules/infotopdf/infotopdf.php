@@ -6,20 +6,20 @@
 *
 */
 class infotopdfCore{
-	public static function userMenu(){
-		global $session;
-		$array_final = array();
-		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-infotopdf-all", $_SESSION['user_name']));
-		if ($session->checkPageViewPermission("user-infotopdf-all", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-file-pdf-o",
-							"LabelItem" => strTranslate("Infotopdf_Documents"),
-							"LabelUrl" => 'user-infotopdf-all',
-							"LabelTarget" => '_self',
-							"LabelPos" => 4));
-		}
+	// public static function userMenu(){
+	// 	global $session;
+	// 	$array_final = array();
+	// 	$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-infotopdf-all", $_SESSION['user_name']));
+	// 	if ($session->checkPageViewPermission("user-infotopdf-all", $_SESSION['user_perfil'], $user_permissions)){
+	// 		array_push($array_final, array("LabelIcon" => "fa fa-file-pdf-o",
+	// 						"LabelItem" => strTranslate("Infotopdf_Documents"),
+	// 						"LabelUrl" => 'user-infotopdf-all',
+	// 						"LabelTarget" => '_self',
+	// 						"LabelPos" => 4));
+	// 	}
 
-		return $array_final;
-	}
+	// 	return $array_final;
+	// }
 
 	public static function adminMenu(){
 		return array( 

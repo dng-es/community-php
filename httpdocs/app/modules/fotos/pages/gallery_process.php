@@ -13,6 +13,7 @@ include_once($base_dir . "modules/fotos/templates/comment.php");
 session::ValidateSessionAjax();
 $fotos = new fotos();
 
+
 //INSERTAR COMENTARIO
 if (isset($_POST['respuesta-texto']) and $_POST['respuesta-texto'] != ""){
 	$id = sanitizeInput($_POST['id_file']);
@@ -31,7 +32,7 @@ else{
 	<html lang="es">
 		<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/themes/<?php echo $_SESSION['user_theme'];?>/css/styles.css" />
 		<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/main.min.js"></script>
 	</head>
 	<body>

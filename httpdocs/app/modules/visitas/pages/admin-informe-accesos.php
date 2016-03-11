@@ -2,40 +2,47 @@
 set_time_limit(0);
 ini_set('memory_limit', '-1');
 
-//EXPORT ACCESOS
-visitasController::exportAction();
-
 $total1 = 0;
 $total2 = 0;
 $total3 = 0;
 $media1 = 0;
 $media2 = 0;
 $media3 = 0;
-$pagina_excluidas = "'admin','admin-informe-accesos','admin-informe-participaciones', 'admin-informe-puntuaciones','admin-users','admin-user','admin-users-tiendas','cargas-users','admin-area','admin-message','Inicio sesion','admin-validacion-foro',
-					'admin-messages','admin-message-proccess','admin-message-proccess-step1',
-					'admin-areas','admin-area-revs','admin-area-form','admin-area-docs','admin-config','admin-page', 'admin-puntos','admin-mystery','admin-validacion-fotos',
-					'admin-campaigns-types','admin-campaigns','admin-infotopdf-doc','admin-intotopdf','admin-validacion-foto-temas','admin-cuestionarios','admin-cuestionario','admin-cuestionario-revs',
-					'admin-videos','admin-premios','cargas-puntos-process','admin-pages','admin-novedades','admin-blog-new','admin-destacados','admin-validacion-foro-temas',
-					'admin-blog-foro','admin-modules','admin-campaign','admin-validacion-foro-comentarios','admin-blog','admin-templates','admin-validacion-videos',
-					'cargas-horas-process','admin-fotos-comentarios','admin-info','admin-info-doc','admin-canales','admin-canal','admin-cargas-tiendas','admin-validacion-muro','admin-albumes',
-					'admin-videos-comentarios','admin-cargas-users'";
+
 					 
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					"js/bootstrap-datepicker.es.js", 
 					"js/libs/highcharts/highcharts.js",
 					"js/libs/highcharts/modules/exporting.js"));
 
-global $total1,$total2,$total3,$media1,$media2,$media3,$pagina_excluidas;
+global $total1,$total2,$total3,$media1,$media2,$media3;
 
-if (isset($_POST['generate-stats']) and !isset($_POST['export-stats'])):
+if (isset($_POST['generate-stats']) or isset($_POST['export-stats'])):
 	$filtro_informe = " AND fecha BETWEEN '".$_POST['fecha_ini']." 00:00:00' AND '".$_POST['fecha_fin']." 23:59:59' ";
+	$filtro_empresa = ((isset($_POST['empresa_sel']) and trim($_POST['empresa_sel']) != '') ? " AND empresa_access='".utf8_decode($_POST['empresa_sel'])."' " : "");
+	$filtro_empresa_users = ((isset($_POST['empresa_sel']) and trim($_POST['empresa_sel']) != '') ? " AND empresa='".utf8_decode($_POST['empresa_sel'])."' " : "");
+	$empresa_sel = $_POST['empresa_sel'];
 else:
 	$filtro_informe = " AND fecha>=DATE_ADD(NOW(), INTERVAL -1 MONTH) ";
+	$filtro_empresa = "";
+	$filtro_empresa_users = "";
+	$empresa_sel = "";
 endif;
 
+$filtro_informe .= " AND perfil_access<>'admin' ".$filtro_empresa;
+
+//TODO - FILTRO DUPLICADOS: se generan duplicados por los redirectURL
+$filtro_duplicados = " AND seconds>0 ";
+
+//EXPORT ACCESOS
+visitasController::exportAction($filtro_informe.$filtro_duplicados);
+
+
+$users = new users();
+$tiendas = $users->getTiendas(" AND cod_tienda<>'' ");
+
 //DATOS VISITAS POR PAGINAS
-$filtro = $filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
-$elements = visitas::getAccessTopPages($filtro);
+$elements = visitas::getAccessTopPages($filtro_informe.$filtro_duplicados);
 $visitas = 0;
 $output_x = "";
 $output_y = "";
@@ -51,8 +58,7 @@ $output_x = substr($output_x, 0, strlen($output_x) - 1);
 $output_y = substr($output_y, 0, strlen($output_y) - 1);
 
 //DATOS VISITAS POR HORA
-$filtro = $filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ";
-$elements = visitas::getAccessHour($filtro);
+$elements = visitas::getAccessHour($filtro_informe.$filtro_duplicados);
 $visitas = 0;
 $output_x5 = "";
 $output_y5 = "";
@@ -68,7 +74,7 @@ $output_x5 = substr($output_x5, 0, strlen($output_x5) - 1);
 $output_y5 = substr($output_y5, 0, strlen($output_y5) - 1);
 
 //DATOS VISITAS POR DIA
-$elements = visitas::getAccessPages($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
+$elements = visitas::getAccessPages($filtro_informe.$filtro_duplicados);
 $visitas = 0;
 $output_x2 = "";
 $output_y2 = "";
@@ -103,7 +109,7 @@ $total3 = $visitas;
 
 //DATOS VISITAS POR NAVEGADOR
 $outputBrowser="";
-$elements = visitas::getAccessBrowser($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
+$elements = visitas::getAccessBrowser($filtro_informe.$filtro_duplicados);
 
 foreach($elements as $element):
 	$outputBrowser .= '{name: "'.$element['browser'].'",y: '.$element['contador'].'},';
@@ -112,7 +118,7 @@ $outputBrowser = substr($outputBrowser, 0, strlen($outputBrowser) - 1);
 
 //DATOS VISITAS POR PLATAFORMA
 $outputPlatform="";
-$elements = visitas::getAccessPlatform($filtro_informe." AND webpage NOT IN (".$pagina_excluidas.") ");
+$elements = visitas::getAccessPlatform($filtro_informe.$filtro_duplicados);
 foreach($elements as $element):
 	$outputPlatform .= '{name: "'.$element['platform'].'",y: '.$element['contador'].'},';
 endforeach;
@@ -121,6 +127,10 @@ $outputPlatform = substr($outputPlatform, 0, strlen($outputPlatform) - 1);
 ?>
 <script type="text/javascript">
 $(function () {
+	$("#datetimepicker1, #datetimepicker2").datetimepicker({
+	  language: "es-ES"
+	});
+
 	$('#containerVisitas').highcharts({
 		credits: false,
 		chart: {
@@ -427,8 +437,8 @@ $('#containerHoras').highcharts({
 							<div class="row">
 								<div class="col-md-8 inset panel-description">
 									<?php 
-									$num_users = connection::countReg("users", " AND disabled=0 AND registered=1 AND confirmed=1 ");
-									$tot_users = connection::countReg("users", " AND disabled=0 ");
+									$num_users = connection::countReg("users", " AND disabled=0 AND registered=1 AND confirmed=1 ".$filtro_empresa_users);
+									$tot_users = connection::countReg("users", " AND disabled=0 ".$filtro_empresa_users);
 									?>
 									<h4>Usuarios activos</h4>
 									<div class="text-small">Total usuarios: <?php echo number_format($tot_users, 0, ',', '.');?></div>
@@ -470,55 +480,49 @@ $('#containerHoras').highcharts({
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<p>Puedes filtrar los informes de acceso por fechas: <span class="text-danger text-small">En los informes gráficos no se muestran los accesos al panel de administración.</span></p>
 							<div class="row">
-								<div class="col-md-5">
+								<div class="col-md-7 nopadding">
 									<form name="inf-accesos" id="inf-accesos" method="post" action="<?php echo $_REQUEST['page'];?>" role="form" class="">
 										<input type="hidden" name="export_fechas" id="export_fechas" value="1" />
 
 										<div class="row">
-											<div class="col-xs-6">
+											<div class="col-xs-4">
 												<label for="fecha_ini">Fecha inicio:</label>
 												<div id="datetimepicker1" class="input-group date">
 													<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_ini" class="form-control" name="fecha_ini" placeholder="Fecha inicio" value="<?php echo $fecha_ini;?>"></input>
 												<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 												</div>
-
-												<script>
-												jQuery(document).ready(function(){
-													$("#datetimepicker1").datetimepicker({
-													  language: "es-ES"
-													});
-												});
-												</script>
 											</div>
-											<div class="col-xs-6">
+											<div class="col-xs-4">
 												<label for="fecha_fin">Fecha fin:</label>
 												<div id="datetimepicker2" class="input-group date">
 													<input data-format="yyyy/MM/dd" readonly type="text" id="fecha_fin" class="form-control" name="fecha_fin" placeholder="Fecha fin" value="<?php echo $fecha_fin;?>"></input>
 												<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 												</div>
+											</div>
 
-												<script>
-												jQuery(document).ready(function(){
-													$("#datetimepicker2").datetimepicker({
-													  language: "es-ES"
-													});
-												});
-												</script>
+											<div class="col-xs-4">
+												<label for="empresa_sel"><?php e_strTranslate("Group_user");?>:</label>
+												<select name="empresa_sel" id="empresa_sel" class="form-control">
+													<option value="">---<?php e_strTranslate("Choose_group");?>---</option>
+													<?php foreach($tiendas as $tienda):?>
+														<option <?php echo ($empresa_sel == $tienda['cod_tienda'] ? ' selected="selected" ' : '');?> value="<?php echo $tienda['cod_tienda'];?>"><?php echo $tienda['cod_tienda'];?></option>
+													<?php endforeach;?>
+												</select>
 											</div>
 										</div>
 										<span id="fecha-alert" class="alert-message alert alert-danger"></span>
 									</div>
-									<div class="col-md-7">
+									<div class="col-md-5">
 										<br />
-										<button type="submit" class="btn btn-primary" name="generate-stats">Generar gráficos</button>
-										<button type="submit" class="btn btn-primary" name="export-stats">Exportar CSV</button>
-										<a href="#" onClick="window.print(); return false;" class="btn btn-primary">Imprimir informe</a>
-										<a class="btn btn-primary" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', 'admin-informe-accesos?act=del')" title="Vaciar registros" />Vaciar registros</a>
+										<button type="submit" class="btn btn-primary btn-xs" name="generate-stats">Generar gráficos</button>
+										<button type="submit" class="btn btn-primary btn-xs" name="export-stats">Exportar CSV</button>
+										<a href="#" onClick="window.print(); return false;" class="btn btn-primary btn-xs">Imprimir informe</a>
+										<!-- <a class="btn btn-primary btn-xs" href="#" onClick="Confirma('¿Seguro que desea eliminar todos los registros?.\nLa información borrada no podrá ser recuperada.', 'admin-informe-accesos?act=del')" title="Vaciar registros" />Vaciar registros</a> -->
 									</form>
 								</div>
 							</div>
+							<br /><span class="text-danger text-small"><i class="fa fa-warning"></i> En los informes no se muestran los accesos por los usuarios administradores.</span>
 						</div>
 					</div>
 				</div>

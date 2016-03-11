@@ -8,9 +8,9 @@
 		
 		// CONFIG ===================================/
 		watch: {
-			compass: {
-				files: ['<%= public_html %>css/*.{scss,sass}', '<%= public_html %>css/libs/*/*.{scss,sass}'],
-				tasks: ['compass:prod'],
+			sass: {
+				files: ['<%= public_html %>css/*.{scss,sass}', '<%= public_html %>css/libs/*/*.{scss,sass}', '<%= public_html %>themes/*/css/*.{scss,sass}'],
+				tasks: ['sass:prod'],
 				options: {
 					livereload: true,
 				}
@@ -28,26 +28,48 @@
 			}*/
 		},
 
-		compass: {
-		   dev: {
-		       options: {
-		       	   config: '<%= public_html %>css/config.rb',         
-		           sassDir: ['<%= public_html %>css'],
-		           cssDir: ['<%= public_html %>css'],
-		           environment: 'development'
-		       }
-		   },
-
-		   prod: {
-		       options: {              
-		           config: '<%= public_html %>css/config.rb', 
-		           sassDir: ['<%= public_html %>css'],
-		           cssDir: ['<%= public_html %>css'],
-		           environment: 'production'
-		      }
-	      },
-
-		},
+		sass: {
+			dev: {
+				options: {
+					compass: true,
+					style: 'compressed'
+				},
+				files: [
+					{
+						expand: true,
+						src: '<%= public_html %>/css/*.scss',
+						dest: './',
+        				ext: '.css'
+					},
+					{
+						expand: true,
+						src: ['<%= public_html %>/themes/*/css/*.scss'],
+						dest: './',
+        				ext: '.css'
+					}
+				]
+			},
+			prod: {
+				options: {
+					compass: true,
+					style: 'compressed'
+				},
+				files: [
+					{
+						expand: true,
+						src: '<%= public_html %>/css/*.scss',
+						dest: './',
+        				ext: '.css'
+					},
+					{
+						expand: true,
+						src: ['<%= public_html %>/themes/*/css/*.scss'],
+						dest: './',
+        				ext: '.css'
+					}
+				]
+			}
+		},		
 
 		uglify: {
 		   dev: {
@@ -101,14 +123,12 @@
 	// DEPENDENT PLUGINS =========================/
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-compass');
+	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-critical');
 
 	// TASKS =====================================/
 
 	grunt.registerTask('default', []);
-	grunt.registerTask('prod', ['compass:prod', 'uglify:prod']);
-	grunt.registerTask('dev', ['compass:dev', 'uglify:dev']);
-	grunt.registerTask('critical', ['critical']);
+	grunt.registerTask('prod', ['sass:prod', 'uglify:prod']);
+	grunt.registerTask('dev', ['sass:dev', 'uglify:dev']);
 };

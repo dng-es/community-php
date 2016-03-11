@@ -26,7 +26,7 @@ class headers{
 				<title><?php echo $Title;?></title>
 				<link rel="shortcut icon" href="favicon.ico">
 				<link rel="icon" type="image/ico"  href="favicon.ico" >
-				<link href="<?php echo $ini_conf['SiteUrl'];?>/css/styles.css" rel="stylesheet">
+				<link href="<?php echo $ini_conf['SiteUrl'];?>/themes/<?php echo $_SESSION['user_theme'];?>/css/styles.css" rel="stylesheet">
 				<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/main.min.js"></script>
 				<!-- <script type="text/javascript" src="js/notifications.js"></script> -->
 				
@@ -63,7 +63,7 @@ class headers{
 		global $paginas_free;?>
 		</head>
 			<body id="page-<?php echo $page;?>">
-			<img alt="fondo" id="bg" src="images/bg01.jpg" class="hidden-print" />
+			<img alt="fondo" id="bg" src="themes/<?php echo $_SESSION['user_theme'];?>/images/bg.jpg" class="hidden-print" />
 		<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
 
 				<?php //if (class_exists('globaloptionsController')):	
