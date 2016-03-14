@@ -14,11 +14,9 @@ $pagina = $_REQUEST['pagina'];
 $reg = 56;
 $inicio = ($pagina - 1) * $reg;
 
-$users = new users();
 if ($_SESSION['user_canal'] != 'admin') $filtroCanal = " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') ";
 else $filtroCanal = "";
-//$users_conn = $users->getUsers(" AND confirmed=1 LIMIT ".$inicio.",".$reg);
-$users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
+$users_conn = users::getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -38,11 +36,12 @@ $users_conn = $users->getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
 	<body>	
 		<div id="users-connected-<?php echo $pagina;?>" style="display: none">
 			<?php foreach($users_conn as $user_conn):
-			$foto = ($user_conn['foto'] == "" ? "user.jpg" : $user_conn['foto']);?>
+			$foto = usersController::getUserFoto($user_conn['foto']);
+			?>
 			<div class="ficha-user panel panel-default">
 				<div class="panel-body">
 					<a href="#" class="trigger-msg" n="<?php echo $user_conn['nick'];?>">
-					<img class="comment-mini-img" src="images/usuarios/<?php echo $foto;?>" /></a>
+					<img class="comment-mini-img" src="<?php echo $foto;?>" /></a>
 					<div class="ellipsis">
 						<?php echo $user_conn['nick'];?><br />
 						<?php echo userEstrellas($user_conn['participaciones']);?>

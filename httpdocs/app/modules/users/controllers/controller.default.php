@@ -83,8 +83,7 @@ class usersController{
 		if ( $username != "" ){
 			$users = new users();
 			$plantilla = $users->getUsers(" AND username='".$username."' ".$filter);
-			$user_foto = ($plantilla[0]['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$plantilla[0]['foto']);
-			$plantilla[0]["user_foto"] = $user_foto;
+			$plantilla[0]["user_foto"] = self::getUserFoto($plantilla[0]['foto']);
 			return $plantilla[0];	
 		}
 	}
@@ -94,8 +93,7 @@ class usersController{
 			$users = new users();
 			$plantilla = $users->getUsers(" AND nick='".$nick."' ".$filter);
 			if (count($plantilla)>0){
-				$user_foto = ($plantilla[0]['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$plantilla[0]['foto']);
-				$plantilla[0]["user_foto"] = $user_foto;
+				$plantilla[0]["user_foto"] = self::getUserFoto($plantilla[0]['foto']);
 				return $plantilla[0];
 			}
 		}
@@ -430,6 +428,15 @@ public static function insertEquipoAction(){
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
+	}	
+
+	/**
+	 * Devuelve la foto del usuario con la url completa incluido directorio según tema
+	 * @param  string $foto dato guardado en la base de datos
+	 * @return string       ruta completa de la foto
+	 */
+	public static function getUserFoto($foto){
+		return ($foto == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$foto);
 	}		
 }
 ?>

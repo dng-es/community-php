@@ -31,7 +31,7 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 			});
 
 			$(".user-tip").tooltip({
-				'placement': 'left',
+				'placement': 'auto top',
 				'container': 'body'
 			});
 			
@@ -58,7 +58,7 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 		</div>
 		<div class="ver-mas">
 			<a href="muro-comentarios?id=principal">
-			<span class="fa fa-search"></span> <?php e_strTranslate("More_comments");?></a>
+			<span class="fa fa-search"></span> <?php e_strTranslate("More_contents");?></a>
 		</div>
 	</body>
 </html>

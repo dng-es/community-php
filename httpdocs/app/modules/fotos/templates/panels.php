@@ -10,6 +10,9 @@ function panelFotos(){
 			<a href="fotos"><?php echo $last_photo['items'][0]['titulo'];?></a><br />
 			<?php echo $last_photo['items'][0]['nick'];?><br />
 			<span><small><?php echo ucfirst(getDateFormat($last_photo['items'][0]['date_foto'], "LONG"));?></small></span><br />
+			<div class="ver-mas pull-right">
+				<a href="fotos"><span class="fa fa-search"></span> <?php e_strTranslate("More_contents");?></a>
+			</div>
 		</div>
 	</div>
 	<?php else: ?>

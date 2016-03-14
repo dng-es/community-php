@@ -415,7 +415,7 @@ class users{
 		return connection::execute_query($Sql);
 	}
 
-	public function getUsersConn($filter = "") {
+	public static function getUsersConn($filter = "") {
 		$Sql = "SELECT u.* FROM users_connected c 
 				LEFT JOIN users u ON u.username=c.username 
 				WHERE FROM_UNIXTIME(UNIX_TIMESTAMP(connection_time)+".SESSION_MAXTIME.")>NOW() ".$filter;

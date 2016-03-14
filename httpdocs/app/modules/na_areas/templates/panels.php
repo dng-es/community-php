@@ -19,7 +19,7 @@ function panelAreas(){
 	<?php endif;?>
 
 	<div class="ver-mas">
-		<a href="areas"><span class="fa fa-search"></span> ver más áreas</a>
+		<a href="areas"><span class="fa fa-search"></span> <?php e_strTranslate("More_contents");?></a>
 	</div>
 
 <?php } ?>

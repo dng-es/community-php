@@ -2,6 +2,8 @@
 //addJavascripts(array(getAsset("users")."js/group.js"));
 addJavascripts(array(getAsset("alerts")."js/alerts.js"));
 
+templateload("panels", "alerts");
+
 $cod_empresa = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
 session::getFlashMessage('actions_message'); 
 usersController::deleteAction();
@@ -22,9 +24,9 @@ $empresa = usersTiendasController::getItemAction($cod_empresa);
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">	
 						<?php foreach($elements['items'] as $element):
-								$foto = PATH_USERS_FOTO. ($element['foto'] != "" ? $element['foto'] : "user.jpg"); ?>
+								$foto = usersController::getUserFoto($element['foto']); ?>
 								<tr>
-									<td width="50px"><img src="<?php echo $foto;?>" width="50px" height="50px" /></td>
+									<td width="50px"><img src="<?php echo $foto;?>" class="comment-mini-img" /></td>
 									<td>
 										<span class="pull-right label <?php echo ($element['perfil'] == 'responsable' ? 'label-success' : 'label-warning');?>"><?php echo $element['perfil'];?></span>
 										<a href="user-profile?n=<?php echo $element['nick'];?>"><?php echo $element['nick'];?></a> - <?php echo $element['name'].' '.$element['surname'];?>
@@ -52,9 +54,8 @@ $empresa = usersTiendasController::getItemAction($cod_empresa);
 					</div>
 				</div>
 
-				<div id="destinoGroupMessages">
-					<div id="cargandoGroupMessages" style="display:none"><i class="fa fa-spinner fa-spin"></i></div>
-				</div>
+				<?php panelAlerts();?>
+
 			</div>
 		</div>
 	</div>

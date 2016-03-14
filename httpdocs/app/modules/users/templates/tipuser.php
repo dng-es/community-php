@@ -1,7 +1,7 @@
 <?php
 
 function userTip($user_data, $estrellas_print){
-	$foto = ($user_data['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$user_data['foto']);
+	$foto = usersController::getUserFoto($user_data['foto']);
 	$output = '<div class="text-left inset-small">
 			<table cellpadding="3" cellspacing="0">
 				<tr>
@@ -43,7 +43,7 @@ function userTip($user_data, $estrellas_print){
 }
 
 function userFicha($user_data){
-	$foto = ($user_data['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$user_data['foto']);
+	$foto = usersController::getUserFoto($user_data['foto']);
 	$estrellas_print = userEstrellas($user_data['participaciones']);
 	echo '<a data-html="true" class="user-tip pull-left" title="'.str_replace('"', '\'', userTip($user_data,$estrellas_print)).'" href="user-profile?n='.$user_data['nick'].'" >
 			<img alt="'.prepareString($user_data['nick']).'" class="comment-mini-img" src="'.$foto.'" />';

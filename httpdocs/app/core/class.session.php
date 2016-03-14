@@ -2,7 +2,7 @@
 session_start();
 session::setLanguage();
 session::setChannel();
-session::setDefaultTheme($result_user[0]['canal']);
+session::setDefaultTheme();
 
 class session{
 

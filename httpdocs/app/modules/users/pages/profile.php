@@ -7,6 +7,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					getAsset("users")."js/profile.js",
 					getAsset("alerts")."js/alerts.js"));
 
+templateload("panels", "alerts");
 templateload("tipuser", "users");
 templateload("na_areasuser", "na_areas");
 ?>
@@ -131,10 +132,7 @@ templateload("na_areasuser", "na_areas");
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_shares"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['participaciones'];?></small></td></tr>
 						</table>
 
-
-						<div id="destinoGroupMessages">
-							<div id="cargandoGroupMessages" style="display:none"><i class="fa fa-spinner fa-spin"></i></div>
-						</div>
+						<?php panelAlerts();?>
 
 					</div>
 				</div>

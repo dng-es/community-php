@@ -11,6 +11,9 @@ function panelVideos(){
 			<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
 			<?php echo $last_video['items'][0]['nick'];?><br />
 			<small><span><?php echo ucfirst(getDateFormat($last_video['items'][0]['date_video'], "LONG"));?></small></span><br />
+			<div class="ver-mas pull-right">
+				<a href="videos"><span class="fa fa-search"></span> <?php e_strTranslate("More_contents");?></a>
+			</div>
 		</div>
 	</div>
 	<?php else: ?>
