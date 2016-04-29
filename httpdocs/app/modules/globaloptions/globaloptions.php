@@ -17,7 +17,7 @@ class globaloptionsCore {
 
 
 		array_push($array_final, array("LabelIcon" => "fa fa-comment",
-						"LabelItem" => "Tienda",
+						"LabelItem" => "Global options",
 						"LabelId" => "tienda_go",
 						"LabelUrl" => 'home?gogo=1',
 						"LabelTarget" => '_blank',

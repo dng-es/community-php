@@ -5,6 +5,12 @@
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.extraPlugins = 'smiley,wpmore';
+	config.extraPlugins = 'panel';
+	config.extraPlugins = 'floatpanel';
+	config.extraPlugins = 'button';
+	config.extraPlugins = 'panelbutton';
+	config.extraPlugins = 'colorbutton';
+	//config.extraPlugins = 'wpmore'
 	
 	config.toolbarGroups = [
 		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
@@ -15,10 +21,9 @@
 		{ name: 'tools' },
 		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
 		'/',
-		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup', 'colors' ] },
 		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
 		{ name: 'styles' },
-		{ name: 'colors' },
 		{ name: 'others' }
 	];
 
@@ -37,4 +42,7 @@
 
 	//activar corrector ortográfico por defecto
 	config.scayt_autoStartup = true;
+
+	//permitir clases y etoquetas html
+	config.allowedContent = true;
 };

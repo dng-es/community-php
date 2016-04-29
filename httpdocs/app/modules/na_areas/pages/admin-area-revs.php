@@ -34,7 +34,7 @@ $id_recompensa = (isset($tarea[0]['id_recompensa']) ? $tarea[0]['id_recompensa']
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
-			array("ItemLabel"=>"Revisiones <b>".$tarea[0]['tarea_titulo']."</b>", "ItemClass"=>"active"),
+			array("ItemLabel"=>"Revisiones ".$tarea[0]['tarea_titulo'], "ItemClass"=>"active"),
 		));
 		?>
 

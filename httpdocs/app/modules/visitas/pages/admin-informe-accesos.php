@@ -36,7 +36,8 @@ $filtro_duplicados = " AND seconds>0 ";
 
 //EXPORT ACCESOS
 visitasController::exportAction($filtro_informe.$filtro_duplicados);
-
+visitasController::exportNaAreasAction($filtro_informe);
+visitasController::exportGroupAction($filtro_informe." AND webpage<>'Inicio sesion' ");
 
 $users = new users();
 $tiendas = $users->getTiendas(" AND cod_tienda<>'' ");
@@ -426,7 +427,7 @@ $('#containerHoras').highcharts({
 				array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 				array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 				array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"admin"),
-				array("ItemLabel"=>strTranslate("Report")." <b>".strTranslate("Visits")."</b>", "ItemClass"=>"active"),
+				array("ItemLabel"=>strTranslate("Report")." ".strTranslate("Visits"), "ItemClass"=>"active"),
 			));
 			?>
 
@@ -578,6 +579,59 @@ $('#containerHoras').highcharts({
 						</div>
 					</div>
 				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body nopadding">
+							<h5 class="text-center"><big>Accesos por <?php e_strTranslate("Group_user");?></big> <small><a href="admin-informe-accesos?export=group">Exportar</a></small></h5>
+							<div class="table table-responsive">
+								<table class="table table-striped table-hover">
+									<tr>
+										<th>Tienda</th>
+										<th class="text-center"><?php e_strTranslate('Visits_title');?></th>
+									</tr>
+									<?php 
+									$elements = visitas::getAccessGroup($filtro_informe." AND webpage<>'Inicio sesion' ");
+									foreach($elements as $element):?>
+										<tr>
+											<td><?php echo utf8_encode($element[strTranslate('Name')]);?></td>
+											<td class="text-center"><?php echo $element[strTranslate('Visits_title')];?></td>
+										</tr>
+									<?php endforeach;?>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php if(getModuleExist("na_areas")):?>
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body nopadding">
+							<h5 class="text-center"><big>Accesos a <?php e_strTranslate("Na_areas");?></big> <small><a href="admin-informe-accesos?export=na_areas">Exportar</a></small></h5>
+							<div class="table table-responsive">
+								<table class="table table-striped table-hover">
+									<tr>
+										<th>ID</th>
+										<th><?php e_strTranslate("Na_areas");?></th>
+										<th class="text-center"><?php e_strTranslate('Visits_title');?></th>
+									</tr>
+									<?php 
+									$elements = visitas::getAccessNaAreas($filtro_informe);
+									foreach($elements as $element):?>
+										<tr>
+											<td><?php echo $element['webpage_id'];?></td>
+											<td><?php echo $element[strTranslate('Na_areas')];?></td>
+											<td class="text-center"><?php echo $element[strTranslate('Visits_title')];?></td>
+										</tr>
+									<?php endforeach;?>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php endif;?>
 			</div>
 		</div>
 	<?php menu::adminMenu();?>

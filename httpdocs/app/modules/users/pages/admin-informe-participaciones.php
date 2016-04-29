@@ -11,7 +11,7 @@ $elements = usersParticipacionesController::getListAction(100);
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"admin"),
-			array("ItemLabel"=>strTranslate("Report")." <b>".strTranslate("APP_shares")."</b>", "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Report")." ".strTranslate("APP_shares"), "ItemClass"=>"active"),
 		));
 		?>
 		<div class="panel panel-default">
@@ -25,10 +25,10 @@ $elements = usersParticipacionesController::getListAction(100);
 				<div class="table-responsive">
 					<table class="table">
 						<tr>
-						<th>Usuario</th>
-						<th>Nick</th>
-						<th>Participacion</th>
-						<th>Fecha</th>
+						<th><?php e_strTranslate("User");?></th>
+						<th><?php e_strTranslate("Nick");?></th>
+						<th>Participación</th>
+						<th><?php e_strTranslate("Date");?></th>
 						</tr>
 						<?php foreach($elements['items'] as $element): ?>
 							<tr>

@@ -78,7 +78,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 								</form>
 							</td>';
 						echo '<td>('.getDateFormat($revision['date_finalizacion'], "DATE_TIME").')</td>';
-						echo '<td><a href="#" onclick="createDialog('.$id_cuestionario.',\''.$revision['user_tarea'].'\')">ver respuestas</a></td>';
+						echo '<td><a href="#" onclick="createDialog('.$id_cuestionario.',\''.$revision['user_tarea'].'\'); return false;">ver respuestas</a></td>';
 						echo '</tr>';
 					endforeach; ?>
 				</table>

@@ -80,8 +80,8 @@ templateload("na_areasuser", "na_areas");
 								<label class="control-label" for="user-email"><small>Email</small></label>
 								<input maxlength="100" name="user-email" id="user-email" type="text" class="form-control" value="<?php echo $usuario['email'];?>" data-alert="<?php e_strTranslate("Required_email");?>" />
 							</div>
-							<div class="col-md-6">
-								<label class=" control-label" for="user-date"><small><?php e_strTranslate("Born_date");?></small></label>
+							<div class="col-md-3">
+								<label class="control-label" for="user-date"><small><?php e_strTranslate("Born_date");?></small></label>
 								<div id="datetimepicker1" class="input-group date">
 									<input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" name="user-date" data-alert="<?php e_strTranslate("Required_date");?>"></input>
 									<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -102,6 +102,13 @@ templateload("na_areasuser", "na_areas");
 									});
 								</script>
 							</div>
+
+							<div class="col-md-3">
+                                <label class="control-label" for="user_lan"><small><?php e_strTranslate("Language");?></small></label>
+                                <select name="user_lan" id="user_lan" class="form-control">
+                                    <?php ComboLanguages($usuario['user_lan']);?>
+                                </select>
+                            </div>
 						</div>		
 						<div class="row">
 							<div class="col-md-12">
@@ -124,11 +131,19 @@ templateload("na_areasuser", "na_areas");
 						<br />
 						<br />
 						<a class="btn btn-default btn-block" href="group?id=<?php echo $_SESSION['user_empresa'];?>"><?php e_strTranslate("My_group");?></a>
+						
+						<?php if(getModuleExist("shop")):  ?>
+						<a class="btn btn-default btn-block" href="shoporders"><?php e_strTranslate("Shop_my_orders");?></a>
+						<?php endif; ?>
+
 						<br />
 						<table class="table table-striped">
 							<tr><td><label><small><?php e_strTranslate("Date_add");?></small></label></td><td><small class="text-muted"><?php echo getDateFormat($usuario['date_add'], "DATE_TIME");?></small></td></tr>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("Last_access"));?></small></label></td><td><small class="text-muted"><?php echo getDateFormat($usuario['last_access'], "DATE_TIME");?></small></td></tr>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_points"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['puntos'];?></small></td></tr>
+							<?php if(getModuleExist("shop")):  ?>
+							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_Credits"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['creditos'];?></small></td></tr>
+							<?php endif; ?>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_shares"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['participaciones'];?></small></td></tr>
 						</table>
 
@@ -146,7 +161,7 @@ templateload("na_areasuser", "na_areas");
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MG.</p>
+			<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MB.</p>
 			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" /> 
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div><br />
 			<?php if(getModuleExist("recompensas")): ?>

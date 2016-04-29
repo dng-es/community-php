@@ -10,31 +10,36 @@ addJavascripts(array("js/bootstrap.file-input.js",
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"admin-users"),
-			array("ItemLabel"=>"Asignación de puntos", "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Points_assignment"), "ItemClass"=>"active"),
 		));
 		?>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p>Puedes asignar puntos a los usuarios, tambien puedes restarles puntos introducciendo un valor negativo. 
-						Para sumar o restar puntos intruduce el usuario (no nick), el número de puntos y el motivo de la asignación.</p><br />
+						<p>Puedes asignar <?php e_strTranslate("APP_points");?> a los usuarios, tambien puedes restarles <?php e_strTranslate("APP_points");?> introducciendo un valor negativo. 
+						Para sumar o restar <?php e_strTranslate("APP_points");?> intruduce el usuario (no nick), el número de <?php e_strTranslate("APP_points");?> y el motivo de la asignación.</p><br />
 
 						<form id="formData" name="formData" method="post" action="" role="form">
-							<label for="id_usuario">Usuario:</label>
-							<input type="text" name="id_usuario" id="id_usuario" class="form-control" />
-							<span id="id-usuario-alert" class="alert-message alert alert-danger"></span>
+							<div class="form-group">
+								<label for="id_usuario"><?php e_strTranslate("User");?>:</label>
+								<input type="text" name="id_usuario" id="id_usuario" class="form-control" />
+								<span id="id-usuario-alert" class="alert-message alert alert-danger"></span>
+							</div>
 
-							<label for="num_puntos">Puntos:</label>
-							<input size="6" type="text" name="num_puntos" id="num_puntos" class="form-control" />
-							<span id="num-huellas-alert" class="alert-message alert alert-danger"></span>
+							<div class="form-group">
+								<label for="num_puntos"><?php echo ucfirst(strTranslate("APP_points"));?>:</label>
+								<input size="6" type="text" name="num_puntos" id="num_puntos" class="form-control" />
+								<span id="num-huellas-alert" class="alert-message alert alert-danger"></span>
+							</div>
 
-							<label for="motivo_puntos">Motivo:</label>
-							<input type="text" name="motivo_puntos" id="motivo_puntos" class="form-control" />
-							<span id="motivo-huellas-alert" class="alert-message alert alert-danger"></span>
+							<div class="form-group">
+								<label for="motivo_puntos">Motivo:</label>
+								<input type="text" name="motivo_puntos" id="motivo_puntos" class="form-control" />
+								<span id="motivo-huellas-alert" class="alert-message alert alert-danger"></span>
+							</div>
 
-							<br />
-							<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary">Asignar puntos al usuario</button>
+							<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary">Asignar <?php e_strTranslate("APP_points");?> al usuario</button>
 						</form>
 						<div id="resultado-puntos"></div>
 					</div>

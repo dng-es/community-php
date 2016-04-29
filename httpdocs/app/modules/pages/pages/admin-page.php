@@ -21,27 +21,47 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		$pages = new pages();
 		$pagina = $pages->getPages(" AND page_name='".$page_name."' ");
 
+		$page_title = (isset($pagina[0]['page_title']) ? $pagina[0]['page_title'] : "");
 		$page_content = (isset($pagina[0]['page_content']) ? $pagina[0]['page_content'] : "");
+		$page_menu = (isset($pagina[0]['page_menu']) ? $pagina[0]['page_menu'] : 0);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form id="formData" name="formData" method="post" action="" role="form">
 					<input type="hidden" name="page_name" id="page_name" value="<?php echo $page_name;?>" />
 
-					<label for="page_name_new">Nombre de la página</label>
-					<input type="text" name="page_name_new" id ="page_name_new" class="form-control" <?php echo $page_name != '' ? ' disabled="disabled" value="'.$page_name.'" ' : '' ?> />
-					<br />
+					<div class="form-group">
+						<label for="page_name_new"><?php e_strTranslate("Name");?></label>
+						<input type="text" name="page_name_new" id ="page_name_new" class="form-control" <?php echo $page_name != '' ? ' disabled="disabled" value="'.$page_name.'" ' : '' ?> />
+					</div>
+
+					<div class="form-group">
+						<label for="page_title"><?php e_strTranslate("Title");?></label>
+						<input type="text" name="page_title" id ="page_title" class="form-control" value="<?php echo $page_title;?>" />
+					</div>
+
+					<div class="form-group">
+						<label checkbox-inline>
+							<input type="checkbox" id="page_menu"  name="page_menu" <?php echo $page_menu == 1 ? "checked" : "";?>> Menu
+						</label>
+					</div>
 					<?php
 						if ($page_name != ""){
 							echo '<p>URL: <a href="'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'</a></p>';
 						}
 					?>
-					<textarea cols="40" rows="5" id="page_content" name="page_content"><?php echo $page_content;?></textarea>
-					<script type="text/javascript">
-						var editor=CKEDITOR.replace('page_content',{customConfig : 'config-page.js'});
-						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
-					</script>
-					<br /><button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php e_strTranslate("Save_data");?></button>
+					<div class="form-group">
+						<label for="page_content" class="sr-only">Contenido de la página</label>
+						<textarea cols="40" rows="5" id="page_content" name="page_content"><?php echo $page_content;?></textarea>
+						<script type="text/javascript">
+							var editor=CKEDITOR.replace('page_content',{customConfig : 'config-page.js'});
+							CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
+						</script>
+					</div>
+					
+					<div class="form-group">
+						<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php e_strTranslate("Save_data");?></button>
+					</div>
 				</form>
 			</div>
 		</div>

@@ -56,11 +56,11 @@ function volcarMySQL($data){
 		$empresa = sanitizeInput($data->sheets[0]['cells'][$fila][5]);	
 		$user_email = $data->sheets[0]['cells'][$fila][6];
 		$telefono_user = $data->sheets[0]['cells'][$fila][7];
-		$perfil = strtolower($data->sheets[0]['cells'][$fila][8]);
+		$perfil = strtolower(trim($data->sheets[0]['cells'][$fila][8]));
+		$canal = strtolower(trim($data->sheets[0]['cells'][$fila][9]));
 
 		if ($perfil == "") $perfil = "usuario";
 		if ($perfil == 'admin') $canal = 'admin';
-		else $canal = "comercial";
 		
 		if ($username != ""){
 			//VERIFICAR QUE EXISTA EL USUARIO

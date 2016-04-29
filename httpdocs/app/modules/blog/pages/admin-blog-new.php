@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 "js/bootstrap.file-input.js", 
@@ -56,7 +55,7 @@ templateload("cmbCanales","users");
 					<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>
 					<script type="text/javascript">
 
-					var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-page.js'});
+					var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-blog.js'});
 					CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 
 					</script>

@@ -1,5 +1,9 @@
  module.exports = function(grunt) {
  	
+var processorsArray = [
+  // snipped for brevity
+  require('autoprefixer')({ browsers: ['last 2 versions', 'ie 6-8', 'Firefox > 20']  })
+];
 
    // Project configuration.
 	grunt.initConfig({
@@ -9,7 +13,7 @@
 		// CONFIG ===================================/
 		watch: {
 			sass: {
-				files: ['<%= public_html %>css/*.{scss,sass}', '<%= public_html %>css/libs/*/*.{scss,sass}', '<%= public_html %>themes/*/css/*.{scss,sass}'],
+				files: ['<%= public_html %>css/*.{scss,sass}', '<%= public_html %>css/libs/*/*.{scss,sass}', '<%= public_html %>app/modules/*/resources/css/*.{scss,sass}', '<%= public_html %>themes/*/css/*.{scss,sass}'],
 				tasks: ['sass:prod'],
 				options: {
 					livereload: true,
@@ -43,6 +47,12 @@
 					},
 					{
 						expand: true,
+						src: ['<%= public_html %>/app/modules/*/resources/css/*.scss'],
+						dest: './',
+        				ext: '.css'
+					},
+					{
+						expand: true,
 						src: ['<%= public_html %>/themes/*/css/*.scss'],
 						dest: './',
         				ext: '.css'
@@ -58,6 +68,12 @@
 					{
 						expand: true,
 						src: '<%= public_html %>/css/*.scss',
+						dest: './',
+        				ext: '.css'
+					},
+					{
+						expand: true,
+						src: ['<%= public_html %>/app/modules/*/resources/css/*.scss'],
 						dest: './',
         				ext: '.css'
 					},
@@ -106,15 +122,13 @@
 		       }
 		   },
 		},
-		critical: {
-			dist: {
-				options: {
-				base: './'
+		styles: {
+			options: {
+				processors: processorsArray
 			},
-			// The source file
-			src: 'testpage.html',
-			// The destination file
-			dest: 'result.html'
+			dist: {
+				src: '<%= public_html %>css/test.css',
+				dest: '<%= public_html %>css/postcss/test.css'
 			}
 		}
 
@@ -125,10 +139,12 @@
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-postcss');
 
 	// TASKS =====================================/
 
 	grunt.registerTask('default', []);
 	grunt.registerTask('prod', ['sass:prod', 'uglify:prod']);
 	grunt.registerTask('dev', ['sass:dev', 'uglify:dev']);
+	grunt.registerTask('styles', ['styles']);
 };

@@ -6,7 +6,7 @@
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"admin-users"),
-			array("ItemLabel"=>"Asignación de puntos", "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Points_assignment"), "ItemClass"=>"active"),
 		));
 		
 		if (isset($_FILES['nombre-fichero']['name'])) {

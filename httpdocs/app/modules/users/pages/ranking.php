@@ -9,7 +9,8 @@ $puntuacion_user = $puntos_user[0]['puntos'];
 $posicion_user = users::posicionRanking($_SESSION['user_name']);
 if ($_SESSION['user_perfil'] == 'admin') $posicion_user = 0;
 
-$puntos = $users->getUsers(" AND perfil<>'admin' AND confirmed=1 AND disabled=0 ORDER BY puntos DESC,username ASC LIMIT 15");
+$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal='".$_SESSION['user_canal']."' ": "");
+$puntos = $users->getUsers($filtro_canal." AND puntos>0 AND perfil<>'admin' AND confirmed=1 AND disabled=0 ORDER BY puntos DESC,username ASC LIMIT 15");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -25,31 +26,36 @@ $puntos = $users->getUsers(" AND perfil<>'admin' AND confirmed=1 AND disabled=0 
 		<div class="row">
 			<div class="col-md-12">
 				<br />
+				<?php if (count($puntos) > 0):?>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
-						<?php
-						//LOS 10 PRIMEROS DEL RANKING
-						//$total_usuarios = connection::countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
-						//echo '	<p>Los mejores en el ranking, total de usuarios activos: '.$total_usuarios.'</p>';
+						<?php 
 
-						for ($i=0;$i<=14;$i++){	
-							if (isset($puntos[$i])): ?>
-								<tr>
-									<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i + 1);?></small></i></td>
-									<td width="60px">
-										<?php userFicha($puntos[$i]); ?>
-									</td>
-									<td>
-										<a href="user-profile?n=<?php echo $puntos[$i]['nick'];?>"><?php echo $puntos[$i]['nick'];?></a> - <?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?>
-										<p class="text-muted"><?php echo $puntos[$i]['nombre_tienda'];?><br />
-										<span><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></span></p>
-									</td>
-									<td><?php $puntos[$i]['nombre_tienda'];?></td>
-								</tr>
-							<?php endif;
-						} ?>
+							//LOS 10 PRIMEROS DEL RANKING
+							//$total_usuarios = connection::countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
+							//echo '	<p>Los mejores en el ranking, total de usuarios activos: '.$total_usuarios.'</p>';
+
+							for ($i=0;$i<=14;$i++){	
+								if (isset($puntos[$i])): ?>
+									<tr>
+										<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i + 1);?></small></i></td>
+										<td width="60px">
+											<?php userFicha($puntos[$i]); ?>
+										</td>
+										<td>
+											<a href="user-profile?n=<?php echo $puntos[$i]['nick'];?>"><?php echo $puntos[$i]['nick'];?></a> - <?php echo $puntos[$i]['name'].' '.$puntos[$i]['surname'];?>
+											<p class="text-muted"><?php echo $puntos[$i]['nombre_tienda'];?><br />
+											<span><?php echo $puntos[$i]['puntos'].' '.strTranslate("APP_points");?></span></p>
+										</td>
+										<td><?php $puntos[$i]['nombre_tienda'];?></td>
+									</tr>
+								<?php endif;
+							} ?>
 					</table>
 				</div>
+				<?php else: ?>
+					<div class="alert alert-info">No hay datos para el ranking</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

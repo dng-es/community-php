@@ -393,6 +393,14 @@ function ComboPerfiles($perfil){?>
 <?php 
 }
 
+function ComboLanguages($lan){
+    global $ini_conf;
+    $folders = FileSystem::showDirFolders(__DIR__."/../languages/");
+    foreach($folders as $folder):?>
+       <option <?php echo ($lan == $folder ? ' selected="selected" ' : '');?> value="<?php echo $folder;?>"><?php echo $folder;?></option>
+    <?php endforeach;
+}
+
 /**
  * Obtiene la versión del navegador según el UserAgent. 
  * Esta función hay que actualizarla según van saliendo nuevos navegadores.

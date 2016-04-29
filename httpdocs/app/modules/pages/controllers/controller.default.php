@@ -1,12 +1,11 @@
 <?php
 class pagesController{
-	public static function getListAction($reg = 0){
+	public static function getListAction($reg = 0, $filter = ""){
 		$pages = new pages();
-		$filtro = " ORDER BY page_name";
-		$paginator_items = PaginatorPages($reg);
-		
-		$total_reg = connection::countReg("pages",$filtro); 
-		return array('items' => $pages->getPages($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$filter .= " ORDER BY page_name";
+		$paginator_items = PaginatorPages($reg);	
+		$total_reg = connection::countReg("pages",$filter); 
+		return array('items' => $pages->getPages($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $paginator_items['find_reg'],
@@ -18,7 +17,10 @@ class pagesController{
 			$pages = new pages();
 			$page_name = str_replace(" ", "_", NormalizeText($_POST['page_name_new']));
 			$page_content = stripslashes($_POST['page_content']);
-			if ($pages->insertPage($page_name,$page_content)) 
+			$page_title = sanitizeInput($_POST['page_title']);
+			$page_menu = (isset($_POST['page_menu']) and $_POST['page_menu'] == "on") ? 1 : 0;
+
+			if ($pages->insertPage($page_name, $page_content, $page_menu, $page_title)) 
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -30,10 +32,12 @@ class pagesController{
 	public static function updateAction(){
 		if (isset($_POST['page_name']) and $_POST['page_name'] != ""){
 			$pages = new pages();
+			$page_title = sanitizeInput($_POST['page_title']);
 			$page_content = stripslashes($_POST['page_content']);
-			if ($pages->updatePage($_POST['page_name'],$page_content))
-				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
+			$page_menu = (isset($_POST['page_menu']) and $_POST['page_menu'] == "on") ? 1 : 0;
 
+			if ($pages->updatePage($_POST['page_name'], $page_content, $page_menu, $page_title))
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 

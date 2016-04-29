@@ -31,7 +31,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 			na_areasController::uploadTareaAction();
 			session::getFlashMessage( 'actions_message' );
 			?>
-			<p><?php echo $area[0]['area_descripcion'];?></p>
+			<p><?php echo nl2br($area[0]['area_descripcion']);?></p>
 			<div class="clearfix"></div>
 			<div class="row">
 				<div class="col-md-6">

@@ -11,7 +11,7 @@ $elements = usersCanalesController::getListAction(35);
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
-			array("ItemLabel"=>strTranslate("Channels"), "ItemUrl"=>"#"),
+			array("ItemLabel"=>strTranslate("Channel"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Channel_list"), "ItemClass"=>"active"),
 		));
 		?>

@@ -8,7 +8,8 @@
 		
 		session::getFlashMessage( 'actions_message' );
 		na_areasController::apuntarseAction();
-		$elements = na_areasController::getListAction(6, " AND estado=1 ORDER BY id_area DESC ");
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND area_canal='".$_SESSION['user_canal']."' " : "");
+		$elements = na_areasController::getListAction(6, $filtro_canal." AND estado=1 ORDER BY id_area DESC ");
 		$i = 0;
 		foreach($elements['items'] as $element):
 			$acceso = ( $_SESSION['user_canal'] == 'admin' ? 1 : connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." AND username_area='".$_SESSION['user_name']."' ")); ?>

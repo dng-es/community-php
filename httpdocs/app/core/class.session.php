@@ -189,6 +189,9 @@ class session{
 				$_SESSION['user_canal_nombre'] = ($result_user[0]['canal'] == 'admin') ? "Administración" : ucfirst($result_user[0]['canal']);
 
 
+				$_SESSION['language'] = $result_user[0]['user_lan'];
+
+
 				//crear estadistica de acceso
 				visitasController::insertVisita("Inicio sesion");
 				$users->updateLastAccess($_SESSION['user_name']);

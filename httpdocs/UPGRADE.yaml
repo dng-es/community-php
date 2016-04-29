@@ -1,0 +1,11 @@
+---
+upgrades:
+    2:  
+        version: 0.5.2
+        notes: Mejoras accesibilidad. Nuevo modulo de tienda (productos, pedidos, ...)
+    1:  
+        version: 0.5.1
+        notes: Selector de canales. Temas y temas por canales
+    0:  
+        version: 0.4.7
+        notes: Nuevo modulo de batallas. Nuevo modulo de reto

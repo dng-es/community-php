@@ -57,9 +57,9 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 					<tr>
 					<th width="40px"></th>
 					<th>Título</th>
-					<th></th>
 					<th><span class="fa fa-eye"></span></th>
 					<th><span class="fa fa-comment"></span></th>
+					<th><?php e_strTranslate("Channel");?></th>
 					</tr>
 					<?php foreach($elements as $element):
 						$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
@@ -84,6 +84,7 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 						if ($num_comentarios == 0) echo $num_comentarios;
 						else echo '<a href="admin-blog-foro?id='.$element['id_tema'].'">'.$num_comentarios.'</a>';
 						echo '</td>';
+						echo '<td>'.ucfirst($element['canal']).'</td>';
 						echo '</tr>';   
 					endforeach;?>
 					</table>

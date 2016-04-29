@@ -145,7 +145,7 @@ templateload("addalert", "alerts");
 		<div class="app-sidebar">
 			<div class="panel-interior">
 				<?php echo SearchForm($elements['reg'],"mygroup","searchForm", "Buscar usuario", strTranslate("Search"), "", "", "get");?>
-				<?php if(getModuleExist("na_areas")): ?>
+				<?php if(getModuleExist("alerts")): ?>
 				<h4>
 					<span class="fa-stack fa-sx">
 						<i class="fa fa-circle fa-stack-2x"></i>

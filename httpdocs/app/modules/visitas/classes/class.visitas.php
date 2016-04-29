@@ -16,7 +16,7 @@ class visitas{
 		//tiempo de la ultima visita
 		$id = connection::SelectMaxReg("id","accesscontrol"," AND username='".$username."' AND webpage<>'Inicio sesion' ");
 		$Sql = "UPDATE accesscontrol SET seconds = (TIMESTAMPDIFF(SECOND, fecha, NOW())) WHERE id=".$id;
-		return connection::execute_query($Sql);		  
+		return connection::execute_query($Sql);
 	}
 
 	public static function deleteVisitas(){
@@ -64,5 +64,24 @@ class visitas{
 				JOIN users u ON u.username=a.username WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
+
+	public static function getAccessGroup($filter = ""){
+		$Sql = "SELECT COUNT(webpage) AS ".strTranslate('Visits_title').",empresa_access AS ".strTranslate('Group_user').",nombre_tienda AS ".strTranslate('Name')." 
+				FROM accesscontrol a 
+				INNER JOIN users_tiendas t ON t.cod_tienda=a.empresa_access 
+				WHERE 1=1 AND empresa_access<>'' ".$filter." 
+				GROUP BY empresa_access 
+				ORDER BY ".strTranslate('Visits_title')." DESC,empresa_access"; //echo $Sql;
+		return connection::getSQL($Sql);
+	}
+
+	public static function getAccessNaAreas($filter = ""){
+		$Sql = "SELECT COUNT(webpage) AS ".strTranslate('Visits_title').",area_nombre AS ".strTranslate('Na_areas').",webpage_id FROM accesscontrol a 
+				INNER JOIN na_areas na ON na.id_area=a.webpage_id 
+				WHERE 1=1 AND webpage='areas_det' ".$filter." 
+				GROUP BY webpage_id 
+				ORDER BY ".strTranslate('Visits_title')." DESC,".strTranslate('Na_areas')." "; //echo $Sql;
+		return connection::getSQL($Sql);
+	}	
 }
 ?>

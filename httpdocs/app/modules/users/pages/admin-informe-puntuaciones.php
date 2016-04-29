@@ -10,7 +10,7 @@ $elements = usersPuntuacionesController::getListAction(100);
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"admin"),
-			array("ItemLabel"=>strTranslate("Report")." <b>".strTranslate("APP_points")."</b>", "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Report")." ".strTranslate("APP_points"), "ItemClass"=>"active"),
 		));
 		?>
 		<div class="panel panel-default">
@@ -24,11 +24,11 @@ $elements = usersPuntuacionesController::getListAction(100);
 				<div class="table-responsive">
 					<table class="table">
 						<tr>
-						<th>Usuario</th>
-						<th>Nick</th>
-						<th>Puntos</th>
-						<th>Puntos motivo</th>
-						<th>Fecha</th>
+						<th><?php e_strTranslate("User");?></th>
+						<th><?php e_strTranslate("Nick");?></th>
+						<th><?php echo ucfirst(strTranslate("APP_points"));?></th>
+						<th><?php echo ucfirst(strTranslate("APP_points"));?> motivo</th>
+						<th><?php e_strTranslate("Date");?></th>
 						</tr>
 						<?php foreach($elements['items'] as $element): ?>
 							<tr>

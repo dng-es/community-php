@@ -16,7 +16,7 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
-			array("ItemLabel"=>"Documentación de la tarea <b>".$tarea[0]['tarea_titulo']."</b>", "ItemClass"=>"active"),
+			array("ItemLabel"=>"Documentación de la tarea ".$tarea[0]['tarea_titulo'], "ItemClass"=>"active"),
 		));
 		
 		session::getFlashMessage( 'actions_message' );

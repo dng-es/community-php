@@ -45,6 +45,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 			recompensasController::insertUserRewardAction();
 		endif;
 		$elements = usersController::getItemAction();
+		$foto_user = usersController::getUserFoto($elements[0]['foto']);
 		$estadisticas = usersController::getUserStatistics();
 		?>
 		<div class="panel panel-default">
@@ -68,21 +69,21 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							<input type="hidden" name="level_user" value="3"/>
 							<input type="hidden" id="id_username" name="id_username" value="<?php echo $elements[0]['username'];?>" />
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="username"><small><?php e_strTranslate("Username");?>:</small></label>
 									<input type="text" class="form-big form-control<?php if ($id != "") echo ' TextDisabled" readonly="readonly';?>" id="username" name="username" value="<?php echo $elements[0]['username'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="nick_user"><small><?php e_strTranslate("Nick");?>:</small></label>
 									<input type="text" class="form-control TextDisabled" readonly="readonly" id="nick_user" name="nick_user" value="<?php echo $elements[0]['nick'];?>" />
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="user_password"><small><?php e_strTranslate("Password");?>:</small></label>
 									<input type="text" class="form-control" id="user_password" name="user_password" value="<?php echo $elements[0]['user_password'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="perfil_user"><small><?php e_strTranslate("Profile");?>:</small></label>
 									<select id="perfil_user" name="perfil_user" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
 										<option value="">--<?php e_strTranslate("Choose_profile");?>--</option>
@@ -91,24 +92,24 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="name_user"><small><?php e_strTranslate("Name");?>:</small></label>
 									<input type="text" class="form-control" id="name_user" name="name_user" value="<?php echo $elements[0]['name'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="surname"><small><?php e_strTranslate("Surname");?>:</small></label>
 									<input type="text" class="form-control" name="surname" value="<?php echo $elements[0]['surname'];?>" />
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="canal_user"><small><?php e_strTranslate("Channel");?>:</small></label>
 									<select id="canal_user" name="canal_user" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
 										<option value="">--<?php e_strTranslate("Choose_channel");?>--</option>
 										<?php ComboCanales($elements[0]['canal'], "");?>
 									</select>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="empresa_user"><small><?php e_strTranslate("Group_user");?>:</small></label>
 									<select id="empresa_user" name="empresa_user" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
 										<option value="">--<?php e_strTranslate("Choose_group");?>--</option>
@@ -122,36 +123,36 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="telefono_user"><small>Teléfono:</small></label>
 									<input type="text" class="form-control" name="telefono_user" value="<?php echo $elements[0]['telefono'];?>" />
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6 form-group">
 									<label for="email_user"><small>Email:</small></label>
 									<input type="text" class="form-control" id="email_user" name="email_user" value="<?php echo $elements[0]['email'];?>" data-alert="<?php e_strTranslate("Required_email");?>" />
 								</div>
 							</div>
 							<div class="row inset">
-								<div class="col-md-4">
+								<div class="col-md-4 form-group">
 									<label checkbox-inline>
 										<input type="checkbox" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed'] == 1 ? "checked" : "";?>> <?php e_strTranslate("Confirmed");?>
 									</label>
 								</div>
 
-								<div class="col-md-4">
+								<div class="col-md-4 form-group">
 									<label checkbox-inline>
 										<input type="checkbox" id="registered_user"  name="registered_user" <?php echo $elements[0]['registered'] == 1 ? "checked" : "";?>> <?php e_strTranslate("Registered");?>
 									</label>
 								</div>
 
-								<div class="col-md-4">
+								<div class="col-md-4 form-group">
 									<label checkbox-inline>
 										<input type="checkbox" id="disabled_user"  name="disabled_user" <?php echo $elements[0]['disabled'] == 1 ? "checked" : "";?>> <?php e_strTranslate("Disabled");?>
 									</label>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-12 form-group">
 									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Save_data");?></button>
 								</div>
 							</div>
@@ -162,7 +163,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 						<div class="panel panel-default">
 							<div class="panel-heading"><?php e_strTranslate("Picture");?></div>
 							<div class="panel-body nopadding">
-								<img src="<?php echo PATH_USERS_FOTO.(($elements[0]['foto'] == "") ? "user.jpg" : $elements[0]['foto']);?>" style="width:100%" class="responsive" /><br /><br />
+								<img src="<?php echo $foto_user;?>" style="width:100%" class="responsive" /><br /><br />
 								<?php
 								echo '<div class="btn btn-primary btn-block" id="DeleteFoto" onClick="Confirma(\'¿Seguro que desea borrar la foto del usuario?\',
 									\'admin-user?id='.$elements[0]['username'].'&f='.$elements[0]['foto'].'\')" 

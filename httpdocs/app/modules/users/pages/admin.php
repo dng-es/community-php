@@ -1,9 +1,11 @@
 <?php
 $num_users = number_format(connection::countReg("users", " AND disabled=0 AND registered=1 AND confirmed=1 "), 0, ',', '.');
 $num_empresas = number_format(connection::countReg("users_tiendas", " AND activa=1 "), 0, ',', '.');
-$num_access = number_format(connection::countReg("accesscontrol", " AND webpage<>'Inicio de sesion' "), 0, ',', '.');
+$num_access = number_format(connection::countReg("accesscontrol", " AND webpage<>'Inicio de sesion' AND perfil_access<>'admin' "), 0, ',', '.');
 $num_perfiles = usersController::getPerfilesAction();
 $num_canales = usersCanalesController::getCanalesAction();
+
+templateload("upgrades", "configuration");
 ?>
 
 <div class="row row-top">
@@ -61,6 +63,7 @@ $num_canales = usersCanalesController::getCanalesAction();
 			menu::adminPanels();
 			?>
 		</div>
+		<?php showUpdates();?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

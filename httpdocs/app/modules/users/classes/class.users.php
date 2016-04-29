@@ -270,7 +270,7 @@ class users{
 		return connection::execute_query($Sql);
 	}
 
-	public function perfilUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date, $movil = 0){
+	public function perfilUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date, $user_lan){
 		//verificar si el nick existe, Devolvera: 1->ok, 2-> Error SQL, 3->Nick existe,
 		if (connection::countReg("users"," AND nick='".$nick."' AND username<>'".$username."' ") == 0){
 			$nombre_archivo = "";
@@ -289,6 +289,7 @@ class users{
 					surname='".$user_apellidos."',
 					user_password='".$user_pass."',
 					email='".$user_email."',
+					user_lan='".$user_lan."',
 					".$SqlFoto." 
 					user_comentarios='".$user_comentarios."',
 					user_date=".$user_date." 

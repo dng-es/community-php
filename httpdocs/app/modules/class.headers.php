@@ -63,7 +63,7 @@ class headers{
 		global $paginas_free;?>
 		</head>
 			<body id="page-<?php echo $page;?>">
-			<img alt="fondo" id="bg" src="themes/<?php echo $_SESSION['user_theme'];?>/images/bg.jpg" class="hidden-print" />
+			<img alt="" id="bg" src="themes/<?php echo $_SESSION['user_theme'];?>/images/bg.jpg" class="hidden-print" />
 		<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
 
 				<?php //if (class_exists('globaloptionsController')):	
@@ -99,5 +99,14 @@ class headers{
 					<!-- Mantener todo el contenido de la página dentro del div page-content -->
 		<?php endif;?>
 <?php
+	}
+
+	/**
+	 * Devuelve el titulo de la pagina en la ventana el navegador
+	 * @return string Titulo que se mostrará en la ventana
+	 */
+	private static function getAppTitle(){
+		global $ini_conf, $TITLE_META_PAGE;
+		return (isset( $TITLE_META_PAGE ) ? $ini_conf['SiteTitle']." - ".$TITLE_META_PAGE : $ini_conf['SiteTitle']);
 	}
 }?>

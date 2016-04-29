@@ -1,0 +1,75 @@
+<?php
+/**
+* @Manage shop
+* @author [author] <[email]>
+* @version 1.0
+*
+*/
+
+class shopCore {
+		/**
+	 * Elementos para el menu de usuarios
+	 * @return 	array           			Array con los elementos del menu
+	 */
+	public static function userMenu(){
+		global $session;
+		$array_final = array();
+		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("shopproducts", $_SESSION['user_name']));
+		if ($session->checkPageViewPermission("shopproducts", $_SESSION['user_perfil'], $user_permissions)){
+			array_push($array_final, array("LabelIcon" => "fa fa-shopping-cart",
+							"LabelItem" => strTranslate("APP_Shop"),
+							"LabelUrl" => 'shopproducts',
+							"LabelTarget" => '_self',
+							"LabelPos" => 8));
+		}
+		return $array_final;
+	}
+
+	public static function adminMenu(){
+		return array(
+
+			menu::addAdminMenu(array(
+				"PageName" => "admin-shopproducts",
+				"LabelHeader" => "Modules",
+				"LabelSection" => strTranslate("APP_Shop"),
+				"LabelItem" => strTranslate("Shop_products_list"),
+				"LabelUrl" => "admin-shopproducts",
+				"LabelPos" => 2,
+			)), 
+			menu::addAdminMenu(array(
+				"PageName" => "admin-shopproducts",
+				"LabelHeader" => "Modules",
+				"LabelSection" => strTranslate("APP_Shop"),
+				"LabelItem" => strTranslate("Shop_manufacturers_list"),
+				"LabelUrl" => "admin-shopmanufacturers",
+				"LabelPos" => 1,
+			)),
+			menu::addAdminMenu(array(
+				"PageName" => "admin-shoporders",
+				"LabelHeader" => "Modules",
+				"LabelSection" => strTranslate("APP_Shop"),
+				"LabelItem" => strTranslate("Shop_orders_list"),
+				"LabelUrl" => "admin-shoporders",
+				"LabelPos" => 2,
+			)),			
+			menu::addAdminMenu(array(
+				"PageName" => "admin-creditos",
+				"LabelHeader" => "Tools",
+				"LabelSection" => strTranslate("Users"),
+				"LabelItem" => "Asignacion de ".strTranslate("APP_Credits"),
+				"LabelUrl" => "admin-creditos",
+				"LabelPos" => 4,
+			)),
+
+			menu::addAdminMenu(array(
+				"PageName" => "admin-informe-creditos",
+				"LabelHeader" => "Tools",
+				"LabelSection" => strTranslate("Reports"),
+				"LabelItem" => ucfirst(strTranslate("APP_Credits")),
+				"LabelUrl" => "admin-informe-creditos",
+				"LabelPos" => 3,
+			))
+		);
+	}
+}
+?>

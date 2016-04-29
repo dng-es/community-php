@@ -5,15 +5,17 @@ class pages{
 		return connection::getSQL($Sql);
 	}
 
-	public function insertPage($id, $page_content){
-		$Sql = "INSERT INTO pages (page_name,page_content) 
-			VALUES('".$id."','".$page_content."')";
+	public function insertPage($id, $page_content, $page_menu, $page_title){
+		$Sql = "INSERT INTO pages (page_name,page_content,page_menu, page_title) 
+			VALUES('".$id."','".$page_content."',".$page_menu.", '".$page_title."')";
 		return connection::execute_query($Sql);
 	}
 
-	public function updatePage($id, $page_content){
+	public function updatePage($id, $page_content, $page_menu, $page_title){
 		$Sql = "UPDATE pages SET 
-				page_content='".$page_content."' 
+				page_title='".$page_title."', 
+				page_content='".$page_content."', 
+				page_menu=".$page_menu." 
 				WHERE page_name='".$id."'";
 		return connection::execute_query($Sql);
 	}

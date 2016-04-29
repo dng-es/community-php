@@ -29,37 +29,37 @@ templateload("panels", "videos");
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div class="col-md-12 section panel panel-default">
+				<div class="col-md-12 section panel">
 					<?php panelNovedades();?>
 				</div>
-				<div class="col-md-12 section panel panel-default">
+				<div class="col-md-12 section panel">
 					<?php panelAreas();?>
 				</div>
 
-				<div class="col-md-12 section panel panel-default">
+				<div class="col-md-12 section panel">
 					<?php panelDestacado();?>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="row">
-					<div class="col-md-12 section panel panel-default">
+					<div class="col-md-12 section panel">
 						<?php panelBlog();?>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12 section panel panel-default">
+					<div class="col-md-12 section panel">
 						<?php panelForos();?>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-md-12 section panel pane-default">
+					<div class="col-md-12 section panel">
 						<?php panelFotos();?>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-md-12 section panel panel-default">
+					<div class="col-md-12 section panel">
 						<?php panelVideos();?>
 					</div>
 				</div>

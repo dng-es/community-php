@@ -6,7 +6,7 @@ class alerts{
 	 * @param  string 	$filter 	Filtro SQL
 	 * @return array 				Array con registros
 	 */
-	public function getAlerts($filter = ""){
+	public static  function getAlerts($filter = ""){
 		$Sql="SELECT * FROM alerts WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}   
@@ -43,5 +43,18 @@ class alerts{
 			 WHERE id_alerts=".$id;
 		return connection::execute_query($Sql);
 	}
+
+	/**
+	 * Cambiar estado alertas
+	 * @param  int 		$id 		Id registro a eliminar
+	 * @param  string	$value 		Nuevo valor
+	 * @return boolean 				Resultado de la SQL
+	 */
+	public static function disableAlerts($id,$value = 0){
+		$Sql="UPDATE alerts SET
+			 activa=".$value." 
+			 WHERE id_alert=".$id;
+		return connection::execute_query($Sql);
+	}	
 }
 ?>

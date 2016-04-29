@@ -115,9 +115,12 @@ class usersController{
 												$_POST['user-email'],
 												$_FILES['nombre-fichero'],
 												$comentarios,
-												$_POST['user-date']);
-				if ($confirmar == 1) 
+												$_POST['user-date'],
+												$_POST['user_lan']);
+				if ($confirmar == 1) {
+					$_SESSION['language'] = $_POST['user_lan'];
 					session::setFlashMessage('actions_message', strTranslate("Update_profile_ok"), "alert alert-success");
+				}
 				elseif ($confirmar == 2) 
 					session::setFlashMessage('actions_message', strTranslate("Update_profile_ko"), "alert alert-danger");
 				elseif ($confirmar == 3) 

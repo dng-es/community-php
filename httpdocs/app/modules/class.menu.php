@@ -303,6 +303,7 @@ class menu{
 	 * @param  array 	$elems 		Elementos a mostrar en el breadcrub
 	 */
 	public static function breadcrumb($elems){
+		global $TITLE_META_PAGE;
 		$module_config = getModuleConfig("configuration");
 		if ( $module_config['options']['breadcrumb'] == true){
 			echo '<ol class="breadcrumb hidden-print">';
@@ -313,6 +314,9 @@ class menu{
 						'.(isset($elem["ItemUrl"]) ? '</a>' : '').'
 					</li>';
 			endforeach;
+
+			$TITLE_META_PAGE = ((isset( $TITLE_META_PAGE ) and $TITLE_META_PAGE != '') ? $TITLE_META_PAGE : $elem['ItemLabel']);
+			
 			echo '</ol>';
 		}
 	}
