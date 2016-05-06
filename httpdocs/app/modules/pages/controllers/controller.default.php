@@ -19,8 +19,9 @@ class pagesController{
 			$page_content = stripslashes($_POST['page_content']);
 			$page_title = sanitizeInput($_POST['page_title']);
 			$page_menu = (isset($_POST['page_menu']) and $_POST['page_menu'] == "on") ? 1 : 0;
+			$page_order= (isset($_POST['page_order']) and $_POST['page_order'] != "") ? $_POST['page_order'] : 0;
 
-			if ($pages->insertPage($page_name, $page_content, $page_menu, $page_title)) 
+			if ($pages->insertPage($page_name, $page_content, $page_menu, $page_title, $page_order)) 
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -35,8 +36,9 @@ class pagesController{
 			$page_title = sanitizeInput($_POST['page_title']);
 			$page_content = stripslashes($_POST['page_content']);
 			$page_menu = (isset($_POST['page_menu']) and $_POST['page_menu'] == "on") ? 1 : 0;
+			$page_order= (isset($_POST['page_order']) and $_POST['page_order'] != "") ? $_POST['page_order'] : 0;
 
-			if ($pages->updatePage($_POST['page_name'], $page_content, $page_menu, $page_title))
+			if ($pages->updatePage($_POST['page_name'], $page_content, $page_menu, $page_title, $page_order))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

@@ -1,5 +1,8 @@
 ---
 upgrades:
+    3:  
+        version: 0.5.2.1
+        notes: \nMódulo tienda. Nuevo buscador. \nMódulo Páginas. Nueva opción de menu. \nMódulo Usuarios. Nueva campo en usuarios para idioma por defecto\n\n
     2:  
         version: 0.5.2
         notes: Mejoras accesibilidad. Nuevo modulo de tienda (productos, pedidos, ...)

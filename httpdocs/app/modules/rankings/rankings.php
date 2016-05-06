@@ -10,19 +10,44 @@ class rankingsCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
-	// public static function userMenu(){
-	// 	global $session;
-	// 	$array_final = array();
-	// 	$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("ranking", $_SESSION['user_name']));
-	// 	if ($session->checkPageViewPermission("ranking", $_SESSION['user_perfil'], $user_permissions)){
-	// 		array_push($array_final, array("LabelIcon" => "fa fa-trophy",
-	// 						"LabelItem" => 'Rankings',
-	// 						"LabelUrl" => 'rankings',
-	// 						"LabelTarget" => '_self',
-	// 						"LabelPos" => 8));
-	// 	}
-	// 	return $array_final;
-	// }	
+	public static function userMenu(){
+		global $session;
+		$array_final = array();
+		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("ranking", $_SESSION['user_name']));
+		if ($session->checkPageViewPermission("ranking", $_SESSION['user_perfil'], $user_permissions)){
+			//OBTENCION DE RANKINGS ACTIVOS
+			$rankings_cat_menu = rankingsController::getListCategoryAction(999, " ");
+
+			if ($rankings_cat_menu['total_reg']>0):
+				$i = 2;
+				foreach ($rankings_cat_menu['items'] as $ranking_cat):	
+					
+					$rankings_menu = rankingsController::getListAction(999, " AND activo=1 AND r.id_ranking_category=".$ranking_cat['id_ranking_category']." ");
+					if ($rankings_menu['total_reg']>0):
+						$array_final_items = array();
+						foreach ($rankings_menu['items'] as $ranking):	
+							array_push($array_final_items , array("LabelIcon" => "",
+											"LabelItem" => $ranking['nombre_ranking'],
+											"LabelUrl" => 'rankings?id='.$ranking['id_ranking'],
+											"LabelTarget" => '_self'));
+						endforeach;
+
+						array_push($array_final, array("LabelIcon" => "fa fa-th-list",
+										"LabelItem" => $ranking_cat['ranking_category_name'],
+										"LabelUrl" => '',
+										"LabelTarget" => '',
+										"SubItems" => $array_final_items,
+										"LabelPos" => $i));
+
+						$i++;
+					endif;
+				endforeach;
+			endif;
+
+		}
+
+		return $array_final;		
+	}	
 
 	/**
 	 * Elementos para el menu de administración

@@ -2,8 +2,9 @@
 @import "./libs/font-awesome-4.2.0/font-awesome.scss"; /*font-awesome*/
 @import "./libs/bettertip/jquery.bettertip.scss"; /*jQuery Bettertip*/
 @import "./libs/bootstrap-sass-3.2.0/assets/stylesheets/bootstrap"; /*Bootstrap*/
+@import "./libs/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.scss"; /*bootstrap checkbox*/
 @import "./libs/sweetalert/sweet-alert.scss"; /*Sweet alert*/
-@import "./libs/font-awesome-animation/font-awesome-animation.scss"; /*Bootstrap*/
+@import "./libs/font-awesome-animation/font-awesome-animation.scss"; /*Font awesome animations*/
 
 body{
 	background-color:$body-bg;

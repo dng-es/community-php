@@ -25,7 +25,7 @@ addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact.js")
 					<div class="panel-body">
 						<h4><?php echo $ini_conf['SiteName'];?></h4>
 						<ul class="list-unstyled">
-							<li><?php echo $ini_conf['SiteUrl'];?></li>
+							<li><?php echo preg_replace('#^https?://#', '', $ini_conf['SiteUrl']);?></li>
 							<li><?php echo $ini_conf['ContactEmail'];?></li>
 						</ul>
 					</div>

@@ -46,11 +46,11 @@ $session->AccessLevel($perfiles_autorizados);
 					<?php endif; ?>
 				</ul>
 				
+				<form method="post" name="formRanking" id="formRanking" role="form" enctype="multipart/form-data">
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="general">
 						<div class="inset">
 
-							<form method="post" name="formRanking" id="formRanking" role="form" enctype="multipart/form-data">
 								<input type="hidden" name="id_ranking" id="id_ranking" value="<?php echo $id_ranking;?>" />
 								
 								<div class="row">
@@ -84,12 +84,6 @@ $session->AccessLevel($perfiles_autorizados);
 										</script>
 									</div>
 								</div>
-								<br />
-								<div class="row">
-									<div class="col-md-12">
-										<button class="btn btn-primary" id="SubmitCuestionario" name="SubmitForm" type="submit"><?php e_strTranslate("Save_data");?></button>
-									</div>
-								</div>
 						</div>
 					</div>
 
@@ -104,8 +98,10 @@ $session->AccessLevel($perfiles_autorizados);
 						</div>
 					</div>
 					<?php endif;?>
-					</form>
 				</div>
+				<br />
+				<button class="btn btn-primary" id="SubmitCuestionario" name="SubmitForm" type="submit"><?php e_strTranslate("Save_data");?></button>
+				</form>
 			</div>
 		</div>
 	</div>

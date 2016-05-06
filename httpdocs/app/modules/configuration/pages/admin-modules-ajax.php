@@ -32,11 +32,9 @@ session::ValidateSessionAjax();
 						case 'boolean':
 							?>
 							<div class="col-sm-offset-4 col-sm-8">
-								<div class="checkbox">
-									<label>
-										<input id="<?php echo $element;?>" name="<?php echo $element;?>" type="checkbox" <?php echo ($module_config['options'][$element] === true ? ' checked="checked" ' : ' data-d="no" ');?> /> 
-										<?php echo $element_name;?>
-									</label>
+								<div class="checkbox checkbox-primary">>
+									<input class="styled" id="<?php echo $element;?>" name="<?php echo $element;?>" type="checkbox" <?php echo ($module_config['options'][$element] === true ? ' checked="checked" ' : ' data-d="no" ');?> /> 
+									<label for="<?php echo $element;?>"><?php echo $element_name;?></label>
 								</div>
 							</div>
 

@@ -134,21 +134,24 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							</div>
 							<div class="row inset">
 								<div class="col-md-4 form-group">
-									<label checkbox-inline>
-										<input type="checkbox" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed'] == 1 ? "checked" : "";?>> <?php e_strTranslate("Confirmed");?>
-									</label>
+									<div class="checkbox checkbox-primary">
+										<input type="checkbox" class="styled" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed'] == 1 ? "checked" : "";?>>
+										<label for="confirmed_user"><?php e_strTranslate("Confirmed");?></label>
+									</div>	
 								</div>
 
 								<div class="col-md-4 form-group">
-									<label checkbox-inline>
-										<input type="checkbox" id="registered_user"  name="registered_user" <?php echo $elements[0]['registered'] == 1 ? "checked" : "";?>> <?php e_strTranslate("Registered");?>
-									</label>
+									<div class="checkbox checkbox-primary">
+										<input type="checkbox" class="styled" id="registered_user"  name="registered_user" <?php echo $elements[0]['registered'] == 1 ? "checked" : "";?>>
+										<label for="registered_user"><?php e_strTranslate("Registered");?></label>
+									</div>
 								</div>
 
 								<div class="col-md-4 form-group">
-									<label checkbox-inline>
-										<input type="checkbox" id="disabled_user"  name="disabled_user" <?php echo $elements[0]['disabled'] == 1 ? "checked" : "";?>> <?php e_strTranslate("Disabled");?>
-									</label>
+									<div class="checkbox checkbox-primary">
+										<input type="checkbox" class="styled" id="disabled_user"  name="disabled_user" <?php echo $elements[0]['disabled'] == 1 ? "checked" : "";?>>
+										<label for="disabled_user"><?php e_strTranslate("Disabled");?></label>
+									</div>
 								</div>
 							</div>
 							<div class="row">

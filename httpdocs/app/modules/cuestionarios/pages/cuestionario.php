@@ -53,7 +53,10 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 					foreach($respuestas as $respuesta):
 						if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']){$seleccionado='checked="checked"';}
 						else {$seleccionado="";}
-						echo '<input '.$seleccionado.' type="radio" id="respuesta_'.$element['id_pregunta'].'" name="respuesta_'.$respuesta['id_pregunta'].'" value="'.$respuesta['respuesta_texto'].'" /> '.$respuesta['respuesta_texto']."<br />";
+						echo '<div class="radio radio-primary">
+								<input '.$seleccionado.' type="radio" id="respuesta_'.$element['id_pregunta'].'" name="respuesta_'.$respuesta['id_pregunta'].'" value="'.$respuesta['respuesta_texto'].'" />
+								<label>'.$respuesta['respuesta_texto']."</label>
+							</div>";
 					endforeach;
 				}
 				elseif ($element['pregunta_tipo'] == 'multiple'){
@@ -62,7 +65,10 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 					foreach($respuestas as $respuesta):
 						if (in_array($respuesta['respuesta_texto'],$respuesta_multiple)) $seleccionado='checked="checked"';
 						else $seleccionado = "";
-						echo '<input '.$seleccionado.' class="formTareaCheck" type="checkbox" id="respuesta_'.$element['id_pregunta'].'_'.$respuesta['id_respuesta'].'" name="respuesta_'.$element['id_pregunta'].'_'.$respuesta['id_respuesta'].'" value="'.$respuesta['respuesta_texto'].'" /> '.$respuesta['respuesta_texto']."<br />";
+						echo '<div class="checkbox checkbox-primary">
+								<input class="styled" '.$seleccionado.' class="formTareaCheck" type="checkbox" id="respuesta_'.$element['id_pregunta'].'_'.$respuesta['id_respuesta'].'" name="respuesta_'.$element['id_pregunta'].'_'.$respuesta['id_respuesta'].'" value="'.$respuesta['respuesta_texto'].'" />
+								<label>'.$respuesta['respuesta_texto']."</label>
+							</div>";
 					endforeach;
 				}
 				echo '</div>';

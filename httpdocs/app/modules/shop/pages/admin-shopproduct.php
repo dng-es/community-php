@@ -89,9 +89,10 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 							</div>
 							<div class="form-group col-md-4">
 								<br />
-								<label checkbox-inline>
-									<input type="checkbox" id="important_product"  name="important_product" <?php echo $element['important_product'] == 1 ? "checked" : "";?>> Destacado
-								</label>
+									<div class="checkbox checkbox-primary">
+										<input class="styled" type="checkbox" id="important_product"  name="important_product" <?php echo $element['important_product'] == 1 ? "checked" : "";?>> 
+										<label for="important_product">Destacado</label>
+									</div>
 							</div>
 
 							<div class="form-group col-md-12">

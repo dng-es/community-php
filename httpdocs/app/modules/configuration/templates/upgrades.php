@@ -6,11 +6,12 @@ function showUpdates(){
 		$upgrade_notes = readYml($file);
 		?>
 		<h3>Control de versiones</h3>
+		<ul>
 		<?php foreach($upgrade_notes['upgrades'] as $upgrade_note): ?>
-		<p>
+		<li>
 			<span class="text-primary">Version: <?php echo $upgrade_note['version'];?></span> 
-			<small><?php echo $upgrade_note['notes'];?></small>
-		</p>
+			<small><?php echo nl2br($upgrade_note['notes']);?></small>
+		</li>
 		<?php endforeach;?>
 	<?php else:
 	echo "No es file";

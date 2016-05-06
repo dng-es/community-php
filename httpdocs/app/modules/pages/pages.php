@@ -6,18 +6,6 @@
 *
 */
 class pagesCore{
-	public static function userMenu(){
-		global $session;
-		$array_final = array();
-
-		array_push($array_final, array("LabelIcon" => "fa fa-shopping-cart",
-						"LabelItem" => "Trofeos",
-						"LabelUrl" => 'pagename?id=trofeos',
-						"LabelTarget" => '_self',
-						"LabelPos" => 4));
-
-		return $array_final;
-	}
 
 	/**
 	 * Elementos para el menu de administración

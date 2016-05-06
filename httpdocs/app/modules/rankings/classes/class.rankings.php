@@ -101,7 +101,7 @@ class rankings{
 	 */
 	public function insertRankingsData( $id_ranking, $cod_tienda, $value_ranking ){
 		$Sql = "INSERT INTO users_tiendas_rankings_data (id_ranking, cod_tienda, value_ranking) 
-				VALUES (".$id_ranking.",'".$cod_tienda."','".$value_ranking."')";
+				VALUES (".$id_ranking.",'".$cod_tienda."','".$value_ranking."')"; //echo $Sql."<br />";
 		return connection::execute_query($Sql);
 	}
 

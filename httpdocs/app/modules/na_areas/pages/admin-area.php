@@ -118,9 +118,10 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 
 								<div class="form-group col-md-4">
 									<br />
-									<label checkbox-inline>
-										<input type="checkbox" id="area_registro"  name="area_registro" <?php echo $registro == 1 ? "checked" : "";?>> <small>Permitir registro</small>
-									</label>
+									<div class="checkbox checkbox-primary">
+										<input type="checkbox" class="styled" id="area_registro"  name="area_registro" <?php echo $registro == 1 ? "checked" : "";?>>
+										<label for="area_registro">Permitir registro</label>
+									</div>
 								</div>
 							</div>
 							
@@ -411,17 +412,15 @@ function showTareasArea($id_area){
 
 					<div class="row nopadding">
 						<div class="col-md-6 nopadding">
-							<div class="radio">
-								<label>
-									<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> <?php e_strTranslate("Form");?>
-								</label>
+							<div class="radio radio-primary">
+								<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> 
+								<label><?php e_strTranslate("Form");?></label>
 							</div>
 						</div>
 						<div class="col-md-6 nopadding">
-							<div class="radio">
-								<label>
-									<input type="radio" id="tipo" name="tipo" value="fichero" /> <?php e_strTranslate("File");?>
-								</label>
+							<div class="radio radio-primary">
+								<input type="radio" id="tipo" name="tipo" value="fichero" />
+								<label><?php e_strTranslate("File");?></label>
 							</div>
 						</div>
 					</div>
@@ -443,10 +442,9 @@ function showTareasArea($id_area){
 					<span class="text-muted"><small>Recompensa que recibirá el usuario el aprobar el curso</small></span></label>
 					<?php comboRecompensas(0, "", "id_recompensa");?>
 					<?php endif; ?>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" name="tarea_grupo"  id="tarea_grupo"> Tarea de grupos
-						</label>
+					<div class="checkbox checkbox-primary">
+						<input class="styled" type="checkbox" name="tarea_grupo"  id="tarea_grupo">
+						<label for="tarea_grupo"> Tarea de grupos</label>
 					</div>
 
 

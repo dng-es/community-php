@@ -18,8 +18,9 @@ $historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id
         <?php
         menu::breadcrumb(array(
             array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
-            array("ItemLabel"=>strTranslate("APP_Shop"), "ItemUrl"=>"shopproducts"),
-            array("ItemLabel"=> "Realizar pedido", "ItemClass"=>"active"),
+            array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
+            array("ItemLabel"=>strTranslate("Shop_orders_list"), "ItemUrl"=>"admin-shoporders"),
+            array("ItemLabel"=> "Datos del pedido", "ItemClass"=>"active"),
         ));
         if (isset($elements['items'][0])):
             $element = $elements['items'][0];?>

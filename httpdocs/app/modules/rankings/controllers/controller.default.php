@@ -54,7 +54,7 @@ class rankingsController{
 			$descripcion = stripslashes($_POST['descripcion']);
 			$id_ranking_category = $_POST['id_ranking_category'];
 
-			if ($rankings->insertRankings($nombre, $descripcion, $id_ranking_category)) {
+			if ($rankings->insertRankings($nombre, $descripcion, 0, $id_ranking_category)) {
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_ranking = connection::SelectMaxReg("id_ranking", "users_tiendas_rankings");
 			}
@@ -121,7 +121,8 @@ class rankingsController{
 	}
 
 	public static function uploadRankingData($id_ranking){
-		if (isset($_FILES['fichero']['name']) and $_FILES['fichero']['name'] != ""){
+		if (isset($_FILES['fichero']) and $_FILES['fichero']['name'] != ""){
+
 			//primero borramos los datos existentes
 			$rankings = new rankings();
 			$rankings->deleteRankingsData(" id_ranking=".$id_ranking);

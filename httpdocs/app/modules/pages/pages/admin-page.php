@@ -1,6 +1,7 @@
 <?php
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
+					 "js/jquery.numeric.js", 
 					 getAsset("pages")."js/admin-page.js"));
 ?>
 <div class="row row-top">
@@ -40,11 +41,20 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 						<input type="text" name="page_title" id ="page_title" class="form-control" value="<?php echo $page_title;?>" />
 					</div>
 
-					<div class="form-group">
-						<label checkbox-inline>
-							<input type="checkbox" id="page_menu"  name="page_menu" <?php echo $page_menu == 1 ? "checked" : "";?>> Menu
-						</label>
+					<div class="row">
+						<div class="form-group col-md-9">
+							<div class="checkbox checkbox-primary pull-right">
+								<input class="styled" type="checkbox" id="page_menu"  name="page_menu" <?php echo $page_menu == 1 ? "checked" : "";?>>
+								<label for="page_menu">Menu</label>
+							</div>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="page_order">Orden en el menú</label>
+							<input type="text" name="page_order" id ="page_order" class="form-control numeric" value="<?php echo $page_order;?>" />
+						</div>
+			
 					</div>
+					
 					<?php
 						if ($page_name != ""){
 							echo '<p>URL: <a href="'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'</a></p>';
