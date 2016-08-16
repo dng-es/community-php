@@ -149,13 +149,12 @@ function ShowForm(){
 
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
-					<div class="checkbox">
-						<label>
-							<input id="user-declaracion" name="user-declaracion" type="checkbox" value="1" /> <?php e_strTranslate("Acept");?> 
-							<a href="#" id="declaracion-trigger"><?php e_strTranslate("Terms_and_conditions");?></a>
-						</label>
-						<span id="user-declaracion-alert" class="alert-message alert alert-danger"></span>
+					<div class="checkbox checkbox-primary">
+						<input type="checkbox" class="styled" id="user-declaracion"  name="user-declaracion">
+						<label for="confirmed_user"> <?php e_strTranslate("Acept");?> 
+							<a href="#" id="declaracion-trigger"><?php e_strTranslate("Terms_and_conditions");?></a></label>
 					</div>
+					<span id="user-declaracion-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
 

@@ -1,5 +1,4 @@
 <?php
-
 templateload("gallery","fotos");
 templateload("addfile","fotos");
 templateload("searchfile","fotos");
@@ -19,9 +18,8 @@ addJavascripts(array("js/bootstrap.file-input.js",
 		session::getFlashMessage( 'actions_message' );
 		fotosController::voteAction();
 		fotosController::createAction();
-		//$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
-		$filtro_canal = "";
-		$albums = fotosAlbumController::getListAction(100, $filtro_canal." AND activo=1 ORDER BY nombre_album ");
+		$filtro_canal_fotos = ($_SESSION['user_canal'] == 'admin' ? "" : " AND canal='".$_SESSION['user_canal']."' ");
+		$albums = fotosAlbumController::getListAction(100, " AND activo=1 ORDER BY nombre_album ");
 		?>
 		<section id="photos">
 
@@ -44,7 +42,11 @@ addJavascripts(array("js/bootstrap.file-input.js",
 			</h4>
 			<ul class="lista-lateral">
 			<?php foreach($albums['items'] as $album): ?>
-				<li><a href="fotos?id=<?php echo $album['id_album'];?>"><?php echo $album['nombre_album'];?></a></li>
+				<?php 
+				$num_fotos = connection::countReg("galeria_fotos",$filtro_canal_fotos." AND estado=1 AND id_album=".$album['id_album']." ");
+				if($num_fotos > 0): ?>
+				<li><a href="fotos?id=<?php echo $album['id_album'];?>"><?php echo $album['nombre_album'];?> <span class="badge"><?php echo $num_fotos;?></span></a></li>
+				<?php endif;?>
 			<?php endforeach;?>
 			</ul>
 		</div>

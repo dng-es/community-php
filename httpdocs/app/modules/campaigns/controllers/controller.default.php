@@ -43,11 +43,12 @@ class campaignsController{
 			$desc_campaign = str_replace("'", "´", $_POST['desc_campaign']);
 			$id_type = $_POST['id_type'];
 			$novedad = ($_POST['novedad'] == 'on') ? 1 : 0;
+			$canal_campaign = sanitizeInput($_POST['canal_campaign']);
 
 			$imagen_mini = uploadFileToFolder($_FILES['nombre-fichero'], "images/banners/");
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");
 
-			if ($campaigns->insertCampaigns($name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad)) {
+			if ($campaigns->insertCampaigns($name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad, $canal_campaign)) {
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_campaign = connection::SelectMaxReg("id_campaign","campaigns","");
 			}
@@ -66,11 +67,12 @@ class campaignsController{
 			$desc_campaign = str_replace("'", "´", $_POST['desc_campaign']);
 			$id_type = $_POST['id_type'];
 			$novedad = ($_POST['novedad'] == 'on') ? 1 : 0;
+			$canal_campaign = sanitizeInput($_POST['canal_campaign']);
 
 			$imagen_mini = uploadFileToFolder($_FILES['nombre-fichero'], "images/banners/");
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");		
 
-			if ($campaigns->updateCampaigns($id_campaign, $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad)) 
+			if ($campaigns->updateCampaigns($id_campaign, $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad, $canal_campaign)) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

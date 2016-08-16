@@ -2,3 +2,5 @@
 options:
     allow_uploads: true
     allow_comments: true
+    show_user_menu: true
+    user_menu_position: 3

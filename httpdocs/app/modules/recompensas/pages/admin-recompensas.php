@@ -1,8 +1,4 @@
 <?php
-
-
-
-
 session::getFlashMessage( 'actions_message' );
 $elements = recompensasController::getListAction(35);
 ?>
@@ -33,8 +29,8 @@ $elements = recompensasController::getListAction(35);
 						<?php foreach($elements['items'] as $element):?>
 							<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-recompensa?id=<?php echo $element['id_recompensa'];?>'">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-recompensa?id=<?php echo $element['id_recompensa'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
 							<td><?php echo $element['recompensa_name'];?></td>
 							<td><img src="<?php echo PATH_REWARDS.$element['recompensa_image'];?>" width="25px" /></td>

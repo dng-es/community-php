@@ -36,9 +36,8 @@ session::AccessLevel($perfiles_autorizados);
 						?>
 						<tr>
 						<td nowrap="nowrap">
-							<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>"
-								onClick="location.href='admin-rankings-category?id=<?php echo $element['id_ranking_category'];?>'">
-							</span>
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-rankings-category?id=<?php echo $element['id_ranking_category'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+							</button>
 						</td>
 						<td><?php echo $element['ranking_category_name'];?></td>
 						<td><?php echo $num_rankings;?></td>

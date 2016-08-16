@@ -30,10 +30,10 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 					 	<?php foreach($elements['items'] as $element):
 							echo '<tr>';
 							echo '<td nowrap="nowrap">
-									<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'" 
+									<button type="button" class="btn btn-default btn-xs" title="'.strTranslate("Delete").'" 
 										onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'?\',
-										\'admin-validacion-muro?act=muro_ko&id='.$element['id_comentario'].'&pag='.(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1).'&u='.$element['user_comentario'].'\')">
-									</span>
+										\'admin-validacion-muro?act=muro_ko&id='.$element['id_comentario'].'&pag='.(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1).'&u='.$element['user_comentario'].'\'); return false;"><i class="fa fa-trash icon-table"></i>
+									</button>
 								</td>';
 							echo '<td>'.$element['id_comentario'].'</td>';
 							echo '<td>

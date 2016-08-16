@@ -1,4 +1,5 @@
 <?php
 News = "News"
-News_update = "Update news"
+News_list = "News list"
+News_new = "New"
 ?>

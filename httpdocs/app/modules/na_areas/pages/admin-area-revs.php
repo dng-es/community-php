@@ -1,4 +1,10 @@
 <?php
+$base_dir = str_replace('modules/na_areas/pages', '', realpath(dirname(__FILE__))) ;
+include_once($base_dir . "modules/class.headers.php");
+include_once($base_dir . "modules/pages/classes/class.pages.php");
+if(file_exists($base_dir . "modules/recompensas/classes/class.recompensas.php")) include_once($base_dir . "modules/recompensas/classes/class.recompensas.php");
+include_once($base_dir . "modules/class.footer.php");
+
 //VALIDAR REVISIONES FORMULARIOS
 if ( isset($_POST['id_tarea_rev']) and $_POST['id_tarea_rev']!='' ) na_areasController::RevisarFormAction();
 

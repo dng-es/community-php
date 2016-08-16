@@ -31,18 +31,17 @@
 						$num_fotos = connection::countReg("galeria_fotos", "AND estado=1 AND id_album=".$element['id_album']." "); ?>
 						<tr>
 						<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>"
-									onClick="location.href='admin-albumes-new?act=edit&id=<?php echo $element['id_album'];?>'">
-								</span>
+							<button type="button" class="btn btn-default btn-xs" title="<?php echo strTranslate("Delete");?>" onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>','admin-albumes?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_album'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+							</button>
 
-								<a href="admin-albumes?export=true&id=<?php echo $element['id_album'];?>" class="fa fa-download icon-table" title="<?php e_strTranslate("Download");?>"></a>
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>"
+								onClick="location.href='admin-albumes-new?act=edit&id=<?php echo $element['id_album'];?>'"><i class="fa fa-edit icon-table"></i>
+							</button>
+
+							<button type="button" class="btn btn-default btn-xs"><a href="admin-albumes?export=true&id=<?php echo $element['id_album'];?>" class="fa fa-download icon-table" title="<?php e_strTranslate("Download");?>"></a></button>
 								
+						</td>
 						<?php	
-						echo '		<span class="fa fa-ban icon-table" title="'.strTranslate("Delete").'"
-									onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',
-									\'admin-albumes?pag='.$elements['pag'].'&act=del&id='.$element['id_album'].'\')">
-								</span>
-							 </td>';
 									
 						echo '<td>'.$element['nombre_album'];
 						echo '<br /><em class="text-muted"><small>'.getDateFormat($element['date_album'], "LONG").'</small></em>';

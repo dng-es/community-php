@@ -22,9 +22,9 @@ class campaigns{
 	 * @param  string	$imagen_big 		Nombre del archivo de la imagen big
 	 * @return boolean 						Resultado de la SQL
 	 */
-	public function insertCampaigns( $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad){		
-		$Sql = "INSERT INTO campaigns (name_campaign,desc_campaign, id_campaign_type, imagen_mini, imagen_big, novedad) 
-				VALUES ('".$name_campaign."','".$desc_campaign."',".$id_type.",'".$imagen_mini."','".$imagen_big."',".$novedad.")";
+	public function insertCampaigns( $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad, $canal_campaign){		
+		$Sql = "INSERT INTO campaigns (name_campaign,desc_campaign, id_campaign_type, imagen_mini, imagen_big, novedad, canal_campaign) 
+				VALUES ('".$name_campaign."','".$desc_campaign."',".$id_type.",'".$imagen_mini."','".$imagen_big."',".$novedad.",'".$canal_campaign."')";
 		return connection::execute_query($Sql);
 	}
 
@@ -49,13 +49,14 @@ class campaigns{
 	 * @param  int 		$novedad 			Indica si es novedad-> 1:si ; 2:no
 	 * @return boolean 						Resultado de la SQL
 	 */
-	public function updateCampaigns($id, $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad){
+	public function updateCampaigns($id, $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad, $canal_campaign){
 		$Sql_file_mini = ($imagen_mini == "") ? "" : ", imagen_mini='".$imagen_mini."' ";
 		$Sql_file_big = ($imagen_big == "") ? "" : ", imagen_big='".$imagen_big."' ";
 		$Sql = "UPDATE campaigns SET
 				id_campaign_type=".$id_type.",
 				novedad=".$novedad.",
 				name_campaign='".$name_campaign."',
+				canal_campaign='".$canal_campaign."',
 				desc_campaign='".$desc_campaign."' 
 				".$Sql_file_mini."
 				".$Sql_file_big."

@@ -2,7 +2,7 @@
 /**
 * @Libreria de archivos descargables para el usuario. Depende del modulo campaigns
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.1.1
+* @version 1.2
 *
 */	
 class infoCore{
@@ -10,7 +10,7 @@ class infoCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-info-all", $_SESSION['user_name']));
@@ -27,7 +27,7 @@ class infoCore{
 							"LabelItem" => strTranslate("Info_Documents").$alerts_text,
 							"LabelUrl" => 'info-all',
 							"LabelTarget" => '_self',
-							"LabelPos" => 1));
+							"LabelPos" => $menu_order));
 		}
 
 		return $array_final;

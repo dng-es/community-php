@@ -18,19 +18,24 @@ global $modules_data;
 
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<p><?php e_strTranslate("Modules_installed");?></p><br />
-				<div class="table-responsive">
-					<table class="table table-striped table-hover">
-						<?php foreach($modules as $module):
+				<h2><?php e_strTranslate("Modules_installed");?></h2>
+				<div class="">
+					<?php foreach($modules as $module): ?>
+						<div class="config-section panel panel-default">
+							<?php 
 							$module_config = getModuleConfig($module['folder']);
 							$key = array_search($module['folder'], arraycolumn($modules_data, 'name'));
-							echo '<tr>
-							<td><h4>'.strTranslate(ucfirst($module['folder'])).'</h4></td>
-							<td class="legend">'.$module['ann'].'</td>
-							<td>'.(isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger btn btn-default btn-xs" href="#" title="'.strTranslate("Configuration").'"><small>'.strTranslate("Configuration").'</small>&nbsp;<i class="fa fa-gear"></i></a>' : '').'</td>
-							</tr>';
-						endforeach; ?>
-					</table>
+							?>
+							<div class="panel-heading">
+								<h3 class="panel-title"><?php echo strTranslate(ucfirst($module['folder']));?> <small><i data-html="true" class="pull-right user-tip fa fa-info-circle text-muted" title="<?php echo str_replace('"', '\'', $module['ann']);?>"></i></small>
+								</h3>
+							</div>
+							<div class="panel-footer" style="height:40px">&nbsp;
+							<?php
+							echo (isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger btn btn-default btn-xs pull-right" href="#" title="'.strTranslate("Configuration").'"><small>'.strTranslate("Configuration").'</small>&nbsp;<i class="fa fa-gear"></i></a>' : '').'';?>
+							</div>
+						</div>
+					<?php endforeach; ?>
 				</div>
 			</div>
 		</div>

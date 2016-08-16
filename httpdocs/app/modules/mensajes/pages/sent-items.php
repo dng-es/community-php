@@ -27,8 +27,9 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 					<?php foreach($elements['items'] as $mensaje): ?>
 						<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo MensajeLeido">
 							<td nowrap="nowrap" valign="top">
-								<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'sent-items?act=ko&id=<?php echo $mensaje['id_mensaje'];?>')" title="<?php echo  strTranslate("Delete");?>"></span>
-								<span class="fa fa-reply icon-table message-forward" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php e_strTranslate("Forward");?>"></span>			
+								<button type="button" class="btn btn-default btn-xs" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'sent-items?act=ko&id=<?php echo $mensaje['id_mensaje'];?>'); return false;" title="<?php echo  strTranslate("Delete");?>"><i class="fa fa-trash icon-table"></i></button>
+
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Forward");?>"><i class="fa fa-reply icon-table message-forward" data-id="<?php echo $mensaje['id_mensaje'];?>"></i></button>		
 							</td>
 							<td valign="top" nowrap="nowrap"><span id="leidoMensajeNick<?php echo $mensaje['id_mensaje'];?>"><span id="message-nick-<?php echo $mensaje['id_mensaje'];?>"><?php echo $mensaje['nick'];?></span></span></td>
 							<td width="100%" valign="top">

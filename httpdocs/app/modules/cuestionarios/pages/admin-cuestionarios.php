@@ -33,22 +33,25 @@
 					<?php foreach($elements['items'] as $element): ?>
 						<tr>
 						<td nowrap="nowrap">
-							<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>"
-								onClick="location.href='admin-cuestionario?id=<?php echo $element['id_cuestionario'];?>'">
-							</span>
-							<span class="fa fa-check icon-table" title="<?php e_strTranslate("Reviews");?>"
-								onClick="location.href='admin-cuestionario-revs?id=<?php echo $element['id_cuestionario'];?>'">
-							</span>
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+								onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-cuestionarios?act=del&e=2&id=<?php echo $element['id_cuestionario'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+							</button>
 
-							<span class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
-								onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-cuestionarios?act=del&e=2&id=<?php echo $element['id_cuestionario'];?>')">
-							</span>
-							<a title="<?php e_strTranslate("Show");?>" target="_blank" href="cuestionario?id=<?php echo $element['id_cuestionario'];?>">
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>"
+								onClick="location.href='admin-cuestionario?id=<?php echo $element['id_cuestionario'];?>'"><i class="fa fa-edit icon-table"></i>
+							</button>
+							
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Reviews");?>"
+								onClick="location.href='admin-cuestionario-revs?id=<?php echo $element['id_cuestionario'];?>'; return false"><i class="fa fa-check icon-table"></i>
+							</button>
+
+							<button type="button" class="btn btn-default btn-xs"><a title="<?php e_strTranslate("Show");?>" target="_blank" href="cuestionario?id=<?php echo $element['id_cuestionario'];?>">
 								<i class="fa fa-share icon-table"></i>
 							</a>
-							<span class="fa fa-copy icon-table" title="<?php e_strTranslate("Clone_item");?>"
-								onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_clone");?>', 'admin-cuestionarios?act=clone&id=<?php echo $element['id_cuestionario'];?>')">
-							</span>
+							</button>
+
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Clone_item");?>" onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_clone");?>', 'admin-cuestionarios?act=clone&id=<?php echo $element['id_cuestionario'];?>'); return false"><i class="fa fa-copy icon-table"></i>
+							</button>
 						</td>
 						<td><?php echo $element['nombre'];?>
 						<br /><em class="text-muted"><small><?php echo getDateFormat($element['date_tarea'], "LONG");?></small></em></td>

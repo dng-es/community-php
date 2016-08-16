@@ -59,7 +59,7 @@ class fotosCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("fotos", $_SESSION['user_name']));
@@ -68,7 +68,7 @@ class fotosCore{
 							"LabelItem" => strTranslate("Photos"),
 							"LabelUrl" => 'fotos',
 							"LabelTarget" => '_self',
-							"LabelPos" => 3));
+							"LabelPos" => $menu_order));
 		}
 		return $array_final;
 	}

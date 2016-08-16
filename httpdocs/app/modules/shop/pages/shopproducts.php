@@ -11,13 +11,16 @@ if (isset($_REQUEST['manufacturer_search'])) $filtro .= " AND name_manufacturer 
 if (isset($_REQUEST['category_search'])) $filtro .= " AND category_product LIKE '%".$_REQUEST['category_search']."%' ";
 if (isset($_REQUEST['subcategory_search'])) $filtro .= " AND subcategory_product LIKE '%".$_REQUEST['subcategory_search']."%' ";
 
-$filtro .= " ORDER BY important_product DESC, price_product ASC, name_product ASC";
+$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND (canal_product='".$_SESSION['user_canal']."' OR canal_product='') " : "");
+$filtro .= $filtro_canal." ORDER BY important_product DESC, price_product ASC, name_product ASC";
 
 session::getFlashMessage( 'actions_message' );
 $elements = shopProductsController::getListAction(15, $filtro);
 
 //obtener datos del usuario
 $user_detail = usersController::getPerfilAction($_SESSION['user_name']);
+
+$module_config = getModuleConfig("shop");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -45,23 +48,30 @@ $user_detail = usersController::getPerfilAction($_SESSION['user_name']);
 						<img src="images/shop/<?php echo $element['image_product'];?>" />
 					</a>
 					<div class="description"><?php echo shortText(html_entity_decode(strip_tags($element['description_product'])), 50);?></div>
-					<div class="ver-mas"><a href="shopproduct?id=<?php echo $element['id_product'];?>">ver más</a></div>
 					<div <?php echo ($element['important_product'] == 0 ? 'style="visibility:hidden"' : "");?>>
 					<div class="label label-danger" >Producto destacado</div>
 					</div>
 					
-					<?php if($element['stock_product'] <= 0):?>
-					<div class="stock label label-danger">Quedan <?php echo $element['stock_product'];?> und.</div>
-					<?php else:?>
-					<div class="stock label label-warning">Quedan <?php echo $element['stock_product'];?> und.</div>
+					<?php if($module_config['options']['show_stock']):?>
+						<?php if($element['stock_product'] <= 0):?>
+						<div class="stock label label-danger">Quedan <?php echo $element['stock_product'];?> und.</div>
+						<?php else:?>
+						<div class="stock label label-warning">Quedan <?php echo $element['stock_product'];?> und.</div>
+						<?php endif;?>
+						<br />
 					<?php endif;?>
-					<br />
-					<?php if($element['price_product'] > $user_detail['creditos']):?>
-					<div class="price label label-danger"><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></div>
-					<?php else:?>
-					<div class="price label label-info"><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></div>
+
+					<?php if($module_config['options']['show_price']):?>
+						<?php if($element['price_product'] > $user_detail['creditos']):?>
+						<div class="price label label-danger"><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></div>
+						<?php else:?>
+						<div class="price label label-info"><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></div>
+						<?php endif;?>
 					<?php endif;?>
-					<a href="shopproductorder?id=<?php echo $element['id_product'];?>" class="btn-order btn btn-primary btn-block <?php echo $card_disabled;?>"><?php echo $card_text;?></a>
+
+					<?php if($module_config['options']['show_buybutton']):?>
+						<a href="shopproductorder?id=<?php echo $element['id_product'];?>" class="btn-order btn btn-primary btn-block <?php echo $card_disabled;?>"><?php echo $card_text;?></a>
+					<?php endif;?>
 				</div>
 		<?php endforeach; ?>
 

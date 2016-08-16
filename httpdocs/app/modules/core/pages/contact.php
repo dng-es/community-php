@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace('modules/core/pages', '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/core/pages' : 'modules\\core\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "modules/class.headers.php");
 include_once($base_dir . "modules/blog/classes/class.blog.php");
 include_once($base_dir . "modules/blog/controllers/controller.default.php");

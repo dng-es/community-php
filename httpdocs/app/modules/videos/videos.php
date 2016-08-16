@@ -43,7 +43,7 @@ class videosCore{
 		);
 	}
 
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		$array_final = array();
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("video", $_SESSION['user_name']));
@@ -53,7 +53,7 @@ class videosCore{
 						"LabelItem" => strTranslate("Videos"),
 						"LabelUrl" => 'videos',
 						"LabelTarget" => '_self',
-						"LabelPos" => 2));
+						"LabelPos" => $menu_order));
 		}
 
 		return $array_final;

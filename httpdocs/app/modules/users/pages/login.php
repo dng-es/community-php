@@ -3,6 +3,7 @@ usersController::loginRedirectAction();
 addJavascripts(array(getAsset("users")."js/login.js"));
 session::getFlashMessage('actions_message');
 $module_config = getModuleConfig("users");
+
 ?>
 <div class="row" id="login-container-deg">
 	<div class="col-md-5">

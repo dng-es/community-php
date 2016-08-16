@@ -42,13 +42,21 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 								<input type="text" name="ref_product" id ="ref_product" class="form-control" value="<?php echo $element['ref_product'];?>" />
 							</div>
 
-							<div class="form-group col-md-9">
+							<div class="form-group col-md-5">
 								<label for="id_manufacturer"><?php e_strTranslate("Shop_manufacturer");?></label>
 								<select data-alert="<?php echo strTranslate("Required_field");?>" name="id_manufacturer" id ="id_manufacturer" class="form-control">
 									<option value="">---Selecciona el <?php e_strTranslate("Shop_manufacturer");?>---</option>
 									<?php foreach($manufacturers['items'] as $manufacturer):?>
 										<option value="<?php echo $manufacturer['id_manufacturer'];?>" <?php echo ($element['id_manufacturer'] == $manufacturer['id_manufacturer'] ? ' selected="selected" ' : '');?>><?php echo $manufacturer['name_manufacturer'];?></option>
 									<?php endforeach;?>
+								</select>
+							</div>
+
+							<div class="form-group col-md-4">
+								<label for="canal_product"><?php e_strTranslate("Channel");?>:</label>
+								<select id="canal_product" name="canal_product" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
+									<option value="">--Todos los canales--</option>
+									<?php ComboCanales($element['canal_product']);?>
 								</select>
 							</div>
 

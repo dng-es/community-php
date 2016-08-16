@@ -2,7 +2,7 @@
 /**
 * @Configuration app module
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.1.2
+* @version 1.2
 */	
 class configurationCore{
 	/**

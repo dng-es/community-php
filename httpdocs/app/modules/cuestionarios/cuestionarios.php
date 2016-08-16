@@ -1,7 +1,7 @@
 <?php
 /**
 * @Manage cuestionarios
-* @author David Noguera Gutierrez
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0
 *
 */
@@ -38,7 +38,7 @@ class cuestionariosCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("cuestionario", $_SESSION['user_name']));
@@ -60,7 +60,7 @@ class cuestionariosCore{
 								"LabelUrl" => '',
 								"LabelTarget" => '',
 								"SubItems" => $array_final_items,
-								"LabelPos" => 2));
+								"LabelPos" => $menu_order));
 			endif;
 
 		}

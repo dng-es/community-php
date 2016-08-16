@@ -124,7 +124,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							</div>
 							<div class="row">
 								<div class="col-md-6 form-group">
-									<label for="telefono_user"><small>Teléfono:</small></label>
+									<label for="telefono_user"><small><?php e_strTranslate("Telephone");?>:</small></label>
 									<input type="text" class="form-control" name="telefono_user" value="<?php echo $elements[0]['telefono'];?>" />
 								</div>
 								<div class="col-md-6 form-group">
@@ -132,6 +132,32 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<input type="text" class="form-control" id="email_user" name="email_user" value="<?php echo $elements[0]['email'];?>" data-alert="<?php e_strTranslate("Required_email");?>" />
 								</div>
 							</div>
+
+							<hr />
+
+							<div class="row">
+								<div class="col-md-6 form-group">
+									<label for="direccion_user"><small><?php e_strTranslate("Address");?>:</small></label>
+									<input type="text" class="form-control" id="direccion_user" name="direccion_user" value="<?php echo $elements[0]['direccion_user'];?>" />
+								</div>
+								<div class="col-md-6 form-group">
+									<label for="ciudad_user"><small><?php e_strTranslate("City");?>:</small></label>
+									<input type="text" class="form-control" id="ciudad_user" name="ciudad_user" value="<?php echo $elements[0]['ciudad_user'];?>" data-alert="<?php e_strTranslate("Required_email");?>" />
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6 form-group">
+									<label for="provincia_user"><small><?php e_strTranslate("State");?>:</small></label>
+									<input type="text" class="form-control" id="provincia_user" name="provincia_user" value="<?php echo $elements[0]['provincia_user'];?>" />
+								</div>
+								<div class="col-md-6 form-group">
+									<label for="cpostal_user"><small><?php e_strTranslate("Postal_code");?>:</small></label>
+									<input type="text" class="form-control" id="cpostal_user" name="cpostal_user" value="<?php echo $elements[0]['cpostal_user'];?>" data-alert="<?php e_strTranslate("Required_email");?>" />
+								</div>
+							</div>
+
+							<hr />
 							<div class="row inset">
 								<div class="col-md-4 form-group">
 									<div class="checkbox checkbox-primary">

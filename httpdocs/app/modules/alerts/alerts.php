@@ -1,8 +1,8 @@
 <?php
 /**
 * @Manage alerts
-* @author [author] <[email]>
-* @version 1.0
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @version 0.9
 *
 */
 

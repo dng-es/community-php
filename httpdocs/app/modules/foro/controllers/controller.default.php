@@ -39,6 +39,26 @@ class foroController{
 		}
 	}
 
+	public static function exportCommentsAction($filter = ""){
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+			$foro = new foro();
+			$elements = $foro->getComentarios($filter);
+			download_send_headers("comments_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}
+	}
+
+	public static function exportTemasAction($filter = ""){
+		if (isset($_REQUEST['export2']) and $_REQUEST['export2'] == true){
+			$foro = new foro();
+			$elements = $foro->getTemas($filter);
+			download_send_headers("temas_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}
+	}
+
 	public static function accesoForoAreaAction($id_area){
 		$acceso = 1;
 		if ($_SESSION['user_canal'] != 'admin')
@@ -97,10 +117,10 @@ class foroController{
 		}
 	}
 
-	public static function exportTemasAction(){
+	public static function exportTemasCommentsAction($filter = ""){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$foro = new foro(); 
-			$elements_exp = $foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['id']." ");
+			$elements_exp = $foro->getComentariosExport($filter." AND c.id_tema=".$_REQUEST['id']." ");
 			$file_name = 'exported_file'.date("YmdGis");
 			download_send_headers("comments_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements_exp);

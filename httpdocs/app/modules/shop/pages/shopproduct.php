@@ -3,7 +3,8 @@ templateload("searchproducts","shop");
 
 
 $id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
-$filtro = " AND active_product=1 AND id_product=".$id." ";
+$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND (canal_product='".$_SESSION['user_canal']."' OR canal_product='') " : "");
+$filtro = $filtro_canal." AND active_product=1 AND id_product=".$id." ";
 
 if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".$_REQUEST['ref_search']."%' ";
 if (isset($_REQUEST['name_search'])) $filtro .= " AND name_product LIKE '%".$_REQUEST['name_search']."%' ";
@@ -17,6 +18,8 @@ $element = $elements['items'][0];
 
 //obtener datos del usuario
 $user_detail = usersController::getPerfilAction($_SESSION['user_name']);
+
+$module_config = getModuleConfig("shop");
 ?>
 <div class="row row-top">
     <div class="app-main">
@@ -46,16 +49,20 @@ $user_detail = usersController::getPerfilAction($_SESSION['user_name']);
                             <div class="label label-danger">Producto destacado</div>
                         <?php endif;?>
                         
-                        <?php if($element['stock_product'] <= 0):?>
-                        <div class="stock label label-danger">Quedan <?php echo $element['stock_product'];?> und.</div>
-                        <?php else:?>
-                        <div class="stock label label-warning">Quedan <?php echo $element['stock_product'];?> und.</div>
+                        <?php if($module_config['options']['show_stock']):?>
+                            <?php if($element['stock_product'] <= 0):?>
+                            <div class="stock label label-danger">Quedan <?php echo $element['stock_product'];?> und.</div>
+                            <?php else:?>
+                            <div class="stock label label-warning">Quedan <?php echo $element['stock_product'];?> und.</div>
+                            <?php endif;?>
                         <?php endif;?>
 
-                        <?php if($element['price_product'] > $user_detail['creditos']):?>
-                        <div class="price label label-danger"><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></div>
-                        <?php else:?>
-                        <div class="price label label-info"><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></div>
+                        <?php if($module_config['options']['show_price']):?>
+                            <?php if($element['price_product'] > $user_detail['creditos']):?>
+                            <div class="price label label-danger"><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></div>
+                            <?php else:?>
+                            <div class="price label label-info"><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></div>
+                            <?php endif;?>
                         <?php endif;?>
 
                         
@@ -75,7 +82,10 @@ $user_detail = usersController::getPerfilAction($_SESSION['user_name']);
                             <?php endif;?>
                         </ul>
                         </small>
+                        
+                        <?php if($module_config['options']['show_buybutton']):?>
                         <a href="shopproductorder?id=<?php echo $element['id_product'];?>" class="btn btn-primary pull-right <?php echo $card_disabled;?>"><?php echo $card_text;?></a>
+                        <?php endif;?>
 
                     </div>
                 </div>

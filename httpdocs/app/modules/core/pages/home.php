@@ -2,7 +2,8 @@
 
 addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js", 
 					 getAsset("core")."js/home.js",
-					 getAsset("alerts")."js/alerts.js"));
+					 getAsset("alerts")."js/alerts.js",
+					 getAsset("novedades")."js/show.js"));
 
 
 templateload("panels", "alerts");
@@ -28,41 +29,16 @@ templateload("panels", "videos");
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6">
-				<div class="col-md-12 section panel">
-					<?php panelNovedades();?>
-				</div>
-				<div class="col-md-12 section panel">
-					<?php panelAreas();?>
-				</div>
-
-				<div class="col-md-12 section panel">
-					<?php panelDestacado();?>
-				</div>
+			<div class="col-md-8">
+				<?php panelNovedades();?>
+				<?php panelAreas();?>	
+				<?php panelForos();?>
 			</div>
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-12 section panel">
-						<?php panelBlog();?>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 section panel">
-						<?php panelForos();?>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-12 section panel">
-						<?php panelFotos();?>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-12 section panel">
-						<?php panelVideos();?>
-					</div>
-				</div>
+			<div class="col-md-4">
+				<?php panelDestacado();?>
+				<?php panelBlog();?>
+				<?php panelFotos();?>
+				<?php panelVideos();?>
 			</div>
 		</div>
 	</div>
@@ -71,3 +47,5 @@ templateload("panels", "videos");
 		<?php panelMuro();?>
 	</div>
 </div>
+
+<?php popupNovedades();?>

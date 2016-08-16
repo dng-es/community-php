@@ -3,8 +3,8 @@ $base_dir = str_replace( ((strrpos( __DIR__ , "\\" ) === false) ? 'modules/muro/
 
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/classes/class.configuration.php");
-include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/functions.core.php");
+include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/users/classes/class.users.php");
 include_once($base_dir . "modules/muro/classes/class.muro.php");
@@ -15,7 +15,7 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 <html lang="es">
 	<head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/themes/<?php echo $_SESSION['user_theme'];?>/css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/themes/<?php echo $_SESSION['user_theme'];?>/css/styles.css?v=1" />
 	<link rel="stylesheet" type="text/css" href="css/libs/customscrollbar/jquery.mCustomScrollbar.css" />
 	<script language="JavaScript" src="js/libs/customscrollbar/jquery.mCustomScrollbar.min.js"></script>
 	<script language="JavaScript" src="app/modules/muro/resources/js/muro-respuestas-ajax.js"></script>

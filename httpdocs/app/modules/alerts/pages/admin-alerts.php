@@ -43,9 +43,9 @@ $elements = alertsController::getListAction(15, " AND activa=1 ");
 								<?php foreach($elements['items'] as $element):?>
 									<tr>
 									<td nowrap="nowrap">								
-										<span class="fa fa-ban icon-table" title="Eliminar"
-											onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-alerts?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_alert'];?>')">
-										</span>
+										<button type="button" class="btn btn-default btn-xs" title="Eliminar"
+											onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-alerts?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_alert'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+										</button>
 									</td>
 									<td><?php echo $element['text_alert'];?></td>
 									<td><?php echo $element['type_alert'];?></td>

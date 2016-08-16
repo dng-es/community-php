@@ -55,13 +55,13 @@ class shop{
 		return connection::execute_query($Sql);
 	}	
 
-	public function insertProduct($name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product){
-		$Sql = "INSERT INTO shop_products (name_product, description_product, image_product, price_product, stock_product, important_product, id_manufacturer, category_product, subcategory_product, ref_product) 
-			VALUES('".$name_product."','".$description_product."','".$image_product."',".$price_product.",".$stock_product.",".$important_product.", ".$id_manufacturer.", '".$category_product."', '".$subcategory_product."','".$ref_product."')";
+	public function insertProduct($name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product){
+		$Sql = "INSERT INTO shop_products (name_product, description_product, image_product, price_product, stock_product, important_product, id_manufacturer, category_product, subcategory_product, ref_product, canal_product) 
+			VALUES('".$name_product."','".$description_product."','".$image_product."',".$price_product.",".$stock_product.",".$important_product.", ".$id_manufacturer.", '".$category_product."', '".$subcategory_product."','".$ref_product."','".$canal_product."')";
 		return connection::execute_query($Sql);
 	}
 
-	public function updateProduct($id, $name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product){
+	public function updateProduct($id, $name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product){
 		$Sql = "UPDATE shop_products SET 
 				name_product='".$name_product."', 
 				description_product='".$description_product."', 
@@ -72,6 +72,7 @@ class shop{
 				id_manufacturer=".$id_manufacturer.",  
 				category_product='".$category_product."',  
 				subcategory_product='".$subcategory_product."', 
+				canal_product='".$canal_product."', 
 				ref_product='".$ref_product."' 
 				WHERE id_product='".$id."'";
 		return connection::execute_query($Sql);

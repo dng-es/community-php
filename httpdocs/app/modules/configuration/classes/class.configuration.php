@@ -30,5 +30,36 @@ class configuration{
 				MailingEmail='".$MailingEmail."'";
 		return connection::execute_query($Sql);
 	}
+
+	public function getPanels($filter = ""){
+		$Sql = "SELECT * FROM config_panels WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
+
+	public function getPanelsRows($filter = ""){
+		$Sql = "SELECT DISTINCT(panel_row) AS rows FROM config_panels WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
+
+	public function insertPanel($page_name, $panel_name, $panel_cols, $panel_pos, $panel_row){
+		$Sql = "INSERT INTO config_panels (page_name, panel_name, panel_cols, panel_pos, panel_row) 
+				VALUES('".$page_name."', '".$panel_name."', '".$panel_cols."', '".$panel_pos."', ".$panel_row.") ";
+		return connection::execute_query($Sql);
+	}
+
+	public function updatePanel($page_name, $panel_name, $panel_cols, $panel_pos, $panel_row){
+		$Sql = "UPDATE config_panels SET 
+				panel_cols=".$panel_cols.", 
+				panel_pos=".$panel_pos.", 
+				panel_row=".$panel_row.",
+				panel_visible=1
+				WHERE panel_name='".$panel_name."' AND page_name='".$page_name."' ";
+		return connection::execute_query($Sql);
+	}	
+
+	public function deletePanel($filter = ""){
+		$Sql = "UPDATE config_panels SET panel_visible=0 WHERE 1=1 ". $filter;
+		return connection::execute_query($Sql);
+	}	
 }
 ?>

@@ -1,8 +1,8 @@
 <?php
 /**
 * @Manage shop
-* @author [author] <[email]>
-* @version 1.0
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @version 1.1
 *
 */
 
@@ -11,7 +11,7 @@ class shopCore {
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("shopproducts", $_SESSION['user_name']));
@@ -20,7 +20,7 @@ class shopCore {
 							"LabelItem" => strTranslate("APP_Shop"),
 							"LabelUrl" => 'shopproducts',
 							"LabelTarget" => '_self',
-							"LabelPos" => 8));
+							"LabelPos" => $menu_order));
 		}
 		return $array_final;
 	}

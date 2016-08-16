@@ -42,7 +42,7 @@ $elements = usersController::getListAction(35);
 						<tr>
 						<th width="40px"></th>
 						<th><?php e_strTranslate("Username");?></th>
-						<th><?php e_strTranslate("Nick");?></th>
+						<th><?php e_strTranslate("Channel");?></th>
 						<th><?php e_strTranslate("Group_user");?></th>
 						<th>Email</th>
 						<th><?php e_strTranslate("Confirmed");?></th>
@@ -52,15 +52,18 @@ $elements = usersController::getListAction(35);
 						<?php foreach($elements['items'] as $element):?>
 							<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-user?id=<?php echo $element['username'];?>'">
-								</span>
-								
-								<span class="fa fa-ban icon-table" title="Eliminar"
-									onClick="Confirma('¿Seguro que desea deshabilitar al usuario?', 'admin-users?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['username'];?>')">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="Eliminar"
+									onClick="Confirma('¿Seguro que desea deshabilitar al usuario?', 'admin-users?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['username'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-user?id=<?php echo $element['username'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
-							<td><?php echo $element['username'];?></td>
-							<td><?php echo $element['nick'];?></td>
+							<td>
+								<?php echo $element['username'];?><br />
+								<small class="text-muted"><?php echo $element['name'];?> <?php echo $element['surname'];?>  
+								<a href="user-profile?n=<?php echo $element['nick'];?>" title="Ver perfil público"><?php echo $element['nick'];?></small></a>
+							</td>
+							<td><?php echo $element['canal'];?></td>
 							<td><?php echo $element['nombre_tienda'];?></td>
 							<td><?php echo $element['email'];?></td>
 							<td><span class="label<?php echo ($element['confirmed'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['confirmed'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>

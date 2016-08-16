@@ -11,7 +11,7 @@ class batallasCore {
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */	
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		$array_final = array();
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("batallas", $_SESSION['user_name']));
@@ -25,7 +25,7 @@ class batallasCore {
 							"LabelItem" => strTranslate("Battles").$label_batallas,
 							"LabelUrl" => 'batallas',
 							"LabelTarget" => '_self',
-							"LabelPos" => 4));
+							"LabelPos" => $menu_order));
 		}
 		return $array_final;		
 	}	

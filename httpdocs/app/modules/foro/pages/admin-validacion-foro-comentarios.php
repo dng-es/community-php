@@ -1,8 +1,13 @@
 <?php
+$filter = " AND estado=1 ORDER BY id_comentario DESC";
+
+//EXPORT COMMENTS
+foroController::exportCommentsAction($filter);
+
 session::getFlashMessage( 'actions_message' );
 foroController::validateComentarioAction();
 foroController::cancelComentarioAction();
-$elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY id_comentario DESC");?>
+$elements = foroController::getListComentariosAction(15, $filter);?>
 
 <div class="row row-top">
 	<div class="app-main">
@@ -16,6 +21,7 @@ $elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default"> 
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_FORO;?></b></a></li>
+					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
 				</ul>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
@@ -27,10 +33,10 @@ $elements = foroController::getListComentariosAction(15, " AND estado=1 ORDER BY
 					<?php foreach($elements['items'] as $element):
 						echo '<tr>';
 						echo '<td nowrap="nowrap">
-								<span class="fa fa-ban icon-table" title="Eliminar"
+								<button type="button" class="btn btn-default btn-xs" title="Eliminar"
 								    onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
-									\'admin-validacion-foro-comentarios?pag='.(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1).'&act=foro_ko&id='.$element['id_comentario'].'&u='.$element['user_comentario'].'\')">
-								</span>
+									\'admin-validacion-foro-comentarios?pag='.(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1).'&act=foro_ko&id='.$element['id_comentario'].'&u='.$element['user_comentario'].'\'); return false;"><i class="fa fa-trash icon-table"></i>
+								</button>
 							 </td>';
 						echo '<td>'.$element['id_comentario'].'</td>';
 						echo '<td>

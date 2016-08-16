@@ -103,20 +103,25 @@ class usersController{
 		$users = new users();
 		if (isset($_POST['user-username']) and $_POST['user-username'] != ""){
 			
-			$comentarios = sanitizeInput($_POST['user-comentarios']);
+			$comentarios = trim(sanitizeInput($_POST['user-comentarios']));
 
 			if (strlen(trim($_POST['user-pass'])) < 6) session::setFlashMessage( 'actions_message', "La contraseña tiene que tener mínimo 6 caracteres", "alert alert-danger");
 			else{
 				$confirmar = $users->perfilUser($_POST['user-username'],
-												$_POST['user-nick'],
-												$_POST['user-nombre'],
-												$_POST['user-apellidos'],
-												trim($_POST['user-pass']),
-												$_POST['user-email'],
+												trim(sanitizeInput($_POST['user-nick'])),
+												trim(sanitizeInput($_POST['user-nombre'])),
+												trim(sanitizeInput($_POST['user-apellidos'])),
+												trim(sanitizeInput(trim($_POST['user-pass']))),
+												trim(sanitizeInput($_POST['user-email'])),
 												$_FILES['nombre-fichero'],
 												$comentarios,
-												$_POST['user-date'],
-												$_POST['user_lan']);
+												trim(sanitizeInput($_POST['user-date'])),
+												trim(sanitizeInput($_POST['user_lan'])), 
+												trim(sanitizeInput($_POST['direccion_user'])), 
+												trim(sanitizeInput($_POST['ciudad_user'])), 
+												trim(sanitizeInput($_POST['provincia_user'])), 
+												trim(sanitizeInput($_POST['cpostal_user'])),
+												trim(sanitizeInput($_POST['telefono'])));
 				if ($confirmar == 1) {
 					$_SESSION['language'] = $_POST['user_lan'];
 					session::setFlashMessage('actions_message', strTranslate("Update_profile_ok"), "alert alert-success");
@@ -195,7 +200,11 @@ class usersController{
 							$_POST['perfil_user'],
 							$_POST['telefono_user'],
 							$_POST['surname'],
-							$registered
+							$registered,
+							trim(sanitizeInput($_POST['direccion_user'])),
+							trim(sanitizeInput($_POST['ciudad_user'])),
+							trim(sanitizeInput($_POST['provincia_user'])),
+							trim(sanitizeInput($_POST['cpostal_user']))
 							)) {
 					session::setFlashMessage('actions_message', "Usuario insertado correctamente.", "alert alert-success");
 					redirectURL("admin-user?id=".$_POST['username']);
@@ -226,7 +235,11 @@ class usersController{
 								$_POST['perfil_user'],
 								$_POST['telefono_user'],
 								$_POST['surname'],
-								$registered)) {
+								$registered, 
+								trim(sanitizeInput($_POST['direccion_user'])),
+								trim(sanitizeInput($_POST['ciudad_user'])),
+								trim(sanitizeInput($_POST['provincia_user'])),
+								trim(sanitizeInput($_POST['cpostal_user'])))) {
 						session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");}
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -414,8 +427,8 @@ public static function insertEquipoAction(){
 	public static function getListEquipoAction($reg = 0, $filtro = ""){
 		$users = new users();
 		$find_reg = "";
-		if (isset($_REQUEST['find_reg'])) {$filtro .= " AND username LIKE '%".$_REQUEST['find_reg']."%' ";$find_reg=$_REQUEST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND username LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
+		if (isset($_REQUEST['find_reg'])) {$filtro .= " AND (username LIKE '%".$_REQUEST['find_reg']."%' OR name LIKE '%".$_REQUEST['find_reg']."%') ";$find_reg=$_REQUEST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filtro .= " AND (username LIKE '%".$_REQUEST['f']."%' OR name LIKE '%".$_REQUEST['f']."%') ";$find_reg=$_REQUEST['f'];} 
 		$filtro .= " ORDER BY empresa, username";
 		$paginator_items = PaginatorPages($reg);
 		

@@ -1,6 +1,14 @@
 // JavaScript Document
 jQuery(document).ready(function(){
 	var maxsize_textarea = 600;
+
+	$("#texto-comentario").bootstrapTextArea({
+								title: "Nuevo comentario", 
+								lblSave: "Aceptar",
+								lblZoom: "Ampliar",
+								rows: 20
+								});
+
 	
 	$(".jtextareaComentar").jtextarea({maxSizeElement: maxsize_textarea,
 				cssElement: { display: "inline-block", color: "#666666", background: "transparent"}});

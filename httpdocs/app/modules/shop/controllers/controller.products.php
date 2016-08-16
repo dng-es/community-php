@@ -61,8 +61,9 @@ class shopProductsController{
 			$category_product = sanitizeInput($_POST['category_product']);
 			$subcategory_product = sanitizeInput($_POST['subcategory_product']);
 			$ref_product = sanitizeInput($_POST['ref_product']);
+			$canal_product = sanitizeInput($_POST['canal_product']);
 			
-			if ($shop->insertProduct($name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product)){ 
+			if ($shop->insertProduct($name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product)){ 
 				$id = connection::SelectMaxReg("id_product", "shop_products", "");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}
@@ -87,8 +88,9 @@ class shopProductsController{
 			$category_product = sanitizeInput($_POST['category_product']);
 			$subcategory_product = sanitizeInput($_POST['subcategory_product']);
 			$ref_product = sanitizeInput($_POST['ref_product']);
+			$canal_product = sanitizeInput($_POST['canal_product']);
 
-			if ($shop->updateProduct($id, $name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product))
+			if ($shop->updateProduct($id, $name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 
 			else 

@@ -105,10 +105,8 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 				<?php foreach($preguntas as $pregunta): ?>
 				<tr>
 					<td nowrap="nowrap">
-						<span class="fa fa-ban icon-table" onClick="Confirma('¿Seguro que desea eliminar la pregunta?',
-							'admin-cuestionario?act=del&id=<?php echo $id_cuestionario;?>&idp=<?php echo $pregunta['id_pregunta'];?>')" 
-							title="Eliminar pregunta" />
-						</span>
+						<button type="button" class="btn btn-default btn-xs" onClick="Confirma('¿Seguro que desea eliminar la pregunta?', 'admin-cuestionario?act=del&id=<?php echo $id_cuestionario;?>&idp=<?php echo $pregunta['id_pregunta'];?>'); return false;" title="Eliminar pregunta" /><i class="fa fa-trash icon-table"></i>
+						</button>
 					</td>
 					<td><?php echo $pregunta['pregunta_texto'];?></td>
 					<td><?php echo $pregunta['pregunta_tipo'];?></td>

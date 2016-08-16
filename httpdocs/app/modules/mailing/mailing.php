@@ -20,7 +20,7 @@ class mailingCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */	
-/*	public static function userMenu(){
+	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 		$array_final_items = array();
@@ -62,11 +62,11 @@ class mailingCore{
 								"LabelUrl" => '',
 								"LabelTarget" => '',
 								"SubItems" => $array_final_items,
-								"LabelPos" => 2));
+								"LabelPos" => $menu_order));
 		}
 
 		return $array_final;		
-	}*/		
+	}	
 
 	/**
 	 * Elementos para el menu de administración

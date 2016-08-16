@@ -41,12 +41,11 @@ $elements = promocionesController::getListAction(35);
 							?>
 							<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-promociones-new?id=<?php echo $element['id_promocion'];?>'">
-								</span>
-								
-								<span class="fa fa-ban icon-table" title="<?php echo $texto_activar1;?>"
-									onClick="Confirma('<?php echo $texto_activar;?>', 'admin-promociones?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&idd='.$valor_activar.'&id='.$element['id_promocion'];?>')">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="<?php echo $texto_activar1;?>" onClick="Confirma('<?php echo $texto_activar;?>', 'admin-promociones?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&idd='.$valor_activar.'&id='.$element['id_promocion'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+								</button>
+
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-promociones-new?id=<?php echo $element['id_promocion'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
 							<td><?php echo $element['nombre_promocion'];?></td>
 							<td><span class="label<?php echo ($element['galeria_videos'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['galeria_videos'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>

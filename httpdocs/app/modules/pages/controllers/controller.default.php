@@ -2,7 +2,6 @@
 class pagesController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$pages = new pages();
-		$filter .= " ORDER BY page_name";
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("pages",$filter); 
 		return array('items' => $pages->getPages($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -19,9 +18,12 @@ class pagesController{
 			$page_content = stripslashes($_POST['page_content']);
 			$page_title = sanitizeInput($_POST['page_title']);
 			$page_menu = (isset($_POST['page_menu']) and $_POST['page_menu'] == "on") ? 1 : 0;
-			$page_order= (isset($_POST['page_order']) and $_POST['page_order'] != "") ? $_POST['page_order'] : 0;
+			$page_order = (isset($_POST['page_order']) and $_POST['page_order'] != "") ? $_POST['page_order'] : 0;
+			$page_canal = sanitizeInput($_POST['page_canal']);
+			$page_user_menu = (isset($_POST['page_user_menu']) and $_POST['page_user_menu'] == "on") ? 1 : 0;
+			$page_user_menu_order = (isset($_POST['page_user_menu_order']) and $_POST['page_user_menu_order'] != "") ? $_POST['page_user_menu_order'] : 0;
 
-			if ($pages->insertPage($page_name, $page_content, $page_menu, $page_title, $page_order)) 
+			if ($pages->insertPage($page_name, $page_content, $page_menu, $page_title, $page_order, $page_canal, $page_user_menu, $page_user_menu_order)) 
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -37,8 +39,11 @@ class pagesController{
 			$page_content = stripslashes($_POST['page_content']);
 			$page_menu = (isset($_POST['page_menu']) and $_POST['page_menu'] == "on") ? 1 : 0;
 			$page_order= (isset($_POST['page_order']) and $_POST['page_order'] != "") ? $_POST['page_order'] : 0;
+			$page_canal = sanitizeInput($_POST['page_canal']);
+			$page_user_menu = (isset($_POST['page_user_menu']) and $_POST['page_user_menu'] == "on") ? 1 : 0;
+			$page_user_menu_order = (isset($_POST['page_user_menu_order']) and $_POST['page_user_menu_order'] != "") ? $_POST['page_user_menu_order'] : 0;
 
-			if ($pages->updatePage($_POST['page_name'], $page_content, $page_menu, $page_title, $page_order))
+			if ($pages->updatePage($_POST['page_name'], $page_content, $page_menu, $page_title, $page_order, $page_canal, $page_user_menu, $page_user_menu_order))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

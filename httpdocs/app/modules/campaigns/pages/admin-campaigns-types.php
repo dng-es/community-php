@@ -27,13 +27,14 @@ $elements = campaignsController::getListTypesAction(20);
 						<?php foreach($elements['items'] as $element): ?>
 							<tr>
 							<td nowrap="nowrap">
-								<a class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>"
-									onClick="location.href='admin-campaigns-type?id=<?php echo $element['id_campaign_type'];?>'; return false;">
-								</a>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-campaigns-types?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_campaign_type'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
+								</button>
 
-								<a class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
-									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-campaigns-types?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_campaign_type'];?>'); return false;">
-								</a>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>"
+									onClick="location.href='admin-campaigns-type?id=<?php echo $element['id_campaign_type'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
+								</button>
+
 							</td>
 							<td><?php echo $element['campaign_type_name'];?></td>
 							<td><?php echo $element['campaign_type_desc'];?></td>

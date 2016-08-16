@@ -386,7 +386,7 @@ function ComboTiposTemas($tipo_tema){?>
  * @param 	string 		$perfil 		Elemento del combo marcado
  */
 function ComboPerfiles($perfil){?>
-	<option value="usuario" <?php if ($perfil=='usuario') echo ' selected="selected" ';?>>Comercial</option>
+	<option value="usuario" <?php if ($perfil=='usuario') echo ' selected="selected" ';?>>Usuario</option>
 	<option value="responsable" <?php if ($perfil=='responsable') echo ' selected="selected" ';?>>Responsable</option>
 	<option value="regional" <?php if ($perfil=='regional') echo ' selected="selected" ';?>>Regional</option>
 	<option value="admin" <?php if ($perfil=='admin') echo ' selected="selected" ';?>>Administrador</option>

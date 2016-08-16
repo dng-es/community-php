@@ -34,13 +34,13 @@ $elements = mailingTemplatesController::getListAction(20);
 						?>
 							<tr>
 							<td nowrap="nowrap">
-								<a class="fa fa-edit icon-table" title="Ver/editar"
-									onClick="location.href='admin-template?id=<?php echo $element['id_template'];?>'; return false;">
-								</a>
+								<button type="button" class="btn btn-default btn-xs" title="Eliminar"
+									onClick="Confirma('¿Seguro que deseas eliminar la plantilla?', 'admin-templates?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_template'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
+								</button>
 
-								<a class="fa fa-ban icon-table" title="Eliminar"
-									onClick="Confirma('¿Seguro que deseas eliminar la plantilla?', 'admin-templates?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_template'];?>'); return false;">
-								</a>
+								<button type="button" class="btn btn-default btn-xs" title="Ver/editar"
+									onClick="location.href='admin-template?id=<?php echo $element['id_template'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
 							<td><?php echo $element['template_name'];?></td>
 							<td><?php echo $element['tipo'];?></td>

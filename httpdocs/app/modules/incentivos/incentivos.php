@@ -11,7 +11,7 @@ class incentivosCore {
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */	
-public static function userMenu(){
+public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 
@@ -53,7 +53,7 @@ public static function userMenu(){
 								"LabelUrl" => '',
 								"LabelTarget" => '',
 								"SubItems" => $array_final_items,
-								"LabelPos" => 9));
+								"LabelPos" => $menu_order));
 		}
 
 		return $array_final;		

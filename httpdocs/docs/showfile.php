@@ -2,6 +2,7 @@
 $base_dir = str_replace('/docs', '/', realpath(dirname(__FILE__))) ;
 include_once($base_dir . "app/core/class.connection.php");
 include_once($base_dir . "app/modules/configuration/classes/class.configuration.php");
+include_once($base_dir . "app/core/functions.core.php");
 include_once($base_dir . "app/core/constants.php");
 include_once($base_dir . "app/core/functions.php");
 include_once($base_dir . "app/core/class.session.php");

@@ -40,28 +40,46 @@ class shopOrdersController{
 			$id_order = sanitizeInput($_POST['id_order']);
 			$status_order_old = sanitizeInput($_POST['status_order_old']);
 			$status_order = sanitizeInput($_POST['status_order']);
-			
-			//verificar secuencia de estados
-			if($status_order_old == 'cancelado'){
-				session::setFlashMessage('actions_message', "La secuencia de estados no es correcta", "alert alert-danger");
-			}
-			else{
-				if (shop::updateOrderStatus($id_order, $status_order)):
-					shop::insertOrderStatus($id_order, $status_order, $_SESSION['user_name']);
-					//enviar email al usuario. Hay que obtener los datos del pedido y del usuario
-					$shop = new shop();
-					$order_detail = $shop->getOrdersDetails(" AND d.id_order=".$id_order." ");
-					$user_detail = usersController::getPerfilAction($order_detail[0]['username_order']);
-					self::sendEmailUserStatus($user_detail, $id_order, $order_detail[0]['name_order'], $order_detail[0]['surname_order'], $order_detail[0]['address_order'], $order_detail[0]['address2_order'], $order_detail[0]['city_order'], $order_detail[0]['state_order'], $order_detail[0]['postal_order'], $order_detail[0]['telephone_order'], $order_detail[0]['name_product'], $order_detail[0]['price_order'], getDateFormat($order_detail[0]['date_order'], "SHORT" ), $status_order, $order_detail[0]['notes_order']);
-					
-					session::setFlashMessage('actions_message', "Cambio realizado correctamente.", "alert alert-success");
-				else:
-					session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
-				endif;
-			}
 
+			$response = self::changeEstado($id_order, $status_order, $status_order_old);
+
+			if ($response['message'] == 'success'):
+				session::setFlashMessage('actions_message', $response['description'], "alert alert-success");
+			else:
+				session::setFlashMessage('actions_message', $response['description'], "alert alert-danger");
+			endif;
+			
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
+	}
+
+	public static function changeEstado($id_order, $status_order, $status_order_old){
+		$response = array();
+			
+		//verificar secuencia de estados
+		if($status_order_old == 'cancelado'){
+			$response['message'] = "error";
+			$response['description'] = "La secuencia de estados no es correcta";
+		}
+		else{
+			if (shop::updateOrderStatus($id_order, strtolower($status_order))):
+				shop::insertOrderStatus($id_order, strtolower($status_order), $_SESSION['user_name']);
+				//enviar email al usuario. Hay que obtener los datos del pedido y del usuario
+				$shop = new shop();
+				$order_detail = $shop->getOrdersDetails(" AND d.id_order=".$id_order." ");
+				$user_detail = usersController::getPerfilAction($order_detail[0]['username_order']);
+				self::sendEmailUserStatus($user_detail, $id_order, $order_detail[0]['name_order'], $order_detail[0]['surname_order'], $order_detail[0]['address_order'], $order_detail[0]['address2_order'], $order_detail[0]['city_order'], $order_detail[0]['state_order'], $order_detail[0]['postal_order'], $order_detail[0]['telephone_order'], $order_detail[0]['name_product'], $order_detail[0]['price_order'], getDateFormat($order_detail[0]['date_order'], "SHORT" ), $status_order, $order_detail[0]['notes_order']);
+				
+				$response['message'] = "success";
+				$response['description'] = "Cambio realizado correctamente.";
+			else:
+				$response['message'] = "error";
+				$response['description'] = strTranslate("Error_procesing");
+			endif;
+		}
+
+		return $response;
+
 	}
 
 	public static function exportListAction($filter = ""){

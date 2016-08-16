@@ -1,5 +1,12 @@
 // JavaScript Document
 jQuery(document).ready(function(){
+	$("#texto-descripcion").bootstrapTextArea({
+									title: "Descripción del foro", 
+									lblSave: "Aceptar",
+									lblZoom: "Ampliar",
+									rows: 20
+									});
+
 	$("#tema-form").submit(function(evento){
 		var resultado_ok = true;
 		if (jQuery.trim($('#nombre-tema').removeClass("input-alert").val()) == ""){

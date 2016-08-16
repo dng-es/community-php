@@ -43,7 +43,7 @@ $elements = mailingController::getListAction(20);
 							?>
 							<tr>
 							<td nowrap="nowrap">
-								<a href="admin-messages?exportm=true&id=<?php echo $element['id_message'];?>" class="fa fa-download icon-table" title="Descargar"></a>
+								<button type="button" class="btn btn-default btn-xs"><a href="admin-messages?exportm=true&id=<?php echo $element['id_message'];?>" class="fa fa-download icon-table" title="Descargar"></a></button>
 							</td>
 							<?php 
 							echo '<td>'.$element['message_subject'].'</td>';

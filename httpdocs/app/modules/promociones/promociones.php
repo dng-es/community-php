@@ -1,7 +1,7 @@
 <?php
 /**
 * @Manage promociones
-* @author [author] <[email]>
+* @author David Noguera Gutierrez <dnoguera@imagar.com>
 * @version 1.0
 *
 */
@@ -11,7 +11,7 @@ class promocionesCore {
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("reto", $_SESSION['user_name']));
@@ -23,7 +23,7 @@ class promocionesCore {
 							"LabelItem" => "Reto",
 							"LabelUrl" => 'reto?idp='.$id_promocion,
 							"LabelTarget" => '_self',
-							"LabelPos" => 2));
+							"LabelPos" => $menu_order));
 		}
 
 		return $array_final;

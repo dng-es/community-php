@@ -45,13 +45,13 @@ class users{
 		return connection::getSQL($Sql);  
 	}	
 
-	public function insertUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered = 0){
+	public function insertUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered = 0, $direccion_user = '', $ciudad_user = '', $provincia_user = '', $cpostal_user = ''){
 		if ($perfil == 'admin') $canal = 'admin';
 		 
 		$Sql = "INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, 
-			  empresa, perfil, telefono, surname, user_comentarios, registered) 
+			  empresa, perfil, telefono, surname, user_comentarios, registered, direccion_user, ciudad_user, provincia_user, cpostal_user) 
 			  VALUES ('".$username."','".$user_password."','".$email."','".$name_user."',".$confirmed.",".$disabled.",
-			  '".$canal."','".$empresa."','".$perfil."','".$telefono."','".$surname."','',".$registered.")";
+			  '".$canal."','".$empresa."','".$perfil."','".$telefono."','".$surname."','',".$registered.", '".$direccion_user."', '".$ciudad_user."', '".$provincia_user."', '".$cpostal_user."'')";
 		return connection::execute_query($Sql);
 	}
 
@@ -82,7 +82,7 @@ class users{
 		return connection::execute_query($Sql);
 	}	
 
-	public function updateUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered){
+	public function updateUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered, $direccion_user, $ciudad_user, $provincia_user, $cpostal_user){
 		if ($perfil == 'admin') $canal = 'admin';
 
 		$Sql = "UPDATE users SET
@@ -96,7 +96,11 @@ class users{
 			 empresa='".$empresa."',
 			 perfil='".$perfil."',
 			 telefono='".$telefono."',
-			 surname='".$surname."'    
+			 surname='".$surname."',
+			 direccion_user='".$direccion_user."',
+			 ciudad_user='".$ciudad_user."',
+			 provincia_user='".$provincia_user."',
+			 cpostal_user='".$cpostal_user."'
 			 WHERE username='".$username."'";
 		return connection::execute_query($Sql);
 	}
@@ -270,7 +274,7 @@ class users{
 		return connection::execute_query($Sql);
 	}
 
-	public function perfilUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date, $user_lan){
+	public function perfilUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date, $user_lan, $direccion_user, $ciudad_user, $provincia_user, $cpostal_user, $telefono){
 		//verificar si el nick existe, Devolvera: 1->ok, 2-> Error SQL, 3->Nick existe,
 		if (connection::countReg("users"," AND nick='".$nick."' AND username<>'".$username."' ") == 0){
 			$nombre_archivo = "";
@@ -292,6 +296,11 @@ class users{
 					user_lan='".$user_lan."',
 					".$SqlFoto." 
 					user_comentarios='".$user_comentarios."',
+					direccion_user='".$direccion_user."',
+					ciudad_user='".$ciudad_user."',
+					provincia_user='".$provincia_user."',
+					cpostal_user='".$cpostal_user."',
+					telefono='".$telefono."',
 					user_date=".$user_date." 
 					WHERE username='".$username."'";
 

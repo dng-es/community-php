@@ -1,8 +1,4 @@
 <?php
-foroController::exportTemasAction();
-
-addJavascripts(array(getAsset("foro")."js/admin-validacion-foro-temas.js"));
-
 $filtro_temas = (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") ? " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' " : "";
 $find_tipo = (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") ? $_POST['tipo_search'] : "";
 
@@ -16,11 +12,18 @@ if (isset($_REQUEST['f'])) {
 	$find_reg = $_REQUEST['f'];
 }
 
+$filter = " AND id_tema_parent<>0 AND activo=1 and itinerario='' ".$filtro_temas." ORDER BY id_tema DESC ";
+
+foroController::exportTemasCommentsAction(" AND c.estado=1 ");
+foroController::exportTemasAction($filter);
+
 session::getFlashMessage( 'actions_message' );
 foroController::cancelTemaAction();
 foroController::changeTipoAction();
-$elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND activo=1 and itinerario='' ".$filtro_temas." ORDER BY id_tema DESC ");?>
+$elements = foroController::getListTemasAction(15, $filter);
 
+addJavascripts(array(getAsset("foro")."js/admin-validacion-foro-temas.js"));
+?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php menu::breadcrumb(array(
@@ -33,6 +36,7 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default"> 
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+					<li><a href="<?php echo $_REQUEST['page'].'?export2=true';?>"><?php e_strTranslate("Export");?></a></li>
 					<div class="pull-right">
 						<?php echo SearchForm($elements['reg'], "admin-validacion-foro-temas", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>	
 					</div>
@@ -45,23 +49,22 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 							<th><?php e_strTranslate("Name");?></th>
 							<th><?php e_strTranslate("Author");?></th>
 							<th><?php e_strTranslate("Channel");?></th>
-							<th><span class="fa fa-comment" title="<?php e_strTranslate("Comments");?>"></span></th>
-							<th><span class="fa fa-eye" title="<?php e_strTranslate("Visits");?>"></span></th>
+							<th class="text-center"><span class="fa fa-comment" title="<?php e_strTranslate("Comments");?>"></span></th>
+							<th class="text-center"><span class="fa fa-eye" title="<?php e_strTranslate("Visits");?>"></span></th>
 						</tr>
-
 						<?php foreach($elements['items'] as $element):
 						$num_comentarios = connection::countReg("foro_comentarios", " AND estado=1 AND id_tema=".$element['id_tema']." ");
 						$num_visitas = connection::countReg("foro_visitas", " AND id_tema=".$element['id_tema']." ");	  
 						echo '<tr>';
 						echo '<td nowrap="nowrap">
-								<span class="fa fa-ban icon-table" title="Eliminar" 
+								<button type="button" class="btn btn-default btn-xs" title="Eliminar" 
 									onClick="Confirma(\'¿Seguro que desea eliminar el tema '.$element['id_tema'].'?\',
-									\'admin-validacion-foro-temas?pag='.(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1).'&act=tema_ko&id='.$element['id_tema'].'&u='.$element['user'].'\')">
-								</span>
+									\'admin-validacion-foro-temas?pag='.(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1).'&act=tema_ko&id='.$element['id_tema'].'&u='.$element['user'].'\'); return false;"><i class="fa fa-trash icon-table"></i>
+								</button>
 
-								<span class="fa fa-download icon-table" title="Exportar datos"
-									onClick="location.href=\'admin-validacion-foro-temas?export=true&id='.$element['id_tema'].'\'">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="Exportar datos"
+									onClick="location.href=\'admin-validacion-foro-temas?export=true&id='.$element['id_tema'].'\'; return false"><i class="fa fa-download icon-table"></i>
+								</button>
 							 </td>';
 						echo '<td><a href="#" class="abrir-modal" title="TemaForo'.$element['id_tema'].'">'.$element['id_tema'].'</a>
 								<!-- Modal -->
@@ -86,8 +89,8 @@ $elements = foroController::getListTemasAction(15, " AND id_tema_parent<>0 AND a
 						echo '</td>';
 						echo '<td>'.$element['user'].'</td>';
 						echo '<td>'.$element['canal'].'</td>';
-						echo '<td align="center">'.$num_comentarios.'</td>';
-						echo '<td align="center">'.$num_visitas.'</td>';
+						echo '<td  class="text-center">'.$num_comentarios.'</td>';
+						echo '<td  class="text-center">'.$num_visitas.'</td>';
 						echo '</tr>';
 					endforeach;?>
 					</table>

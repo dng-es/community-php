@@ -29,10 +29,9 @@ $elements = infotopdfController::getListAction(20);
 						<?php foreach($elements['items'] as $element): ?>
 						<tr>
 							<td nowrap="nowrap">
-								<a href="admin-infotopdf-doc?act=edit&id=<?php echo $element['id_info'];?>" title="Editar documento">
-								<span class="fa fa-edit icon-table"></span></a>
-								<a href="#" onClick="Confirma('¿Seguro que desea eliminar el documento?', 'admin-infotopdf?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>')" 
-								title="Eliminar documento" /><span class="fa fa-ban icon-table"></span></a>
+								<button type="button" class="btn btn-default btn-xs" onClick="Confirma('¿Seguro que desea eliminar el documento?', 'admin-infotopdf?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>'); return false" title="Eliminar documento" /><span class="fa fa-trash icon-table"></span></button>
+
+								<button type="button" class="btn btn-default btn-xs"><a href="admin-infotopdf-doc?act=edit&id=<?php echo $element['id_info'];?>" title="Editar documento"><span class="fa fa-edit icon-table"></span></a></button>
 							</td>
 							<td><a target="_blank" href="<?php echo PATH_INFO.$element['file_info'];?>"><?php echo $element['titulo_info'];?></a></td>
 							<td><?php echo $element['tipo'];?></td>

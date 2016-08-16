@@ -28,4 +28,7 @@ Enroll_successful = "Enroll successful"
 Enroll_fail = "Error while enrolling"
 Enroll_limit_reached = "Enroll limit reached"
 No_enrollments_yet = "You are not enrolled in any course"
+Task_title_message = "Course finalization"
+Task_ok_message = "Congratulations, you have passed the course. Soon your account will be updated."
+Task_ko_message = "Sorry, you have not passed tghe course. Soon the right answers will be published"
 ?>

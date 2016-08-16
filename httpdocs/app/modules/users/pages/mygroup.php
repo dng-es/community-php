@@ -11,11 +11,16 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					"js/bootstrap-datepicker.js", 
 					"js/bootstrap-datepicker.es.js", 
 					"js/jquery.numeric.js", 
+					"js/bootstrap-textarea.min.js",
 					getAsset("users")."js/mygroup.js", 
+					getAsset("users")."js/group.js", 
 					getAsset("alerts")."js/addalert.js"));
 
 
 templateload("addalert", "alerts");
+templateload("group", "users");
+
+$id_group = (isset($_REQUEST['id']) ? sanitizeInput($_REQUEST['id']) : "");
 
 ?>
 <div class="row row-top">
@@ -36,8 +41,9 @@ templateload("addalert", "alerts");
 		usersController::updateEquipoAction();
 		alertsController::createAction();
 
+		$filtro_id_group = ($id_group != "" ? " AND empresa='".$id_group."' " : "");
 		$filtro_tienda = ($_SESSION['user_perfil'] == 'responsable' ? " AND responsable_tienda='".$_SESSION['user_name']."' " : "");
-		$elements = usersController::getListEquipoAction(20, " AND disabled=0 AND perfil='usuario' ".$filtro_tienda);
+		$elements = usersController::getListEquipoAction(20, " AND disabled=0 AND perfil='usuario' ".$filtro_tienda.$filtro_id_group);
 
 		$users = new users();
 		$centros = $users->getTiendas($filtro_tienda." AND activa=1 ORDER BY cod_tienda");
@@ -109,13 +115,11 @@ templateload("addalert", "alerts");
 							<form action="<?php echo $_SERVER['REQUEST_URI'].$link_busqueda;?>" class="form-user-edit" role="form" method="post">
 							<tr>
 							<td nowrap="nowrap">								
-								<span class="fa fa-ban icon-table" title="Eliminar"
-									onClick="Confirma('¿Seguro que deseas dar de baja al usuario <?php echo $element['username'];?>?', 'mygroup?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['username'];?>')">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="Eliminar" onClick="Confirma('¿Seguro que deseas dar de baja al usuario <?php echo $element['username'];?>?', 'mygroup?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['username'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
+								</button>
 							</td>					
 							<td width="60%">
 								<em class="text-primary"><?php echo $element['username'];?></em> <?php echo $element['name'];?> <?php echo $element['surname'];?> 
-
 								<em class="text-warning"><small><?php echo $element['email'];?></small></em><br />
 								<em class="text-muted"><?php echo $element['cod_tienda'];?> <small><?php echo $element['nombre_tienda'];?></small></em>
 								<?php if($element['telefono'] != ""):?>
@@ -144,8 +148,11 @@ templateload("addalert", "alerts");
 		</div>
 		<div class="app-sidebar">
 			<div class="panel-interior">
+				<br />
+				<?php panelGroup($centros, $id_group);?>
 				<?php echo SearchForm($elements['reg'],"mygroup","searchForm", "Buscar usuario", strTranslate("Search"), "", "", "get");?>
 				<?php if(getModuleExist("alerts")): ?>
+				<br />
 				<h4>
 					<span class="fa-stack fa-sx">
 						<i class="fa fa-circle fa-stack-2x"></i>

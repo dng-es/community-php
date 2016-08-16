@@ -7,33 +7,37 @@
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"admin-users"),
 			array("ItemLabel"=>strTranslate("Users_import"), "ItemClass"=>"active"),
-		));
+		)); ?>
 
-		if (isset($_FILES['nombre-fichero']['name'])) {
-			$fichero=$_FILES['nombre-fichero'];
-			//SUBIR FICHERO		
-			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo=NormalizeText($nombre_archivo);
-			$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
-			$tamano_archivo = $fichero['size'];
-			//compruebo si las características del archivo son las que deseo
-			if ($tipo_archivo != "XLS") ErrorMsg("La extensión no es correcta.".$tipo_archivo);
-			else{
-				if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
-					//BORRAR FICHEROS ANTIGUOS
-					//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
-					
-					require_once 'docs/reader.php';
-					$data = new Spreadsheet_Excel_Reader();
-					$data->setOutputEncoding('CP1251');
-					$data->read('docs/cargas/'.$nombre_archivo);
-					
-					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
-					volcarMySQL($data);
-				}
-				else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
-			}
-		}?>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<?php if (isset($_FILES['nombre-fichero']['name'])) {
+					$fichero=$_FILES['nombre-fichero'];
+					//SUBIR FICHERO		
+					$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
+					$nombre_archivo=NormalizeText($nombre_archivo);
+					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
+					$tamano_archivo = $fichero['size'];
+					//compruebo si las características del archivo son las que deseo
+					if ($tipo_archivo != "XLS") ErrorMsg("La extensión no es correcta.".$tipo_archivo);
+					else{
+						if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
+							//BORRAR FICHEROS ANTIGUOS
+							//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
+							
+							require_once 'docs/reader.php';
+							$data = new Spreadsheet_Excel_Reader();
+							$data->setOutputEncoding('CP1251');
+							$data->read('docs/cargas/'.$nombre_archivo);
+							
+							/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
+							volcarMySQL($data);
+						}
+						else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
+					}
+				}?>
+			</div>
+		</div>
 	</div>
 	<?php menu::adminMenu();?>
 </div>
@@ -51,8 +55,8 @@ function volcarMySQL($data){
 	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 		$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
 		$user_pass = $username;
-		$nombre = sanitizeInput($data->sheets[0]['cells'][$fila][4]);
-		$surname = sanitizeInput($data->sheets[0]['cells'][$fila][2]." ".$data->sheets[0]['cells'][$fila][3]);
+		$nombre = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][4]));
+		$surname = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][2]." ".$data->sheets[0]['cells'][$fila][3]));
 		$empresa = sanitizeInput($data->sheets[0]['cells'][$fila][5]);	
 		$user_email = $data->sheets[0]['cells'][$fila][6];
 		$telefono_user = $data->sheets[0]['cells'][$fila][7];

@@ -13,6 +13,7 @@ if (isset($_REQUEST['f'])) $filtro .= " AND d.id_order LIKE '%".$_REQUEST['f']."
 $filtro .= " ORDER BY d.id_order DESC";
 
 shopOrdersController::exportListDetailAction($filtro);
+session::getFlashMessage( 'actions_message' );
 shopOrdersController::estadosAction();
 $elements = shopOrdersController::getListDetailAction(15, $filtro);
 
@@ -30,6 +31,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 		<ul class="nav nav-pills navbar-default">     
 			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 			<li><a href="<?php echo $_REQUEST['page'];?>?export=true"><?php e_strTranslate("Export");?></a></li>
+			<li><a href="admin-cargas-states"><?php e_strTranslate("Import_order_states");?></a></li>
 			<div class="pull-right">
 				<?php echo SearchForm($elements['reg'], "admin-shoporders", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>
 			</div>
@@ -52,9 +54,9 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 						<input type="hidden" name="status_order_old" id="status_order_old" value="<?php echo $element['status_order'];?>" />
 						<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>"
-									onClick="location.href='admin-shopordersdetail?id=<?php echo $element['id_order'];?>'">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>"
+									onClick="location.href='admin-shopordersdetail?id=<?php echo $element['id_order'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
 							<td><?php echo $element['id_order'];?></td>
 							<td>

@@ -24,7 +24,7 @@ function addAlert(){ ?>
 		</div>		
 		<div class="form-group col-md-12">
 			<label for="text_alert"><?php e_strTranslate("Description");?></label>
-			<textarea class="form-control" name="text_alert" id="text_alert" data-alert="<?php e_strTranslate("Required_field");?>"></textarea>
+			<textarea rows="4" class="form-control" name="text_alert" id="text_alert" data-alert="<?php e_strTranslate("Required_field");?>"></textarea>
 		</div>
 		<div class="form-group col-md-6">
 			<label class=" control-label" for="date_ini">Inicio</label>

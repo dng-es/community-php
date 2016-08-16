@@ -87,7 +87,12 @@ class menu{
 		if ($_SESSION['user_logged'] == true){
 			$users = new users();
 			$puntos_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
+			
+			//actualizar datos de sesion por si han cambiado
 			$_SESSION['user_puntos'] = $puntos_user[0]['puntos'];
+			$_SESSION['user_perfil'] = $puntos_user[0]['perfil'];
+			$_SESSION['user_empresa'] = $puntos_user[0]['empresa'];
+
 			//MENSAJE NO LEIDOS
 			$contador_no_leidos=connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 			?>
@@ -96,7 +101,7 @@ class menu{
 				<div id="user-info">
 					<div class="pull-right" style="width:75%">
 					<?php 
-					echo '<a href="profile"><img alt="'.prepareString($_SESSION['user_nick']).'" src="'.$_SESSION['user_foto'].'" /></a>';
+					echo '<a href="profile" title="'.strTranslate("My_profile").'"><img alt="'.prepareString($_SESSION['user_nick']).'" src="'.usersController::getUserFoto($puntos_user[0]['foto']).'" /></a>';
 					
 					echo '<p>';
 					echo '<a href="profile">'.$_SESSION['user_nick'].'</a>';
@@ -303,9 +308,8 @@ class menu{
 	 * @param  array 	$elems 		Elementos a mostrar en el breadcrub
 	 */
 	public static function breadcrumb($elems){
-		global $TITLE_META_PAGE;
-		$module_config = getModuleConfig("configuration");
-		if ( $module_config['options']['breadcrumb'] == true){
+		global $TITLE_META_PAGE, $ini_conf;
+		if ( $ini_conf['breadcrumb'] == true){
 			echo '<ol class="breadcrumb hidden-print">';
 			foreach($elems as $elem):
 				echo '<li'.(isset($elem["ItemClass"]) ? ' class="'.$elem["ItemClass"].'" ': '').'>

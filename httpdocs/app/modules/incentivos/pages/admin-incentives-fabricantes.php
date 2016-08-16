@@ -39,9 +39,8 @@ $elements = incentivosFabricantesController::getListAction(35);
 								<?php foreach($elements['items'] as $element):?>
 									<tr>
 										<td nowrap="nowrap">						
-											<span class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
-												onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-fabricantes&pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_fabricante'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>')">
-											</span>
+											<button type="button" class="btn btn-default btn-xs" title="<?php echo strTranslate("Delete");?>" onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-fabricantes&pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_fabricante'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>'); return false;"><i class="fa fa-trash icon-table"></i>
+											</button>
 										</td>					
 										<td><?php echo $element['nombre_fabricante'];?></td>
 										<td>

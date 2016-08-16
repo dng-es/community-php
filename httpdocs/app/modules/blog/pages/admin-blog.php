@@ -63,21 +63,19 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 					</tr>
 					<?php foreach($elements as $element):
 						$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
-						$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");
-						echo '<tr>';
-						echo '<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="Ver/editar entrada"
-									onClick="location.href=\'admin-blog-new?id='.$element['id_tema'].'\'">
-								</span>
-								
-								<span class="fa fa-ban icon-table" title="Eliminar"
-									onClick="Confirma(\'¿Seguro que desea eliminar la entrada?\',
-									\'admin-blog?pag='.$pag.'&act=del&id='.$element['id_tema'].'\')">
-								</span>
-							 </td>';
-									
-						echo '<td>'.$element['nombre'].'</td>';
-						echo '<td><em class="legend">'.getDateFormat($element['date_tema'], "LONG").'</em><br />';
+						$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");?>
+						<tr>
+							<td nowrap="nowrap">
+								<button type="button" class="btn btn-default btn-xs" title="Eliminar"
+									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-blog?pag=<?php echo $pag;?>&act=del&id=<?php echo $element['id_tema'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
+								</button>
+
+								<button type="button" class="btn btn-default btn-xs" title="Ver/editar entrada" onClick="location.href='admin-blog-new?id=<?php echo $element['id_tema'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+								</button>
+							 </td>
+						<?php 			
+						echo '<td>'.$element['nombre'].'<br />';
+						echo '<em class="legend">'.getDateFormat($element['date_tema'], "LONG").'</em><br />';
 						echo $element['user'].'</td>';
 						echo '<td>'.$num_visitas.'</td>';
 						echo '<td>';

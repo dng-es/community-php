@@ -9,7 +9,7 @@ addJavascripts(array("js/jquery.numeric.js",
 					 "js/bootstrap.file-input.js", 
 					 "js/libs/ckeditor/ckeditor.js", 
 					 getAsset("na_areas")."js/admin-area.js", 
-					 getAsset("na_areas")."js/admin-cargas.js"));
+					 getAsset("users")."js/admin-cargas.js"));
 
 templateload("cmbCanales","users");
 if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas");
@@ -446,13 +446,9 @@ function showTareasArea($id_area){
 						<input class="styled" type="checkbox" name="tarea_grupo"  id="tarea_grupo">
 						<label for="tarea_grupo"> Tarea de grupos</label>
 					</div>
-
-
-
 					<br />
 					<button type="button" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary btn-block">Guardar tarea</button>
-					<br />
-					
+					<br />			
 				</form>
 			</div>
 			<div class="col-md-7">

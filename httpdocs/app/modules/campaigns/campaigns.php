@@ -2,7 +2,7 @@
 /**
 * @Manage campaigns
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0.1
+* @version 1.1
 *
 */
 class campaignsCore{

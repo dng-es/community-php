@@ -3,6 +3,13 @@ jQuery(document).ready(function(){
 
 	$(".numeric").numeric();
 
+	$("#text_alert").bootstrapTextArea({
+							title: "Descripción", 
+							lblSave: "Aceptar",
+							lblZoom: "Ampliar",
+							rows: 20
+							});
+
 	$("#new-user-trigger").click(function(e){
 		e.preventDefault();
 		if ($("#new-user-container").hasClass('div-drop-visible')){
@@ -25,7 +32,7 @@ jQuery(document).ready(function(){
 
 		
 		if (jQuery.trim($("#empresa_user").removeClass("input-alert").val())=="") {
-			form_ok=false;
+			resultado_ok=false;
 			$("#empresa_user").addClass("input-alert").attr("placeholder",$('#empresa_user').data("alert")).focus();
 		}
 

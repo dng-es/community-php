@@ -9,7 +9,7 @@
 		));
 		session::getFlashMessage( 'actions_message' );
 		pagesController::deleteAction();
-		$elements = pagesController::getListAction(8);
+		$elements = pagesController::getListAction(15, " ORDER BY page_name ");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -23,20 +23,20 @@
 						<tr>
 							<th width="40px">&nbsp;</th>
 							<th><?php e_strTranslate("Name");?></th>
+							<th><?php e_strTranslate("Channel");?></th>
 							<th>URL</th>
 						</tr>		
 						<?php foreach($elements['items'] as $element):?>
 						<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="Ver/editar"
-									onClick="location.href='admin-page?p=<?php echo $element['page_name'];?>'">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="Eliminar" onClick="Confirma('¿Seguro que deseas eliminar la página?', 'admin-pages?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['page_name'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
+								</button>
 
-								<span class="fa fa-ban icon-table" title="Eliminar"
-									onClick="Confirma('¿Seguro que deseas eliminar la página?', 'admin-pages?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['page_name'];?>')">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="Ver/editar" onClick="location.href='admin-page?p=<?php echo $element['page_name'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
 							<td><?php echo $element['page_name'];?></td>
+							<td><?php echo $element['page_canal'];?></td>
 							<td><a href="<?php echo $ini_conf['SiteUrl'].'/pagename?id='.$element['page_name'];?>" target="_blank"><?php echo $ini_conf['SiteUrl'];?>/pagename?id=<?php echo $element['page_name'];?></a></td>
 						</tr>
 						<?php endforeach;?>

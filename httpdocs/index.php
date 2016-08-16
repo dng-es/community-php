@@ -9,7 +9,7 @@ ob_end_clean();
 headers::PageHeader();
 
 //Template page body
-headers::PageBody($ini_conf,$page);
+headers::PageBody($page);
 
 //Template page body
 echo $output;

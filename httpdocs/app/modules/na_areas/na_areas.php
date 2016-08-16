@@ -2,7 +2,7 @@
 /**
 * @Modulo áreas de trabajo. Tareas de formación
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.1.1
+* @version 1.2
 *
 */
 class na_areasCore{
@@ -10,7 +10,7 @@ class na_areasCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("areas", $_SESSION['user_name']));
@@ -19,7 +19,7 @@ class na_areasCore{
 							"LabelItem" => strTranslate("Na_areas"),
 							"LabelUrl" => 'areas',
 							"LabelTarget" => '_self',
-							"LabelPos" => 6));
+							"LabelPos" => $menu_order));
 		}
 		return $array_final;
 	}

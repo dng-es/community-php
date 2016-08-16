@@ -86,18 +86,22 @@ $elements = $na_areas->getAreas($filtro.' LIMIT '.$inicio.','.$reg);
 							?>
 								<tr>
 								<td nowrap="nowrap">
-									<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>"
-										onClick="location.href='admin-area?act=edit&id=<?php echo $element['id_area'];?>'">
-									</span>
+									<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+										onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-areas?pag=<?php echo $pag;?>&act=del&id=<?php echo $element['id_area'];?>&e=2')"><i class="fa fa-trash icon-table"></i>
+									</button>
+									
+									<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>"
+										onClick="location.href='admin-area?act=edit&id=<?php echo $element['id_area'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
+									</button>
 
-									<span class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
-										onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-areas?pag=<?php echo $pag;?>&act=del&id=<?php echo $element['id_area'];?>&e=2')">
-									</span>
 
-									<a href="admin-areas?id=<?php echo $element['id_area'];?>" class="fa fa-download icon-table" title="Descargar usuarios"></a>
+									<button type="button" class="btn btn-default btn-xs"><a href="admin-areas?id=<?php echo $element['id_area'];?>" class="fa fa-download icon-table" title="Descargar usuarios"></a>
+									</button>
 
-									<a href="#" onClick="Confirma('¿Seguro que quieres <?php echo $texto_activar;?> el curso?', 'admin-areas?act=del&e=<?php echo $valor_activar;?>&id=<?php echo $element['id_area'];?>'); return false;" 
+									<button type="button" class="btn btn-default btn-xs">
+										<a href="#" onClick="Confirma('¿Seguro que quieres <?php echo $texto_activar;?> el curso?', 'admin-areas?act=del&e=<?php echo $valor_activar;?>&id=<?php echo $element['id_area'];?>'); return false;" 
 									title="<?php echo $texto_activar;?> curso" /><?php echo $imagen_revision;?></a>
+									</button>
 								</td>						
 								<td><?php echo $element['area_nombre'];?>
 								<br /><em class="text-muted"><small><?php echo getDateFormat($element['area_fecha'], "LONG");?></small></em></td>

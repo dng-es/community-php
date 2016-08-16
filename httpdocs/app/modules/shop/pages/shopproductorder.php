@@ -2,7 +2,8 @@
 addJavascripts(array(getAsset("shop")."js/shopproductorder.js"));
 
 $id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
-$filtro = " AND active_product=1 AND id_product=".$id." ";
+$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND (canal_product='".$_SESSION['user_canal']."' OR canal_product='') " : "");
+$filtro = $filtro_canal." AND active_product=1 AND id_product=".$id." ";
 
 session::getFlashMessage( 'actions_message' );
 $elements = shopProductsController::getListAction(1, $filtro);
@@ -13,19 +14,19 @@ $user_detail = usersController::getPerfilAction($_SESSION['user_name']);
 //obtener datos del usuario para rellenar cuestionario:
 //- si el usuario ha realizado alguna vez un pedido, se toman los datos del último
 //- si nunca ha hecho un pedido, se toman los del perfil
-//$last_oder = shopOrdersController::getListAction(1, " AND username_order='".$_SESSION['user_name']."' order BY id_order DESC");
+//$last_order = shopOrdersController::getListAction(1, " AND username_order='".$_SESSION['user_name']."' order BY id_order DESC");
 
 //obtener datos de la tienda para rellenar cuestionario
-$last_oder = usersTiendasController::getListAction(1, " AND cod_tienda='".$_SESSION['user_empresa']."' ");
-if (isset($last_oder['items'][0])){
+$last_order = usersTiendasController::getListAction(1, " AND cod_tienda='".$_SESSION['user_empresa']."' ");
+if (isset($last_order['items'][0])){
 	$name_order = $user_detail['name'];
     $surname_order = $user_detail['surname'];
     $telephone_order = $user_detail['telefono'];
-    $address_order = $last_oder['items'][0]['nombre_tienda'];
-	$address2_order = $last_oder['items'][0]['direccion_tienda'];
-	$city_order = $last_oder['items'][0]['ciudad_tienda'];
-	$state_order = $last_oder['items'][0]['provincia_tienda'];
-    $postal_order = $last_oder['items'][0]['cpostal_tienda'];
+    $address_order = $last_order['items'][0]['nombre_tienda'];
+	$address2_order = $last_order['items'][0]['direccion_tienda'];
+	$city_order = $last_order['items'][0]['ciudad_tienda'];
+	$state_order = $last_order['items'][0]['provincia_tienda'];
+    $postal_order = $last_order['items'][0]['cpostal_tienda'];
 	$notes_order = "";
 }
 else{
@@ -34,13 +35,15 @@ else{
 	$name_order = $user_detail['name'];
 	$surname_order = $user_detail['surname'];
 	$telephone_order = $user_detail['telefono'];
-    $address_order = "";
+    $address_order = $user_detail['direccion_user'];
 	$address2_order = "";
-	$city_order = "";
-	$state_order = "";
-    $postal_order = "";
+	$city_order = $user_detail['ciudad_user'];
+	$state_order = $user_detail['provincia_user'];
+    $postal_order = $user_detail['cpostal_user'];
 	$notes_order = "";
 }
+
+$module_config = getModuleConfig("shop");
 
 ?>
 <div class="row row-top">
@@ -71,8 +74,13 @@ else{
                         <?php if($element['important_product'] == 1):?>
                             <div class="label label-danger"><small>Producto destacado</small></div> 
                         <?php endif;?>
-                        <div class="label label-warning stock"><small>Quedan <?php echo $element['stock_product'];?> unidades</small></div>
-                        <div class="label label-info price"><small><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></small></div>
+
+                        <?php if($module_config['options']['show_stock']):?>
+                            <div class="label label-warning stock"><small>Quedan <?php echo $element['stock_product'];?> unidades</small></div>
+                        <?php endif;?>
+                        <?php if($module_config['options']['show_price']):?>
+                            <div class="label label-info price"><small><?php echo $element['price_product'];?> <?php e_strTranslate("APP_Credits");?></small></div>
+                        <?php endif;?>
                         <h6 class="description"><?php echo shortText(html_entity_decode(strip_tags($element['description_product'])), 50);?></h6>
                     </div>
                 </div>

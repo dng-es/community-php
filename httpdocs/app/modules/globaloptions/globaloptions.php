@@ -11,7 +11,7 @@ class globaloptionsCore {
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */	
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		$array_final = array();
 		global $session;
 
@@ -21,7 +21,7 @@ class globaloptionsCore {
 						"LabelId" => "tienda_go",
 						"LabelUrl" => 'home?gogo=1',
 						"LabelTarget" => '_blank',
-						"LabelPos" => 10));
+						"LabelPos" => $menu_order));
 
 		return $array_final;		
 	}	

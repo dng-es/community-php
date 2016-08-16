@@ -24,12 +24,8 @@ db = "comunidad"
 ;Sql connector. Posibles valores: mysql, mysqli
 sql_connector = "mysqli"
 
-;DEFAULT LANGUAGE
-language = "es"
-language_selector = true
-
 ;DEBUG OPTIONS. Poner 0 en servidores de producción. 1 salida por pantalla. 2 salida fichero error
-debug_app = 1
+debug_app = 0
 
 ;UNDERCONSTRUCTION - only admins can access. Values: true or false
 underconstruction = false

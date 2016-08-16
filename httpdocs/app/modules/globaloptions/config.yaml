@@ -1,0 +1,4 @@
+---
+options:
+    show_user_menu: false
+    user_menu_position: 10

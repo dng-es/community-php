@@ -216,17 +216,16 @@ class cuestionariosController{
 			$cuestionarios = new cuestionarios();
 			$elements=$cuestionarios->getFormulariosFinalizados(" AND id_cuestionario=".$_REQUEST['id']." ORDER BY user_tarea"); 
 			$file_name='exported_file'.date("YmdGis");
+			$num_preguntas = connection::countReg("cuestionarios_preguntas", " AND id_cuestionario=".$_REQUEST['id']." ");
 
 			$final = array();
 			foreach($elements as $element):
 				//respuestas del usuario
 				$respuestas = $cuestionarios -> getFormulariosFinalizadosRespuestas($element['id_cuestionario'], $element['user_tarea']);
-				$i=1;
-				foreach($respuestas as $respuesta):
-					$pregunta_texto = "pregunta".$i;
-					$element[$pregunta_texto] = $respuesta['respuesta_valor'];
-					$i++;
-				endforeach;    
+				for($i=0; $i < $num_preguntas; $i++){
+					$pregunta_texto = "pregunta".($i + 1);
+					$element[$pregunta_texto] = (isset($respuestas[$i]['respuesta_valor']) ? $respuestas[$i]['respuesta_valor'] : "");
+				}    
 				array_push($final, $element);
 			endforeach;
 			download_send_headers("data_export_" . date("Y-m-d") . ".csv");

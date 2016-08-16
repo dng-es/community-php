@@ -2,7 +2,8 @@
 $pages = new pages();
 if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 	$id = $_REQUEST['id'];
-	$pagename = $pages->getPages(" AND page_name='".$id."' ");
+	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND (page_canal='".$_SESSION['user_canal']."' OR page_canal='') " : "");
+	$pagename = $pages->getPages($filtro_canal." AND page_name='".$id."' ");
 	templateload("menu", "pages");?>
 
 	<div class="row row-top">

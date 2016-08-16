@@ -38,20 +38,21 @@ rankingsController::ExportRankingDataAction();
 					<?php foreach($elements['items'] as $element):?>
 						<tr>
 						<td nowrap="nowrap">
-							<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>"
-								onClick="location.href='admin-ranking?id=<?php echo $element['id_ranking'];?>'">
-							</span>
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>" onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-rankings?e=2&act=del&id=<?php echo $element['id_ranking'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+							</button>
 
-							<a title="<?php e_strTranslate("Show");?>" target="_blank" href="rankings?id=<?php echo $element['id_ranking'];?>">
-								<i class="fa fa-share icon-table"></i>
-							</a>
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-ranking?id=<?php echo $element['id_ranking'];?>'"><i class="fa fa-edit icon-table"></i>
+							</button>
 
-							<a href="admin-rankings?exp=<?php echo $element['id_ranking'];?>" class="fa fa-download icon-table" title="descargar datos"></a>
+							<button type="button" class="btn btn-default btn-xs">
+								<a title="<?php e_strTranslate("Show");?>" target="_blank" href="rankings?id=<?php echo $element['id_ranking'];?>">
+									<i class="fa fa-share icon-table"></i>
+								</a>
+							</button>
 
-							<span class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
-								onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-rankings?e=2&act=del&id=<?php echo $element['id_ranking'];?>')">
-							</span>
-
+							<button type="button" class="btn btn-default btn-xs">
+								<a href="admin-rankings?exp=<?php echo $element['id_ranking'];?>" class="fa fa-download icon-table" title="descargar datos"></a>
+							</button>
 						</td>
 						<td><?php echo $element['nombre_ranking'];?></td>
 						<td><?php echo $element['ranking_category_name'];?></td>

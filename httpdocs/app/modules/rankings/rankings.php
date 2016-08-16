@@ -2,7 +2,7 @@
 /**
 * @Manage rankings
 * @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0.1
+* @version 1.0.2
 * 
 */
 class rankingsCore{
@@ -10,7 +10,7 @@ class rankingsCore{
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
-	public static function userMenu(){
+	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("ranking", $_SESSION['user_name']));
@@ -19,7 +19,6 @@ class rankingsCore{
 			$rankings_cat_menu = rankingsController::getListCategoryAction(999, " ");
 
 			if ($rankings_cat_menu['total_reg']>0):
-				$i = 2;
 				foreach ($rankings_cat_menu['items'] as $ranking_cat):	
 					
 					$rankings_menu = rankingsController::getListAction(999, " AND activo=1 AND r.id_ranking_category=".$ranking_cat['id_ranking_category']." ");
@@ -37,16 +36,16 @@ class rankingsCore{
 										"LabelUrl" => '',
 										"LabelTarget" => '',
 										"SubItems" => $array_final_items,
-										"LabelPos" => $i));
+										"LabelPos" => $menu_order));
 
-						$i++;
+						$menu_order++;
 					endif;
 				endforeach;
 			endif;
 
 		}
 
-		return $array_final;		
+		return $array_final;
 	}	
 
 	/**

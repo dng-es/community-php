@@ -63,7 +63,12 @@ templateload("upgrades", "configuration");
 			menu::adminPanels();
 			?>
 		</div>
-		<?php showUpdates();?>
+
+		<div class="row">
+			<div class="col-md-6">
+				<?php showUpdates();?>
+			</div>
+		</div>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

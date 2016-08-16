@@ -91,11 +91,20 @@ class na_areasController{
 				$puntos = (count($area)>0 ? $area[0]['puntos']: 0 );
 				$users->sumarPuntos($user_tarea,$puntos,"Superación curso ID: ".$id_area);
 
+				//enviar email al usuario. Primero hay que obtener sus datos
+				$user_detail = usersController::getPerfilAction($user_tarea);
+				self::emailTareaUser($user_detail, strTranslate("Task_ok_message"));
+
 				//agregar recompensa
 				if ($id_recompensa > 0){
 					$recompensas = new recompensas();
 					$recompensas->insertRecompensaUser($id_recompensa, $user_tarea, $_SESSION['user_name'], "Finalizacion tarea ID: ".$tarea_user);
 				}
+			}
+			else{
+				//enviar email al usuario. Primero hay que obtener sus datos
+				$user_detail = usersController::getPerfilAction($user_tarea);
+				self::emailTareaUser($user_detail, strTranslate("Task_ko_message"));
 			}
 		}
 		redirectURL($_SERVER['REQUEST_URI']);
@@ -417,5 +426,21 @@ class na_areasController{
 			redirectURL("admin-area-form?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
 		}
 	}
+
+	private static function emailTareaUser($user_detail, $msg_detail){
+		global $ini_conf;
+		$asunto = $ini_conf['SiteName'].': '.strTranslate("Task_title_message");
+		$message_from = array($ini_conf['ContactEmail'] => $ini_conf['SiteName']);
+		$message_to = array($user_detail['email']);
+
+		$template = new tpl("tarea", "na_areas");
+		$template->setVars(array(
+					"title_email" => "Reto finalizado",
+					"text_email" => $msg_detail
+		));
+
+		$cuerpo_mensaje = $template->getTpl();
+		messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp');
+	}		
 }
 ?>

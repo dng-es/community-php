@@ -28,24 +28,24 @@ $elements = shopManufacturersController::getListAction(15, $filtro);
 			</div>
 		</ul>
 		<div class="table-responsive">
-			<table class="table">
+			<table class="table table-hover table-striped">
 				<tr>
 					<th width="40px">&nbsp;</th>
-					<th>ID</th>
+					<th width="100px" class="text-center">ID</th>
 					<th><?php e_strTranslate("Name");?></th>
 				</tr>		
 				<?php foreach($elements['items'] as $element): ?>
 						<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>"
-									onClick="location.href='admin-shopmanufacturer?id=<?php echo $element['id_manufacturer'];?>'">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-shopmanufacturers?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_manufacturer'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+								</button>
 
-								<span class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
-									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-shopmanufacturers?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_manufacturer'];?>')">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>"
+									onClick="location.href='admin-shopmanufacturer?id=<?php echo $element['id_manufacturer'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
-							<td><?php echo $element['id_manufacturer'];?></td>
+							<td class="text-center"><?php echo $element['id_manufacturer'];?></td>
 							<td><?php echo $element['name_manufacturer'];?></td>
 						</tr>
 				<?php endforeach; ?>

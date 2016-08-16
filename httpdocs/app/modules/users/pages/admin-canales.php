@@ -34,8 +34,8 @@ $elements = usersCanalesController::getListAction(35);
 						<?php foreach($elements['items'] as $element):?>
 							<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-canal?id=<?php echo $element['canal'];?>'">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-canal?id=<?php echo $element['canal'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
 							<td><?php echo $element['canal'];?></td>
 							<td><?php echo $element['canal_name'];?></td>

@@ -3,6 +3,7 @@ templateload("addcomment", "foro");
 templateload("comment", "foro");
 
 addJavascripts(array("js/jquery.jtextarea.js", 
+					 "js/bootstrap-textarea.min.js",
 					 getAsset("foro")."js/foro-comentario.js"));
 ?>
 <div class="row row-top">

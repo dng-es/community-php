@@ -36,6 +36,7 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 	$title_name = ($ocio == 1) ? "Título de la noticia:" : strTranslate("Title");
 	$title_desc = ($ocio == 1) ? "Descripción de la noticia:" : strTranslate("Description");
 	?>
+	<script language="JavaScript" src="js/bootstrap-textarea.min.js"></script>
 	<script language="JavaScript" src="<?php echo getAsset("foro");?>js/foro-subtemas.js"></script>
 	<div id="banner-foros-form">
 		<h4>
@@ -65,7 +66,7 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 			<label for="nombre-tema" class="sr-only"><?php echo $title_name;?></label>
 			<input type="text" maxlength="100" id="nombre-tema" name="nombre-tema" class="form-control" placeholder="<?php e_strTranslate('Title');?>" title="<?php e_strTranslate("Required_field");?>">
 			<label for="texto-descripcion" class="sr-only"><?php echo $title_desc;?></label>
-			<textarea id="texto-descripcion" name="texto-descripcion" class="form-control" placeholder="<?php e_strTranslate('Description');?>" title="<?php e_strTranslate("Required_field");?>"></textarea>
+			<textarea id="texto-descripcion" name="texto-descripcion" class="form-control" placeholder="<?php e_strTranslate('Description');?>" title="<?php e_strTranslate("Required_field");?>" rows="4"></textarea>
 			<input type="hidden" value="<?php $ocio;?>" name="ocio" id="ocio" />
 			<button type="submit" id="tema-submit" name="tema-submit" class="btn btn-primary btn-block"><?php echo $title_btn;?></button>
 		</form>

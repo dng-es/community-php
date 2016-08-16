@@ -65,6 +65,9 @@ templateload("na_areasuser", "na_areas");
 								<input maxlength="100" name="user-repass" id="user-repass" type="password" class="form-control" value="<?php echo $usuario['user_password'];?>" data-alert="<?php e_strTranslate("Password_not_match");?>" />
 							</div>
 						</div>
+
+						<hr />
+
 						<div class="row">
 							<div class="col-md-6">
 								<label class=" control-label" for="user-nombre"><small><?php e_strTranslate("Name");?></small></label>
@@ -109,13 +112,47 @@ templateload("na_areasuser", "na_areas");
                                     <?php ComboLanguages($usuario['user_lan']);?>
                                 </select>
                             </div>
-						</div>		
+						</div>	
+
 						<div class="row">
 							<div class="col-md-12">
 								<label class="control-label" for="user-comentarios"><small><?php e_strTranslate("what_do_you_think");?></small></label>
 								<textarea name="user-comentarios" id="user-comentarios" class="form-control"><?php echo $usuario['user_comentarios'];?></textarea>
 							</div>
 						</div>
+
+						<hr />
+
+						<div class="row">
+							<div class="col-md-6">
+								<label class=" control-label" for="direccion_user"><small><?php e_strTranslate("Address");?></small></label>
+								<input maxlength="250" name="direccion_user" id="direccion_user" type="text" class="form-control" value="<?php echo $usuario['direccion_user'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							</div>
+							<div class="col-md-6">
+								<label class="control-label" for="ciudad_user"><small><?php e_strTranslate("City");?></small></label>
+								<input maxlength="100" name="ciudad_user" id="ciudad_user" type="text" class="form-control" value="<?php echo $usuario['ciudad_user'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<label class=" control-label" for="provincia_user"><small><?php e_strTranslate("State");?></small></label>
+								<input maxlength="100" name="provincia_user" id="provincia_user" type="text" class="form-control" value="<?php echo $usuario['provincia_user'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							</div>
+							<div class="col-md-6">
+								<label class="control-label" for="cpostal_user"><small><?php e_strTranslate("Postal_code");?></small></label>
+								<input maxlength="10" name="cpostal_user" id="cpostal_user" type="text" class="form-control" value="<?php echo $usuario['cpostal_user'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label" for="telefono"><small><?php e_strTranslate("Telephone");?></small></label>
+								<input maxlength="10" name="telefono" id="telefono" type="text" class="form-control" value="<?php echo $usuario['telefono'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							</div>
+						</div>
+
+						<hr />
 
 						<div class="row">
 							<div class="col-md-6 inset">

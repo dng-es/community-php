@@ -12,7 +12,9 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 
 		infoController::insertAlerts();
 		session::getFlashMessage( 'actions_message' );
-		$elements = campaignsController::getListAction(8);
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND (canal_info='".$_SESSION['user_canal']."' OR canal_info='todos')" : "");
+		$filtro_canal_campaign = ($_SESSION['user_canal'] != 'admin' ? " AND (canal_campaign='".$_SESSION['user_canal']."' OR canal_campaign='')" : "");
+		$elements = campaignsController::getListAction(999, $filtro_canal_campaign);
 		?>
 		<div class="row">
 			<div class="col-md-4">
@@ -26,7 +28,7 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 			<div class="col-md-8">
 				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				<?php foreach($elements['items'] as $element): 
-					$filtro = " AND i.id_campaign=" . $element['id_campaign'] . " ";
+					$filtro = $filtro_canal." AND i.id_campaign=" . $element['id_campaign'] . " ";
 					$elements_info = infoController::getListAction(2000000, $filtro);
 					$num_docs = $elements_info['total_reg'];
 					?>

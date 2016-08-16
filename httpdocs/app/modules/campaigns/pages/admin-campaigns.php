@@ -22,6 +22,7 @@ $elements = campaignsController::getListAction(20);
 						<tr>
 							<th width="40px">&nbsp;</th>
 							<th><?php e_strTranslate("Name");?></th>
+							<th><?php e_strTranslate("Channel");?></th>
 							<th><?php e_strTranslate("Type");?></th>
 							<th><?php e_strTranslate("Description");?></th>
 							<th><?php e_strTranslate("News");?></th>
@@ -29,15 +30,18 @@ $elements = campaignsController::getListAction(20);
 						<?php foreach($elements['items'] as $element): ?>
 							<tr>
 							<td nowrap="nowrap">
-								<a class="fa fa-edit icon-table" title="Ver/editar"
-									onClick="location.href='admin-campaign?id=<?php echo $element['id_campaign'];?>'; return false;">
-								</a>
+								<button type="button" class="btn btn-default btn-xs" title="Eliminar"
+									onClick="Confirma('¿Seguro que deseas eliminar la campaña?', 'admin-campaigns?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_campaign'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
+								</button>
 
-								<a class="fa fa-ban icon-table" title="Eliminar"
-									onClick="Confirma('¿Seguro que deseas eliminar la campaña?', 'admin-campaigns?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_campaign'];?>'); return false;">
-								</a>
+								<button type="button" class="btn btn-default btn-xs" title="Ver/editar"
+									onClick="location.href='admin-campaign?id=<?php echo $element['id_campaign'];?>'; return false;">
+									<i class="fa fa-edit icon-table"></i>
+								</button>
+
 							</td>
 							<td><?php echo $element['name_campaign'];?></td>
+							<td><?php echo $element['canal_campaign'];?></td>
 							<td><?php echo $element['tipo'];?></td>
 							<td><?php echo $element['desc_campaign'];?></td>
 							<td align="center"><span class="label<?php echo ($element['novedad']==0 ? " label-warning" : " label-success");?>"><?php echo ($element['novedad']==0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>

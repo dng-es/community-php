@@ -101,7 +101,8 @@ class infoController{
 
 	public static function getAlerts(){
 		$info = new info();
-		$noLeidos = connection::countReg("info", " AND id_info NOT IN (SELECT id_info FROM info_alerts WHERE username_alert = '".$_SESSION['user_name']."')");
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND (canal_info='".$_SESSION['user_canal']."' OR canal_info='todos')" : "");
+		$noLeidos = connection::countReg("info", $filtro_canal." AND id_info NOT IN (SELECT id_info FROM info_alerts WHERE username_alert = '".$_SESSION['user_name']."')");
 		return $noLeidos;
 	}
 }

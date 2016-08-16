@@ -1,3 +1,5 @@
 ---
 options:
     allow_registration: true
+    show_user_menu: true
+    user_menu_position: 8
