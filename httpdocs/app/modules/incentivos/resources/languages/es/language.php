@@ -20,4 +20,8 @@ Incentives_target = "Objetivo"
 Incentives_targets_new = "Nuevo objetivo"
 Incentives_targets_value = "Valor"
 Incentives_my_sales = "Mis ventas"
+Tienes = "Tienes"
+panel_credits_msg = "Descubre tus regalos"
+Position = "Posición"
+your_position ="Tu posición"
 ?>

@@ -48,7 +48,20 @@ $historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id
                             <hr>
                             <ul class="list-funny">
                             <?php foreach($historico['items'] as $historico_status): ?>
-                                <li><span class="label label-info"><?php echo $historico_status['order_status'];?></span> <?php echo getDateFormat($historico_status['date_status'], 'DATE_TIME');?></li>
+                                <li>
+                                <?php if($historico_status['order_status'] == 'cancelado'):?>
+                                    <span class="label label-danger">
+                                <?php endif;?>
+
+                                <?php if($historico_status['order_status'] == 'finalizado'):?>
+                                    <span class="label label-success">
+                                <?php endif;?>
+
+                                <?php if($historico_status['order_status'] == 'pendiente'):?>
+                                    <span class="label label-warning">
+                                <?php endif;?>
+                                    <?php echo $historico_status['order_status'];?></span> <?php echo getDateFormat($historico_status['date_status'], 'DATE_TIME');?>
+                                </li>
                             <?php endforeach;?>
                             </ul>
                         </div>

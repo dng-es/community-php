@@ -42,7 +42,7 @@ $id_group = (isset($_REQUEST['id']) ? sanitizeInput($_REQUEST['id']) : "");
 		alertsController::createAction();
 
 		$filtro_id_group = ($id_group != "" ? " AND empresa='".$id_group."' " : "");
-		$filtro_tienda = ($_SESSION['user_perfil'] == 'responsable' ? " AND responsable_tienda='".$_SESSION['user_name']."' " : "");
+		$filtro_tienda = usersController::getTiendaFilter("cod_tienda");
 		$elements = usersController::getListEquipoAction(20, " AND disabled=0 AND perfil='usuario' ".$filtro_tienda.$filtro_id_group);
 
 		$users = new users();

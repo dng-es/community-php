@@ -1,5 +1,8 @@
 ---
 upgrades:
+    7:  
+        version: 0.5.3.1
+        notes: \nModulos de incentivos y batallas por canales. Opciones en carga masiva de usuario\n\n
     6:  
         version: 0.5.3
         notes: \nOpción de ocultar y mostrar módulos en el menú de usuarios.\nMódulo Páginas. Nueva opción de incluir páginas en el menú y posición; nueva opción páginas por canales\n\n

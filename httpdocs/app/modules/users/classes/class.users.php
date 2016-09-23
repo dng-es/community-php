@@ -51,7 +51,7 @@ class users{
 		$Sql = "INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, 
 			  empresa, perfil, telefono, surname, user_comentarios, registered, direccion_user, ciudad_user, provincia_user, cpostal_user) 
 			  VALUES ('".$username."','".$user_password."','".$email."','".$name_user."',".$confirmed.",".$disabled.",
-			  '".$canal."','".$empresa."','".$perfil."','".$telefono."','".$surname."','',".$registered.", '".$direccion_user."', '".$ciudad_user."', '".$provincia_user."', '".$cpostal_user."'')";
+			  '".$canal."','".$empresa."','".$perfil."','".$telefono."','".$surname."','',".$registered.", '".$direccion_user."', '".$ciudad_user."', '".$provincia_user."', '".$cpostal_user."')";
 		return connection::execute_query($Sql);
 	}
 
@@ -200,6 +200,15 @@ class users{
 				WHERE username='".$username."'";
 		return connection::execute_query($Sql);
 	}
+
+	public function updateUserCarga($username, $empresa, $canal){
+		$Sql = "UPDATE users SET 
+				empresa='".$empresa."',
+				canal='".$canal."',
+				disabled=0
+				WHERE username='".$username."'";
+		return connection::execute_query($Sql);
+	}	
 
 	public function confirmUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date){
 		//verificar si el nick existe, Devolvera: 1->ok, 2-> Error SQL, 3->Nick existe,

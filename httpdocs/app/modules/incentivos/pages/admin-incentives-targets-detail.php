@@ -37,7 +37,7 @@ $users = new users();
 		<div class="row">
 			<div class="col-md-7">
 				<div class="table-responsive">
-					<table class="table table-striped table-hover">
+					<table class="table">
 						<tr>
 						<th width="40px"></th>
 						<th><?php echo strTranslate("Incentives_product");?></th>
@@ -80,52 +80,51 @@ $users = new users();
 				</div>
 			</div>
 			<div class="col-md-5">
-				<div class="panel panel-default">
-					<div class="panel-heading"><?php echo strTranslate("Incentives_targets_new");?></div>
-					<div class="panel-body">
-						<form role="form" action="" method="post" name="formData" id="formData">
-							<input type="hidden" name="id_objetivo" value="<?php echo $id_objetivo;?>" />
-							<div class="form-group">
-								<label for="valor_objetivo"><?php echo strTranslate("Incentives_targets_value");?></label>
-								<input type="text" class="form-control" name="valor_objetivo" id="valor_objetivo" data-alert="<?php echo strTranslate("Required_field");?>" />
-							</div>
+				<div class="section inset">
+					<h4><?php echo strTranslate("Incentives_targets_new");?></h4>
+					<form role="form" action="" method="post" name="formData" id="formData">
+						<input type="hidden" name="id_objetivo" value="<?php echo $id_objetivo;?>" />
+						<div class="form-group">
+							<label for="valor_objetivo"><?php echo strTranslate("Incentives_targets_value");?></label>
+							<input type="text" class="form-control" name="valor_objetivo" id="valor_objetivo" data-alert="<?php echo strTranslate("Required_field");?>" />
+						</div>
 
-							<div class="form-group">
-								<label for="id_producto"><?php echo strTranslate("Incentives_product");?></label>
-								<select name="id_producto" id="id_producto" class="form-control">
-								<?php 
-								$incentivos = new incentivos();
-								$productos = $incentivos->getIncentivesProductos(" AND activo_producto=1 ORDER BY nombre_fabricante, nombre_producto ");
-								foreach($productos as $producto):
-									echo '<option value="'.$producto['id_producto'].'">'.$producto['nombre_fabricante'].' - '.$producto['nombre_producto'].'</option>';
-								endforeach;
-								?>
-								</select>
-							</div>
+						<div class="form-group">
+							<label for="id_producto"><?php echo strTranslate("Incentives_product");?></label>
+							<select name="id_producto" id="id_producto" class="form-control">
+							<?php 
+							$incentivos = new incentivos();
+							$productos = $incentivos->getIncentivesProductos(" AND activo_producto=1 ORDER BY nombre_fabricante, nombre_producto ");
+							foreach($productos as $producto):
+								echo '<option value="'.$producto['id_producto'].'">'.$producto['nombre_fabricante'].' - '.$producto['nombre_producto'].'</option>';
+							endforeach;
+							?>
+							</select>
+						</div>
 
-							<div class="form-group">
-								<label>Destinatario del objetivo</label>
-								<select name="destino_objetivo" id="destino_objetivo" class="form-control">
-								<?php
-									if ($objetivo['tipo_objetivo']=='Tienda'){
-										$tiendas = $users->getTiendas(" AND activa=1 ");
-										foreach($tiendas as $tienda):
-											echo '<option value="'.$tienda['cod_tienda'].'">'.$tienda['nombre_tienda'].'</option>';
-										endforeach;
-									}
-									else{
-										$usuarios = $users->getUsers(" AND disabled=0 ");
-										foreach($usuarios as $usuario):
-											echo '<option value="'.$usuario['username'].'">'.$usuario['name'].', '.$usuario['surname'].'</option>';
-										endforeach;
-									}
-								?>
-								</select>
-							</div>
-	
-							<button type="submit" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
-						</form>
-					</div>
+						<div class="form-group">
+							<label>Destinatario del objetivo</label>
+							<select name="destino_objetivo" id="destino_objetivo" class="form-control">
+								<option value="">---Todos los usuarios---</option>
+							<?php
+								if ($objetivo['tipo_objetivo']=='Tienda'){
+									$tiendas = $users->getTiendas(" AND activa=1 ");
+									foreach($tiendas as $tienda):
+										echo '<option value="'.$tienda['cod_tienda'].'">'.$tienda['nombre_tienda'].'</option>';
+									endforeach;
+								}
+								else{
+									$usuarios = $users->getUsers(" AND disabled=0 ");
+									foreach($usuarios as $usuario):
+										echo '<option value="'.$usuario['username'].'">'.$usuario['name'].', '.$usuario['surname'].'</option>';
+									endforeach;
+								}
+							?>
+							</select>
+						</div>
+
+						<button type="submit" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+					</form>
 				</div>
 			</div>
 		</div>

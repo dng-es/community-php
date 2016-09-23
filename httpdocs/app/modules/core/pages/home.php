@@ -16,6 +16,13 @@ templateload("panels", "na_areas");
 templateload("panels", "novedades");
 templateload("panels", "users");
 templateload("panels", "videos");
+templateload("panels", "incentivos");
+
+$filtro_perfil = incentivosObjetivosController::getFiltroPerfil($_SESSION['user_perfil']);
+$filtro_canal = (($_SESSION['user_canal'] == 'admin' or $_SESSION['user_canal'] == '') ? "" : " AND (canal_objetivo='' OR canal_objetivo='".$_SESSION['user_canal']."') ");
+
+
+$rankings = incentivosObjetivosController::getListAction(99, $filtro_perfil.$filtro_canal." AND activo_objetivo=1 AND ranking_objetivo=1 ");
 
 ?>
 <div class="row row-top">
@@ -31,14 +38,19 @@ templateload("panels", "videos");
 		<div class="row">
 			<div class="col-md-8">
 				<?php panelNovedades();?>
-				<?php panelAreas();?>	
-				<?php panelForos();?>
+
+				<?php foreach($rankings['items'] as $ranking):?>
+					<?php panelRanking($ranking['id_objetivo']);?>
+				<?php endforeach;?>
+
 			</div>
 			<div class="col-md-4">
 				<?php panelDestacado();?>
 				<?php panelBlog();?>
 				<?php panelFotos();?>
 				<?php panelVideos();?>
+				<?php panelAreas();?>	
+				<?php panelForos();?>
 			</div>
 		</div>
 	</div>

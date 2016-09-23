@@ -308,7 +308,7 @@ class session{
 	* Set user default channel
 	*/
 	public static function setDefaultTheme(){
-		if (!isset($_SESSION['user_theme']) or $_SESSION['user_theme'] == "") $_SESSION['user_theme'] = "default";
+		if (!isset($_SESSION['user_theme']) or $_SESSION['user_theme'] == "") $_SESSION['user_theme'] = DEFAULT_THEME;
 	}	
 
 	/**

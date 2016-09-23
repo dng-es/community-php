@@ -27,44 +27,41 @@ $elements = incentivosFabricantesController::getListAction(35);
 
 		<div class="row">
 			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table class="table table-striped table-hover">
+				<div class="section inset">
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+							<th width="40px"></th>
+							<th><?php echo strTranslate("Incentives_manufacturers");?></th>
+							<th width="60px"></th>
+							</tr>	
+							<?php foreach($elements['items'] as $element):?>
 								<tr>
-								<th width="40px"></th>
-								<th><?php echo strTranslate("Incentives_manufacturers");?></th>
-								<th width="60px"></th>
-								</tr>	
-								<?php foreach($elements['items'] as $element):?>
-									<tr>
-										<td nowrap="nowrap">						
-											<button type="button" class="btn btn-default btn-xs" title="<?php echo strTranslate("Delete");?>" onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-fabricantes&pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_fabricante'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>'); return false;"><i class="fa fa-trash icon-table"></i>
-											</button>
-										</td>					
-										<td><?php echo $element['nombre_fabricante'];?></td>
-										<td>
-											<a class="btn btn-default btn-xs" href="admin-incentives-products?m=<?php echo $element['id_fabricante'];?>"><?php echo strTranslate("Incentives_products");?></a>
-										</td>
-									</tr>  
-								<?php endforeach; ?>
-							</table>
-						</div>
+									<td nowrap="nowrap">						
+										<span class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
+											onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-fabricantes?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_fabricante'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>')">
+										</span>
+									</td>					
+									<td><?php echo $element['nombre_fabricante'];?></td>
+									<td>
+										<a class="btn btn-default btn-xs" href="admin-incentives-products?m=<?php echo $element['id_fabricante'];?>"><?php echo strTranslate("Incentives_products");?></a>
+									</td>
+								</tr>  
+							<?php endforeach; ?>
+						</table>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading"><?php echo strTranslate("Incentives_manufacturers_new");?></div>
-					<div class="panel-body">
-						<form role="form" action="" method="post" name="formData" id="formData">
-							<div class="form-group">
-								<label for="fabricante-nombre"><?php echo strTranslate("Incentives_manufacturer");?></label>
-								<input type="text" class="form-control" name="fabricante-nombre" id="fabricante-nombre" data-alert="<?php echo strTranslate("Required_field");?>" />
-							</div>
-							<button type="submit" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
-						</form>
-					</div>
+				<div class="section inset">
+					<h4><?php echo strTranslate("Incentives_manufacturers_new");?></h4>
+					<form role="form" action="" method="post" name="formData" id="formData">
+						<div class="form-group">
+							<label for="fabricante-nombre"><?php echo strTranslate("Incentives_manufacturer");?></label>
+							<input type="text" class="form-control" name="fabricante-nombre" id="fabricante-nombre" data-alert="<?php echo strTranslate("Required_field");?>" />
+						</div>
+						<button type="submit" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+					</form>
 				</div>
 			</div>
 		</div>

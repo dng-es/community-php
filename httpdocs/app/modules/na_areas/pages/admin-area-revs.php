@@ -88,7 +88,7 @@ function revisionesFicheros($id_tarea, $id_area, $id_grupo, $id_recompensa){
 		$users = new users();
 		$filtro = " AND id_tarea=".$id_tarea." ";
 		if ($id_grupo!=0){$filtro .= " AND user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
-		$filtro .= " ORDER BY user_tarea";
+		$filtro .= " ORDER BY fecha_tarea DESC ";
 		$revisiones = $na_areas->getTareasUser($filtro); 
 		
 		echo '<br /><p>pincha <a href="admin-area-revs?t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
@@ -129,7 +129,7 @@ function revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa){
 	$users = new users();
 	$filtro =" AND id_tarea=".$id_tarea." ";
 	if ($id_grupo!=0){$filtro .= " AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
-	$filtro.=" ORDER BY user_tarea";
+	$filtro.=" ORDER BY date_finalizacion DESC";
 	$revisiones = $na_areas->getFormulariosFinalizados($filtro);   
 
 	if (count($revisiones) == 0){

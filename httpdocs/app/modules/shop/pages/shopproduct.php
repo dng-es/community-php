@@ -1,4 +1,6 @@
 <?php
+addJavascripts(array("js/bootstrap-select.js"));
+addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 templateload("searchproducts","shop");
 
 

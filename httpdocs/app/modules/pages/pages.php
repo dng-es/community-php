@@ -1,7 +1,8 @@
 <?php
 /**
 * @Modulo de gestión de páginas de la app
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @author Imagar Informatica SL
+* @copyright 2010 Grass Roots Spain
 * @version 1.3
 *
 */

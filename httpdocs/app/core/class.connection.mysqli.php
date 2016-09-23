@@ -1,12 +1,11 @@
 <?php
-///////////////////////////////////////////////////////////////////////////////////
-// Author: David Noguera Gutierrez
-// License: GPL
-// Date: 2010-06-03
-// Description: framework_da core class. Database conection and common functions.
-// Please don't remove these lines
-///////////////////////////////////////////////////////////////////////////////////
-
+/**
+* @Database conection and common functions
+* @author Imagar Informatica SL
+* @copyright 2010 Grass Roots Spain
+* @version 1.0
+* 
+*/
 
 class connection_sql {
 	const frameworkVersion = 0.5;

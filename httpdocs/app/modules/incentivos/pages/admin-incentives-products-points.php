@@ -31,7 +31,7 @@ $elements = incentivosProductosController::getListPuntosAction(9999, " AND id_pr
 		<div class="row">
 			<div class="col-md-7">
 				<div class="table-responsive">
-					<table class="table table-striped table-hover">
+					<table class="table">
 						<tr>
 						<th width="40px"></th>
 						<th><?php echo strTranslate("Date_start");?></th>
@@ -54,34 +54,32 @@ $elements = incentivosProductosController::getListPuntosAction(9999, " AND id_pr
 				</div>
 			</div>
 			<div class="col-md-5">
-				<div class="panel panel-default">
-					<div class="panel-heading">Nueva puntuación</div>
-					<div class="panel-body">
-						<form role="form" action="" method="post" name="formData" id="formData">
-							<input type="hidden" name="id_producto" value="<?php echo $id_producto;?>" />
-							<div class="form-group">
-								<label for="puntos"><?php echo strTranslate("Incentives_points");?></label>
-								<input type="text" class="form-control" name="puntos" id="puntos" data-alert="<?php echo strTranslate("Required_field");?>" />
-							</div>
+				<div class="section inset">
+					<h4>Nueva puntuación</h4>
+					<form role="form" action="" method="post" name="formData" id="formData">
+						<input type="hidden" name="id_producto" value="<?php echo $id_producto;?>" />
+						<div class="form-group">
+							<label for="puntos"><?php echo strTranslate("Incentives_points");?></label>
+							<input type="text" class="form-control" name="puntos" id="puntos" data-alert="<?php echo strTranslate("Required_field");?>" />
+						</div>
 
-							<div class="form-group">
-								<label class=" control-label" for="date_ini"><?php echo strTranslate("Date_start");?></label>
-								<div id="datetimepicker1" class="input-group date">
-									<input data-format="yyyy/MM/dd" readonly type="text" id="date_ini" class="form-control" name="date_ini" data-alert="<?php echo strTranslate("Required_date");?>"></input>
-									<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-								</div>
+						<div class="form-group">
+							<label class=" control-label" for="date_ini"><?php echo strTranslate("Date_start");?></label>
+							<div id="datetimepicker1" class="input-group date">
+								<input data-format="yyyy/MM/dd" readonly type="text" id="date_ini" class="form-control" name="date_ini" data-alert="<?php echo strTranslate("Required_date");?>"></input>
+								<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 							</div>
+						</div>
 
-							<div class="form-group">
-								<label class=" control-label" for="date_fin"><?php echo strTranslate("Date_end");?></label>
-								<div id="datetimepicker2" class="input-group date">
-									<input data-format="yyyy/MM/dd" readonly type="text" id="date_fin" class="form-control" name="date_fin" data-alert="<?php echo strTranslate("Required_date");?>"></input>
-									<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-								</div>							
-							</div>
-							<button type="submit" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
-						</form>
-					</div>
+						<div class="form-group">
+							<label class=" control-label" for="date_fin"><?php echo strTranslate("Date_end");?></label>
+							<div id="datetimepicker2" class="input-group date">
+								<input data-format="yyyy/MM/dd" readonly type="text" id="date_fin" class="form-control" name="date_fin" data-alert="<?php echo strTranslate("Required_date");?>"></input>
+								<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+							</div>							
+						</div>
+						<button type="submit" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+					</form>
 				</div>
 			</div>
 		</div>

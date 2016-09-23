@@ -175,8 +175,7 @@ class foro{
 		$Sql = "SELECT DISTINCT c.id_tema,t.nombre FROM `foro_comentarios` c
 			LEFT JOIN foro_temas t ON t.id_tema=c.id_tema
 			WHERE t.activo=1 ".$filter."
-			ORDER BY c.id_comentario DESC
-			LIMIT ".$limit;
+			LIMIT ".$limit; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 }

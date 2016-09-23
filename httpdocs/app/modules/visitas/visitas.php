@@ -1,7 +1,7 @@
 <?php
 /**
 * @Control de accesos e informes estadísticos
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @author Imagar Informatica SL
 * @version 1.2
 * 
 */

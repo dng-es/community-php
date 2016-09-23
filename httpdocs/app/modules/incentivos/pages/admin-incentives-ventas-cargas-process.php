@@ -4,7 +4,7 @@ set_time_limit(0);
 
 <div class="row row-top">
 	<div class="app-main">
-		<?php 
+		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
@@ -14,7 +14,7 @@ set_time_limit(0);
 
 		if (isset($_FILES['nombre-fichero']['name'])) {
 			$fichero=$_FILES['nombre-fichero'];
-			//SUBIR FICHERO		
+			//SUBIR FICHERO
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
 			$nombre_archivo=NormalizeText($nombre_archivo);
 			$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
@@ -26,15 +26,15 @@ set_time_limit(0);
 				if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 					//BORRAR FICHEROS ANTIGUOS
 					//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
-					
+
 					require_once 'docs/reader.php';
 					$data = new Spreadsheet_Excel_Reader();
 					$data->setOutputEncoding('CP1251');
 					$data->read('docs/cargas/'.$nombre_archivo);
-					
-					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
-					volcarMySQL($data);				   
-				}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
+
+					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/
+					volcarMySQL($data);
+				}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";}
 			}
 		}?>
 	</div>
@@ -44,39 +44,39 @@ set_time_limit(0);
 
 <?php
 
-function volcarMySQL($data) {	
+function volcarMySQL($data) {
 	$users = new users();
 	$contador_insert = 0;
 	$contador_ko = 0;
 	$incentivos = new incentivos();
 
-	//Global Options token
-	$gotoken = globaloptionsController::gettoken( $_SESSION['user_name'], $_SESSION['user_pass']);
-
 	for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
 		$referencia_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
 		$fabricante_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
-		$cantidad_venta = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][3]))));
+		$cantidad_venta = utf8_encode(str_replace(',','.',str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][3])))));
 		$username_venta = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][4])));
 		$fecha_venta = str_replace ("/","-",trim(strtoupper($data->sheets[0]['cells'][$fila][5])));
+		$detalle = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][6]))));
+		//$tendencia = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][7]))));
+		$tendencia = "";
 
 		if ($referencia_producto!=""){
 			//buscar id_producto por referencia y fabriacante
 			$producto = $incentivos->getIncentivesProductos(" AND UPPER(p.referencia_producto)='".$referencia_producto."' AND UPPER(f.nombre_fabricante)='".$fabricante_producto."' ");
 			if (count($producto)>0){
-				if ($incentivos->insertIncentivesVenta( $producto[0]['id_producto'], $cantidad_venta, $username_venta, $fecha_venta )) {		
+				$fechaV=date("Y-m-d",strtotime($fecha_venta));
+
+				if ($incentivos->insertIncentivesVenta($producto[0]['id_producto'], $cantidad_venta, $username_venta, $fechaV, $detalle, $tendencia)) {
 
 					$contador_insert++;
 					//asignacion de puntos. Obtener puntos del producto por la fecha y obtener aceleradores
-					$puntuacion_producto = $incentivos->getIncentivesProductosPuntos(" AND id_producto=".$producto[0]['id_producto']." AND '".$fecha_venta."' BETWEEN date_ini AND date_fin ");
-					$puntuacion_acelerador = $incentivos->getIncentivesProductAcelerators(" AND a.id_producto=".$producto[0]['id_producto']." AND '".$fecha_venta."' BETWEEN a.date_ini AND a.date_fin ");
+					$puntuacion_producto = $incentivos->getIncentivesProductosPuntos(" AND id_producto=".$producto[0]['id_producto']." AND '".$fechaV."' BETWEEN date_ini AND date_fin ");
+					$puntuacion_acelerador = $incentivos->getIncentivesProductAcelerators(" AND a.id_producto=".$producto[0]['id_producto']." AND '".$fechaV."' BETWEEN a.date_ini AND a.date_fin ");
 					$puntuacion_venta = (0 + (count($puntuacion_producto)>0 ? $puntuacion_producto[0]['puntos'] : 0)) * (count($puntuacion_acelerador)>0 ? $puntuacion_acelerador[0]['valor_acelerador'] : 1);
-					$incentivos->insertIncentivesProductosVentas( $username_venta, $puntuacion_venta, $producto[0]['id_producto'], $fecha_venta );
 
-					//Global Options
-					if ($puntuacion_venta > 0){
-						$user_info = $users->getUsers(" AND username='".$username_venta."' ");
-						globaloptionsController::transferPoints($user_info[0]['party_id'], "rest balance", $puntuacion_venta, "Ventas del producto: ".$producto[0]['id_producto'], globaloptionsController::$store_id, date("Y-m-d h:m:s"), $expiryDate = '2013-10-04 09:12:33', $gotoken);
+					$puntuacion_venta = ($puntuacion_venta * $cantidad_venta);
+					if ($incentivos->insertIncentivesProductosVentas($username_venta, str_replace(',','.',$puntuacion_venta), $producto[0]['id_producto'], $fechaV, $detalle) and $puntuacion_venta > 0){
+						users::sumarPuntos($username_venta, str_replace(',','.',$puntuacion_venta), $detalle);
 					}
 				}
 			}
@@ -90,5 +90,5 @@ function volcarMySQL($data) {
 	<p>El proceso de importaci&oacute;n ha finalizado con &eacute;xito</p>';
 	echo '<p>Se ha insertado <b>'.$contador_insert.'</b> registros</p>';
 	echo '<p>No se ha insertado <b>'.$contador_ko.'</b> registros (producto no encontrado)</p>';
-}  
+}
 ?>

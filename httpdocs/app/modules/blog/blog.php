@@ -1,7 +1,8 @@
 <?php
 /**
 * @Manage blog. Depende del módulo de foros
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
+* @author Imagar Informatica SL
+* @copyright 2010 Grass Roots Spain
 * @version 1.0
 *
 */
@@ -29,7 +30,7 @@ class blogCore{
 		$alerts_text = "";
 		if ($module_config['options']['show_alarms']):
 			$num_alerts = blogController::getAlerts();
-			$alerts_text = ($num_alerts>0 ? ' <span class="menu-alert" id="contador-blog-header">'.$num_alerts.'</span>' : "");
+			$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" id="contador-blog-header">'.$num_alerts.'</span>' : "");
 		endif;
 
 		if ($session->checkPageViewPermission("blog", $_SESSION['user_perfil'], $user_permissions)){

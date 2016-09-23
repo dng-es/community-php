@@ -34,8 +34,8 @@ function searchProducts($destination = "shopproducts"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label" for="manufacturer_search"><?php e_strTranslate("Shop_manufacturer");?></label>
 						<div class="col-sm-8">
-							<select name="manufacturer_search" id ="manufacturer_search" class="form-control">
-								<option value=""></option>
+							<select class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" data-live-search="true" name="manufacturer_search" id ="manufacturer_search" class="form-control">
+								<option value="">Buscar por <?php e_strTranslate("Shop_manufacturer");?></option>
 								<?php foreach($manufacturers as $manufacturer):?>
 									<option value="<?php echo $manufacturer['name_manufacturer'];?>" <?php echo ($manufacturer['name_manufacturer'] == $manufacturer_search ? ' selected="selected" ' : '');?>><?php echo $manufacturer['name_manufacturer'];?></option>
 								<?php endforeach;?>
@@ -46,8 +46,8 @@ function searchProducts($destination = "shopproducts"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label" for="category_search"><?php e_strTranslate("Category");?></label>
 						<div class="col-sm-8">
-							<select name="category_search" id ="category_search" class="form-control">
-								<option value=""></option>
+							<select class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" data-live-search="true" name="category_search" id ="category_search" class="form-control">
+								<option value="">Buscar por <?php e_strTranslate("Category");?></option>
 								<?php foreach($categories as $category):?>
 									<option value="<?php echo $category['category'];?>" <?php echo ($category['category'] == $category_search ? ' selected="selected" ' : '');?>><?php echo $category['category'];?></option>
 								<?php endforeach;?>
@@ -58,8 +58,8 @@ function searchProducts($destination = "shopproducts"){
 					<div class="form-group">
 						<label class="col-sm-4 control-label" for="subcategory_search">Subcategoría</label>
 						<div class="col-sm-8">
-							<select name="subcategory_search" id ="subcategory_search" class="form-control">
-								<option value=""></option>
+							<select class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" data-live-search="true" name="subcategory_search" id ="subcategory_search" class="form-control">
+								<option value="">Buscar por Subcategoría</option>
 								<?php foreach($subcategories as $subcategory):?>
 									<option value="<?php echo $subcategory['subcategory'];?>" <?php echo ($subcategory['subcategory'] == $subcategory_search ? ' selected="selected" ' : '');?>><?php echo $subcategory['subcategory'];?></option>
 								<?php endforeach;?>

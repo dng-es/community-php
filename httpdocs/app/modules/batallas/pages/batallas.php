@@ -14,7 +14,7 @@ batallasController::deleteBatallasCaducadasAction();
 $usuario = usersController::getPerfilAction($_SESSION['user_name']);
 //información de batallas
 $batallas = new batallas();
-$categorias = $batallas->getBatallaCategorias(" ORDER BY categoria ASC");
+//$categorias = $batallas->getBatallaCategorias(" ORDER BY categoria ASC");
 
 $users = new users();
 $puntos_reservados = connection::sumReg("batallas", "puntos", " AND finalizada=0 AND (user_create='".$_SESSION['user_name']."' or user_retado='".$_SESSION['user_name']."') ");
@@ -75,18 +75,18 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 
 			<div class="tab-content">
 				<div class="inset tab-pane fade <?php echo ((!isset($_GET['f']) or ($_GET['f'] != 2 and $_GET['f'] != 3 and $_GET['f'] != 4)) ? ' in active' : '');?>" id="ganadas">
-					<?php showBatallas("ganadas", $ganadas_total_reg);?>
+					<?php showBatallas("ganadas", $ganadas_total_reg, $usuario);?>
 				</div>
 
 				<div class="inset tab-pane fade <?php echo ((isset($_GET['f']) and $_GET['f'] == 2) ? ' in active' : '');?>" id="perdidas">
-					<?php showBatallas("perdidas", $perdidas_total_reg);?>
+					<?php showBatallas("perdidas", $perdidas_total_reg, $usuario);?>
 				</div>
 				<div class="inset tab-pane fade <?php echo ((isset($_GET['f']) and $_GET['f'] == 3) ? ' in active' : '');?>" id="pendientes">
-					<?php showBatallas("pendientes usuario", $pendientes_usuario_total_reg);?>
+					<?php showBatallas("pendientes usuario", $pendientes_usuario_total_reg, $usuario);?>
 				</div>
 
 				<div class="inset tab-pane fade <?php echo ((isset($_GET['f']) and $_GET['f'] == 4) ? ' in active' : '');?>" id="pendientes_contrincario">
-					<?php showBatallas("pendientes contrincario", $pendientes_contrincario_total_reg);?>
+					<?php showBatallas("pendientes contrincario", $pendientes_contrincario_total_reg, $usuario);?>
 				</div>
 			</div>
 		</div>
@@ -100,6 +100,7 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 				Cuando retes a otro jugador los <?php e_strTranslate("APP_points");?> quedarán pendientes hasta que se acepte tu reto.
 			</p>
 
+			<?php if($_SESSION['user_canal'] != '' and $_SESSION['user_canal'] !='admin'):?>
 			<form action="" method="post" name="form-batalla" id="form-batalla">
 				<input type="hidden" name="batalla-categoria" id="batalla-categoria" value="General" />
 			<!--
@@ -128,6 +129,9 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 				<input class="btn btn-primary btn-block" type="submit" name="batalla-btn" id="batalla-btn" value="Crear y empezar batalla" />
 				<div id="cargando" style="display:none; margin-top:0px; top: 0; position: relative"><i class="fa fa-spinner fa-spin ajax-load" style="margin-top:15px"></i></div>
 			</form>
+			<?php else:?>
+			<p class="alert alert-warning">Selecciona un canal para crear batallas</p>
+			<?php endif;?>			
 		</div>
 	</div>
 </div>

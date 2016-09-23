@@ -1,6 +1,6 @@
 <?php
-; Author: David Noguera Gutierrez
-; License: GPL
+; Author: Imagar Informatica SL
+; Copyright 2010 Grass Roots Spain
 ; Date: 2010-03-01
 ; Description: login users
 ; Please don´t remove these lines

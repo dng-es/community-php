@@ -1,5 +1,6 @@
 <?php 
-addCss(array(getAsset("shop")."css/styles.css"));
+addJavascripts(array("js/bootstrap-select.js", "js/jcolumn.min.js", getAsset("shop")."js/shopproducts.js"));
+addCss(array(getAsset("shop")."css/styles.css", "css/libs/bootstrap-select/bootstrap-select.css"));
 templateload("searchproducts","shop");
 
 session::getFlashMessage( 'actions_message' );
@@ -34,7 +35,7 @@ $module_config = getModuleConfig("shop");
 		?>
 
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12 dinamicRow">
 		<?php foreach($elements['items'] as $element): 
 				$card_text = "Canjear";
 				$card_text = ($element['price_product'] > $user_detail['creditos'] ? "No canjeable" : $card_text);
@@ -45,7 +46,7 @@ $module_config = getModuleConfig("shop");
 				<div class="card-section">
 					<h3 class="ellipsis"><?php echo $element['name_product'];?></h3>
 					<a href="shopproduct?id=<?php echo $element['id_product'];?>">
-						<img src="images/shop/<?php echo $element['image_product'];?>" />
+						<img src="images/shop/<?php echo $element['image_product'];?>" title="<?php echo $element['name_product'];?>" />
 					</a>
 					<div class="description"><?php echo shortText(html_entity_decode(strip_tags($element['description_product'])), 50);?></div>
 					<div <?php echo ($element['important_product'] == 0 ? 'style="visibility:hidden"' : "");?>>

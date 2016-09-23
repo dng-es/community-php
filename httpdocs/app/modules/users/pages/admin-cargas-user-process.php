@@ -52,6 +52,10 @@ function volcarMySQL($data){
 	$contador_baja = 0;
 	$mensaje_baja = "";
 
+	$proceso_insert = (isset($_POST['insert']) and $_POST['insert'] == "on") ? true : false;
+	$proceso_update = (isset($_POST['update']) and $_POST['update'] == "on") ? true : false;
+	$proceso_delete = (isset($_POST['delete']) and $_POST['delete'] == "on") ? true : false;
+
 	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 		$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
 		$user_pass = $username;
@@ -69,44 +73,54 @@ function volcarMySQL($data){
 		if ($username != ""){
 			//VERIFICAR QUE EXISTA EL USUARIO
 			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") == 0) {
-				if ($users->insertUser($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user, $surname, 0)) {
-					$contador++;
-					$mensaje .= $contador." - ".$username." insertado correctamente.<br />";
+				if ($proceso_insert){
+					if ($users->insertUser($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user, $surname, 0)) {
+						$contador++;
+						$mensaje .= $contador." - ".$username." insertado correctamente.<br />";
+					}
 				}
 			}
-			// else {
-			// 	//EN CASO DE QUE YA EXISTA SE HABILITA
-			// 	if ($users->disableUser($username,0)) {
-			// 	$contador_ko++;	
-			// 	$mensaje_ko.='<span>'.$contador_ko.' - '.$username.' no se ha insertado porque ya existia.</span><br />';				
-			// 	}
-			// }
+			else {
+				if ($proceso_update){
+					//EN CASO DE QUE YA EXISTA SE HABILITA Y MODIFICAN SUS DATOS
+					if ($users->updateUserCarga($username, $empresa, $canal)) {
+						$contador_ko++;	
+						$mensaje_ko.='<span>'.$contador_ko.' - '.$username.' se ha modificado.</span><br />';				
+					}
+				}
+			}
 		}
 	}
 	
-  //DAR DE BAJA A USUARIOS	
- //  $elements=$users->getUsers(" AND disabled=0 ");
- //  foreach($elements as $element):
- //    $encontrado=false;
-	// if ($element['perfil'] != 'admin') {
-	// 	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1)
-	// 	{
-	// 	  if (strtoupper($element['username'])==strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
-	// 	}
-	// }
-	// else {$encontrado=true;}
+	//DAR DE BAJA A USUARIOS	
+	if ($proceso_delete){
+		$elements=$users->getUsers(" AND disabled=0 ");
+		foreach($elements as $element):
+			$encontrado = false;
+			//se ecluyen los usuarios con perfil admin
+			if ($element['perfil'] == 'admin')  $encontrado = true;
+			else{
+				for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+				  if (strtoupper($element['username'])==strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
+				}
+			}
 
-	// if ($encontrado==false){
-	// 	$users->disableUser($element['username'],1);
-	// 	$contador_baja++;	
-	// 	$mensaje_baja .= '<span>'.$contador_baja.' - '.$element['username'].' se ha dado de baja.</span><br />';
-	// }
- //  endforeach;
+			if ($encontrado == false){
+				$users->disableUser($element['username'],1);
+				$contador_baja++;	
+				$mensaje_baja .= '<span>'.$contador_baja.' - '.$element['username'].' se ha dado de baja.</span><br />';
+			}
+		endforeach;
+	}
 
 	echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a></p>
 	<p>El proceso de importación ha finalizado con éxito</p>';
-	if ($contador > 0) { echo '<p>los siguientes usuarios han sido dados de alta: ('.$contador.')</p>'.$mensaje;}
-	//if ($contador_ko>0) { echo '<p>los siguientes usuarios no fueron insertados porque ya estaban dados de alta: ('.$contador_ko.')</p>'.$mensaje_ko;}
-	//if ($contador_baja>0) { echo '<p>los siguientes usuarios han sido dados de baja: ('.$contador_baja.')</p>'.$mensaje_baja;}  
+
+	if ($contador > 0) echo '<p>los siguientes usuarios han sido dados de alta: ('.$contador.')</p>'.$mensaje;
+	
+	if ($contador_ko > 0) echo '<p>los siguientes usuarios no fueron insertados porque ya estaban dados de alta: ('.$contador_ko.')</p>'.$mensaje_ko;
+
+	if ($contador_baja > 0) echo '<p>los siguientes usuarios han sido dados de baja: ('.$contador_baja.')</p>'.$mensaje_baja;
+
 }
 ?>

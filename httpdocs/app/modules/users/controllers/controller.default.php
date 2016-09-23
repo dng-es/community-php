@@ -380,7 +380,7 @@ public static function insertEquipoAction(){
 													AND empresa IN (SELECT DISTINCT cod_tienda FROM users_tiendas WHERE responsable_tienda='".$_SESSION['user_name']."') ");
 			
 			//echo "Contador: ".$contador."<br/>";
-			if ($contador > 0 or $_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'territorial'){
+			if ($contador > 0 or $_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'responsable'){
 				$empresa = sanitizeInput($_POST['user_edit_empresa']);
 				if ($users->updateUserEquipo($id_user_edit, $empresa)) 
 					session::setFlashMessage( 'actions_message', "Usuario modificado correctamente.", "alert alert-success");
@@ -453,6 +453,28 @@ public static function insertEquipoAction(){
 	 */
 	public static function getUserFoto($foto){
 		return ($foto == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$foto);
+	}	
+
+	/**
+	 * Devuelve el filtro de tienda sobre la tabla users dependiendo del perfil del usuario
+	 * @param  string $campo_filtro campo de la tabla sobre el que se quiere filtrar
+	 * @return string filtro tienda en la tabla users
+	 */
+	public static function getTiendaFilter($campo_filtro = 'empresa'){
+		if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'visualizador'){
+			$filter = "";
+		}
+		elseif ($_SESSION['user_perfil'] == 'regional'){
+			$filter = " AND (".$campo_filtro." IN (SELECT cod_tienda FROM users_tiendas WHERE regional_tienda='".$_SESSION['user_name']."')) ";
+		}
+		elseif ($_SESSION['user_perfil'] == 'responsable'){
+			$filter = " AND (".$campo_filtro." IN (SELECT cod_tienda FROM users_tiendas WHERE responsable_tienda='".$_SESSION['user_name']."')) ";
+		}
+		else{
+			$filter = " AND (".$campo_filtro."='".$_SESSION['user_empresa']."') ";
+		}
+
+		return $filter;
 	}		
 }
 ?>

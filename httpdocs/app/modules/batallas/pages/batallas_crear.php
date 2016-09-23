@@ -25,7 +25,7 @@ $contrincante = getContrincante($puntos_batalla);
 
 function getContrincante($puntos_batalla){
 	$users = new users();
-	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal='".$_SESSION['user_canal']."' " : "");
+	$filtro_canal = (($_SESSION['user_canal'] != 'admin' and $_SESSION['user_canal'] != '') ? " AND canal='".$_SESSION['user_canal']."' " : "");
 	$contrincante = $users->getUsers($filtro_canal." AND puntos>'".$puntos_batalla."' AND perfil<>'admin' AND disabled=0 AND confirmed=1 AND username<>'".$_SESSION['user_name']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 1 ");
 	$puntos_reservados_contrincante = connection::sumReg("batallas", "puntos", " AND finalizada=0 AND (user_create='".$contrincante[0]['username']."' or user_retado='".$contrincante[0]['username']."') ");
 	$puntos_disponibles_contrincante = $contrincante[0]['puntos'] - $puntos_reservados_contrincante;
@@ -81,49 +81,48 @@ function getContrincante($puntos_batalla){
 //elseif ($puntos_disponibles < $_POST['batalla-puntos']) echo '<div class="alert alert-warning">Estas jugando más puntos de los que dispones</div>';
 if ($puntos_disponibles < $puntos_batalla) echo '<div class="alert alert-warning">No dispones de puntos suficientes</div>';
 //elseif ($puntos_disponibles_contrincante < $puntos_batalla) echo '<div class="alert alert-warning">Tu contrincante no tiene puntos suficientes</div>';
-elseif ($contrincante == 0) echo '<div class="alert alert-warning">No se encuentra contrincario</div>';
+elseif ($contrincante == 0) echo '<div class="alert alert-warning">No se encuentra contrincante</div>';
 else{ 
-		if ($batallas->insertBatalla($_SESSION['user_name'], $contrincante[0]['username'], $_POST['batalla-categoria'], $puntos_batalla, $contrincante[0]['canal'])){
+	$preguntas = $batallas->getBatallasPreguntas(" AND (canal_pregunta='".$_SESSION['user_canal']."' OR canal_pregunta='') AND activa=1 AND pregunta_tipo='".$_POST['batalla-categoria']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 3");
+	if (count($preguntas) == 3):
+
+		if ($batallas->insertBatalla($_SESSION['user_name'], $contrincante[0]['username'], $_POST['batalla-categoria'], $puntos_batalla, $contrincante[0]['canal'])):
 			//obtener preguntas de la batalla
-			$preguntas = $batallas->getBatallasPreguntas(" AND activa=1 AND pregunta_tipo='".$_POST['batalla-categoria']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 3");
 
 			//insertar respuestas de partida
-			$id_batalla = connection::SelectMaxReg("id_batalla","batallas"," AND user_create='".$_SESSION['user_name']."' ORDER BY id_batalla DESC");
+			$id_batalla = connection::SelectMaxReg("id_batalla", "batallas", " AND user_create='".$_SESSION['user_name']."' ORDER BY id_batalla DESC");
 			foreach($preguntas as $pregunta):
 				$batallas->insertBatallaRespuesta($id_batalla, $_SESSION['user_name'], $pregunta['id_pregunta'], '');
 				$batallas->insertBatallaRespuesta($id_batalla, $contrincante[0]['username'], $pregunta['id_pregunta'], '');
 		  	endforeach;		
 
 		  	//marcar la batalla como empezada
-			$batallas->insertBatallaLucha($id_batalla,$_SESSION['user_name'],0,0,1);
+			$batallas->insertBatallaLucha($id_batalla,$_SESSION['user_name'], 0, 0, 1);
 			
 			$i=1;
-
-			echo '<p class="text-danger text-center">ATENCIÓN!!: no cierres esta ventana o perderás la batalla</p>';
-			echo '<h3 class="text-center">Luchas contra <b>'.$contrincante[0]['nick'].'</b></h3>';
-			echo '<form method="post" name="form-batalla-fin" id="form-batalla-fin" action="">';
-			echo '  <input type="hidden" name="id_batalla" value="'.$id_batalla.'" />
-					<input type="hidden" name="batalla-create" value="1" />';
-			echo '<div class="inset">';
-			foreach($preguntas as $pregunta):
-				echo '<div class="section inset">';
-				echo '<h4 class="text-primary">'.$pregunta['pregunta'].'</h4>';
-				echo '<input type="radio" name="respuesta'.$i.'" value="1"> '.$pregunta['respuesta1'].'<br>';
-				echo '<input type="radio" name="respuesta'.$i.'" value="2"> '.$pregunta['respuesta2'].'<br>';
-				echo '<input type="radio" name="respuesta'.$i.'" value="3"> '.$pregunta['respuesta3'].'<br>';
-				echo '<input type="hidden" name="id_pregunta'.$i.'" value="'.$pregunta['id_pregunta'].'">';
-				echo '</div>';
-				$i++;
-		  	endforeach;	
-		  	echo '</div>
-			<span class="alert-message alert alert-warning" id="batalla-alert"></span>
-		  	<br /><input type="submit" name="batalla-go-btn" id="batalla-go-btn" value="Finalizar batalla" class="btn btn-primary btn-block" /><br />';
-		  	echo "</form>";
-		}
-		else{
-
-			echo '<p>error al crear batalla, inténtela otra vez.</p>';
-
-		}
-
-} ?>
+			?>
+			<p class="text-danger text-center">ATENCIÓN!!: no cierres esta ventana o perderás la batalla</p>
+			<h3 class="text-center">Luchas contra <b><?php echo $contrincante[0]['nick'];?></b></h3>
+			<form method="post" name="form-batalla-fin" id="form-batalla-fin" action="">
+				<input type="hidden" name="id_batalla" value="<?php echo $id_batalla;?>" />
+				<input type="hidden" name="batalla-create" value="1" />
+				<?php foreach($preguntas as $pregunta):?>
+					<div class="section inset">
+						<h4 class="text-primary"><?php echo $pregunta['pregunta'];?></h4>
+						<input type="radio" name="respuesta<?php echo $i;?>" value="1"> <?php echo $pregunta['respuesta1'];?><br />
+						<input type="radio" name="respuesta<?php echo $i;?>" value="2"> <?php echo $pregunta['respuesta2'];?><br />
+						<input type="radio" name="respuesta<?php echo $i;?>" value="3"> <?php echo $pregunta['respuesta3'];?><br />
+						<input type="hidden" name="id_pregunta<?php echo $i;?>" value="<?php echo $pregunta['id_pregunta'];?>">
+					</div>
+					<?php $i++;?>
+			  	<?php endforeach;	?>
+				<span class="alert-message alert alert-warning" id="batalla-alert"></span><br />
+			  	<input type="submit" name="batalla-go-btn" id="batalla-go-btn" value="Finalizar batalla" class="btn btn-primary btn-block" /><br />
+		  	</form>
+		<?php else:?>
+			<div class="alert alert-warning">error al crear batalla, inténtela otra vez.</div>
+		<?php endif;?>
+	<?php else:?>
+		<div class="alert alert-warning">No se encuentran preguntas</div>
+	<?php endif;?>
+<?php } ?>

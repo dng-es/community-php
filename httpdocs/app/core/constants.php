@@ -21,8 +21,12 @@ $paginas_free = array("underconstruction", "login","user-confirm","logout","cont
 $videos_types = array("MP4","MOV","AVI","3GP","WMV");
 $fotos_types = array("GIF","JPG","JPEG","PNG");
 //APP VERSION
-define('APP_VERSION',"0.5.3");
+define('APP_VERSION',"0.5.3.1");
+//PAGINA DE INICIO
 define('APP_DEF_PAGE',"login");
+//TEMA POR DEFECTO
+define('DEFAULT_THEME',"default");
+
 //TIEMPO DE SESION
 define('SESSION_MAXTIME',1800);
 //PUNTOS A OTORGAR POR ACCION REALIZADA POR USUARIO Y TEXTOS DE MOTIVOS

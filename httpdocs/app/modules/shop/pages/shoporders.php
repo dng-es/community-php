@@ -27,6 +27,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
                 <tr>
                     <th width="40px">&nbsp;</th>
                     <th>ID</th>
+                    <th></th>
                     <th>Artículo</th>
                     <th><?php e_strTranslate("Date");?></th>
                 </tr>
@@ -38,6 +39,19 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
                                 </span>
                             </td>
                             <td><?php echo $element['id_order'];?></td>
+                            <td>
+                                <?php if($element['status_order'] == 'cancelado'):?>
+                                    <span class="label label-danger">Cancelado</span>
+                                <?php endif;?>
+
+                                <?php if($element['status_order'] == 'finalizado'):?>
+                                    <span class="label label-success">Finalizado</span>
+                                <?php endif;?>
+
+                                <?php if($element['status_order'] == 'pendiente'):?>
+                                    <span class="label label-warning">Pendiente</span>
+                                <?php endif;?>                                                              
+                            </td>
                             <td><?php echo $element['name_product'];?></td>
                             <td><?php echo getDateFormat($element['date_order'], 'SHORT');?></td>
                         </tr>

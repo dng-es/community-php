@@ -29,7 +29,7 @@ $users = new users();
 		<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
-					<table class="table table-striped table-hover">
+					<table class="table">
 						<tr>
 						<th><?php echo strTranslate("Username");?></th>
 						<th><?php echo strTranslate("Incentives_product");?></th>

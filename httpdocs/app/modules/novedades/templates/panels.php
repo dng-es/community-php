@@ -10,7 +10,7 @@ function panelNovedades(){
 	$i = 0;
 	if (count($elements['items']) > 0): ?>
 		<?php if (count($elements['items']) == 1): ?>
-			<div class="col-md-12 section panel">
+			<div class="section panel">
 				<?php echo $elements['items'][0]['cuerpo'];?>
 			</div>
 		<?php else: ?>

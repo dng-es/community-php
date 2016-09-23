@@ -1,5 +1,5 @@
 <?php 
-function showBatallas($tipo, $total_reg){
+function showBatallas($tipo, $total_reg, $usuario){
 	$batallas = new batallas();
 	$users = new users();
 	$filtro = "";
@@ -102,7 +102,7 @@ function showBatallas($tipo, $total_reg){
 								<div class="col-md-5 col-sm-5">
 									<div class="row">
 										<div class="col-md-2 col-xs-3 nopadding">
-											<img class="comment-mini-img pull-right" src="'.$_SESSION['user_foto'].'" />
+											<img class="comment-mini-img pull-right" src="'.$usuario['user_foto'].'" />
 										</div>
 										<div class="col-md-10 col-xs-9">
 											<ul class="list-unstyled">

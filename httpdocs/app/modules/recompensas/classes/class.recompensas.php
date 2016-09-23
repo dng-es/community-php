@@ -65,7 +65,7 @@ class recompensas{
 	 * @return array 				Array con registros
 	 */
 	public function getRecompensasUser($filter = ""){
-		$Sql = "SELECT u.*,r.recompensa_name,r.recompensa_image, COUNT(u.id_recompensa) AS total
+		$Sql = "SELECT u.id_recompensa,u.recompensa_user,r.recompensa_name,r.recompensa_image, COUNT(u.id_recompensa) AS total
 			FROM recompensas_user u 
 			LEFT JOIN recompensas r ON r.id_recompensa=u.id_recompensa
 			WHERE 1=1 ".$filter." 

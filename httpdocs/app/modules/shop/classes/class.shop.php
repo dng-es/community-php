@@ -81,7 +81,7 @@ class shop{
 	public function updateProductState($id, $active_producto){
 		$Sql = "UPDATE shop_products SET 
 				active_product=".$active_producto."   
-				WHERE id_product='".$id."'";
+				WHERE id_product=".$id." ";
 		return connection::execute_query($Sql);
 	}
 

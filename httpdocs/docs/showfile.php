@@ -1,5 +1,6 @@
 <?php
-$base_dir = str_replace('/docs', '/', realpath(dirname(__FILE__))) ;
+$base_dir = "../";
+
 include_once($base_dir . "app/core/class.connection.php");
 include_once($base_dir . "app/modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "app/core/functions.core.php");

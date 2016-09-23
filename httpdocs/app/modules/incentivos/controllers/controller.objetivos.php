@@ -1,11 +1,11 @@
 <?php
 class incentivosObjetivosController{
 	public static function getListAction($reg = 0, $filtro = ""){
+		$filtro = " AND activo_objetivo=1".$filtro;
 		$incentivos = new incentivos();
 		$find_reg = "";
 		if (isset($_POST['find_reg'])) {$filtro .= " AND nombre_objetivo LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
 		if (isset($_REQUEST['f'])) {$filtro .= " AND nombre_objetivo LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
-		$filtro .= " AND activo_objetivo=1 ORDER BY nombre_objetivo";
 		$paginator_items = PaginatorPages($reg);
 		
 		$total_reg = connection::countReg("incentives_objetivos",$filtro); 
@@ -28,11 +28,13 @@ class incentivosObjetivosController{
 		if (isset($_POST['nombre_objetivo']) and trim($_POST['nombre_objetivo']) != ""){
 			$nombre_objetivo = sanitizeInput( $_POST['nombre_objetivo'] );
 			$tipo_objetivo = sanitizeInput( $_POST['tipo_objetivo'] );
+			$ranking_objetivo = (isset($_POST['ranking_objetivo']) and $_POST['ranking_objetivo'] == "on") ? 1 : 0;
 			$date_ini = sanitizeInput( $_POST['date_ini'] );
 			$date_fin = sanitizeInput( $_POST['date_fin'] );
+			$perfil_objetivo = sanitizeInput( $_POST['perfil_objetivo'] );
 			$canal_objetivo = sanitizeInput( $_POST['canal_objetivo'] );
 			$incentivos = new incentivos();
-			if ($incentivos->insertIncentivesObjetivos( $nombre_objetivo, $tipo_objetivo, $date_ini, $date_fin, $canal_objetivo ))
+			if ($incentivos->insertIncentivesObjetivos( $nombre_objetivo, $tipo_objetivo, $date_ini, $date_fin, $ranking_objetivo, $perfil_objetivo, $canal_objetivo ))
 				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -122,6 +124,48 @@ class incentivosObjetivosController{
 			echo array2csv($elements);
 			die();
 		}  		
-	}		
+	}
+
+	public static function getFiltroTienda($user_perfil, $username, $empresa, $detalle = false){
+		switch ($user_perfil) {
+			case 'admin':
+				$filtro_tienda = "";
+				break;
+			case 'regional':
+				$filtro_tienda = " AND u.empresa IN (SELECT cod_tienda FROM users_tiendas WHERE regional_tienda='".$username."' OR regional_post_tienda='".$username."')";
+				break;
+			case 'responsable':
+				$filtro_tienda = " AND u.empresa IN (SELECT cod_tienda FROM users_tiendas WHERE responsable_tienda='".$username."')";
+				break;
+			default:
+				$filtro_tienda = " AND u.empresa='".$empresa."' ";
+				break;
+		}
+
+		if ($detalle == true) $filtro_tienda .= " AND u.username='".$username."' ";
+		return $filtro_tienda;		
+	}
+
+	public static function getFiltroPerfil($user_perfil){
+		switch ($user_perfil) {
+			case 'admin':
+				$filtro_perfil = "";
+				break;
+			case 'visualizador':
+				$filtro_perfil = "";
+				break;
+			case 'regional':
+				$filtro_perfil = "";
+				break;
+			case 'responsable':
+				$filtro_perfil = " AND (perfil_objetivo<>'regional') ";
+				break;
+			default:
+				$filtro_perfil = " AND (perfil_objetivo='' OR perfil_objetivo='".$_SESSION['user_perfil']."') ";
+				break;
+		}
+
+		return $filtro_perfil;		
+	}	
 }
 ?>

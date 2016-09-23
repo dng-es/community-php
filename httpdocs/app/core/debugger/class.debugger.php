@@ -1,8 +1,9 @@
 <?php
 /**
- * Class degugger
+ * @Class degugger
+ * @author Imagar Informatica SL
+ * @copyright 2010 Grass Roots Spain
  * @version 1.0
- * @author David Noguera Gutierrez nogueradavid1@gmail.com
  */
 
 ini_set('memory_limit', -1);
