@@ -1,5 +1,9 @@
 <?php
-addJavascripts(array("js/bootstrap.file-input.js", getAsset("campaigns")."js/admin-campaign.js"));
+addJavascripts(array("js/bootstrap.file-input.js", 
+					"js/bootstrap-select.js",
+					getAsset("campaigns")."js/admin-campaign.js"));
+
+addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 
 session::getFlashMessage('actions_message');
 campaignsController::createAction();
@@ -27,7 +31,7 @@ $plantilla = campaignsController::getItemAction();
 
 					<div class="col-md-4 form-group">
 						<label><?php e_strTranslate("Type");?>:</label>
-						<select name="id_type" id="id_type" class="form-control">
+						<select name="id_type" id="id_type" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
 						<?php
 						$campaigns = new campaigns();
 						$tipo_campana = $campaigns->getCampaignsTypes("");
@@ -40,7 +44,7 @@ $plantilla = campaignsController::getItemAction();
 
 					<div class="col-md-4 form-group">
 						<label for="canal_campaign"><?php e_strTranslate("Channel");?></label>
-						<select id="canal_campaign" name="canal_campaign" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
+						<select id="canal_campaign" name="canal_campaign" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
 							<option value="">--Todos los canales--</option>
 							<?php ComboCanales($plantilla['canal_campaign']);?>
 						</select>

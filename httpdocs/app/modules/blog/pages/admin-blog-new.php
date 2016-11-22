@@ -1,8 +1,11 @@
 <?php
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
-					 "js/libs/ckfinder/ckfinder.js", 
-					 "js/bootstrap.file-input.js", 
-					 getAsset("blog")."js/admin-blog-new.js"));
+					"js/libs/ckfinder/ckfinder.js", 
+					"js/bootstrap.file-input.js", 
+					"js/bootstrap-select.js",
+					getAsset("blog")."js/admin-blog-new.js"));
+
+addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 
 templateload("cmbCanales","users");
 ?>
@@ -51,7 +54,7 @@ templateload("cmbCanales","users");
 					</div>
 					<div class="row">
 						<div class="col-md-8 form-group">
-							<select name="canal" id="canal" class="form-control" <?php echo ($accion=='edit' ? 'disabled="disabled"' : '');?>>
+							<select name="canal" id="canal" title="---<?php e_strTranslate(Choose_channel);?>---" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" <?php echo ($accion=='edit' ? 'disabled="disabled"' : '');?>>
 								<?php ComboCanales($canal);?>
 							</select>
 						</div>

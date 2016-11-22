@@ -118,24 +118,32 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 
 		<div class="area-detalle">
 		<form id="formData" name="formData" method="post" action="admin-cuestionario?act=new&amp;id=<?php echo $id_cuestionario;?>&amp;">
-			<label for="pregunta_texto"><?php e_strTranslate("Form_question");?>:</label>
-			<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
-			<span id="pregunta-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+			<div class="form-group col-md-8">
+				<label for="pregunta_texto"><?php e_strTranslate("Form_question");?>:</label>
+				<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
+				<span id="pregunta-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+			</div>
+			
+			<div class="form-group col-md-4">
+				<label for="pregunta_tipo"><?php e_strTranslate("Form_question_type");?>:</label>
+				<select id="pregunta_tipo" name="pregunta_tipo" class="form-control">
+					<option selected="selected" value="texto"><?php e_strTranslate("Form_question_type_text");?></option>
+					<option value="unica"/><?php e_strTranslate("Form_question_type_radio");?></option>
+					<option value="multiple"><?php e_strTranslate("Form_question_type_check");?></option>
+				</select>
+			</div>
 
-			<label for="pregunta_tipo"><?php e_strTranslate("Form_question_type");?>:</label>
-			<select id="pregunta_tipo" name="pregunta_tipo" class="form-control">
-				<option selected="selected" value="texto"><?php e_strTranslate("Form_question_type_text");?></option>
-				<option value="unica"/><?php e_strTranslate("Form_question_type_radio");?></option>
-				<option value="multiple"><?php e_strTranslate("Form_question_type_check");?></option>
-			</select>
-			<div id="container-respuestas">
+			<div class="form-group col-md-12" id="container-respuestas">
 				<a href="#" id="agregar-respuestas" class="btn btn-primary"><?php e_strTranslate("Form_new_answer");?></a><br /><br />
 				<input type="hidden" name="contador-respuestas" id="contador-respuestas" value="1" />
 				<label id="textoRespuesta1" style="width:70px;display:block;clear:both">Respuesta1:</label>
 				<input class="form-control" id="respuesta1" name="respuesta1" value=""/>
 			</div>
 			<br />
-			<div id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Form_add_question");?></div></td></tr>
+			<br />
+
+					<div id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Form_add_question");?></div>
+
 		</form>
 		</div>
 		<br />

@@ -37,48 +37,57 @@ addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 					<div class="row">
 						<div class="col-md-8">
 
-							<div class="form-group col-md-12">
-								<label for="name_product"><?php e_strTranslate("Name");?></label>
-								<input type="text" name="name_product" id ="name_product" class="form-control" value="<?php echo $element['name_product'];?>" />
-							</div>
-							<div class="form-group col-md-3">
-								<label for="ref_product">REF.</label>
-								<input type="text" name="ref_product" id ="ref_product" class="form-control" value="<?php echo $element['ref_product'];?>" />
+							<div class="row">
+								<div class="form-group col-md-12">
+									<label for="name_product"><?php e_strTranslate("Name");?></label>
+									<input type="text" name="name_product" id ="name_product" class="form-control" value="<?php echo $element['name_product'];?>" />
+								</div>
 							</div>
 
-							<div class="form-group col-md-5">
-								<label for="id_manufacturer"><?php e_strTranslate("Shop_manufacturer");?></label>
-								<select title="---Selecciona el <?php e_strTranslate("Shop_manufacturer");?>---" name="id_manufacturer" id ="id_manufacturer" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
-									<?php foreach($manufacturers['items'] as $manufacturer):?>
-										<option value="<?php echo $manufacturer['id_manufacturer'];?>" <?php echo ($element['id_manufacturer'] == $manufacturer['id_manufacturer'] ? ' selected="selected" ' : '');?>><?php echo $manufacturer['name_manufacturer'];?></option>
-									<?php endforeach;?>
-								</select>
+							<div class="row">
+								<div class="form-group col-md-3">
+									<label for="ref_product">REF.</label>
+									<input type="text" name="ref_product" id ="ref_product" class="form-control" value="<?php echo $element['ref_product'];?>" />
+								</div>
+
+								<div class="form-group col-md-5">
+									<label for="id_manufacturer"><?php e_strTranslate("Shop_manufacturer");?></label>
+									<select title="---Selecciona el <?php e_strTranslate("Shop_manufacturer");?>---" name="id_manufacturer" id ="id_manufacturer" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
+										<?php foreach($manufacturers['items'] as $manufacturer):?>
+											<option value="<?php echo $manufacturer['id_manufacturer'];?>" <?php echo ($element['id_manufacturer'] == $manufacturer['id_manufacturer'] ? ' selected="selected" ' : '');?>><?php echo $manufacturer['name_manufacturer'];?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+
+								<div class="form-group col-md-4">
+									<label for="canal_product"><?php e_strTranslate("Channel");?>:</label>
+									<select id="canal_product" name="canal_product" title="---<?php e_strTranslate(Choose_channel);?>---" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
+										<?php ComboCanales($element['canal_product']);?>
+									</select>
+								</div>
 							</div>
 
-							<div class="form-group col-md-4">
-								<label for="canal_product"><?php e_strTranslate("Channel");?>:</label>
-								<select id="canal_product" title="---<?php e_strTranslate(Choose_channel);?>---" name="canal_product" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
-									<?php ComboCanales($element['canal_product']);?>
-								</select>
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label for="category_product"><?php e_strTranslate("Category");?></label>
+									<input type="text" name="category_product" id ="category_product" class="form-control" value="<?php echo $element['category_product'];?>" />
+								</div>
+
+								<div class="form-group col-md-6">
+									<label for="subcategory_product">Subcategoría</label>
+									<input type="text" name="subcategory_product" id ="subcategory_product" class="form-control" value="<?php echo $element['subcategory_product'];?>" />
+								</div>
 							</div>
 
-							<div class="form-group col-md-6">
-								<label for="category_product"><?php e_strTranslate("Category");?></label>
-								<input type="text" name="category_product" id ="category_product" class="form-control" value="<?php echo $element['category_product'];?>" />
-							</div>
-
-							<div class="form-group col-md-6">
-								<label for="subcategory_product">Subcategoría</label>
-								<input type="text" name="subcategory_product" id ="subcategory_product" class="form-control" value="<?php echo $element['subcategory_product'];?>" />
-							</div>	
-
-							<div class="form-group col-md-12">
-								<label for="description_product"><?php e_strTranslate("Description");?></label>
-								<textarea cols="40" rows="5" id="description_product" name="description_product"><?php echo $element['description_product'];?></textarea>
-								<script type="text/javascript">
-									var editor=CKEDITOR.replace('description_product',{customConfig : 'config-page.js'});
-									CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
-								</script>
+							<div class="row">
+								<div class="form-group col-md-12">
+									<label for="description_product"><?php e_strTranslate("Description");?></label>
+									<textarea cols="40" rows="5" id="description_product" name="description_product"><?php echo $element['description_product'];?></textarea>
+									<script type="text/javascript">
+										var editor=CKEDITOR.replace('description_product',{customConfig : 'config-page.js'});
+										CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
+									</script>
+								</div>
 							</div>
 						</div>
 

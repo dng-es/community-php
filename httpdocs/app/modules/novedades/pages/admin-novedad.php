@@ -1,8 +1,11 @@
 <?php
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
-					 "js/libs/ckfinder/ckfinder.js", 
-					 "js/jquery.numeric.js", 
-					 getAsset("novedades")."js/admin-novedad.js"));
+					"js/libs/ckfinder/ckfinder.js", 
+					"js/jquery.numeric.js", 
+					"js/bootstrap-select.js",
+					getAsset("novedades")."js/admin-novedad.js"));
+
+addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 
 templateload("cmbCanales", "users");
 ?>
@@ -34,7 +37,7 @@ templateload("cmbCanales", "users");
 
 					<div class="form-group col-md-3">
 						<label for="canal"><?php e_strTranslate("Channel");?>:</label>
-						<select name="canal" id="canal" class="form-control">
+						<select name="canal" id="canal" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
 							<option value="">---Todos los canales---</option>
 							<?php ComboCanales($element['canal']);?>
 						</select>
@@ -42,26 +45,26 @@ templateload("cmbCanales", "users");
 
 					<div class="form-group col-md-3">
 						<label for="perfil"><?php e_strTranslate("Profile");?>:</label>
-						<select name="perfil" id="perfil" class="form-control">
+						<select name="perfil" id="perfil" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
 							<option value="">---Todos los perfiles---</option>
 							<?php ComboPerfiles($element['perfil']);?>
 						</select>
 					</div>
 
-					<div class="form-group col-md-3">
+					<div class="form-group col-md-2">
 						<label for="tipo"><?php e_strTranslate("Type");?>:</label>
-						<select name="tipo" id="tipo" class="form-control">
+						<select name="tipo" id="tipo" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
 							<option value="slider" <?php echo ($element['tipo'] == 'slider' ? ' selected="selected" ' : '');?>>Slider</option>
 							<option value="popup" <?php echo ($element['tipo'] == 'popup' ? ' selected="selected" ' : '');?>>Popup</option>
 						</select>
 					</div>
 
-					<div class="form-group col-md-3">
+					<div class="form-group col-md-2">
 						<label for="tipo">Orden:</label>
 						<input type="text" class="form-control numeric text-right" name="orden" id="orden" value="<?php echo $element['orden'];?>" />
 					</div>
 
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-2">
 						<div class="checkbox checkbox-primary">
 							<input class="styled" type="checkbox" id="activo"  name="activo" <?php echo $element['activo'] == 1 ? "checked" : "";?>>
 							<label for="activo"><?php e_strTranslate("Active");?></label>

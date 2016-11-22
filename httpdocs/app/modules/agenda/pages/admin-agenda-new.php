@@ -1,11 +1,14 @@
 <?php
 //addCss(array("css/bootstrap-timepicker.min.css"));
 addJavascripts(array("js/libs/ckeditor/ckeditor.js",
-					 "js/libs/ckfinder/ckfinder.js",
-					 "js/bootstrap.file-input.js",
-					 "js/bootstrap-datepicker.js",
+					"js/libs/ckfinder/ckfinder.js",
+					"js/bootstrap.file-input.js",
+					"js/bootstrap-datepicker.js",
 					"js/bootstrap-datepicker.es.js",
-					 getAsset("agenda")."js/admin-agenda-new.js"));
+					"js/bootstrap-select.js",
+					getAsset("agenda")."js/admin-agenda-new.js"));
+
+addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 
 templateload("cmbAgenda","agenda");
 ?>
@@ -65,12 +68,12 @@ templateload("cmbAgenda","agenda");
 					</div>
 					<div class="row">
 						<div class="col-md-4 form-group">
-							<select name="canal" id="canal" class="form-control" <?php //echo ($accion=='edit' ? 'disabled="disabled"' : '');?>>
+							<select name="canal" id="canal" title="---<?php e_strTranslate(Choose_channel);?>---" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
 								<?php ComboCanales($canal);?>
 							</select>
 						</div>
 						<div class="col-md-4 form-group">
-							<select name="tipo" id="tipo" class="form-control" <?php //echo ($accion=='edit' ? 'disabled="disabled"' : '');?>>
+							<select name="tipo" id="tipo" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
 								<?php  ComboTipo($tipo);?>
 							</select>
 						</div>
