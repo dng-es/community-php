@@ -1,0 +1,98 @@
+@font-face {
+    font-family: 'HELVNEUE35';
+    src: url('fonts/HELVNEUE35_CYR_0.eot');
+    src: url('fonts/HELVNEUE35_CYR_0.eot?#iefix') format('embedded-opentype'),
+         url('fonts/HELVNEUE35_CYR_0.woff') format('woff'),
+         url('fonts/HELVNEUE35_CYR_0.ttf') format('truetype'),
+         url('fonts/HELVNEUE35_CYR_0.svg#helvnew45') format('svg');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'FjallaOne';
+    src: url('fonts/FjallaOne-Regular-webfont.eot');
+    src: url('fonts/FjallaOne-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/FjallaOne-Regular-webfont.woff2') format('woff2'),
+         url('fonts/FjallaOne-Regular-webfont.woff') format('woff'),
+         url('fonts/FjallaOne-Regular-webfont.ttf') format('truetype'),
+         url('fonts/FjallaOne-Regular-webfont.svg#fjallaoneregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+$primary-font: "Open Sans", sans-serif;
+$community-font1: 'HELVNEUE35';
+$community-font2: 'FjallaOne';
+
+$color1 : #e30613;	//color principal
+$color2 : lighten($color1, 30%);	//color claro
+//$color2 : #fff;
+$color3 : darken($color1, 20%);	//color oscuro o de contraste respecto el color principal
+
+$font-size-community: 14px;
+$border-def: 4px;
+
+$body-bg: #fff;
+$body-text: #333;
+$container-color: #f9f9f9;
+$container-panel-color: #fff;
+$header-color: #e5e5e5;
+$header-color-text: #bbb;
+$menu-color: #f0f0f0;
+$menu-color-text: $color2;
+$footer-color: rgba(0, 0, 0, 0.8);
+$footer-color-text: #f0f0f0;
+$panels-color: #fff;
+$panels-color-title: #333;
+$panels-color-text: #999;
+
+$app_width : 100%;
+$main-container-width : 100%;
+
+$break-small: 768px;
+$break-medium: 992px;
+$break-large: 1200px;
+
+/*font-awesome*/
+$fa-font-path: "../../../css/libs/font-awesome-4.2.0/fonts";
+
+/*Bootstrap*/
+$icon-font-path: "../../../css/libs/bootstrap-sass-3.2.0/assets/fonts/bootstrap/";
+$font-family-base: $primary-font;
+$brand-primary: $color1;
+$font-size-base: $font-size-community;
+$border-radius-base: $border-def;
+$input-color-placeholder: #ccc;
+$input-border-focus: $color1;
+$modal-content-bg: $panels-color;
+$modal-backdrop-bg: #000;
+$nav-link-padding: 10px 15px 0 15px;
+$nav-link-hover-bg: #e0e0e0;
+$nav-tabs-active-link-hover-color: $color2;
+$nav-tabs-border-color:darken($panels-color, 10%);
+$nav-tabs-active-link-hover-border-color:darken($panels-color, 10%);
+$nav-tabs-justified-link-border-color:darken($panels-color, 10%);
+$navbar-height: 40px;
+$navbar-default-bg: $panels-color;
+$navbar-default-color: $panels-color-text;
+$navbar-default-link-color: $panels-color-text;
+$navbar-default-link-active-bg: $color1;
+$navbar-default-link-active-color: #fff;
+$navbar-default-link-hover-bg: $color1;
+$navbar-default-link-hover-color: #fff;
+$navbar-default-toggle-hover-bg: transparent;
+$navbar-default-toggle-icon-bar-bg: $color1;
+$navbar-default-toggle-border-color: none;
+$dropdown-bg: $color1;
+$dropdown-link-color: #fff;
+$panel-bg: #fff;
+$panel-default-heading-bg: $color3;
+$panel-default-text: $color2;
+$panel-default-heading-bg: #f5f5f5;
+$panel-primary-border: #e5e5e5;
+$breadcrumb-bg: darken($container-color, 2%);
+$breadcrumb-padding-vertical: 6px;
+$table-bg-hover: lighten($color1, 47%);
+$table-bg-accent:#f9f9f9;
+$tooltip-max-width: 350px;

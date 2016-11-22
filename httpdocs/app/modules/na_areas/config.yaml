@@ -1,0 +1,7 @@
+---
+options:
+    forums: true
+    forums_per_page: 6
+    points_to_success: 7
+    show_user_menu: true
+    user_menu_position: 6

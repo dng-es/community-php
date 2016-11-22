@@ -1,0 +1,7 @@
+<snippet>
+	<content><![CDATA[
+\$${1:sum} = connection::sumReg("${2:table}", "${3:field}", "${4:filter}");
+]]></content>
+	<tabTrigger>da_sumReg</tabTrigger>
+	<scope>source.php</scope>
+</snippet>

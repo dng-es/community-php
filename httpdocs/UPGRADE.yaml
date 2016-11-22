@@ -1,0 +1,26 @@
+---
+upgrades:
+    7:  
+        version: 0.5.3.1
+        notes: \nModulos de incentivos y batallas por canales. Opciones en carga masiva de usuario\n\n
+    6:  
+        version: 0.5.3
+        notes: \nOpción de ocultar y mostrar módulos en el menú de usuarios.\nMódulo Páginas. Nueva opción de incluir páginas en el menú y posición; nueva opción páginas por canales\n\n
+    5:  
+        version: 0.5.2.3
+        notes: \nMódulo Fotos. albumes filtrados por existencia o no de fotos. Nuevo contador indicando las fotos en cada álbum. \nMódulo Áreas de trabajo. Envío de emails al validar un formulario\nMódulo Tienda. Nuevas opciones de configuración del módulo. Productos por canal.\n\n
+    4:  
+        version: 0.5.2.2
+        notes: \nMódulo Novedades. Implementación popup y slider. \nMódulo Configuración. Nuevas opciones para idioma por defecto y selector de idiomas.\n\n
+    3:  
+        version: 0.5.2.1
+        notes: \nMódulo Tienda. Nuevo buscador. \nMódulo Páginas. Nueva opción de menu. \nMódulo Usuarios. Nuevo campo en usuarios para idioma por defecto\n\n
+    2:  
+        version: 0.5.2
+        notes: \nMejoras accesibilidad.\nNuevo modulo de Tienda (productos, pedidos, ...)\n\n
+    1:  
+        version: 0.5.1
+        notes: \nSelector de canales y temas por canales\n\n
+    0:  
+        version: 0.4.7
+        notes: \nNuevo modulo de Batallas.\nNuevo modulo de Reto

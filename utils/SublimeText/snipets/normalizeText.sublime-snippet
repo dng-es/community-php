@@ -1,0 +1,7 @@
+<snippet>
+	<content><![CDATA[
+NormalizeText( \$${1:texto} );
+]]></content>
+	<tabTrigger>da_normalizeText</tabTrigger>
+	<scope>source.php</scope>
+</snippet>

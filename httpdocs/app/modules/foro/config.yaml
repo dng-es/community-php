@@ -1,0 +1,7 @@
+---
+options:
+    allow_new: true
+    forums_per_page: 5
+    comments_per_page: 15
+    show_user_menu: true
+    user_menu_position: 9

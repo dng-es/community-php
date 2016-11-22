@@ -1,0 +1,25 @@
+@import "variables";
+@import "../../../css/main.scss";
+/*Maquetacion APP*/
+.app-main{
+	@extend .col-md-8;
+	@extend .col-lg-9;
+	@extend .inset;
+	float:right !important;
+	.nav>li>a{
+		padding-bottom: 10px;
+	}
+}
+.app-sidebar-main{
+	@extend .col-md-4;
+	@extend .col-lg-3;
+}
+.app-sidebar{
+	@extend .app-sidebar-main;
+	@extend .nopadding;
+	@extend .lateral-container;
+}
+.app-sidebar-admin{
+	@extend .app-sidebar-main;
+}
+/*Fin Maquetacion APP*/
