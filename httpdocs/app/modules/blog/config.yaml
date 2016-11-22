@@ -1,6 +1,0 @@
----
-options:
-    allow_comments: true
-    show_alarms: true
-    show_user_menu: false
-    user_menu_position: 2

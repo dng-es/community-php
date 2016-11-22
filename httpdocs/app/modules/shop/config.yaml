@@ -1,7 +1,0 @@
----
-options:
-    show_buybutton: true
-    show_stock: true
-    show_price: true
-    show_user_menu: true
-    user_menu_position: 8

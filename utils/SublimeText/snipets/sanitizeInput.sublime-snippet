@@ -1,8 +1,0 @@
-<snippet>
-	<content><![CDATA[
-sanitizeInput( \$${1:texto} );
-]]></content>
-	<tabTrigger>da_sanitizeInput</tabTrigger>
-	<scope>source.php</scope>
-	<description>Clean POST values. Prevent Sql injection</description>
-</snippet>

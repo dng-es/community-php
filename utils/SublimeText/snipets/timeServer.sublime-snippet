@@ -1,9 +1,0 @@
-<snippet>
-	<content><![CDATA[
-\$${1:hora} = connection::timeServer();
-]]></content>
-	<tabTrigger>da_timeServer</tabTrigger>
-	<scope>source.php</scope>
-	<description>Get date and time from MySql server</description>
-</snippet>
-

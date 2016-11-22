@@ -1,7 +1,0 @@
-<snippet>
-	<content><![CDATA[
-session::getFlashMessage( '${1:actions_message}' );
-]]></content>
-	<tabTrigger>da_getFlashMessage</tabTrigger>
-	<scope>source.php</scope>
-</snippet>

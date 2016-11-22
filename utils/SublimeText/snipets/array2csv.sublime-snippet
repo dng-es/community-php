@@ -1,8 +1,0 @@
-<snippet>
-	<content><![CDATA[
-array2csv( \$${1:array} );
-]]></content>
-	<tabTrigger>da_array2csv</tabTrigger>
-	<scope>source.php</scope>
-	<description>Export array to CSV</description>
-</snippet>

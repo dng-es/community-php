@@ -1,7 +1,0 @@
-<snippet>
-	<content><![CDATA[
-\$${1:contador} = connection::countReg("${2:table}","${3:filter}");
-]]></content>
-	<tabTrigger>da_countReg</tabTrigger>
-	<scope>source.php</scope>
-</snippet>

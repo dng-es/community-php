@@ -1,7 +1,0 @@
-<snippet>
-	<content><![CDATA[
-ShortText(\$${1:texto}, \$${2:num_caracteres})
-]]></content>
-	<tabTrigger>da_shortText</tabTrigger>
-	<scope>source.php</scope>
-</snippet>

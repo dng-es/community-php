@@ -1,3 +1,0 @@
-<?php
-Highlights = "Highlights"
-?>

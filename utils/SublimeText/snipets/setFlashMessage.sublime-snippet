@@ -1,7 +1,0 @@
-<snippet>
-	<content><![CDATA[
-session::setFlashMessage( '${1:actions_message}', '${2:mensaje}', '${3:alert alert-success}');
-]]></content>
-	<tabTrigger>da_setFlashMessage</tabTrigger>
-	<scope>source.php</scope>
-</snippet>
