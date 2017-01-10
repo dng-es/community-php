@@ -14,7 +14,6 @@ class shopProductsController{
 			$element['stock_product'] = 0;
 			$element['important_product'] = 0;
 		}
-
 		return $element;
 	}
 
@@ -22,14 +21,13 @@ class shopProductsController{
 		$shop = new shop();
 		$find_reg = "";
 
-
 		if (isset($_REQUEST['ref_search'])) $find_reg .= "&ref_search=".$_REQUEST['ref_search'];
 		if (isset($_REQUEST['name_search'])) $find_reg .= "&name_search=".$_REQUEST['name_search'];
 		if (isset($_REQUEST['manufacturer_search'])) $find_reg .= "&manufacturer_search=".$_REQUEST['manufacturer_search'];
 		if (isset($_REQUEST['category_search'])) $find_reg .= "&category_search=".$_REQUEST['category_search'];
 		if (isset($_REQUEST['subcategory_search'])) $find_reg .= "&subcategory_search=".$_REQUEST['subcategory_search'];
 
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("shop_products p, shop_manufacturers m "," AND p.id_manufacturer=m.id_manufacturer".$filter); 
 		return array('items' => $shop->getProducts($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -56,11 +54,15 @@ class shopProductsController{
 			$price_product = sanitizeInput($_POST['price_product']);
 			$stock_product = sanitizeInput($_POST['stock_product']);
 			$important_product = (isset($_POST['important_product']) and $_POST['important_product'] == "on") ? 1 : 0;
+			$active_product = (isset($_POST['active_product']) and $_POST['active_product'] == "on") ? 1 : 0;
 			$id_manufacturer = sanitizeInput($_POST['id_manufacturer']);
 			$category_product = sanitizeInput($_POST['category_product']);
 			$subcategory_product = sanitizeInput($_POST['subcategory_product']);
 			$ref_product = sanitizeInput($_POST['ref_product']);
+			$date_ini_product = sanitizeInput( $_POST['date_ini_product'] );
+			$date_fin_product = sanitizeInput( $_POST['date_fin_product'] );
 			$canal_product = sanitizeInput($_POST['canal_product']);
+			if (is_array($canal_product)) $canal_product = implode(",", $canal_product);
 			
 			$file_info = pathinfo($_FILES['image_product']['name']);
 			$extension = strtolower($file_info['extension']);
@@ -68,13 +70,13 @@ class shopProductsController{
 			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){
 				$image_product = self::insertPhoto();
 
-				if ($shop->insertProduct($name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product)){ 
+				if ($shop->insertProduct($name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product, $active_product, $date_ini_product, $date_fin_product)){ 
 					$id = connection::SelectMaxReg("id_product", "shop_products", "");
 					session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				}
 				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
-			else session::setFlashMessage('actions_message', "Extensión no valida: ".$extension, "alert alert-warning");			
+			else session::setFlashMessage('actions_message', "Extensión no valida: ".$extension, "alert alert-warning");
 
 			redirectURL("admin-shopproduct?id=".$id);
 		}
@@ -89,11 +91,15 @@ class shopProductsController{
 			$price_product = sanitizeInput($_POST['price_product']);
 			$stock_product = sanitizeInput($_POST['stock_product']);
 			$important_product = (isset($_POST['important_product']) and $_POST['important_product'] == "on") ? 1 : 0;
+			$active_product = (isset($_POST['active_product']) and $_POST['active_product'] == "on") ? 1 : 0;
 			$id_manufacturer = sanitizeInput($_POST['id_manufacturer']);
 			$category_product = sanitizeInput($_POST['category_product']);
 			$subcategory_product = sanitizeInput($_POST['subcategory_product']);
 			$ref_product = sanitizeInput($_POST['ref_product']);
+			$date_ini_product = sanitizeInput( $_POST['date_ini_product'] );
+			$date_fin_product = sanitizeInput( $_POST['date_fin_product'] );
 			$canal_product = sanitizeInput($_POST['canal_product']);
+			if (is_array($canal_product)) $canal_product = implode(",", $canal_product);
 
 			$file_info = pathinfo($_FILES['image_product']['name']);
 			$extension = strtolower($file_info['extension']);
@@ -101,7 +107,7 @@ class shopProductsController{
 			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){
 				$image_product = self::insertPhoto();
 
-				if ($shop->updateProduct($id, $name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product))
+				if ($shop->updateProduct($id, $name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product, $active_product, $date_ini_product, $date_fin_product))
 					session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 
 				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -122,8 +128,9 @@ class shopProductsController{
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$shop = new shop();
-			if ($shop->updateProductState($_REQUEST['id'], 0)) 
-				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
+			$state_new = ($_REQUEST['est'] == 0 ? 1 : 0); 
+			if ($shop->updateProductState($_REQUEST['id'], $state_new)) 
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 

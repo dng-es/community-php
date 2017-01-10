@@ -3,7 +3,7 @@
 * @Manage incentivos
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.0
+* @version 1.1
 *
 */
 
@@ -47,7 +47,7 @@ class incentivosCore {
 				"LabelItem" => strTranslate("Incentives_manufacturers"),
 				"LabelUrl" => "admin-incentives-fabricantes",
 				"LabelPos" => 1,
-			)),	
+			)),
 			menu::addAdminMenu(array(
 				"PageName" => "admin-incentives-products",
 				"LabelHeader" => "Modules",
@@ -63,7 +63,7 @@ class incentivosCore {
 				"LabelItem" => strTranslate("Incentives_sales"),
 				"LabelUrl" => "admin-incentives-ventas",
 				"LabelPos" => 3,
-			)),							
+			)),
 		);
 	}
 }

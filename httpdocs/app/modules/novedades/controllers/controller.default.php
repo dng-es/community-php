@@ -29,7 +29,7 @@ class novedadesController{
 		}
 
 		return $element;
-	}	
+	}
 
 	public static function createAction(){
 		if (isset($_POST['id_novedad']) and $_POST['id_novedad'] == 0){
@@ -39,15 +39,15 @@ class novedadesController{
 			$perfil = sanitizeInput($_POST['perfil']);
 			$tipo = sanitizeInput($_POST['tipo']);
 			$activo = ($_POST['activo'] == "on" ? 1 : 0);
-			$canal = $_POST['canal'];
 			$orden = (trim($_POST['orden']) == "" ? 0 : trim($_POST['orden']));
+			$canal = $_POST['canal'];
+			if (is_array($canal)) $canal = implode(",", $canal);
 			
 			if ($novedades->insertNovedades($titulo, $cuerpo, $activo, $canal, $perfil, $tipo, $orden)){ 
 				$id = connection::SelectMaxReg("id_novedad", "novedades", "");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}
-			else 
-				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-novedad?id=".$id);
 		}
@@ -62,8 +62,9 @@ class novedadesController{
 			$perfil = sanitizeInput($_POST['perfil']);
 			$tipo = sanitizeInput($_POST['tipo']);
 			$activo = ($_POST['activo'] == "on" ? 1 : 0);
-			$canal = $_POST['canal'];
 			$orden = (trim($_POST['orden']) == "" ? 0 : trim($_POST['orden']));
+			$canal = $_POST['canal'];
+			if (is_array($canal)) $canal = implode(",", $canal);
 
 			if ($novedades->updateNovedades($id_novedad, $titulo, $cuerpo, $activo, $canal, $perfil, $tipo, $orden)) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");

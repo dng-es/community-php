@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	$("#contador-blog-header").css("display","none");
-
 	$("#archivo-cmb").change(function(){
 		var valor = $(this).val(),
 			myarr = valor.split(",");

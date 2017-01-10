@@ -25,8 +25,11 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 		//ELIMINAR PREGUNTA
 		na_areasController::deletePreguntaAction();
 		?>
-		<p>Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
-		<a href="admin-area?act=edit&t=2&id=<?php echo $id_area;?>" class="text-primary">Volver a la gestión del curso</a></p>
+		<p>
+			Tarea: <?php echo $tarea[0]['tarea_titulo'];?> | 
+			<a href="admin-area?act=edit&t=2&id=<?php echo $id_area;?>" class="text-primary">Volver a la gestión del curso</a> | 
+			<a href="areas_form?id=<?php echo $id_tarea;?>" target="_blank" id="ver-formulario" class="">Ver formulario</a>
+		</p>
 		<?php
 		if (count($tarea) == 1 and $tarea[0]['tipo'] == 'formulario') FormularioTarea($id_tarea,$id_area,$tarea);
 		else ErrorMsg("Error al cargar el formulario la tarea"); ?>
@@ -34,9 +37,7 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 	<?php menu::adminMenu();?>
 </div>
 
-
 <?php 
-
 function FormularioTarea($id_tarea,$id_area,$tarea){
 		$na_areas = new na_areas();
 		$preguntas = $na_areas->getPreguntas(" AND id_tarea=".$id_tarea." "); 
@@ -61,7 +62,6 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 							title="Eliminar pregunta" />
 						</span>
 					 </td>';
-							
 				echo '<td>'.$pregunta['pregunta_texto'].'</td>';
 				echo '<td>'.$pregunta['pregunta_tipo'].'</td>';
 				echo '</tr>';
@@ -70,31 +70,49 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 		}
 		//INSERTAR NUEVA PREGUNTA
 		?>
-		<h3>Insertar nueva pregunta</h3>
-		<div class="area-detalle">
-		<form id="formData" name="formData" method="post" action="admin-area-form?act=new&amp;id=<?php echo $id_tarea;?>&amp;a=<?php echo $id_area;?>">
-		<table cellspacing="0" cellpadding="2px" class="Tam11">
-			<tr><td valign="top" width="150px">Pregunta:</td><td>
-			<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
-			<span id="pregunta-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
-			</td></tr>
-			<tr><td valign="top">Tipo de pregunta:</td><td>
-			<select id="pregunta_tipo" name="pregunta_tipo" class="form-control">
-				<option selected="selected" value="texto">texto libre</option>
-				<option value="unica"/>respuesta única</option>
-				<option value="multiple">respuesta multiple</option>
-			</select>
-			<div id="container-respuestas">
-					<a href="#" id="agregar-respuestas" class="btn btn-primary">nueva respuesta</a><br /><br />
-					<input type="hidden" name="contador-respuestas" id="contador-respuestas" value="1" />
-					<span id="textoRespuesta1" style="width:70px;display:block;clear:both">Respuesta1:</span>
-					<input class="form-control" id="respuesta1" name="respuesta1" value=""/>
+		<div class="col-md-5">
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php e_strTranslate("Form_new_question");?></div>
+				<div class="panel-body">
+					<form id="formData" name="formData" method="post" action="admin-area-form?act=new&amp;id=<?php echo $id_tarea;?>&amp;a=<?php echo $id_area;?>">
+						<div class="row">
+							<div class="form-group col-md-8">
+								<label for="pregunta_texto"><?php e_strTranslate("Form_question");?>:</label>
+								<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
+								<span id="pregunta-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+							</div>
+							
+							<div class="form-group col-md-4">
+								<label for="pregunta_tipo"><?php e_strTranslate("Form_question_type");?>:</label>
+								<select id="pregunta_tipo" name="pregunta_tipo" class="form-control">
+									<option selected="selected" value="texto">texto libre</option>
+									<option value="unica"/>respuesta única</option>
+									<option value="multiple">respuesta multiple</option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-12" id="container-respuestas">
+								<a href="#" id="agregar-respuestas" class="btn btn-primary">nueva respuesta</a><br /><br />
+								<input type="hidden" name="contador-respuestas" id="contador-respuestas" value="1" />
+								<span id="textoRespuesta1" style="width:70px;display:block;clear:both">Respuesta1:</span>
+								<input class="form-control" id="respuesta1" name="respuesta1" value=""/>
+								
+								<div class="checkboxContainer">
+									<input type="checkbox" id="checkRespuesta1" name="checkRespuesta1" class="checkForm"> Respuesta correcta
+								</div>
+
+								<div class="radioContainer">
+									<input type="radio" id="radioRespuesta1" name="radioRespuesta1" value="1" class="radioForm"> Respuesta correcta
+								</div>
+								<hr />
+							</div>
+						</div>
+						<br />
+						<div class="form-group col-md-12">
+							<div id="SubmitData" name="SubmitData" class="btn btn-primary btn-block"><?php e_strTranslate("Form_add_question");?></div>
+						</div>
+					</form>
+				</div>
 			</div>
-			</td></tr>    
-			<tr><td colspan="2">
-				<a href="areas_form?id=<?php echo $id_tarea;?>" target="_blank" id="ver-formulario" class="btn btn-primary">ver formulario</a>
-				<div id="SubmitData" name="SubmitData" class="btn btn-primary" style="float:right">agregar pregunta</div></td></tr>
-		</table>
-		</form>
 		</div>
 <?php } ?>

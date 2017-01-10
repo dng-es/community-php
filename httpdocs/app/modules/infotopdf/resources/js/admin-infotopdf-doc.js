@@ -12,8 +12,6 @@ jQuery(document).ready(function(){
 		// 	 $("#file-alert").fadeIn().css("display", "block");
 		// 	 resultado_ok = false;
 		// }				
-		if (resultado_ok == true){
-			$("#formData").submit();
-		}
+		if (resultado_ok == true) $("#formData").submit();
 	});
 });

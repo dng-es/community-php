@@ -3,10 +3,8 @@ templateload("gallery","videos");
 templateload("addfile","videos");
 //templateload("addcomment","videos");
 //templateload("comment","videos");
-
 templateload("gallery","fotos");
 templateload("addfile","fotos");
-
 templateload("comment","muro");
 templateload("addcomment","muro");
 
@@ -37,9 +35,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 		$promocion = promocionesController::getLastPromocionAction(" AND active=1 ");
 		$id_promocion = $promocion['id_promocion'];
 
-
-
-		if (isset($id_promocion) and $id_promocion != ""){ ?>
+		if (isset($id_promocion) and $id_promocion != ""){?>
 			<div class="panel panel-default panel-blog">
 				<div class="panel-body">
 					<div class="panel-blog-header">
@@ -52,7 +48,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 
 			//mostrar videos subidos por los administradores
 			$videos_admin = videosController::getListAction(100, " AND estado=1 AND u.perfil='admin' AND id_promocion=".$id_promocion." ");
-			if (count($videos_admin['items']) > 0): ?>
+			if (count($videos_admin['items']) > 0):?>
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<h3>Videos de apoyo</h3>
@@ -65,14 +61,14 @@ addJavascripts(array("js/jquery.jtextarea.js",
 									 <span><small>'.getDateFormat($video['date_video'], "LONG").'</small></span>
 								</div>
 							</div></div>';
-						endforeach; ?>
+						endforeach;?>
 					</div>
 				</div>
-			<?php endif; ?>
+			<?php endif;?>
 
 			<?php 
 			//mostrar vídeos subidos por los usuarios
-			if ($promocion['galeria_videos'] ==1): 
+			if ($promocion['galeria_videos'] ==1):
 				$videos = videosController::getListAction(100, " AND estado=1 AND u.perfil<>'admin' AND id_promocion=".$id_promocion." ");
 				?>
 				<div class="panel panel-default">
@@ -88,23 +84,22 @@ addJavascripts(array("js/jquery.jtextarea.js",
 									 <span><small>'.getDateFormat($video['date_video'], "LONG").'</small></span>
 								</div>
 							</div></div>';
-						endforeach; ?>
-						<?php else: ?>
+						endforeach;?>
+						<?php else:?>
 							<div class="alert alert-info">Los usuarios todavia no han subido contenidos</div>
 						<?php endif; ?>
 					</div>
 				</div>
-			<?php endif; ?>
+			<?php endif;?>
 
 			<?php 
 			//mostrar fotos subidos por los usuarios
-			if ($promocion['galeria_fotos'] ==1): 
+			if ($promocion['galeria_fotos'] ==1):
 				$videos = videosController::getListAction(10, " AND estado=1 AND u.perfil<>'admin' AND id_promocion=".$id_promocion." ");
 				?>
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<h3>Fotos subidas por los usuarios</h3>
-						
+						<h3>Fotos subidas por los usuarios</h3>		
 						<section id="photos">
 
 						</section>
@@ -112,12 +107,12 @@ addJavascripts(array("js/jquery.jtextarea.js",
 						<div id="cargando-infinnite-end"><span class="btn btn-default alert-info"><?php e_strTranslate("No_more_photos");?> <i class="fa fa-info-circle"></i></span></div>
 						<div class="clearfix"></div>
 					</div>
-				</div>	
-			<?php endif; ?>
+				</div>
+			<?php endif;?>
 
 			<?php 
 			//mostrar comentarios subidos por los usuarios
-			if ($promocion['galeria_comentarios'] ==1): 
+			if ($promocion['galeria_comentarios'] ==1):
 				$muro = new muro();
 				$comentarios = $muro->getComentarios(" AND tipo_muro='".$id_promocion."' AND estado=1 ORDER BY date_comentario DESC ");
 				if (count($comentarios) > 0): ?>
@@ -128,14 +123,13 @@ addJavascripts(array("js/jquery.jtextarea.js",
 						<?php 
 						foreach($comentarios as $comentario):
 							commentMuro2($comentario);
-						endforeach; ?>
+						endforeach;?>
 					</div>
 				</div>
 				<?php else: ?>
 					<div class="alert alert-info">Los usuarios todavia no han subido contenidos</div>
 				<?php endif; ?>
 			<?php endif; ?>
-
 		<?php } 
 		else{ ?>
 			<div class="alert alert-info">No hay retos activos</div>
@@ -143,7 +137,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior full-height">
-			<?php if (isset($id_promocion) and $id_promocion != ""): ?>
+			<?php if (isset($id_promocion) and $id_promocion != ""):?>
 				<?php if ($promocion['galeria_videos'] ==1 or $_SESSION['user_perfil'] == 'admin') PanelSubirVideo($promocion['id_promocion']);?>
 				<?php if ($promocion['galeria_fotos'] ==1) PanelSubirFoto($promocion['id_promocion']);?>
 				<?php if ($promocion['galeria_comentarios'] ==1) addComment($promocion['id_promocion'], false, "Enviar respuesta");?>

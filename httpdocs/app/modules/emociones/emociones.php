@@ -7,8 +7,6 @@
 *
 */
 class emocionesCore{
-
-
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu

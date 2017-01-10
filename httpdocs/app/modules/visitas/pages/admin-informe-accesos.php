@@ -9,7 +9,6 @@ $media1 = 0;
 $media2 = 0;
 $media3 = 0;
 
-					 
 addJavascripts(array("js/bootstrap-datepicker.js", 
 					"js/bootstrap-datepicker.es.js", 
 					"js/libs/highcharts/highcharts.js",
@@ -97,7 +96,7 @@ $visitas = 0;
 $output_x3 = "";
 $output_y3 = "";
 foreach($elements as $element):
-	$visitas+=$element['contador'];
+	$visitas += $element['contador'];
 	$output_y3 .= $element['contador'].",";
 	//$output_x3 .= "'".$element['anio']."-".($element['mes'] - 1)."-".$element['dia']."',";
 	$output_x3 .= "'".$element['anio']."-".($element['mes'])."-".$element['dia']."',";
@@ -118,7 +117,7 @@ endforeach;
 $outputBrowser = substr($outputBrowser, 0, strlen($outputBrowser) - 1);
 
 //DATOS VISITAS POR PLATAFORMA
-$outputPlatform="";
+$outputPlatform = "";
 $elements = visitas::getAccessPlatform($filtro_informe.$filtro_duplicados);
 foreach($elements as $element):
 	$outputPlatform .= '{name: "'.$element['platform'].'",y: '.$element['contador'].'},';
@@ -398,8 +397,6 @@ $('#containerHoras').highcharts({
 			data: [<?php echo $outputPlatform;?>]
 		}]
 	});
-
-
 });
 
 </script>

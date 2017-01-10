@@ -17,4 +17,5 @@ Shop_manufacturers_list = "Listado de fabricantes"
 Shop_manufacturer = "Fabricante"
 Shop_manufacturer_new = "Nuevo fabricante"
 Import_order_states = "Importar estados pedidos"
+Comming_soon = "Próximo lanzamiento"
 ?>

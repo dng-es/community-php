@@ -8,18 +8,19 @@ include_once($base_dir . "app/core/constants.php");
 include_once($base_dir . "app/core/functions.php");
 include_once($base_dir . "app/core/class.session.php");
 include_once($base_dir . "app/modules/users/classes/class.users.php");
+include_once($base_dir . "app/modules/info/controllers/controller.default.php");
+
 
 $res_app = 0;
 if (isset($_REQUEST['u']) and isset($_REQUEST['s'])){
-	$users = new users();
-	$res_app = $users->countReg("users_login"," AND ses_id = '".$_REQUEST['s']."' AND username='".$_REQUEST['u']."' LIMIT 1");    
+	$res_app = connection::countReg("users_login"," AND ses_id = '".$_REQUEST['s']."' AND username='".$_REQUEST['u']."' LIMIT 1");    
 }
 
 if (($_SESSION['user_logged']==true and $_SESSION['user_name']!="") or $res_app>0){
 	# Definimos la ruta del directorio privado.
 	# Este es el directorio con permisos de escritura.
 	$ruta = 'info';
-	if (isset($_GET['t']) and $_GET['t']==1){$ruta="tareas";}
+	if (isset($_GET['t']) and $_GET['t'] == 1) $ruta = "tareas";
 	
 	# El nombre del archivo que se desea servir, lo obtendremos
 	# mediante el parámetro 'file' que luego será pasado por la URI
@@ -30,23 +31,27 @@ if (($_SESSION['user_logged']==true and $_SESSION['user_name']!="") or $res_app>
 	//echo $file;
 	if(!is_null($file)) {
 		if(file_exists($file)) {
-		# Creamos un recurso fileinfo para obtener el tipo MIME
-		//$resource = finfo_open(FILEINFO_MIME_TYPE);
-		# Obtenemos el tipo MIME
+			//registramos el acceso del usuario al fichero
+			$user_file = (isset($_REQUEST['u']) ? $_REQUEST['u'] : $_SESSION['user_name']);
+			if (isset($_REQUEST['i']) && $_REQUEST['i'] > 0) infoController::registerViewAction($user_file, $_REQUEST['i']);
 
-		$mimetype = mm_type($file);
-		# Cerramos el recurso
-		//finfo_close($resource);
-		# Modificamos los encabezados HTTP
-		header("Content-Type: $mimetype");
-		header('Content-Disposition: attachment; filename="' . $file . '"');
-		header('Content-Transfer-Encoding: binary');
-		header('Accept-Ranges: bytes');
-		header('Cache-Control: private');
-		header('Pragma: private');
-		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-		# Leemos y mostramos el archivo
-		readfile($file);
+			# Creamos un recurso fileinfo para obtener el tipo MIME
+			//$resource = finfo_open(FILEINFO_MIME_TYPE);
+			# Obtenemos el tipo MIME
+
+			$mimetype = mm_type($file);
+			# Cerramos el recurso
+			//finfo_close($resource);
+			# Modificamos los encabezados HTTP
+			header("Content-Type: $mimetype");
+			header('Content-Disposition: attachment; filename="' . $file . '"');
+			header('Content-Transfer-Encoding: binary');
+			header('Accept-Ranges: bytes');
+			header('Cache-Control: private');
+			header('Pragma: private');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			# Leemos y mostramos el archivo
+			readfile($file);
 		}
 	}
 }

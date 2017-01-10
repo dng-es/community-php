@@ -1,6 +1,11 @@
 <?php
 function panelVideos(){
-	$last_video = videosController::getListAction(1, " AND estado=1 ");
+	$module_config = getModuleConfig("videos");
+	$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
+	$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (v.canal IN (".$module_channels.") OR v.canal='') ");
+
+
+	$last_video = videosController::getListAction(1, $filtro_canal." AND estado=1 ");
 	?>
 	<div class="col-md-12 section panel">
 		<h3><?php e_strTranslate("Last_videos");?></h3>

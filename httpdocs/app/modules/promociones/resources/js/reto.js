@@ -1,8 +1,4 @@
 $(document).ready(function(){
-
-
-	
-
 	//FUNCIONES PARA LOS COMENTARIOS / MURO
 	$("#muro-submit").click(function(){
 		$("#muro-form").submit();
@@ -14,9 +10,7 @@ $(document).ready(function(){
 			$('#texto-comentario').addClass("input-alert").attr("placeholder", $('#texto-comentario').data("alert")).focus();
 			resultado_ok = false;
 		}
-
 		return resultado_ok;
-
 	});
 
 	$(".murogusta").tooltip({placement:"top"}).click(function(e){
@@ -40,9 +34,9 @@ $(document).ready(function(){
 					$(campo_resultado).html("Votacion realizada con exito");
 				});
 			}
-			else{$(campo_resultado).html("Ya has votado este comentario");}
+			else $(campo_resultado).html("Ya has votado este comentario");
 		}
-		else{$(campo_resultado).html("No puedes votar tus propios comentarios");}
+		else $(campo_resultado).html("No puedes votar tus propios comentarios");
 		$(campo_resultado).fadeIn();
 	});
 })

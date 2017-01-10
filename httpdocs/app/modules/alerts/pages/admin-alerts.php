@@ -4,11 +4,6 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 					getAsset("alerts")."js/addalert.js"));
 
 templateload("addalert", "alerts");
-
-session::getFlashMessage( 'actions_message' );
-alertsController::deleteAction();
-alertsController::createAction();
-$elements = alertsController::getListAction(15, " AND activa=1 ");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -19,15 +14,19 @@ $elements = alertsController::getListAction(15, " AND activa=1 ");
 			array("ItemLabel"=>strTranslate("MOD_Alerts"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("MOD_Alerts_list"), "ItemClass"=>"active"),
 		));
+		session::getFlashMessage( 'actions_message' );
+		alertsController::deleteAction();
+		alertsController::createAction();
+		$elements = alertsController::getListAction(15, " AND activa=1 ");
 		?>
-		<div class="row">
-			<div class="col-md-8">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<ul class="nav nav-pills navbar-default">       
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-7">
+						<ul class="nav nav-pills navbar-default">
 							<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 							<div class="pull-right">
-								<?php echo SearchForm($elements['reg'],"admin-alerts","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>	
+								<?php echo SearchForm($elements['reg'],"admin-alerts","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
 							</div>
 						</ul>
 
@@ -42,13 +41,13 @@ $elements = alertsController::getListAction(15, " AND activa=1 ");
 								</tr>	
 								<?php foreach($elements['items'] as $element):?>
 									<tr>
-									<td nowrap="nowrap">								
+									<td nowrap="nowrap">
 										<button type="button" class="btn btn-default btn-xs" title="Eliminar"
 											onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-alerts?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_alert'];?>'); return false"><i class="fa fa-trash icon-table"></i>
 										</button>
 									</td>
 									<td><?php echo $element['text_alert'];?></td>
-									<td><?php echo $element['type_alert'];?></td>
+									<td><?php e_strTranslate(ucfirst($element['type_alert']));?></td>
 									<td><?php echo getDateFormat($element['date_ini'], 'DATE_TIME');?></td>
 									<td><?php echo getDateFormat($element['date_fin'], 'DATE_TIME');?></td>
 									</tr>
@@ -57,13 +56,16 @@ $elements = alertsController::getListAction(15, " AND activa=1 ");
 						</div>
 						<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 					</div>
-				</div>			
-			</div>
-			<div class="col-md-4">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h3 class="inset"><?php e_strTranslate("MOD_Alert_new");?></h3>
-						<?php addAlert();?>
+
+					<div class="col-md-5">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4><?php e_strTranslate("MOD_Alert_new");?></h4>
+							</div>
+							<div class="panel-body">
+								<?php addAlert();?>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

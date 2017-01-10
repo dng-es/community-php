@@ -12,7 +12,5 @@ jQuery(document).ready(function(){
 			f = $(this).attr("data-f");
 
 		Confirma('¿Seguro que deseas validar el vídeo?', 'admin-validacion-videos?act=video_ok&id=' + id_file + '&f='+ f +'&u='+ u +"&tags=" + tags);
-
 	});
-	
 });

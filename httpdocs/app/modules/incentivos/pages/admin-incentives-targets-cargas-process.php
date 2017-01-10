@@ -1,11 +1,4 @@
-<?php
-set_time_limit(0);
-
-$id_objetivo = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
-$objetivo = incentivosObjetivosController::getItemAction($id_objetivo);
-
-?>
-
+<?php set_time_limit(0);?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -16,12 +9,14 @@ $objetivo = incentivosObjetivosController::getItemAction($id_objetivo);
 			array("ItemLabel"=>strTranslate("Incentives_targets"), "ItemUrl"=>"admin-incentives-targets-detail?id=".$id_objetivo),
 			array("ItemLabel"=>"Importar objetivos", "ItemClass"=>"active"),
 		));
+		$id_objetivo = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
+		$objetivo = incentivosObjetivosController::getItemAction($id_objetivo);
 		?>
 
-		<h3><?php echo strTranslate("Incentives_target");?>: <?php echo $objetivo['nombre_objetivo'];?></h3>
+		<h3><?php e_strTranslate("Incentives_target");?>: <?php echo $objetivo['nombre_objetivo'];?></h3>
 		
 		<?php
-		if (isset($_FILES['nombre-fichero']['name'])) {
+		if (isset($_FILES['nombre-fichero']['name'])){
 			$fichero=$_FILES['nombre-fichero'];
 			//SUBIR FICHERO		
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
@@ -42,18 +37,16 @@ $objetivo = incentivosObjetivosController::getItemAction($id_objetivo);
 					$data->read('docs/cargas/'.$nombre_archivo);
 					
 					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
-					volcarMySQL($data, $id_objetivo);				   
-				}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
+					volcarMySQL($data, $id_objetivo);
+				}else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
 			}
 		}?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>
 
-
 <?php
-
-function volcarMySQL($data, $id_objetivo) {	
+function volcarMySQL($data, $id_objetivo){
 	$users = new users();
 	$contador_insert = 0;
 	$contador_ko = 0;
@@ -65,7 +58,6 @@ function volcarMySQL($data, $id_objetivo) {
 		$cantidad_venta = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][3]))));
 		$username_venta = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][4])));
 
-
 		if ($referencia_producto!=""){
 			//buscar id_producto por referencia y fabriacante
 			$producto = $incentivos->getIncentivesProductos(" AND UPPER(p.referencia_producto)='".$referencia_producto."' AND UPPER(f.nombre_fabricante)='".$fabricante_producto."' ");
@@ -73,11 +65,9 @@ function volcarMySQL($data, $id_objetivo) {
 				//verificar que no exista un objetivo para el mismo destinatario y producto
 				$verificacion = $incentivos->getIncentivesObjetivosDetalle(" AND d.id_producto=".$producto[0]['id_producto']." AND d.destino_objetivo='".$username_venta."' AND d.id_objetivo=".$id_objetivo." ");
 				if (count($verificacion)==0){
-					if ($incentivos->insertIncentivesObjetivosDetalle( $id_objetivo, $username_venta, $producto[0]['id_producto'], $cantidad_venta )) $contador_insert++;
+					if ($incentivos->insertIncentivesObjetivosDetalle( $id_objetivo, $username_venta, $producto[0]['id_producto'], $cantidad_venta )) $contador_insert ++;
 				}
-				else{
-					$contador_ko ++;
-				}
+				else $contador_ko ++;
 			}
 		}
 	}
@@ -86,5 +76,5 @@ function volcarMySQL($data, $id_objetivo) {
 	<p>El proceso de importaci&oacute;n ha finalizado con &eacute;xito</p>';
 	echo '<p>Se ha insertado <b>'.$contador_insert.'</b> registros</p>';
 	echo '<p>No se han insertado <b>'.$contador_ko.'</b> registros por duplicidad</p>';
-}  
+}
 ?>

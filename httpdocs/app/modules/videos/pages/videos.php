@@ -6,14 +6,15 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					 "js/libs/jwplayer/jwplayer.js", 
 					 getAsset("videos")."js/videos.js"));
 
+$module_config = getModuleConfig("videos");
+$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
+
 $tags = (isset($_REQUEST['tag']) ? sanitizeInput($_REQUEST['tag']) : '' );
 $filtro_tags = ( $tags != ''  ? " AND tipo_video like '%".$tags."%' " : "" );
-if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0)	$id_video = $_REQUEST['id'];
-else{
-	//SELECCION ULTIMO VIDEO
-	$filter_videos = ($_SESSION['user_canal'] != 'admin' ? " AND canal='".$_SESSION['user_canal']."' " : "");
-	$id_video = connection::SelectMaxReg("id_file", "galeria_videos", $filtro_tags.$filter_videos." AND estado=1 ");
-}
+$filter_videos = $filtro_tags.($_SESSION['user_canal'] == 'admin' ? "" : " AND (v.canal IN (".$module_channels.") OR v.canal='') ");
+$filter_id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? " AND id_file=".sanitizeInput($_REQUEST['id'])." " : "");
+
+$id_video = connection::SelectMaxReg("id_file", "galeria_videos v ", $filter_id.$filter_videos." AND estado=1 ");
 
 $pagina_sig = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1 );
 $pagina_com = (isset($_REQUEST['pag2']) ? $_REQUEST['pag2'] : 1 );
@@ -42,10 +43,9 @@ $num_videos = 6;
 		videosController::createCommentAction();
 
 		if ($id_video > 0):
-
 			$video = videosController::getItemAction($id_video, " AND estado=1 ");
 			$comments = videosController::getCommentsListAction(2000, " AND estado=1 AND id_file=".$id_video." ORDER BY id_comentario DESC ");
-			$elements = videosController::getListAction($num_videos, " AND estado=1 ".$filtro_tags );
+			$elements = videosController::getListAction($num_videos, " AND estado=1 ".$filter_videos );
 			?>
 			<h2>
 				<?php echo $video['titulo'];?>
@@ -54,7 +54,7 @@ $num_videos = 6;
 			<p class="text-muted"><small>
 				<?php echo ucfirst(getDateFormat($video['date_video'], "LONG"));?> <i class="fa fa-user text-primary"></i> <?php echo ucfirst(strTranslate("uploaded_by"));?> <?php echo $video['nick'];?>
 				<i class="fa fa-youtube-play text-primary"></i> <?php echo $video['views'];?>  <?php e_strTranslate("Views");?> 
-			 	<a href="videos?id=<?php echo $video['id_file'].'&idvv='.$video['id_file'];?>"><i class="fa fa-heart"></i> <?php echo $video['videos_puntos'];?></a> 
+				<a href="videos?id=<?php echo $video['id_file'].'&idvv='.$video['id_file'];?>"><i class="fa fa-heart"></i> <?php echo $video['videos_puntos'];?></a> 
 			</small></p>
 			<?php showTags($video['tipo_video']);?>
 			<?php playVideo("VideoGaleria".$id_video, PATH_VIDEOS.$video['name_file'], 100, 100, "bottom", false, $id_video);?>
@@ -82,7 +82,7 @@ $num_videos = 6;
 				<?php e_strTranslate("Last_videos");?>
 			</h4>
 			<br />
-			<?php	
+			<?php 
 			if ($id_video > 0):
 				foreach($elements['items'] as $element):
 					echo '<div class="media-preview-container">
@@ -102,7 +102,7 @@ $num_videos = 6;
 				<a href="videos?id=<?php echo $id_video;?>&v=1&pag=<?php echo $pagina_sig + 1;?>&tag=<?php echo $tags;?>">
 				<span class="fa fa-search"></span> <?php e_strTranslate("See_more_videos");?></a>
 			</div>
-			<?php endif; ?>
+			<?php endif;?>
 		</div>
 	</div>
 </div>

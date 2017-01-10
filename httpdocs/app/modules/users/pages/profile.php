@@ -21,7 +21,7 @@ templateload("na_areasuser", "na_areas");
 			array("ItemLabel"=>strTranslate("My_profile"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' ); 
+		session::getFlashMessage( 'actions_message' );
 		usersController::updatePerfilAction();
 		$usuario = usersController::getPerfilAction($_SESSION['user_name']);
 		?>
@@ -117,12 +117,12 @@ templateload("na_areasuser", "na_areas");
 							</div>
 
 							<div class="col-md-3">
-                                <label class="control-label" for="user_lan"><small><?php e_strTranslate("Language");?></small></label>
-                                <select name="user_lan" id="user_lan" class="form-control">
-                                    <?php ComboLanguages($usuario['user_lan']);?>
-                                </select>
-                            </div>
-						</div>	
+								<label class="control-label" for="user_lan"><small><?php e_strTranslate("Language");?></small></label>
+								<select name="user_lan" id="user_lan" class="form-control">
+									<?php ComboLanguages($usuario['user_lan']);?>
+								</select>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="col-md-12">
@@ -187,7 +187,9 @@ templateload("na_areasuser", "na_areas");
 						<table class="table table-striped">
 							<tr><td><label><small><?php e_strTranslate("Date_add");?></small></label></td><td><small class="text-muted"><?php echo getDateFormat($usuario['date_add'], "DATE_TIME");?></small></td></tr>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("Last_access"));?></small></label></td><td><small class="text-muted"><?php echo getDateFormat($usuario['last_access'], "DATE_TIME");?></small></td></tr>
+							<?php if ($_SESSION['show_user_points']):?>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_points"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['puntos'];?></small></td></tr>
+							<?php endif; ?>
 							<?php if(getModuleExist("shop")):  ?>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_Credits"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['creditos'];?></small></td></tr>
 							<?php endif; ?>

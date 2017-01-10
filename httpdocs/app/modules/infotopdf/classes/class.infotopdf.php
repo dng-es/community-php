@@ -28,7 +28,6 @@ class infotopdf{
 		$nombre_archivo = NormalizeText($nombre_archivo);
 
 		if (move_uploaded_file($fichero['tmp_name'], PATH_BANNERS.$nombre_archivo)){
-
 			//generar miniatura
 			imgThumbnail($nombre_archivo, PATH_BANNERS, 200, 100);
 			//INSERTAR REGISTRO EN LA BBDD
@@ -36,7 +35,7 @@ class infotopdf{
 					VALUES
 					('".$titulo."','".$nombre_archivo."','".$canal."',".$tipo.",".$id_campaign.",'".$cuerpo_info."')";
 			if (connection::execute_query($Sql)) return "";
-			else  return "Ocurrió algún error al subir el contenido. No pudo guardarse 1.";
+			else return "Ocurrió algún error al subir el contenido. No pudo guardarse 1.";
 		}
 		else return "Ocurrió algún error al subir el contenido. No pudo guardarse 2.";
 	}

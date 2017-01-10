@@ -4,12 +4,12 @@ templateload("comment","foro");
 templateload("addcomment","blog");
 templateload("tags","blog");
 
-addJavascripts(array("js/jquery.jtextarea.js", 
+addJavascripts(array("js/bootstrap-textarea.js", 
 					 getAsset("blog")."js/blog.js", 
 					 getAsset("foro")."js/foro-comentario.js"));
 
-$filtro_blog = " AND activo=1 ";
-$filtro_blog .= ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SESSION['user_canal']."' OR canal='todos') ");
+$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal LIKE '%".$_SESSION['user_canal']."%' " : "");
+$filtro_blog = $filtro_canal." AND activo=1 ";
 ?>
 
 <div class="row row-top">
@@ -99,7 +99,7 @@ $filtro_blog .= ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SES
 				<div class="panel-container-foro">
 					<?php foreach($comentarios_foro as $comentario_foro):
 						commentForo($comentario_foro, "blog");
-					endforeach;	?>
+					endforeach;?>
 				</div>
 				<br />
 				
@@ -153,7 +153,7 @@ $filtro_blog .= ($_SESSION['user_canal'] == 'admin' ? "" : " AND (canal='".$_SES
 				<?php e_strTranslate("Last_blog");?>
 			</h4>
 			<?php 			
-			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 "); 
+			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 ");
 			entradasBlog($elements);
 			?>
 			<h4>

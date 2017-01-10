@@ -3,3 +3,7 @@ options:
     allow_registration: true
     show_user_menu: true
     user_menu_position: 8
+    show_user_points: true
+channels:
+    group1: 
+    group2: test, gerente, comercial

@@ -190,6 +190,9 @@ class session{
 
 
 				$_SESSION['language'] = $result_user[0]['user_lan'];
+				
+				//por defecto se mostraran los puntos. En loader.php se tomará el valor de configuración
+				$_SESSION['show_user_points'] = true;
 
 
 				//crear estadistica de acceso

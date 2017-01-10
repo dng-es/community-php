@@ -32,7 +32,7 @@ class cuestionariosCore{
 			"LabelPos" => 1,
 		)));
 
-		return $elems;	
+		return $elems;
 	}
 
 	/**
@@ -49,7 +49,7 @@ class cuestionariosCore{
 
 			if ($cuestionarios_menu['total_reg']>0):
 				$array_final_items = array();
-				foreach ($cuestionarios_menu['items'] as $cuestionario):	
+				foreach ($cuestionarios_menu['items'] as $cuestionario):
 					array_push($array_final_items , array("LabelIcon" => "",
 									"LabelItem" => $cuestionario['nombre'],
 									"LabelUrl" => 'cuestionario?id='.$cuestionario['id_cuestionario'],
@@ -66,7 +66,7 @@ class cuestionariosCore{
 
 		}
 
-		return $array_final;		
+		return $array_final;
 	}
 }
 ?>

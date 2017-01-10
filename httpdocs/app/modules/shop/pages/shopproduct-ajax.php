@@ -24,7 +24,7 @@ if (isset($_POST['opt']) and $_POST['opt'] == 'categorias'){
 if (isset($_POST['opt']) and $_POST['opt'] == 'subcategorias'){
 	$shop = new shop();
 	$elements = $shop->getProductsSubcategories();
-$json_elements = "[";
+	$json_elements = "[";
 	foreach ($elements as $element):
 		$json_elements .= '"'.$element['subcategory'].'",';
 	endforeach;
@@ -32,5 +32,4 @@ $json_elements = "[";
 	$json_elements .= "]";
 	echo $json_elements;
 }
-
 ?>

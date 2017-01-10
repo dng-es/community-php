@@ -19,7 +19,7 @@ function ForoSearch($reg, $pag, $iniValue, $marca_tipo, $tipo_tema){ ?>
 				<div class="form-group">
 					<select name="find_tipo" id="find_tipo" class="form-control">
 						<option value="">---Buscar por etiqueta---</option>
-					<?php ComboTiposTemas($tipo_tema);?>
+					<?php //ComboTiposTemas($tipo_tema);?>
 					</select>
 				</div>
 			<?php //endif; ?> -->
@@ -29,4 +29,4 @@ function ForoSearch($reg, $pag, $iniValue, $marca_tipo, $tipo_tema){ ?>
 		</div>
 	</form>
 </div>
-<?php }	?>
+<?php }?>

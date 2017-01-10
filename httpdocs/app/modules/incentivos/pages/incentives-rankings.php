@@ -13,13 +13,11 @@ $users = new users();
 $filtro_tipo = "";
 $tipo_informe = "usuarios";
 
-
 $filtro_tiendas = ($_SESSION['user_perfil'] == 'regional' ? " AND (regional_tienda='".$_SESSION['user_name']."') " : "");
 $filtro_tiendas .= ($_SESSION['user_perfil'] == 'responsable' ? " AND responsable_tienda='".$_SESSION['user_name']."' " : "");
 $filtro_tiendas .= ($_SESSION['user_perfil'] == 'usuario' ? " AND cod_tienda='".$_SESSION['user_empresa']."' " : "");
 
 $filtro_perfil = incentivosObjetivosController::getFiltroPerfil($_SESSION['user_perfil']);
-
 
 if (isset($_REQUEST['t']) and $_REQUEST['t'] == 'todos'){
 	$filtro_tipo = "todos";
@@ -41,10 +39,11 @@ else{
 
 $filtro_tienda .= ($id_group != '' ? " AND u.empresa='".$id_group."' " : "");
 
-
 $groups = $users->getTiendas($filtro_tiendas." AND activa=1 ORDER BY nombre_tienda");
 
-$elements = incentivosObjetivosController::getListAction( 1, $filtro_perfil." AND id_objetivo=".$id_objetivo." ");
+$filtro_canal = (($_SESSION['user_canal'] == 'admin') ? "" : " AND canal_objetivo LIKE '%".$_SESSION['user_canal']."%' ");
+
+$elements = incentivosObjetivosController::getListAction( 1, $filtro_canal.$filtro_perfil." AND id_objetivo=".$id_objetivo." ");
 $element = $elements['items'][0];
 
 //exportar datos
@@ -114,33 +113,29 @@ addJavascripts(array(getAsset("incentivos")."js/incentives-rankings.js"));
 											</div>
 											<div class="col-md-4">
 												<select name="tipo_ranking" id="tipo_ranking" class="form-control input-xs" data-idg="<?php echo $id_objetivo;?>">
-													<option value="" <?php echo ($filtro_tipo == "" ? ' selected="selected"' : "");?>'>Ranking de <?php e_strTranslate(Users);?></option>
+													<option value="" <?php echo ($filtro_tipo == "" ? ' selected="selected"' : "");?>'>Ranking de <?php e_strTranslate("Users");?></option>
 													<?php if ($_SESSION['user_perfil'] !='admin'):?>
 													<option value="todos" <?php echo ($filtro_tipo == "todos" ? ' selected="selected"' : "");?>'>Ranking de <?php e_strTranslate(Users);?></option>
 													<?php endif;?>
 
 													<?php if ($_SESSION['user_perfil'] == 'regional' or $_SESSION['user_perfil'] == 'admin'): ?>
-													<option value="tiendas" <?php echo ($filtro_tipo == "tiendas" ? ' selected="selected"' : "");?>'>Ranking de mis <?php e_strTranslate(Groups_user);?></option>
+													<option value="tiendas" <?php echo ($filtro_tipo == "tiendas" ? ' selected="selected"' : "");?>'>Ranking de mis <?php e_strTranslate("Groups_user");?></option>
 														<?php if ($_SESSION['user_perfil'] == 'regional'): ?>
 															<option value="tiendas_global" <?php echo ($filtro_tipo == "tiendas_global" ? ' selected="selected"' : "");?>'>Ranking de <?php e_strTranslate(Groups_user);?></option>
 														<?php endif; ?>
 													<?php endif; ?>
-
-
-														
 												</select>
 											</div>
 											<?php if ($_SESSION['user_perfil'] != 'usuario'):?>
 											<div class="col-md-4" id="groups_user_container">
 												<select id="groups_user" name="groups_user" class="form-control input-xs" data-idg="<?php echo $id_objetivo;?>">
 													<option value="">--Todos mis <?php e_strTranslate(Groups_user);?>--</option>
-												  	<?php foreach($groups as $group): ?>
-												  	<option value="<?php echo $group['cod_tienda'];?>" <?php echo ($group['cod_tienda'] == $id_group ? ' selected="selected" ' : '');?>><?php echo $group['nombre_tienda'];?> (<?php echo $group['cod_tienda'];?>)</option>
-												  	<?php endforeach;?>
+													<?php foreach($groups as $group): ?>
+													<option value="<?php echo $group['cod_tienda'];?>" <?php echo ($group['cod_tienda'] == $id_group ? ' selected="selected" ' : '');?>><?php echo $group['nombre_tienda'];?> (<?php echo $group['cod_tienda'];?>)</option>
+													<?php endforeach;?>
 												</select>
 											</div>
 											<?php endif;?>
-											
 										</div>
 									</div>
 								</div>
@@ -198,9 +193,8 @@ addJavascripts(array(getAsset("incentivos")."js/incentives-rankings.js"));
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
-			<h4><?php echo strTranslate("Incentives");?></h4>
+			<h4><?php e_strTranslate("Incentives");?></h4>
 			<p>Estos son los Rankings de cada objetivo, ¿estás entre los primeros? ¡¡Descúbrelo!!</p>
-
 
 			<div class=" col-md-6 col-md-offset-3 incentivos-ranking-user2">
 				<!-- <div class="text-center incentivos-ranking-user2-title"><?php //echo $usuario['nick'];?></div> -->

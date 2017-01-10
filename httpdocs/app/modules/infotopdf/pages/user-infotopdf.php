@@ -60,25 +60,25 @@ $email = '';
 							<label for="email_direccion">Email:</label>
 							<input type="text" class="form-control" id="email_direccion" name="email_direccion" value="<?php echo $email;?>" />
 
-							<?php endif; ?>
+							<?php endif;?>
 
-							<?php if (strpos($elements[0]['cuerpo_info'], '[CLAIM_PROMOCION]') !== FALSE): ?>
+							<?php if (strpos($elements[0]['cuerpo_info'], '[CLAIM_PROMOCION]') !== FALSE):?>
 							<label for="claim_promocion">Mensaje:</label>
 							<textarea class="form-control" id="claim_promocion" name="claim_promocion"></textarea>
-							<?php endif; ?>
+							<?php endif;?>
 
-							<?php if (strpos($elements[0]['cuerpo_info'], '[DESCUENTO_PROMOCION]') !== FALSE): ?>
+							<?php if (strpos($elements[0]['cuerpo_info'], '[DESCUENTO_PROMOCION]') !== FALSE):?>
 							<label for="descuento_promocion">Descuento %:</label>
 							<input type="text" class="form-control numeric" id="descuento_promocion" name="descuento_promocion" />
-							<?php endif; ?>
+							<?php endif;?>
 
-							<?php if (strpos($elements[0]['cuerpo_info'], '[DATE_PROMOCION]') !== FALSE): ?>
+							<?php if (strpos($elements[0]['cuerpo_info'], '[DATE_PROMOCION]') !== FALSE):?>
 							<label for="date_promocion">Fecha fin promoción:</label>
 							<div id="datetimepicker1" class="input-group date">
 							    <input data-format="dd/MM/yyyy" readonly type="text" id="date_promocion" class="form-control" name="date_promocion"></input>
 							    <span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 							</div>
-							<?php endif; ?>
+							<?php endif;?>
 
 							<br /><button type="sumbit" class="btn btn-primary">Generar PDF alta resolución</button>
 						</form>

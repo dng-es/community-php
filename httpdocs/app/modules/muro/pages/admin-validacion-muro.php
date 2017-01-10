@@ -27,7 +27,7 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 							<th>ID</th>
 							<th><?php e_strTranslate("Comment");?></th>
 						</tr>
-					 	<?php foreach($elements['items'] as $element):
+						<?php foreach($elements['items'] as $element):
 							echo '<tr>';
 							echo '<td nowrap="nowrap">
 									<button type="button" class="btn btn-default btn-xs" title="'.strTranslate("Delete").'" 
@@ -41,7 +41,7 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 								<em class="text-primary">'.$element['comentario'].'</em></p>
 								</td>';
 							echo '</tr>';
-						endforeach; ?>
+						endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

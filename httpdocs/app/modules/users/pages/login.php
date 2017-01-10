@@ -3,7 +3,6 @@ usersController::loginRedirectAction();
 addJavascripts(array(getAsset("users")."js/login.js"));
 session::getFlashMessage('actions_message');
 $module_config = getModuleConfig("users");
-
 ?>
 <div class="row" id="login-container-deg">
 	<div class="col-md-5">
@@ -12,9 +11,9 @@ $module_config = getModuleConfig("users");
 	<div class="col-md-6 login-container">
 		<h1 class="inset"><?php e_strTranslate("Identify_to_access");?></h1>
 		<?php session::getFlashMessage('actions_message');?>
-		<form method="post" action="" name="form-login" id="form-login" role="form" class="form-horizontal" autocomplete="off">          
+		<form method="post" action="" name="form-login" id="form-login" role="form" class="form-horizontal" autocomplete="off">
 			<div class="row">
-				<div class="col-md-4"> 
+				<div class="col-md-4">
 					<div class="form-group has-feedback">
 						<label for="form-login-user" class="sr-only col-sm-4 control-label"><?php e_strTranslate("Username");?></label>
 						<div class="col-sm-12 form-control-container">

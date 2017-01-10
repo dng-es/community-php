@@ -74,7 +74,7 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Users");?>" data-toggle="tab"><?php e_strTranslate("Users");?></a></li>
 					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Forums");?>" data-toggle="tab"><?php e_strTranslate("Forums");?></a></li>
 					<?php endif;?>
-				</ul>	
+				</ul>
 			
 				<div class="tab-content">
 					<div class="tab-pane fade in <?php echo (!(isset($_GET['t'])) ? ' active' : '');?>" id="general">
@@ -99,8 +99,7 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 							<div class="row">
 								<div class="form-group col-md-4">
 									<label for="area_canal"><small><?php e_strTranslate("Channel");?>:</small></label>
-									<select id="area_canal" name="area_canal" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
-										<option value="">--<?php e_strTranslate("Choose_channel");?>--</option>
+									<select id="area_canal" name="area_canal[]" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
 										<?php ComboCanales($area_canal);?>
 									</select>
 								</div>
@@ -108,7 +107,7 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 								<div class="form-group col-md-2">
 									<label for="area_puntos"><small><?php echo ucfirst(strTranslate("APP_points"));?>:</small></label>
 									<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" data-alert="<?php e_strTranslate("Required_field");?>" />
-								</div>  
+								</div>
 
 								<div class="form-group col-md-2">
 									<label for="area_limite"><small>Límite de usuarios:</small></label>
@@ -226,8 +225,7 @@ function showUsuariosArea($id_area,$area_canal){
 
 function showGruposArea($id_area){
 	$na_areas = new na_areas;
-
-	$elements = $na_areas->getGruposUsers(" AND id_area=".$id_area); ?>
+	$elements = $na_areas->getGruposUsers(" AND id_area=".$id_area);?>
 	<div class="panel panel-default full-height">
 		<div class="panel-heading">Grupos de usuarios en el curso</div>
 		<div class="panel-body">
@@ -255,15 +253,14 @@ function showGruposArea($id_area){
 						echo '</tr>';
 					endforeach;?>
 				</table>
-			<?php endif; ?>
+			<?php endif;?>
 		</div>
 	</div>
 <?php }
 
 function showForosArea($id_area){
 	$na_areas = new na_areas;
-	$elements = $na_areas->getGruposUsers(" AND id_area=".$id_area); 
-
+	$elements = $na_areas->getGruposUsers(" AND id_area=".$id_area);
 	//TEMAS FOROS
 	getForosActivos($id_area);
 	//COMENTARIOS FORO PENDIENTE DE VALIDAR
@@ -296,9 +293,8 @@ function getForosActivos($id_area){
 				</span>
 
 				<a class="fa fa-download icon-table" href="admin-area?act=edit&export=true&id='.$id_area.'&idt='.$element['id_tema'].'" title="Exportar"></a>     
-			 </td>';          
+			 </td>';
 		echo '<td><a href="#" class="abrir-modal" title="TemaForo'.$element['id_tema'].'">'.$element['id_tema'].'</a>
-
 				<!-- Modal -->
 				<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
@@ -314,7 +310,6 @@ function getForosActivos($id_area){
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
-
 		</td>';
 		echo '<td nowrap="nowrap">
 		<form action="" method="post" role="form" class="form-inline">
@@ -365,10 +360,9 @@ function getForoPendientes($id_area){
 					<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
 						\'admin-area?act=edit&id='.$id_area.'&act2=foro_ko&idc='.$element['id_comentario'].'&u='.$element['user_comentario'].'\')" 
 						title="Eliminar" />
-					</span>     
-				 </td>';          
+					</span>
+				 </td>';
 			echo '<td><a href="#" class="abrir-modal" title="MensajeForo'.$element['id_comentario'].'">'.$element['id_comentario'].'</a>
-
 					<!-- Modal -->
 					<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -384,7 +378,6 @@ function getForoPendientes($id_area){
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
-
 			</td>';
 			if ($element['responsables'] == 1) {$responsables = "SI";}
 			else {$responsables="NO";}
@@ -393,7 +386,7 @@ function getForoPendientes($id_area){
 			echo '<td>'.$element['canal'].'</td>';
 			echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>'; 
 			echo '<td>'.$element['nombre'].'</td>';
-			echo '<td>'.$element['tipo_tema'].'</td>';    
+			echo '<td>'.$element['tipo_tema'].'</td>';
 			echo '</tr>';
 		endforeach;
 		echo '</table><br />';
@@ -447,11 +440,11 @@ function showTareasArea($id_area){
 					</div>
 					<br />
 					<button type="button" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary btn-block">Guardar tarea</button>
-					<br />			
+					<br />
 				</form>
 			</div>
 			<div class="col-md-7">
-				<?php if (count($elements) > 0): ?>
+				<?php if (count($elements) > 0):?>
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
 						<tr>
@@ -523,9 +516,9 @@ function showTareasArea($id_area){
 						endforeach; ?>
 					</table>
 				</div>
-				<?php else: ?>
+				<?php else:?>
 				<p>No hay tareas incluidas en el curso</p>
-			<?php endif; ?>
+			<?php endif;?>
 			</div>
 		</div>
 	<?php

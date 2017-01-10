@@ -3,13 +3,16 @@ templateload("tipuser", "users");
 
 addJavascripts(array(getAsset("users")."js/ranking.js"));
 
+$module_config = getModuleConfig("users");
+$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
+$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND canal IN (".$module_channels.") ");
+
 $users = new users();
 $puntos_user = $users->getUsers(" AND username='".$_SESSION['user_name']."' ");
 $puntuacion_user = $puntos_user[0]['puntos'];
-$posicion_user = users::posicionRanking($_SESSION['user_name']);
+$posicion_user = users::posicionRanking($_SESSION['user_name'], " AND confirmed=1 AND disabled=0 ".$filtro_canal);
 if ($_SESSION['user_perfil'] == 'admin') $posicion_user = 0;
 
-$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal='".$_SESSION['user_canal']."' ": "");
 $puntos = $users->getUsers($filtro_canal." AND puntos>0 AND perfil<>'admin' AND confirmed=1 AND disabled=0 ORDER BY puntos DESC,username ASC LIMIT 15");
 ?>
 <div class="row row-top">

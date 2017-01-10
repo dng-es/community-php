@@ -12,9 +12,6 @@ jQuery(document).ready(function(){
 		if (id_album > 0){
 			Confirma('¿Seguro que desea validar la foto?', 'admin-validacion-fotos?act=foto_ok&id=' + id_file + '&ida=' + id_album + '&u=' + user_add + '&tags=' + tags);
 		}
-		else{
-			alert("Debes seleccionar un album para la foto");
-		}
+		else alert("Debes seleccionar un album para la foto");
 	});
-	
 });

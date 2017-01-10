@@ -57,14 +57,10 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Battles"), "ItemClass"=>"active"),
 		));
-		
 		session::getFlashMessage( 'actions_message' );
 		batallasController::responderBatallaAction();
 		batallasController::responderContrincarioBatallaAction();
-
 		?>
-
-
 		<div class="tab-container">
 			<ul class="nav nav-tabs">
 				<li <?php echo ((!isset($_GET['f']) or ($_GET['f'] != 2 and $_GET['f'] != 3 and $_GET['f'] != 4)) ? ' class="active"' : '');?>><a href="#ganadas" data-toggle="tab">Ganadas (<?php echo $ganadas_total_reg;?>)</a></li>
@@ -125,13 +121,13 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 					</select>
 				</div> -->
 				<br />
-				<div class="alert alert-danger" id="alertas-batalla" style="display: none"><?php echo strTranslate("Required_all_fields");?></div>
+				<div class="alert alert-danger" id="alertas-batalla" style="display: none"><?php e_strTranslate("Required_all_fields");?></div>
 				<input class="btn btn-primary btn-block" type="submit" name="batalla-btn" id="batalla-btn" value="Crear y empezar batalla" />
 				<div id="cargando" style="display:none; margin-top:0px; top: 0; position: relative"><i class="fa fa-spinner fa-spin ajax-load" style="margin-top:15px"></i></div>
 			</form>
 			<?php else:?>
 			<p class="alert alert-warning">Selecciona un canal para crear batallas</p>
-			<?php endif;?>			
+			<?php endif;?>
 		</div>
 	</div>
 </div>

@@ -11,9 +11,9 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 		));
 
 		infoController::insertAlerts();
-		session::getFlashMessage( 'actions_message' );
-		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND (canal_info='".$_SESSION['user_canal']."' OR canal_info='todos')" : "");
-		$filtro_canal_campaign = ($_SESSION['user_canal'] != 'admin' ? " AND (canal_campaign='".$_SESSION['user_canal']."' OR canal_campaign='')" : "");
+		session::getFlashMessage('actions_message');
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_info LIKE '%".$_SESSION['user_canal']."%' " : "");
+		$filtro_canal_campaign = ($_SESSION['user_canal'] != 'admin' ? " AND canal_campaign LIKE '%".$_SESSION['user_canal']."%' " : "");
 		$elements = campaignsController::getListAction(999, $filtro_canal_campaign);
 		?>
 		<div class="row">
@@ -44,9 +44,9 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 						</div>
 						<div id="collapse<?php echo $element['id_campaign'];?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $element['id_campaign'];?>">
 							<div class="panel-body">
-								<?php foreach($elements_info['items'] as $elements_info): 
+								<?php foreach($elements_info['items'] as $elements_info):
 								//$enlace = ($elements_info['download']==1 ? ' href="info-all?id='.$element['id_info'].'&exp='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
-								$enlace = ($elements_info['download'] == 1 ? ' href="docs/showfile.php?file='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
+								$enlace = ($elements_info['download'] == 1 ? ' href="docs/showfile.php?file='.$elements_info['file_info'].'&i='.$elements_info['id_info'].'"' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
 								?>
 									<div class="row">
 										<div class="col-md-12">
@@ -69,7 +69,6 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-
 			<?php echo SearchForm(0, "info-search", "searchForm", strTranslate("Info_search"), strTranslate("Search"), "", "", "get");?>
 			<h4><?php e_strTranslate("Info_Documents");?></h4>
 			<p><?php e_strTranslate("Info_Documents_Text");?>.</p>

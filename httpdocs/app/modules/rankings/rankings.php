@@ -20,12 +20,12 @@ class rankingsCore{
 			$rankings_cat_menu = rankingsController::getListCategoryAction(999, " ");
 
 			if ($rankings_cat_menu['total_reg']>0):
-				foreach ($rankings_cat_menu['items'] as $ranking_cat):	
+				foreach ($rankings_cat_menu['items'] as $ranking_cat):
 					
 					$rankings_menu = rankingsController::getListAction(999, " AND activo=1 AND r.id_ranking_category=".$ranking_cat['id_ranking_category']." ");
 					if ($rankings_menu['total_reg']>0):
 						$array_final_items = array();
-						foreach ($rankings_menu['items'] as $ranking):	
+						foreach ($rankings_menu['items'] as $ranking):
 							array_push($array_final_items , array("LabelIcon" => "",
 											"LabelItem" => $ranking['nombre_ranking'],
 											"LabelUrl" => 'rankings?id='.$ranking['id_ranking'],
@@ -39,7 +39,7 @@ class rankingsCore{
 										"SubItems" => $array_final_items,
 										"LabelPos" => $menu_order));
 
-						$menu_order++;
+						$menu_order ++;
 					endif;
 				endforeach;
 			endif;
@@ -78,7 +78,7 @@ class rankingsCore{
 				"LabelItem" => strTranslate("Nueva categoría"),
 				"LabelUrl" => "admin-rankings-category",
 				"LabelPos" => 3,
-			)),			
+			)),
 			menu::addAdminMenu(array(
 				"PageName" => "admin-rankings-categories",
 				"LabelHeader" => "Modules",

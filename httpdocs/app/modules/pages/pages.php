@@ -21,7 +21,7 @@ class pagesCore{
 
 		if ($pages_menu['total_reg']>0):
 			$array_final_items = array();
-			foreach ($pages_menu['items'] as $page_menu):	
+			foreach ($pages_menu['items'] as $page_menu):
 				array_push($array_final, array("LabelIcon" => "fa fa-th-list",
 							"LabelItem" => $page_menu['page_title'],
 							"LabelUrl" => 'pagename?id='.$page_menu['page_name'],

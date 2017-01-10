@@ -32,7 +32,6 @@ $elements = infoController::getItemAction($_GET['id']);
 			</div>
 		</div>
 	</div>
-
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<h4>

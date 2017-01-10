@@ -39,7 +39,7 @@ class menu{
 
 							if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'responsable'){
 								echo '<li class="hidden-md hidden-lg"><a href="mygroup"><i class="fa fa-users visible-xs-inline-block text-primary"></i> <span class="visible-xs-inline-block text-primary">'.strTranslate("My_team").'</span></a></li>';
-							}							
+							}
 							?>
 							<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Mailing_messages")?></a></li>
 							<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-power-off visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Logout")?></a></li>
@@ -120,7 +120,9 @@ class menu{
 					}
 					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
 					echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope faa-shake animated-hover"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';	
-					echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
+					if ($_SESSION['show_user_points']){
+						echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
+					}
 					echo ' </p>';
 					?>
 					</div>
@@ -199,7 +201,7 @@ class menu{
 	* Print channel selector
 	*
 	*/
-	static function channelSelector(){	
+	static function channelSelector(){
 		if ($_SESSION['user_perfil'] == 'admin' or trim($_SESSION['user_canal']) == ''): ?>
 		<form role="form" name="chooseForm" id="chooseForm" action="" method="post" class="form-inline">
 			<select name="chooseFormValue" id="chooseFormValue" class="form-control input-xs">
@@ -219,7 +221,7 @@ class menu{
 			$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
 			$destination = str_replace("&lan=", "&lano=", $_SERVER['REQUEST_URI']);
 			$destination = str_replace("?lan=", "?lano=", $_SERVER['REQUEST_URI']);
-			$separator = (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?" : "&");		
+			$separator = (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?" : "&");
 			foreach($folders as $folder):
 				echo '<a href="'.$destination.$separator.'lan='.$folder.'" title="'.$folder.'"><img alt="<?php echo $folder;?>" src="app/languages/'.$folder.'/images/flag.png" /></a>';
 			endforeach;
@@ -231,11 +233,11 @@ class menu{
 	*
 	*/
 	static function adminMenu(){
-		if ($_SESSION['user_logged'] == true and $_SESSION['user_perfil'] == 'admin'){ 
+		if ($_SESSION['user_logged'] == true and $_SESSION['user_perfil'] == 'admin'){
 			global $array_adminmenu;
 			$array_final = $array_adminmenu;
 
-			foreach ($array_final as $clave => $fila) {
+			foreach ($array_final as $clave => $fila){
 				$principal[$clave] = $fila['LabelHeader'];
 				$seccion[$clave] = $fila['LabelSection'];
 				$posicion[$clave] = $fila['LabelPos'];
@@ -261,7 +263,7 @@ class menu{
 	 */
 	public static function addAdminMenu($elem){
 		if (isset($_SESSION['user_logged'])){
-			global $session;	
+			global $session;
 			$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission($elem['PageName'], $_SESSION['user_name']));
 			if ($session->checkPageViewPermission($elem['PageName'], $_SESSION['user_perfil'], $user_permissions)){
 				$elem = array("LabelHeader" => $elem['LabelHeader'],
@@ -293,7 +295,7 @@ class menu{
 				}
 			endforeach;
 			
-			foreach ($array_final as $clave => $fila) {
+			foreach ($array_final as $clave => $fila){
 				$seccion[$clave] = $fila['LabelSection'];
 				$posicion[$clave] = $fila['LabelPos'];
 			}
@@ -318,9 +320,7 @@ class menu{
 						'.(isset($elem["ItemUrl"]) ? '</a>' : '').'
 					</li>';
 			endforeach;
-
 			$TITLE_META_PAGE = ((isset( $TITLE_META_PAGE ) and $TITLE_META_PAGE != '') ? $TITLE_META_PAGE : $elem['ItemLabel']);
-			
 			echo '</ol>';
 		}
 	}

@@ -19,7 +19,8 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 
 		session::getFlashMessage( 'actions_message' );
 		mensajesController::createAction();
-		$filter = ($_SESSION['user_canal'] != "admin" ? " AND (canal='".$_SESSION['user_canal']."' OR canal='admin') " : "");
+		//$filter = ($_SESSION['user_canal'] != "admin" ? " AND (canal='".$_SESSION['user_canal']."' OR canal='admin') " : "");
+		$filter = '';
 		$nick = (isset($_REQUEST['n']) ? $_REQUEST['n'] : "");
 		$usuario = usersController::getPublicPerfilAction($nick, $filter);
 		?>
@@ -48,22 +49,16 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 							</div>
 						</div>	
 						<div class="row">
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
 								<label class="control-label" for="user-nick"><small><?php e_strTranslate("Nick");?></small></label>
 								<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['nick'];?>" />
 							</div>
-							<div class="form-group col-md-6">
-								<label class="control-label" for="user-nick"><small><?php echo ucfirst(strTranslate("APP_points"));?></small></label>
-								<input maxlength="100" name="user-nick" id="user-nick" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['puntos'];?>" />
-							</div>
-						</div>
 
-						<div class="row">
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
 								<label class="control-label" for="user-nombre"><small><?php e_strTranslate("Name");?></small></label>
 								<input maxlength="100" name="user-nombre" id="user-nombre" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['name'];?>" />
 							</div>
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
 								<label class="control-label" for="user-surname"><small><?php e_strTranslate("Surname");?></small></label>
 								<input maxlength="100" name="user-surname" id="user-surname" type="text" class="form-control" disabled="disabled" value="<?php echo $usuario['surname'];?>" />
 							</div>
@@ -144,6 +139,9 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 			<?php if(getModuleExist("recompensas")): ?>
 				<?php templateload("user_recompensa", "recompensas");?>
 				<?php userRecompensa($usuario['username']);?>
+				<?php if ($_SESSION['show_user_points']):?>
+					<h3 class="text-center text-muted"><?php echo $usuario['puntos'];?> <?php echo ucfirst(strTranslate("APP_points"));?></h3>
+				<?php endif; ?>
 			<?php endif; ?>
 			<?php endif; ?>
 		</div>

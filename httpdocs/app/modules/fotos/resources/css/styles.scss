@@ -1,0 +1,73 @@
+@import '../../../../../css/variables';
+
+/*MODULO SHOP*/
+.grid-item { 
+    width: 23%; 
+        @media screen and (max-width: $break-medium) {
+        width: 48%; 
+    }
+}
+.card-section{
+    background: #e5e5e5;
+    @include border-radius($border-def);
+    color: #333;
+    //float:left;
+    padding: 0 15px 15px 15px;    
+    //@include rowMachine(4, 3%);
+    text-align: center;
+    margin-bottom: 15px;
+    //margin-left: 15px;
+    
+    .imgUserTip{
+        @include border-radius(50%);
+        height: 40px;
+        width: 40px;
+    }
+
+    h3{
+        color: $color1;
+        margin: 10px;
+        font-size: 16px;
+    }
+    img {
+        width: 100%;
+        //padding: 0 15px;
+    }
+    p{
+        font-size: 12px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .description{
+        display: block;
+        font-family: $community-font1;
+        font-size: 12px;
+        height:30px;
+        line-height: 15px;
+        margin: 10px 0;
+        overflow: hidden;
+    }
+
+    @media screen and (max-width: $break-medium) {
+        //@include rowMachine(2, 3%);
+    }
+
+    @media screen and (max-width: $break-small) {
+        //margin: 0;
+        //width: 100%;
+        //float: none;
+    }
+}
+
+.product-title {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+.shopUserTip{
+    @include border-radius(50%);
+    height: 60px;
+    width: 60px;
+}
+/* FIN MODULO SHOP*/

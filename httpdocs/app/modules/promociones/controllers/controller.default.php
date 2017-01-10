@@ -26,16 +26,16 @@ class promocionesController{
 		$filtro_promocion = "";
 		$promocion = array();
 		if (isset($_REQUEST['idp']) and $_REQUEST['idp'] > 0) $id_promocion = $_REQUEST['idp'];
-		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_promocion = $_REQUEST['f']; 
+		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_promocion = $_REQUEST['f'];
 		else $id_promocion = connection::SelectMaxReg("id_promocion", "promociones", $filtro_promocion." AND active=1 ");
 
 		if ($id_promocion > 0){
 			$filtro_promocion .= " AND id_promocion=".$id_promocion." AND active=1 ";
-			$promocion = $promociones->getPromociones($filtro_promocion); 
+			$promocion = $promociones->getPromociones($filtro_promocion);
 		}
 
 		return $promocion[0];
-	}	
+	}
 
 	public static function createAction(){
 		if (isset($_POST['id']) and $_POST['id'] == 0){
@@ -89,7 +89,7 @@ class promocionesController{
 
 			if ($promociones->updatePromociones(sanitizeInput($_POST['id']), sanitizeInput($_POST['nombre_promocion']), sanitizeInput(stripslashes($_POST['texto_promocion'])), $galeria_videos, $galeria_fotos, $galeria_comentarios)) {
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
-			}	
+			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-promociones-new?id=".$_POST['id']);
@@ -98,18 +98,16 @@ class promocionesController{
 
 	public static function activeAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
-			$promociones = new promociones();	
-
-			
+			$promociones = new promociones();
 			if ($promociones->updateActive(sanitizeInput($_REQUEST['id']), sanitizeInput($_REQUEST['idd']))) {
 					//desactivar resto de registros
 				if (sanitizeInput($_REQUEST['idd']) == 1) $promociones->updateActiveTodos(0 , " AND id_promocion<>".sanitizeInput($_REQUEST['id'])." ");
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
-			}	
+			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-promociones");
 		}
-	}	
+	}
 }
 ?>

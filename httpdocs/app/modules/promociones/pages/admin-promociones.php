@@ -33,7 +33,7 @@ $elements = promocionesController::getListAction(35);
 						<th>Comentarios</th>
 						<th>Activo</th>
 						<th width="40px"></th>
-						</tr>	
+						</tr>
 						<?php foreach($elements['items'] as $element):
 							$texto_activar1 = ($element['active'] == 1 ? '¿Seguro que deseas desactivar?' : '¿Seguro que deseas activar?');
 							$texto_activar = ($element['active'] == 1 ? '¿Seguro que deseas desactivar?' : '¿Seguro que deseas activar?');

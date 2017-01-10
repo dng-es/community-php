@@ -62,4 +62,5 @@ Update_profile_ko = "Error while updating your profile"
 Update_profile_nick_ko = "is already in use"
 Points_assignment = "Points assignment"
 Search_group = "Search group"
+show_user_points = "Show user points"
 ?>

@@ -17,8 +17,6 @@ jQuery(document).ready(function(){
 			$("#id-destacado-alert").fadeIn().css("display", "block");
 			resultado_ok = false;
 		}				
-		if (resultado_ok == true){
-			$("#formData").submit();
-		}
+		if (resultado_ok == true) $("#formData").submit();
 	});
 });

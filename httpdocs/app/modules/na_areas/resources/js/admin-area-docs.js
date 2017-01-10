@@ -19,7 +19,6 @@ jQuery(document).ready(function(){
 	$("#btn_search").click(function(){
 		$("#frm_search").submit();
 	});
-
 });
 
 function createDialog(id_tarea,usuario){

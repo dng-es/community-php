@@ -1,11 +1,5 @@
 <?php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("campaigns")."js/admin-campaign.js"));
-
-session::getFlashMessage('actions_message'); 
-$templates = mailingTemplatesController::getListAction(400000, "activos", " AND t.id_campaign=".$_GET['id']);
-$documentos = infotopdfController::getListAction(400000, " AND i.id_campaign=".$_GET['id']);
-$ficheros = infoController::getListAction(400000, " AND i.id_campaign=".$_GET['id']);
-$plantilla = campaignsController::getItemAction();	
 ?>
 <div class="row inset row-top">
 	<div class="col-md-12">
@@ -13,7 +7,13 @@ $plantilla = campaignsController::getItemAction();
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"user-campaigns"),
 			array("ItemLabel"=>$plantilla['name_campaign'], "ItemClass"=>"active"),
-		));?>
+		));
+		session::getFlashMessage('actions_message'); 
+		$templates = mailingTemplatesController::getListAction(400000, "activos", " AND t.id_campaign=".$_GET['id']);
+		$documentos = infotopdfController::getListAction(400000, " AND i.id_campaign=".$_GET['id']);
+		$ficheros = infoController::getListAction(400000, " AND i.id_campaign=".$_GET['id']);
+		$plantilla = campaignsController::getItemAction();	
+		?>
 		<p><?php echo $plantilla['novedad'] == 1 ? '<span class="label label-success">novedad</span> ' : '';?></p>
 		<p><?php echo $plantilla['desc_campaign'];?></p>
 		<h4>Comunicaciones email</h4>

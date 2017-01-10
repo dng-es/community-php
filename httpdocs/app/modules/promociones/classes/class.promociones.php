@@ -1,7 +1,5 @@
 <?php
-
 class promociones{
-
 	/**
 	 * Devuelve array con los registros
 	 * @param  string 	$filter 	Filtro SQL
@@ -10,7 +8,7 @@ class promociones{
 	public function getPromociones($filter = ""){
 		$Sql="SELECT * FROM promociones WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
-	}   
+	}
 
 	/**
 	 * Inserta registro en promociones
@@ -74,6 +72,6 @@ class promociones{
 			 active=".$value." 
 			 WHERE 1=1 ".$filter;
 		return connection::execute_query($Sql);
-	}	
+	}
 }
 ?>

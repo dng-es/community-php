@@ -42,16 +42,14 @@ jQuery(document).ready(function(){
 		}
 	});
 
-	$("#SubmitGrupo").click(function(evento){  
+	$("#SubmitGrupo").click(function(evento){
 		$(".alert-message").html("").css("display","none");
 		var form_ok = true;
 		if (jQuery.trim($("#grupo_nombre").val()) == ""){
 			$("#grupo-alert").html("Debes insertar algo de texto.").fadeIn().css("display", "block");
 			form_ok = false;
 		}
-		if (form_ok){
-			$("#formNewGrupo").submit();
-		}
+		if (form_ok) $("#formNewGrupo").submit();
 	});
 
 	$("#SubmitTarea").click(function(evento){
@@ -69,9 +67,7 @@ jQuery(document).ready(function(){
 			$("#fichero-tarea-alert").html("Debes seleccionar un fichero.").fadeIn().css("display", "block");
 			form_ok = false;
 		}
-		if (form_ok){
-			$("#formNewTarea").submit();
-		}
+		if (form_ok) $("#formNewTarea").submit();
 	});
 });
 
@@ -96,8 +92,8 @@ function createDialogTarea(id_tarea,desc_tarea,tit_tarea,trigger_edit){
 				var form_ok = true;
 
 				if (jQuery.trim($("#edit-desc").val()) == ""){
-					 $("#edit-desc-alert").html("Debes insertar algo de texto.").fadeIn().css("display", "block");
-					 form_ok = false;
+					$("#edit-desc-alert").html("Debes insertar algo de texto.").fadeIn().css("display", "block");
+					form_ok = false;
 				}
 
 				if (form_ok){

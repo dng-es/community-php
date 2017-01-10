@@ -24,7 +24,7 @@ class mensajesController{
 		$filtro .= " AND user_remitente='".$_SESSION['user_name']."' AND estado_remitente=0 ORDER BY date_mensaje DESC ";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("mensajes",$filtro); 
+		$total_reg = connection::countReg("mensajes",$filtro);
 		return array('items' => $mensajes->getMensajesEnviados($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -40,11 +40,11 @@ class mensajesController{
 			$mensaje = sanitizeInput($_POST['texto-comentario']);
 
 			$respuesta = $mensajes->InsertMensaje($_SESSION['user_nick'],
-																 $_SESSION['user_name'],
-																 $_SESSION['user_mail'],
-																 $nick,
-																 $asunto,
-																 $mensaje);													 
+												$_SESSION['user_name'],
+												$_SESSION['user_mail'],
+												$nick,
+												$asunto,
+												$mensaje);
 			if ($respuesta==0) session::setFlashMessage( 'actions_message', strTranslate("Mailing_sent_ok"), "alert alert-success");
 			elseif ($respuesta == 2) session::setFlashMessage( 'actions_message', "No se encuentra el destinatario ".$_POST['nick-comentario'].".", "alert alert-danger");
 			elseif ($respuesta == 3) session::setFlashMessage( 'actions_message', strTranslate("Mailing_sent_yourself"), "alert alert-danger");
@@ -57,7 +57,7 @@ class mensajesController{
 		if (isset($_REQUEST['n']) and $_REQUEST['n'] != ''){
 			echo '
 			<script>
-			$(document).ready(function(){	
+			$(document).ready(function(){
 				$("#nick-comentario").val("'.$_REQUEST['n'].'");
 				$("#new_mensaje").modal();
 			});
@@ -68,7 +68,7 @@ class mensajesController{
 	public static function deleteRecibidoAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'ko'){
 			self::deleteUserAction($_REQUEST['id'], 'user_destinatario');
-			redirectURL("mensajes");
+			redirectURL("inbox");
 		}
 	}
 

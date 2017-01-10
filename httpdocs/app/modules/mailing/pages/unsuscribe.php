@@ -13,6 +13,6 @@
 				<input type="hidden" name="email_black" id="email_black" value="<?php echo $_GET['u'];?>">
 				<input type="submit" class="btn btn-primary" value="Confirmar baja" />
 			</form>
-		<?php endif; ?>
+		<?php endif;?>
 	</div>
 </div>

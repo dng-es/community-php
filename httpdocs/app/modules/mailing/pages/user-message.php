@@ -1,12 +1,11 @@
 <?php
 templateload("cmbListas","mailing");
-
 addJavascripts(array("js/jquery.numeric.js", 
-					 "js/bootstrap.file-input.js", 
-					 "js/bootstrap-datepicker.js", 
-					 "js/bootstrap-datepicker.es.js", 
-					 getAsset("mailing")."js/user-message.js", 
-					 getAsset("mailing")."js/user-message-test.js"));
+					"js/bootstrap.file-input.js", 
+					"js/bootstrap-datepicker.js", 
+					"js/bootstrap-datepicker.es.js", 
+					getAsset("mailing")."js/user-message.js", 
+					getAsset("mailing")."js/user-message-test.js"));
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -18,7 +17,7 @@ addJavascripts(array("js/jquery.numeric.js",
 			array("ItemLabel"=>"Envío de comunicaciones", "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		mailingController::createUserAction();
 
 		$id = isset($_GET['id']) == true ? $_GET['id'] : 0;
@@ -41,25 +40,24 @@ addJavascripts(array("js/jquery.numeric.js",
 						<input type="hidden" id="nombre_message" name="nombre_message" value="<?php //echo $_SESSION['name'].''.$_SESSION['surname'];?>"/> -->
 						<input type="hidden" id="template_message" name="template_message" value="<?php echo $id;?>" />
 
-
 						<div class="form-group">
 							<label for="nombre_message">Tu nombre:</label>
 							<input class="form-control" type="text" id="nombre_message" name="nombre_message" value="<?php echo $_SESSION['name'].''.$_SESSION['surname'];?>"/>
 							<span id="nombre-alert" class="alert-message alert alert-danger"></span>
-						</div> 	
+						</div>
 
 						<div class="form-group">
 							<label for="email_message">Tu email:</label>
 							<input class="form-control" type="text" id="email_message" name="email_message" value="<?php echo $_SESSION['user_email'];?>"/>
 							<span id="email-alert" class="alert-message alert alert-danger"></span>
-						</div> 	
+						</div>
 
 
 						<div class="form-group">
 							<label for="asunto_message">Asunto del mensaje:</label>
 							<input class="form-control" type="text" id="asunto_message" name="asunto_message" value=""/>
 							<span id="asunto-alert" class="alert-message alert alert-danger"></span>
-						</div> 		
+						</div>
 
 						<?php if (strpos($plantilla['template_body'], '[USER_DIRECCION]') !== FALSE): ?>
 						<label for="calle_direccion">Calle:</label>
@@ -79,17 +77,17 @@ addJavascripts(array("js/jquery.numeric.js",
 
 						<label for="web">Web:</label>
 						<input type="text" class="form-control" id="web_direccion" name="web_direccion" value="<?php echo $web;?>" />
-						<?php endif; ?>
+						<?php endif;?>
 
 						<?php if (strpos($plantilla['template_body'], '[CLAIM_PROMOCION]') !== FALSE): ?>
 						<label for="claim_promocion">Mensaje:</label>
 						<textarea class="form-control" id="claim_promocion" name="claim_promocion"></textarea>
-						<?php endif; ?>
+						<?php endif;?>
 
 						<?php if (strpos($plantilla['template_body'], '[DESCUENTO_PROMOCION]') !== FALSE): ?>
 						<label for="descuento_promocion">Descuento %:</label>
 						<input type="text" class="form-control numeric" id="descuento_promocion" name="descuento_promocion" />
-						<?php endif; ?>
+						<?php endif;?>
 
 						<?php if (strpos($plantilla['template_body'], '[DATE_PROMOCION]') !== FALSE): ?>
 						<label for="date_promocion">Fecha fin promoción:</label>
@@ -97,7 +95,7 @@ addJavascripts(array("js/jquery.numeric.js",
 							<input data-format="dd/MM/yyyy" readonly type="text" id="date_promocion" class="form-control" name="date_promocion"></input>
 							<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 						</div>
-						<?php endif; ?>
+						<?php endif;?>
 
 					</div>
 					<div class="col-md-6">
@@ -158,7 +156,7 @@ addJavascripts(array("js/jquery.numeric.js",
 						</ul>
 
 						<div class="tab-content">
-			  				<div class="tab-pane fade in active" id="envio">
+							<div class="tab-pane fade in active" id="envio">
 								<div class="col-md-6">
 									<br />
 									<p class="text-muted">Para finalizar, pulsa en el botón "crear mensaje".</p>
@@ -184,8 +182,8 @@ addJavascripts(array("js/jquery.numeric.js",
 								<div class="col-md-8">
 									<br />
 									<div id="datetimepicker1" class="input-group date">
-									    <input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" name="user-date"></input>
-									    <span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+										<input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" name="user-date"></input>
+										<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 									</div>
 									<span id="user-date-alert" class="alert-message alert alert-danger"></span>
 								</div>

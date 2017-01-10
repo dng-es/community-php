@@ -27,15 +27,15 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 		else{
 			$filtro = " AND activa=1 ";
 			$filtro .= ($_SESSION['user_perfil'] == 'admin' ? "" : " AND responsable_tienda='".$_SESSION['user_name']."' ");
-			$destinations = $users->getTiendas($filtro);	
+			$destinations = $users->getTiendas($filtro);
 			$destination_field = "cod_tienda";
 			$destination_field_text = "nombre_tienda";
 		}
 
 		foreach($destinations as $destination):?>
-				<option value="<?php echo $destination[$destination_field];?>">
-					<?php echo $destination[$destination_field_text];?>
-				</option>
+			<option value="<?php echo $destination[$destination_field];?>">
+				<?php echo $destination[$destination_field_text];?>
+			</option>
 		<?php endforeach;?>
 	</body>
 </html>

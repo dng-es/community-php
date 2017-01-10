@@ -10,24 +10,23 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 			array("ItemLabel"=>strTranslate("Mailing_lists"), "ItemUrl"=>"user-lists"),
 			array("ItemLabel"=>"Mi lista de envío", "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage('actions_message');
+		mailingListsController::createAction();
+		mailingListsController::updateAction();
+		$lista = mailingListsController::getItemAction();
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li><a href="user-list?act=new"><?php e_strTranslate("New_list")?></a></li>
 			<li><a href="user-messages">Mis comunicaciones enviadas</a></li>
 		</ul>
-		<?php
-		session::getFlashMessage( 'actions_message' );
-		mailingListsController::createAction();
-		mailingListsController::updateAction();
-		$lista = mailingListsController::getItemAction();
-		?>
 		<br />
 		<form role="form" id="formData" name="formData" enctype="multipart/form-data" method="post" action="user-list?id=<?php echo $lista['id_list'];?>">
 			<input type="hidden" id="id_list" name="id_list" value="<?php echo $lista['id_list'];?>" />
 
 			<div class="form-group">
 				<label for="asunto_message">Nombre de la lista:</label>
-				<input class="form-control" type="text" id="name_list" name="name_list" value="<?php echo $lista['name_list']?>"/>
+				<input class="form-control" type="text" id="name_list" name="name_list" value="<?php echo $lista['name_list']?>" />
 				<span id="name-alert" class="alert-message alert alert-danger"></span>
 			</div>
 
@@ -37,7 +36,7 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("mailing")."js/user-
 				<div class="row">
 					<div class="col-md-3">
 						<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="Seleccionar fichero" />
-					</div>	
+					</div>
 					<div class="col-md-3">
 						<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary">Guardar datos</button>
 					</div>

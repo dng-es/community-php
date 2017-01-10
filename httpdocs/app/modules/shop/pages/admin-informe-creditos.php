@@ -38,7 +38,7 @@ $elements = shopCreditosController::getListAction(100);
 					<td><?php echo $element['credito_detalle'];?></td>
 					<td><?php echo getDateFormat($element['credito_date'], "DATE_TIME");?></td>
 					</tr>
-				<?php endforeach; ?>
+				<?php endforeach;?>
 			</table>
 		</div>
 		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

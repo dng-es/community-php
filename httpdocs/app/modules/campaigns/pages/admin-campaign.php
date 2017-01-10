@@ -1,16 +1,13 @@
 <?php
 addJavascripts(array("js/bootstrap.file-input.js", 
-					"js/bootstrap-select.js",
 					getAsset("campaigns")."js/admin-campaign.js"));
-
-addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 
 session::getFlashMessage('actions_message');
 campaignsController::createAction();
 campaignsController::updateAction();
 $plantilla = campaignsController::getItemAction();
 ?>
-<div class="row row-top">	
+<div class="row row-top">
 	<div class="app-main">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
@@ -25,8 +22,7 @@ $plantilla = campaignsController::getItemAction();
 
 					<div class="col-md-12 form-group">
 						<label for="name_campaign"><?php e_strTranslate("Name");?>:</label>
-						<input type="text" name="name_campaign" id ="name_campaign" class="form-control form-big" value="<?php echo $plantilla['name_campaign'];?>" />
-						<span id="nombre-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+						<input type="text" name="name_campaign" id ="name_campaign" class="form-control form-big" data-alert="<?php e_strTranslate("Required_field");?>" value="<?php echo $plantilla['name_campaign'];?>" />
 					</div>
 
 					<div class="col-md-4 form-group">
@@ -44,8 +40,7 @@ $plantilla = campaignsController::getItemAction();
 
 					<div class="col-md-4 form-group">
 						<label for="canal_campaign"><?php e_strTranslate("Channel");?></label>
-						<select id="canal_campaign" name="canal_campaign" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
-							<option value="">--Todos los canales--</option>
+						<select id="canal_campaign" name="canal_campaign[]" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
 							<?php ComboCanales($plantilla['canal_campaign']);?>
 						</select>
 					</div>
@@ -59,12 +54,10 @@ $plantilla = campaignsController::getItemAction();
 
 					<div class="col-md-12 form-group">
 						<label for="desc_campaign"><?php e_strTranslate("Description");?>:</label>
-						<textarea class="form-control" rows="8" id="desc_campaign" name="desc_campaign"><?php echo $plantilla['desc_campaign'];?></textarea>
-						<span id="descripcion-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+						<textarea class="form-control" rows="8" data-alert="<?php e_strTranslate("Required_field");?>" id="desc_campaign" name="desc_campaign"><?php echo $plantilla['desc_campaign'];?></textarea>
 					</div>
 
-
-					<div class="col-md-12 form-group">				
+					<div class="col-md-12 form-group">
 						<div class="row">
 							<div class="col-md-3">
 								<label for="nombre-fichero">Imagen miniatura de la campaña</label>
@@ -74,7 +67,7 @@ $plantilla = campaignsController::getItemAction();
 									echo '<br /><img src="images/banners/'.$plantilla['imagen_mini'].'" style="width:100%" />';
 								}
 								?>
-							</div>	
+							</div>
 							<div class="col-md-3">
 								<label for="nombre-fichero">Imagen Slide de la campaña</label>
 								<input name="nombre-fichero-big" id="nombre-fichero-big" type="file" class="btn btn-primary btn-block" title="<?php e_strTranslate("Choose_file");?>" />

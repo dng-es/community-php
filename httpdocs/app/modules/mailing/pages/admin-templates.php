@@ -1,9 +1,3 @@
-<?php
-session::getFlashMessage( 'actions_message' ); 
-mailingTemplatesController::deleteAction();
-mailingTemplatesController::updateEstadoAction();
-$elements = mailingTemplatesController::getListAction(20);
-?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -13,6 +7,11 @@ $elements = mailingTemplatesController::getListAction(20);
 			array("ItemLabel"=>strTranslate("Massive_Mailing"), "ItemUrl"=>"admin-templates"),
 			array("ItemLabel"=>strTranslate("Mailing_templates"), "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage('actions_message');
+		mailingTemplatesController::deleteAction();
+		mailingTemplatesController::updateEstadoAction();
+		$elements = mailingTemplatesController::getListAction(20);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -29,7 +28,7 @@ $elements = mailingTemplatesController::getListAction(20);
 							<th><?php e_strTranslate("Campaign");?></th>
 							<th><center><?php e_strTranslate("Active");?></center></th>
 						</tr>
-						<?php foreach($elements['items'] as $element): 
+						<?php foreach($elements['items'] as $element):
 							$new_act = ($element['activo'] == 1 ? 0 : 1);
 						?>
 							<tr>

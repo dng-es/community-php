@@ -3,11 +3,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 				 "js/libs/ckfinder/ckfinder.js", 
 				 "js/bootstrap.file-input.js", 
 				 getAsset("mailing")."js/admin-template.js"));
-
-session::getFlashMessage( 'actions_message' );
-mailingTemplatesController::createAction();
-mailingTemplatesController::updateAction();
-$plantilla = mailingTemplatesController::getItemAction();
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -19,6 +14,11 @@ $plantilla = mailingTemplatesController::getItemAction();
 			array("ItemLabel"=>strTranslate("Mailing_templates"), "ItemUrl"=>"admin-templates"),
 			array("ItemLabel"=>"Edición de plantillas", "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage('actions_message');
+		mailingTemplatesController::createAction();
+		mailingTemplatesController::updateAction();
+		$plantilla = mailingTemplatesController::getItemAction();
 		?>
 		<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
 			<input type="hidden" name="id_template" id="id_template" value="<?php echo $plantilla['id_template'];?>" />
@@ -39,8 +39,7 @@ $plantilla = mailingTemplatesController::getItemAction();
 						$tipo_info = $mailing->getTemplatesTypes("");
 						foreach($tipo_info as $tipo):
 							echo '<option value="'.$tipo['id_type'].'" '.($tipo['id_type']==$plantilla['id_type'] ? 'selected="selected"' : '').'>'.$tipo['name_type'].'</option>';
-						endforeach;
-						?>
+						endforeach;?>
 						</select>
 					</div>
 				</div>
@@ -56,8 +55,7 @@ $plantilla = mailingTemplatesController::getItemAction();
 						$tipo_campana = $campaigns->getCampaigns("");
 						foreach($tipo_campana as $campana):
 							echo '<option value="'.$campana['id_campaign'].'" '.($campana['id_campaign']==$plantilla['id_campaign'] ? 'selected="selected"' : '').'>'.$campana['name_campaign'].'</option>';
-						endforeach;
-						?>
+						endforeach;?>
 						</select>
 					</div>
 				</div>
@@ -77,13 +75,13 @@ $plantilla = mailingTemplatesController::getItemAction();
 						<textarea cols="40" rows="5" id="template_body" name="template_body"><?php echo $plantilla['template_body'];?></textarea>
 						<script type="text/javascript">
 							var editor=CKEDITOR.replace('template_body',{customConfig : 'config-page.js'});
-							CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
+							CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/');
 						</script>
 					</div>
 					<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php e_strTranslate("Save_data");?></button>
 				</div>
 			</div>
-		</form>	
+		</form>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

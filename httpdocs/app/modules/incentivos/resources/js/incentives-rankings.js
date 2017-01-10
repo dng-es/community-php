@@ -1,5 +1,5 @@
 // JavaScript Document
-jQuery(document).ready(function(){	
+jQuery(document).ready(function(){
 	$("#groups_user_container").css("display" , ($("#tipo_ranking").val() == '' ? "block" : "none"));
 
 	$("#groups_user").change(function(e){

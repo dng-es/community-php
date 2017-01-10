@@ -3,12 +3,7 @@
 * @Videos module, depends on Users module.
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-<<<<<<< HEAD
-* @version 1.0.1 
-=======
-* @version 1.0.2 
->>>>>>> Nuevas funcionalidades y corrección bugs
-* 
+* @version 1.1
 */
 class videosCore{
 	/**
@@ -53,7 +48,6 @@ class videosCore{
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("video", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("video", $_SESSION['user_perfil'], $user_permissions)){
-
 			array_push($array_final, array("LabelIcon" => "fa fa-video-camera",
 						"LabelItem" => strTranslate("Videos"),
 						"LabelUrl" => 'videos',

@@ -20,18 +20,25 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 		fotosAlbumController::updateAction();
 		$id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 		$album = fotosAlbumController::getItemAction($id); 
-		$elements = fotosController::getListAction(15, "AND estado=1 AND id_album=".$id." "); ?>
+		$elements = fotosController::getListAction(15, "AND estado=1 AND f.id_album=".$id." ");?>
 
 		<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading"><?php e_strTranslate("Photo_albums");?></div>
 				<div class="panel-body">
-					<form id="formData" name="formData" method="post" action="" role="form">
+					<form id="form-album" name="form-album" method="post" action="" role="form">
 						<input type="hidden" name="id" value="<?php echo $id;?>" />
-						<label for="nombre"><?php e_strTranslate("Title");?></label>
-						<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo isset($album[0]) ? $album[0]['nombre_album'] : '';?>" placeholder="<?php e_strTranslate("Title");?>" />
-						<br />
+						<div class="form-group">
+							<label for="nombre"><?php e_strTranslate("Title");?></label>
+							<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo isset($album[0]) ? $album[0]['nombre_album'] : '';?>" placeholder="<?php e_strTranslate("Title");?>" />
+						</div>
+						<div class="form-group">
+							<label for="canal_album"><?php e_strTranslate("Channel");?></label>
+							<select name="canal_album[]" id="canal_album" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
+								<?php comboCanales(isset($album[0]) ? $album[0]['canal_album'] : '');?>
+							</select>
+						</div>
 						<input type="submit" name="SubmitData" class="btn btn-primary" value="<?php e_strTranslate("Save_data");?>" />
 					</form>
 				</div>
@@ -54,7 +61,6 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 			</div>
 		</div>
 		</div>
-
 
 		<div class="row">
 			<div class="col-md-12">
@@ -117,7 +123,7 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 			</div>
 	<?php else:
 		echo '</div>';
-	endif; ?>
+	endif;?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

@@ -70,7 +70,7 @@ class mailingTemplatesController{
 				session::setFlashMessage( 'actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
-			
+
 			redirectURL("admin-template?id=".$id_template);
 		}
 	}
@@ -94,7 +94,7 @@ class mailingTemplatesController{
 				session::setFlashMessage( 'actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
-			
+
 			redirectURL("admin-templates");
 		}
 	}

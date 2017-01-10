@@ -16,7 +16,7 @@ addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact.js")
 			array("ItemLabel"=>strTranslate("Contact"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		coreContactController::contactAction();
 		?>
 		<div class="row">

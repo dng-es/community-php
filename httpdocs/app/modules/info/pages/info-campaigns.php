@@ -6,10 +6,10 @@
 			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		$elements = campaignsController::getListAction(8);
 		$i = 0;
-		foreach($elements['items'] as $element): 
+		foreach($elements['items'] as $element):
 			$nun_docs = connection::countReg("info", " AND id_campaign=".$element['id_campaign']." ");
 			if ($i==0) echo '<div class="row">';?>
 			<div class="col-md-3">
@@ -30,7 +30,7 @@
 			else $i++; ?>
 		<?php endforeach;?>
 		<?php if ($i <= 3 and $i > 0) echo '</div>';?>
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 		<br />
 	</div>
 	<div class="app-sidebar">

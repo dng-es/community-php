@@ -2,10 +2,7 @@
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					"js/libs/ckfinder/ckfinder.js", 
 					"js/jquery.numeric.js", 
-					"js/bootstrap-select.js",
 					getAsset("novedades")."js/admin-novedad.js"));
-
-addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 
 templateload("cmbCanales", "users");
 ?>
@@ -37,8 +34,7 @@ templateload("cmbCanales", "users");
 
 					<div class="form-group col-md-3">
 						<label for="canal"><?php e_strTranslate("Channel");?>:</label>
-						<select name="canal" id="canal" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
-							<option value="">---Todos los canales---</option>
+						<select name="canal[]" id="canal" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
 							<?php ComboCanales($element['canal']);?>
 						</select>
 					</div>
@@ -56,6 +52,7 @@ templateload("cmbCanales", "users");
 						<select name="tipo" id="tipo" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
 							<option value="slider" <?php echo ($element['tipo'] == 'slider' ? ' selected="selected" ' : '');?>>Slider</option>
 							<option value="popup" <?php echo ($element['tipo'] == 'popup' ? ' selected="selected" ' : '');?>>Popup</option>
+							<option value="banner" <?php echo ($element['tipo'] == 'banner' ? ' selected="selected" ' : '');?>>Banner</option>
 						</select>
 					</div>
 

@@ -1,15 +1,13 @@
 <?php
+addJavascripts(array("js/bootstrap-textarea.js",
+					 getAsset("foro")."js/foro-comentario.js"));
+
 templateload("addcomment", "foro");
 templateload("comment", "foro");
-
-addJavascripts(array("js/jquery.jtextarea.js", 
-					 "js/bootstrap-textarea.min.js",
-					 getAsset("foro")."js/foro-comentario.js"));
 ?>
 <div class="row row-top">
 	<div class="app-main">
-		<?php
-		
+		<?php 
 		session::getFlashMessage('actions_message');
 		foroController::createRespuestaAction();
 		foroController::votarAction();
@@ -48,7 +46,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 				$reg = $module_config['options']['comments_per_page'];
 				$pag = 1;
 				$inicio = 0;
-				if (isset($_GET["pag"]) and $_GET["pag"] != "") {
+				if (isset($_GET["pag"]) and $_GET["pag"] != ""){
 					$pag = $_GET["pag"];
 					$inicio = ($pag - 1) * $reg;
 				}
@@ -72,7 +70,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 						<div class="panel-container-foro">
 							<?php foreach($comentarios_foro as $comentario_foro):
 								commentForo($comentario_foro);
-							endforeach;	?>
+							endforeach;?>
 						</div>
 						<br />
 						<?php if ($total_reg == 0) echo '<div class="alert alert-warning">'.strTranslate("No_comments_yet").'</div>';
@@ -80,7 +78,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 					</div>
 				</div>
 			<?php }
-		} ?>
+		}?>
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
@@ -95,7 +93,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 			<p><?php e_strTranslate("Insert_comment_forum_label");?></p>
 			<?php addForoComment($id_tema); 
 			//INSERTAR VISITA EN EL FORO
-			if (!isset($_POST['texto-comentario'])) $foro->insertVisita($_SESSION['user_name'], $id_tema, 0); ?>
+			if (!isset($_POST['texto-comentario'])) $foro->insertVisita($_SESSION['user_name'], $id_tema, 0);?>
 		</div>
 	</div>
 </div>

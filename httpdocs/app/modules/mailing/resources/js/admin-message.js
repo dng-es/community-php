@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
 		if (jQuery.trim($("#template_message").val()) == ""){
 			$("#template-alert").html("Debes seleccionar una plantilla.").fadeIn().css("display", "block");
 			resultado_ok = false;
-		}			
+		}
 		if (validateEmail($("#email_message").val()) == false){
 			$("#email-alert").html("Debes insertar un email válido.").fadeIn().css("display", "block");
 			resultado_ok = false;

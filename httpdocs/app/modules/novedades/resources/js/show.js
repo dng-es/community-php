@@ -1,3 +1,3 @@
-jQuery(document).ready(function() {
-    $("#modalNovedades").modal();
+jQuery(document).ready(function(){
+	$("#modalNovedades").modal();
 });

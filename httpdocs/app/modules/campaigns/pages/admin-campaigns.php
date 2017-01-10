@@ -1,8 +1,3 @@
-<?php
-session::getFlashMessage('actions_message'); 
-campaignsController::deleteAction();
-$elements = campaignsController::getListAction(20);
-?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php menu::breadcrumb(array(
@@ -10,10 +5,14 @@ $elements = campaignsController::getListAction(20);
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Campaigns_list"), "ItemClass"=>"active"),
-		));?>
+		));
+		session::getFlashMessage('actions_message');
+		campaignsController::deleteAction();
+		$elements = campaignsController::getListAction(20);
+		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default">    
+				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-campaign?act=new">Nueva campaña</a></li>
 				</ul>
@@ -27,18 +26,16 @@ $elements = campaignsController::getListAction(20);
 							<th><?php e_strTranslate("Description");?></th>
 							<th><?php e_strTranslate("News");?></th>
 						</tr>
-						<?php foreach($elements['items'] as $element): ?>
+						<?php foreach($elements['items'] as $element):?>
 							<tr>
 							<td nowrap="nowrap">
 								<button type="button" class="btn btn-default btn-xs" title="Eliminar"
 									onClick="Confirma('¿Seguro que deseas eliminar la campaña?', 'admin-campaigns?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_campaign'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
 								</button>
-
 								<button type="button" class="btn btn-default btn-xs" title="Ver/editar"
 									onClick="location.href='admin-campaign?id=<?php echo $element['id_campaign'];?>'; return false;">
 									<i class="fa fa-edit icon-table"></i>
 								</button>
-
 							</td>
 							<td><?php echo $element['name_campaign'];?></td>
 							<td><?php echo $element['canal_campaign'];?></td>

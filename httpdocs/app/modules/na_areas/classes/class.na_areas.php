@@ -9,22 +9,14 @@ class na_areas{
 		$Sql = "SELECT * FROM na_areas WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
- 
+
 	public function insertArea($nombre, $descripcion, $canal, $puntos = 0, $limite_users = 0, $estado = 0, $registro = 0){
 		$nombre = str_replace("'", "´", $nombre);
 		$descripcion = str_replace("'", "´", $descripcion);
 		$Sql = "INSERT INTO na_areas (area_nombre,area_descripcion,area_canal,puntos,limite_users,estado, registro) 
 				VALUES 
 				('".$nombre."','".$descripcion."','".$canal."',".$puntos.",".$limite_users.",".$estado.",".$registro.")";
-		if (connection::execute_query($Sql)){
-			//si se crea el area creamos su foro general
-
-			$id_area = connection::SelectMaxReg("id_area","na_areas","");
-			$foro = new foro();
-			$foro->InsertTema(0,'foro '.$nombre,$descripcion,"",$_SESSION['user_name'],$canal,0,1,'',$id_area);
-			return true;
-		}
-		else return false;
+		return connection::execute_query($Sql);
 	}
 
 	public function updateArea($id, $nombre, $descripcion, $canal, $puntos = 0, $limite_users = 0, $registro = 0){
@@ -51,16 +43,16 @@ class na_areas{
 				FROM na_areas_users nu 
 				LEFT JOIN users u ON u.username=nu.username_area 
 				WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
+		return connection::getSQL($Sql);
 	}
 
-	public function insertUserArea($id_area, $user_area){	
+	public function insertUserArea($id_area, $user_area){
 		$Sql = "INSERT INTO na_areas_users (id_area,username_area) VALUES
 		(".$id_area.",'".$user_area."')";
 		return connection::execute_query($Sql);
 	}
 
-	public function deleteUsersArea($id_area){	
+	public function deleteUsersArea($id_area){
 		$Sql = "DELETE FROM na_areas_users WHERE id_area=".$id_area." ";
 		return connection::execute_query($Sql);
 	}
@@ -69,10 +61,10 @@ class na_areas{
 		$Sql = "SELECT * 
 				FROM na_areas_grupos 
 				WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
+		return connection::getSQL($Sql);
 	}
 
-	public function insertGrupoArea($id_area, $nombre){	
+	public function insertGrupoArea($id_area, $nombre){
 		$Sql = "INSERT INTO na_areas_grupos (id_area,grupo_nombre) VALUES
 		(".$id_area.",'".$nombre."')";
 		return connection::execute_query($Sql);
@@ -101,7 +93,7 @@ class na_areas{
 				FROM na_tareas t 
 				LEFT JOIN recompensas r ON r.id_recompensa=t.id_recompensa 
 				WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql); 
+		return connection::getSQL($Sql);
 	}
 
 	public function insertTarea($id_area, $titulo, $descripcion, $tipo, $grupo, $usuario, $nombre_archivo, $id_recompensa){
@@ -122,7 +114,7 @@ class na_areas{
 				FROM na_tareas_grupos tg 
 				LEFT JOIN na_areas_grupos g  ON g.id_grupo=tg.id_grupo 
 				WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql);  
+		return connection::getSQL($Sql);
 	}
 
 	public function insertGrupoTarea($id_grupo, $id_tarea){	
@@ -146,7 +138,7 @@ class na_areas{
 		return connection::execute_query($Sql);
 	}
 
-	public function estadoLinksTarea($id_tarea, $estado){	
+	public function estadoLinksTarea($id_tarea, $estado){
 		$Sql = "UPDATE na_tareas SET activa_links=".$estado." WHERE id_tarea=".$id_tarea;
 		return connection::execute_query($Sql);
 	}
@@ -156,7 +148,7 @@ class na_areas{
 		return connection::getSQL($Sql);
 	}
 
-	public function insertTareaDoc($id_tarea, $tipo, $nombre, $fichero, $enlace){	
+	public function insertTareaDoc($id_tarea, $tipo, $nombre, $fichero, $enlace){
 		if($tipo == 'fichero'){
 			//fichero o mp3
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
@@ -253,7 +245,7 @@ class na_areas{
 		else return "Se ha producido algún error al insertar la pregunta.";
 	}
 
-	public function deletePregunta($id){	
+	public function deletePregunta($id){
 		$Sql = "DELETE FROM na_tareas_preguntas WHERE id_pregunta=".$id;
 		if (connection::execute_query($Sql)){ 
 			$Sql="DELETE FROM na_tareas_respuestas WHERE id_pregunta=".$id;
@@ -262,9 +254,9 @@ class na_areas{
 		else return "Se ha producido algún error al eliminar la pregunta.";
 	}
 
-	public function insertPreguntaRespuesta($id_pregunta, $respuesta_texto){
-		$Sql = "INSERT INTO na_tareas_respuestas (id_pregunta,respuesta_texto) VALUES
-		(".$id_pregunta.",'".$respuesta_texto."')";
+	public function insertPreguntaRespuesta($id_pregunta, $respuesta_texto, $correcta){
+		$Sql = "INSERT INTO na_tareas_respuestas (id_pregunta,respuesta_texto,correcta) VALUES
+		(".$id_pregunta.",'".$respuesta_texto."',".$correcta.")";
 		if (connection::execute_query($Sql)) return "Respuesta insertada correctamente";
 		else return "Se ha producido algún error al insertar la respuesta.";
 	}
@@ -288,7 +280,7 @@ class na_areas{
 		return connection::getSQL($Sql);
 	}
 
-	public function insertRespuesta($id_pregunta, $respuesta_user, $respuesta_valor){	
+	public function insertRespuesta($id_pregunta, $respuesta_user, $respuesta_valor){
 		//verificar si ya existe una respuesta para hacer insert o update
 		if (connection::countReg("na_tareas_respuestas_user"," AND id_pregunta=".$id_pregunta." AND respuesta_user='".$respuesta_user."' ")==0){
 			$Sql = "INSERT INTO na_tareas_respuestas_user (id_pregunta,respuesta_user,respuesta_valor) VALUES
@@ -336,7 +328,7 @@ class na_areas{
 		return connection::getSQL($Sql);
 	}
 
-	public function insertFormulariosFinalizados($id_tarea, $user_tarea){	
+	public function insertFormulariosFinalizados($id_tarea, $user_tarea){
 		$Sql = "INSERT INTO na_tareas_formularios_finalizados (id_tarea,user_tarea) VALUES
 		(".$id_tarea.",'".$user_tarea."')";
 		return connection::execute_query($Sql);

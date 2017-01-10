@@ -21,7 +21,7 @@ $paginas_free = array("underconstruction", "login","user-confirm","logout","cont
 $videos_types = array("MP4","MOV","AVI","3GP","WMV");
 $fotos_types = array("GIF","JPG","JPEG","PNG");
 //APP VERSION
-define('APP_VERSION',"0.5.3.1");
+define('APP_VERSION',"0.6");
 //PAGINA DE INICIO
 define('APP_DEF_PAGE',"login");
 //TEMA POR DEFECTO
@@ -30,6 +30,7 @@ define('DEFAULT_THEME',"default");
 //TIEMPO DE SESION
 define('SESSION_MAXTIME',1800);
 //PUNTOS A OTORGAR POR ACCION REALIZADA POR USUARIO Y TEXTOS DE MOTIVOS
+define('PUNTOS_INFO',1);
 define('PUNTOS_VIDEO',10);
 define('PUNTOS_FOTO',5);
 define('PUNTOS_MURO',0);
@@ -47,6 +48,7 @@ define('PUNTOS_RETO2_FILE',6);
 define('PUNTOS_RETO_SELECCION_FILE',60);
 define('PUNTOS_MAS_VOTADO_FILE',50);
 
+define('PUNTOS_INFO_MOTIVO','Primer acceso a documento');
 define('PUNTOS_VIDEO_MOTIVO','Subida de video');
 define('PUNTOS_FOTO_MOTIVO','Subida de foto');
 define('PUNTOS_MURO_MOTIVO','Comentario en el muro');

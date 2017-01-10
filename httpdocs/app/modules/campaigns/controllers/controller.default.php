@@ -5,7 +5,7 @@ class campaignsController{
 		$filtro = $filter." AND active=1 ORDER BY name_campaign ASC ";
 
 		$find_reg = (isset($_GET['f']) and $_GET['f'] > 0) ? $_GET['f'] : "";
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("campaigns c",$filtro);
 		return array('items' => $campaigns->getCampaigns($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -20,13 +20,13 @@ class campaignsController{
 		$desc_campaign = isset($_POST['desc_campaign']) ? $_POST['desc_campaign'] : "";
 		if ($id_campaign != 0){
 			$campaigns = new campaigns();
-			$plantilla = $campaigns->getCampaigns(" AND active=1 AND id_campaign=".$id_campaign);	
+			$plantilla = $campaigns->getCampaigns(" AND active=1 AND id_campaign=".$id_campaign);
 			return  $plantilla[0];
 		}
 	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$campaigns = new campaigns();
 			$elements = $campaigns->getCampaigns(" AND active=1 ORDER BY name_campaign DESC ");
 			download_send_headers("campaigns_" . date("Y-m-d") . ".csv");
@@ -43,7 +43,8 @@ class campaignsController{
 			$desc_campaign = str_replace("'", "´", $_POST['desc_campaign']);
 			$id_type = $_POST['id_type'];
 			$novedad = ($_POST['novedad'] == 'on') ? 1 : 0;
-			$canal_campaign = sanitizeInput($_POST['canal_campaign']);
+			$canal_campaign = $_POST['canal_campaign'];
+			if (is_array($canal_campaign)) $canal_campaign = implode(",", $canal_campaign);
 
 			$imagen_mini = uploadFileToFolder($_FILES['nombre-fichero'], "images/banners/");
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");
@@ -67,7 +68,8 @@ class campaignsController{
 			$desc_campaign = str_replace("'", "´", $_POST['desc_campaign']);
 			$id_type = $_POST['id_type'];
 			$novedad = ($_POST['novedad'] == 'on') ? 1 : 0;
-			$canal_campaign = sanitizeInput($_POST['canal_campaign']);
+			$canal_campaign = $_POST['canal_campaign'];
+			if (is_array($canal_campaign)) $canal_campaign = implode(",", $canal_campaign);
 
 			$imagen_mini = uploadFileToFolder($_FILES['nombre-fichero'], "images/banners/");
 			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");		
@@ -76,13 +78,13 @@ class campaignsController{
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
-			
+
 			redirectURL("admin-campaign?id=".$id_campaign);
 		}
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$campaigns = new campaigns();
 			if ($campaigns->deleteCampaigns($_REQUEST['id'])) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
@@ -97,7 +99,7 @@ class campaignsController{
 		$campaigns = new campaigns();
 		$filtro = " ORDER BY campaign_type_name ASC ";
 		$find_reg = "";
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("campaigns_types",$filtro);
 		return array('items' => $campaigns->getCampaignsTypes($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -147,10 +149,10 @@ class campaignsController{
 
 			redirectURL("admin-campaigns-type?id=".$id);
 		}
-	}	
+	}
 
 	public static function deleteTypeAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$campaigns = new campaigns();
 			if ($campaigns->deleteCampaignsType($_REQUEST['id'])) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");

@@ -73,7 +73,6 @@ templateload("cmbCanales","users");
 							$nombre_miniatura = "mini".$nombre_sinext.".jpeg";
 							echo '<img style="width:100%;border:0;height:auto" src="images/banners/'.$nombre_miniatura.'" alt="banner" />';
 						}
-
 						?>
 						</div>
 					</div>

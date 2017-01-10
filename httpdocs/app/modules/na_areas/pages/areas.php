@@ -8,11 +8,11 @@
 		
 		session::getFlashMessage( 'actions_message' );
 		na_areasController::apuntarseAction();
-		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND area_canal='".$_SESSION['user_canal']."' " : "");
-		$elements = na_areasController::getListAction(6, $filtro_canal." AND estado=1 ORDER BY id_area DESC ");
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND area_canal LIKE '%".$_SESSION['user_canal']."%' " : "");
+		$elements = na_areasController::getListAction(6, $filtro_canal." AND estado=1 ");
 		$i = 0;
 		foreach($elements['items'] as $element):
-			$acceso = ( $_SESSION['user_canal'] == 'admin' ? 1 : connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." AND username_area='".$_SESSION['user_name']."' ")); ?>
+			$acceso = ( $_SESSION['user_canal'] == 'admin' ? 1 : connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." AND username_area='".$_SESSION['user_name']."' "));?>
 		
 			<?php if ($acceso == 1 or $element['registro'] == 1):?>
 				<?php if ($i == 0) echo '<div class="row">';?>
@@ -36,7 +36,7 @@
 											echo '<span class="btn btn-default btn-xs pull-right"><i class="fa fa-times"></i> '.strTranslate("Registration_closed").'</span>';
 										endif;
 									}
-								endif; ?>
+								endif;?>
 								<br />
 							</div>
 						</div>
@@ -46,8 +46,8 @@
 					echo '</div>';
 					$i = 0;
 				}
-				else $i++; ?>
-			<?php endif; ?>
+				else $i++;?>
+			<?php endif;?>
 		<?php endforeach;?>
 		<?php if ($i == 1) echo '</div>';?>
 		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

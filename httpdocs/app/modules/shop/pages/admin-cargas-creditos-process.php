@@ -47,10 +47,10 @@
 ///////////////////////////////////////////////////////////////////////////////////
 // PAGE FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////
-function volcarMySQL($data){	
+function volcarMySQL($data){
 	$contador = 0;
 		
-    for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 		$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
 		$puntos = str_replace (",",".", $data->sheets[0]['cells'][$fila][2]);
 		$motivo = utf8_encode(sanitizeInput(trim($data->sheets[0]['cells'][$fila][3])));
@@ -58,7 +58,7 @@ function volcarMySQL($data){
 		if ($username != ""){
 			//VERIFICAR QUE EXISTA EL USUARIO
 			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") > 0){
-				if (shop::sumarCreditos($username, $puntos, $motivo, $detalle)) $contador++;	
+				if (shop::sumarCreditos($username, $puntos, $motivo, $detalle)) $contador++;
 			}
 		}
 	}?>
@@ -67,4 +67,4 @@ function volcarMySQL($data){
 		El proceso de importación ha finalizado con éxito. Se ha actualizado los <?php e_strTranslate("APP_Credits");?> de <b><?php echo $contador;?></b> usuarios.<br /><br />
 		<a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a>
 	</p>
-<?php } ?>
+<?php }?>

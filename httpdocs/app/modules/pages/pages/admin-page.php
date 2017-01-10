@@ -14,7 +14,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			array("ItemLabel"=>strTranslate("Pages_list"), "ItemUrl"=>"admin-pages"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Pages"), "ItemClass"=>"active"),
 		));
-		session::getFlashMessage( 'actions_message' ); 
+		session::getFlashMessage( 'actions_message' );
 		pagesController::createAction();
 		pagesController::updateAction();
 

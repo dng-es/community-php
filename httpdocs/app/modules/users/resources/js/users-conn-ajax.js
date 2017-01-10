@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	cargarUsersConn();
-
 	$('.users-connected').bind('scroll', function(){
 		if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight){
 			alert('end reached');

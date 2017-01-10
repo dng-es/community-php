@@ -13,7 +13,6 @@ jQuery(document).ready(function(){
 			pag = $(this).attr("data-pag"),
 			tags = $("#tipo_video_" + id_file).val();
 
-			document.location.href = 'admin-videos?idf=' + id_file + '&tags=' + tags + '&pag=' + pag;
-
+		document.location.href = 'admin-videos?idf=' + id_file + '&tags=' + tags + '&pag=' + pag;
 	});
 });

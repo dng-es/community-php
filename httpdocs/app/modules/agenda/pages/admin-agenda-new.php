@@ -5,10 +5,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					"js/bootstrap.file-input.js",
 					"js/bootstrap-datepicker.js",
 					"js/bootstrap-datepicker.es.js",
-					"js/bootstrap-select.js",
 					getAsset("agenda")."js/admin-agenda-new.js"));
-
-addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 
 templateload("cmbAgenda","agenda");
 ?>
@@ -40,8 +37,6 @@ templateload("cmbAgenda","agenda");
 			$canal = $elements[0]['canal'];
 			$activo = $elements[0]['activo'];
 			$etiquetas = $elements[0]['etiquetas'];
-
-
 		}
 		else{
 			$accion = "new";
@@ -51,15 +46,14 @@ templateload("cmbAgenda","agenda");
 			$canal = "";
 			$date_ini = "";
 			$date_fin = "";
-
 		}
 
 		?>
-		<form id="formData" name="formData" method="post" enctype="multipart/form-data" action="" role="form">
-		<input type="hidden" name="id" value="<?php echo $id;?>" />
-		<div class="col-md-9">
-			<div class="panel panel-default">
-				<div class="panel-body">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form id="formData" name="formData" method="post" enctype="multipart/form-data" action="" role="form">
+				<input type="hidden" name="id" value="<?php echo $id;?>" />
+				<div class="col-md-9 nopadding">
 					<div class="row">
 						<div class="col-md-12 form-group">
 							<label for="nombre" class="sr-only">Título de la entrada:</label>
@@ -68,7 +62,7 @@ templateload("cmbAgenda","agenda");
 					</div>
 					<div class="row">
 						<div class="col-md-4 form-group">
-							<select name="canal" id="canal" title="---<?php e_strTranslate(Choose_channel);?>---" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
+							<select name="canal[]" id="canal" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
 								<?php ComboCanales($canal);?>
 							</select>
 						</div>
@@ -90,10 +84,8 @@ templateload("cmbAgenda","agenda");
 							<label for="descripcion" class="sr-only">Cuerpo de la entrada:</label>
 							<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>
 							<script type="text/javascript">
-
-							var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-blog.js'});
-							CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
-
+								var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-blog.js'});
+								CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 							</script>
 						</div>
 					</div>
@@ -114,61 +106,55 @@ templateload("cmbAgenda","agenda");
 					<div class=" col-md-3">
 						<input type="submit" name="SubmitData" class="btn btn-primary btn-block" value="Guardar actividad" />
 					</div>
-
 				</div>
+				<div class="col-md-3 nopadding">
+					<div class="panel panel-default">
+						<div class="panel-heading">Banner de la actividad</div>
+						<div class="panel-body">
+							<small><label for="banner">Selecciona el banner de la actividad:</small></label>
+							<?php
+							if (isset($elements[0]['banner']) and $elements[0]['banner'] != ""){
+								echo '<img src="images/banners/'.$elements[0]['banner'].'" style="width: 100%" class="responsive" />';
+							}
+							?>
+							<input type="file" name="banner" id="banner" class="btn btn-primary btn-block" title="seleccionar banner"  />
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">Voucher descargable</div>
+						<div class="panel-body">
 
+							<small><label for="fichero">Selecciona el documento:</label></small>
+							<br /><input name="fichero" id="fichero" type="file" class="btn btn-primary btn-block" title="<?php e_strTranslate("Choose_file");?>" />
+							<span id="file-alert" class="alert-message"></span>
+							<?php
+							if ($fichero != ""){
+								$enlace = 'docs/showfile.php?file='.$fichero ;
+								echo '<br><a target="_blank" href="'.$enlace.'"><b><u>Ver documento actual</u></b></a>';
+							}
+							?>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Etiquetas</div>
+						<div class="panel-body">
+							<p>Introduce las etiquetas de la entrada:</p>
+							<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="<?php echo $etiquetas;?>" />
+							<br /><span class="text-muted">Etiquetas existentes: </span>
+							<?php
+							$agenda = new agenda();
+							$categorias = $agenda->getCategorias("");
+							foreach($categorias as $categoria):
+								echo '<label>'.$categoria.'</label> ';
+							endforeach;
+							?>
+						</div>
+					</div>
+				</div>
+				</form>
 			</div>
-
 		</div>
-		<div class="col-md-3 nopadding">
-			<div class="panel panel-default">
-				<div class="panel-heading">Banner de la actividad</div>
-				<div class="panel-body">
-					<small><label for="banner">Selecciona el banner de la actividad:</small></label>
-					<?php
-						if (isset($elements[0]['banner']) and $elements[0]['banner'] != ""){
-							echo '<img src="images/banners/'.$elements[0]['banner'].'" style="width: 100%" class="responsive" />';
-						}
-					?>
-					<input type="file" name="banner" id="banner" class="btn btn-primary btn-block" title="seleccionar banner"  />
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">Voucher descargable</div>
-				<div class="panel-body">
-
-					<small><label for="fichero">Selecciona el documento:</label></small>
-					<br /><input name="fichero" id="fichero" type="file" class="btn btn-primary btn-block" title="<?php e_strTranslate("Choose_file");?>" />
-					<span id="file-alert" class="alert-message"></span>
-					<?php
-					if ($fichero != ""){
-						$enlace = 'docs/showfile.php?file='.$fichero ;
-						echo '<br><a target="_blank" href="'.$enlace.'"><b><u>Ver documento actual</u></b></a>';
-					}
-					?>
-				</div>
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-heading">Etiquetas</div>
-				<div class="panel-body">
-					<p>Introduce las etiquetas de la entrada:</p>
-					<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="<?php echo $etiquetas;?>" />
-					<br /><span class="text-muted">Etiquetas existentes: </span>
-					<?php
-						$agenda = new agenda();
-						$categorias = $agenda->getCategorias("");
-						foreach($categorias as $categoria):
-							echo '<label>'.$categoria.'</label> ';
-						endforeach;
-						?>
-				</div>
-			</div>
-
-		</div>
-
-
-	</form>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

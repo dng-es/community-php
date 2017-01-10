@@ -1,9 +1,6 @@
 <?php
 //EXPORT USERS
 usersCanalesController::exportListAction();
-
-session::getFlashMessage('actions_message'); 
-$elements = usersCanalesController::getListAction(35);
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -14,6 +11,9 @@ $elements = usersCanalesController::getListAction(35);
 			array("ItemLabel"=>strTranslate("Channel"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Channel_list"), "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage('actions_message'); 
+		$elements = usersCanalesController::getListAction(35);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -29,6 +29,7 @@ $elements = usersCanalesController::getListAction(35);
 						<th width="40px"></th>
 						<th><?php e_strTranslate("Channel");?></th>
 						<th><?php e_strTranslate("Description");?></th>
+						<th><?php e_strTranslate("Language");?></th>
 						<th><?php e_strTranslate("Theme");?></th>
 						</tr>	
 						<?php foreach($elements['items'] as $element):?>
@@ -39,6 +40,7 @@ $elements = usersCanalesController::getListAction(35);
 							</td>
 							<td><?php echo $element['canal'];?></td>
 							<td><?php echo $element['canal_name'];?></td>
+							<td><?php echo $element['canal_lan'];?></td>
 							<td><?php echo $element['theme'];?></td>
 							</tr>  
 						<?php endforeach; ?>

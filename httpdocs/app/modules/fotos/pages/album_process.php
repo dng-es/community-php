@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace( ((strrpos( __DIR__ , "\\" ) === false) ? 'modules/fotos/pages' : 'modules\\fotos\\pages')  , '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/fotos/pages' : 'modules\\fotos\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/functions.core.php");
@@ -26,5 +26,4 @@ if (isset($_REQUEST['albums']) and $_REQUEST['albums'] == true){
 		<option value="<?php echo $element['id_album'];?>"><?php echo $element['nombre_album'];?></option>
 	<?php endforeach;
 }
-
 ?>

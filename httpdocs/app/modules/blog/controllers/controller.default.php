@@ -14,8 +14,6 @@ class blogController{
 		else $id_tema = connection::SelectMaxReg("id_tema", "foro_temas", $filtro_blog." AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
 
 		if ($id_tema > 0){
-			if ($_SESSION['user_canal'] != "admin") $filtro_tema = " AND (canal='".$_SESSION['user_canal']."' OR canal='admin') ";
-
 			$filtro_tema .= " AND id_tema=".$id_tema." AND activo=1 AND ocio=1 ";
 			$tema = $foro->getTemas($filtro_tema); 
 		}
@@ -29,12 +27,14 @@ class blogController{
 			$foro = new foro();
 			$id = 0;
 			$destacado = (isset($_POST['destacado']) and $_POST['destacado'] == "on") ? 1 : 0;
+			$canal = $_POST['canal'];
+			if (is_array($canal)) $canal = implode(",", $canal);
 
 			$file_info = pathinfo($_FILES['imagen-tema']['name']);
 			$extension = strtolower($file_info['extension']);
 
-			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){			
-				if ($foro->InsertTema(0, $_POST['nombre'], stripslashes($_POST['descripcion']), $_FILES['imagen-tema'], $_SESSION['user_name'], $_POST['canal'], 0, 1, '', 0, 1, $_POST['etiquetas'], $destacado )) {
+			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){
+				if ($foro->InsertTema(0, $_POST['nombre'], stripslashes($_POST['descripcion']), $_FILES['imagen-tema'], $_SESSION['user_name'], $canal, 0, 1, '', 0, 1, $_POST['etiquetas'], $destacado )) {
 					$id = connection::SelectMaxReg("id_tema", "foro_temas", " AND ocio=1 ");
 					session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				}else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -51,14 +51,16 @@ class blogController{
 			$nombre = sanitizeInput($_POST['nombre']);
 			$descripcion = sanitizeInput(stripslashes($_POST['descripcion']));
 			$destacado = (isset($_POST['destacado']) and $_POST['destacado'] == "on") ? 1 : 0;
+			$canal = $_POST['canal'];
+			if (is_array($canal)) $canal = implode(",", $canal);
 			
 			$file_info = pathinfo($_FILES['imagen-tema']['name']);
 			$extension = strtolower($file_info['extension']);
 
 			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){
-				if ($foro->updateTema($_POST['id'], $nombre, $descripcion, $_POST['etiquetas'], $_FILES['imagen-tema'], $destacado)) {
+				if ($foro->updateTemaBlog($_POST['id'], $nombre, $descripcion, $_POST['etiquetas'], $_FILES['imagen-tema'], $destacado, $canal)) {
 					session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
-				}	
+				}
 				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
 			else session::setFlashMessage('actions_message', "Extensión no valida: ".$extension, "alert alert-warning");

@@ -25,7 +25,7 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 							$_SESSION['user_name'],
 							$canal,0,1, '', $_POST['id_area'],0,"")){
 			session::setFlashMessage('actions_message', strTranslate("Forum_created"), "alert alert-success");
-		} 
+		}
 		else session::setFlashMessage('actions_message', strTranslate("Error_while_creating_forum"), "alert alert-danger");
 		redirectURL($_SERVER['REQUEST_URI']);
 	}

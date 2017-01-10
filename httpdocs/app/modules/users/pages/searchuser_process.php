@@ -7,7 +7,6 @@ include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/users/classes/class.users.php");
 
-
 session::ValidateSessionAjax();
 
 if(isset($_POST['find_user'])){
@@ -42,6 +41,4 @@ if(isset($_POST['find_user'])){
 	<?php }
 
 }
-
-
 ?>

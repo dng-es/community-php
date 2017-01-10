@@ -19,7 +19,7 @@ class usersCanalesController{
 	}
 
 	public static function getItemAction($id = 0){
-		$id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+		$id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : $id);
 		if ($id!=''){
 			$users = new users();
 			$canal = $users->getCanales(" AND canal='".$id."' ");
@@ -43,9 +43,10 @@ class usersCanalesController{
 			$canal = str_replace(" ", "_", $canal);
 			$canal = NormalizeText($canal);
 			$canal_name = sanitizeInput($_POST['canal_name']);
+			$canal_lan = sanitizeInput($_POST['canal_lan']);
 			$theme = sanitizeInput($_POST['theme']);
 			$users = new users;
-			if ($users->insertCanal($canal, $canal_name, $theme)){
+			if ($users->insertCanal($canal, $canal_name, $theme, $canal_lan)){
 				//crear foro asociado
 				$foro = new foro();
 				$foro->InsertTema(0, "Foro ".$canal_name, '', '', 'admin', $canal, 0, 1, '', 0, 0, "");
@@ -62,9 +63,10 @@ class usersCanalesController{
 		if (isset($_POST['id_canal']) and $_POST['id_canal'] != ''){
 			$canal = sanitizeInput($_POST['id_canal']);
 			$canal_name = sanitizeInput($_POST['canal_name']);
+			$canal_lan = sanitizeInput($_POST['canal_lan']);
 			$theme = sanitizeInput($_POST['theme']);
 			$users = new users;
-			if ($users->updateCanal($canal, $canal_name, $theme))
+			if ($users->updateCanal($canal, $canal_name, $theme, $canal_lan))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

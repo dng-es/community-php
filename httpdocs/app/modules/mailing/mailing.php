@@ -56,7 +56,6 @@ class mailingCore{
 							"LabelTarget" => '_self'));
 		}
 
-
 		if (count($array_final_items)>0){
 				array_push($array_final, array("LabelIcon" => "fa fa-envelope-o",
 								"LabelItem" => strTranslate("Massive_Mailing"),
@@ -66,8 +65,8 @@ class mailingCore{
 								"LabelPos" => $menu_order));
 		}
 
-		return $array_final;		
-	}	
+		return $array_final;
+	}
 
 	/**
 	 * Elementos para el menu de administración

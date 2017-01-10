@@ -27,9 +27,9 @@ $users = new users();
 			array("ItemLabel"=>strTranslate("Incentives_targets"). " detalle", "ItemClass"=>"active"),
 		));
 		?>
-		<ul class="nav nav-pills navbar-default">       
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="<?php echo $_REQUEST['page'].'?export=true&id='.$id_objetivo;?>"><?php echo strTranslate("Export");?></a></li>
+		<ul class="nav nav-pills navbar-default">
+			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+			<li><a href="<?php echo $_REQUEST['page'].'?export=true&id='.$id_objetivo;?>"><?php e_strTranslate("Export");?></a></li>
 			<li><a href="admin-incentives-targets-cargas?id=<?php echo $id_objetivo;?>">Cargar fichero</a></li>
 		</ul>
 		<br />
@@ -40,17 +40,17 @@ $users = new users();
 					<table class="table">
 						<tr>
 						<th width="40px"></th>
-						<th><?php echo strTranslate("Incentives_product");?></th>
+						<th><?php e_strTranslate("Incentives_product");?></th>
 						<th>Destinatario</th>
-						<th><center><?php echo strTranslate("Incentives_targets_value");?></center></th>
-						</tr>	
+						<th><center><?php e_strTranslate("Incentives_targets_value");?></center></th>
+						</tr>
 						<?php foreach($elements['items'] as $element):?>
 							<tr>
 							<td nowrap="nowrap">
 								<span class="fa fa-ban icon-table" title="Eliminar"
-									onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-targets-detail?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$id_objetivo;?>&det=<?php echo $element['id_detalle'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>')">
+									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-targets-detail?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$id_objetivo;?>&det=<?php echo $element['id_detalle'];?>', '<?php e_strTranslate("Are_you_sure");?>', '<?php e_strTranslate("Cancel_text");?>', '<?php e_strTranslate("Confirm_text");?>')">
 								</span>
-							</td>					
+							</td>
 							<td>
 								<?php echo $element['referencia_producto'];?><br />
 								<small><em class="text-muted"><?php echo $element['nombre_producto'];?> - <?php echo $element['nombre_fabricante'];?></em></small>
@@ -74,23 +74,23 @@ $users = new users();
 								?>
 							</td>
 							<td><center><?php echo $element['valor_objetivo'];?></center></td>
-							</tr>  
+							</tr>
 						<?php endforeach; ?>
 					</table>
 				</div>
 			</div>
 			<div class="col-md-5">
 				<div class="section inset">
-					<h4><?php echo strTranslate("Incentives_targets_new");?></h4>
+					<h4><?php e_strTranslate("Incentives_targets_new");?></h4>
 					<form role="form" action="" method="post" name="formData" id="formData">
 						<input type="hidden" name="id_objetivo" value="<?php echo $id_objetivo;?>" />
 						<div class="form-group">
-							<label for="valor_objetivo"><?php echo strTranslate("Incentives_targets_value");?></label>
-							<input type="text" class="form-control" name="valor_objetivo" id="valor_objetivo" data-alert="<?php echo strTranslate("Required_field");?>" />
+							<label for="valor_objetivo"><?php e_strTranslate("Incentives_targets_value");?></label>
+							<input type="text" class="form-control" name="valor_objetivo" id="valor_objetivo" data-alert="<?php e_strTranslate("Required_field");?>" />
 						</div>
 
 						<div class="form-group">
-							<label for="id_producto"><?php echo strTranslate("Incentives_product");?></label>
+							<label for="id_producto"><?php e_strTranslate("Incentives_product");?></label>
 							<select name="id_producto" id="id_producto" class="form-control">
 							<?php 
 							$incentivos = new incentivos();
@@ -122,13 +122,12 @@ $users = new users();
 							?>
 							</select>
 						</div>
-
-						<button type="submit" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+						<button type="submit" class="btn btn-primary"><?php e_strTranslate("Save_data");?></button>
 					</form>
 				</div>
 			</div>
 		</div>
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

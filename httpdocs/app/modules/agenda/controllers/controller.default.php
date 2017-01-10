@@ -1,6 +1,5 @@
 <?php
 class agendaController{
-
 	public static function getListAction($reg = 0, $filter=""){
 		$agendas = new agenda();
 		$find_reg = "";
@@ -45,33 +44,16 @@ class agendaController{
 		endif;
 	}
 
-	public static function getLastAgendaAction($filtro_agenda){
-		$agendas = new agenda();
-		$filtro_tema = "";
-		$tema = array();
-		if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0) $id_tema = $_REQUEST['id'];
-		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_tema = $_REQUEST['f'];
-		else $id_tema = connection::SelectMaxReg("id_tema", "foro_temas", $filtro_agenda." AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
-
-		if ($id_tema > 0){
-			if ($_SESSION['user_canal'] != "admin") $filtro_tema = " AND (canal='".$_SESSION['user_canal']."' OR canal='admin') ";
-
-			$filtro_tema .= " AND id_agenda=".$id_tema." AND activo=1 AND ocio=1 ";
-			$agenda = $agendas->getAgenda($filtro_tema);
-		}
-
-		//$agenda[0]['num_visitas'] = connection::countReg("foro_visitas", " AND id_tema=".$tema[0]['id_tema']." ");
-		return $tema[0];
-	}
-
 	public static function createAction(){
 		if (isset($_POST['id']) and $_POST['id'] == 0){
 			$agenda = new agenda();
 			$id = 0;
 			$activo = ((isset($_POST['activo']) && $_POST['activo'] == '1') ? 1 : 0);
-		  	$etiquetas = sanitizeInput($_POST["etiquetas"]);
+			$etiquetas = sanitizeInput($_POST["etiquetas"]);
+			$canal = $_POST['canal'];
+			if (is_array($canal)) $canal = implode(",", $canal);
 
-		  	if ((isset($_FILES['fichero']))&& ($_FILES['fichero']['name']!='')){
+			if ((isset($_FILES['fichero']))&& ($_FILES['fichero']['name']!='')){
 				//SUBIR FICHERO
 				$nombre_archivo = time().'_'.str_replace(" ","_",$_FILES['fichero']['name']);
 				$nombre_archivo = strtolower($nombre_archivo);
@@ -82,10 +64,10 @@ class agendaController{
 					redirectURL("admin-agenda-new?act=new");
 				}
 			}
-		  	else $nombre_archivo = "";
+			else $nombre_archivo = "";
 
 
-			if ($agenda->insertActividad(sanitizeInput($_POST['nombre']), sanitizeInput(stripslashes($_POST['descripcion'])),$_FILES['banner'],$_POST['date_ini'],$_POST['date_fin'],$nombre_archivo ,$_POST['tipo'],$_POST['canal'], $activo, $etiquetas)) {
+			if ($agenda->insertActividad(sanitizeInput($_POST['nombre']), sanitizeInput(stripslashes($_POST['descripcion'])),$_FILES['banner'],$_POST['date_ini'],$_POST['date_fin'],$nombre_archivo ,$_POST['tipo'],$canal, $activo, $etiquetas)) {
 
 				$id = connection::SelectMaxReg("id_agenda", "agenda", " ");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
@@ -97,15 +79,15 @@ class agendaController{
 	}
 
 	public static function updateAction(){
-
 		if ((isset($_POST['id'])) && ($_POST['id'] > 0)){
-
 			$agenda = new agenda();
 			$id = sanitizeInput($_POST['id']);
 			$activo = ((isset($_POST['activo']) && $_POST['activo'] == '1') ? 1 : 0);
 			$etiquetas = sanitizeInput($_POST["etiquetas"]);
+			$canal = $_POST['canal'];
+			if (is_array($canal)) $canal = implode(",", $canal);
 
-		  	if ((isset($_FILES['fichero']))&& ($_FILES['fichero']['name']!='')){
+			if ((isset($_FILES['fichero']))&& ($_FILES['fichero']['name']!='')){
 
 				//SUBIR FICHERO
 				$nombre_archivo = time().'_'.str_replace(" ","_",$_FILES['fichero']['name']);
@@ -116,9 +98,9 @@ class agendaController{
 					redirectURL("admin-agenda-new?act=new");
 				}
 			}
-		  	else $nombre_archivo = "";
+			else $nombre_archivo = "";
 
-			if ($agenda->updateActividad($_POST['id'],sanitizeInput($_POST['nombre']), sanitizeInput(stripslashes($_POST['descripcion'])),$_FILES['banner'],$_POST['date_ini'],$_POST['date_fin'],$nombre_archivo ,$_POST['tipo'],$_POST['canal'], $activo, $etiquetas)) {
+			if ($agenda->updateActividad($_POST['id'],sanitizeInput($_POST['nombre']), sanitizeInput(stripslashes($_POST['descripcion'])),$_FILES['banner'],$_POST['date_ini'],$_POST['date_fin'],$nombre_archivo ,$_POST['tipo'],$canal, $activo, $etiquetas)) {
 				$id = connection::SelectMaxReg("id_agenda", "agenda", " ");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}else

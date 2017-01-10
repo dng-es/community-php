@@ -1,7 +1,5 @@
 <?php
-
 class recompensas{
-
 	/**
 	 * Devuelve array con los registros
 	 * @param  string 	$filter 	Filtro SQL
@@ -10,13 +8,13 @@ class recompensas{
 	public function getRecompensas($filter = ""){
 		$Sql = "SELECT * FROM recompensas WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}   
+	}
 
 	/**
 	 * Inserta registro en recompensas
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertRecompensas($recompensa_name, $recompensa_image){		
+	public function insertRecompensas($recompensa_name, $recompensa_image){
 		$Sql = "INSERT INTO recompensas (recompensa_name, recompensa_image ) 
 			  VALUES ('".$recompensa_name."', '".$recompensa_image."')";
 		return connection::execute_query($Sql);
@@ -72,13 +70,13 @@ class recompensas{
 			GROUP BY recompensa_user,id_recompensa 
 			ORDER BY recompensa_name"; //echo $Sql;
 		return connection::getSQL($Sql);
-	}  	
+	}
 
 	/**
 	 * Inserta registro en recompensas
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertRecompensaUser($id_recompensa, $recompensa_user, $recompensa_assign, $recompensa_comment){		
+	public function insertRecompensaUser($id_recompensa, $recompensa_user, $recompensa_assign, $recompensa_comment){
 		$Sql = "INSERT INTO recompensas_user (id_recompensa, recompensa_user, recompensa_assign, recompensa_comment) 
 			  VALUES (".$id_recompensa.",'".$recompensa_user."','".$recompensa_assign."','".$recompensa_comment."')"; //echo $Sql;
 		return connection::execute_query($Sql);

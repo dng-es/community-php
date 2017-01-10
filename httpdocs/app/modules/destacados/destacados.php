@@ -6,7 +6,7 @@
 * @version 1.0.1
 */	
 class destacadosCore{
-		/**
+	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
 	 */

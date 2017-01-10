@@ -42,21 +42,4 @@ jQuery(document).ready(function(){
 	
 		return resultado_ok;
 	});
-
-
-	//verificación formulario sucursal
-	$("#form-sucursal").submit(function(evento){
-		$(".alert-message").html("").css("display","none");
-		var resultado_ok = true;
-
-		if (jQuery.trim($("#sucursal_name").val()) == ""){
-			$("#sucursal-name-alert").html("Debes intruducir algo de texto.").fadeIn().css("display", "block");
-			resultado_ok = false;
-		}
-		if (jQuery.trim($("#sucursal_direccion").val()) == ""){
-			$("#sucursal-direccion-alert").html("Debes intruducir algo de texto.").fadeIn().css("display", "block");
-			resultado_ok = false;
-		}
-		return resultado_ok;
-	});
 });

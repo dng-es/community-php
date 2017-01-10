@@ -19,10 +19,8 @@ $id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 		recompensasController::createAction();
 		recompensasController::updateAction();
 
-
 		$elements = recompensasController::getItemAction($id);
 		$nombre_imagen = (isset($elements[0]['recompensa_image']) ? $elements[0]['recompensa_image'] : "");
-
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

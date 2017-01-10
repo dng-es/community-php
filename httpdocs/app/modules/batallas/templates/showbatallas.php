@@ -11,31 +11,31 @@ function showBatallas($tipo, $total_reg, $usuario){
 	if (!isset($pag)) { $inicio = 0; $pag = 1;}
 	else { $inicio = ($pag - 1) * $reg;}
 
-	switch ($tipo) {
-    case "ganadas":
-        $filtro =  " AND finalizada=1 AND ganador='".$_SESSION['user_name']."' ";
-        $tipo_filtro = $tipo;
-        if (isset($_REQUEST['f']) and $_REQUEST['f'] != 1) {$inicio = 0; $pag = 1;}
-        $p=1;
-        break;
-    case "perdidas":
-        $filtro =  " AND finalizada=1 AND ganador<>'' AND ganador<>'".$_SESSION['user_name']."' AND (user_create='".$_SESSION['user_name']."' OR user_retado='".$_SESSION['user_name']."') ";
-        $tipo_filtro = $tipo;
-        if (isset($_REQUEST['f']) and $_REQUEST['f'] != 2) {$inicio = 0; $pag = 1;}
-        $p=2;
-        break;
-    case "pendientes usuario":
-        $filtro =  " AND finalizada=0 AND user_retado='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$_SESSION['user_name']."' ) ";
-        $tipo_filtro = "pendientes-usuario";
-        if (isset($_REQUEST['f']) and $_REQUEST['f'] != 3) {$inicio = 0; $pag = 1;}
-        $p=3;
-        break; 
-    case "pendientes contrincario":
-        $filtro =  " AND finalizada=0 AND user_create='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha<>'".$_SESSION['user_name']."' )";
-        $tipo_filtro = "pendientes-contrincario";
-        if (isset($_REQUEST['f']) and $_REQUEST['f'] != 4) {$inicio = 0; $pag = 1;}
-        $p=4;
-        break;                        
+	switch ($tipo){
+	case "ganadas":
+		$filtro =  " AND finalizada=1 AND ganador='".$_SESSION['user_name']."' ";
+		$tipo_filtro = $tipo;
+		if (isset($_REQUEST['f']) and $_REQUEST['f'] != 1) {$inicio = 0; $pag = 1;}
+		$p=1;
+		break;
+	case "perdidas":
+		$filtro =  " AND finalizada=1 AND ganador<>'' AND ganador<>'".$_SESSION['user_name']."' AND (user_create='".$_SESSION['user_name']."' OR user_retado='".$_SESSION['user_name']."') ";
+		$tipo_filtro = $tipo;
+		if (isset($_REQUEST['f']) and $_REQUEST['f'] != 2) {$inicio = 0; $pag = 1;}
+		$p=2;
+		break;
+	case "pendientes usuario":
+		$filtro =  " AND finalizada=0 AND user_retado='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$_SESSION['user_name']."' ) ";
+		$tipo_filtro = "pendientes-usuario";
+		if (isset($_REQUEST['f']) and $_REQUEST['f'] != 3) {$inicio = 0; $pag = 1;}
+		$p=3;
+		break;
+	case "pendientes contrincario":
+		$filtro =  " AND finalizada=0 AND user_create='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha<>'".$_SESSION['user_name']."' )";
+		$tipo_filtro = "pendientes-contrincario";
+		if (isset($_REQUEST['f']) and $_REQUEST['f'] != 4) {$inicio = 0; $pag = 1;}
+		$p=4;
+		break;
 	}
 
 	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_batalla='".$_SESSION['user_canal']."' " : "");
@@ -50,21 +50,21 @@ function showBatallas($tipo, $total_reg, $usuario){
 
 	$i=0;
 	foreach($elements as $element):
-  		//obtener contrincario
-  		$contrincario_data ="";
-  		if ($element['user_create']==$_SESSION['user_name']){$contrincario=$element['user_retado'];}
-  		else {$contrincario = $element['user_create'];}
-  		$contrincario_data = $users->getUsers("AND username='".$contrincario."' ");
-  		$contrincario_data[0]['id_comentario'] = $tipo_filtro.$i;
+		//obtener contrincario
+		$contrincario_data ="";
+		if ($element['user_create']==$_SESSION['user_name']){$contrincario=$element['user_retado'];}
+		else {$contrincario = $element['user_create'];}
+		$contrincario_data = $users->getUsers("AND username='".$contrincario."' ");
+		$contrincario_data[0]['id_comentario'] = $tipo_filtro.$i;
 
-  		//conocer si el usuario a jugado la batalla
-  		$jugadas = connection::countReg("batallas_luchas"," AND id_batalla=".$element['id_batalla']." AND user_lucha='".$_SESSION['user_name']."' ");
+		//conocer si el usuario a jugado la batalla
+		$jugadas = connection::countReg("batallas_luchas"," AND id_batalla=".$element['id_batalla']." AND user_lucha='".$_SESSION['user_name']."' ");
 
-  		//datos partida usuario
-  		$mi_partida = $batallas->getBatallasLuchas(" AND id_batalla=".$element['id_batalla']." AND user_lucha='".$_SESSION['user_name']."' ");
+		//datos partida usuario
+		$mi_partida = $batallas->getBatallasLuchas(" AND id_batalla=".$element['id_batalla']." AND user_lucha='".$_SESSION['user_name']."' ");
 
-  		//datos partida oponente
-  		$su_partida = $batallas->getBatallasLuchas(" AND id_batalla=".$element['id_batalla']." AND user_lucha<>'".$_SESSION['user_name']."' ");
+		//datos partida oponente
+		$su_partida = $batallas->getBatallasLuchas(" AND id_batalla=".$element['id_batalla']." AND user_lucha<>'".$_SESSION['user_name']."' ");
 
 		echo '		<div class="row">
 						<div class="col-md-12">
@@ -121,14 +121,14 @@ function showBatallas($tipo, $total_reg, $usuario){
 		echo '</div>';
 
 
-  		$i++;
-  	endforeach;
+		$i++;
+	endforeach;
 
-  	if (count($elements) == 0){
-  		echo '<div class="col-md-12">No tienes batallas.</div>';
-  	}
+	if (count($elements) == 0){
+		echo '<div class="col-md-12">No tienes batallas.</div>';
+	}
 
-  	PaginatorTabs($pag,$reg,$total_reg,'batallas','batallas',$p);
+	PaginatorTabs($pag,$reg,$total_reg,'batallas','batallas',$p);
 	
 	echo '</div>';
 	echo '</div>';

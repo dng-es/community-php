@@ -5,7 +5,6 @@ class incentivosController{
 		$find_reg = "";
 		$filtro .= " ORDER BY id_venta DESC ";
 		$paginator_items = PaginatorPages($reg);
-		
 		$total_reg = connection::countReg("incentives_ventas",$filtro); 
 		return array('items' => $incentivos->getVentas($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -16,17 +15,17 @@ class incentivosController{
 
 	public static function getRankingUserAction($reg = 0, $filtro = ""){
 		return 18;
-	}	
+	}
 
 	public static function exportAction($filter=""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export']==true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getVentasExport($filter);
 			download_send_headers(strTranslate("Incentives_sales")."_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
-		}  		
-	}	
+		}
+	}
 
 	public static function getListPuntosAction($reg = 0, $filtro = ""){
 		$incentivos = new incentivos();
@@ -35,7 +34,7 @@ class incentivosController{
 		if (isset($_REQUEST['f'])) {$filtro = " AND username_puntuacion LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
 		$filtro .= " ORDER BY id_puntos_venta DESC ";
 		$paginator_items = PaginatorPages($reg);
-		
+
 		$total_reg = connection::countReg("incentives_ventas_puntos",$filtro); 
 		$total_sum = connection::sumReg("incentives_ventas_puntos", 'puntuacion_venta',$filtro); 
 		return array('items' => $incentivos->getVentasPuntuaciones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -44,7 +43,7 @@ class incentivosController{
 					'find_reg' 	=> $find_reg,
 					'total_sum' => $total_sum,
 					'total_reg' => $total_reg);
-	}	
+	}
 
 	public static function exportPuntuacionesAction(){
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
@@ -57,7 +56,7 @@ class incentivosController{
 	}
 
 	public static function exportUserReportAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] != '') {
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] != ''){
 			$incentivos = new incentivos();
 			$id_objetivo = sanitizeInput($_REQUEST['id']);
 			//obtener datos del objetivo
@@ -66,7 +65,7 @@ class incentivosController{
 			if ($_REQUEST['export']=='puntos') self::exportUserPuntosAction(" AND id_producto_venta IN (".$productos[0]['productos'].") AND date_venta BETWEEN '".$objetivo[0]['date_ini_objetivo']."' AND '".$objetivo[0]['date_fin_objetivo']."' ");
 			if ($_REQUEST['export']=='ventas') self::exportUserVentasAction(" AND v.id_producto IN (".$productos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo[0]['date_ini_objetivo']."' AND '".$objetivo[0]['date_fin_objetivo']."' ");
 		}
-	}	
+	}
 
 	private static function exportUserVentasAction($filtro){
 		$incentivos = new incentivos();
@@ -99,13 +98,11 @@ class incentivosController{
 		//echo "usuario";
 		$users = new users;
 		$incentivos = new incentivos();
-
 		$objetivos = $incentivos->getObjetivosRanking(" AND id_objetivo=".$objetivo['id_objetivo']." ");
 
 		//$filtro = $filter." AND id_producto IN (".$objetivos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
-		
-		$filtro = $filter." AND date_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
 
+		$filtro = $filter." AND date_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
 		$ventas = $incentivos->getVentasRankingUser($filtro." GROUP BY username_venta,t.cod_tienda ORDER BY suma DESC, username_venta DESC", $objetivo['id_objetivo']);
 		$posicion_user = $incentivos->getPosicionRankingUser($filtro, $_SESSION['user_name'], $objetivo['id_objetivo']);
 
@@ -150,7 +147,6 @@ class incentivosController{
 			}
 			else{
 				$data = self::getRankingUsuarioAction($element, $filtro_tienda);
-
 				$i = 0;
 				foreach($data['ranking'] as $element_data):
 					$elem[strTranslate("Nick")] = $element_data['nick'];
@@ -159,13 +155,11 @@ class incentivosController{
 					$elem['Concesionario'] = $element_data['nombre_tienda'];
 					$elem['Zona venta'] = $element_data['zona_venta'];
 					$elem['Zona postventa'] = $element_data['zona_postventa'];
-
 					if ($_SESSION['user_perfil'] != 'usuario'){
 						$elem['Area'] = $element_data['area'];
 						$elem['Delegado venta'] = $element_data['regional_tienda'];
 						$elem['Delegado Postventa'] = $element_data['regional_post_tienda'];
 					}
-
 					$data['ranking'][$i] = $elem;
 					$i++;
 				endforeach;
@@ -184,14 +178,12 @@ class incentivosController{
 			}
 			else{
 				$data = incentivosController::getRankingUsuarioAction($element, $filtro_tienda);
-
 				$i = 0;
 				foreach($data['ranking'] as $element_data):
 					$elem['Nick'] = $element_data['nick'];
 					$elem['Nombre'] = $element_data['name']." ".$element_data['surname'];
 					$elem['Cantidad'] = $element_data['suma'];
 					$elem['Concesionario'] = $element_data['nombre_tienda'];
-
 					$data['ranking'][$i] = $elem;
 					$i++;
 				endforeach;
@@ -201,7 +193,7 @@ class incentivosController{
 			echo array2csv($data['ranking']);
 			die();
 		}
-	}	
+	}
 
 	public static function getRankingUsuarioTiendaAction($objetivo, $filter = ""){
 		$users = new users;
@@ -211,7 +203,6 @@ class incentivosController{
 		// $filtro = $filter." AND id_producto IN (".$objetivos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
 
 		$filtro = $filter." AND date_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
-
 		$ventas = $incentivos->getVentasRankingUserTiendas($filtro." GROUP BY u.empresa, t.cod_tienda ORDER BY suma DESC, u.empresa DESC", $objetivo['id_objetivo']);
 		//$posicion_user = $incentivos->getPosicionRankingUser($filtro, $_SESSION['user_name']);
 
@@ -236,7 +227,6 @@ class incentivosController{
 		//$filtro = $filter." AND id_producto IN (".$objetivos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
 
 		$filtro = $filter." AND date_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
-
 		$ventas = $incentivos->getVentasRankingAreas($filtro." GROUP BY t.area ORDER BY suma DESC, t.area DESC", $objetivo['id_objetivo']);
 		//$posicion_user = $incentivos->getPosicionRankingUser($filtro, $_SESSION['user_name']);
 
@@ -253,13 +243,11 @@ class incentivosController{
 		//echo "usuario";
 		$users = new users;
 		$incentivos = new incentivos();
-
 		$objetivos = $incentivos->getObjetivosRanking(" AND id_objetivo=".$objetivo['id_objetivo']." ");
 
 		//$filtro = $filter." AND id_producto IN (".$objetivos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
 		
 		$filtro = $filter." AND date_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
-
 		$ventas = $incentivos->getVentasRankingZonas($filtro." GROUP BY t.zona_venta ORDER BY suma DESC, t.zona_venta DESC", $objetivo['id_objetivo']);
 		//$posicion_user = $incentivos->getPosicionRankingUser($filtro, $_SESSION['user_name']);
 
@@ -276,13 +264,11 @@ class incentivosController{
 		//echo "usuario";
 		$users = new users;
 		$incentivos = new incentivos();
-
 		$objetivos = $incentivos->getObjetivosRanking(" AND id_objetivo=".$objetivo['id_objetivo']." ");
 
 		//$filtro = $filter." AND id_producto IN (".$objetivos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
 		
 		$filtro = $filter." AND date_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
-
 		$ventas = $incentivos->getVentasRankingZonasPost($filtro." GROUP BY t.zona_postventa ORDER BY suma DESC, t.zona_postventa DESC", $objetivo['id_objetivo']);
 		//$posicion_user = $incentivos->getPosicionRankingUser($filtro, $_SESSION['user_name']);
 
@@ -293,7 +279,7 @@ class incentivosController{
 		// var_dump($result);
 		// echo '</pre>';
 		return $result;
-	}		
+	}
 
 	public static function getRankingTiendaAction($objetivo, $filter = ""){
 		//echo "tienda";
@@ -305,7 +291,6 @@ class incentivosController{
 			$ventas = $incentivos->getVentasRanking(" AND id_producto IN (".$objetivo_detalle['productos'].") AND fecha_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' AND username_venta IN (SELECT username FROM users WHERE empresa='".$objetivo_detalle['destino_objetivo']."') ");
 
 			if (count($ventas)>0){
-
 				$venta_detalle = array('objetivo' => $objetivo_detalle['suma'], 
 										'usuario'=> $objetivo_detalle['destino_objetivo'], 
 										'usuario_nombre'=> $objetivo_detalle['nombre_tienda'], 
@@ -314,61 +299,55 @@ class incentivosController{
 
 				array_push($elements, $venta_detalle);
 			}
-
 		endforeach;
-
 		return arraySort($elements, 'porcentaje', SORT_DESC);
 	}
 
-public static function createPosicionGlobal(){
-			$incentivos = new incentivos();
-			$users = new users();
+	public static function createPosicionGlobal(){
+		$incentivos = new incentivos();
+		$users = new users();
 
+		//Copia de seguridad posiciones
+		$Sql = "TRUNCATE incentives_posiciones_cs";
+		connection::execute_query($Sql);
+		$Sql = "INSERT INTO incentives_posiciones_cs SELECT * FROM incentives_posiciones";
+		connection::execute_query($Sql);
+		echo date("Y-m-d H:i:s"). " Copia de seguridad posiciones\n";
 
-			//Copia de seguridad posiciones
-			$Sql = "TRUNCATE incentives_posiciones_cs";
-			connection::execute_query($Sql);
-			$Sql = "INSERT INTO incentives_posiciones_cs SELECT * FROM incentives_posiciones";
-			connection::execute_query($Sql);
-			echo date("Y-m-d H:i:s"). " Copia de seguridad posiciones\n";
+		//Borrado de posiciones
+		$Sql = "TRUNCATE incentives_posiciones";
+		connection::execute_query($Sql);
 
-			//Borrado de posiciones
-			$Sql = "TRUNCATE incentives_posiciones";
-			connection::execute_query($Sql);
+		//Obtener productos activos
+		$productos = $incentivos->getProductosActivos(" AND activo_objetivo = 1");
+		$filtro_productos = " AND id_producto_venta IN 
+					(".$productos[0]['productos'].") 
+					AND (MONTH(date_venta)=".REPORTS_MONTH." AND YEAR(date_venta)=".REPORTS_YEAR.") ";
 
+		//Obtener todas las tienas para calcular su posicion. No se tiene en cuenta si están activas o no, por si cambian el estado.
+		$tiendas = $users->getTiendas("");
+		foreach($tiendas as $tienda):
+				$filtro_equipo = " AND t.equipo='".$tienda['equipo']."' ";
+				$ranking_total = $incentivos->getRankingTotalTiendas($filtro_productos.$filtro_equipo);
+				$i=1;
+				$posicion_user = 0;
+				foreach($ranking_total as $user_ranking):
+					// if ($user_ranking['username_puntuacion'] == $_SESSION['user_name']){
+					// 	$posicion_user = $i;
+					// 	break;
+					// }
 
-			//Obtener productos activos
-			$productos = $incentivos->getProductosActivos(" AND activo_objetivo = 1");
-			$filtro_productos = " AND id_producto_venta IN 
-						(".$productos[0]['productos'].") 
-						AND (MONTH(date_venta)=".REPORTS_MONTH." AND YEAR(date_venta)=".REPORTS_YEAR.") ";
+					if ($user_ranking['username_puntuacion'] == $tienda['cod_tienda']){
+						$posicion_user = $i;
+						break;
+					}
 
-			//Obtener todas las tienas para calcular su posicion. No se tiene en cuenta si están activas o no, por si cambian el estado.
-			$tiendas = $users->getTiendas("");
-			foreach($tiendas as $tienda):
-					$filtro_equipo = " AND t.equipo='".$tienda['equipo']."' ";
-					$ranking_total = $incentivos->getRankingTotalTiendas($filtro_productos.$filtro_equipo);
-					$i=1;
-					$posicion_user = 0;
-					foreach($ranking_total as $user_ranking):
+					$i++;
+				endforeach;
 
-
-						// if ($user_ranking['username_puntuacion'] == $_SESSION['user_name']){
-						// 	$posicion_user = $i;
-						// 	break;
-						// }
-
-						if ($user_ranking['username_puntuacion'] == $tienda['cod_tienda']){
-							$posicion_user = $i;
-							break;
-						}
-
-						$i++;
-					endforeach;
-
-					//insertar la posicion de la tienda
-					if ($incentivos->insertPosicionGlobal($tienda['cod_tienda'], $posicion_user)) echo date("Y-m-d H:i:s"). " Insertada posicion para: ".$tienda['cod_tienda']." - Posicion:".$posicion_user."\n";
-			endforeach;
-		}		
+				//insertar la posicion de la tienda
+				if ($incentivos->insertPosicionGlobal($tienda['cod_tienda'], $posicion_user)) echo date("Y-m-d H:i:s"). " Insertada posicion para: ".$tienda['cod_tienda']." - Posicion:".$posicion_user."\n";
+		endforeach;
+	}
 }
 ?>

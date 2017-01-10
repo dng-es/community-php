@@ -88,6 +88,5 @@ addJavascripts(array(getAsset("configuration")."js/admin-config.js"));
 			</div>
 		</div>
 	</div>
-
 	<?php menu::adminMenu();?>
 </div>

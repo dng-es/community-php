@@ -1,18 +1,18 @@
 <?php
 function archivoBlog($elements){
 	echo '<div class="btn-group btn-block">
-			  <button type="button" class="btn btn-default desplegable">---'.strTranslate("Choose_archive").'---</button>
-			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			    <span class="caret"></span>
-			    <span class="sr-only">Toggle Dropdown</span>
-			  </button>
-			  <ul class="dropdown-menu" style="width:96%" role="menu">';
-				foreach($elements as $element):
-					$nombre = strftime("%B",mktime(0, 0, 0, $element['mes'], 1, 2000));
-					//echo '<option value="'.$element['mes'].','.$element['ano'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</option>';
-					echo '<li><a href="blog-list?a='.$element['ano'].'&m='.$element['mes'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</a></li>';
-				endforeach;
-	echo ' 	  </ul>
+			<button type="button" class="btn btn-default desplegable">---'.strTranslate("Choose_archive").'---</button>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+			</button>
+			<ul class="dropdown-menu" style="width:96%" role="menu">';
+			foreach($elements as $element):
+				$nombre = strftime("%B",mktime(0, 0, 0, $element['mes'], 1, 2000));
+				//echo '<option value="'.$element['mes'].','.$element['ano'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</option>';
+				echo '<li><a href="blog-list?a='.$element['ano'].'&m='.$element['mes'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</a></li>';
+			endforeach;
+	echo '	</ul>
 		  </div>';
 }
 
@@ -26,7 +26,7 @@ function entradasBlog($elements){
 					<a href="blog?id='.$element['id_tema'].'">'.$element['nombre'].'</a><br />
 					<span><small>'.ucfirst(getDateFormat($element['date_tema'], "LONG")).'</small></span>
 				</div>
-			  </div>';
+			</div>';
 	endforeach;
 }
 

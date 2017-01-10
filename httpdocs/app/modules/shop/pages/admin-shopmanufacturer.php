@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array(getAsset("shop")."js/admin-shopmanufacturer.js"));
 ?>
 <div class="row row-top">
@@ -18,7 +17,6 @@ addJavascripts(array(getAsset("shop")."js/admin-shopmanufacturer.js"));
 		$id_manufacturer = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
 		$element = shopManufacturersController::getItemAction($id_manufacturer);
 		?>
-
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php e_strTranslate("Shop_manufacturer");?></div>
 			<div class="panel-body">
@@ -26,7 +24,7 @@ addJavascripts(array(getAsset("shop")."js/admin-shopmanufacturer.js"));
 					<input type="hidden" name="id_manufacturer" id="id_manufacturer" value="<?php echo $id_manufacturer;?>" />
 					<div class="form-group col-md-12">
 						<label for="name_manufacturer"><?php e_strTranslate("Name");?></label>
-						<input data-alert="<?php echo strTranslate("Required_field");?>" type="text" name="name_manufacturer" id ="name_manufacturer" class="form-control" value="<?php echo $element['name_manufacturer'];?>" />
+						<input data-alert="<?php e_strTranslate("Required_field");?>" type="text" name="name_manufacturer" id ="name_manufacturer" class="form-control" value="<?php echo $element['name_manufacturer'];?>" />
 					</div>
 					<div class="form-group col-md-12">
 						<label for="notes_manufacturer"><?php e_strTranslate("Notes");?></label>
@@ -37,7 +35,6 @@ addJavascripts(array(getAsset("shop")."js/admin-shopmanufacturer.js"));
 
 			</div>
 		</div>
-
 	</div>
 	<?php menu::adminMenu();?>
 </div>

@@ -2,12 +2,15 @@
 class fotos{
 	public function getFotos($filter = ""){
 		$Sql = "SELECT f.*,u.*,f.canal AS canal_file FROM galeria_fotos f 
-				JOIN users u ON u.username=f.user_add WHERE 1=1 ".$filter;
+				LEFT JOIN users u ON u.username=f.user_add 
+				LEFT JOIN galeria_fotos_albumes a ON a.id_album=f.id_album  
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
 	public function getFotosAlbumes($filter = ""){
-		$Sql = "SELECT * FROM galeria_fotos_albumes
+		$Sql = "SELECT a.*, u.nick AS nick,u.foto AS foto_user FROM galeria_fotos_albumes a 
+				LEFT JOIN users u ON u.username=a.username_album
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
@@ -41,7 +44,7 @@ class fotos{
 				tipo_foto='".$tags."' 
 				WHERE id_file=".$id."";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	public function cambiarEstadoAlbum($id, $estado){
 		$Sql = "UPDATE galeria_fotos_albumes SET
@@ -50,15 +53,17 @@ class fotos{
 		return connection::execute_query($Sql);
 	}
 
-	public function insertAlbum($nombre, $usuario){
-		$Sql = "INSERT INTO galeria_fotos_albumes (nombre_album, username_album) VALUES ('".$nombre."','".$usuario."')";
+	public function insertAlbum($nombre, $usuario, $canal_album=''){
+		$Sql = "INSERT INTO galeria_fotos_albumes (nombre_album, username_album, canal_album) 
+				VALUES ('".$nombre."','".$usuario."', '".$canal_album."')";
 		return connection::execute_query($Sql);
 	}
 
-	public function updateAlbum($id, $nombre, $usuario){
+	public function updateAlbum($id, $nombre, $usuario, $canal_album){
 		$Sql = "UPDATE galeria_fotos_albumes SET
 				nombre_album='".$nombre."',
-				username_album='".$usuario."'
+				username_album='".$usuario."',
+				canal_album='".$canal_album."'
 				WHERE id_album=".$id."";
 		return connection::execute_query($Sql);
 	}
@@ -167,7 +172,10 @@ class fotos{
 	}
 
 	public function getTags($filter = ""){
-		$Sql = "SELECT GROUP_CONCAT(tipo_foto) AS tag FROM galeria_fotos WHERE tipo_foto<>'' AND estado=1 ".$filter;
+		$Sql = "SELECT GROUP_CONCAT(tipo_foto) AS tag 
+				FROM galeria_fotos f 
+				LEFT JOIN galeria_fotos_albumes a ON a.id_album=f.id_album
+				WHERE tipo_foto<>'' AND estado=1 ".$filter;
 		$result = connection::getSQL($Sql);
 		$registros = str_replace(', ',',',$result[0]['tag']);
 		$registros =  explode(",", $registros);

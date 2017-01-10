@@ -44,7 +44,7 @@ $elements = agendaController::getListAction(10, " ORDER BY id_agenda DESC");?>
 
 								<button type="button" class="btn btn-default btn-xs" title="Ver/editar entrada" onClick="location.href='admin-agenda-new?id=<?php echo $element['id_agenda'];?>'; return false"><i class="fa fa-edit icon-table"></i>
 								</button>
-							 </td>
+							</td>
 						<?php
 						echo '<td>'.$element['titulo'].'<br />';
 						echo '<em class="legend">'.getDateFormat($element['date_add'], "LONG").'</em><br />';

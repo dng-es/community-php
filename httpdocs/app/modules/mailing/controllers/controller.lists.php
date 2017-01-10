@@ -90,7 +90,7 @@ class mailingListsController{
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$mailing = new mailing();
-			if ($mailing->deleteList($_REQUEST['id'])) {
+			if ($mailing->deleteList($_REQUEST['id'])){
 				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			}
 			else session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -111,14 +111,14 @@ class mailingListsController{
 		}
 	}
 
-	private function volcarListaMySQL($data, $id_list){	
+	private function volcarListaMySQL($data, $id_list){
 		$mailing = new mailing();
-		$mailing->deleteListsUsers($id_list, "");	
+		$mailing->deleteListsUsers($id_list, "");
 
 		require_once 'docs/reader.php';
 		$excelll = new Spreadsheet_Excel_Reader();
 
-	    for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
+		for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
 			$username = trim(strtolower($data->sheets[0]['cells'][$fila][1]));
 			$userdate = trim($data->sheets[0]['cells'][$fila][2]);
 			//if ($excelll->isDate($userdate)==false){$userdate="";}

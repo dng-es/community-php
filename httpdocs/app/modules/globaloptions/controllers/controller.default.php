@@ -72,7 +72,6 @@ class globaloptionsController{
 
 		//$gotoken_data = self::gettoken("SL".$username."", "".$user_password."");
 
-
 		self::updateParticipant($partyId, $username, $user_password, $name, $surname, $birthDate, $email, $phoneHome, $phoneWork, $phoneMobile, $address, $city, $province, $country = 'ESP', $postalCode, "Active", $gotoken_data);
 		self::updateAddress($partyId, $username, $user_password, $name, $surname, $birthDate, $email, $phoneHome, $phoneWork, $phoneMobile, $address, $city, $province, $country = 'ESP', $postalCode, "Active", $gotoken_data);
 		/*$_SESSION['gotoken'] = $response['data']['token'];
@@ -175,8 +174,6 @@ class globaloptionsController{
 			}
 		}");
 
-
-
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 		$response = curl_exec($ch);
 		curl_close($ch);
@@ -256,7 +253,6 @@ class globaloptionsController{
 		curl_close($ch);
 
 		//var_dump($response);
-
 	}
 
 	public static function updateParticipant($partyId, $username, $user_password, $name, $surname, $birthDate, $email, $phoneHome, $phoneWork, $phoneMobile, $address, $city, $province, $country = 'ES', $postalCode, $status="Active", $token = ''){

@@ -3,12 +3,8 @@
 * @Modulo de fotos, depends on Users module. 
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-<<<<<<< HEAD
-* @version 1.0
-=======
-* @version 1.1
->>>>>>> Nuevas funcionalidades y corrección bugs
-*
+* @version 1.2
+
 */
 class fotosCore{
 	/**
@@ -19,14 +15,14 @@ class fotosCore{
 	public function userModuleStatistis($username){
 		$num = connection::countReg("galeria_fotos", " AND user_add='".$username."' ");
 		$num_votaciones = connection::countReg("galeria_fotos_votaciones", " AND user_votacion='".$username."' ");
-		return array( strTranslate("Photo_uploads") => $num,
-					  strTranslate("Votes_in_photos") => $num_votaciones,);
+		return array(strTranslate("Photo_uploads") => $num,
+					strTranslate("Votes_in_photos") => $num_votaciones,);
 	}
 
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function adminMenu(){
 		$elems = array();
 
@@ -67,11 +63,11 @@ class fotosCore{
 	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
-		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("fotos", $_SESSION['user_name']));
-		if ($session->checkPageViewPermission("fotos", $_SESSION['user_perfil'], $user_permissions)){
+		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("foto-albums", $_SESSION['user_name']));
+		if ($session->checkPageViewPermission("foto-albums", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-camera",
 							"LabelItem" => strTranslate("Photos"),
-							"LabelUrl" => 'fotos',
+							"LabelUrl" => 'foto-albums',
 							"LabelTarget" => '_self',
 							"LabelPos" => $menu_order));
 		}
@@ -85,12 +81,12 @@ class fotosCore{
 	public static function adminPanels(){
 		$num_pending = connection::countReg("galeria_fotos"," AND estado=0 ");
 		$num_pending = ($num_pending > 0 ? '<span class="label label-warning">'.$num_pending.'</span>' : $num_pending);
-		return array( array("LabelSection" => strTranslate("Photos"),
+		return array(array("LabelSection" => strTranslate("Photos"),
 							"LabelItem" => strTranslate("Photo_albums"),
 							"LabelUrlText"=> strTranslate("Go_to"),
 							"LabelUrl" => 'admin-albumes',
 							"LabelPos" => 1),
-					  array("LabelSection"=> strTranslate("Photos"),
+					array("LabelSection"=> strTranslate("Photos"),
 							"LabelItem"=> strTranslate("Photos_pending"),
 							"LabelUrlText"=> $num_pending,
 							"LabelUrl"=>'admin-validacion-fotos',

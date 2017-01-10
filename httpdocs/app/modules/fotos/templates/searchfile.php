@@ -1,6 +1,6 @@
 <?php
 function SearchPhoto($pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "" , $class_form = "", $method_form = "post") {
-	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['find_reg']) ? $_REQUEST['find_reg'] : ""); ?>
+	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['find_reg']) ? $_REQUEST['find_reg'] : "");?>
 <div class="<?php echo $clase_css;?>">
 	<form action="<?php echo $pag;?>" method="<?php echo $method_form;?>" id="<?php echo $formId;?>" class="<?php echo $class_form;?>">
 		<div class="input-group">

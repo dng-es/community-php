@@ -1,6 +1,5 @@
 <?php
 class destacados{
-
 	public function getDestacados($filter = ""){
 		$Sql = "SELECT * FROM destacados WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);

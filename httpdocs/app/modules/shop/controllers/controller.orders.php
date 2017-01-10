@@ -3,7 +3,7 @@ class shopOrdersController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$shop = new shop();
 		$find_reg = "";
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("shop_orders",$filter); 
 		return array('items' => $shop->getOrders($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -15,7 +15,7 @@ class shopOrdersController{
 	public static function getListDetailAction($reg = 0, $filter = ""){
 		$shop = new shop();
 		$find_reg = "";
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("shop_orders_details d, shop_orders o "," AND d.id_order=o.id_order ".$filter); 
 		return array('items' => $shop->getOrdersDetails($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -26,7 +26,7 @@ class shopOrdersController{
 
 	public static function getListStatusAction($reg = 0, $filter = ""){
 		$find_reg = "";
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("shop_orders_status",$filter); 
 		return array('items' => shop::getOrderStatus($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -55,7 +55,6 @@ class shopOrdersController{
 
 	public static function changeEstado($id_order, $status_order, $status_order_old){
 		$response = array();
-			
 		//verificar secuencia de estados
 		if($status_order_old == 'cancelado'){
 			$response['message'] = "error";
@@ -77,9 +76,7 @@ class shopOrdersController{
 				$response['description'] = strTranslate("Error_procesing");
 			endif;
 		}
-
 		return $response;
-
 	}
 
 	public static function exportListAction($filter = ""){
@@ -100,8 +97,7 @@ class shopOrdersController{
 			echo array2csv($elements);
 			die();
 		}
-	}	
-
+	}
 
 	public static function createAction($filter = ""){
 		if (isset($_POST['id_product']) and $_POST['id_product'] > 0){
@@ -125,22 +121,28 @@ class shopOrdersController{
 			$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
 			
 			//verificar campos
-			if (!isset($product_detail) or $name_order == "" or $surname_order == "" or $address_order == "" or $city_order == "" or $state_order == "" or $postal_order == "" or $telephone_order == ""){ 
+			if (!isset($product_detail) or $name_order == "" or $surname_order == "" or $address_order == "" or $city_order == "" or $state_order == "" or $postal_order == "" or $telephone_order == ""){
 				$destino = "shopproductorder?id=".$id_product;
 				$order_ok = false;
 				session::setFlashMessage('actions_message', "Todos los campos son obligatorios", "alert alert-danger");
 			}
-			elseif ($product_detail['stock_product'] <= 0){ 
+			elseif ($product_detail['stock_product'] <= 0){
 				//verificar stock
 				$destino = "shopproduct?id=".$id_product;
 				$order_ok = false;
 				session::setFlashMessage('actions_message', "Lo sentimos, no queda stock del artículo", "alert alert-danger");
 			}
-			elseif ($user_detail['creditos'] < $product_detail['price_product']){ 
+			elseif ($user_detail['creditos'] < $product_detail['price_product']){
 				//verificar creditos disponibles del usuario
 				$destino = "shopproducts";
 				$order_ok = false;
 				session::setFlashMessage('actions_message', "No tienes créditos suficientes - Disponible: ".$user_detail['creditos']." - Precio: ".$product_detail['price_product'], "alert alert-danger");
+			}
+			elseif (!(date("Y-m-d") >= $product_detail['date_ini_product'] && date("Y-m-d") <= $product_detail['date_fin_product'])){ 
+				//verificar lanzamiento del producto
+				$destino = "shopproducts";
+				$order_ok = false;
+				session::setFlashMessage('actions_message', strTranslate("Comming_soon"), "alert alert-danger");
 			}
 			elseif ($shop->insertOrder($_SESSION['user_name'], $name_order, $surname_order, $address_order, $address2_order, $city_order, $state_order, $postal_order, $telephone_order, $notes_order)){ 
 				//insertar pedido y log status
@@ -171,7 +173,6 @@ class shopOrdersController{
 				$destino = "shopproductorder?id=".$id_product;
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
-
 
 			redirectURL($destino);
 		}
@@ -205,9 +206,7 @@ class shopOrdersController{
 					"status_order" => $status_order,
 					"notes_order" => $notes_order
 		));
-
 		$cuerpo_mensaje = $template->getTpl();
-
 		messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp');
 	}
 
@@ -220,30 +219,30 @@ class shopOrdersController{
 
 		$template = new tpl("order-user", "shop");
 		$template->setVars(array(
-					"title_email" => "Estado de pedido",
-					"text_email" => "El estado de tu pedido ".$id_order." ha sido modificado a <b>".$status_order."</b>",
-					"id_order" => $id_order,
-					"date_order" => $date_order,
-					"name_order" => $name_order,
-					"surname_order" => $surname_order,
-					"telephone_order" => $telephone_order,
-					"address_order" => $address_order,
-					"address2_order" => $address2_order,
-					"city_order" => $city_order,
-					"state_order" => $state_order,
-					"postal_order" => $postal_order,
-					"credits_label" => ucfirst(strTranslate("APP_Credits")),
-					"product_name" => $name_product,
-					"product_ammount" => 1,
-					"product_price" => $price_order,
-					"status_order" => $status_order,
-					"notes_order" => $notes_order
+			"title_email" => "Estado de pedido",
+			"text_email" => "El estado de tu pedido ".$id_order." ha sido modificado a <b>".$status_order."</b>",
+			"id_order" => $id_order,
+			"date_order" => $date_order,
+			"name_order" => $name_order,
+			"surname_order" => $surname_order,
+			"telephone_order" => $telephone_order,
+			"address_order" => $address_order,
+			"address2_order" => $address2_order,
+			"city_order" => $city_order,
+			"state_order" => $state_order,
+			"postal_order" => $postal_order,
+			"credits_label" => ucfirst(strTranslate("APP_Credits")),
+			"product_name" => $name_product,
+			"product_ammount" => 1,
+			"product_price" => $price_order,
+			"status_order" => $status_order,
+			"notes_order" => $notes_order
 		));
 
 		$cuerpo_mensaje = $template->getTpl();
 
 		messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp');
-	}	
+	}
 
 	private static function sendEmailAdmin($user_detail, $id_order, $name_order, $surname_order, $address_order, $address2_order, $city_order, $state_order, $postal_order, $telephone_order, $notes_order, $product_detail){
 
@@ -277,10 +276,8 @@ class shopOrdersController{
 					"product_ammount" => 1,
 					"product_price" => $product_detail['price_product']
 		));
-
 		$cuerpo_mensaje = $template->getTpl();
-
 		messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp');
-	}	
+	}
 }
 ?>

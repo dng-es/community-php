@@ -3,11 +3,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					 "js/libs/ckfinder/ckfinder.js",
 					 "js/bootstrap.file-input.js", 
 					 getAsset("rankings")."js/admin-ranking.js"));
-
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -19,7 +14,7 @@ $session->AccessLevel($perfiles_autorizados);
 			array("ItemLabel"=>strTranslate("Rankings"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		rankingsController::createCategoryAction();
 		rankingsController::updateCategoryAction();
 
@@ -47,7 +42,7 @@ $session->AccessLevel($perfiles_autorizados);
 					<br />
 				<br />
 				<?php if ($id_ranking>0 ):?>
-				<?php endif; ?>
+				<?php endif;?>
 				</form>
 			</div>
 		</div>

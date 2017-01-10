@@ -44,14 +44,10 @@ if ($module_config['options']['allow_registration'] === true):
 				messageProcess($subject_mail, array($ini_conf['MailingEmail'] => $ini_conf['SiteName']), array($_POST['user-email']), $body_mail, null);
 				redirectURL("registration?m=1");
 			}
-			elseif ($confirmar == 2)
-				ErrorMsg("<p>Se ha producido algun error al confirmar sus datos.</p>");
-			elseif ($confirmar == 3)
-				ErrorMsg("<p>El nick <b>".$_POST['user-nick']."</b> ya existe.</p>");
-			elseif ($confirmar == 4)
-				ErrorMsg("<p>El código de tienda introducido no es válido.</p>");
-			elseif ($confirmar == 5)
-				ErrorMsg("<p>El DNI/usuario ya existe.</p>");
+			elseif ($confirmar == 2) ErrorMsg("<p>Se ha producido algun error al confirmar sus datos.</p>");
+			elseif ($confirmar == 3) ErrorMsg("<p>El nick <b>".$_POST['user-nick']."</b> ya existe.</p>");
+			elseif ($confirmar == 4) ErrorMsg("<p>El código de tienda introducido no es válido.</p>");
+			elseif ($confirmar == 5) ErrorMsg("<p>El DNI/usuario ya existe.</p>");
 		}
 
 		if (isset($_REQUEST['m']) and $_REQUEST['m'] == 1){ ?>

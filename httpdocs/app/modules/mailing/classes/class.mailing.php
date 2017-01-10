@@ -24,7 +24,7 @@ class mailing{
 	 * @return 	array 								Array con los mensajes
 	 */
 	public function getMessages($filter = ""){
-		$Sql = "SELECT * from mailing_messages  
+		$Sql = "SELECT * from mailing_messages 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -60,7 +60,7 @@ class mailing{
 	 */
 	public function getLists($filter = ""){
 		$Sql = "SELECT * from mailing_lists 
-			  WHERE 1=1 ".$filter;
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -96,10 +96,10 @@ class mailing{
 	 */
 	public function deleteList($id){
 		$Sql = "UPDATE mailing_lists SET
-				activo=0  
+				activo=0 
 				WHERE id_list=".$id;
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	/**
 	 * Templates/plantillas de mensajes
@@ -133,7 +133,7 @@ class mailing{
 	 */	
 	public function deleteListsUsers($id_list, $filter){
 		$Sql="DELETE FROM mailing_lists_users 
-			 WHERE id_list=".$id_list." ".$filter;
+			WHERE id_list=".$id_list." ".$filter;
 		return connection::execute_query($Sql);
 	}
 
@@ -170,7 +170,7 @@ class mailing{
 			FROM mailing_templates t 
 			LEFT JOIN mailing_templates_types tt ON tt.id_type=t.id_type 
 			LEFT JOIN campaigns c ON c.id_campaign=t.id_campaign 
-			  WHERE 1=1 ".$filter;
+			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
 
@@ -263,7 +263,7 @@ class mailing{
 	 */
 	public function insertMessage($id_template, $message_from_email, $message_from_name, $message_subject, $message_body, $message_lista, $username_add, $attachments, $date_scheduled = "NULL", $message_body2=""){
 		$nombre_archivo = "";
-		if ($attachments['name']!="") {
+		if ($attachments['name']!=""){
 			$nombre_archivo = time().'_'.str_replace(" ","_",$attachments['name']);
 			$nombre_archivo=NormalizeText($nombre_archivo);		
 			move_uploaded_file($attachments['tmp_name'], PATH_MAILING."attachments/".$nombre_archivo);
@@ -334,7 +334,7 @@ class mailing{
 	 * @param  	string 		$filter 				Filtro SQL
 	 * @return 	array 								Array con los registros
 	 */
-	public function getBlackListUser($filter = "") {
+	public function getBlackListUser($filter = ""){
 		$Sql="SELECT * from mailing_blacklist 
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
@@ -343,8 +343,8 @@ class mailing{
 	public function insertBlackListUsser($email_black){
 		//INSERTAR REGISTRO EN LA BBDD  
 		$Sql="INSERT INTO mailing_blacklist (email_black) 
-			 VALUES
-			 ('".$email_black."')";
+			VALUES 
+			('".$email_black."')";
 		return connection::execute_query($Sql);
 	}
 

@@ -15,7 +15,7 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 		<p><?php echo $cuestionario[0]['descripcion'];?></p>
 		<hr />
 		<?php
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		cuestionariosController::saveFormAction();
 		
 		$cuestionarios = new cuestionarios();
@@ -26,7 +26,7 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 			//obtener resultado de la valoracion
 			$valoracion = $cuestionarios->getFormulariosFinalizados(" AND user_tarea='".$_SESSION['user_name']."' AND id_cuestionario=".$id_cuestionario);
 			if (count($valoracion)>0){
-				if ($valoracion[0]['revision'] == 1){ $msg = "Enhorabuena, has conseguido un <b>".$valoracion[0]['puntos']."</b> en este cuestionario";}
+				if ($valoracion[0]['revision'] == 1){ $msg = "Has conseguido un <b>".$valoracion[0]['puntos']."</b> en este cuestionario";}
 				if ($valoracion[0]['revision'] == 0){ $msg = "Tus respuestas serán revisadas. Muy pronto podrás consultar la puntuación obtenida accediendo al cuestionario.";}
 			}
 			echo '<div class="alert alert-info"><span class="fa fa-info-circle"></span> '.$msg.'</div>';
@@ -41,10 +41,10 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 			
 			foreach($elements as $element):
 				$respuesta_user=$cuestionarios->getRespuestasUser(" AND id_pregunta=".$element['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");
-				if  (count($respuesta_user) == 0) { $respuesta_user[0]['respuesta_valor'] = "";}
-				echo '<div class="form-tarea-container">';
-				echo '<h5><span class="fa fa-chevron-circle-right "></span> '.$element['pregunta_texto'].'</h5>
-						<div>';
+				if (count($respuesta_user) == 0) { $respuesta_user[0]['respuesta_valor'] = "";}
+				echo '<div class="panel panel-default">';
+				echo '<div class="panel-body">';
+				echo '<h5><span class="fa fa-chevron-circle-right "></span> '.$element['pregunta_texto'].'</h5>';
 				if ($element['pregunta_tipo'] == 'texto'){
 					echo '<textarea class="form-control" name="respuesta_'.$element['id_pregunta'].'">'.$respuesta_user[0]['respuesta_valor'].'</textarea>';
 				}
@@ -74,7 +74,7 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 				echo '</div>';
 				echo '</div>';
 			endforeach;
-			if ($finalizados==0){
+			if ($finalizados == 0){
 				echo '<br /><input id="SubmitForm" class="btn btn-primary" type="submit" value="'.strTranslate("Save").'" />';
 				if (count($respuesta_user)>0){
 					echo ' <button id="FinalizarForm" class="btn btn-primary pull-right" type="button">Finalizar cuestionario</button>';

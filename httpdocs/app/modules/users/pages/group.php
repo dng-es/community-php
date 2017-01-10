@@ -53,9 +53,7 @@ $empresa = usersTiendasController::getItemAction($cod_empresa);
 						</p>
 					</div>
 				</div>
-
 				<?php panelAlerts();?>
-
 			</div>
 		</div>
 	</div>

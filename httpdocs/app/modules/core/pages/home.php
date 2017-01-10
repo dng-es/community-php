@@ -1,11 +1,9 @@
 <?php
-
 addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js", 
 					 getAsset("core")."js/home.js",
 					 getAsset("alerts")."js/alerts.js",
 					 getAsset("users")."js/searchuser.js",
 					 getAsset("novedades")."js/show.js"));
-
 
 templateload("panels", "alerts");
 templateload("panels", "blog");
@@ -22,11 +20,8 @@ templateload("panels", "agenda");
 templateload("searchuser", "users");
 
 $filtro_perfil = incentivosObjetivosController::getFiltroPerfil($_SESSION['user_perfil']);
-$filtro_canal = (($_SESSION['user_canal'] == 'admin' or $_SESSION['user_canal'] == '') ? "" : " AND (canal_objetivo='' OR canal_objetivo='".$_SESSION['user_canal']."') ");
-
-
+$filtro_canal = (($_SESSION['user_canal'] == 'admin') ? "" : " AND canal_objetivo LIKE '%".$_SESSION['user_canal']."%' ");
 $rankings = incentivosObjetivosController::getListAction(99, $filtro_perfil.$filtro_canal." AND activo_objetivo=1 AND ranking_objetivo=1 ");
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -41,19 +36,26 @@ $rankings = incentivosObjetivosController::getListAction(99, $filtro_perfil.$fil
 		<div class="row">
 			<div class="col-md-8">
 				<?php panelNovedades();?>
+				<div class="col-md-6 nopadding">
+					<?php panelAreas();?>
+				</div>
+				
+				<div class="col-md-6">
+					<?php panelForos();?>
+				</div>
 
-				<?php foreach($rankings['items'] as $ranking):?>
-					<?php panelRanking($ranking['id_objetivo']);?>
-				<?php endforeach;?>
-
+				<div class="col-md-12 nopadding">
+					<?php foreach($rankings['items'] as $ranking):?>
+						<?php panelRanking($ranking['id_objetivo']);?>
+					<?php endforeach;?>
+				</div>
 			</div>
 			<div class="col-md-4">
 				<?php panelDestacado();?>
 				<?php panelBlog();?>
 				<?php panelFotos();?>
 				<?php panelVideos();?>
-				<?php panelAreas();?>	
-				<?php panelForos();?>
+				<?php panelNovedadesBanner();?>
 			</div>
 		</div>
 	</div>

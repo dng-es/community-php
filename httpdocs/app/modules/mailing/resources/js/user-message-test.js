@@ -11,7 +11,7 @@ jQuery(document).ready(function(){
 		evento.preventDefault();
 
 		if (jQuery.trim($("#email_test").val()) == ""){
-			 alert("Debes introducir los destinatarios.");
+			alert("Debes introducir los destinatarios.");
 		}
 		else{
 			$.ajax({

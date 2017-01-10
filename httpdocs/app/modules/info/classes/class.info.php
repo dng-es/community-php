@@ -18,7 +18,7 @@ class info{
 	public function deleteInfo($id, $documento){
 		unlink(PATH_INFO.$documento);
 		$Sql = "DELETE FROM info
-			 	WHERE id_info=".$id;
+				WHERE id_info=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -40,7 +40,7 @@ class info{
 		return connection::execute_query($Sql);
 	}
 
-	public function updateInfoDoc($id, $nombre_archivo){ 
+	public function updateInfoDoc($id, $nombre_archivo){
 		$Sql = "UPDATE info SET
 				file_info='".$nombre_archivo."' 
 				WHERE id_info=".$id;
@@ -51,6 +51,18 @@ class info{
 		$Sql = "INSERT INTO info_alerts (id_info,username_alert)
 				SELECT id_info, '".$_SESSION['user_name']."' FROM info WHERE id_info NOT IN (SELECT  id_info FROM info_alerts WHERE username_alert = '".$_SESSION['user_name']."')";
 		return connection::execute_query($Sql);
+	}
+
+	public function insertInfoView($user_file, $id_file){
+		$Sql = "INSERT INTO info_views (username_view,id_file) 
+				VALUES ('".$user_file."',".$id_file.")";
+		return connection::execute_query($Sql);
+	}
+
+	public function getInfoViews($filter = ""){
+		$Sql = "SELECT * FROM info_views
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
 	}
 }
 ?>

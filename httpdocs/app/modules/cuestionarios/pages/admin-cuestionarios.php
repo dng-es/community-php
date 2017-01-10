@@ -19,7 +19,7 @@
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-cuestionario"><?php e_strTranslate("New_form");?></a></li>
 					<div class="pull-right">
-						<?php echo SearchForm($elements['reg'],"admin-cuestionarios","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>	
+						<?php echo SearchForm($elements['reg'],"admin-cuestionarios","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
 					</div>
 				</ul>
 
@@ -30,7 +30,7 @@
 					<th><?php e_strTranslate("Name");?></th>
 					<th><center><?php e_strTranslate("Active");?></center></th>
 					</tr>
-					<?php foreach($elements['items'] as $element): ?>
+					<?php foreach($elements['items'] as $element):?>
 						<tr>
 						<td nowrap="nowrap">
 							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
@@ -56,9 +56,8 @@
 						<td><?php echo $element['nombre'];?>
 						<br /><em class="text-muted"><small><?php echo getDateFormat($element['date_tarea'], "LONG");?></small></em></td>
 						<td><center><a href="admin-cuestionarios?act=del&e=<?php echo ($element['activo']==1 ? 0 : 1);?>&id=<?php echo $element['id_cuestionario'];?>"><span class="label<?php echo ($element['activo']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['activo']==1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></a></center></td>
-
 						</tr>
-					<?php endforeach; ?>
+					<?php endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

@@ -28,7 +28,7 @@ class footer{
 				<img src="themes/<?php echo $_SESSION['user_theme'];?>/images/logo.png" class="img-responsive" />
 				<p><small>powered by Grass Roots <?php echo date("Y");?></small></p>
 			</div>
-		</div>		
+		</div>
 
 		<!-- Modal Derechos y responsabilidades (declaración)-->
 		<div class="modal modal-wide fade" id="declaracionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -69,8 +69,8 @@ class footer{
 	* Includes Piwik block for statistics
 	*/	
 	public static function PageFooter(){
-	  	global $ini_conf, $paginas_free,$page;
-	  	if (!in_array($page, $paginas_free)){
+		global $ini_conf, $paginas_free,$page;
+		if (!in_array($page, $paginas_free)){
 			self::PageFooterInfo();
 			echo '</div>';
 		}

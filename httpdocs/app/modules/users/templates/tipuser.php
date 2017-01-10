@@ -1,5 +1,4 @@
 <?php
-
 function userTip($user_data, $estrellas_print){
 	$foto = usersController::getUserFoto($user_data['foto']);
 	$output = '<div class="text-left inset-small">
@@ -31,7 +30,9 @@ function userTip($user_data, $estrellas_print){
 	}
 	//$output .= '	<span class="ficha-user-tip-info">Centro de trabajo: <span>'.$user_data['nombre_tienda'].'</span></span><br />';
 	//$output .= '	<span class="ficha-user-tip-info">Provincia: <span>'.$user_data['provincia'].'</span></span><br />';
-	$output .= '	<span>'.ucfirst(strTranslate("APP_points")).': <span class="ficha-user-tip-info">'.$user_data['puntos'].'</span></span><br />';
+	if ($_SESSION['show_user_points']){
+		$output .= '	<span>'.ucfirst(strTranslate("APP_points")).': <span class="ficha-user-tip-info">'.$user_data['puntos'].'</span></span><br />';
+	}
 	$output .= (trim($user_data['user_comentarios']) != "" ? '<br /><i class="left-quote fa fa-quote-left"></i><span class="text-muted"><em><small>'.$user_data['user_comentarios'].'</small></em></span><br />' : "");	
 	$output .= '	</span>
 					</td>
@@ -52,7 +53,7 @@ function userFicha($user_data){
 }
 
 function userEstrellas($participaciones){
-	$estrellas = $participaciones/APORTACIONES_VALORACION;
+	$estrellas = $participaciones / APORTACIONES_VALORACION;
 	$estrellas_print = "";
 	for ($i = 1; $i <= 5; $i++){
 		if ($estrellas >= $i) $clase = "fa fa-star star-on";

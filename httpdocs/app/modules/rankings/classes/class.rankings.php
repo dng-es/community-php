@@ -28,7 +28,7 @@ class rankings{
 	 * Inserta registro en rankings
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertRankings( $nombre_ranking, $descripcion_ranking, $activo = 0, $id_ranking_category = 0 ){		
+	public function insertRankings( $nombre_ranking, $descripcion_ranking, $activo = 0, $id_ranking_category = 0 ){
 		$Sql = "INSERT INTO users_tiendas_rankings (nombre_ranking, descripcion_ranking, activo, id_ranking_category) 
 			  VALUES ('".$nombre_ranking."','".$descripcion_ranking."',".$activo.",".$id_ranking_category.")";
 		return connection::execute_query($Sql);
@@ -109,7 +109,7 @@ class rankings{
 	 * Inserta registro en rankings
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function deleteRankingsData($filtro){		
+	public function deleteRankingsData($filtro){
 		$Sql = "DELETE FROM users_tiendas_rankings_data 
 				WHERE ".$filtro;
 		return connection::execute_query($Sql);

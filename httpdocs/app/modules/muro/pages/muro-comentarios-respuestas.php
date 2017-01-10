@@ -15,7 +15,7 @@ $comentario_muro = $muro->getComentarios($filtro_comentario);
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>"Respuestas en el muro", "ItemClass"=>"active"),
 		));
-		?>		
+		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<i class="left-quote fa fa-quote-left"></i>
@@ -47,7 +47,7 @@ $comentario_muro = $muro->getComentarios($filtro_comentario);
 				<input type="hidden" name="id_comentario_responder" id ="id_comentario_responder" value="<?php echo $id_comentario;?>" />
 				<textarea maxlength="160" class="form-control" id="texto-responder" name="texto-responder"></textarea>
 				<button class="btn btn-primary btn-block" type="button" id="muro-submit" name="muro-submit"><?php e_strTranslate("Reply");?></button>
-			</form>	
+			</form>
 			<div id="result-muro"></div>
 		</div>
 	</div>

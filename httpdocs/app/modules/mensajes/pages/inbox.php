@@ -1,8 +1,7 @@
 <?php
 templateload("addmessage","mensajes");
-
 addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
-?>  
+?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -29,13 +28,13 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 					<table class="table">
 					<?php foreach($elements['items'] as $mensaje):
 						if ($mensaje['estado'] == 0){$estilo_leido="MensajeNoLeido";$estilo_titulo="TituloNoleido ";}
-						else {$estilo_leido = "";$estilo_titulo = "";} ?>
+						else {$estilo_leido = "";$estilo_titulo = "";}?>
 						
 						<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo <?php echo $estilo_leido;?>">
 							<td nowrap="nowrap" valign="top">
 								<button type="button" class="btn btn-default btn-xs" onClick="Confirma('¿Seguro que desea eliminar el mensaje?', 'inbox?act=ko&id=<?php echo $mensaje['id_mensaje'];?>'); return false;" title="<?php e_strTranslate("Delete");?>"><i class="fa fa-trash icon-table"></i></button>
 
-								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Reply");?>"><i data-id="<?php echo $mensaje['id_mensaje'];?>" class="fa fa-reply icon-table message-reply"></i></button>
+								<button type="button" class="btn btn-default btn-xs message-reply" data-id="<?php echo $mensaje['id_mensaje'];?>" title="<?php e_strTranslate("Reply");?>"><i class="fa fa-reply icon-table"></i></button>
 							</td>
 							<td valign="top" nowrap="nowrap"><span id="leidoMensajeNick<?php echo $mensaje['id_mensaje'];?>"><span id="message-nick-<?php echo $mensaje['id_mensaje'];?>"><?php echo $mensaje['nick'];?></span></span></td>
 							<td width="100%" valign="top">
@@ -48,7 +47,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 								<?php echo showHtmlLinks(nl2br($mensaje['mensaje_cuerpo']));?>
 							</td>
 						</tr>
-					<?php endforeach; ?>
+					<?php endforeach;?>
 					</table>
 				</div>
 			</div>
@@ -64,5 +63,4 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 		</div>
 	</div>
 </div>
-
 <?php addMensaje();?>

@@ -6,17 +6,17 @@ function userNaAreas($username){
 	$na_areas = new na_areas();
 	?>
 	<table class="table table-striped">
-		<?php foreach($elements as $element): ?>
+		<?php foreach($elements as $element):?>
 			<tr>
 				<td>
 					<label><small><?php echo $element['area_nombre'];?></small></label><br />
-					<small class="text-muted"><?php echo getDateFormat($element['fecha_tarea'], "DATE_FORMAT_SHORT");?></small> 
+					<small class="text-muted"><?php echo getDateFormat($element['fecha_tarea'], "DATE_FORMAT_SHORT");?></small>
 				</td>
 				<td>
 					<small><?php echo $element['tarea_titulo'];?></small>
-					<?php if ($element['tipo'] == 'formulario'): ?>
+					<?php if ($element['tipo'] == 'formulario'):?>
 					<br /><small><a href="areas_form?id=<?php echo $element['id_tarea'];?>" target="_blank"><?php e_strTranslate("My_answers");?></a></small>
-					<?php else: 
+					<?php else:
 					$archivos = $na_areas->getTareasUser(" AND user_tarea='".$username."' AND id_tarea=".$element['id_tarea']." ");
 					foreach($archivos as $archivo): ?>
 						<br /><small><a href="docs/showfile.php?t=1&file=<?php echo $archivo['file_tarea'];?>" target="_blank"><?php echo $archivo['file_tarea'];?></a></small>
@@ -25,16 +25,16 @@ function userNaAreas($username){
 				</td>
 				<td>
 					<?php if ($element['tipo'] == 'formulario'):?>
-						<?php if ($element['revision'] == 1): ?>
+						<?php if ($element['revision'] == 1):?>
 							<?php if ($element['puntos'] >= $points_to_success): ?>
 							<i class="fa fa-trophy fa-medium"><small><?php echo $element['puntos'];?></small></i>
 							<?php else:?>
 							<small class="text-muted"><?php echo $element['puntos'];?></small>
 							<?php endif;?>
-						<?php else: ?>
+						<?php else:?>
 							<small class="text-muted">pendiente revision</small>
 						<?php endif;?>
-					<?php endif; ?>
+					<?php endif;?>
 				</td>
 			</tr>
 		<?php endforeach;?>

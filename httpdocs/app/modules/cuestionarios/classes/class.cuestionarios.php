@@ -1,6 +1,5 @@
 <?php
 class cuestionarios{
-
 	/**
 	 * Devuelve array con los registros
 	 * @param  string 	$filter 	Filtro SQL
@@ -15,7 +14,7 @@ class cuestionarios{
 	 * Inserta registro en cuestionarios
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertCuestionarios($nombre, $descripcion){		
+	public function insertCuestionarios($nombre, $descripcion){
 		$Sql = "INSERT INTO cuestionarios (nombre, descripcion) 
 				VALUES ('".$nombre."', '".$descripcion."')";
 		return connection::execute_query($Sql);
@@ -56,15 +55,15 @@ class cuestionarios{
 		else return false;
 	}
 
-	public function insertPregunta($id_cuestionario, $pregunta_texto, $pregunta_tipo){	
+	public function insertPregunta($id_cuestionario, $pregunta_texto, $pregunta_tipo){
 		$Sql = "INSERT INTO cuestionarios_preguntas (id_cuestionario,pregunta_texto,pregunta_tipo) VALUES
 		(".$id_cuestionario.",'".$pregunta_texto."','".$pregunta_tipo."')";
 		return connection::execute_query($Sql);
 	}
 
-	public function insertPreguntaRespuesta($id_pregunta, $respuesta_texto){	
-		$Sql = "INSERT INTO cuestionarios_respuestas (id_pregunta,respuesta_texto) VALUES
-		(".$id_pregunta.",'".$respuesta_texto."')";
+	public function insertPreguntaRespuesta($id_pregunta, $respuesta_texto, $correcta){
+		$Sql = "INSERT INTO cuestionarios_respuestas (id_pregunta,respuesta_texto,correcta) VALUES
+		(".$id_pregunta.",'".$respuesta_texto."',".$correcta.")";
 		return connection::execute_query($Sql);
 	}
 
@@ -80,7 +79,7 @@ class cuestionarios{
 		return connection::getSQL($Sql);  
 	}
 
-	public function insertRespuesta($id_pregunta, $respuesta_user, $respuesta_valor){	
+	public function insertRespuesta($id_pregunta, $respuesta_user, $respuesta_valor){
 		//verificar si ya existe una respuesta para hacer insert o update
 		if (connection::countReg("cuestionarios_respuestas_user", " AND id_pregunta=".$id_pregunta." AND respuesta_user='".$respuesta_user."' ") == 0)
 			$Sql = "INSERT INTO cuestionarios_respuestas_user (id_pregunta,respuesta_user,respuesta_valor) VALUES
@@ -93,14 +92,14 @@ class cuestionarios{
 		return connection::execute_query($Sql);
 	}
 
-	public function getFormulariosFinalizados($filter = "") {
+	public function getFormulariosFinalizados($filter = ""){
 		$Sql = "SELECT f.*,u.name AS name,u.nick AS nick FROM cuestionarios_finalizados f 
 				LEFT JOIN users u ON u.username=f.user_tarea 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);  
 	}
 
-	public function insertFormulariosFinalizados($id_cuestionario, $user_tarea){	
+	public function insertFormulariosFinalizados($id_cuestionario, $user_tarea){
 		$Sql = "INSERT INTO cuestionarios_finalizados (id_cuestionario,user_tarea) VALUES
 		(".$id_cuestionario.",'".$user_tarea."')";
 		return connection::execute_query($Sql);
@@ -119,13 +118,13 @@ class cuestionarios{
 		return connection::getSQL($Sql);
 	}
 
-	public function RevisarTareaFormUser($usuario, $id_tarea, $puntos, $revisor){
+	public function RevisarTareaFormUser($usuario, $id_cuestionario, $puntos, $revisor){
 		$Sql = "UPDATE cuestionarios_finalizados SET
 				revision=1,
 				puntos=".$puntos.",
 				user_revision='".$revisor."',
 				date_revision=NOW() 
-				WHERE id_cuestionario=".$id_tarea." 
+				WHERE id_cuestionario=".$id_cuestionario." 
 				AND user_tarea='".$usuario."' ";
 		return connection::execute_query($Sql);
 	}

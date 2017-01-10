@@ -1,6 +1,5 @@
 <?php
 class configuration{
-
 	function getConfigIni($filter = ""){
 		$Sql = "SELECT * FROM config WHERE 1=1 ".$filter;
 		$result=connection::execute_query($Sql);
@@ -55,11 +54,11 @@ class configuration{
 				panel_visible=1
 				WHERE panel_name='".$panel_name."' AND page_name='".$page_name."' ";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	public function deletePanel($filter = ""){
 		$Sql = "UPDATE config_panels SET panel_visible=0 WHERE 1=1 ". $filter;
 		return connection::execute_query($Sql);
-	}	
+	}
 }
 ?>

@@ -9,7 +9,7 @@ function ForoList($sub_tema){
 	else $tipo_tema = "";
 	echo '	<article class="noticias-foro">
 				<a href="noticias-comentarios?id='.$sub_tema['id_tema'].'"><img src="'.PATH_FORO_FOTO.$sub_tema['imagen_tema'].'" /></a>
-				<h3><a href="noticias-comentarios?id='.$sub_tema['id_tema'].'">'.$sub_tema['nombre'].'</a></h3>		
+				<h3><a href="noticias-comentarios?id='.$sub_tema['id_tema'].'">'.$sub_tema['nombre'].'</a></h3>
 				<p>'.$descripcion.'</p>
 				<div class="contador-foro">
 					<span class="icon-calendar-empty menuicon-foros" title="fecha"></span>
@@ -17,7 +17,7 @@ function ForoList($sub_tema){
 					<span class="icon-comment-alt menuicon-foros" title="comentarios en el foro"></span>
 					<span class="contador-foro-counter">'.$num_comentarios.'</span> 
 					<span class="icon-eye-open menuicon-foros" title="visitas al foro"></span>
-					<span class="contador-foro-counter">'.$num_visitas.'</span>'.$tipo_tema.'			
+					<span class="contador-foro-counter">'.$num_visitas.'</span>'.$tipo_tema.'
 				</div>
 			</article>';
 }

@@ -3,6 +3,8 @@ templateload("cmbCanales", "users");
 
 function PanelSubirVideo($id_promocion = 0){
 	$module_config = getModuleConfig("videos");
+	$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
+	$filter_videos = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (v.canal IN (".$module_channels.") OR v.canal='') ");
 	if ($module_config['options']['allow_uploads'] == true or $_SESSION['user_canal'] == 'admin'){?>
 	<h4>
 		<span class="fa-stack fa-sx">
@@ -33,7 +35,7 @@ function PanelSubirVideo($id_promocion = 0){
 		<div class="tags">
 		<?php
 		$videos = new videos();
-		$tags = $videos->getTags(""); //print_r($tags);
+		$tags = $videos->getTags($filter_videos); //print_r($tags);
 		$valor_max = max($tags);
 		$valor_min = min($tags);
 		$diferencia = $valor_max - $valor_min;

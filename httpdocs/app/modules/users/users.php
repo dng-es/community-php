@@ -3,7 +3,7 @@
 * @Modulo de usuarios
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.2
+* @version 1.3
 * 
 */
 class usersCore{
@@ -22,7 +22,6 @@ class usersCore{
 							"LabelTarget" => '_self',
 							"LabelPos" => $menu_order));
 		}
-
 		return $array_final;
 	}
 
@@ -87,7 +86,7 @@ class usersCore{
 				"LabelItem" => strTranslate("Channel_new"),
 				"LabelUrl" => "admin-canal",
 				"LabelPos" => 7,
-			)),	*/	
+			)),	*/
 			menu::addAdminMenu(array(
 				"PageName" => "admin-informe-puntuaciones",
 				"LabelHeader" => "Tools",

@@ -15,32 +15,32 @@ class batallasController{
 	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export']==true){
 			$batallas = new batallas();
 			$elements = $batallas->getBatallas(" ORDER BY date_batalla DESC ");
 			download_send_headers( strTranslate("Battles") . "_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
-		}  		
+		}
 	}
 
 	public static function responderBatallaAction(){
 		if (isset($_POST['batalla-create']) and $_POST['batalla-create']==1){
 			//insertar respuestas del usuario
 			self::responderBatalla();
-		}		
+		}
 	}
 
 	public static function responderContrincarioBatallaAction(){
 		if (isset($_POST['batalla-play']) and $_POST['batalla-play']==1){
 			//insertar respuestas del usuario
 			self::responderBatalla();
-		}		
+		}
 	}
 
 	public static function responderBatalla(){
 		$batallas = new batallas();
-		$id_batalla = (isset($_POST['id_batalla']) ? $_POST['id_batalla'] : 0) ;
+		$id_batalla = (isset($_POST['id_batalla']) ? $_POST['id_batalla'] : 0);
 		//obtener datos de la lucha del usuario
 		$lucha = $batallas->getBatallasLuchas(" AND id_batalla=".$id_batalla. " AND user_lucha='".$_SESSION['user_name']."' ");
 
@@ -56,11 +56,11 @@ class batallasController{
 		$tiempo_lucha = strtotime('now') - strtotime($lucha[0]['date_lucha']);
 		$aciertos = 0;
 		$acierto1 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta1']." ");
-		if ($_POST['respuesta1']==$acierto1[0]['valida']){$aciertos++;}
+		if ($_POST['respuesta1']==$acierto1[0]['valida']) $aciertos++;
 		$acierto2 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta2']." ");
-		if ($_POST['respuesta2']==$acierto2[0]['valida']){$aciertos++;}
+		if ($_POST['respuesta2']==$acierto2[0]['valida']) $aciertos++;
 		$acierto3 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta3']." ");
-		if ($_POST['respuesta3']==$acierto3[0]['valida']){$aciertos++;}
+		if ($_POST['respuesta3']==$acierto3[0]['valida']) $aciertos++;
 		//$acierto4 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta4']." ");
 		//if ($_POST['respuesta4']==$acierto4[0]['valida']){$aciertos++;}
 		//$acierto5 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta5']." ");
@@ -74,12 +74,12 @@ class batallasController{
 	
 		//texto del emnsaje al usuario
 		$mensaje = "";
-		if (isset($ganador[0]['ganador']) and $ganador[0]['ganador'] != "") {
-		  	if ($ganador[0]['ganador'] == $_SESSION['user_name']){$mensaje = "Has ganado esta batalla.\n";}
-		  	else {$mensaje = "Has perdido esta batalla.\n";}
+		if (isset($ganador[0]['ganador']) and $ganador[0]['ganador'] != ""){
+			if ($ganador[0]['ganador'] == $_SESSION['user_name']) $mensaje = "Has ganado esta batalla.\n";
+			else $mensaje = "Has perdido esta batalla.\n";
 		}
 
-		if ($aciertos<2){
+		if ($aciertos < 2){
 			$mensaje .= ' Ummm, solo has acertado '.$aciertos.' preguntas en un tiempo de '.$tiempo_lucha.' segundos';
 			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-warning");
 		}
@@ -93,6 +93,6 @@ class batallasController{
 
 	public static function deleteBatallasCaducadasAction(){
 		batallas::deleteBatallasCaducadas();
-	}	
+	}
 }
 ?>

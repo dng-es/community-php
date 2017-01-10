@@ -10,15 +10,16 @@ class users{
 		return connection::getSQL($Sql);
 	}
 
-	public function insertCanal($canal, $canal_name, $theme){
-		$Sql = "INSERT INTO canales (canal, canal_name, theme) 
-				VALUES ('".$canal."','".$canal_name."', '".$theme."')";
+	public function insertCanal($canal, $canal_name, $theme, $canal_lan){
+		$Sql = "INSERT INTO canales (canal, canal_name, theme, canal_lan) 
+				VALUES ('".$canal."','".$canal_name."', '".$theme."','".$canal_lan."')";
 		return connection::execute_query($Sql);
 	}
 
-	public function updateCanal($canal, $canal_name, $theme){
+	public function updateCanal($canal, $canal_name, $theme, $canal_lan){
 		$Sql = "UPDATE canales SET 
 				canal_name='".$canal_name."', 
+				canal_lan='".$canal_lan."', 
 				theme='".$theme."' 
 				WHERE canal='".$canal."' ";
 		return connection::execute_query($Sql);
@@ -48,12 +49,18 @@ class users{
 	public function insertUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered = 0, $direccion_user = '', $ciudad_user = '', $provincia_user = '', $cpostal_user = ''){
 		if ($perfil == 'admin') $canal = 'admin';
 		 
-		$Sql = "INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, 
-			  empresa, perfil, telefono, surname, user_comentarios, registered, direccion_user, ciudad_user, provincia_user, cpostal_user) 
-			  VALUES ('".$username."','".$user_password."','".$email."','".$name_user."',".$confirmed.",".$disabled.",
-			  '".$canal."','".$empresa."','".$perfil."','".$telefono."','".$surname."','',".$registered.", '".$direccion_user."', '".$ciudad_user."', '".$provincia_user."', '".$cpostal_user."')";
+		$Sql = "INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, empresa, perfil, telefono, surname, user_comentarios, registered, direccion_user, ciudad_user, provincia_user, cpostal_user) 
+			  VALUES ('".$username."','".$user_password."','".$email."','".$name_user."',".$confirmed.",".$disabled.", '".$canal."','".$empresa."','".$perfil."','".$telefono."','".$surname."','',".$registered.", '".$direccion_user."', '".$ciudad_user."', '".$provincia_user."', '".$cpostal_user."')";
 		return connection::execute_query($Sql);
 	}
+
+	public function insertUserCarga($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered = 0, $direccion_user = '', $ciudad_user = '', $provincia_user = '', $cpostal_user = '', $user_lan){
+		if ($perfil == 'admin') $canal = 'admin';
+		 
+		$Sql = "INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, empresa, perfil, telefono, surname, user_comentarios, registered, direccion_user, ciudad_user, provincia_user, cpostal_user, user_lan) 
+			  VALUES ('".$username."','".$user_password."','".$email."','".$name_user."',".$confirmed.",".$disabled.", '".$canal."','".$empresa."','".$perfil."','".$telefono."','".$surname."','',".$registered.", '".$direccion_user."', '".$ciudad_user."', '".$provincia_user."', '".$cpostal_user."','".$user_lan."')";
+		return connection::execute_query($Sql);
+	}	
 
 	public function insertUserEquipo($username, $empresa, $name_user, $surname, $email, $telefono){
 		$Sql="INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, 
@@ -363,10 +370,10 @@ class users{
 		}
 	}
 
-	public static function posicionRanking($username){
+	public static function posicionRanking($username, $filtro_canal){
 		$Sql = "SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM 
 			(SELECT * FROM users WHERE  puntos>=
-			(SELECT puntos FROM users WHERE username='".$username."') AND perfil<>'admin' ORDER BY puntos DESC,username ASC) r,  
+			(SELECT puntos FROM users WHERE username='".$username."') ".$filtro_canal." AND perfil<>'admin' ORDER BY puntos DESC,username ASC) r,  
 			(SELECT @rownum:=0) ro ) f WHERE username='".$username."'";
 		$result = connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
 		$row = connection::get_result($result);

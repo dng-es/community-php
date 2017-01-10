@@ -43,7 +43,7 @@ if (count($ranking_data)>0):
 		</div>
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
-		<div class="panel-interior hidden-xs">	
+		<div class="panel-interior hidden-xs">
 			<h3>rankings</h3>
 			<p class="text-center"><i class="fa fa-trophy fa-big"></i></p>
 		</div>

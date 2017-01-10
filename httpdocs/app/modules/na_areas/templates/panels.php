@@ -23,5 +23,4 @@ function panelAreas(){
 			<a href="areas"><span class="fa fa-search"></span> <?php e_strTranslate("More_contents");?></a>
 		</div>
 	</div>
-
-<?php } ?>
+<?php }?>

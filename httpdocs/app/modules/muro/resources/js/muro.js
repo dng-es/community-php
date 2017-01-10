@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 	showMuro();
-	var timer = setInterval( showMuro, 10000);
+	var timer = setInterval(showMuro, 10000);
 	
 	function showMuro(){
 		$("#cargando").css("display", "inline");

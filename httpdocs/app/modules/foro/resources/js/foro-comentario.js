@@ -3,16 +3,20 @@ jQuery(document).ready(function(){
 	var maxsize_textarea = 600;
 
 	$("#texto-comentario").bootstrapTextArea({
-								title: "Nuevo comentario", 
-								lblSave: "Aceptar",
-								lblZoom: "Ampliar",
-								rows: 20
-								});
-
+		title: "Nuevo comentario", 
+		saveText: "Aceptar",
+		zoomText: "Ampliar",
+		rows: 20,
+		icon: "fa fa-pencil",
+		autoexpand: true,
+		maxSizeElement: maxsize_textarea,
+		counter: true,
+		counterText: "Caracteres",
+		counterCss: { display: "inline-block", color: "#666666", background: "transparent"}
+	});
 	
-	$(".jtextareaComentar").jtextarea({maxSizeElement: maxsize_textarea,
-				cssElement: { display: "inline-block", color: "#666666", background: "transparent"}});
-
+	// $(".jtextareaComentar").jtextarea({maxSizeElement: maxsize_textarea,
+	// 			cssElement: { display: "inline-block", color: "#666666", background: "transparent"}});
 
 	$(".comment-info .label").tooltip({
 		placement: "bottom",
@@ -23,10 +27,10 @@ jQuery(document).ready(function(){
 		var resultado_ok = true;
 		if (jQuery.trim($('#texto-comentario').removeClass("input-alert").val()) == ""){
 			$('#texto-comentario').addClass("input-alert").attr("placeholder", $('#texto-comentario').prop("title")).focus();
-			 resultado_ok = false;
+			resultado_ok = false;
 		}
 		if (document.getElementById('texto-comentario').value.length > maxsize_textarea){
-			 resultado_ok = false;
+			resultado_ok = false;
 		}
 		return resultado_ok;
 	});

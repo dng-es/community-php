@@ -49,7 +49,7 @@ $canal = "";
 		}
 		else $inicio = ($pag - 1) * $reg;
 
-		if (isset($_POST['find_reg']) and $_POST['find_reg'] != "") {
+		if (isset($_POST['find_reg']) and $_POST['find_reg'] != ""){
 			$filtro_subtemas.=" AND (nombre LIKE  '%".$_POST['find_reg']."%') ";
 			$find_reg = $_POST['find_reg'];
 		}
@@ -57,12 +57,12 @@ $canal = "";
 			$filtro_subtemas .= " AND (nombre LIKE '%".$_REQUEST['f']."%') ";
 			$find_reg = $_REQUEST['f'];
 		}
-		if (isset($_POST['find_tipo']) and $_POST['find_tipo'] != "") {
+		if (isset($_POST['find_tipo']) and $_POST['find_tipo'] != ""){
 			$filtro_subtemas .= " AND tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
 			$find_tipo = $_POST['find_tipo'];
 			$marca = 1;
 		}
-		if (isset($_REQUEST['m']) and $_REQUEST['m'] == 1) {
+		if (isset($_REQUEST['m']) and $_REQUEST['m'] == 1){
 			$filtro_subtemas .= " AND tipo_tema LIKE '%".$_REQUEST['t']."%' ";
 			$find_tipo = $_REQUEST['t'];
 			$marca = 1;
@@ -71,7 +71,7 @@ $canal = "";
 		$total_reg = connection::countReg("foro_temas", $filtro_subtemas);
 		$sub_temas = $foro->getTemas($filtro_subtemas." ORDER BY id_tema DESC  LIMIT ".$inicio.",".$reg);
 		foreach($sub_temas as $sub_tema):
-			ForoList($sub_tema);		
+			ForoList($sub_tema);
 		endforeach;
 		ForoPaginator($pag, $reg, $total_reg, 'foro-subtemas?id='.$id_tema_parent, 'temas', $find_reg, $find_tipo, $marca);	 
 		}?>
@@ -81,7 +81,6 @@ $canal = "";
 		<div class="panel-interior">
 			<?php
 			hook_sidebar_right();
-
 
 			//BUSCADOR
 			ForoSearch($reg,'foro-subtemas?id='.$id_tema_parent, $find_reg, $marca, $find_tipo);

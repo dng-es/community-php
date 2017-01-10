@@ -25,7 +25,7 @@ function getImages(){
 
 $(window).scroll(function(){
 	/*$(".footer").outerHeight()*/
-	if( ($(window).scrollTop()) == ($(document).height() - $(window).height()))    {
+	if( ($(window).scrollTop()) == ($(document).height() - $(window).height())){
 		getImages();
 	}
 });
@@ -116,13 +116,10 @@ jQuery(document).ready(function(){
 								
 							}
 						});
-
-
 					}
 				});
 			}
 		});
-
 		return false;
 	});
 

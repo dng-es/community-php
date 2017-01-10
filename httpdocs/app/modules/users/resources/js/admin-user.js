@@ -5,12 +5,8 @@ jQuery(document).ready(function(){
 	$('#myTab li:eq(' + tab_default + ') a').tab('show')
 
 	$(".permission-check").change(function(){
-		if ($(this).is(':checked')){
-			$(this).next().val("1");
-		}
-		else{
-			$(this).next().val("0");
-		}
+		if ($(this).is(':checked')) $(this).next().val("1");
+		else $(this).next().val("0");
 	});
 
 	$("#formData").submit(function(evento){

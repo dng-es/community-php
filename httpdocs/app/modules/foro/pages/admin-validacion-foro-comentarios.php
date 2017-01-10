@@ -1,14 +1,8 @@
 <?php
 $filter = " AND estado=1 ORDER BY id_comentario DESC";
-
 //EXPORT COMMENTS
 foroController::exportCommentsAction($filter);
-
-session::getFlashMessage( 'actions_message' );
-foroController::validateComentarioAction();
-foroController::cancelComentarioAction();
-$elements = foroController::getListComentariosAction(15, $filter);?>
-
+?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php menu::breadcrumb(array(
@@ -16,10 +10,15 @@ $elements = foroController::getListComentariosAction(15, $filter);?>
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Forums"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>"Comentarios en los foros", "ItemClass"=>"active"),
-		));?>
+		));
+		session::getFlashMessage( 'actions_message' );
+		foroController::validateComentarioAction();
+		foroController::cancelComentarioAction();
+		$elements = foroController::getListComentariosAction(15, $filter);
+		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default"> 
+				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_FORO;?></b></a></li>
 					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
 				</ul>

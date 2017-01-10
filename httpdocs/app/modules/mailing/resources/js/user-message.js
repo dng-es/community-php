@@ -22,7 +22,7 @@ jQuery(document).ready(function(){
 				.attr("action", "user-message?id=" + $("#template_message").val() + "&accion2=ok")
 				.submit();
 		}
-	});	
+	});
 
 	$("#SubmitAgenda").click(function(evento){
 		if (sendForm("agenda")){
@@ -83,7 +83,7 @@ jQuery(document).ready(function(){
 				fecha = new Date (fecha);
 				if (fecha.valueOf() < now.valueOf()){
 					$("#user-date-alert").html("Debes insertar una fecha posterior a hoy.").fadeIn().css("display", "block");
-				 	resultado_ok = false;
+					resultado_ok = false;
 				}
 			}
 		}

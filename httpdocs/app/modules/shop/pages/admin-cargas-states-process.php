@@ -1,7 +1,4 @@
-<?php
-set_time_limit(0);
-?>
-
+<?php set_time_limit(0);?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -15,7 +12,7 @@ set_time_limit(0);
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<?php 
-				if (isset($_FILES['nombre-fichero']['name'])) {
+				if (isset($_FILES['nombre-fichero']['name'])){
 					$fichero=$_FILES['nombre-fichero'];
 					//SUBIR FICHERO		
 					$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
@@ -36,7 +33,7 @@ set_time_limit(0);
 							$data->read('docs/cargas/'.$nombre_archivo);
 							
 							/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
-							volcarMySQL($data);				   
+							volcarMySQL($data);
 						}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
 					}
 				}?>
@@ -46,19 +43,17 @@ set_time_limit(0);
 	<?php menu::adminMenu();?>
 </div>
 
-
 <?php
-
-function volcarMySQL($data) {
+function volcarMySQL($data){
 	$users = new users();
-	$contador=0;
-	$mensaje="";
-	$contador_ko=0;
-	$mensaje_ko="";
-	$contador_baja=0;
-	$mensaje_baja="";
+	$contador = 0;
+	$mensaje = "";
+	$contador_ko = 0;
+	$mensaje_ko = "";
+	$contador_baja = 0;
+	$mensaje_baja = "";
 
-    for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1) {
+	for($fila=2; $fila<=$data->sheets[0]['numRows']; $fila += 1){
 		$id_order =  sanitizeInput($data->sheets[0]['cells'][$fila][1]);
 		$status_order = sanitizeInput($data->sheets[0]['cells'][$fila][2]);
 		$shop_orders_status = shop::getOrders(" AND id_order = ".$id_order." ");
@@ -71,12 +66,10 @@ function volcarMySQL($data) {
 		else:
 			echo '<p>Se ha producido un error durante el cambio de estado del pedido con id '.$id_order.' que tiene el estado '.$status_order.' y se quiere cambiar a '.$status_order_old.'. '.$response['description'].'</p>';
 		endif;
+	}
 
+	echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a></p>
+		<p>El proceso de importación ha finalizado con éxito</p>';
 
-    }
-
-  echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a></p>
-	   <p>El proceso de importación ha finalizado con éxito</p>';
-
- } 
+}
 ?>

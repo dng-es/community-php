@@ -8,7 +8,7 @@ function addAlert(){ ?>
 				<option value="medium">Media</option>
 				<option value="low">Baja</option>
 			</select>
-		</div>			
+		</div>
 		<div class="form-group col-md-6">
 			<label for="type_alert"><?php e_strTranslate("Type");?></label>
 			<select class="form-control" name="type_alert" id="type_alert" data-alert="<?php e_strTranslate("Required_field");?>">
@@ -21,7 +21,7 @@ function addAlert(){ ?>
 			<select class="form-control" name="destination_alert" id="destination_alert" data-alert="<?php e_strTranslate("Required_field");?>">
 
 			</select>
-		</div>		
+		</div>
 		<div class="form-group col-md-12">
 			<label for="text_alert"><?php e_strTranslate("Description");?></label>
 			<textarea rows="4" class="form-control" name="text_alert" id="text_alert" data-alert="<?php e_strTranslate("Required_field");?>"></textarea>
@@ -40,9 +40,9 @@ function addAlert(){ ?>
 				<input data-format="yyyy/MM/dd" readonly type="text" id="date_fin" class="form-control" name="date_fin" data-alert="<?php e_strTranslate("Required_date");?>"></input>
 				<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 			</div>
-		</div>		
+		</div>
 		<div class="form-group col-md-12">
-			<input type="submit" class="btn btn-primary btn-block" name="submitFormAddAction" id="submitFormAddAction" value="<?php e_strTranslate('Save')?>">
+			<input type="submit" class="btn btn-primary btn-block btn-lg" name="submitFormAddAction" id="submitFormAddAction" value="<?php e_strTranslate('Save')?>">
 		</div>
 	</form>
 <?php 

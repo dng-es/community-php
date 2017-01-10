@@ -12,7 +12,7 @@ set_time_limit(0);
 			array("ItemLabel"=>strTranslate("Incentives_sales_import"), "ItemClass"=>"active"),
 		));
 
-		if (isset($_FILES['nombre-fichero']['name'])) {
+		if (isset($_FILES['nombre-fichero']['name'])){
 			$fichero=$_FILES['nombre-fichero'];
 			//SUBIR FICHERO		
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
@@ -33,37 +33,36 @@ set_time_limit(0);
 					$data->read('docs/cargas/'.$nombre_archivo);
 					
 					/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
-					volcarMySQL($data);				   
-				}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
+					volcarMySQL($data);
+				}
+				else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
 			}
 		}?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>
 
-
 <?php
-
-function volcarMySQL($data) {	
+function volcarMySQL($data){
 	$users = new users();
 	$contador_insert = 0;
 	$contador_ko = 0;
 	$incentivos = new incentivos();
 
 	for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
-		$referencia_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
-		$fabricante_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
-		$cantidad_venta = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][3]))));
-		$username_venta = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][4])));
-		$fecha_venta = str_replace ("/","-",trim(strtoupper($data->sheets[0]['cells'][$fila][5])));
-		$detalle = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][6]))));
-		$tendencia = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][7]))));
+		$referencia_producto = utf8_encode(str_replace("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
+		$fabricante_producto = utf8_encode(str_replace("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
+		$cantidad_venta = utf8_encode(str_replace("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][3]))));
+		$username_venta = utf8_encode(str_replace("'", "´", trim($data->sheets[0]['cells'][$fila][4])));
+		$fecha_venta = str_replace("/", "-", trim(strtoupper($data->sheets[0]['cells'][$fila][5])));
+		$detalle = utf8_encode(str_replace("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][6]))));
+		$tendencia = utf8_encode(str_replace("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][7]))));
 
 		if ($referencia_producto!=""){
 			//buscar id_producto por referencia y fabriacante
 			$producto = $incentivos->getIncentivesProductos(" AND UPPER(p.referencia_producto)='".$referencia_producto."' AND UPPER(f.nombre_fabricante)='".$fabricante_producto."' ");
 			if (count($producto)>0){
-				if ($incentivos->insertIncentivesVenta($producto[0]['id_producto'], $cantidad_venta, $username_venta, $fecha_venta, $detalle, $tendencia)) {		
+				if ($incentivos->insertIncentivesVenta($producto[0]['id_producto'], $cantidad_venta, $username_venta, $fecha_venta, $detalle, $tendencia)){
 
 					$contador_insert++;
 					//asignacion de puntos. Obtener puntos del producto por la fecha y obtener aceleradores
@@ -77,9 +76,7 @@ function volcarMySQL($data) {
 					}
 				}
 			}
-			else{
-				$contador_ko++;
-			}
+			else $contador_ko ++;
 		}
 	}
 
@@ -87,5 +84,5 @@ function volcarMySQL($data) {
 	<p>El proceso de importaci&oacute;n ha finalizado con &eacute;xito</p>';
 	echo '<p>Se ha insertado <b>'.$contador_insert.'</b> registros</p>';
 	echo '<p>No se ha insertado <b>'.$contador_ko.'</b> registros (producto no encontrado)</p>';
-}  
+}
 ?>

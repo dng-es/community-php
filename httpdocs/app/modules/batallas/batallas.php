@@ -3,15 +3,14 @@
 * @Manage batallas
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.0
+* @version 1.1
 *
 */
-
 class batallasCore {
 	/**
 	 * Elementos para el menu de usuarios
-	 * @return 	array           			Array con los elementos del menu
-	 */	
+	 * @return 	array					Array con los elementos del menu
+	 */
 	public static function userMenu($menu_order){
 		$array_final = array();
 		global $session;
@@ -28,12 +27,12 @@ class batallasCore {
 							"LabelTarget" => '_self',
 							"LabelPos" => $menu_order));
 		}
-		return $array_final;		
-	}	
+		return $array_final;
+	}
 
 	/**
 	 * Elementos para el menu de administración
-	 * @return 	array           			Array con datos
+	 * @return 	array					Array con datos
 	 */	
 	public static function adminMenu(){
 		$elems = array();

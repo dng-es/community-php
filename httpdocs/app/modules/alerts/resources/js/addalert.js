@@ -10,7 +10,6 @@ jQuery(document).ready(function(){
 		$(".alert-message").html("").css("display","none");
 		var resultado_ok = true;
 
-
 		if (jQuery.trim($("#text_alert").removeClass("input-alert").val()) == ""){
 			$('#text_alert').addClass("input-alert").attr("placeholder", $('#text_alert').data("alert")).focus();
 			resultado_ok = false;
@@ -19,13 +18,13 @@ jQuery(document).ready(function(){
 		if (jQuery.trim($("#date_ini").removeClass("input-alert").val()) == ""){
 			$('#date_ini').addClass("input-alert").attr("placeholder", $('#date_ini').data("alert")).focus();
 			resultado_ok = false;
-		}	
+		}
 
 		if (jQuery.trim($("#date_fin").removeClass("input-alert").val()) == ""){
 			$('#date_fin').addClass("input-alert").attr("placeholder", $('#date_fin').data("alert")).focus();
 			resultado_ok = false;
-		}	
-	
+		}
+
 		return resultado_ok;
 	});
 

@@ -1,5 +1,4 @@
 <?php
-
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 "js/bootstrap.file-input.js", 
@@ -54,12 +53,9 @@ templateload("cmbCanales","users");
 					<label for="descripcion" class="sr-only">Descripción del reto:</label>
 					<textarea cols="40" rows="5" name="texto_promocion"><?php echo $descripcion;?></textarea>
 					<script type="text/javascript">
-
-					var editor=CKEDITOR.replace('texto_promocion',{customConfig : 'config-page.js'});
-					CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
-
-					</script>
-					
+						var editor=CKEDITOR.replace('texto_promocion',{customConfig : 'config-page.js'});
+						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
+					</script>	
 				</div>
 			</div>
 		</div>

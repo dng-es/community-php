@@ -7,7 +7,7 @@
 *
 */
 
-class recompensasCore {
+class recompensasCore{
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con los elementos del menu

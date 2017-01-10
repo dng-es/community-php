@@ -33,7 +33,7 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 					Por favor, no cierres esta ventana durante el proceso de envío.
 					<br />Proceso en espera...
 				</div>
-				<?php else: ?>
+				<?php else:?>
 					<?php if ($elements[0]['total_failed'] > 0 ):?>
 						<p class="alert alert-warning">Hay algunos envios que han dado error. Puedes volver a procesarlos pinchando en el boton volver a procesar</p>
 						<a href="#" class="btn btn-primary" id="reproccess-message" data-id="<?php echo $elements[0]['id_message'];?>" data-estado="enabled" data-action="failed">Volver a procesar</a>
@@ -41,7 +41,7 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 							Por favor, no cierres esta ventana durante el proceso de envío.
 							<br />Proceso en espera...
 						</div>
-					<?php else: ?>
+					<?php else:?>
 						<p class="alert alert-info">Envío del mensaje finalizado.</p>
 					<?php endif;?>
 					<p><i class="fa fa-download"></i> Pincha <a href="admin-message-proccess?exportm=true&id=<?php echo $id;?>">aquí</a> para descarga el informe del envío.</p>

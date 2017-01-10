@@ -20,7 +20,7 @@ class shopManufacturersController{
 
 		if (isset($_REQUEST['name_search'])) $find_reg .= "&name_search=".$_REQUEST['name_search'];
 
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("shop_manufacturers",$filter); 
 		return array('items' => $shop->getManufacturers($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -74,7 +74,7 @@ class shopManufacturersController{
 
 			redirectURL($destino);
 		}
-	}	
+	}
 
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){

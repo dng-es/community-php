@@ -1,9 +1,3 @@
-<?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -14,7 +8,7 @@ session::AccessLevel($perfiles_autorizados);
 			array("ItemLabel"=>strTranslate("Listado de categorías"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' ); 
+		session::getFlashMessage( 'actions_message' );
 		$elements = rankingsController::getListCategoryAction(5, " ");
 		?>
 		<div class="panel panel-default">
@@ -42,7 +36,7 @@ session::AccessLevel($perfiles_autorizados);
 						<td><?php echo $element['ranking_category_name'];?></td>
 						<td><?php echo $num_rankings;?></td>
 						</tr>
-					<?php endforeach; ?>
+					<?php endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

@@ -66,6 +66,7 @@ class foroController{
 
 		return $acceso;
 	}
+
 	public static function getListComentariosAction($reg = 0, $filtro = ""){
 		$foro = new foro();
 		$find_reg = "";
@@ -138,7 +139,7 @@ class foroController{
 								ESTADO_COMENTARIOS_FORO,
 								$_POST['comment-reply-id'])){
 				session::setFlashMessage('actions_message', strTranslate("Reply_publihed"), "alert alert-success");
-			} 
+			}
 			else session::setFlashMessage('actions_message', "Se ha producido un error en la inserción de la respuesta. Por favor, inténtalo más tarde.", "alert alert-danger");
 			
 			redirectURL($_SERVER['REQUEST_URI']);

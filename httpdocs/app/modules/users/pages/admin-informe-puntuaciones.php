@@ -1,4 +1,6 @@
 <?php
+set_time_limit(0);
+
 //EXPORT EXCEL - SHOW AND GENERATE
 usersPuntuacionesController::exportListAction();
 $elements = usersPuntuacionesController::getListAction(100);

@@ -4,7 +4,7 @@ addJavascripts(array("js/jquery.numeric.js",
 					 "js/bootstrap.file-input.js",
 					 getAsset("mailing")."js/admin-message.js", 
 					 getAsset("mailing")."js/admin-message-test.js"));
-?>	
+?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -16,11 +16,10 @@ addJavascripts(array("js/jquery.numeric.js",
 			array("ItemLabel"=>"Envío de comunicaciones", "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 
 		$mailing = new mailing();
 		$id=0;
-
 		$accion = isset($_GET['act']) == true ? $_GET['act'] : "";
 		$accion1 = isset($_GET['act1']) == true ? $_GET['act1'] : "";
 		$accion2 = isset($_GET['accion2']) == true ? $_GET['accion2'] : "";
@@ -42,7 +41,7 @@ addJavascripts(array("js/jquery.numeric.js",
 
 
 <?php
-function ShowData($elements,$id,$accion){
+function ShowData($elements, $id, $accion){
 	global $ini_conf;
 	$mailing = new mailing();
 	$na_areas = new na_areas();
@@ -171,7 +170,7 @@ function ShowData($elements,$id,$accion){
 							foreach($tiendas as $tienda):
 								echo '<option value="lista tienda : '.$tienda['cod_tienda'].'">'.$tienda['nombre_tienda'].'</option>';
 							endforeach;
-							?>		
+							?>
 						</select>
 						<span id="tienda-alert" class="alert-message alert alert-danger"></span>
 

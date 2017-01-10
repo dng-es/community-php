@@ -1,4 +1,6 @@
 <?php
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/na_areas/pages' : 'modules\\na_areas\\pages'), '', realpath(dirname(__FILE__)));
+include_once($base_dir . "modules/class.headers.php");
 $module_config = getModuleConfig("na_areas");
 $points_to_success = $module_config['options']['points_to_success'];
 
@@ -51,14 +53,14 @@ $id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id']
 				foreach($elements as $element):
 					$respuesta_user = $na_areas->getRespuestasUser(" AND id_pregunta=".$element['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");
 					if (count($respuesta_user) == 0) $respuesta_user[0]['respuesta_valor'] = "";
-					echo '<div class="form-tarea-container">';
-					echo '<h5><span class="fa fa-chevron-circle-right "></span> '.$element['pregunta_texto'].'</h5>
-							<div>';
+					echo '<div class="panel panel-default">';
+					echo '<div class="panel-body">';
+					echo '<h5><span class="fa fa-chevron-circle-right "></span> '.$element['pregunta_texto'].'</h5>';
 					if ($element['pregunta_tipo'] == 'texto'){
 						echo '<textarea class="form-control" name="respuesta_'.$element['id_pregunta'].'">'.$respuesta_user[0]['respuesta_valor'].'</textarea>';
 					}
 					elseif ($element['pregunta_tipo'] == 'unica'){
-						$respuestas=$na_areas->getRespuestas(" AND id_pregunta=".$element['id_pregunta']." ");             
+						$respuestas=$na_areas->getRespuestas(" AND id_pregunta=".$element['id_pregunta']." ");
 						foreach($respuestas as $respuesta):
 							if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']) $seleccionado = 'checked="checked"';
 							else $seleccionado = "";

@@ -3,7 +3,7 @@
 * @Manage campaigns
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.1
+* @version 1.2
 *
 */
 class campaignsCore{
@@ -35,7 +35,7 @@ class campaignsCore{
 			"LabelItem" => strTranslate("Campaign_types"),
 			"LabelUrl" => "admin-campaigns-types",
 			"LabelPos" => 3,
-		)));	
+		)));
 
 		return $elems;
 	}

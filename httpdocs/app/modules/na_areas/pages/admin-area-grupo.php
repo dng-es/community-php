@@ -72,6 +72,5 @@ $usuarios_grupo = $na_areas->getGruposUsersUsuarios(" AND id_grupo=".$id_grupo."
 			</div>
 		</div>
 	</div>
-
 	<?php menu::adminMenu();?>
 </div>

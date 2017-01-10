@@ -37,11 +37,14 @@ jQuery(document).ready(function(){
 			$('#area_limite').addClass("input-alert").attr("placeholder", $('#area_limite').data("alert")).focus();
 			form_ok = false;
 		}
-	
-		if (jQuery.trim($("#area_canal").removeClass("input-alert").val()) == ""){
-			$('#area_canal').addClass("input-alert").attr("placeholder", $('#area_canal').data("alert")).focus();
+
+
+		if ($("#area_canal").val() == null){
+			$("#formData").find("[data-id='area_canal']").addClass("input-alert");
 			form_ok = false;
 		}
+		else $("#formData").find("[data-id='area_canal']").removeClass("input-alert");
+
 		return form_ok;
 	});
 

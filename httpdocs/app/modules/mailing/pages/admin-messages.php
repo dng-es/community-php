@@ -39,7 +39,7 @@ $elements = mailingController::getListAction(20);
 						</tr>
 						<?php
 						foreach($elements['items'] as $element):
-							$estado = $element['message_status']=='pending' ? 'label-warning' : 'label-success';
+							$estado = $element['message_status'] == 'pending' ? 'label-warning' : 'label-success';
 							?>
 							<tr>
 							<td nowrap="nowrap">
@@ -51,8 +51,8 @@ $elements = mailingController::getListAction(20);
 							echo '<td>'.getDateFormat($element['date_add'], "SHORT").'</td>';
 							echo '<td><span class="label">'.$element['total_messages'].'</span></td>'; 
 							echo '<td><span class="label">'.$element['total_send'].'</span></td>';
-							echo '<td><span class="label'.($element['total_pending']>0 ? " label-danger" : "").'">'.$element['total_pending'].'</span></td>';
-							echo '<td><span class="label'.($element['total_failed']>0 ? " label-danger" : "").'">'.$element['total_failed'].'</span></td>';
+							echo '<td><span class="label'.($element['total_pending'] > 0 ? " label-danger" : "").'">'.$element['total_pending'].'</span></td>';
+							echo '<td><span class="label'.($element['total_failed'] > 0 ? " label-danger" : "").'">'.$element['total_failed'].'</span></td>';
 							?>
 							</tr> 
 						<?php endforeach;?>

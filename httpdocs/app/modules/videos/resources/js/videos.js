@@ -1,5 +1,5 @@
 // JavaScript Document
-jQuery(document).ready(function(){ 
+jQuery(document).ready(function(){
 	$('#nombre-video').bootstrapFileInput();
 	$(".tooltip-bottom").tooltip({placement:"bottom"});
 
@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
 		if (resultado_ok !== true){
 			$("#alertas-participa").fadeIn().css("display", "block");
 			return false;
-		}	
+		}
 	});
 
 	$("#form-video-comment").submit(function(){

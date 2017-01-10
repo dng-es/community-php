@@ -1,19 +1,19 @@
 <?php
 class emocionesController{
 	public static function createAction(){
-		if (isset($_POST['id']) and $_POST['id']==0){
+		if (isset($_POST['id']) and $_POST['id'] == 0){
 			$emociones = new emociones();
 			$resultado=$emociones->insertEmocion($_FILES['info_file'],$_POST['info_title']);
-			if ($resultado==0){
+			if ($resultado == 0){
 				session::setFlashMessage( 'actions_message', "Registro insertado correctamente", "alert alert-success");
 				$id = connection::SelectMaxReg("id_emocion","emociones","");
 				redirectURL("?page=admin-emocion&act=edit&id=".$id);
 			}
-			elseif ($resultado==1){
+			elseif ($resultado == 1){
 				session::setFlashMessage( 'actions_message', "Ocurrió algún error al subir el contenido. No pudo generarse el registro.", "alert alert-danger");
 				redirectURL("?page=admin-emocion&act=new");
 			}
-			elseif ($resultado==2){
+			elseif ($resultado == 2){
 				session::setFlashMessage( 'actions_message', "Ocurrió algún error al subir el contenido. No pudo guardarse el archivo.", "alert alert-danger");
 				redirectURL("?page=admin-emocion&act=new");
 			}
@@ -21,13 +21,13 @@ class emocionesController{
 	}
 
 	public static function updateAction($id){
-		if (isset($_POST['id']) and $_POST['id']>0){
+		if (isset($_POST['id']) and $_POST['id'] > 0){
 			$emociones = new emociones();
 			if ($emociones->updateEmocion($id,$_FILES['info_file'],$_POST['info_title'])) {
-				session::setFlashMessage( 'actions_message', "Registro modificado correctamente", "alert alert-success");
+				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
 			}
 			else{
-				session::setFlashMessage( 'actions_message', "Error al modificar el registro.", "alert alert-danger");
+				session::setFlashMessage('actions_message', "Error al modificar el registro.", "alert alert-danger");
 			}
 			redirectURL("?page=admin-emocion&act=edit&id=".$id);
 		}
@@ -38,7 +38,7 @@ class emocionesController{
 			$emociones = new emociones();
 			return $emociones->getEmociones(" AND id_emocion=".$id);
 		}
-	}		
+	}
 
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
@@ -60,7 +60,7 @@ class emocionesController{
 		$filtro = $filter." ORDER BY id_emocion ASC ";
 
 		$find_reg = (isset($_GET['f']) and $_GET['f']>0) ? $_GET['f'] : "";
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = $emociones->countReg("emociones",$filtro);
 		return array('items' => $emociones->getEmociones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -99,22 +99,21 @@ class emocionesController{
 			}
 			redirectURL("?page=home");
 		}
-		
-	}	
+	}
 
 	public static function getListuserAction($reg = 0, $filter = ""){
 		$emociones = new emociones();
 		$filtro = $filter." ORDER BY date_emocion DESC ";
 
-		if (isset($_REQUEST['id']) and $_REQUEST['id']>0) {
+		if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0){
 			$filtro = " AND eu.id_emocion=".$_REQUEST['id'] . " " .$filtro;
 		}
 
-		if (isset($_REQUEST['i']) and $_REQUEST['i']!="") {
+		if (isset($_REQUEST['i']) and $_REQUEST['i'] != "") {
 			$filtro = " AND date_emocion BETWEEN " . str_replace("%27", "'", $_REQUEST['i']) . " " .$filtro;
 		}
 
-		$find_reg = (isset($_GET['f']) and $_GET['f']>0) ? $_GET['f'] : "";
+		$find_reg = (isset($_GET['f']) and $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("emociones_user eu",$filtro);
 		return array('items' => $emociones->getEmocionesUser($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -125,33 +124,33 @@ class emocionesController{
 	}
 
 	public static function exportListUserAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$emociones = new emociones();
 			$elements = $emociones->getEmocionesUser("");
 			exportCsv($elements, "emociones");
-		}  		
-	}	
+		}
+	}
 
 	/**
 	 * Elementos para el menu de administración
 	 * @return 	array           			Array con datos
-	 */	
+	 */
 	public static function adminMenu(){
-		return array( array("LabelHeader" => 'Modules',
+		return array(array("LabelHeader" => 'Modules',
 							"LabelSection" => 'Emociones',
 							"LabelItem" => 'Ver todas las emociones',
 							"LabelUrl" => 'admin-emociones',
 							"LabelPos" => 1),
-					  array("LabelHeader" => 'Modules',
+					array("LabelHeader" => 'Modules',
 							"LabelSection" => 'Emociones',
 							"LabelItem" => 'Emociones de los usuarios',
 							"LabelUrl" => 'admin-emociones-users',
 							"LabelPos" => 2),
-					  array("LabelHeader" => 'Modules',
+					array("LabelHeader" => 'Modules',
 							"LabelSection" => 'Emociones',
 							"LabelItem" => 'Nueva emoción',
 							"LabelUrl" => 'admin-emocion',
 							"LabelPos" => 2));	
-	}	
+	}
 }
 ?>

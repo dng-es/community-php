@@ -36,6 +36,9 @@ foreach($modules as $module):
 						$array_usermenu = array_merge($array_usermenu, $instance->userMenu($menu_order));
 					endif;
 				endif;
+				
+				if (isset($module_config['options']['show_user_points'])) $_SESSION['show_user_points'] = $module_config['options']['show_user_points'];
+			
 			endif;
 
 			if (method_exists($instance, "adminMenu")) 

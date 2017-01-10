@@ -1,9 +1,6 @@
 <?php
-//CONTROL NIVEL DE ACCESO
-$perfiles_autorizados = array("admin");
-session::AccessLevel($perfiles_autorizados);
-
 //EXPORT REGS.
+set_time_limit(0);
 rankingsController::ExportRankingDataAction();
 ?>
 <div class="row row-top">
@@ -16,13 +13,13 @@ rankingsController::ExportRankingDataAction();
 			array("ItemLabel"=>strTranslate("Rankings_list"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		rankingsController::deleteAction();
 		$elements = rankingsController::getListAction(15, " AND activo<>2 ");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default">      
+				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-ranking"><?php e_strTranslate("New_ranking");?></a></li>
 				</ul>
@@ -34,7 +31,7 @@ rankingsController::ExportRankingDataAction();
 					<th><?php e_strTranslate("Name");?></th>
 					<th><?php e_strTranslate("Category");?></th>
 					<th><?php e_strTranslate("Active");?></th>
-					</tr>		
+					</tr>
 					<?php foreach($elements['items'] as $element):?>
 						<tr>
 						<td nowrap="nowrap">

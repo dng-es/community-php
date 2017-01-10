@@ -1,5 +1,4 @@
 <?php
-
 function panelUser(){ 
 	global $ini_conf; ?>
 	<div class="panel panel-default panel-ranking">

@@ -4,8 +4,7 @@ class mailingController{
 		$mailing = new mailing();
 		$filtro .= "  ORDER BY id_message DESC";
 		$paginator_items = PaginatorPages($reg);
-		
-		$total_reg = connection::countReg("mailing_messages",$filtro); 
+		$total_reg = connection::countReg("mailing_messages",$filtro);
 		return array('items' => $mailing->getMessages($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -20,23 +19,22 @@ class mailingController{
 		$html_content = $mailing->getTemplates(" AND id_template=".$_POST['template_message']);
 
 		$user_direccion = "";
-		if (isset($_POST['calle_direccion']) and $_POST['calle_direccion'] != ""){ $user_direccion .= $_POST['calle_direccion'];}
-		if (isset($_POST['postal_direccion']) and $_POST['postal_direccion'] != ""){ $user_direccion .= " - ".$_POST['postal_direccion'];}
-		if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion'] != ""){ $user_direccion .= " - ".$_POST['poblacion_direccion'];}
-		if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion'] != ""){ $user_direccion .= " - ".$_POST['provincia_direccion'];}
-		if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion'] != ""){ $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];}
-		if (isset($_POST['email_message']) and $_POST['email_message'] != ""){ $user_direccion .= "<br />".$_POST['email_message'];}
-		if (isset($_POST['web_direccion']) and $_POST['web_direccion'] != ""){ $user_direccion .= "<br />".$_POST['web_direccion'];}
+		if (isset($_POST['calle_direccion']) and $_POST['calle_direccion'] != "") $user_direccion .= $_POST['calle_direccion'];
+		if (isset($_POST['postal_direccion']) and $_POST['postal_direccion'] != "") $user_direccion .= " - ".$_POST['postal_direccion'];
+		if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion'] != "") $user_direccion .= " - ".$_POST['poblacion_direccion'];
+		if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion'] != "") $user_direccion .= " - ".$_POST['provincia_direccion'];
+		if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion'] != "") $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];
+		if (isset($_POST['email_message']) and $_POST['email_message'] != "") $user_direccion .= "<br />".$_POST['email_message'];
+		if (isset($_POST['web_direccion']) and $_POST['web_direccion'] != "") $user_direccion .= "<br />".$_POST['web_direccion'];
 
 		$content = $html_content[0]['template_body'];
 		$content = str_replace('[USER_DIRECCION]', $user_direccion, $content);
 		$content = str_replace('[USER_EMPRESA]', $_SESSION['user_empresa'], $content);
 		$content = str_replace('[USER_LOGO]', '<img src="'.$ini_conf['SiteUrl'].'/images/usuarios/'.$_SESSION['user_foto'].'" />', $content);
-
 		
-		if (isset($_POST['claim_promocion']) and $_POST['claim_promocion'] != ""){ $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);}
-		if (isset($_POST['descuento_promocion']) and $_POST['descuento_promocion'] != ""){ $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);}
-		if (isset($_POST['date_promocion']) and $_POST['date_promocion'] != ""){ $content = str_replace('[DATE_PROMOCION]', $_POST['date_promocion'], $content);}
+		if (isset($_POST['claim_promocion']) and $_POST['claim_promocion'] != "") $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);
+		if (isset($_POST['descuento_promocion']) and $_POST['descuento_promocion'] != "") $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);
+		if (isset($_POST['date_promocion']) and $_POST['date_promocion'] != "") $content = str_replace('[DATE_PROMOCION]', $_POST['date_promocion'], $content);
 
 		return $content;
 	}
@@ -65,7 +63,7 @@ class mailingController{
 						null, $date_scheduled, "")){
 
 				$mensaje = "Mensaje creado correctamente. Ya puedes procesar el envío.";
-				$id_message = connection::SelectMaxReg("id_message","mailing_messages","");
+				$id_message = connection::SelectMaxReg("id_message", "mailing_messages", "");
 
 				//insertar links del mensaje
 				self::insertHtmlLinks($content, $id_message);
@@ -120,7 +118,7 @@ class mailingController{
 								else $respuesta = true;
 							}
 						}
-				    endforeach;
+					endforeach;
 				}
 
 				//actualizar total de emails a enviar
@@ -189,8 +187,8 @@ class mailingController{
 					else $respuesta = true;
 				}
 			}
-	    endforeach;
-	    return $respuesta;
+		endforeach;
+		return $respuesta;
 	}
 
 	public static function createAction(){
@@ -220,25 +218,25 @@ class mailingController{
 			//obtener usuarios de la lista seleccionada para insertar mensajes
 			$users = new users();
 			$na_areas = new na_areas();
-			switch ($lista) {
+			switch ($lista){
 				case "lista todos":
 					$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 					foreach($usuarios as $usuario):
 						$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 					endforeach;
-				    break;
+					break;
 				case "lista comerciales":
 					$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND perfil='usuario' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 					foreach($usuarios as $usuario):
 						$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 					endforeach;
-				    break;
+					break;
 				case "lista responsables":
 					$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND perfil='responsable' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 					foreach($usuarios as $usuario):
 						$mailing->insertMessageUser($id_message, $usuario['username'], $usuario['email']);
 					endforeach;
-				    break;
+					break;
 				case "lista regionales":
 					$usuarios = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND perfil='regional' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 					foreach($usuarios as $usuario):
@@ -274,7 +272,7 @@ class mailingController{
 					if (count($responsable_tienda) > 0){
 						$user_responsable = $users->getUsers(" AND registered=1 AND confirmed=1 AND disabled=0 AND username='".$responsable_tienda[0]['responsable_tienda']."' AND email NOT IN (SELECT email_black FROM mailing_blacklist) ");
 						if (count($user_responsable) > 0){
-							$mailing->insertMessageUser($id_message, $user_responsable[0]['username'], $user_responsable[0]['email']);	
+							$mailing->insertMessageUser($id_message, $user_responsable[0]['username'], $user_responsable[0]['email']);
 						}
 					}
 					break;
@@ -324,7 +322,7 @@ class mailingController{
 									$_POST['texto_message'],
 									$_POST['lista_message'])):
 			session::setFlashMessage('actions_message', "Comunicación modificacda correctamente", "alert alert-success");
-		else: 
+		else:
 			session::setFlashMessage('actions_message', "Se ha producido un error editando la comunicación.", "alert alert-danger");
 		endif;
 		
@@ -353,8 +351,8 @@ class mailingController{
 		}
 	}
 
-	public static function exportMessageAction($filtro = ""){	
-		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm'] == true) {
+	public static function exportMessageAction($filtro = ""){
+		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm'] == true){
 			$mailing = new mailing();
 			$elements = $mailing->getMessagesUsers($filtro." AND id_message=".$_REQUEST['id']);
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
@@ -363,7 +361,7 @@ class mailingController{
 		}
 	}
 
-	public static function exportLinksAction($filtro = ""){	
+	public static function exportLinksAction($filtro = ""){
 		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] == 'links'){
 			$mailing = new mailing();
 			$elements = $mailing->getMessageLinkUserExport($filtro." AND l.id_message=".$_REQUEST['id']);

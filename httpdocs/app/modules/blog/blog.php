@@ -3,7 +3,7 @@
 * @Manage blog. Depende del módulo de foros
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.0
+* @version 1.2
 *
 */
 class blogCore{
@@ -14,8 +14,8 @@ class blogCore{
 	 */
 	public function userModuleStatistis($username){
 		$num = connection::countReg("foro_comentarios c LEFT JOIN foro_temas t ON c.id_tema=t.id_tema ", " AND t.ocio=1 AND c.user_comentario='".$username."' ");
-		return array('Comentarios en los blogs' => $num);	
-	}	
+		return array('Comentarios en los blogs' => $num);
+	}
 
 	/**
 	 * Elementos para el menu de usuarios

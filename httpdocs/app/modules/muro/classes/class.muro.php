@@ -9,7 +9,7 @@ class muro{
 
 	public function InsertComentario($canal, $texto_comentario, $usuario, $estado, $tipo, $tipo_comentario = ''){
 		$Sql = "INSERT INTO muro_comentarios (canal,comentario,user_comentario,estado,tipo_muro,seccion_comentario) VALUES 
-				('".$canal."','".$texto_comentario."','".$usuario."',".$estado.",'".$tipo."','".$tipo_comentario."')";	 
+				('".$canal."','".$texto_comentario."','".$usuario."',".$estado.",'".$tipo."','".$tipo_comentario."')";
 		if (connection::execute_query($Sql)){ 
 			if ($estado==1){users::sumarPuntos($usuario, PUNTOS_MURO, PUNTOS_MURO_MOTIVO);}
 			return 1;
@@ -32,7 +32,7 @@ class muro{
 	public function responderComentario($canal, $texto_comentario, $usuario, $estado, $tipo, $id_comentario_responder){
 		$Sql = "INSERT INTO muro_comentarios (canal,comentario,user_comentario,estado,tipo_muro,id_comentario_id) VALUES 
 			 ('".$canal."','".$texto_comentario."','".$usuario."',".$estado.",'".$tipo."',".$id_comentario_responder.")";
-		
+
 		if (connection::execute_query($Sql)) return "Comentario insertado correctamente.";
 		else return "Se ha producido un error en la inserción de su comentario. Por favor, inténtelo más tarde.";
 	}
@@ -41,7 +41,7 @@ class muro{
 		$comentario_original = self::getComentarios(" AND id_comentario=".$id_comentario_responder." ");
 		$Sql = "INSERT INTO muro_comentarios (canal,comentario,user_comentario,estado,tipo_muro,id_comentario_id) VALUES 
 			 ('".$comentario_original[0]['canal_comentario']."','".$texto_comentario."','".$usuario."',".$estado.",'".$comentario_original[0]['tipo_muro']."',".$id_comentario_responder.")";
-		echo $Sql;
+
 		if (connection::execute_query($Sql)) return "Comentario insertado correctamente.";
 		else return "Se ha producido un error en la inserción de su comentario. Por favor, inténtelo más tarde.";
 	}

@@ -1,6 +1,3 @@
-<?php
-$elements = infotopdfController::getListAction(20);
-?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -8,6 +5,8 @@ $elements = infotopdfController::getListAction(20);
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Infotopdf_Documents"), "ItemClass"=>"active"),
 		));
+	
+		$elements = infotopdfController::getListAction(20);
 
 		$columna = 1;
 		foreach($elements['items'] as $element): 
@@ -16,7 +15,7 @@ $elements = infotopdfController::getListAction(20);
 			$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo,".") + 1));
 			$nombre_sinext = substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
 			$nombre_miniatura = "mini".$nombre_sinext.".jpeg";
-		?>	
+		?>
 		<div class="col-md-3">
 			<a href="user-infotopdf?id=<?php echo $element['id_info'];?>">
 				<h3><?php echo $element['titulo_info'];?></h3>

@@ -15,7 +15,6 @@ if (count($mensajes)>0){
 	pasadaProccess($mensajes);
 }
 
-
 function pasadaProccess($mensajes){
 	global $ini_conf;
 

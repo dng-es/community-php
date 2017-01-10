@@ -3,11 +3,9 @@ jQuery(document).ready(function(){
 
 	function envio() {
 		$("#form-batalla").submit(function(e){
-
 			$("#cargando").show();
 			$("#batalla-btn").prop('disabled', true);
 			e.preventDefault();
-					
 			$.ajax({
 				type: 'POST',
 				url: 'app/modules/batallas/pages/batallas_crear.php',
@@ -17,7 +15,6 @@ jQuery(document).ready(function(){
 					$("#cargando").hide();
 					$('#BatallaModal').modal();
 					$('#BatallaModal .modal-body').html(data);
-
 				}
 			});
 		});
@@ -53,12 +50,12 @@ jQuery(document).ready(function(){
 
 			}
 		});
-	});	
+	});
 
 	posicionarLegend();
 
 	$(window).resize(function(){
-		posicionarLegend();		
+		posicionarLegend();
 	});
 
 	function posicionarLegend(){
@@ -70,8 +67,7 @@ jQuery(document).ready(function(){
 			$(".complementos-legend").css({"bottom": "10px", "position": "absolute", "widht" : "80%", "margin-left" : "35%"});
 		}
 		else{
-			$(".complementos-legend").css({"position": "relative", "bottom": "0", "widht" : "100%", "margin-left" : "0%"});	
+			$(".complementos-legend").css({"position": "relative", "bottom": "0", "widht" : "100%", "margin-left" : "0%"});
 		}
-	}	
-
+	}
 });

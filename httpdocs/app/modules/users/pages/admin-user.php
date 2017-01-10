@@ -10,16 +10,12 @@ $id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
 
 $modules = getListModules(); 
 $user_permissions = usersController::getUserPermissions($id);
-$special_pages = array("login", "registration", "registration_process", "registration-confirm", "remember", "user-confirm", "users-conn-ajax", "users-conn-data", "admin-puntos-ajax", 
-						"admin-cargas-user-process", "admin-cargas-puntos-process",  
-						"muro_responder_ajax", "muro_process", "muro_todos_ajax", "muro-respuestas", 
-						"mensajes-leer", "mensajes-verify", 
-						"ut", "lt", "unsuscribe", "cron-birthday", "cron-scheduled", "admin-message-test", "admin-message-proccess", "admin-message-proccess-step1", "user-message-test", 
-						"admin-area-edit-t", "admin-cargas-user-areas-process",
-						"fotos-comments-ajax", "fotos-load-ajax", "gallery_process",
-						"admin-cuestionario-revs-ajax",
-						"videos-process",
-						"admin-modules-ajax-process", "admin-modules-ajax");
+$special_pages = array("login", "registration", "registration_process", "registration-confirm", "remember", "user-confirm", "users-conn-ajax", "users-conn-data", "admin-puntos-ajax", "admin-cargas-user-process", "admin-cargas-puntos-process",  
+	"muro_responder_ajax", "muro_process", "muro_todos_ajax", "muro-respuestas", "mensajes-leer", "mensajes-verify", 
+	"ut", "lt", "unsuscribe", "cron-birthday", "cron-scheduled", "admin-message-test", "admin-message-proccess", 
+	"admin-message-proccess-step1", "user-message-test", "admin-area-edit-t", "admin-cargas-user-areas-process",
+	"fotos-comments-ajax", "fotos-load-ajax", "gallery_process", "admin-cuestionario-revs-ajax",
+	"videos-process", "admin-modules-ajax-process", "admin-modules-ajax");
 
 $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) ;
 ?>
@@ -161,8 +157,8 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							<div class="row inset">
 								<div class="col-md-4 form-group">
 									<div class="checkbox checkbox-primary">
-										<input type="checkbox" class="styled" id="confirmed_user"  name="confirmed_user" <?php echo $elements[0]['confirmed'] == 1 ? "checked" : "";?>>
-										<label for="confirmed_user"><?php e_strTranslate("Confirmed");?></label>
+										<input type="checkbox" onclick="return false;" onkeydown="e = e || window.event; if(e.keyCode !== 9) return false;" class="styled disabled" id="confirmed_user" name="confirmed_user" <?php echo $elements[0]['confirmed'] == 1 ? "checked" : "";?>>
+										<label class="disabled" for="confirmed_user" onclick="return false;" onkeydown="e = e || window.event; if(e.keyCode !== 9) return false;"><?php e_strTranslate("Confirmed");?></label>
 									</div>	
 								</div>
 

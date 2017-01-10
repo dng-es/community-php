@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace( ((strrpos( __DIR__ , "\\" ) === false) ? 'modules/fotos/pages' : 'modules\\fotos\\pages')  , '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/fotos/pages' : 'modules\\fotos\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/functions.core.php");
@@ -29,7 +29,9 @@ $module_config = getModuleConfig("fotos");
 	if(isset($_REQUEST['id']) and $_REQUEST['id'] != "") $id_file = $_REQUEST['id'];
 	//OBTENCION DE LAS FOTOS
 	$filtro = " AND estado=1 AND id_file=".$id_file." ";
-	if ($_SESSION['user_canal'] != 'admin') $filtro .= " AND f.canal='".$_SESSION['user_canal']."' ";
+	//if ($_SESSION['user_canal'] != 'admin') $filtro .= " AND f.canal='".$_SESSION['user_canal']."' ";
+	$filtro .= ($_SESSION['user_canal'] != 'admin' ? " AND canal_album LIKE '%".$_SESSION['user_canal']."%' " : "");
+
 	$files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
 	?>
 	<div class="row">
@@ -66,7 +68,7 @@ function showFotoModal($file_galeria, $votaciones = true, $movil = 0, $reto = 0)
 			<span id="image-titulo">'.$file_galeria['titulo'].'</span><br />
 			<span class="text-muted"><a target="_blank" href="'.PATH_FOTOS.$file_galeria['name_file'].'" title="'.strTranslate("Full_screen").'" ><i class="fa fa-desktop"></i></a> 
 			'.$nick.' - '.getDateFormat($file_galeria['date_foto'], "SHORT");
-	if ($_SESSION['user_perfil'] == 'admin') echo ' - ID: '.$file_galeria['id_file'];	
+	if ($_SESSION['user_perfil'] == 'admin') echo ' - ID: '.$file_galeria['id_file'];
 	echo ' - <a href="#" data-id="'.$file_galeria['id_file'].'" data-v="'.$votado.'"  title="'.strTranslate("Photo_vote").'" class="fa fa-heart trigger-votar"> '.$file_galeria['fotos_puntos'].'</a>';
 	echo '</span><br />';
 	showTags($file_galeria['tipo_foto']);

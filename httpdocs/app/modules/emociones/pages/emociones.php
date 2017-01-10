@@ -1,6 +1,3 @@
-<?php
-	$elements = emocionesController::getListUserAction(20, " AND user_emocion='".$_SESSION['user_name']."' ");
-?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -8,6 +5,7 @@
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Emotions"), "ItemUrl"=>"incentives-targets"),
 		));
+		$elements = emocionesController::getListUserAction(20, " AND user_emocion='".$_SESSION['user_name']."' ");
 		?>
 		<div class="row">
 			<div class="col-md-12">
@@ -17,9 +15,9 @@
 					<table class="table" >
 						<tr>
 						<th width="40px"></th>
-						<th>emoción</th>
-						<th>motivo</th>
-						<th>fecha</th>
+						<th><?php e_strTranslate("Emotion");?></th>
+						<th>Motivo</th>
+						<th><?php e_strTranslate("Date");?></th>
 						</tr>	
 						<?php foreach($elements['items'] as $element):?>
 							<tr>
@@ -31,12 +29,11 @@
 							<td><?php echo getDateFormat($element['date_emocion'], "LONG");?><br />
 							<?php echo getDateFormat($element['date_emocion'], 'TIME');?>
 							</td>
-							</tr>  
-						<?php endforeach; ?>
+							</tr>
+						<?php endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
-
 			</div>
 		</div>
 	</div>

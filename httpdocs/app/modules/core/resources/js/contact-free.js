@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$(".jtextarea").jtextarea({maxSizeElement: 1000,
-		cssElement: { display: "inline-block", color: "#FF6600", background: "#fff"}});
+		cssElement: { display: "inline-block", color: "#fff", background: "transparent"}});
 
 	$(".message-form").css({"display":"none"});
 	

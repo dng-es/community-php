@@ -35,7 +35,7 @@ class rankingsController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$rankings = new rankings();
 			if ($rankings->updateEstadoRankings($_REQUEST['id'], $_REQUEST['e'])) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -58,8 +58,7 @@ class rankingsController{
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_ranking = connection::SelectMaxReg("id_ranking", "users_tiendas_rankings");
 			}
-			else 
-				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-ranking?id=".$id_ranking);
 		}
@@ -78,8 +77,7 @@ class rankingsController{
 
 			if ($rankings->updateRankings($id_ranking, $nombre, $descripcion, $id_ranking_category)) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
-			else
-				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-danger");
 
 			redirectURL("admin-ranking?id=".$id_ranking);
 		}
@@ -91,12 +89,11 @@ class rankingsController{
 			$rankings = new rankings();
 			$nombre = str_replace("'","´",$_POST['nombre']);
 
-			if ($rankings->insertRankingsCategory($nombre)) {
+			if ($rankings->insertRankingsCategory($nombre)){
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_ranking = connection::SelectMaxReg("id_ranking", "users_tiendas_rankings");
 			}
-			else 
-				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-rankings-category?id=".$id_ranking);
 		}
@@ -113,8 +110,7 @@ class rankingsController{
 
 			if ($rankings->updateRankingsCategory($id_ranking, $nombre)) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
-			else
-				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-rankings-category?id=".$id_ranking);
 		}
@@ -132,13 +128,13 @@ class rankingsController{
 			//compruebo si las características del archivo son las que deseo
 			if ($tipo_archivo!="XLS") return false;
 			else{
-				if (move_uploaded_file($_FILES['fichero']['tmp_name'], 'docs/cargas/'.$nombre_archivo)){				
+				if (move_uploaded_file($_FILES['fichero']['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 					require_once 'docs/reader.php';
 					$data = new Spreadsheet_Excel_Reader();
 					$data->setOutputEncoding('CP1251');
 					$data->read('docs/cargas/'.$nombre_archivo);
 					self::insertRankingData($data, $id_ranking);
-					return true;			   
+					return true;
 				}
 				else return false;
 			}
@@ -158,7 +154,7 @@ class rankingsController{
 	public static function ExportRankingDataAction(){
 		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] > 0){
 			$rankings = new rankings();
-			$elements = $rankings->getRankingsDataSimple(" AND id_ranking=".$_REQUEST['exp']." "); 
+			$elements = $rankings->getRankingsDataSimple(" AND id_ranking=".$_REQUEST['exp']." ");
 			exportCsv($elements);
 		}
 	}

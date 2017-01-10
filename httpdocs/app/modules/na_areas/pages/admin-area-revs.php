@@ -50,8 +50,7 @@ $id_recompensa = (isset($tarea[0]['id_recompensa']) ? $tarea[0]['id_recompensa']
 		</ul>
 
 		<?php
-		if (count($tarea)==1){  
-
+		if (count($tarea)==1){
 			$id_grupo=0; 
 			if(isset($_POST['grupo_search']) and $_POST['grupo_search']!="") {$id_grupo = $_POST['grupo_search'];}
 			if(isset($_POST['id_grupo_rev']) and $_POST['id_grupo_rev']!="") {$id_grupo = $_POST['id_grupo_rev'];}
@@ -84,67 +83,66 @@ $id_recompensa = (isset($tarea[0]['id_recompensa']) ? $tarea[0]['id_recompensa']
 
 <?php
 function revisionesFicheros($id_tarea, $id_area, $id_grupo, $id_recompensa){
-		$na_areas = new na_areas();
-		$users = new users();
-		$filtro = " AND id_tarea=".$id_tarea." ";
-		if ($id_grupo!=0){$filtro .= " AND user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
-		$filtro .= " ORDER BY fecha_tarea DESC ";
-		$revisiones = $na_areas->getTareasUser($filtro); 
-		
-		echo '<br /><p>pincha <a href="admin-area-revs?t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
+	$na_areas = new na_areas();
+	$users = new users();
+	$filtro = " AND id_tarea=".$id_tarea." ";
+	if ($id_grupo!=0){$filtro .= " AND user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
+	$filtro .= " ORDER BY fecha_tarea DESC ";
+	$revisiones = $na_areas->getTareasUser($filtro);
+	
+	echo '<br /><p>pincha <a href="admin-area-revs?t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
 
-		if (count($revisiones) == 0){
-			echo '<div class="tareas-row">Los usuarios todavia no han enviado archivos para esta tarea.</div>';
-		}
-		else{
-			echo '<table class="table">
-					<tbody>';
-			foreach($revisiones as $revision):
-				$usuario_rev=$users->getUsers(" AND username='".$revision['user_tarea']."' ");
-				if ($revision['revision'] == 1){
-					$imagen_revision='<i class="fa fa-check icon-ok"></i>';
-					$destino_validar_revision = "onClick='return false'";}
-				else {
-					$imagen_revision='<i class="fa fa-exclamation icon-alert"></i>';
-					$destino_validar_revision = 'onClick="Confirma(\'¿Seguro que desea marcar como revisada la tarea del usuario '.$revision['user_tarea'].'?\',
-								\'admin-area-revs?act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\'); return false"';}
-								
-				echo '<tr>';
-				echo '<td><a href="inbox?n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a> ';  
-				echo '<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a></td>';
-				echo '<td>('.getDateFormat($revision['fecha_tarea'], "DATE_TIME").')</td>';
-				echo '<td><a href="docs/showfile.php?t=1&file='.$revision['file_tarea'].'" target="_blank">descargar</a></td>';
-				echo '<td style="width: 80px; text-align: center">'.$revision['canal'].'</td>';
-				echo '<td>'.$revision['nombre_grupo'].'</td>';
-				echo '<td><b>'.$revision['tarea_titulo'].'</b></td>';
-				echo '<td>'.$revision['username_creator'].'</td>';      
-				echo '</tr>';
-			endforeach;
-			echo '</tbody></table>';
-		}
+	if (count($revisiones) == 0){
+		echo '<div class="tareas-row">Los usuarios todavia no han enviado archivos para esta tarea.</div>';
+	}
+	else{
+		echo '<table class="table">
+				<tbody>';
+		foreach($revisiones as $revision):
+			$usuario_rev=$users->getUsers(" AND username='".$revision['user_tarea']."' ");
+			if ($revision['revision'] == 1){
+				$imagen_revision='<i class="fa fa-check icon-ok"></i>';
+				$destino_validar_revision = "onClick='return false'";}
+			else {
+				$imagen_revision='<i class="fa fa-exclamation icon-alert"></i>';
+				$destino_validar_revision = 'onClick="Confirma(\'¿Seguro que desea marcar como revisada la tarea del usuario '.$revision['user_tarea'].'?\',
+							\'admin-area-revs?act=rev_ok&a='.$id_area.'&p=3&id='.$id_tarea.'&idg='.$id_grupo.'&idr='.$revision['id_tarea_user'].'\'); return false"';}
+			echo '<tr>';
+			echo '<td><a href="inbox?n='.$usuario_rev[0]['nick'].'">'.$revision['user_tarea'].' ('.$usuario_rev[0]['name'].')</a> ';  
+			echo '<a href="#" '.$destino_validar_revision.'>'.$imagen_revision.'</a></td>';
+			echo '<td>('.getDateFormat($revision['fecha_tarea'], "DATE_TIME").')</td>';
+			echo '<td><a href="docs/showfile.php?t=1&file='.$revision['file_tarea'].'" target="_blank">descargar</a></td>';
+			echo '<td style="width: 80px; text-align: center">'.$revision['canal'].'</td>';
+			echo '<td>'.$revision['nombre_grupo'].'</td>';
+			echo '<td><b>'.$revision['tarea_titulo'].'</b></td>';
+			echo '<td>'.$revision['username_creator'].'</td>';      
+			echo '</tr>';
+		endforeach;
+		echo '</tbody></table>';
+	}
 }
 
 function revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa){
 	$na_areas = new na_areas();
 	$users = new users();
-	$filtro =" AND id_tarea=".$id_tarea." ";
+	$filtro = " AND id_tarea=".$id_tarea." ";
 	if ($id_grupo!=0){$filtro .= " AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
-	$filtro.=" ORDER BY date_finalizacion DESC";
-	$revisiones = $na_areas->getFormulariosFinalizados($filtro);   
+	$filtro .= " ORDER BY date_finalizacion DESC";
+	$revisiones = $na_areas->getFormulariosFinalizados($filtro);
 
 	if (count($revisiones) == 0){
 		echo '<div class="tareas-row">Los usuarios todavia no han finalizado los formularios para esta tarea.</div>';
 	}
-	else{
-		echo '<table class="table">
-				<tr>
-					<th width="70px"></th>
-					<th>'.strTranslate("User").'</th>
-					<th>Puntuación</th>
-					<th>'.strTranslate("Date").'</th>
-					<th>Respuestas</th>
-				</tr>';
-		foreach($revisiones as $revision):
+	else{?>
+		<table class="table">
+			<tr>
+				<th width="70px"></th>
+				<th><?php e_strTranslate("User");?></th>
+				<th>Puntuación</th>
+				<th><?php e_strTranslate("Date");?></th>
+				<th>Respuestas</th>
+			</tr>
+		<?php foreach($revisiones as $revision):
 			if ($revision['revision'] == 1){
 				$imagen_revision='<i class="fa fa-check icon-ok"></i>';
 				$destino_validar_revision = "";
@@ -182,27 +180,27 @@ function revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa){
 			echo '<td>('.getDateFormat($revision['date_finalizacion'], "DATE_TIME").')</td>';
 			echo '<td><a href="#" onclick="createDialog('.$id_tarea.',\''.$revision['user_tarea'].'\'); return false;">ver respuestas</a></td>';
 			echo '</tr>';
-		endforeach;
-		echo '</table>
+		endforeach; ?>
+		</table>
 
-				<!-- Modal -->
-				<div class="modal fade modal-resp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">Respuestas del usuario</h4>
-							</div>
-							<div class="modal-body">
+		<!-- Modal -->
+		<div class="modal fade modal-resp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Respuestas del usuario</h4>
+					</div>
+					<div class="modal-body">
 
-							</div>
-						</div><!-- /.modal-content -->
-					</div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->';
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
-		echo '<div id="dialog-confirm" title="Respuestas del usuario" style="display:none">
-				<div id="dialog-info"></div>
-			</div>';
-	}
+		<div id="dialog-confirm" title="Respuestas del usuario" style="display:none">
+			<div id="dialog-info"></div>
+		</div>
+	<?php }
 }
 ?>

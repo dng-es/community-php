@@ -17,4 +17,5 @@ Shop_manufacturers_list = "Manufacturers list"
 Shop_manufacturer = "Manufacturer"
 Shop_manufacturer_new = "New manufacturer"
 Import_order_states = "Import orders states"
+Comming_soon = "Comming soon"
 ?>

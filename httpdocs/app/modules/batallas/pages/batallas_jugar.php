@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace( ((strrpos( __DIR__ , "\\" ) === false) ? 'modules/batallas/pages' : 'modules\\batallas\\pages')  , '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/batallas/pages' : 'modules\\batallas\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/functions.core.php");
@@ -16,25 +16,19 @@ $users = new users();
 $user_data = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
 $puntos_reservados = connection::sumReg("batallas", "puntos", " AND finalizada=0 AND (user_create='".$_SESSION['user_name']."' or user_retado='".$_SESSION['user_name']."') ");
 $puntos_disponibles = $user_data[0]['puntos'] - $puntos_reservados;
-
-
 ?>
 <html>
 	<head>
-
 		<script type="text/javascript" src="js/libs/jquery-1.10.1.min.js"></script>
 		<script type="text/javascript" src="css/libs/bootstrap-sass-3.2.0/assets/javascripts/bootstrap.js"></script>
 		<script>
 			$(document).ready(function(){
 
-				$("#form-batalla-fin").submit(function(e) {
-
+				$("#form-batalla-fin").submit(function(e){
 					e.preventDefault();
-
-					$(".alert-message").html("").css("display","none");	   
-					var resultado_ok=true;  
-
-				    var name;
+					$(".alert-message").html("").css("display","none");
+					var resultado_ok=true;
+					var name;
 					$('input[type="radio"]',this).each(function() {
 						if(name == $(this).attr("name")) return;
 						name = $(this).attr("name");
@@ -42,17 +36,15 @@ $puntos_disponibles = $user_data[0]['puntos'] - $puntos_reservados;
 						if(checked.length == 0) {
 							resultado_ok=false;
 						}
-					}); 
-									
-					if (resultado_ok==true) {
-						this.submit();
-					}
+					});
+
+					if (resultado_ok==true) this.submit();
 					else{
 						$("#batalla-alert").html("Debes responder todas las preguntas.").fadeIn().css("display","block");
-                        return false;
+						return false;
 					}
 				});
-			});		
+			});
 		</script>
 	</head>
 	<body>
@@ -91,10 +83,9 @@ if (isset($_POST['id']) && $_POST['id']!=""){
 		echo '<input type="hidden" name="id_pregunta'.$i.'" value="'.$pregunta['id_pregunta'].'">';
 		echo '</div>';
 		$i++;
-  	endforeach;	
-  	echo '</div>
-  	<span class="alert-message alert alert-warning" id="batalla-alert"></span>
-  	<br /><input type="submit" name="batalla-go-btn" id="batalla-go-btn" class="btn btn-primary btn-block" value="Finalizar batalla" /><br />';
-  	echo "</form>";
-
-} ?>
+	endforeach;
+	echo '</div>
+	<span class="alert-message alert alert-warning" id="batalla-alert"></span>
+	<br /><input type="submit" name="batalla-go-btn" id="batalla-go-btn" class="btn btn-primary btn-block" value="Finalizar batalla" /><br />';
+	echo "</form>";
+}?>

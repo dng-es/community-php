@@ -3,11 +3,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					 "js/libs/ckfinder/ckfinder.js",
 					 "js/bootstrap.file-input.js", 
 					 getAsset("rankings")."js/admin-ranking.js"));
-
-//CONTROL NIVEL DE ACCESO
-$session = new session();
-$perfiles_autorizados = array("admin");
-$session->AccessLevel($perfiles_autorizados);
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -68,8 +63,7 @@ $session->AccessLevel($perfiles_autorizados);
 											$categorias = $rankings->getRankingsCategories("");
 											foreach($categorias as $categoria):
 												echo '<option value="'.$categoria['id_ranking_category'].'" '.($categoria['id_ranking_category']==$id_category ? 'selected="selected"' : '').'>'.$categoria['ranking_category_name'].'</option>';
-											endforeach;
-											?>
+											endforeach;?>
 											</select>
 									</div>
 								</div>

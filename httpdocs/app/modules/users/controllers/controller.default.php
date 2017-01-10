@@ -147,7 +147,7 @@ class usersController{
 			$user = $users->getUsers(" AND username='".$username."'");
 
 
-			if ($user[0]['user_password'] <> ''){
+			if (($user[0]['user_password'] <> '') && ($user[0]['disabled'] <> 1)){
 				$asunto = strtoupper($ini_conf['SiteName']).': '.strTranslate("Recover_credentials");
 				$message_from = array($ini_conf['ContactEmail'] => $ini_conf['SiteName']);
 				$message_to = array($user[0]['email']);
@@ -169,7 +169,7 @@ class usersController{
 					session::setFlashMessage('actions_message', strTranslate("Recover_password_alert"), "alert alert-success");
 				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
-			else { session::setFlashMessage('actions_message', strTranslate("User_not_valid"), "alert alert-danger");}
+			else session::setFlashMessage('actions_message', strTranslate("User_not_valid"), "alert alert-danger");
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}
@@ -225,22 +225,22 @@ class usersController{
 			$disabled = (isset($_POST['disabled_user']) and $_POST['disabled_user'] == "on") ? 1 : 0;
 
 			if ($users->updateUser($_POST['id_username'],
-								$_POST['user_password'],
-								$_POST['email_user'],
-								$_POST['name_user'],
-								$confirmed,
-								$disabled,
-								$_POST['empresa_user'],
-								$_POST['canal_user'],
-								$_POST['perfil_user'],
-								$_POST['telefono_user'],
-								$_POST['surname'],
-								$registered, 
-								trim(sanitizeInput($_POST['direccion_user'])),
-								trim(sanitizeInput($_POST['ciudad_user'])),
-								trim(sanitizeInput($_POST['provincia_user'])),
-								trim(sanitizeInput($_POST['cpostal_user'])))) {
-						session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");}
+						$_POST['user_password'],
+						$_POST['email_user'],
+						$_POST['name_user'],
+						$confirmed,
+						$disabled,
+						$_POST['empresa_user'],
+						$_POST['canal_user'],
+						$_POST['perfil_user'],
+						$_POST['telefono_user'],
+						$_POST['surname'],
+						$registered, 
+						trim(sanitizeInput($_POST['direccion_user'])),
+						trim(sanitizeInput($_POST['ciudad_user'])),
+						trim(sanitizeInput($_POST['provincia_user'])),
+						trim(sanitizeInput($_POST['cpostal_user'])))) {
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");}
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
@@ -330,32 +330,31 @@ class usersController{
 		}
 	}
 
-public static function insertEquipoAction(){
+	public static function insertEquipoAction(){
 		if (isset($_POST['id_username']) and $_POST['id_username'] != ""){
 			$users = new users();
 			//VERIFICAR NOMBRE USUARIO YA EXISTE
 			$old_user = $users->getUsers(" AND username='".$_POST['id_username']."' ");
-			if (count($old_user)==0){
-
+			if (count($old_user) == 0){
 				if ($users->insertUserEquipo(sanitizeInput($_POST['id_username']),
-							sanitizeInput($_POST['empresa_user']),
-							sanitizeInput($_POST['user-nombre']),
-							sanitizeInput($_POST['user-apellidos']),
-							sanitizeInput($_POST['user-email']),
-							sanitizeInput($_POST['telefono'])
-							)) {
+						sanitizeInput($_POST['empresa_user']),
+						sanitizeInput($_POST['user-nombre']),
+						sanitizeInput($_POST['user-apellidos']),
+						sanitizeInput($_POST['user-email']),
+						sanitizeInput($_POST['telefono'])
+						)) {
 					session::setFlashMessage( 'actions_message', "Usuario insertado correctamente.", "alert alert-success");
 				}
 			}
 			elseif($old_user[0]['disabled'] == 1){
 				//reactivar usuario
 				if ($users->reactivarUserEquipo(sanitizeInput($_POST['id_username']),
-							sanitizeInput($_POST['empresa_user']),
-							sanitizeInput($_POST['user-nombre']),
-							sanitizeInput($_POST['user-apellidos']),
-							sanitizeInput($_POST['user-email']),
-							sanitizeInput($_POST['telefono'])
-							))
+						sanitizeInput($_POST['empresa_user']),
+						sanitizeInput($_POST['user-nombre']),
+						sanitizeInput($_POST['user-apellidos']),
+						sanitizeInput($_POST['user-email']),
+						sanitizeInput($_POST['telefono'])
+						))
 					session::setFlashMessage( 'actions_message', "Usuario reactivado correctamente", "alert alert-success");
 				else
 					session::setFlashMessage( 'actions_message', "Error al reactivar usuario.", "alert alert-warning");
@@ -387,8 +386,7 @@ public static function insertEquipoAction(){
 				else 
 					session::setFlashMessage( 'actions_message', "Error al modificar usuario.", "alert alert-warning");
 			}
-			else 
-				session::setFlashMessage( 'actions_message', "Usuario no encontrado.", "alert alert-warning");
+			else session::setFlashMessage( 'actions_message', "Usuario no encontrado.", "alert alert-warning");
 
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
@@ -396,7 +394,7 @@ public static function insertEquipoAction(){
 
 
 	public static function deleteEquipoAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
 			$username = sanitizeInput($_REQUEST['id']);
 			$users = new users();
 			$acceso = 1;
@@ -406,17 +404,10 @@ public static function insertEquipoAction(){
 			}
 
 			if ($acceso > 0){
-				if ($users->disableUser($username)) {
-					session::setFlashMessage( 'actions_message', "Usuario desactivado correctamente.", "alert alert-success");
-				}
-				else{
-					session::setFlashMessage( 'actions_message', "Error al dar de baja usuario.", "alert alert-danger");
-				}
+				if ($users->disableUser($username)) session::setFlashMessage( 'actions_message', "Usuario desactivado correctamente.", "alert alert-success");
+				else session::setFlashMessage( 'actions_message', "Error al dar de baja usuario.", "alert alert-danger");
 			}
-			else{
-				session::setFlashMessage( 'actions_message', "Usuario no encontrado.", "alert alert-danger");	
-			}
-
+			else session::setFlashMessage( 'actions_message', "Usuario no encontrado.", "alert alert-danger");	
 			
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
 			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");

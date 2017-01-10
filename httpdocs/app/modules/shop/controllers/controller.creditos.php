@@ -4,7 +4,7 @@ class shopCreditosController{
 		$shop = new shop();
 		$filtro = " AND credito_puntos<>0 ORDER BY credito_date DESC ";
 		$find_reg = "";
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("users_creditos",$filtro); 
 		return array('items' => $shop->getCreditos($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -28,7 +28,7 @@ class shopCreditosController{
 		if ($username != ""){
 			$shop = new shop();
 			$elements = $shop->getUsersCreditos(" AND credito_username='".$username."' ".$filter);
-			return $elements;	
+			return $elements;
 		}
 	}
 

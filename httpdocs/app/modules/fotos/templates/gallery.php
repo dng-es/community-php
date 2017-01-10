@@ -3,7 +3,7 @@
 
 function galleryPhotos($elements, $rating, $id_promocion, $cols, $pagina = "fotos", $comments = true, $id_album = 0, $tag = ''){
 	foreach($elements as $element):
-	     showFotoGaleria($element, $rating, $id_promocion, $pagina, $comments, $id_album, $tag);
+		showFotoGaleria($element, $rating, $id_promocion, $pagina, $comments, $id_album, $tag);
 	endforeach;
 }
 

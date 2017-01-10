@@ -16,7 +16,7 @@ class cuestionariosController{
 
 		$filtro .= " ORDER BY id_cuestionario DESC";
 
-		$total_reg = connection::countReg("cuestionarios", $filtro); 
+		$total_reg = connection::countReg("cuestionarios", $filtro);
 		return array('items' => $cuestionarios->getCuestionarios($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -77,7 +77,17 @@ class cuestionariosController{
 						$valor = trim($_POST[$campo_respuesta]);
 						$valor = str_replace("'", "´", $valor);
 						$valor = str_replace('"', '´', $valor);
-						if ($valor!=""){$cuestionarios->insertPreguntaRespuesta($id_pregunta, $valor);}
+
+						if ($_POST['pregunta_tipo']=='multiple'){
+							$campo_correcta = "checkRespuesta".$i;
+							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta]!='') ? 1 : 0);
+						}
+						if ($_POST['pregunta_tipo']=='unica'){
+							$campo_correcta = "radioRespuesta1";
+							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta]==$i) ? 1 : 0);
+						}
+
+						if ($valor!="") $cuestionarios->insertPreguntaRespuesta($id_pregunta, $valor, $correcta);
 					}
 				}
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
@@ -138,7 +148,7 @@ class cuestionariosController{
 	}
 
 	public static function saveFormAction(){
-	    if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario'] != ""){
+		if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario'] != ""){
 			$cuestionarios = new cuestionarios();
 			$id_cuestionario = sanitizeInput($_POST['id_cuestionario']);
 			$preguntas=$cuestionarios->getPreguntas(" AND id_cuestionario=".$id_cuestionario." ");
@@ -165,14 +175,53 @@ class cuestionariosController{
 			endforeach; 
 			if ($_POST['type-save'] == "1") self::finalizarFormAction($id_cuestionario);
 			else session::setFlashMessage( 'actions_message', "Respuestas enviadas.", "alert alert-success");
-			
+
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}
 
 	public static function finalizarFormAction($id_cuestionario){
 		$cuestionarios = new cuestionarios();
-		if($cuestionarios->insertFormulariosFinalizados($id_cuestionario,$_SESSION['user_name'])){
+		if($cuestionarios->insertFormulariosFinalizados($id_cuestionario, $_SESSION['user_name'])){
+			//obtener datos de las preguntas
+			$preguntas = $cuestionarios->getPreguntas(" AND id_cuestionario=".$id_cuestionario." AND pregunta_tipo<>'texto' ");
+			$num_preguntas = count($preguntas);
+			if ($num_preguntas > 0){
+				//valorar respuestas
+				$aciertos = 0;
+				foreach($preguntas as $pregunta):
+					if ($pregunta['pregunta_tipo']=='unica'){
+						$respuestas = $cuestionarios->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 "); 
+						$respuesta_user = $cuestionarios->getRespuestasUser(" AND id_pregunta=".$pregunta['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");
+						foreach($respuestas as $respuesta):
+							//echo $respuesta_user[0]['respuesta_valor'].' ***** '.$respuesta['respuesta_texto']."<br />";
+							if ($respuesta_user[0]['respuesta_valor']==$respuesta['respuesta_texto']){
+								$aciertos++;
+								//echo "acierto: ".$pregunta['id_pregunta'];
+							}
+						endforeach;
+					}
+					elseif ($pregunta['pregunta_tipo']=='multiple'){
+						$aciertos_multiples = 0;
+						$respuestas = $cuestionarios->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 "); 
+						$respuesta_user = $cuestionarios->getRespuestasUser(" AND id_pregunta=".$pregunta['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");            
+						$respuesta_multiple = explode("|",$respuesta_user[0]['respuesta_valor']);
+						foreach($respuestas as $respuesta):
+							if (in_array($respuesta['respuesta_texto'], $respuesta_multiple)) $aciertos_multiples++;
+						endforeach;
+
+						//echo "aciertos mul: ".$aciertos_multiples." - respuestas: ".count($respuestas)." - resp.user: ".count($respuesta_multiple). "<br /> ";
+						if ($aciertos_multiples == (count($respuestas)) and (count($respuestas) == count($respuesta_multiple)))	$aciertos++;
+					}
+				endforeach;
+				//calcular resultado final del cuestionario $puntos
+				$puntos = ($aciertos / $num_preguntas) * 10;
+				//echo "aciertos: ".$aciertos. " preg: ".$num_preguntas;
+
+				//marcar cuestionario como revisado				
+				$cuestionarios->RevisarTareaFormUser($_SESSION['user_name'], $id_cuestionario, intval($puntos), 'admin');
+			}
+
 			session::setFlashMessage( 'actions_message', "Cuestionario finalizado correctamente. Próximamente podrás consultar la nota de tu evaluación.", "alert alert-success");
 		}
 		else session::setFlashMessage( 'actions_message', "Se ha producido algún error al finalizar el cuestionario.", "alert alert-danger");
@@ -225,7 +274,7 @@ class cuestionariosController{
 				for($i=0; $i < $num_preguntas; $i++){
 					$pregunta_texto = "pregunta".($i + 1);
 					$element[$pregunta_texto] = (isset($respuestas[$i]['respuesta_valor']) ? $respuestas[$i]['respuesta_valor'] : "");
-				}    
+				}
 				array_push($final, $element);
 			endforeach;
 			download_send_headers("data_export_" . date("Y-m-d") . ".csv");

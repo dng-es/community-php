@@ -26,7 +26,7 @@ class recompensasController{
 			$recompensa_nombre = sanitizeInput($_POST['recompensa_nombre']);
 			$recompensa_image = uploadFileToFolder($_FILES['recompensa_image'], PATH_REWARDS);
 
-			if ($recompensas->insertRecompensas($recompensa_nombre, $recompensa_image)) {
+			if ($recompensas->insertRecompensas($recompensa_nombre, $recompensa_image)){
 				$id = connection::SelectMaxReg("id_recompensa", "recompensas", "");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}else 
@@ -42,14 +42,14 @@ class recompensasController{
 			$recompensa_nombre = sanitizeInput($_POST['recompensa_nombre']);
 			$recompensa_image = ((isset($_FILES['recompensa_image']['name']) and $_FILES['recompensa_image']['name'] != "") ? uploadFileToFolder($_FILES['recompensa_image'], PATH_REWARDS) : $_POST['nombre_imagen']);
 
-			if ($recompensas->updateRecompensas($_POST['id_recompensa'], $recompensa_nombre, $recompensa_image)) {
+			if ($recompensas->updateRecompensas($_POST['id_recompensa'], $recompensa_nombre, $recompensa_image)){
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
-			}	
+			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
-	}	
+	}
 
 	public static function getListUserListAction($reg = 0, $filtro = ""){
 		$recompensas = new recompensas();
@@ -95,7 +95,7 @@ class recompensasController{
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			redirectURL($_SERVER['REQUEST_URI']."&t=2");
-		}	
+		}
 	}
 }
 ?>

@@ -2,12 +2,11 @@
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 "js/bootstrap.file-input.js",
+					 "js/bootstrap-datepicker.js",
+					 "js/bootstrap-datepicker.es.js",
 					 "js/jquery.numeric.js", 
 					 "js/bootstrap3-typeahead.min.js",
-					 "js/bootstrap-select.js",
 					 getAsset("shop")."js/admin-shopproduct.js"));
-
-addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -38,19 +37,64 @@ addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 						<div class="col-md-8">
 
 							<div class="row">
-								<div class="form-group col-md-12">
+								<div class="form-group col-md-3">
+									<label for="ref_product">REF.</label>
+									<input type="text" name="ref_product" id ="ref_product" class="form-control" value="<?php echo $element['ref_product'];?>" />
+								</div>
+
+								<div class="form-group col-md-9">
 									<label for="name_product"><?php e_strTranslate("Name");?></label>
 									<input type="text" name="name_product" id ="name_product" class="form-control" value="<?php echo $element['name_product'];?>" />
 								</div>
 							</div>
 
 							<div class="row">
-								<div class="form-group col-md-3">
-									<label for="ref_product">REF.</label>
-									<input type="text" name="ref_product" id ="ref_product" class="form-control" value="<?php echo $element['ref_product'];?>" />
+								<div class="form-group col-md-4">
+									<label class=" control-label" for="date_ini_product"><?php e_strTranslate("Date_start");?></label>
+									<div id="datetimepicker1" class="input-group date">
+										<input data-format="yyyy/MM/dd" readonly type="text" id="date_ini_product" class="form-control" name="date_ini_product" data-alert="<?php e_strTranslate("Required_date");?>"></input>
+										<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+									</div>
+
+									<script type="text/javascript">
+										jQuery(document).ready(function(){
+											<?php 
+											if ($element['date_ini_product'] != null){
+												echo "var fecha_ini = '".date('D M d Y H:i:s O',strtotime($element['date_ini_product']))."';";
+												echo '$("#datetimepicker1").data("datetimepicker").setLocalDate(new Date (fecha_ini));';
+											}
+											?>
+										});
+									</script>
 								</div>
 
-								<div class="form-group col-md-5">
+								<div class="form-group col-md-4">
+									<label class=" control-label" for="date_fin_product"><?php e_strTranslate("Date_end");?></label>
+									<div id="datetimepicker2" class="input-group date">
+										<input data-format="yyyy/MM/dd" readonly type="text" id="date_fin_product" class="form-control" name="date_fin_product" data-alert="<?php e_strTranslate("Required_date");?>"></input>
+										<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+									</div>
+									<script type="text/javascript">
+										jQuery(document).ready(function(){
+											<?php 
+											if ($element['date_fin_product'] != null){
+												echo "var fecha_fin = '".date('D M d Y H:i:s O',strtotime($element['date_fin_product']))."';";
+												echo '$("#datetimepicker2").data("datetimepicker").setLocalDate(new Date (fecha_fin));';
+											}
+											?>
+										});
+									</script>
+								</div>
+								<div class="form-group col-md-4">
+									<br />
+									<div class="checkbox checkbox-primary">
+										<input class="styled" type="checkbox" id="active_product"  name="active_product" <?php echo $element['active_product'] == 1 ? "checked" : "";?>> 
+										<label for="active_product"><?php e_strTranslate("Active");?></label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-6">
 									<label for="id_manufacturer"><?php e_strTranslate("Shop_manufacturer");?></label>
 									<select title="---Selecciona el <?php e_strTranslate("Shop_manufacturer");?>---" name="id_manufacturer" id ="id_manufacturer" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
 										<?php foreach($manufacturers['items'] as $manufacturer):?>
@@ -59,9 +103,9 @@ addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 									</select>
 								</div>
 
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-6">
 									<label for="canal_product"><?php e_strTranslate("Channel");?>:</label>
-									<select id="canal_product" name="canal_product" title="---<?php e_strTranslate(Choose_channel);?>---" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
+									<select id="canal_product" name="canal_product[]" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
 										<?php ComboCanales($element['canal_product']);?>
 									</select>
 								</div>
@@ -77,9 +121,7 @@ addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 									<label for="subcategory_product">Subcategoría</label>
 									<input type="text" name="subcategory_product" id ="subcategory_product" class="form-control" value="<?php echo $element['subcategory_product'];?>" />
 								</div>
-							</div>
 
-							<div class="row">
 								<div class="form-group col-md-12">
 									<label for="description_product"><?php e_strTranslate("Description");?></label>
 									<textarea cols="40" rows="5" id="description_product" name="description_product"><?php echo $element['description_product'];?></textarea>
@@ -108,10 +150,10 @@ addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 							</div>
 							<div class="form-group col-md-4">
 								<br />
-									<div class="checkbox checkbox-primary">
-										<input class="styled" type="checkbox" id="important_product"  name="important_product" <?php echo $element['important_product'] == 1 ? "checked" : "";?>> 
-										<label for="important_product">Destacado</label>
-									</div>
+								<div class="checkbox checkbox-primary">
+									<input class="styled" type="checkbox" id="important_product"  name="important_product" <?php echo $element['important_product'] == 1 ? "checked" : "";?>> 
+									<label for="important_product">Destacado</label>
+								</div>
 							</div>
 
 							<div class="form-group col-md-12">
@@ -123,8 +165,6 @@ addCss(array("css/libs/bootstrap-select/bootstrap-select.css"));
 							</div>
 						</div>
 					</div>
-
-					
 				</form>
 			</div>
 		</div>

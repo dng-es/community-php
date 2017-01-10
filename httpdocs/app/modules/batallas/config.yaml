@@ -3,3 +3,7 @@ options:
     battle_points: 15
     show_user_menu: true
     user_menu_position: 4
+channels:
+    group1: test, gerente
+    group2: comercial
+    group3: test2

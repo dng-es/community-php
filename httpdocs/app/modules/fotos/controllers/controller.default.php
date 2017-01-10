@@ -3,8 +3,8 @@ class fotosController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$fotos = new fotos();
 		$find_reg = ((isset($_REQUEST['f']) and $_REQUEST['f'] != 'null') ? $_REQUEST['f'] : (isset($_POST['find_reg']) ? $_POST['find_reg'] : ""));
-		if ($find_reg != "" ) $filter = " AND titulo LIKE '%".$find_reg."%' ".$filter;
-		if ($_SESSION['user_canal'] != 'admin') $filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;
+		if ($find_reg != "" ) $filter .= " AND titulo LIKE '%".$find_reg."%' ".$filter;
+		//if ($_SESSION['user_canal'] != 'admin') $filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("galeria_fotos f", $filter); 
 		return array('items' => $fotos->getFotos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -12,6 +12,12 @@ class fotosController{
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
+	}
+
+	public static function getItemAction($filter){
+		$fotos = new fotos();
+		$elements = $fotos->getFotos($filter);
+		return $elements[0];
 	}
 
 	public static function createAction(){
@@ -70,6 +76,6 @@ class fotosController{
 
 			redirectURL("admin-albumes-new?act=edit&id=".$id_album);
 		}
-	}	
+	}
 }
 ?>

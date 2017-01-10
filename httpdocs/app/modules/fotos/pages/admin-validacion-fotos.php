@@ -1,7 +1,6 @@
 <?php
-templateload("cmbAlbumes","fotos");
-
 addJavascripts(array(getAsset("fotos")."js/admin-validacion-fotos.js"));
+templateload("cmbAlbumes","fotos");
 
 //VALIDAR CONTENIDOS
 if (isset($_REQUEST['act'])){
@@ -15,7 +14,7 @@ if (isset($_REQUEST['act'])){
 	}
 	elseif ($_REQUEST['act'] == 'foto_ko') $fotos->cambiarEstado($_REQUEST['id'], 2, 0);
 
-	header("Location: admin-validacion-fotos"); 
+	header("Location: admin-validacion-fotos");
 }
 
 $fotos = new fotos();
@@ -33,7 +32,7 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 		));?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default"> 
+				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo count($pendientes);?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por foto: <b><?php echo PUNTOS_FOTO;?></b></a></li>
 				</ul>
 
@@ -43,7 +42,6 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 							<th width="40px">&nbsp;</th>
 							<th>Álbum</th>
 							<th><?php e_strTranslate("Author");?></th>
-							<th><?php e_strTranslate("Channel");?></th>
 							<th><?php e_strTranslate("Title");?></th>
 							<th><?php e_strTranslate("Tags");?></th>
 							<th><?php e_strTranslate("Date");?></th>
@@ -63,7 +61,6 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 							ComboAlbumes($element['id_album'], $albumes, "nombre_album_" .$element['id_file']);
 							echo '</td>';
 							echo '<td>'.$element['user_add'].'</td>';
-							echo '<td>'.$element['canal_file'].'</td>';
 							echo '<td><a href="#" class="abrir-modal" title="MensajeFoto'.$element['id_file'].'">'.$element['titulo'].'</a>
 
 									<!-- Modal -->
@@ -84,7 +81,7 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 								 </td>';
 							echo '<td><input type="text" name="tipo_foto" id="tipo_foto_'.$element['id_file'].'" value="'.$element['tipo_foto'].'" /></td>';
 							echo '<td>'.getDateFormat($element['date_foto'], "SHORT").'</td>';
-							echo '</tr>';   
+							echo '</tr>';
 						endforeach;?>
 					</table>
 				</div>

@@ -25,13 +25,14 @@
 							<th width="40px"></th>
 							<th><?php e_strTranslate("Name");?></th>
 							<th><?php e_strTranslate("User");?></th>
+							<th><?php e_strTranslate("Channel");?></th>
 							<th><center><?php e_strTranslate("Photos");?></center></th>
 						</tr>
 						<?php foreach($elements['items'] as $element):
-						$num_fotos = connection::countReg("galeria_fotos", "AND estado=1 AND id_album=".$element['id_album']." "); ?>
+						$num_fotos = connection::countReg("galeria_fotos", "AND estado=1 AND id_album=".$element['id_album']." ");?>
 						<tr>
 						<td nowrap="nowrap">
-							<button type="button" class="btn btn-default btn-xs" title="<?php echo strTranslate("Delete");?>" onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>','admin-albumes?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_album'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>" onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>','admin-albumes?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_album'];?>'); return false"><i class="fa fa-trash icon-table"></i>
 							</button>
 
 							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>"
@@ -41,15 +42,15 @@
 							<button type="button" class="btn btn-default btn-xs"><a href="admin-albumes?export=true&id=<?php echo $element['id_album'];?>" class="fa fa-download icon-table" title="<?php e_strTranslate("Download");?>"></a></button>
 								
 						</td>
-						<?php	
-									
-						echo '<td>'.$element['nombre_album'];
-						echo '<br /><em class="text-muted"><small>'.getDateFormat($element['date_album'], "LONG").'</small></em>';
-						echo '</td>';
-						echo '<td>'.$element['username_album'].'</td>';
-						echo '<td><center>'.$num_fotos.'</center></td>';
-						echo '</tr>';
-						endforeach;?>
+						<td>
+							<?php echo $element['nombre_album'];?>
+							<br /><em class="text-muted"><small><?php echo getDateFormat($element['date_album'], "LONG");?></small></em>';
+						</td>
+						<td><?php echo $element['username_album'];?></td>';
+						<td><?php echo $element['canal_album'];?></td>';
+						<td><center><?php echo $num_fotos;?></center></td>';
+						</tr>
+						<?php endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

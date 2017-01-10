@@ -37,17 +37,17 @@ class incentivosFabricantesController{
 			else
 				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			redirectURL("admin-incentives-fabricantes");
-		}	
+		}
 	}
 
 	public static function exportAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) and $_REQUEST['export']==true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getIncentivesFabricantes("");
 			download_send_headers(strTranslate("Incentives_manufacturers")."_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
-		}  		
-	}	
+		}
+	}
 }
 ?>

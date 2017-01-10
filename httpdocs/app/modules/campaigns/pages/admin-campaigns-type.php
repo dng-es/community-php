@@ -1,10 +1,5 @@
 <?php
 addJavascripts(array(getAsset("campaigns")."js/admin-campaigns-type.js"));
-
-session::getFlashMessage('actions_message'); 
-campaignsController::createTypeAction();
-campaignsController::updateTypeAction();
-$plantilla = campaignsController::getItemTypesAction();	
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -13,7 +8,12 @@ $plantilla = campaignsController::getItemTypesAction();
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"admin-campaigns"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Campaign_types"), "ItemClass"=>"active"),
-		));?>
+		));
+		session::getFlashMessage('actions_message'); 
+		campaignsController::createTypeAction();
+		campaignsController::updateTypeAction();
+		$plantilla = campaignsController::getItemTypesAction();	
+		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">

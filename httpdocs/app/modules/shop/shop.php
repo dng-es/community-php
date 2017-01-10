@@ -3,7 +3,7 @@
 * @Manage shop
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.1
+* @version 1.2
 *
 */
 
@@ -28,7 +28,6 @@ class shopCore {
 
 	public static function adminMenu(){
 		return array(
-
 			menu::addAdminMenu(array(
 				"PageName" => "admin-shopproducts",
 				"LabelHeader" => "Modules",
@@ -52,7 +51,7 @@ class shopCore {
 				"LabelItem" => strTranslate("Shop_orders_list"),
 				"LabelUrl" => "admin-shoporders",
 				"LabelPos" => 2,
-			)),			
+			)),
 			menu::addAdminMenu(array(
 				"PageName" => "admin-creditos",
 				"LabelHeader" => "Tools",
@@ -61,7 +60,6 @@ class shopCore {
 				"LabelUrl" => "admin-creditos",
 				"LabelPos" => 4,
 			)),
-
 			menu::addAdminMenu(array(
 				"PageName" => "admin-informe-creditos",
 				"LabelHeader" => "Tools",

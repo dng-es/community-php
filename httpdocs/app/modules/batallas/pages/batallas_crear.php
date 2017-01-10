@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace( ((strrpos( __DIR__ , "\\" ) === false) ? 'modules/batallas/pages' : 'modules\\batallas\\pages')  , '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/batallas/pages' : 'modules\\batallas\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/functions.core.php");
@@ -13,6 +13,7 @@ $batallas = new batallas();
 
 $module_config = getModuleConfig("batallas");
 $puntos_batalla = $module_config['options']['battle_points'];
+$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
 
 //datos del usuario
 $users = new users();
@@ -21,20 +22,18 @@ $puntos_reservados = connection::sumReg("batallas", "puntos", " AND finalizada=0
 $puntos_disponibles = $user_data[0]['puntos'] - $puntos_reservados;
 
 //datos del contrincante
-$contrincante = getContrincante($puntos_batalla);
+$contrincante = getContrincante($puntos_batalla, $module_channels);
 
-function getContrincante($puntos_batalla){
+function getContrincante($puntos_batalla, $module_channels){
 	$users = new users();
-	$filtro_canal = (($_SESSION['user_canal'] != 'admin' and $_SESSION['user_canal'] != '') ? " AND canal='".$_SESSION['user_canal']."' " : "");
-	$contrincante = $users->getUsers($filtro_canal." AND puntos>'".$puntos_batalla."' AND perfil<>'admin' AND disabled=0 AND confirmed=1 AND username<>'".$_SESSION['user_name']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 1 ");
+	$filtro_canal = " AND (canal IN (".$module_channels.") OR canal='') ";
+
+	$contrincante = $users->getUsers($filtro_canal." AND puntos>'".$puntos_batalla."' AND perfil<>'admin' AND disabled=0 AND confirmed=1 AND username<>'".$_SESSION['user_name']."' AND nick<>'' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 1 ");
 	$puntos_reservados_contrincante = connection::sumReg("batallas", "puntos", " AND finalizada=0 AND (user_create='".$contrincante[0]['username']."' or user_retado='".$contrincante[0]['username']."') ");
 	$puntos_disponibles_contrincante = $contrincante[0]['puntos'] - $puntos_reservados_contrincante;
-	if ($puntos_disponibles_contrincante >= $puntos_batalla){
-		return $contrincante;
-	}
-	else{
-		return 0;
-	}
+	
+	if ($puntos_disponibles_contrincante >= $puntos_batalla) return $contrincante;
+	else return 0;
 }
 
 ?>
@@ -45,15 +44,11 @@ function getContrincante($puntos_batalla){
 		<script type="text/javascript" src="css/libs/bootstrap-sass-3.2.0/assets/javascripts/bootstrap.js"></script>
 		<script>
 			$(document).ready(function(){
-
 				$("#form-batalla-fin").submit(function(e) {
-
 					e.preventDefault();
-
-					$(".alert-message").html("").css("display","none");	   
-					var resultado_ok=true;  
-
-				    var name;
+					$(".alert-message").html("").css("display","none");
+					var resultado_ok = true;
+					var name;
 					$('input[type="radio"]',this).each(function() {
 						if(name == $(this).attr("name")) return;
 						name = $(this).attr("name");
@@ -62,16 +57,14 @@ function getContrincante($puntos_batalla){
 							resultado_ok=false;
 						}
 					}); 
-									
-					if (resultado_ok==true) {
-						this.submit();
-					}
+
+					if (resultado_ok==true) this.submit();
 					else{
 						$("#batalla-alert").html("Debes responder todas las preguntas.").fadeIn().css("display","block");
-                        return false;
+						return false;
 					}
 				});
-			});		
+			});
 		</script>
 	</head>
 	<body>
@@ -81,11 +74,14 @@ function getContrincante($puntos_batalla){
 //elseif ($puntos_disponibles < $_POST['batalla-puntos']) echo '<div class="alert alert-warning">Estas jugando más puntos de los que dispones</div>';
 if ($puntos_disponibles < $puntos_batalla) echo '<div class="alert alert-warning">No dispones de puntos suficientes</div>';
 //elseif ($puntos_disponibles_contrincante < $puntos_batalla) echo '<div class="alert alert-warning">Tu contrincante no tiene puntos suficientes</div>';
-elseif ($contrincante == 0) echo '<div class="alert alert-warning">No se encuentra contrincante</div>';
+elseif ($contrincante == 0) {
+	echo '<div class="alert alert-warning">No se encuentra contrincante</div>';
+	redirectURL("batallas");
+}
 else{ 
-	$preguntas = $batallas->getBatallasPreguntas(" AND (canal_pregunta='".$_SESSION['user_canal']."' OR canal_pregunta='') AND activa=1 AND pregunta_tipo='".$_POST['batalla-categoria']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 3");
+	$filtro_canal = " AND (canal_pregunta IN (".$module_channels.") OR canal_pregunta='') ";
+	$preguntas = $batallas->getBatallasPreguntas($filtro_canal." AND activa=1 AND pregunta_tipo='".$_POST['batalla-categoria']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 3");
 	if (count($preguntas) == 3):
-
 		if ($batallas->insertBatalla($_SESSION['user_name'], $contrincante[0]['username'], $_POST['batalla-categoria'], $puntos_batalla, $contrincante[0]['canal'])):
 			//obtener preguntas de la batalla
 
@@ -94,9 +90,9 @@ else{
 			foreach($preguntas as $pregunta):
 				$batallas->insertBatallaRespuesta($id_batalla, $_SESSION['user_name'], $pregunta['id_pregunta'], '');
 				$batallas->insertBatallaRespuesta($id_batalla, $contrincante[0]['username'], $pregunta['id_pregunta'], '');
-		  	endforeach;		
+			endforeach;
 
-		  	//marcar la batalla como empezada
+			//marcar la batalla como empezada
 			$batallas->insertBatallaLucha($id_batalla,$_SESSION['user_name'], 0, 0, 1);
 			
 			$i=1;
@@ -115,14 +111,14 @@ else{
 						<input type="hidden" name="id_pregunta<?php echo $i;?>" value="<?php echo $pregunta['id_pregunta'];?>">
 					</div>
 					<?php $i++;?>
-			  	<?php endforeach;	?>
+				<?php endforeach;?>
 				<span class="alert-message alert alert-warning" id="batalla-alert"></span><br />
-			  	<input type="submit" name="batalla-go-btn" id="batalla-go-btn" value="Finalizar batalla" class="btn btn-primary btn-block" /><br />
-		  	</form>
+				<input type="submit" name="batalla-go-btn" id="batalla-go-btn" value="Finalizar batalla" class="btn btn-primary btn-block" /><br />
+			</form>
 		<?php else:?>
 			<div class="alert alert-warning">error al crear batalla, inténtela otra vez.</div>
 		<?php endif;?>
 	<?php else:?>
 		<div class="alert alert-warning">No se encuentran preguntas</div>
 	<?php endif;?>
-<?php } ?>
+<?php }?>

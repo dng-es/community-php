@@ -36,7 +36,7 @@ videosController::validateCommentAction();
 											onClick="Confirma(\''.strTranslate("Are_you_sure_to_delete").'\',
 											\'admin-videos-comentarios?act=elem_ko&idc='.$element['id_comentario'].'&id='.$id_file.'&u='.$element['user_comentario'].'\')">
 										</span>
-									 </td>';
+									</td>';
 								echo '<td>'.$element['id_comentario'].'</td>';
 								echo '<td><em class="legend">'.$element['comentario'].'</em></td>';
 								echo '<td>'.$element['user_comentario'].'</td>';

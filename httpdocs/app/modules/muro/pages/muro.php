@@ -10,6 +10,8 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 include_once($base_dir . "modules/muro/classes/class.muro.php");
 include_once($base_dir . "modules/muro/templates/comment.php");
 
+$module_config = getModuleConfig("muro");
+$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,11 +26,11 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 			var ahora = "<?php echo connection::timeServer();?>";
 			ahora = ahora.replace(" ","T") + "Z";
 			$(".date-format-ago").each(function(){
-					var date2 = $(this).attr("data-date").replace(" ","T") + "Z";
-					var date = prettyDate(ahora,date2);
-					if (date) {
-							$(this).text(date);
-					}
+				var date2 = $(this).attr("data-date").replace(" ","T") + "Z";
+				var date = prettyDate(ahora,date2);
+				if (date) {
+						$(this).text(date);
+				}
 			});
 
 			$(".user-tip").tooltip({
@@ -46,8 +48,8 @@ include_once($base_dir . "modules/muro/templates/comment.php");
 		session::ValidateSessionAjax();
 		$muro = new muro(); 
 		$filtro = "";
-		if ($_SESSION['user_canal'] != 'admin') $filtro = " AND c.canal='".$_SESSION['user_canal']."' ";
-		$filtro .= " AND tipo_muro='principal' AND estado=1 AND id_comentario_id=0 ORDER BY date_comentario DESC LIMIT 20";
+		$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (c.canal IN (".$module_channels.") OR c.canal='') ");
+		$filtro = $filtro_canal." AND tipo_muro='principal' AND estado=1 AND id_comentario_id=0 ORDER BY date_comentario DESC LIMIT 20";
 		$comentarios_muro = $muro->getComentarios($filtro);
 		echo '<div id="muro-home">'; 
 		foreach($comentarios_muro as $comentario_muro):

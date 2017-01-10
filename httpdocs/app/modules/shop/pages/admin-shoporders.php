@@ -7,7 +7,6 @@ include_once($base_dir . "modules/class.footer.php");
 addJavascripts(array(getAsset("shop")."js/admin-shoporders.js"));
 
 $filtro = "";
-
 if (isset($_POST['find_reg'])) $filtro .= " AND d.id_order LIKE '%".$_POST['find_reg']."%' ";
 if (isset($_REQUEST['f'])) $filtro .= " AND d.id_order LIKE '%".$_REQUEST['f']."%' ";
 $filtro .= " ORDER BY d.id_order DESC";
@@ -16,7 +15,6 @@ shopOrdersController::exportListDetailAction($filtro);
 session::getFlashMessage( 'actions_message' );
 shopOrdersController::estadosAction();
 $elements = shopOrdersController::getListDetailAction(15, $filtro);
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -47,7 +45,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 					<th><?php e_strTranslate("Date");?></th>
 					<th></th>
 					<th></th>
-				</tr>		
+				</tr>
 				<?php foreach($elements['items'] as $element): ?>
 						<form class="form-inline form-status" name="form-status-<?php echo $element['id_order'];?>" id="form-status-<?php echo $element['id_order'];?>" method="post">
 						<input type="hidden" name="id_order" id="id_order" value="<?php echo $element['id_order'];?>" />
@@ -70,7 +68,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 
 								<?php if($element['status_order'] == 'pendiente'):?>
 									<span class="label label-warning">Pendiente</span>
-								<?php endif;?>																
+								<?php endif;?>
 							</td>
 							<td><?php echo $element['username_order'];?></td>
 							<td><?php echo $element['name_product'];?></td>
@@ -93,7 +91,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 							</td>
 						</tr>
 						</form>
-				<?php endforeach; ?>
+				<?php endforeach;?>
 			</table>
 		</div>
 		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'admin-shoporders','Pedidos', $elements['find_reg']);?>

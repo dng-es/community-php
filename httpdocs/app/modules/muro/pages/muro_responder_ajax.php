@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace( ((strrpos( __DIR__ , "\\" ) === false) ? 'modules/muro/pages' : 'modules\\muro\\pages')  , '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/muro/pages' : 'modules\\muro\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/functions.core.php");
@@ -62,7 +62,7 @@ include_once($base_dir . "modules/muro/classes/class.muro.php");
 		userFicha($comentario_muro);
 		echo '		<p class="text-primary"><b>'.$comentario_muro['nick'].'</b> <span class="date-format-ago" data-date="'.$comentario_muro['date_comentario'].'">'.getDateFormat($comentario_muro['date_comentario'], "DATE_TIME").'</span>:';
 		//SOLO LOS ADMIN PUEDEN VER EL CANAL
-		if ($_SESSION['user_canal'] == 'admin'){  echo ' ('.strTranslate("Channel").': '.$comentario_muro['canal_comentario'].')';}
+		if ($_SESSION['user_canal'] == 'admin') echo ' ('.strTranslate("Channel").': '.$comentario_muro['canal_comentario'].')';
 		echo '		</p>
 					<p id="texto-comentario-'.$comentario_muro['id_comentario'].'">'.$comentario_muro['comentario'].'</p>';
 

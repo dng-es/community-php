@@ -1,11 +1,5 @@
 <?php
 addJavascripts(array(getAsset("configuration")."js/admin-modules.js"));
-
-session::getFlashMessage('actions_message');
-configurationController::updateAction();
-$modules = configurationController::getListModulesAction();
-
-global $modules_data;
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -14,8 +8,12 @@ global $modules_data;
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Configuration"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Modules_settings"), "ItemClass"=>"active"),
-		));?>
-
+		));
+		session::getFlashMessage('actions_message');
+		configurationController::updateAction();
+		$modules = configurationController::getListModulesAction();
+		global $modules_data;
+		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<h2><?php e_strTranslate("Modules_installed");?></h2>
@@ -27,15 +25,15 @@ global $modules_data;
 							$key = array_search($module['folder'], arraycolumn($modules_data, 'name'));
 							?>
 							<div class="panel-heading">
-								<h3 class="panel-title"><?php echo strTranslate(ucfirst($module['folder']));?> <small><i data-html="true" class="pull-right user-tip fa fa-info-circle text-muted" title="<?php echo str_replace('"', '\'', $module['ann']);?>"></i></small>
+								<h3 class="panel-title"><?php e_strTranslate(ucfirst($module['folder']));?> <small><i data-html="true" class="pull-right user-tip fa fa-info-circle text-muted" title="<?php echo str_replace('"', '\'', $module['ann']);?>"></i></small>
 								</h3>
 							</div>
 							<div class="panel-footer" style="height:40px">&nbsp;
 							<?php
-							echo (isset($module_config['options']) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger btn btn-default btn-xs pull-right" href="#" title="'.strTranslate("Configuration").'"><small>'.strTranslate("Configuration").'</small>&nbsp;<i class="fa fa-gear"></i></a>' : '').'';?>
+							echo ((isset($module_config['options']) || isset($module_config['channels'])) ? '<a data-module="'.$module['folder'].'" class="configuration-trigger btn btn-default btn-xs pull-right" href="#" title="'.strTranslate("Configuration").'"><small>'.strTranslate("Configuration").'</small>&nbsp;<i class="fa fa-gear"></i></a>' : '').'';?>
 							</div>
 						</div>
-					<?php endforeach; ?>
+					<?php endforeach;?>
 				</div>
 			</div>
 		</div>

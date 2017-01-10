@@ -68,7 +68,7 @@ class incentivos{
 			INNER JOIN incentives_objetivos_detalle vd ON vd.id_producto=v.id_producto_venta AND vd.id_objetivo=".$id_objetivo." 
 			WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
-	}			
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -95,7 +95,7 @@ WHERE ventas.suma>=(
 	WHERE 1=1 ".$filter." AND username_puntuacion='".$username."' GROUP BY username_puntuacion ORDER BY suma DESC, username_puntuacion DESC)) r,  
 (SELECT @rownum:=0) ro ) f WHERE username_puntuacion='".$username."' "; //echo $Sql;
 		return connection::getSQL($Sql);
-	}		
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -119,7 +119,7 @@ WHERE ventas.suma>=(
 			LEFT JOIN users_tiendas u ON u.cod_tienda=o.destino_objetivo 
 			WHERE 1=1 ".$filter." GROUP BY destino_objetivo";
 		return connection::getSQL($Sql);
-	}			
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -133,7 +133,7 @@ WHERE ventas.suma>=(
 			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}	
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -147,7 +147,7 @@ WHERE ventas.suma>=(
 			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}	
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -161,7 +161,7 @@ WHERE ventas.suma>=(
 			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
 			WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
-	}		
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -171,14 +171,14 @@ WHERE ventas.suma>=(
 	public function getIncentivesFabricantes($filter = ""){
 		$Sql="SELECT * FROM incentives_fabricantes WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}   
+	}
 
 	/**
 	 * Inserta registro en incentivos fabricantes
 	 * @param  string 	$nombre_fabricante 	Nombre del fabricante
 	 * @return boolean 						Resultado de la SQL
 	 */
-	public function insertIncentivesFabricantes( $nombre_fabricante ){		
+	public function insertIncentivesFabricantes( $nombre_fabricante ){
 		$Sql="INSERT INTO incentives_fabricantes (nombre_fabricante) 
 			  VALUES ('".$nombre_fabricante."')";
 		return connection::execute_query($Sql);
@@ -206,7 +206,7 @@ WHERE ventas.suma>=(
 			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante 
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}   
+	}
 
 	/**
 	 * Inserta registro en incentivos productos
@@ -215,7 +215,7 @@ WHERE ventas.suma>=(
 	 * @param  int 		$id_fabricante 			Id del fabricante
 	 * @return boolean 							Resultado de la SQL
 	 */
-	public function insertIncentivesProductos( $referencia_producto, $nombre_producto, $id_fabricante ){		
+	public function insertIncentivesProductos( $referencia_producto, $nombre_producto, $id_fabricante ){
 		$Sql="INSERT INTO incentives_productos (referencia_producto, nombre_producto, id_fabricante) 
 			  VALUES ('".$referencia_producto."','".$nombre_producto."', ".$id_fabricante.")";
 		return connection::execute_query($Sql);
@@ -243,7 +243,7 @@ WHERE ventas.suma>=(
 			LEFT JOIN incentives_productos p ON p.id_producto=a.id_producto
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	} 
+	}
 
 	/**
 	 * Inserta registro en aceleradores de productos
@@ -253,7 +253,7 @@ WHERE ventas.suma>=(
 	 * @param  date 	$date_fin 				Fecha fin del acelerador
 	 * @return boolean 							Resultado de la SQL
 	 */
-	public function insertIncentivesProductAcelerator( $id_producto, $valor_acelerador, $date_ini, $date_fin ){		
+	public function insertIncentivesProductAcelerator( $id_producto, $valor_acelerador, $date_ini, $date_fin ){
 		$Sql="INSERT INTO incentives_productos_aceleradores (id_producto, valor_acelerador, date_ini, date_fin) 
 			  VALUES (".$id_producto.",".$valor_acelerador.",'".$date_ini."', '".$date_fin."')";
 		return connection::execute_query($Sql);
@@ -278,7 +278,7 @@ WHERE ventas.suma>=(
 	 * @param  date 	$fecha_venta 			Fecha de la venta
 	 * @return boolean 							Resultado de la SQL
 	 */
-	public function insertIncentivesVenta( $id_producto, $cantidad_venta, $username_venta, $fecha_venta, $detalle_venta = "", $tendencia = '' ){		
+	public function insertIncentivesVenta( $id_producto, $cantidad_venta, $username_venta, $fecha_venta, $detalle_venta = "", $tendencia = '' ){
 		$Sql="INSERT INTO incentives_ventas (id_producto, cantidad_venta, username_venta, fecha_venta, detalle_venta, tendencia_venta) 
 			  VALUES (".$id_producto.",".$cantidad_venta.",'".$username_venta."', '".$fecha_venta."', '".$detalle_venta."', '".$tendencia."')";
 		return connection::execute_query($Sql);
@@ -293,7 +293,7 @@ WHERE ventas.suma>=(
 		$Sql="SELECT * FROM incentives_objetivos  
 			WHERE 1=1 ".$filter; //echo $Sql."<br /><br />";
 		return connection::getSQL($Sql);
-	}   
+	}
 
 	/**
 	 * Inserta registro en incentivos Objetivos
@@ -303,7 +303,7 @@ WHERE ventas.suma>=(
 	 * @param  date 	$date_fin_objetivo 		Fecha fin del objetivo
 	 * @return boolean 							Resultado de la SQL
 	 */
-	public function insertIncentivesObjetivos( $nombre_objetivo, $tipo_objetivo, $date_ini_objetivo, $date_fin_objetivo, $ranking_objetivo, $perfil_objetivo = "", $canal_objetivo = ''){	
+	public function insertIncentivesObjetivos( $nombre_objetivo, $tipo_objetivo, $date_ini_objetivo, $date_fin_objetivo, $ranking_objetivo, $perfil_objetivo = "", $canal_objetivo = ''){
 		$Sql="INSERT INTO incentives_objetivos (nombre_objetivo, tipo_objetivo, date_ini_objetivo, date_fin_objetivo, ranking_objetivo, perfil_objetivo, canal_objetivo) 
 			  VALUES ('".$nombre_objetivo."','".$tipo_objetivo."', '".$date_ini_objetivo."','".$date_fin_objetivo."',".$ranking_objetivo.", '".$perfil_objetivo."','".$canal_objetivo."')";
 		return connection::execute_query($Sql);
@@ -330,7 +330,7 @@ WHERE ventas.suma>=(
 		$Sql="SELECT * FROM incentives_objetivos_detalle  
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	} 
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -343,7 +343,7 @@ WHERE ventas.suma>=(
 			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
 			WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
-	} 
+	}
 
 	 /**
 	 * Devuelve array con los registros
@@ -357,7 +357,7 @@ WHERE ventas.suma>=(
 			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	} 
+	}
 
 	/**
 	 * Inserta registro en incentivos Objetivos detalle
@@ -367,7 +367,7 @@ WHERE ventas.suma>=(
 	 * @param  double 	$valor_objetivo 		Valor del objetivo
 	 * @return boolean 							Resultado de la SQL
 	 */
-	public function insertIncentivesObjetivosDetalle( $id_objetivo, $destino_objetivo, $id_producto, $valor_objetivo ){		
+	public function insertIncentivesObjetivosDetalle( $id_objetivo, $destino_objetivo, $id_producto, $valor_objetivo ){
 		$Sql="INSERT INTO incentives_objetivos_detalle (id_objetivo, destino_objetivo, id_producto, valor_objetivo) 
 			  VALUES (".$id_objetivo.",'".$destino_objetivo."', ".$id_producto.",".$valor_objetivo.")";
 		return connection::execute_query($Sql);
@@ -393,7 +393,7 @@ WHERE ventas.suma>=(
 		$Sql="SELECT * FROM incentives_productos_puntos
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	} 
+	}
 
 	/**
 	 * Inserta registro en incentivos Objetivos detalle
@@ -403,9 +403,9 @@ WHERE ventas.suma>=(
 	 * @param  date 	$date_fin 				Fecha fin de la puntuacion
 	 * @return boolean 							Resultado de la SQL
 	 */
-	public function insertIncentivesProductosPuntos( $id_producto, $puntos, $date_ini, $date_fin ){		
-		$Sql="INSERT INTO incentives_productos_puntos (id_producto, puntos, date_ini, date_fin) 
-			  VALUES (".$id_producto.",".$puntos.", '".$date_ini."','".$date_fin."')";
+	public function insertIncentivesProductosPuntos( $id_producto, $puntos, $date_ini, $date_fin, $canal_puntos ){
+		$Sql="INSERT INTO incentives_productos_puntos (id_producto, puntos, date_ini, date_fin, canal_puntos) 
+			  VALUES (".$id_producto.",".$puntos.", '".$date_ini."','".$date_fin."', '".$canal_puntos."')";
 		return connection::execute_query($Sql);
 	}
 
@@ -428,7 +428,7 @@ WHERE ventas.suma>=(
 	 * @param  date 	$date_venta 			Fecha de la venta
 	 * @return boolean 							Resultado de la SQL
 	 */
-	public function insertIncentivesProductosVentas( $username_puntuacion, $puntuacion_venta, $id_producto_venta, $date_venta, $puntuacion_detalle = "" ){		
+	public function insertIncentivesProductosVentas( $username_puntuacion, $puntuacion_venta, $id_producto_venta, $date_venta, $puntuacion_detalle = "" ){
 		$Sql="INSERT INTO incentives_ventas_puntos (username_puntuacion, puntuacion_venta, id_producto_venta, date_venta, puntuacion_detalle) 
 			  VALUES ('".$username_puntuacion."',".$puntuacion_venta.", ".$id_producto_venta.",'".$date_venta."','".$puntuacion_detalle."')";
 		return connection::execute_query($Sql);
@@ -444,6 +444,6 @@ WHERE ventas.suma>=(
 			INNER JOIN incentives_objetivos o ON o.id_objetivo = d.id_objetivo
 			WHERE o.activo_objetivo = 1".$filtro; //echo $Sql."<br /><br />";
 		return connection::getSQL($Sql);
-	}			
+	}
 }
 ?>

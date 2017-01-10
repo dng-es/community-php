@@ -1,18 +1,18 @@
-<?php
-$filtro = ((isset($_REQUEST['find_reg']) and $_REQUEST['find_reg']!="") ? " AND titulo_info LIKE '%".sanitizeInput($_REQUEST['find_reg'])."%' " : "");
-$elements = infoController::getListAction(20, $filtro);
-?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemUrl"=>"info-all"),
 			array("ItemLabel"=>strTranslate("Search_results"), "ItemClass"=>"active"),
-		));?>
+		));
+		$filtro = ((isset($_REQUEST['find_reg']) and $_REQUEST['find_reg']!="") ? " AND titulo_info LIKE '%".sanitizeInput($_REQUEST['find_reg'])."%' " : "");
+		$elements = infoController::getListAction(20, $filtro);
+
+		?>
 		<h3><?php e_strTranslate("Search_results");?>: <span class="text-primary"><em><?php echo sanitizeInput($_REQUEST['find_reg']);?></em> (<?php echo $elements['total_reg'];?> <?php echo strtolower(strTranslate("Items"));?>)</span></h3>
 		<?php foreach($elements['items'] as $elements_info): 
 		//$enlace = ($elements_info['download'] == 1 ? ' href="info-all?id='.$element['id_info'].'&exp='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
-		$enlace = ($elements_info['download'] == 1 ? ' href="docs/showfile.php?file='.$elements_info['file_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
+		$enlace = ($elements_info['download'] == 1 ? ' href="docs/showfile.php?file='.$elements_info['file_info'].'&i='.$elements_info['id_info'].'" ' : ' target="_blank" href="'.$elements_info['file_info'].'" ');
 		?>
 			<div class="row">
 				<div class="col-md-12">

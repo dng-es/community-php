@@ -72,7 +72,6 @@ class foro{
 		else return false;
 	}
 
-
 	public function InsertVotacion($id, $usuario){
 		//VERIFICAR QUE EL USUARIO NO SE VOTE A SI MISMO
 		if (connection::countReg("foro_comentarios", " AND id_comentario=".$id." AND user_comentario='".$usuario."' ") == 0){
@@ -87,7 +86,7 @@ class foro{
 				$Sql = "UPDATE foro_comentarios
 						SET votaciones=votaciones+1 
 						WHERE id_comentario=".$id;
-				connection::execute_query($Sql);	
+				connection::execute_query($Sql);
 				return 0;
 			}
 			else return 1;
@@ -100,7 +99,7 @@ class foro{
 				tipo_tema='".$tipo."'
 				WHERE id_tema=".$id."";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	public function cambiarEstadoTema($id, $activo){
 		$Sql = "UPDATE foro_temas SET
@@ -137,6 +136,24 @@ class foro{
 		return connection::execute_query($Sql);
 	}
 
+	public function updateTemaBlog($id, $nombre, $descripcion, $etiquetas, $foto, $destacado, $canal){
+		$Sql_imagen = "";
+		if ($foto['name'] != ""){ 
+			//subir foto nueva
+			$nombre_imagen = self::insertTemaFoto($foto);
+			$Sql_imagen = "imagen_tema='".$nombre_imagen."',";
+		}
+		$Sql = "UPDATE foro_temas SET
+				nombre='".$nombre."',
+				descripcion='".$descripcion."',
+				destacado=".$destacado.",
+				canal='".$canal."',
+				".$Sql_imagen."
+				tipo_tema='".$etiquetas."'
+				WHERE id_tema=".$id."";
+		return connection::execute_query($Sql);
+	}
+
 	public function insertTemaFoto($fichero){
 		//SUBIR FICHERO
 		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
@@ -155,7 +172,7 @@ class foro{
 
 	public function getArchivoBlog($filter = ""){
 		$Sql = "SELECT MONTH(date_tema) AS mes,YEAR(date_tema) AS ano,COUNT(id_tema) AS contador FROM foro_temas WHERE ocio=1 AND activo=1 ".$filter." GROUP BY MONTH(date_tema),YEAR(date_tema) ORDER BY ano DESC,mes DESC ";
-	    return connection::getSQL($Sql);  
+		return connection::getSQL($Sql);
 	}
 
 	public function getCategorias($filter = ""){

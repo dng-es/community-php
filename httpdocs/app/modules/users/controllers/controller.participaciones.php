@@ -7,10 +7,10 @@ class usersParticipacionesController{
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("users_participaciones",$filtro);
 		return array('items' => $users->getParticipaciones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
-					'pag' 		=> $paginator_items['pag'],
-					'reg' 		=> $reg,
-					'find_reg' 	=> $find_reg,
-					'total_reg' => $total_reg);
+			'pag' 		=> $paginator_items['pag'],
+			'reg' 		=> $reg,
+			'find_reg' 	=> $find_reg,
+			'total_reg' => $total_reg);
 	}
 
 	public static function exportListAction(){

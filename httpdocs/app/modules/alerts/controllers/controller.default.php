@@ -38,7 +38,7 @@ class alertsController{
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
 			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
 			redirectURL("admin-alerts?pag=".$pag."&f=".$find_reg);
-		}	
-	}	
+		}
+	}
 }
 ?>

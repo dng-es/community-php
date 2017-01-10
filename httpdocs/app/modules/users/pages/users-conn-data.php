@@ -14,9 +14,11 @@ $pagina = $_REQUEST['pagina'];
 $reg = 56;
 $inicio = ($pagina - 1) * $reg;
 
-if ($_SESSION['user_canal'] != 'admin') $filtroCanal = " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') ";
-else $filtroCanal = "";
-$users_conn = users::getUsersConn($filtroCanal." LIMIT ".$inicio.",".$reg);
+$module_config = getModuleConfig("users");
+$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
+$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (connection_canal IN (".$module_channels.") or connection_canal='admin') ");
+
+$users_conn = users::getUsersConn($filtro_canal." LIMIT ".$inicio.",".$reg);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

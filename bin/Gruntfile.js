@@ -97,6 +97,7 @@ var processorsArray = [
 		           '<%= public_html %>js/libs/functions.js', 
 		           '<%= public_html %>css/libs/bootstrap*/assets/javascripts/bootstrap.js', 
 		           '<%= public_html %>js/bootstrap-dropdown.js', 
+		           '<%= public_html %>js/bootstrap-select.js', 
 		           '<%= public_html %>js/libs/main.js'
 		           ]
 		       },
@@ -114,6 +115,7 @@ var processorsArray = [
 		           '<%= public_html %>js/libs/functions.js', 
 		           '<%= public_html %>css/libs/bootstrap*/assets/javascripts/bootstrap.js', 
 		           '<%= public_html %>js/bootstrap-dropdown.js', 
+		           '<%= public_html %>js/bootstrap-select.js', 
 		           '<%= public_html %>js/libs/main.js'
 		           ]
 		       },

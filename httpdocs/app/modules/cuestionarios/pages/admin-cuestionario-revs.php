@@ -9,7 +9,6 @@ $cuestionarios = new cuestionarios();
 $id_cuestionario =$_REQUEST['id'];
 $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -22,10 +21,10 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 
 		session::getFlashMessage('actions_message');
 		cuestionariosController::deleteCuestionarioAction($id_cuestionario);
-		cuestionariosController::RevisarFormAction(); 
-		cuestionariosController::FinalizacionDeleteAction(); 
+		cuestionariosController::RevisarFormAction();
+		cuestionariosController::FinalizacionDeleteAction();
 		$filtro = " AND id_cuestionario=".$id_cuestionario." ORDER BY user_tarea";
-		$revisiones = $cuestionarios->getFormulariosFinalizados($filtro);   
+		$revisiones = $cuestionarios->getFormulariosFinalizados($filtro);
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo count($revisiones);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
@@ -33,7 +32,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 			<li><a href="admin-cuestionario-revs?t3=1&id=<?php echo $id_cuestionario;?>"><?php e_strTranslate("Export");?></a></li>
 		</ul>
 		
-		<?php if (count($revisiones) == 0): ?>
+		<?php if (count($revisiones) == 0):?>
 			<br /><div class="tareas-row alert alert-warning">Los usuarios todavia no han finalizado el cuestionario.</div>
 		<?php else: ?>
 			<div class="table-responsive">
@@ -103,8 +102,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 			<div id="dialog-confirm" title="Respuestas del usuario" style="display:none">
 				<div id="dialog-info"></div>
 			</div>
-		<?php endif; ?>
-
+		<?php endif;?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

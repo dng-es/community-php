@@ -16,13 +16,13 @@ $modelo = ($objetivo['tipo_objetivo'] == 'Tienda' ? "model_incentivos_groups" : 
 		));
 		?>
 		<div class="section inset">
-			<h4><?php echo strTranslate("Incentives_target");?>: <?php echo $objetivo['nombre_objetivo'];?></h4>
-			<p>Selecciona el fichero Excel con los datos a cargar. El fichero deberá tener la estructura especificada, puedes descargar el fichero modelo <a href="docs/<?php echo $modelo;?>.xls"><b><?php echo strTranslate("Click_here")?></b></a>.</p>
+			<h4><?php e_strTranslate("Incentives_target");?>: <?php echo $objetivo['nombre_objetivo'];?></h4>
+			<p>Selecciona el fichero Excel con los datos a cargar. El fichero deberá tener la estructura especificada, puedes descargar el fichero modelo <a href="docs/<?php echo $modelo;?>.xls"><b><?php e_strTranslate("Click_here")?></b></a>.</p>
 			<form id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="admin-incentives-targets-cargas-process?id=<?php echo $id_objetivo;?>" role="form">
-				<label for="nombre-fichero"><?php echo strTranslate("Choose_file")?> Excel (.xls): </label><br />
-				<input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="<?php echo strTranslate("Choose_file")?>" />
+				<label for="nombre-fichero"><?php e_strTranslate("Choose_file")?> Excel (.xls): </label><br />
+				<input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="<?php e_strTranslate("Choose_file")?>" />
 				<span id="fichero-alert" class="alert-message"></span>
-				<input type="button" id="inputFile" name="inputFile" value="<?php echo strTranslate("Import_file")?>" class="btn btn-primary" />
+				<input type="button" id="inputFile" name="inputFile" value="<?php e_strTranslate("Import_file")?>" class="btn btn-primary" />
 			</form>
 		</div>
 	</div>

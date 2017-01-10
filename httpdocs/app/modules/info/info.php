@@ -3,7 +3,7 @@
 * @Libreria de archivos descargables para el usuario. Depende del modulo campaigns
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.2
+* @version 1.3
 *
 */	
 class infoCore{

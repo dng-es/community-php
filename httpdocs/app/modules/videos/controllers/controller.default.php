@@ -14,11 +14,11 @@ class videosController{
 		$find_reg = "";
 		if (isset($_POST['find_reg'])) {$filter .= " AND titulo LIKE '%".$_POST['find_reg']."%' ";$find_reg = $_POST['find_reg'];}
 		if (isset($_REQUEST['f'])) {$filter .= " AND titulo LIKE '%".$_REQUEST['f']."%' ";$find_reg = $_REQUEST['f'];} 
-		if ($_SESSION['user_canal'] != 'admin') $filter.=" AND v.canal='".$_SESSION['user_canal']."' ";
+		//if ($_SESSION['user_canal'] != 'admin') $filter.=" AND v.canal='".$_SESSION['user_canal']."' ";
 		$filter .= " ORDER BY id_file DESC";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("galeria_videos v",$filter); 
+		$total_reg = connection::countReg("galeria_videos v",$filter);
 		return array('items' => $videos->getVideos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -94,10 +94,9 @@ class videosController{
 				unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4");
 				unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4.jpg");
 				unlink (PATH_VIDEOS_TEMP.$_REQUEST['f']);
-				if ($videos->cambiarEstado($_REQUEST['id'], 2))
+				if ($videos->cambiarEstado($_REQUEST['id'], 2)) 
 					session::setFlashMessage('actions_message', "Video cancelado correctamente.", "alert alert-success");
-				else
-					session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
 
 			redirectURL("admin-validacion-videos");
@@ -147,7 +146,7 @@ class videosController{
 	}
 
 	public static function voteCommentAction($destination = "videos"){
-		if (isset($_REQUEST['idvc']) and $_REQUEST['idvc'] != "") { 
+		if (isset($_REQUEST['idvc']) and $_REQUEST['idvc'] != "") {
 			$videos = new videos();
 			$response = $videos->InsertVotacionVideo($_REQUEST['idvc'],$_SESSION['user_name']);
 			if ($response == 1)

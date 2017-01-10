@@ -4,7 +4,7 @@ class muroController{
 		$muro = new muro();
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("muro_comentarios",$filtro); 
+		$total_reg = connection::countReg("muro_comentarios",$filtro);
 		return array('items' => $muro->getComentarios($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

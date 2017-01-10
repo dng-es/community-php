@@ -3,7 +3,7 @@
 * @Mensajeria interna
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.0.1
+* @version 1.1
 *
 */
 class mensajesCore{

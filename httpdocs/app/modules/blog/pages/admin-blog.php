@@ -43,7 +43,7 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default">       
+				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo count($elements);?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-blog-new">Nueva entrada</a></li>
 					<li><a href="<?php echo $_REQUEST['page'];?>?export=true"><?php e_strTranslate("Export");?></a></li>
@@ -69,11 +69,10 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 								<button type="button" class="btn btn-default btn-xs" title="Eliminar"
 									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-blog?pag=<?php echo $pag;?>&act=del&id=<?php echo $element['id_tema'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
 								</button>
-
 								<button type="button" class="btn btn-default btn-xs" title="Ver/editar entrada" onClick="location.href='admin-blog-new?id=<?php echo $element['id_tema'];?>'; return false"><i class="fa fa-edit icon-table"></i>
 								</button>
-							 </td>
-						<?php 			
+							</td>
+						<?php 
 						echo '<td>'.$element['nombre'].'<br />';
 						echo '<em class="legend">'.getDateFormat($element['date_tema'], "LONG").'</em><br />';
 						echo $element['user'].'</td>';
@@ -83,7 +82,7 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 						else echo '<a href="admin-blog-foro?id='.$element['id_tema'].'">'.$num_comentarios.'</a>';
 						echo '</td>';
 						echo '<td>'.ucfirst($element['canal']).'</td>';
-						echo '</tr>';   
+						echo '</tr>';
 					endforeach;?>
 					</table>
 				</div>

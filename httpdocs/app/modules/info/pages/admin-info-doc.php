@@ -1,6 +1,5 @@
 <?php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-info-doc.js"));
-
 templateload("cmbCanales","users");
 
 $accion = (isset($_GET['act']) ? $_GET['act'] : "new");
@@ -16,7 +15,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Info_Document"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		infoController::createAction();
 		infoController::updateAction($id);
 		$elements = infoController::getItemAction($id);
@@ -30,7 +29,6 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 
 		$info = new info();
 		$campaigns = new campaigns();
-
 		?>
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php e_strTranslate("Edit")." ".strTranslate("Info_Document");?></div>
@@ -41,15 +39,13 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 						<div class="col-md-6">
 							<div class="form-group">
 								<small><label for="info_title"><?php e_strTranslate("Title");?>:</label></small>
-								<input class="form-control form-bigi" type="text" id="info_title" name="info_title" value="<?php echo $titulo_info;?>" />
-								<span id="title-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+								<input data-alert="<?php e_strTranslate("Required_field");?>" class="form-control form-big" type="text" id="info_title" name="info_title" value="<?php echo $titulo_info;?>" />
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<small><label for="info_canal"><?php e_strTranslate("Channel");?>:</label></small>
-								<select name="info_canal" id="info_canal" class="form-control">
-								<option tp="1" value="todos" <?php if ($canal_info=='todos'){ echo ' selected="selected" ';}?>>todos los canales</option>
+								<select name="info_canal[]" id="info_canal" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
 								<?php ComboCanales($canal_info); ?>
 								</select>
 							</div>
@@ -90,7 +86,6 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 									<input class="styled" type="checkbox" name="download" id="download" <?php echo $download == 1 ? 'checked="checked"' : '';?>>
 									<label for="download"> Fichero descargable <span class="text-muted">(si no marcas esta opción introducir URL del documento)</span></label>
 								</div>
-
 								<input class="form-control" type="text" id="info_url" name="info_url" value="<?php echo $download == 1 ? "" : $titulo_info;?>" />
 							</div>
 						</div>
@@ -110,9 +105,8 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 							</div>
 						</div>
 					</div>
-
 					<br /><br />
-					<input type="button" name="SubmitData" id="SubmitData" class="btn btn-primary pull-right" value="<?php e_strTranslate("Save_data");?>" />
+					<input type="submit" name="SubmitData" id="SubmitData" class="btn btn-primary pull-right" value="<?php e_strTranslate("Save_data");?>" />
 				</form>	
 			</div>
 		</div>

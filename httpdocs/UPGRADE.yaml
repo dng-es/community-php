@@ -1,5 +1,8 @@
 ---
 upgrades:
+    8:  
+        version: 0.6
+        notes: \nContenidos para unos o varios canales\n\n
     7:  
         version: 0.5.3.1
         notes: \nModulos de incentivos y batallas por canales. Opciones en carga masiva de usuario\n\n

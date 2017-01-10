@@ -10,9 +10,8 @@ templateload("tags","agenda");
 		));
 
 		session::getFlashMessage( 'actions_message' );
-		$usuario = usersController::getPerfilAction($_SESSION['user_name']);
 
-		$filtro_canal = (($_SESSION['user_canal'] <> 'admin') ? " AND (canal ='".$_SESSION['user_canal']."' OR canal ='')" : '');
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal LIKE '%".$_SESSION['user_canal']."%' " : "");
 		$filtro_tags = ((isset($_REQUEST['f']) and $_REQUEST['f'] <> '') ? " AND etiquetas LIKE '%".$_REQUEST['f']."%' " : '');
 		$elements = agendaController::getListAction(4, $filtro_canal.$filtro_tags. " AND tipo=2 AND activo=1  ");
 
@@ -49,7 +48,6 @@ templateload("tags","agenda");
 		<?php endforeach;?>
 		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
 		<br />
-
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
@@ -58,7 +56,7 @@ templateload("tags","agenda");
 					<span class="fa fa-circle fa-stack-2x"></span>
 					<span class="fa fa-bookmark fa-stack-1x fa-inverse"></span>
 				</span>
-				<?php echo strTranslate("Offers");?>
+				<?php e_strTranslate("Offers");?>
 			</h4>
 			<p class="text-center"><span class="fa fa-star  fa-big"></span></p>
 			<h4>Etiquetas</h4>

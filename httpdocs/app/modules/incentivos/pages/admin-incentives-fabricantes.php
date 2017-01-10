@@ -1,14 +1,7 @@
 <?php
 incentivosFabricantesController::exportAction();
-
 addJavascripts(array(getAsset("incentivos")."js/admin-incentives-fabricantes.js"));
-
-session::getFlashMessage( 'actions_message' ); 
-incentivosFabricantesController::createAction();
-incentivosFabricantesController::deleteAction();
-$elements = incentivosFabricantesController::getListAction(35);
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -18,10 +11,14 @@ $elements = incentivosFabricantesController::getListAction(35);
 			array("ItemLabel"=>strTranslate("Incentives"), "ItemUrl"=>"admin-incentives"),
 			array("ItemLabel"=>strTranslate("Incentives_manufacturers"), "ItemClass"=>"active"),
 		));
+		session::getFlashMessage( 'actions_message' );
+		incentivosFabricantesController::createAction();
+		incentivosFabricantesController::deleteAction();
+		$elements = incentivosFabricantesController::getListAction(35);
 		?>
-		<ul class="nav nav-pills navbar-default">       
-			<li class="disabled"><a href="#"><?php echo strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php echo strTranslate("Export");?></a></li>
+		<ul class="nav nav-pills navbar-default">
+			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+			<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
 		</ul>
 		<br />
 
@@ -32,21 +29,21 @@ $elements = incentivosFabricantesController::getListAction(35);
 						<table class="table">
 							<tr>
 							<th width="40px"></th>
-							<th><?php echo strTranslate("Incentives_manufacturers");?></th>
+							<th><?php e_strTranslate("Incentives_manufacturers");?></th>
 							<th width="60px"></th>
 							</tr>	
 							<?php foreach($elements['items'] as $element):?>
 								<tr>
-									<td nowrap="nowrap">						
-										<span class="fa fa-ban icon-table" title="<?php echo strTranslate("Delete");?>"
-											onClick="Confirma('<?php echo strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-fabricantes?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_fabricante'];?>', '<?php echo strTranslate("Are_you_sure");?>', '<?php echo strTranslate("Cancel_text");?>', '<?php echo strTranslate("Confirm_text");?>')">
+									<td nowrap="nowrap">
+										<span class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
+											onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-fabricantes?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_fabricante'];?>', '<?php e_strTranslate("Are_you_sure");?>', '<?php e_strTranslate("Cancel_text");?>', '<?php e_strTranslate("Confirm_text");?>')">
 										</span>
-									</td>					
+									</td>
 									<td><?php echo $element['nombre_fabricante'];?></td>
 									<td>
-										<a class="btn btn-default btn-xs" href="admin-incentives-products?m=<?php echo $element['id_fabricante'];?>"><?php echo strTranslate("Incentives_products");?></a>
+										<a class="btn btn-default btn-xs" href="admin-incentives-products?m=<?php echo $element['id_fabricante'];?>"><?php e_strTranslate("Incentives_products");?></a>
 									</td>
-								</tr>  
+								</tr>
 							<?php endforeach; ?>
 						</table>
 					</div>
@@ -54,18 +51,18 @@ $elements = incentivosFabricantesController::getListAction(35);
 			</div>
 			<div class="col-md-6">
 				<div class="section inset">
-					<h4><?php echo strTranslate("Incentives_manufacturers_new");?></h4>
+					<h4><?php e_strTranslate("Incentives_manufacturers_new");?></h4>
 					<form role="form" action="" method="post" name="formData" id="formData">
 						<div class="form-group">
-							<label for="fabricante-nombre"><?php echo strTranslate("Incentives_manufacturer");?></label>
-							<input type="text" class="form-control" name="fabricante-nombre" id="fabricante-nombre" data-alert="<?php echo strTranslate("Required_field");?>" />
+							<label for="fabricante-nombre"><?php e_strTranslate("Incentives_manufacturer");?></label>
+							<input type="text" class="form-control" name="fabricante-nombre" id="fabricante-nombre" data-alert="<?php e_strTranslate("Required_field");?>" />
 						</div>
-						<button type="submit" class="btn btn-primary"><?php echo strTranslate("Save_data");?></button>
+						<button type="submit" class="btn btn-primary"><?php e_strTranslate("Save_data");?></button>
 					</form>
 				</div>
 			</div>
 		</div>
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

@@ -87,6 +87,5 @@ jQuery(document).ready(function(){
 				$(".alert-votacion").html(msg);
 			}
 		});
-
 	});
 });

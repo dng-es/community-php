@@ -3,11 +3,11 @@ $filtro_temas = (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") ?
 $find_tipo = (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") ? $_POST['tipo_search'] : "";
 
 $find_reg = "";
-if (isset($_POST['find_reg'])) {
+if (isset($_POST['find_reg'])){
 	$filtro_temas .= " AND nombre LIKE '%".$_POST['find_reg']."%' ";
 	$find_reg = $_POST['find_reg'];
 }
-if (isset($_REQUEST['f'])) {
+if (isset($_REQUEST['f'])){
 	$filtro_temas .= " AND nombre LIKE '%".$_REQUEST['f']."%' ";
 	$find_reg = $_REQUEST['f'];
 }
@@ -16,12 +16,6 @@ $filter = " AND id_tema_parent<>0 AND activo=1 and itinerario='' ".$filtro_temas
 
 foroController::exportTemasCommentsAction(" AND c.estado=1 ");
 foroController::exportTemasAction($filter);
-
-session::getFlashMessage( 'actions_message' );
-foroController::cancelTemaAction();
-foroController::changeTipoAction();
-$elements = foroController::getListTemasAction(15, $filter);
-
 addJavascripts(array(getAsset("foro")."js/admin-validacion-foro-temas.js"));
 ?>
 <div class="row row-top">
@@ -31,10 +25,15 @@ addJavascripts(array(getAsset("foro")."js/admin-validacion-foro-temas.js"));
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Forums"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>"Temas en los foros", "ItemClass"=>"active"),
-		));?>
+		));
+		session::getFlashMessage( 'actions_message' );
+		foroController::cancelTemaAction();
+		foroController::changeTipoAction();
+		$elements = foroController::getListTemasAction(15, $filter);
+		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default"> 
+				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="<?php echo $_REQUEST['page'].'?export2=true';?>"><?php e_strTranslate("Export");?></a></li>
 					<div class="pull-right">

@@ -1,6 +1,5 @@
 // JavaScript Document
 jQuery(document).ready(function(){
-
 	$('input[type=file]').bootstrapFileInput();
 
 	$("#formData").submit(function(evento){
@@ -14,7 +13,6 @@ jQuery(document).ready(function(){
 			form_ok = false;
 			$("#recompensa_image").addClass("input-alert").attr("placeholder",$('#recompensa_image').data("alert")).focus();
 		}*/
-
 
 		return form_ok;
 	});

@@ -4,24 +4,24 @@ class usersTiendasController{
 		$users = new users();
 		$find_reg = "";
 		if (isset($_POST['find_reg']) or isset($_REQUEST['f'])){
-				$filtro = " AND nombre_tienda LIKE '%".$_POST['find_reg']."%' OR cod_tienda LIKE '%".$_POST['find_reg']."%' ";
-				$find_reg = (isset($_POST['find_reg']) ? $_POST['find_reg'] : $_REQUEST['f']);
+			$filtro = " AND nombre_tienda LIKE '%".$_POST['find_reg']."%' OR cod_tienda LIKE '%".$_POST['find_reg']."%' ";
+			$find_reg = (isset($_POST['find_reg']) ? $_POST['find_reg'] : $_REQUEST['f']);
 		}
 		$filtro .= " ORDER BY nombre_tienda";
 		$paginator_items = PaginatorPages($reg);
 		
 		$total_reg = connection::countReg("users_tiendas",$filtro);
 		return array('items' => $users->getTiendas($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
-					'pag' 		=> $paginator_items['pag'],
-					'reg' 		=> $reg,
-					'find_reg' 	=> $find_reg,
-					'total_reg' => $total_reg);
+			'pag' 		=> $paginator_items['pag'],
+			'reg' 		=> $reg,
+			'find_reg' 	=> $find_reg,
+			'total_reg' => $total_reg);
 	}
 
 	public static function getItemAction($id = ""){
-			$users = new users();
-			$plantilla = $users->getTiendas(" AND cod_tienda='".$id."' ");
-			return  $plantilla[0];
+		$users = new users();
+		$plantilla = $users->getTiendas(" AND cod_tienda='".$id."' ");
+		return  $plantilla[0];
 	}
 
 	public static function exportListAction(){

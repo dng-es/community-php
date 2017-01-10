@@ -18,11 +18,13 @@ class fotosAlbumController{
 					'total_reg' => $total_reg);
 	}
 
-
 	public static function createAction($destination = "admin-albumes-new" ){
 		if (isset($_POST['id']) and $_POST['id'] == 0){
 			$nombre = sanitizeInput(trim($_POST['nombre']));
-			$result = self::newAlbum($nombre);
+			$canal = (isset($_POST['canal_album']) ? $_POST['canal_album'] : $_SESSION['user_canal']);
+			if (is_array($canal)) $canal = implode(",", $canal);
+
+			$result = self::newAlbum($nombre, $canal);
 			session::setFlashMessage('actions_message', $result['description'], "alert alert-".$result['message']);
 
 			if ($result['message'] == "success"){
@@ -32,9 +34,9 @@ class fotosAlbumController{
 
 			redirectURL($destination);
 		}
-	}		
+	}
 
-	public static function newAlbum($nombre){
+	public static function newAlbum($nombre, $canal){
 		//verificar album en blanco
 		if ($nombre == ''){
 			$result['message'] = "warning";
@@ -42,13 +44,13 @@ class fotosAlbumController{
 		}
 		else{
 			//verificar ya exista un album con el mismo nombre
-			if (connection::countReg("galeria_fotos_albumes"," AND nombre_album='".$nombre."' AND activo=1")){
+			if (connection::countReg("galeria_fotos_albumes"," AND nombre_album='".$nombre."' AND activo=1 AND canal_album LIKE '%".$canal."%' ")){
 				$result['message'] = "warning";
 				$result['description'] = "Ya existe un album con el mismo nombre";
 			}
 			else{
 				$fotos = new fotos();
-				if ($fotos->InsertAlbum($nombre, $_SESSION['user_name'])) {
+				if ($fotos->InsertAlbum($nombre, $_SESSION['user_name'], $canal)) {
 					$result['message'] = "success";
 					$result['description'] = strTranslate("Insert_procesing");
 				}
@@ -59,12 +61,18 @@ class fotosAlbumController{
 			}
 		}
 		return $result;
-	}	
+	}
 
 	public static function updateAction(){
 		if (isset($_POST['id']) and $_POST['id'] > 0){
 			$fotos = new fotos();
-			if ($fotos->updateAlbum($_POST['id'], $_POST['nombre'], $_SESSION['user_name'])) 
+
+			$id = sanitizeInput(trim($_POST['id']));
+			$nombre = sanitizeInput(trim($_POST['nombre']));
+			$canal = (isset($_POST['canal_album']) ? $_POST['canal_album'] : $_SESSION['user_canal']);
+			if (is_array($canal)) $canal = implode(",", $canal);
+
+			if ($fotos->updateAlbum($id, $nombre, $_SESSION['user_name'], $canal)) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
@@ -119,7 +127,7 @@ class fotosAlbumController{
 				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-warning");
-			
+
 			redirectURL("admin-albumes-new?id=".$_POST['id_album']);
 		}
 	}

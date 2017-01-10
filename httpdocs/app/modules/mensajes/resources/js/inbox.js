@@ -25,7 +25,7 @@ jQuery(document).ready(function(){
 		$("#asunto-comentario").val(message_title);
 		$("#nick-comentario").val(message_nick);
 		$('#new_mensaje').modal();
-	});	
+	});
 
 	$(".TituloNoleido").click(function(evento){
 		evento.preventDefault();
@@ -49,7 +49,7 @@ jQuery(document).ready(function(){
 			}
 			$("#contador-leidos-header").text(contador_no_leidos - 1);
 			$("#contador-no-leidos").text(contador_no_leidos - 1);
-			$("#contador-leidos-header").text(contador_no_leidos - 1);	
+			$("#contador-leidos-header").text(contador_no_leidos - 1);
 			$.ajax( {
 				type: "GET",
 				url: "app/modules/mensajes/pages/mensajes-leer.php",

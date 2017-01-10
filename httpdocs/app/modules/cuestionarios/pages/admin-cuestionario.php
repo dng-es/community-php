@@ -3,7 +3,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					 "js/libs/ckfinder/ckfinder.js",
 					 getAsset("cuestionarios")."js/admin-cuestionario.js"));
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -86,7 +85,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 	<?php menu::adminMenu();?>
 </div>
 
-
 <?php 
 function FormularioTarea($id_cuestionario, $cuestionario){
 		$cuestionarios = new cuestionarios();
@@ -111,40 +109,54 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 					<td><?php echo $pregunta['pregunta_texto'];?></td>
 					<td><?php echo $pregunta['pregunta_tipo'];?></td>
 				</tr>  
-				<?php endforeach; ?>
+				<?php endforeach;?>
 			</table>
 		<?php endif; ?>
-		<h3><?php e_strTranslate("Form_new_question");?></h3>
 
-		<div class="area-detalle">
-		<form id="formData" name="formData" method="post" action="admin-cuestionario?act=new&amp;id=<?php echo $id_cuestionario;?>&amp;">
-			<div class="form-group col-md-8">
-				<label for="pregunta_texto"><?php e_strTranslate("Form_question");?>:</label>
-				<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
-				<span id="pregunta-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+		<div class="col-md-5">
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php e_strTranslate("Form_new_question");?></div>
+				<div class="panel-body">
+					<form id="formData" name="formData" method="post" action="admin-cuestionario?act=new&amp;id=<?php echo $id_cuestionario;?>&amp;">
+					<div class="row">
+						<div class="form-group col-md-8">
+							<label for="pregunta_texto"><?php e_strTranslate("Form_question");?>:</label>
+							<input type="text" Size="40" id="pregunta_texto" name="pregunta_texto" value="" class="form-control" />
+							<span id="pregunta-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+						</div>
+						
+						<div class="form-group col-md-4">
+							<label for="pregunta_tipo"><?php e_strTranslate("Form_question_type");?>:</label>
+							<select id="pregunta_tipo" name="pregunta_tipo" class="form-control">
+								<option selected="selected" value="texto"><?php e_strTranslate("Form_question_type_text");?></option>
+								<option value="unica"/><?php e_strTranslate("Form_question_type_radio");?></option>
+								<option value="multiple"><?php e_strTranslate("Form_question_type_check");?></option>
+							</select>
+						</div>
+
+						<div class="form-group col-md-12" id="container-respuestas">
+							<a href="#" id="agregar-respuestas" class="btn btn-primary"><?php e_strTranslate("Form_new_answer");?></a><br /><br />
+							<input type="hidden" name="contador-respuestas" id="contador-respuestas" value="1" />
+							<label id="textoRespuesta1" style="width:70px;display:block;clear:both">Respuesta1:</label>
+							<input class="form-control" id="respuesta1" name="respuesta1" value=""/>
+
+							<div class="checkboxContainer">
+								<input type="checkbox" id="checkRespuesta1" name="checkRespuesta1" class="checkForm"> Respuesta correcta
+							</div>
+
+							<div class="radioContainer">
+								<input type="radio" id="radioRespuesta1" name="radioRespuesta1" value="1" class="radioForm"> Respuesta correcta
+							</div>
+							<hr />
+						</div>
+						</div>
+						<br />
+						<div class="form-group col-md-12">
+							<div id="SubmitData" name="SubmitData" class="btn btn-primary btn-block"><?php e_strTranslate("Form_add_question");?></div>
+						</div>
+					</form>
+				</div>
 			</div>
-			
-			<div class="form-group col-md-4">
-				<label for="pregunta_tipo"><?php e_strTranslate("Form_question_type");?>:</label>
-				<select id="pregunta_tipo" name="pregunta_tipo" class="form-control">
-					<option selected="selected" value="texto"><?php e_strTranslate("Form_question_type_text");?></option>
-					<option value="unica"/><?php e_strTranslate("Form_question_type_radio");?></option>
-					<option value="multiple"><?php e_strTranslate("Form_question_type_check");?></option>
-				</select>
-			</div>
-
-			<div class="form-group col-md-12" id="container-respuestas">
-				<a href="#" id="agregar-respuestas" class="btn btn-primary"><?php e_strTranslate("Form_new_answer");?></a><br /><br />
-				<input type="hidden" name="contador-respuestas" id="contador-respuestas" value="1" />
-				<label id="textoRespuesta1" style="width:70px;display:block;clear:both">Respuesta1:</label>
-				<input class="form-control" id="respuesta1" name="respuesta1" value=""/>
-			</div>
-			<br />
-			<br />
-
-					<div id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Form_add_question");?></div>
-
-		</form>
 		</div>
 		<br />
-<?php } ?>
+<?php }?>

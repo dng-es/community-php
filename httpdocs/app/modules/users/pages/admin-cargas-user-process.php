@@ -56,6 +56,9 @@ function volcarMySQL($data){
 	$proceso_update = (isset($_POST['update']) and $_POST['update'] == "on") ? true : false;
 	$proceso_delete = (isset($_POST['delete']) and $_POST['delete'] == "on") ? true : false;
 
+	//dependiendo del canal se insertará un idioma por defecto al usuario
+	$canales = $users->getCanales("");
+
 	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 		$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
 		$user_pass = $username;
@@ -66,6 +69,8 @@ function volcarMySQL($data){
 		$telefono_user = $data->sheets[0]['cells'][$fila][7];
 		$perfil = strtolower(trim($data->sheets[0]['cells'][$fila][8]));
 		$canal = strtolower(trim($data->sheets[0]['cells'][$fila][9]));
+		$language_id = array_search('gerente', array_column($canales, 'canal'));
+		$user_lan = $canales[$language_id]['canal_lan'];
 
 		if ($perfil == "") $perfil = "usuario";
 		if ($perfil == 'admin') $canal = 'admin';
@@ -74,7 +79,7 @@ function volcarMySQL($data){
 			//VERIFICAR QUE EXISTA EL USUARIO
 			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") == 0) {
 				if ($proceso_insert){
-					if ($users->insertUser($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user, $surname, 0)) {
+					if ($users->insertUserCarga($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user, $surname, 0, '', '', '', '', $user_lan)) {
 						$contador++;
 						$mensaje .= $contador." - ".$username." insertado correctamente.<br />";
 					}

@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace( ((strrpos( __DIR__ , "\\" ) === false) ? 'modules/fotos/pages' : 'modules\\fotos\\pages')  , '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/fotos/pages' : 'modules\\fotos\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "core/class.connection.php");
 include_once($base_dir . "modules/configuration/classes/class.configuration.php");
 include_once($base_dir . "core/functions.core.php");
@@ -15,8 +15,9 @@ session::ValidateSessionAjax();
 $fotos = new fotos();
 $module_config = getModuleConfig("fotos");
 $pagina = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1 );
-$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (f.canal='".$_SESSION['user_canal']."' OR f.canal='todos') ");
-$filtro_album = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? " AND id_album=".$_REQUEST['id']." " : "" );
+//$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (f.canal='".$_SESSION['user_canal']."' OR f.canal='todos') ");
+$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_album LIKE '%".$_SESSION['user_canal']."%' " : "");
+$filtro_album = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? " AND f.id_album=".$_REQUEST['id']." " : "" );
 $filtro_tags = ((isset($_REQUEST['tags']) and $_REQUEST['tags'] != '') ? " AND tipo_foto LIKE '%".$_REQUEST['tags']."%' " : "" );
 $filtro_promocion = ((isset($_REQUEST['idp']) and $_REQUEST['idp'] > 0) ? " AND id_promocion=".$_REQUEST['idp']." " : "" );
 $filtro_nick = ((isset($_REQUEST['n']) and $_REQUEST['n'] != "") ? " AND nick='".urldecode($_REQUEST['n'])."' " : "" );

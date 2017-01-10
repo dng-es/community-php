@@ -1,10 +1,6 @@
 <?php
 addJavascripts(array(getAsset("destacados")."js/admin-destacados.js", "js/jquery.numeric.js"));
-
 templateload("cmbCanales", "users");
-
-session::getFlashMessage('actions_message');
-destacadosController::updateAction();
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -13,7 +9,10 @@ destacadosController::updateAction();
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Highlights"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Highlights"), "ItemClass"=>"active"),
-		));?>
+		));
+		session::getFlashMessage('actions_message');
+		destacadosController::updateAction();
+		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form id="formData" name="formData" method="post" action="" role="form" class="form-horizontal">
@@ -28,8 +27,8 @@ destacadosController::updateAction();
 						<label class="col-sm-1 control-label" for="tipo_destacado"><?php e_strTranslate("Type");?>:</label>
 						<div class="col-sm-3">
 							<select name="tipo_destacado" id="tipo_destacado" class="form-control">
-								<option value="video">video</option>
-								<option value="foto">foto</option>
+								<option value="video">Vídeo</option>
+								<option value="foto">Foto</option>
 							</select>
 						</div>
 
@@ -54,7 +53,6 @@ destacadosController::updateAction();
 							<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary btn-block"><?php e_strTranslate("Update");?></button>
 						</div>
 					</div>
-
 				</form>
 			</div>
 		</div>	

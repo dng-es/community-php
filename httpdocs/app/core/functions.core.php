@@ -158,6 +158,23 @@ function getModuleConfig($modulename){
 }
 
 /**
+ * Obtiene los canales del grupo
+ *
+ * @param 	string 		$modulename 		Nombre del modulo a buscar
+ * @return 	array 							Array con los modulos instalados
+ */
+function getModuleChannels($groups, $user_canal){
+	$channels = $user_canal;
+	foreach($groups as $group):
+		if (strpos($group, $user_canal) !== false) $channels = $group;
+	endforeach;
+	$channels = str_replace(",", "','", $channels);
+	$channels = str_replace(" ", "", $channels);
+	$channels = "'".$channels."'";
+	return $channels;
+}
+
+/**
 * Returns the
 *
 * @param 	string 		$str 		string to translate

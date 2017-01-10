@@ -2,16 +2,14 @@
 $fotos = new fotos(); 
 $users = new users();
 
-	//VALIDAR COMENTARIOS
+//VALIDAR COMENTARIOS
 if (isset($_REQUEST['act'])){
-	if ($_REQUEST['act'] == 'foto_ko'){
-		$fotos->cambiarEstadoComentario($_REQUEST['id'], 2);
-	}
+	if ($_REQUEST['act'] == 'foto_ko') $fotos->cambiarEstadoComentario($_REQUEST['id'], 2);
 	header("Location: admin-fotos-comentarios?id=".$_REQUEST['idt']."&ida=".$_REQUEST['ida']);
 }
 
 $id_file = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-$pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_file." ORDER BY id_comentario DESC"); ?>
+$pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_file." ORDER BY id_comentario DESC");?>
 
 <div class="row row-top">
 	<div class="app-main">
@@ -27,7 +25,6 @@ $pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_fi
 			<div class="alert alert-warning">No hay comentarios en la foto</div>
 		<?php else: ?>
 		<a href="admin-albumes-new?act=edit&id='.$_REQUEST['ida'].'">Volver al album</a>
-		
 		<div class="table-responsive">
 			<table class="table table-striped table-hover">
 				<tr>
@@ -40,18 +37,18 @@ $pendientes = $fotos->getComentariosFoto(" AND c.estado=1 AND c.id_file=".$id_fi
 
 				<?php foreach($pendientes as $element):
 					echo '<tr>';
-					echo '<td nowrap="nowrap">					
+					echo '<td nowrap="nowrap">
 							<span class="fa fa-ban icon-table" title="Eliminar"
 							    onClick="Confirma(\'¿Seguro que deseas eliminar el comentario '.$element['id_comentario'].'?\',
 								\'admin-fotos-comentarios?act=foto_ko&id='.$element['id_comentario'].'&ida='.$_REQUEST['ida'].'&idt='.$id_file.'&u='.$element['user_comentario'].'\')">
-							</span>			
-						 </td>'; ?>					
+							</span>
+						 </td>'; ?>
 					<td><?php echo $element['id_comentario'];?></td>
 					<td><em class="legend"><?php echo $element['comentario'];?></em></td>
 					<td><?php echo $element['user_comentario'];?></td>
 					<td><?php echo getDateFormat($element['date_comentario'], "SHORT");?></td>
 					</tr>
-				<?php endforeach; ?>
+				<?php endforeach;?>
 			</table>
 		</div>
 		<?php endif;?>

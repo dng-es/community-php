@@ -49,7 +49,6 @@ class agenda{
 	}
 
 	public function insertActividadFoto($fichero){
-
 		//SUBIR FICHERO
 		$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
 		$nombre_archivo = NormalizeText($nombre_archivo);
@@ -107,7 +106,7 @@ class agenda{
 		$Sql = "DELETE FROM agenda 
 				WHERE id_agenda=".$id."";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	public function getCategorias($filter = ""){
 		$Sql = "SELECT DISTINCT etiquetas AS categoria FROM agenda WHERE etiquetas<>'' ".$filter;
