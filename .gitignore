@@ -6,10 +6,12 @@ httpdocs/docs/fotos/*.*
 httpdocs/docs/info/*.*
 httpdocs/docs/tareas/*.*
 httpdocs/docs/videos/*.*
-httpdocs/images/foro/*.*
-httpdocs/images/usuarios/*.*
-httpdocs/images/mailing/*.*
 httpdocs/images/banners/*.*
+httpdocs/images/foro/*.*
+httpdocs/images/mailing/*.*
+httpdocs/images/recompensas/*.*
+httpdocs/images/shop/*.*
+httpdocs/images/usuarios/*.*
 /.project
 /.vagrant
 css/.sass-cache
