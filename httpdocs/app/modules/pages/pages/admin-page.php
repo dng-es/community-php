@@ -21,7 +21,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		$page_name = isset($_REQUEST['p']) ? $_REQUEST['p'] : (isset($_POST['page_name']) ? $_POST['page_name'] : "");
 		$pages = new pages();
 		$pagina = $pages->getPages(" AND page_name='".$page_name."' ");
-
 		$page_title = (isset($pagina[0]['page_title']) ? $pagina[0]['page_title'] : "");
 		$page_content = (isset($pagina[0]['page_content']) ? $pagina[0]['page_content'] : "");
 		$page_menu = (isset($pagina[0]['page_menu']) ? $pagina[0]['page_menu'] : 0);
@@ -33,19 +32,16 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 			<div class="panel-body">
 				<form id="formData" name="formData" method="post" action="" role="form">
 					<input type="hidden" name="page_name" id="page_name" value="<?php echo $page_name;?>" />
-
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="page_name_new"><?php e_strTranslate("Name");?></label>
 							<input type="text" name="page_name_new" id ="page_name_new" class="form-control" <?php echo $page_name != '' ? ' disabled="disabled" value="'.$page_name.'" ' : '' ?> />
 						</div>
-
 						<div class="form-group col-md-8">
 							<label for="page_title"><?php e_strTranslate("Title");?></label>
 							<input type="text" name="page_title" id ="page_title" class="form-control" value="<?php echo $page_title;?>" />
 						</div>
 					</div>
-
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="page_canal"><?php e_strTranslate("Channel");?>:</label>
@@ -54,7 +50,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 								<?php ComboCanales($page_canal);?>
 							</select>
 						</div>
-
 						<div class="col-md-4">
 							<div class="form-group">
 								<div class="checkbox checkbox-primary">
@@ -67,7 +62,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 								<input type="text" name="page_user_menu_order" id ="page_user_menu_order" class="form-control numeric" value="<?php echo $page_user_menu_order;?>" />
 							</div>
 						</div>
-
 						<div class="col-md-4">
 							<div class="form-group">
 								<div class="checkbox checkbox-primary">
@@ -80,14 +74,10 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 								<input type="text" name="page_order" id ="page_order" class="form-control numeric" value="<?php echo $page_order;?>" />
 							</div>
 						</div>
-			
-					</div>
-					
-					<?php
-						if ($page_name != ""){
-							echo '<p>URL: <a href="'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'" target="_blank">'.$ini_conf['SiteUrl'].'/pagename?id='.$page_name.'</a></p>';
-						}
-					?>
+					</div>				
+					<?php if ($page_name != ""):?>
+					<p>URL: <a href="<?php echo $ini_conf['SiteUrl'];?>/pagename?id=<?php echo $page_name;?>" target="_blank"><?php echo $ini_conf['SiteUrl'];?>/pagename?id=<?php echo $page_name;?></a></p>
+					<?php endif;?>
 					<div class="form-group">
 						<label for="page_content" class="sr-only">Contenido de la página</label>
 						<textarea cols="40" rows="5" id="page_content" name="page_content"><?php echo $page_content;?></textarea>
@@ -96,7 +86,6 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 							CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 						</script>
 					</div>
-					
 					<div class="form-group">
 						<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php e_strTranslate("Save_data");?></button>
 					</div>

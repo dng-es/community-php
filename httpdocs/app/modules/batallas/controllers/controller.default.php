@@ -25,14 +25,14 @@ class batallasController{
 	}
 
 	public static function responderBatallaAction(){
-		if (isset($_POST['batalla-create']) and $_POST['batalla-create']==1){
+		if (isset($_POST['batalla-create']) and $_POST['batalla-create'] == 1){
 			//insertar respuestas del usuario
 			self::responderBatalla();
 		}
 	}
 
 	public static function responderContrincarioBatallaAction(){
-		if (isset($_POST['batalla-play']) and $_POST['batalla-play']==1){
+		if (isset($_POST['batalla-play']) and $_POST['batalla-play'] == 1){
 			//insertar respuestas del usuario
 			self::responderBatalla();
 		}
@@ -40,14 +40,22 @@ class batallasController{
 
 	public static function responderBatalla(){
 		$batallas = new batallas();
-		$id_batalla = (isset($_POST['id_batalla']) ? $_POST['id_batalla'] : 0);
+		$id_batalla = intval(isset($_POST['id_batalla']) ? $_POST['id_batalla'] : 0);
 		//obtener datos de la lucha del usuario
 		$lucha = $batallas->getBatallasLuchas(" AND id_batalla=".$id_batalla. " AND user_lucha='".$_SESSION['user_name']."' ");
 
+		$id_pregunta1 = intval($_POST['id_pregunta1']);
+		$id_pregunta2 = intval($_POST['id_pregunta2']);
+		$id_pregunta3 = intval($_POST['id_pregunta3']);
+
+		$respuesta1 = sanitizeInput($_POST['respuesta1']);
+		$respuesta2 = sanitizeInput($_POST['respuesta2']);
+		$respuesta3 = sanitizeInput($_POST['respuesta3']);
+
 		//insertar respuestas del usuario
-		$batallas->updateBatallaRespuesta($id_batalla, $_SESSION['user_name'], $_POST['id_pregunta1'], $_POST['respuesta1']);
-		$batallas->updateBatallaRespuesta($id_batalla, $_SESSION['user_name'], $_POST['id_pregunta2'], $_POST['respuesta2']);
-		$batallas->updateBatallaRespuesta($id_batalla, $_SESSION['user_name'], $_POST['id_pregunta3'], $_POST['respuesta3']);
+		$batallas->updateBatallaRespuesta($id_batalla, $_SESSION['user_name'], $id_pregunta1, $respuesta1);
+		$batallas->updateBatallaRespuesta($id_batalla, $_SESSION['user_name'], $id_pregunta2, $respuesta2);
+		$batallas->updateBatallaRespuesta($id_batalla, $_SESSION['user_name'], $id_pregunta3, $respuesta3);
 		//$batallas->updateBatallaRespuesta($id_batalla, $_SESSION['user_name'], $_POST['id_pregunta4'], $_POST['respuesta4']);
 		//$batallas->updateBatallaRespuesta($id_batalla, $_SESSION['user_name'], $_POST['id_pregunta5'], $_POST['respuesta5']);
 
@@ -55,12 +63,12 @@ class batallasController{
 		//$tiempo_lucha = ($_POST['minutos']*60) + $_POST['segundos'] + ($_POST['decimas']/100);
 		$tiempo_lucha = strtotime('now') - strtotime($lucha[0]['date_lucha']);
 		$aciertos = 0;
-		$acierto1 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta1']." ");
-		if ($_POST['respuesta1']==$acierto1[0]['valida']) $aciertos++;
-		$acierto2 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta2']." ");
-		if ($_POST['respuesta2']==$acierto2[0]['valida']) $aciertos++;
-		$acierto3 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta3']." ");
-		if ($_POST['respuesta3']==$acierto3[0]['valida']) $aciertos++;
+		$acierto1 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$id_pregunta1." ");
+		if ($respuesta1 == $acierto1[0]['valida']) $aciertos++;
+		$acierto2 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$id_pregunta2." ");
+		if ($respuesta2 == $acierto2[0]['valida']) $aciertos++;
+		$acierto3 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$id_pregunta3." ");
+		if ($respuesta3 == $acierto3[0]['valida']) $aciertos++;
 		//$acierto4 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta4']." ");
 		//if ($_POST['respuesta4']==$acierto4[0]['valida']){$aciertos++;}
 		//$acierto5 = $batallas->getBatallasPreguntas(" AND id_pregunta=".$_POST['id_pregunta5']." ");

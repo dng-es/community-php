@@ -1,15 +1,6 @@
 <?php
-//addJavascripts(array(getAsset("users")."js/group.js"));
 addJavascripts(array(getAsset("alerts")."js/alerts.js"));
-
 templateload("panels", "alerts");
-
-$cod_empresa = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
-session::getFlashMessage('actions_message'); 
-usersController::deleteAction();
-$elements = usersController::getListAction(35, " AND empresa='".$cod_empresa."' AND disabled=0 ");
-$elements['items'] = arraySort($elements['items'], 'perfil', SORT_ASC);
-$empresa = usersTiendasController::getItemAction($cod_empresa);
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -18,6 +9,12 @@ $empresa = usersTiendasController::getItemAction($cod_empresa);
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Group_user"), "ItemClass"=>"active"),
 		));
+		session::getFlashMessage('actions_message'); 
+		usersController::deleteAction();
+		$cod_empresa = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
+		$elements = usersController::getListAction(35, " AND empresa='".$cod_empresa."' AND disabled=0 ");
+		$elements['items'] = arraySort($elements['items'], 'perfil', SORT_ASC);
+		$empresa = usersTiendasController::getItemAction($cod_empresa);
 		?>
 		<div class="row">
 			<div class="col-md-7">

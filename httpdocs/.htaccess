@@ -6,15 +6,35 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www.(.*) [NC]
 RewriteRule ^(.*) https://%1/$1 [R=301,L]
 
-#FORZAR HTTPS
+# FORZAR HTTPS
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,QSA]
 
-#URLS AMIGABLES
+# URLS AMIGABLES
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?page=$1&%{QUERY_STRING} [L,NC]
 </IfModule>
+
+####### ATTACKS
+
+# Don't allow any pages to be framed - Defends against CSRF
+Header set X-Frame-Options DENY
+ 
+# Turn on IE8-IE9 XSS prevention tools
+Header set X-XSS-Protection "1; mode=block"
+ 
+# Only allow JavaScript from the same domain to be run.
+# Don't allow inline JavaScript to run.
+Header set X-Content-Security-Policy "allow 'self';"
+ 
+# prevent mime based attacks
+Header set X-Content-Type-Options "nosniff"
+ 
+# Add Secure and httpOnly Flags to Every Set-Cookie Response in Apache httpd
+Header always edit Set-Cookie (.*) "$1; HTTPOnly; Secure"
+
+####### ATTACKS END
 
 ####### OPTIMIZACION
 

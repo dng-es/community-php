@@ -10,7 +10,6 @@ class shopManufacturersController{
 			$element['name_manufacturer'] = "";
 			$element['active_manufacturer'] = "";
 		}
-
 		return $element;
 	}
 
@@ -49,10 +48,10 @@ class shopManufacturersController{
 			if ($shop->insertManufacturer($name_manufacturer, $notes_manufacturer)){ 
 				$id = connection::SelectMaxReg("id_manufacturer", "shop_manufacturers", "");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
-				$destino = "admin-shopmanufacturer?id=".$id;		
+				$destino = "admin-shopmanufacturer?id=".$id;
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
-				
+
 			redirectURL($destino);
 		}
 	}

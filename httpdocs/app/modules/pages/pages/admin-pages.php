@@ -17,7 +17,6 @@
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-page"><?php e_strTranslate("New_page");?></a></li>
 				</ul>
-
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
 						<tr>
@@ -31,7 +30,6 @@
 							<td nowrap="nowrap">
 								<button type="button" class="btn btn-default btn-xs" title="Eliminar" onClick="Confirma('¿Seguro que deseas eliminar la página?', 'admin-pages?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['page_name'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
 								</button>
-
 								<button type="button" class="btn btn-default btn-xs" title="Ver/editar" onClick="location.href='admin-page?p=<?php echo $element['page_name'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
 								</button>
 							</td>

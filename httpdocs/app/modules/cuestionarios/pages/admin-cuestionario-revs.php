@@ -6,7 +6,7 @@ cuestionariosController::ExportFormAllAction();
 
 //OBTENER DATOS DEL CUESTIONARIO
 $cuestionarios = new cuestionarios();
-$id_cuestionario =$_REQUEST['id'];
+$id_cuestionario = intval($_REQUEST['id']);
 $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 ?>
 <div class="row row-top">

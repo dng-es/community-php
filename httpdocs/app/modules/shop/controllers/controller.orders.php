@@ -33,7 +33,7 @@ class shopOrdersController{
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
-	}		
+	}
 
 	public static function estadosAction($filter = ""){
 		if (isset($_POST['id_order']) and $_POST['id_order'] > 0){
@@ -48,7 +48,7 @@ class shopOrdersController{
 			else:
 				session::setFlashMessage('actions_message', $response['description'], "alert alert-danger");
 			endif;
-			
+
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}
@@ -176,7 +176,7 @@ class shopOrdersController{
 
 			redirectURL($destino);
 		}
-	}	
+	}
 
 	private static function sendEmailUser($user_detail, $id_order, $name_order, $surname_order, $address_order, $address2_order, $city_order, $state_order, $postal_order, $telephone_order, $notes_order, $product_detail, $status_order = 'pendiente'){
 

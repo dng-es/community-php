@@ -10,8 +10,10 @@ addJavascripts(array("js/jquery.jtextarea.js", getAsset("core")."js/contact-free
 	$mensaje = '';
 	if (isset($_POST['subject_form'])){
 		//Enviar correo
-		$asunto = 'EMAIL DESDE '.strtoupper($ini_conf['SiteName']).': '.$_POST['subject_form'];
-		$cuerpo_mensaje = $_POST['email_form'].', escribio: 
+		$subject_form = sanitizeInput($_POST['subject_form']);
+		$email_form = sanitizeInput($_POST['email_form']);
+		$asunto = 'EMAIL DESDE '.strtoupper($ini_conf['SiteName']).': '.$subject_form;
+		$cuerpo_mensaje = $email_form.', escribio: 
 		
 		'.$_POST['body_form'];
 		if (SendEmail($_POST['email_form'], $ini_conf['ContactEmail'], $asunto, $cuerpo_mensaje,0)) {

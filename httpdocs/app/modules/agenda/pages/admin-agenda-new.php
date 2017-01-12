@@ -19,7 +19,7 @@ templateload("cmbAgenda","agenda");
 			array("ItemLabel"=>"Entrada en ".strTranslate("Diary_and_offers"), "ItemClass"=>"active"),
 		));
 		//si tiene id, se trata de la edición de una actividad.
-		$id = (isset($_GET['id']) ? $_GET['id'] : 0);
+		$id = intval(isset($_GET['id']) ? $_GET['id'] : 0);
 		session::getFlashMessage( 'actions_message' );
 		agendaController::createAction();
 		agendaController::updateAction();

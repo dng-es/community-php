@@ -2,7 +2,7 @@
 class pagesController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$pages = new pages();
-		$paginator_items = PaginatorPages($reg);	
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("pages",$filter); 
 		return array('items' => $pages->getPages($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -35,6 +35,7 @@ class pagesController{
 	public static function updateAction(){
 		if (isset($_POST['page_name']) and $_POST['page_name'] != ""){
 			$pages = new pages();
+			$page_name = sanitizeInput($_POST['page_name']);
 			$page_title = sanitizeInput($_POST['page_title']);
 			$page_content = stripslashes($_POST['page_content']);
 			$page_menu = (isset($_POST['page_menu']) and $_POST['page_menu'] == "on") ? 1 : 0;
@@ -43,7 +44,7 @@ class pagesController{
 			$page_user_menu = (isset($_POST['page_user_menu']) and $_POST['page_user_menu'] == "on") ? 1 : 0;
 			$page_user_menu_order = (isset($_POST['page_user_menu_order']) and $_POST['page_user_menu_order'] != "") ? $_POST['page_user_menu_order'] : 0;
 
-			if ($pages->updatePage($_POST['page_name'], $page_content, $page_menu, $page_title, $page_order, $page_canal, $page_user_menu, $page_user_menu_order))
+			if ($pages->updatePage($page_name, $page_content, $page_menu, $page_title, $page_order, $page_canal, $page_user_menu, $page_user_menu_order))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

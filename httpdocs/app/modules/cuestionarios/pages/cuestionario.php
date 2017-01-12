@@ -1,6 +1,6 @@
 <?php
 addJavascripts(array(getAsset("cuestionarios")."js/cuestionario.js"));
-$id_cuestionario = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id'] : 0);
+$id_cuestionario = intval((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id'] : 0);
 
 $filter = ($_SESSION['user_perfil'] == 'admin' ? "" : " AND activo=1 ");
 $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter);

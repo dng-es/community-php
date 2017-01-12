@@ -82,7 +82,7 @@ templateload("comment", "foro");
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<?php hook_sidebar_right();?>
+			<?php hook_sidebar();?>
 			<h4>
 				<span class="fa-stack fa-sx">
 					<i class="fa fa-circle fa-stack-2x"></i>

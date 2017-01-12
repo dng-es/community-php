@@ -29,7 +29,7 @@ function pageRouter($page){
 	$path = "app/modules/";
 	if ($dh = opendir($path)) {
 		while (($file = readdir($dh)) !== false) {
-			if (is_dir($path . $file) && $file != "." && $file != ".."){
+			if (is_dir($path.$file) && $file != "." && $file != ".."){
 				if (file_exists($path.$file."/pages/".$page)) return $path.$file."/pages/".$page;
 			}
 		}
@@ -65,7 +65,8 @@ function dirCarga($dir, $modulename){
 * @param 	string 		$classname 		class name where template is placed
 */
 function templateload($template, $classname){
-	include_once (dirCarga( dirname(__FILE__) , "/modules/".$classname."/templates/".$template.".php"));
+	$file = dirCarga( dirname(__FILE__) , "/modules/".$classname."/templates/".$template.".php");
+	if (file_exists($file)) include_once ($file);
 }
 
 /**
@@ -151,9 +152,7 @@ function getModuleExist($modulename){
 function getModuleConfig($modulename){
 	$config_params = array();
 	$file = __DIR__."/../modules/".$modulename."/config.yaml";
-	if (file_exists($file)){
-		$config_params = readYml($file);
-	}
+	if (file_exists($file)) $config_params = readYml($file);
 	return $config_params;
 }
 
@@ -263,31 +262,21 @@ function writeYml($data, $file){
 	return FileSystem::createFile($file, $yaml);
 }
 
-function hook_sidebar_right(){
-	global $hook_sidebar_rigth;
-	echo $hook_sidebar_rigth;
+
+function hook_sidebar(){
+	get_hooks('sidebar');
 }
 
-
-function add_sidebar_right($page, $function){
-	add_hook($destination, $page, $function);
+$hooks_right = array();
+function add_hook($destination, $situation, $hook){
+	global $hooks_right, $page;
+	if ($page == $destination && $situation == 'sidebar') array_push($hooks_right, $hook);
 }
 
-function add_hook($destination, $page, $function){
-	global $modules;
-	foreach($modules as $module):
-		if (file_exists(__DIR__."/../modules/".$module['folder']."/".$module['folder'].".php")){
-			include_once (__DIR__."/../modules/".$module['folder']."/".$module['folder'].".php");
-			$moduleClass = $module['folder']."Core";
-			$instance = new $moduleClass();
-			
-			//sidebar-right hook
-			if (method_exists($instance, "add_sidebar_right_hook")) 
-				$hook_sidebar_rigth .= $instance->add_sidebar_right_hook();
-
-
-			array_push($modules_data, array("name" => $module['folder']));
-		}
+function get_hooks($situation){
+	global $hooks_right;
+	foreach ($hooks_right as $hook):
+		call_user_func($hook);
 	endforeach;
 }
 ?>

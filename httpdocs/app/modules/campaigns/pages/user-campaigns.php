@@ -4,7 +4,8 @@
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Campaigns"), "ItemClass"=>"active"),
 		));
-		$elements = campaignsController::getListAction(4, " AND c.id_campaign_type=".$_REQUEST['f']);
+		$id = intval($_REQUEST['f']);
+		$elements = campaignsController::getListAction(4, " AND c.id_campaign_type=".$id);
 		$plantilla = campaignsController::getItemTypesAction();	
 		?>
 		<h1><?php echo $plantilla['campaign_type_name']?></h1>

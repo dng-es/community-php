@@ -6,12 +6,12 @@ class cuestionariosController{
 		
 		$find_reg = "";
 		if (isset($_POST['find_reg'])){
-			$filtro .= " AND nombre LIKE '%".$_POST['find_reg']."%' ";
-			$find_reg = $_POST['find_reg'];
+			$find_reg = sanitizeInput($_POST['find_reg']);
+			$filtro .= " AND nombre LIKE '%".$find_reg."%' ";
 		}
 		if (isset($_REQUEST['f'])){
-			$filtro .= " AND nombre LIKE '%".$_REQUEST['f']."%' ";
-			$find_reg = $_REQUEST['f'];
+			$find_reg = sanitizeInput($_REQUEST['f']);
+			$filtro .= " AND nombre LIKE '%".$find_reg."%' ";
 		}
 
 		$filtro .= " ORDER BY id_cuestionario DESC";
@@ -49,7 +49,7 @@ class cuestionariosController{
 	public static function updateAction(){
 		if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario'] > 0){
 			$cuestionarios = new cuestionarios();
-			$id_cuestionario = sanitizeInput($_POST['id_cuestionario']);
+			$id_cuestionario = intval($_POST['id_cuestionario']);
 			$nombre = sanitizeInput($_POST['nombre']);
 			$descripcion = sanitizeInput($_POST['descripcion']);
 			if ($cuestionarios->updateCuestionarios($id_cuestionario, $nombre, $descripcion)) 
@@ -65,9 +65,9 @@ class cuestionariosController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'new'){
 			if (trim($_POST['pregunta_texto'])){
 				$cuestionarios = new cuestionarios();
-				$id_cuestionario = sanitizeInput($_REQUEST['id']);
-				$cuestionarios->insertPregunta($id_cuestionario,$_POST['pregunta_texto'],$_POST['pregunta_tipo']);
-				$id_pregunta = connection::SelectMaxReg("id_pregunta","cuestionarios_preguntas","");
+				$id_cuestionario = intval($_REQUEST['id']);
+				$cuestionarios->insertPregunta($id_cuestionario, $_POST['pregunta_texto'], $_POST['pregunta_tipo']);
+				$id_pregunta = connection::SelectMaxReg("id_pregunta", "cuestionarios_preguntas", "");
 				
 				if ($_POST['pregunta_tipo'] != 'texto'){
 					//INSERTAR PREGUNTA-RESPUESTA
@@ -80,14 +80,14 @@ class cuestionariosController{
 
 						if ($_POST['pregunta_tipo']=='multiple'){
 							$campo_correcta = "checkRespuesta".$i;
-							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta]!='') ? 1 : 0);
+							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta] != '') ? 1 : 0);
 						}
 						if ($_POST['pregunta_tipo']=='unica'){
 							$campo_correcta = "radioRespuesta1";
-							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta]==$i) ? 1 : 0);
+							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta] == $i) ? 1 : 0);
 						}
 
-						if ($valor!="") $cuestionarios->insertPreguntaRespuesta($id_pregunta, $valor, $correcta);
+						if ($valor != "") $cuestionarios->insertPreguntaRespuesta($id_pregunta, $valor, $correcta);
 					}
 				}
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
@@ -99,19 +99,21 @@ class cuestionariosController{
 	public static function deletePreguntaAction(){
 		$cuestionarios = new cuestionarios();
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
-			if ($cuestionarios->deletePregunta($_REQUEST['idp']))
+			$idp = intval($_REQUEST['idp']);
+			$id = intval($_REQUEST['id']);
+			if ($cuestionarios->deletePregunta($idp))
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("admin-cuestionario?id=".$_REQUEST['id']);
+			redirectURL("admin-cuestionario?id=".$id);
 		}
 	}
 
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$cuestionarios = new cuestionarios();
-			if ($cuestionarios->deleteCuestionarios($_REQUEST['id'], $_REQUEST['e'])) 
+			if ($cuestionarios->deleteCuestionarios(intval($_REQUEST['id']), intval($_REQUEST['e'])))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -124,10 +126,11 @@ class cuestionariosController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'clone'){
 			$cuestionarios = new cuestionarios();
 			//datos del cuestionario original
-			$cuestionario = self::getItemAction($_REQUEST['id']);
+			$id = intval($_REQUEST['id']);
+			$cuestionario = self::getItemAction($id);
 			if ($cuestionarios->insertCuestionarios($cuestionario[0]['nombre']." - Clon", $cuestionario[0]['descripcion'], $cuestionario[0]['checklist'])){
 				$id_cuestionario = connection::SelectMaxReg("id_cuestionario", "cuestionarios","");
-				$preguntas = $cuestionarios->getPreguntas(" AND id_cuestionario=".$_REQUEST['id']." ");
+				$preguntas = $cuestionarios->getPreguntas(" AND id_cuestionario=".$id." ");
 				foreach($preguntas as $pregunta):
 					//insertar nueva pregunta
 					$cuestionarios->insertPregunta($id_cuestionario, $pregunta['pregunta_texto'], $pregunta['pregunta_tipo']);
@@ -150,7 +153,7 @@ class cuestionariosController{
 	public static function saveFormAction(){
 		if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario'] != ""){
 			$cuestionarios = new cuestionarios();
-			$id_cuestionario = sanitizeInput($_POST['id_cuestionario']);
+			$id_cuestionario = intval($_POST['id_cuestionario']);
 			$preguntas=$cuestionarios->getPreguntas(" AND id_cuestionario=".$id_cuestionario." ");
 			foreach($preguntas as $pregunta):
 
@@ -245,15 +248,19 @@ class cuestionariosController{
 	public static function FinalizacionDeleteAction(){
 		if (isset($_REQUEST['act_f']) and $_REQUEST['act_f'] == "del"){
 			$cuestionarios = new cuestionarios();
-			$cuestionarios->deleteFinalizacionForm($_REQUEST['id'], " AND user_tarea='".$_REQUEST['ut']."'");
-			redirectURL("admin-cuestionario-revs?id=".$_REQUEST['id']);
+			$id = intval($_REQUEST['id']);
+			$ut = sanitizeInput($_REQUEST['ut']);
+			$cuestionarios->deleteFinalizacionForm($id, " AND user_tarea='".$ut."'");
+			redirectURL("admin-cuestionario-revs?id=".$id);
 		}
 	}
 
 	public static function ExportFormUserAction(){
 		if (isset($_REQUEST['t']) and $_REQUEST['t'] != ""){
 			$cuestionarios = new cuestionarios();
-			$elements = $cuestionarios->getRespuestasUserAdmin(" AND p.id_cuestionario=".$_REQUEST['id']." and r.respuesta_user='".$_REQUEST['t']."' ");
+			$id = intval($_REQUEST['id']);
+			$t = sanitizeInput($_REQUEST['t']);
+			$elements = $cuestionarios->getRespuestasUserAdmin(" AND p.id_cuestionario=".$id." and r.respuesta_user='".$t."' ");
 			download_send_headers("data_export_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
@@ -263,9 +270,10 @@ class cuestionariosController{
 	public static function ExportFormAllAction(){
 		if (isset($_REQUEST['t3']) and $_REQUEST['t3'] == "1"){
 			$cuestionarios = new cuestionarios();
-			$elements=$cuestionarios->getFormulariosFinalizados(" AND id_cuestionario=".$_REQUEST['id']." ORDER BY user_tarea"); 
+			$id = intval($_REQUEST['id']);
+			$elements=$cuestionarios->getFormulariosFinalizados(" AND id_cuestionario=".$id." ORDER BY user_tarea"); 
 			$file_name='exported_file'.date("YmdGis");
-			$num_preguntas = connection::countReg("cuestionarios_preguntas", " AND id_cuestionario=".$_REQUEST['id']." ");
+			$num_preguntas = connection::countReg("cuestionarios_preguntas", " AND id_cuestionario=".$id." ");
 
 			$final = array();
 			foreach($elements as $element):
@@ -286,11 +294,12 @@ class cuestionariosController{
 	public static function deleteCuestionarioAction($id_cuestionario){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == "del"){
 			$cuestionarios = new cuestionarios();
+			$id = intval($_REQUEST['id']);
 			//eliminar finalizaciones
-			$cuestionarios->deleteFinalizacionForm($_REQUEST['id'], "");
+			$cuestionarios->deleteFinalizacionForm($id, "");
 			//eliminar respuestas
 
-			if ($cuestionarios->deleteRespuestasForm($_REQUEST['id'], ""))
+			if ($cuestionarios->deleteRespuestasForm($id, ""))
 				session::setFlashMessage('actions_message', "Cuestionario vaciado correctamente.", "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', "Se ha producido algún error al vaciar el cuestionario.", "alert alert-danger");

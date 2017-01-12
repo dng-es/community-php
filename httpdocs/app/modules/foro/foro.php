@@ -72,13 +72,12 @@ class foroCore{
 	}
 
 	public static function HolaHook(){
-		return "Hola soy el gancho";
-	}	
+		echo "Hola soy el gancho";
+	}
 
-	//add_sidebar_right('foro-subtemas', 'HolaHook');
-	
-	public static function add_sidebar_right_hook(){
-		return "Hola soy el gancho";
+	public static function moduleHooks(){
+		add_hook('foro-comentarios', 'sidebar', 'foroCore::HolaHook');
+		add_hook('foro-comentario', 'sidebar', 'HolaHook2');
 	}
 }
 ?>

@@ -33,7 +33,7 @@ class shop{
 				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
-	
+
 	public function getCreditos($filter = ""){
 		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* FROM users_creditos p 
 				JOIN users u ON u.username=p.credito_username WHERE 1=1 ".$filter;
@@ -163,7 +163,7 @@ class shop{
 
 	public static function updateManufacturerState($id_manufacturer, $estado){
 		$Sql = "UPDATE shop_manufacturers SET 
-				active_manufacturer=".$estado."    
+				active_manufacturer=".$estado." 
 				WHERE id_manufacturer=".$id_manufacturer." ";
 		return connection::execute_query($Sql);
 	}

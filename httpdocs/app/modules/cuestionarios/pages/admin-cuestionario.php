@@ -20,7 +20,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		cuestionariosController::insertPreguntaAction();
 
 		//OBTENER DATOS DEL Cuestionario
-		$id_cuestionario = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
+		$id_cuestionario = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 		if ($id_cuestionario>0){
 			$cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 			$cuestionario_nombre = $cuestionario[0]['nombre'];

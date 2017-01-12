@@ -30,7 +30,7 @@ class alertsController{
 
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
-			if (alerts::disableAlerts($_REQUEST['id'], 0)) 
+			if (alerts::disableAlerts(intval($_REQUEST['id']), 0)) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

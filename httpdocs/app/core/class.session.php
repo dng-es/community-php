@@ -15,7 +15,7 @@ class session{
 	public function validateUserSession(){
 		self::setUrlSession();
 	
-		if (isset($_POST['form-login-user'])) self::createSession($_POST['form-login-user'], $_POST['form-login-password']);
+		if (isset($_POST['form-login-user'])) self::createSession(sanitizeInput($_POST['form-login-user']), sanitizeInput($_POST['form-login-password']));
 		else self::ValidateSession();
 
 		global $page, $paginas_free;
@@ -124,6 +124,7 @@ class session{
 			//Si alguno de los datos ingresados son incorrectos redirigimos a la pÃ¡gina de
 			//error o de nuevo al formulario de ingreso.
 			header ("Location: " . APP_DEF_PAGE);
+			exit();
 		}
 		elseif( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) or (isset($_REQUEST['page']) and $_REQUEST['page'] == ""))){
 			header ("Location: home");
@@ -149,6 +150,7 @@ class session{
 	public static function ValidateSessionAjax($url = "login"){
 		if (!isset($_SESSION['user_logged']) or $_SESSION['user_logged'] != true){
 			header ("Location: ".$url);
+			exit();
 		}
 	}
 
@@ -202,6 +204,7 @@ class session{
 			elseif ($result_user[0]['confirmed'] == 0 and $result_user[0]['registered'] == 0){
 				//Redirijimos a la pagina de confirmacion de datos.
 				header ("Location: ".$url_confirm);
+				exit();
 			}
 		}
 		else session::setFlashMessage( 'actions_message', "Usuario o contraseña incorrecta", "alert alert-warning");

@@ -9,9 +9,10 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("campaigns")."js/adm
 			array("ItemLabel"=>$plantilla['name_campaign'], "ItemClass"=>"active"),
 		));
 		session::getFlashMessage('actions_message'); 
-		$templates = mailingTemplatesController::getListAction(400000, "activos", " AND t.id_campaign=".$_GET['id']);
-		$documentos = infotopdfController::getListAction(400000, " AND i.id_campaign=".$_GET['id']);
-		$ficheros = infoController::getListAction(400000, " AND i.id_campaign=".$_GET['id']);
+		$id = intval($_GET['id']);
+		$templates = mailingTemplatesController::getListAction(400000, "activos", " AND t.id_campaign=".$id);
+		$documentos = infotopdfController::getListAction(400000, " AND i.id_campaign=".$id);
+		$ficheros = infoController::getListAction(400000, " AND i.id_campaign=".$id);
 		$plantilla = campaignsController::getItemAction();	
 		?>
 		<p><?php echo $plantilla['novedad'] == 1 ? '<span class="label label-success">novedad</span> ' : '';?></p>

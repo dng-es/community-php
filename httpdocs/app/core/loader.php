@@ -43,6 +43,11 @@ foreach($modules as $module):
 
 			if (method_exists($instance, "adminMenu")) 
 				$array_adminmenu = array_merge($array_adminmenu, $instance->adminMenu());
+
+			//sidebar-right hooks
+			if (method_exists($instance, "moduleHooks")){
+				$instance->moduleHooks();
+			}
 		endif;
 		array_push($modules_data, array("name" => $module['folder']));
 	endif;	

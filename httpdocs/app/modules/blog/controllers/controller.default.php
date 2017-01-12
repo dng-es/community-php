@@ -9,8 +9,8 @@ class blogController{
 		$foro = new foro();
 		$filtro_tema = "";
 		$tema = array();
-		if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0) $id_tema = $_REQUEST['id'];
-		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_tema = $_REQUEST['f']; 
+		if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0) $id_tema = intval($_REQUEST['id']);
+		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_tema = intval($_REQUEST['f']);
 		else $id_tema = connection::SelectMaxReg("id_tema", "foro_temas", $filtro_blog." AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
 
 		if ($id_tema > 0){
@@ -27,14 +27,15 @@ class blogController{
 			$foro = new foro();
 			$id = 0;
 			$destacado = (isset($_POST['destacado']) and $_POST['destacado'] == "on") ? 1 : 0;
-			$canal = $_POST['canal'];
+			$etiquetas = sanitizeInput($_POST['etiquetas']);
+			$canal = sanitizeInput($_POST['canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
 
 			$file_info = pathinfo($_FILES['imagen-tema']['name']);
 			$extension = strtolower($file_info['extension']);
 
 			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){
-				if ($foro->InsertTema(0, $_POST['nombre'], stripslashes($_POST['descripcion']), $_FILES['imagen-tema'], $_SESSION['user_name'], $canal, 0, 1, '', 0, 1, $_POST['etiquetas'], $destacado )) {
+				if ($foro->InsertTema(0, $_POST['nombre'], stripslashes($_POST['descripcion']), $_FILES['imagen-tema'], $_SESSION['user_name'], $canal, 0, 1, '', 0, 1, $etiquetas, $destacado )) {
 					$id = connection::SelectMaxReg("id_tema", "foro_temas", " AND ocio=1 ");
 					session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				}else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -47,25 +48,27 @@ class blogController{
 
 	public static function updateAction(){
 		if (isset($_POST['id']) and $_POST['id'] > 0){
+			$id = intval($_POST['id']);
 			$foro = new foro();	
 			$nombre = sanitizeInput($_POST['nombre']);
 			$descripcion = sanitizeInput(stripslashes($_POST['descripcion']));
 			$destacado = (isset($_POST['destacado']) and $_POST['destacado'] == "on") ? 1 : 0;
-			$canal = $_POST['canal'];
+			$etiquetas = sanitizeInput($_POST['etiquetas']);
+			$canal = sanitizeInput($_POST['canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
 			
 			$file_info = pathinfo($_FILES['imagen-tema']['name']);
 			$extension = strtolower($file_info['extension']);
 
 			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){
-				if ($foro->updateTemaBlog($_POST['id'], $nombre, $descripcion, $_POST['etiquetas'], $_FILES['imagen-tema'], $destacado, $canal)) {
+				if ($foro->updateTemaBlog($id, $nombre, $descripcion, $etiquetas, $_FILES['imagen-tema'], $destacado, $canal)) {
 					session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 				}
 				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
 			else session::setFlashMessage('actions_message', "Extensión no valida: ".$extension, "alert alert-warning");
 
-			redirectURL("admin-blog-new?id=".$_POST['id']);
+			redirectURL("admin-blog-new?id=".$id);
 		}
 	}
 
@@ -85,14 +88,15 @@ class blogController{
 		$foro = new foro();
 		$calculo = strtotime("-4 days");
 		$fecha_ayer = date("Y-m-d", $calculo);
-		$id_tema = $_REQUEST['id'];
-		return $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id_tema." ORDER BY id_comentario DESC");
+		$id = intval($_REQUEST['id']);
+		return $foro->getComentarios(" AND c.estado=1 AND c.id_tema=".$id." ORDER BY id_comentario DESC");
 	}
 
 	public static function exportCommentsAction(){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
-			$foro = new foro(); 
-			$elements_exp = $foro->getComentariosExport(" AND c.estado=1 AND c.id_tema=".$_REQUEST['id']." ");
+			$foro = new foro();
+			$id = intval($_REQUEST['id']);
+			$elements_exp = $foro->getComentariosExport(" AND c.estado=1 AND c.id_tema=".$id." ");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements_exp);
 			die();
@@ -103,16 +107,19 @@ class blogController{
 		if (isset($_REQUEST['act'])){
 			$foro = new foro();
 			$users = new users();
+			$id = intval($_REQUEST['id']);
+			$idt = intval($_REQUEST['idt']);
+			$u = sanitizeInput($_REQUEST['u']);
 			if ($_REQUEST['act'] == 'foro_ok'){
-				$foro->cambiarEstado($_REQUEST['id'],1);
-				$users->sumarPuntos($_REQUEST['u'], PUNTOS_FORO, PUNTOS_FORO_MOTIVO);
+				$foro->cambiarEstado($id,1);
+				$users->sumarPuntos($u, PUNTOS_FORO, PUNTOS_FORO_MOTIVO);
 			}
-			elseif ($_REQUEST['act'] == 'tema_ko') $foro->cambiarEstadoTema($_REQUEST['id'], 0);
+			elseif ($_REQUEST['act'] == 'tema_ko') $foro->cambiarEstadoTema($id, 0);
 			elseif ($_REQUEST['act'] == 'foro_ko'){
-				$foro->cambiarEstado($_REQUEST['id'], 2);
-				$users->restarPuntos($_REQUEST['u'], PUNTOS_MURO, PUNTOS_MURO_MOTIVO);
+				$foro->cambiarEstado($id, 2);
+				$users->restarPuntos($u, PUNTOS_MURO, PUNTOS_MURO_MOTIVO);
 			}
-			header("Location: admin-blog-foro?id=".$_REQUEST['idt']); 
+			header("Location: admin-blog-foro?id=".$idt); 
 		}
 	}
 }
