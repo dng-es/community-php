@@ -29,7 +29,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 		videosController::voteAction();
 		videosController::createAction();
 		muroController::createAction();
-		fotosController::voteAction("reto?idp=".$_REQUEST['idp']);
+		fotosController::voteAction("reto?idp=".intval($_REQUEST['idp']));
 		fotosController::createAction();
 
 		$promocion = promocionesController::getLastPromocionAction(" AND active=1 ");

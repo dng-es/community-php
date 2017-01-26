@@ -4,11 +4,11 @@ $find_tipo = (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") ? $_
 
 $find_reg = "";
 if (isset($_POST['find_reg'])){
-	$filtro_temas .= " AND nombre LIKE '%".$_POST['find_reg']."%' ";
+	$filtro_temas .= " AND nombre LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
 	$find_reg = $_POST['find_reg'];
 }
 if (isset($_REQUEST['f'])){
-	$filtro_temas .= " AND nombre LIKE '%".$_REQUEST['f']."%' ";
+	$filtro_temas .= " AND nombre LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";
 	$find_reg = $_REQUEST['f'];
 }
 

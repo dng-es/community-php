@@ -1,9 +1,5 @@
 <?php
 incentivosController::exportAction(" AND username_venta='".$_SESSION['user_name']."' ");
-session::getFlashMessage( 'actions_message' ); 
-$elements = incentivosController::getListAction(35, " AND username_venta='".$_SESSION['user_name']."' ");
-$incentivos = new incentivos();
-$total_puntos = connection::sumReg("incentives_ventas_puntos", "puntuacion_venta", " AND username_puntuacion='".$_SESSION['user_name']."' ");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -13,6 +9,11 @@ $total_puntos = connection::sumReg("incentives_ventas_puntos", "puntuacion_venta
 			array("ItemLabel"=>strTranslate("Incentives"), "ItemUrl"=>"incentives-ventas"),
 			array("ItemLabel"=>strTranslate("Incentives_my_sales"), "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage('actions_message' ); 
+		$elements = incentivosController::getListAction(35, " AND username_venta='".$_SESSION['user_name']."' ");
+		$incentivos = new incentivos();
+		$total_puntos = connection::sumReg("incentives_ventas_puntos", "puntuacion_venta", " AND username_puntuacion='".$_SESSION['user_name']."' ");
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>

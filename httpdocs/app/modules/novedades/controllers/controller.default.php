@@ -39,8 +39,8 @@ class novedadesController{
 			$perfil = sanitizeInput($_POST['perfil']);
 			$tipo = sanitizeInput($_POST['tipo']);
 			$activo = ($_POST['activo'] == "on" ? 1 : 0);
-			$orden = (trim($_POST['orden']) == "" ? 0 : trim($_POST['orden']));
-			$canal = $_POST['canal'];
+			$orden = intval(trim($_POST['orden']) == "" ? 0 : trim($_POST['orden']));
+			$canal = sanitizeInput($_POST['canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
 			
 			if ($novedades->insertNovedades($titulo, $cuerpo, $activo, $canal, $perfil, $tipo, $orden)){ 
@@ -56,14 +56,14 @@ class novedadesController{
 	public static function updateAction(){
 		if (isset($_POST['id_novedad']) and $_POST['id_novedad'] > 0){
 			$novedades = new novedades();
-			$id_novedad = sanitizeInput($_POST['id_novedad']);
+			$id_novedad = intval($_POST['id_novedad']);
 			$titulo = sanitizeInput($_POST['titulo']);
 			$cuerpo = stripslashes($_POST['texto']);
 			$perfil = sanitizeInput($_POST['perfil']);
 			$tipo = sanitizeInput($_POST['tipo']);
 			$activo = ($_POST['activo'] == "on" ? 1 : 0);
-			$orden = (trim($_POST['orden']) == "" ? 0 : trim($_POST['orden']));
-			$canal = $_POST['canal'];
+			$orden = intval(trim($_POST['orden']) == "" ? 0 : trim($_POST['orden']));
+			$canal = sanitizeInput($_POST['canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
 
 			if ($novedades->updateNovedades($id_novedad, $titulo, $cuerpo, $activo, $canal, $perfil, $tipo, $orden)) 
@@ -78,7 +78,7 @@ class novedadesController{
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$novedades = new novedades();
-			$id_novedad = sanitizeInput($_REQUEST['id']);
+			$id_novedad = intval($_REQUEST['id']);
 			
 			if ($novedades->deleteNovedades($id_novedad))
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");

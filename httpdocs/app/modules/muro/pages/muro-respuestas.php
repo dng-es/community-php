@@ -22,7 +22,7 @@ session::ValidateSessionAjax();
 		$muro = new muro();
 		//VOTAR COMENTARIO
 		if (isset($_REQUEST['idvc']) and $_REQUEST['idvc'] != "") { 
-			$mensaje = $insercion_comentario = $muro->InsertVotacion($_REQUEST['idvc'],$_SESSION['user_name']);
+			$mensaje = $insercion_comentario = $muro->InsertVotacion(intval($_REQUEST['idvc']), $_SESSION['user_name']);
 		}
 		?>
 	</body>

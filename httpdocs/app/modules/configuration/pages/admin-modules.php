@@ -1,4 +1,10 @@
 <?php
+set_time_limit(0);
+ini_set('memory_limit', '-1');
+
+//EXPORT MODULES/PAGES
+configurationController::exportModulesPagesAction();
+
 addJavascripts(array(getAsset("configuration")."js/admin-modules.js"));
 ?>
 <div class="row row-top">
@@ -17,6 +23,7 @@ addJavascripts(array(getAsset("configuration")."js/admin-modules.js"));
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<h2><?php e_strTranslate("Modules_installed");?></h2>
+				<p><a href="admin-modules?export=true">Descargar</a> detalle de páginas por módulo.</p>
 				<div class="">
 					<?php foreach($modules as $module): ?>
 						<div class="config-section panel panel-default">

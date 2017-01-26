@@ -8,8 +8,8 @@ class promocionesController{
 	public static function getListAction($reg = 0, $filtro = ""){
 		$promociones = new promociones();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro .= " AND nombre_promocion LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND nombre_promocion LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
+		if (isset($_POST['find_reg'])) {$filtro .= " AND nombre_promocion LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";$find_reg = $_POST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filtro .= " AND nombre_promocion LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";$find_reg = $_REQUEST['f'];} 
 		$filtro .= " ORDER BY id_promocion DESC ";
 		$paginator_items = PaginatorPages($reg);
 		
@@ -25,8 +25,8 @@ class promocionesController{
 		$promociones = new promociones();
 		$filtro_promocion = "";
 		$promocion = array();
-		if (isset($_REQUEST['idp']) and $_REQUEST['idp'] > 0) $id_promocion = $_REQUEST['idp'];
-		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_promocion = $_REQUEST['f'];
+		if (isset($_REQUEST['idp']) and $_REQUEST['idp'] > 0) $id_promocion = intval($_REQUEST['idp']);
+		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_promocion = intval($_REQUEST['f']);
 		else $id_promocion = connection::SelectMaxReg("id_promocion", "promociones", $filtro_promocion." AND active=1 ");
 
 		if ($id_promocion > 0){
@@ -70,7 +70,8 @@ class promocionesController{
 
 	public static function updateAction(){
 		if (isset($_POST['id']) and $_POST['id'] > 0){
-			$promociones = new promociones();	
+			$promociones = new promociones();
+			$id = intval($_POST['id']);
 			if ($_POST['galeria_promocion'] == 'videos'){
 				$galeria_videos = 1;
 				$galeria_fotos = 0;
@@ -87,21 +88,21 @@ class promocionesController{
 				$galeria_comentarios = 1;
 			}
 
-			if ($promociones->updatePromociones(sanitizeInput($_POST['id']), sanitizeInput($_POST['nombre_promocion']), sanitizeInput(stripslashes($_POST['texto_promocion'])), $galeria_videos, $galeria_fotos, $galeria_comentarios)) {
+			if ($promociones->updatePromociones($id, sanitizeInput($_POST['nombre_promocion']), sanitizeInput(stripslashes($_POST['texto_promocion'])), $galeria_videos, $galeria_fotos, $galeria_comentarios)) {
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("admin-promociones-new?id=".$_POST['id']);
+			redirectURL("admin-promociones-new?id=".$id);
 		}
 	}
 
 	public static function activeAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$promociones = new promociones();
-			if ($promociones->updateActive(sanitizeInput($_REQUEST['id']), sanitizeInput($_REQUEST['idd']))) {
+			if ($promociones->updateActive(intval($_REQUEST['id']), intval($_REQUEST['idd']))) {
 					//desactivar resto de registros
-				if (sanitizeInput($_REQUEST['idd']) == 1) $promociones->updateActiveTodos(0 , " AND id_promocion<>".sanitizeInput($_REQUEST['id'])." ");
+				if (sanitizeInput($_REQUEST['idd']) == 1) $promociones->updateActiveTodos(0 , " AND id_promocion<>".intval($_REQUEST['id'])." ");
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

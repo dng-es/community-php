@@ -7,9 +7,9 @@ templateload("addcomment","muro");
 
 //OBTENCION DE LOS COMENTARIOS DEL MURO
 $muro = new muro();
-if (isset($_REQUEST['id'])) $nombre_muro = $_REQUEST['id'];
-if (isset($_POST['tipo_responder'])) $nombre_muro = $_POST['tipo_responder'];
-if (isset($_POST['tipo_muro'])) $nombre_muro = $_POST['tipo_muro'];
+if (isset($_REQUEST['id'])) $nombre_muro = sanitizeInput($_REQUEST['id']);
+if (isset($_POST['tipo_responder'])) $nombre_muro = sanitizeInput($_POST['tipo_responder']);
+if (isset($_POST['tipo_muro'])) $nombre_muro = sanitizeInput($_POST['tipo_muro']);
 if ($nombre_muro == "") $nombre_muro = "principal";
 
 if (isset($_REQUEST['pag'])) $pagina = $_REQUEST['pag'];

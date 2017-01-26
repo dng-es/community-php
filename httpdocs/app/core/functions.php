@@ -360,6 +360,36 @@ function SearchForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", 
 <?php }
 
 /**
+ * Print HTML  search form
+ * @param 	int 		$reg         	Número de registros. Empleado por paginador
+ * @param 	int 		$pag         	Número de página. Empleado por paginador
+ * @param 	string 		$formId      	Id del formulario HTML
+ * @param 	string 		$labelForm   	Texto para el label del formulario
+ * @param 	string 		$labelButton 	Texto para el botón de buscar
+ * @param 	string 		$clase_css   	Clase CSS para el panel contenedor del form
+ * @param 	string 		$class_form  	Clase CSS para el form
+ */
+
+function SearchChannelForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "", $class_form = "", $method_form = "post"){
+	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : ""); ?>
+	<div class="<?php echo $clase_css;?>">  
+		<form action="<?php echo $pag.'?regs='.$reg;?>" method="<?php echo $method_form;?>" name="<?php echo $formId;?>" id="<?php echo $formId;?>" class="<?php echo $class_form;?>">
+			<div class="input-group">
+				<label class="sr-only" for="find_reg"><?php echo $labelForm;?></label>
+				<select id="find_reg" name="find_reg" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>">
+					<option value="">--<?php e_strTranslate("Choose_channel");?>--</option>
+					<?php ComboCanales($busqueda);?>
+				</select>
+				<input type="hidden" name="registros_form" value="<?php echo $reg;?>" />
+				<div class="input-group-btn">
+					<button type="submit" class="btn btn-default" title="<?php echo $labelButton;?>" destino="<?php echo $formId;?>"><i class="glyphicon glyphicon-search"></i></button>
+				</div>
+			</div>
+		</form>
+	</div>
+<?php }
+
+/**
  * Descarga un archivo
  * @param 	string 		$fichero 		Ruta completa del archivo a descargar
  */
@@ -444,6 +474,7 @@ function getBrowser($user_agent){
  */
 function getPlatform($user_agent){
 	$plataformas = array(
+		'Windows 10' => 'Windows NT 10.0+',
 		'Windows 8.1' => 'Windows NT 6.3+',
 		'Windows 8' => 'Windows NT 6.2+',
 		'Windows 7' => 'Windows NT 6.1+',

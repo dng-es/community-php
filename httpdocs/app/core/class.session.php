@@ -18,7 +18,9 @@ class session{
 		if (isset($_POST['form-login-user'])) self::createSession(sanitizeInput($_POST['form-login-user']), sanitizeInput($_POST['form-login-password']));
 		else self::ValidateSession();
 
+
 		global $page, $paginas_free;
+		visitasController::insertVisita($page);
 		if (in_array($page, $paginas_free) == false){
 			if (!isset($_SESSION['user_name']) or trim($_SESSION['user_name']) == "") self::destroySession();
 			else {
@@ -28,7 +30,9 @@ class session{
 				$this->setPagePermission($page, $_SESSION['user_name']);
 				$user_permissions = $this->checkPageTypePermission("view", $this->user_page_permission);
 
-				if ($this->checkPageViewPermission($page, $_SESSION['user_perfil'], $user_permissions)) visitasController::insertVisita($page);
+				if ($this->checkPageViewPermission($page, $_SESSION['user_perfil'], $user_permissions)) {
+
+				}
 				else{
 					ErrorMsg(strTranslate("Access_denied"));
 					die();

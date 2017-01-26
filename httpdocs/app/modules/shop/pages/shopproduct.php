@@ -1,15 +1,15 @@
 <?php
 templateload("searchproducts","shop");
 
-$id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
+$id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? intval($_REQUEST['id']) : 0);
 $filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
 $filtro = $filtro_canal." AND active_product=1 AND id_product=".$id." ";
 
-if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".$_REQUEST['ref_search']."%' ";
-if (isset($_REQUEST['name_search'])) $filtro .= " AND name_product LIKE '%".$_REQUEST['name_search']."%' ";
-if (isset($_REQUEST['manufacturer_search'])) $filtro .= " AND name_manufacturer LIKE '%".$_REQUEST['manufacturer_search']."%' ";
-if (isset($_REQUEST['category_search'])) $filtro .= " AND category_product LIKE '%".$_REQUEST['category_search']."%' ";
-if (isset($_REQUEST['subcategory_search'])) $filtro .= " AND subcategory_product LIKE '%".$_REQUEST['subcategory_search']."%' ";
+if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".sanitizeInput($_REQUEST['ref_search'])."%' ";
+if (isset($_REQUEST['name_search'])) $filtro .= " AND name_product LIKE '%".sanitizeInput($_REQUEST['name_search'])."%' ";
+if (isset($_REQUEST['manufacturer_search'])) $filtro .= " AND name_manufacturer LIKE '%".sanitizeInput($_REQUEST['manufacturer_search'])."%' ";
+if (isset($_REQUEST['category_search'])) $filtro .= " AND category_product LIKE '%".sanitizeInput($_REQUEST['category_search'])."%' ";
+if (isset($_REQUEST['subcategory_search'])) $filtro .= " AND subcategory_product LIKE '%".sanitizeInput($_REQUEST['subcategory_search'])."%' ";
 
 session::getFlashMessage( 'actions_message' );
 $elements = shopProductsController::getListAction(1, $filtro);

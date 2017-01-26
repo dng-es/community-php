@@ -3,14 +3,14 @@ function panelRanking($id_objetivo){
 	$filtro_perfil = incentivosObjetivosController::getFiltroPerfil($_SESSION['user_perfil']);
 	$objetivos = incentivosObjetivosController::getListAction(1, $filtro_perfil." AND id_objetivo=".$id_objetivo." AND ranking_objetivo=1 AND NOW() BETWEEN date_ini_objetivo AND date_fin_objetivo ");
 	?>
-	<div class="col-md-12 section panel">
 	<?php if ($objetivos['total_reg'] > 0):
-		$filtro_tienda = incentivosObjetivosController::getFiltroTienda($_SESSION['user_perfil'], $_SESSION['user_name'], $_SESSION['user_empresa']);
-		$ranking = incentivosController::getRankingAction($objetivos['items'][0], $filtro_tienda);
-		$posicion_user = (isset($ranking['posicion_user'][0]['rownum']) ? $ranking['posicion_user'][0]['rownum'] : 0) ;
-		$total_user = (isset($ranking['posicion_user'][0]['suma']) ? $ranking['posicion_user'][0]['suma'] : 0);
-		$usuario = usersController::getPerfilAction($_SESSION['user_name']);
-		?>
+	$filtro_tienda = incentivosObjetivosController::getFiltroTienda($_SESSION['user_perfil'], $_SESSION['user_name'], $_SESSION['user_empresa']);
+	$ranking = incentivosController::getRankingAction($objetivos['items'][0], $filtro_tienda);
+	$posicion_user = (isset($ranking['posicion_user'][0]['rownum']) ? $ranking['posicion_user'][0]['rownum'] : 0) ;
+	$total_user = (isset($ranking['posicion_user'][0]['suma']) ? $ranking['posicion_user'][0]['suma'] : 0);
+	$usuario = usersController::getPerfilAction($_SESSION['user_name']);
+	?>
+	<div class="col-md-12 section panel">
 		<div class="row overflow-visible">
 			<?php if (isset($objetivos['items'][0])): ?>
 			<a class="btn btn-title-b" href="incentives-rankings?id=<?php echo $objetivos['items'][0]['id_objetivo'];?>">
@@ -50,7 +50,7 @@ function panelRanking($id_objetivo){
 					<p>No existen datos actualmente, serán cargados próximamente.</p>
 			<?php endif;?>
 		</div>
-<?php endif;?>
 	</div>
+<?php endif;?>
 <?php }
 ?>

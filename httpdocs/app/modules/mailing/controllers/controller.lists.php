@@ -17,9 +17,9 @@ class mailingListsController{
 	}
 
 	public static function getItemAction($id = 0){
-		$id_list = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-		$name_list = isset($_POST['name_list']) ? $_POST['name_list'] : "";
-		$date_list = isset($_POST['date_list']) ? $_POST['date_list'] : "";
+		$id_list = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
+		$name_list = sanitizeInput(isset($_POST['name_list']) ? $_POST['name_list'] : "");
+		$date_list = sanitizeInput(isset($_POST['date_list']) ? $_POST['date_list'] : "");
 		if ($id_list!=0){
 			$mailing = new mailing();
 			$lista= $mailing->getLists(" AND id_list=".$id_list);	
@@ -44,7 +44,7 @@ class mailingListsController{
 	public static function exportUserListAction($filtro = ""){
 		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm'] == true){
 			$mailing = new mailing();
-			$elements = $mailing->getListsUsers($filtro." AND id_list=".$_REQUEST['id']);
+			$elements = $mailing->getListsUsers($filtro." AND id_list=".intval($_REQUEST['id']));
 			download_send_headers("emails_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
@@ -55,16 +55,16 @@ class mailingListsController{
 		if (isset($_POST['name_list']) and $_POST['name_list'] != "" and $_POST['id_list'] == 0){
 			$mailing = new mailing();
 			$id_list = 0;
-			$name = str_replace("'", "´", $_POST['name_list']);
+			$name = sanitizeInput($_POST['name_list']);
 			$usuario = $_SESSION['user_name'];
-			if ($mailing->insertList($name,$usuario)) {
+			if ($mailing->insertList($name, $usuario)) {
 				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
-				$id_list = connection::SelectMaxReg("id_list","mailing_lists","");
+				$id_list = connection::SelectMaxReg("id_list", "mailing_lists", "");
 
 				//agregar usuarios
 				self::importAction($id_list);
 			}
-			else session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("user-list?act=editid=".$id_list);
 		}
@@ -73,8 +73,8 @@ class mailingListsController{
 	public static function updateAction(){
 		if (isset($_POST['name_list']) and $_POST['name_list'] != "" and $_POST['id_list'] > 0){
 			$mailing = new mailing();
-			$id_list = $_POST['id_list'];
-			$name_list = str_replace("'", "´", $_POST['name_list']);
+			$id_list = intval($_POST['id_list']);
+			$name_list = sanitizeInput($_POST['name_list']);
 
 			if ($mailing->updateList($id_list, $name_list)) {
 				//agregar usuarios
@@ -90,10 +90,10 @@ class mailingListsController{
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$mailing = new mailing();
-			if ($mailing->deleteList($_REQUEST['id'])){
+			if ($mailing->deleteList(intval($_REQUEST['id'])))
 				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
-			}
-			else session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			else 
+				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("user-lists");
 		}
@@ -118,7 +118,7 @@ class mailingListsController{
 		require_once 'docs/reader.php';
 		$excelll = new Spreadsheet_Excel_Reader();
 
-		for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
+		for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 			$username = trim(strtolower($data->sheets[0]['cells'][$fila][1]));
 			$userdate = trim($data->sheets[0]['cells'][$fila][2]);
 			//if ($excelll->isDate($userdate)==false){$userdate="";}
@@ -132,9 +132,9 @@ class mailingListsController{
 			//$userdate = date("M-d-Y", $userdate);	
 			if (validateEmail($username)){
 				$mailing->insertListsUsers($id_list,$username);
-				if ($userdate!=""){
-					$userdate = date("Y-m-d",strtotime($userdate));
-					$mailing->insertListsUsersData($username,$userdate);
+				if ($userdate != ""){
+					$userdate = date("Y-m-d", strtotime($userdate));
+					$mailing->insertListsUsersData($username, $userdate);
 				}
 			}
 		}

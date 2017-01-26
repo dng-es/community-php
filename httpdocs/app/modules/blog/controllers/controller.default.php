@@ -26,6 +26,8 @@ class blogController{
 		if (isset($_POST['id']) and $_POST['id'] == 0){
 			$foro = new foro();
 			$id = 0;
+			$nombre = sanitizeInput($_POST['nombre']);
+			$descripcion = sanitizeInput(stripslashes($_POST['descripcion']));
 			$destacado = (isset($_POST['destacado']) and $_POST['destacado'] == "on") ? 1 : 0;
 			$etiquetas = sanitizeInput($_POST['etiquetas']);
 			$canal = sanitizeInput($_POST['canal']);
@@ -35,7 +37,7 @@ class blogController{
 			$extension = strtolower($file_info['extension']);
 
 			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){
-				if ($foro->InsertTema(0, $_POST['nombre'], stripslashes($_POST['descripcion']), $_FILES['imagen-tema'], $_SESSION['user_name'], $canal, 0, 1, '', 0, 1, $etiquetas, $destacado )) {
+				if ($foro->InsertTema(0, $nombre, $descripcion, $_FILES['imagen-tema'], $_SESSION['user_name'], $canal, 0, 1, '', 0, 1, $etiquetas, $destacado )) {
 					$id = connection::SelectMaxReg("id_tema", "foro_temas", " AND ocio=1 ");
 					session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				}else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

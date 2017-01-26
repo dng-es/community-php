@@ -3,7 +3,7 @@ addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-in
 templateload("cmbCanales","users");
 
 $accion = (isset($_GET['act']) ? $_GET['act'] : "new");
-$id = (isset($_GET['id']) ? $_GET['id'] : 0);
+$id = intval(isset($_GET['id']) ? $_GET['id'] : 0);
 ?>
 <div class="row row-top">
 	<div class="app-main">

@@ -20,7 +20,7 @@ addJavascripts(array("js/jquery.numeric.js",
 		session::getFlashMessage('actions_message');
 		mailingController::createUserAction();
 
-		$id = isset($_GET['id']) == true ? $_GET['id'] : 0;
+		$id = intval(isset($_GET['id']) == true ? $_GET['id'] : 0);
 		$plantilla = mailingTemplatesController::getItemAction($id);
 		$direccion = '';
 		$cod_postal = '';

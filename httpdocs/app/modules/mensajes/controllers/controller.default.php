@@ -4,7 +4,7 @@ class mensajesController{
 		$mensajes = new mensajes();
 		if (isset($_POST['find_reg'])) $find_reg = $_POST['find_reg'];
 		if (isset($_REQUEST['f'])) $find_reg = $_REQUEST['f'];
-		if ($find_reg != "") $filtro = " AND (mensaje_cuerpo LIKE '%".$find_reg."%' OR asunto_mensaje LIKE '%".$find_reg."%') ";
+		if ($find_reg != "") $filtro = " AND (mensaje_cuerpo LIKE '%".sanitizeInput($find_reg)."%' OR asunto_mensaje LIKE '%".sanitizeInput($find_reg)."%') ";
 		$filtro .= " AND user_destinatario='".$_SESSION['user_name']."' AND estado<>2 ORDER BY date_mensaje DESC ";
 		$paginator_items = PaginatorPages($reg);
 		
@@ -20,7 +20,7 @@ class mensajesController{
 		$mensajes = new mensajes();
 		if (isset($_POST['find_reg'])) $find_reg = $_POST['find_reg'];
 		if (isset($_REQUEST['f'])) $find_reg=$_REQUEST['f'];
-		if ($find_reg != "") $filtro = " AND (mensaje_cuerpo LIKE '%".$find_reg."%' OR asunto_mensaje LIKE '%".$find_reg."%') ";
+		if ($find_reg != "") $filtro = " AND (mensaje_cuerpo LIKE '%".sanitizeInput($find_reg)."%' OR asunto_mensaje LIKE '%".sanitizeInput($find_reg)."%') ";
 		$filtro .= " AND user_remitente='".$_SESSION['user_name']."' AND estado_remitente=0 ORDER BY date_mensaje DESC ";
 		$paginator_items = PaginatorPages($reg);
 		
@@ -58,7 +58,7 @@ class mensajesController{
 			echo '
 			<script>
 			$(document).ready(function(){
-				$("#nick-comentario").val("'.$_REQUEST['n'].'");
+				$("#nick-comentario").val("'.sanitizeInput($_REQUEST['n']).'");
 				$("#new_mensaje").modal();
 			});
 			</script>';
@@ -67,14 +67,14 @@ class mensajesController{
 
 	public static function deleteRecibidoAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'ko'){
-			self::deleteUserAction($_REQUEST['id'], 'user_destinatario');
+			self::deleteUserAction(intval($_REQUEST['id']), 'user_destinatario');
 			redirectURL("inbox");
 		}
 	}
 
 	public static function deleteEnviadoAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'ko'){
-			self::deleteUserAction($_REQUEST['id'], 'user_remitente');
+			self::deleteUserAction(intval($_REQUEST['id']), 'user_remitente');
 			redirectURL("sent-items");
 		}
 	}

@@ -141,4 +141,6 @@ show_user_menu = "Mostrar en menú de usuarios"
 user_menu_position ="Posición en el menu de usuarios"
 deselect_all = "Desmarcar todo"
 select_all = "Marcar todo"
+Useful_links = "Enlaces de interés"
+Legal_bases = "Bases legales"
 ?>

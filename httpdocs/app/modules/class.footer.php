@@ -11,14 +11,14 @@ class footer{
 		</div>
 		<div class="row footer hidden-print">
 			<div class="col-md-4 col1">
-				<h4>Enlaces de interés</h4>
+				<h4><?php e_strTranslate("Useful_links");?></h4>
 				<ul class="list-unstyled">
 					<li><a href="contact"><?php e_strTranslate("Contact");?></a></li>
 					<li><a href="users-conn"><?php e_strTranslate("Users_connected");?></a></li>
 				</ul>
 			</div>
 			<div class="col-md-4 col2">
-				<h4>Bases legales</h4>
+				<h4><?php e_strTranslate("Legal_bases");?></h4>
 				<ul class="list-unstyled">
 					<li><a href="#" id="declaracion-trigger"><?php e_strTranslate("Rights_and_responsabilities");?></a></li>
 					<li><a href="#" id="policy-trigger"><?php e_strTranslate("Private_policy");?></a></li>

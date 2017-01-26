@@ -10,6 +10,6 @@ session::ValidateSessionAjax();
 
 if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 	$mensajes = new mensajes();
-	$mensajes->leerMensaje($_REQUEST['id']);
+	$mensajes->leerMensaje(intval($_REQUEST['id']));
 }
 ?>

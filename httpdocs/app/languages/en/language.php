@@ -141,4 +141,6 @@ show_user_menu = "Show user menu"
 user_menu_position ="User menu position"
 deselect_all = "Deselect all"
 select_all = "Select all"
+Useful_links = "Useful links"
+Legal_bases = "Legal bases"
 ?>

@@ -1,19 +1,19 @@
 <?php
 $na_areas = new na_areas();
-$id_area = $_REQUEST['a'];
-$id_tarea = $_REQUEST['id'];
+$id_area = intval($_REQUEST['a']);
+$id_tarea = intval($_REQUEST['id']);
 
 //agregar grupo a la tarea
 if (isset($_POST['id_tarea_add']) and $_POST['id_tarea_add'] != ""){
 	$na_areas->insertGrupoTarea($_POST['id_grupo_add'],$_POST['id_tarea_add']);
-	$id_area = $_POST['id_area'];
-	$id_tarea = $_POST['id_tarea_add'];
+	$id_area = intval($_POST['id_area']);
+	$id_tarea = intval($_POST['id_tarea_add']);
 }
 //quitar grupo de la tarea
 if (isset($_POST['id_tarea_del']) and $_POST['id_tarea_del'] != ""){
 	$na_areas->deleteGrupoTarea($_POST['id_grupo_del'],$_POST['id_tarea_del']);
-	$id_area = $_POST['id_area'];
-	$id_tarea = $_POST['id_tarea_del'];
+	$id_area = intval($_POST['id_area']);
+	$id_tarea = intval($_POST['id_tarea_del']);
 }
 
 //grupos de la tarea

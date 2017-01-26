@@ -2,6 +2,9 @@
 class pagesController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$pages = new pages();
+		$find_reg = "";
+		if (isset($_POST['find_reg'])) {$filter = " AND page_canal='".$_POST['find_reg']."' ".$filter;$find_reg=$_POST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filter = " AND page_canal='".$_REQUEST['f']."' ".$filter;$find_reg=$_REQUEST['f'];} 
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("pages",$filter); 
 		return array('items' => $pages->getPages($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),

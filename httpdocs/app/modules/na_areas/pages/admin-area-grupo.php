@@ -1,14 +1,14 @@
 <?php
 $na_areas = new na_areas();
-$id_area = $_REQUEST['a'];
-$id_grupo = $_REQUEST['g'];
+$id_area = intval($_REQUEST['a']);
+$id_grupo = intval($_REQUEST['g']);
 
 //agregar usuario al area
-if (isset($_POST['id_grupo_add']) and $_POST['id_grupo_add']!=""){
-  $na_areas->insertGrupoUser($_POST['id_grupo_add'],$_POST['user_add']);}
+if (isset($_POST['id_grupo_add']) and $_POST['id_grupo_add']!="")
+	$na_areas->insertGrupoUser(intval($_POST['id_grupo_add']), sanitizeInput($_POST['user_add']));
 //quitar usuario del area
-if (isset($_POST['id_grupo_del']) and $_POST['id_grupo_del']!=""){
-  $na_areas->deleteGrupoUser($_POST['id_grupo_del'],$_POST['user_del']);}
+if (isset($_POST['id_grupo_del']) and $_POST['id_grupo_del']!="")
+	$na_areas->deleteGrupoUser(intval($_POST['id_grupo_del']), sanitizeInput($_POST['user_del']));
 
 //usuarios del area
 $usuarios_area = $na_areas->getAreasUsers(" AND id_area=".$id_area." AND username_area NOT IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ");

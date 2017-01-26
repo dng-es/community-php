@@ -5,17 +5,7 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 			"js/bootstrap-datepicker.es.js", 
 			"js/jquery.numeric.js", 
 			getAsset("incentivos")."js/admin-incentives-targets-detail.js"));
-
-
-$id_objetivo = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
-session::getFlashMessage( 'actions_message' ); 
-incentivosObjetivosController::createDetalleAction();
-incentivosObjetivosController::deleteDetalleAction();
-$objetivo = incentivosObjetivosController::getItemAction($id_objetivo);
-$elements = incentivosObjetivosController::getListDetalleAction(35, " AND id_objetivo=".$id_objetivo." ");
-$users = new users();
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -26,6 +16,14 @@ $users = new users();
 			array("ItemLabel"=>strTranslate("Incentives_targets"), "ItemUrl"=>"admin-incentives-targets"),
 			array("ItemLabel"=>strTranslate("Incentives_targets"). " detalle", "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage( 'actions_message' ); 
+		incentivosObjetivosController::createDetalleAction();
+		incentivosObjetivosController::deleteDetalleAction();
+		$id_objetivo = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
+		$objetivo = incentivosObjetivosController::getItemAction($id_objetivo);
+		$elements = incentivosObjetivosController::getListDetalleAction(35, " AND id_objetivo=".$id_objetivo." ");
+		$users = new users();
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>

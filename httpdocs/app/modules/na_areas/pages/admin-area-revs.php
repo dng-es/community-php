@@ -6,29 +6,29 @@ if(file_exists($base_dir . "modules/recompensas/classes/class.recompensas.php"))
 include_once($base_dir . "modules/class.footer.php");
 
 //VALIDAR REVISIONES FORMULARIOS
-if ( isset($_POST['id_tarea_rev']) and $_POST['id_tarea_rev']!='' ) na_areasController::RevisarFormAction();
+if ( isset($_POST['id_tarea_rev']) and $_POST['id_tarea_rev'] != '' ) na_areasController::RevisarFormAction();
 
 //ELIMINACION DE FINALIZACION DE FORMULARIO
-if (isset($_REQUEST['act_f']) and $_REQUEST['act_f']=="del") na_areasController::FinalizacionDeleteAction();
+if (isset($_REQUEST['act_f']) and $_REQUEST['act_f'] == "del") na_areasController::FinalizacionDeleteAction();
 
 //DESCARGAR FORMULARIO
-if (isset($_REQUEST['t']) and $_REQUEST['t']!="") na_areasController::ExportFormUserAction();
+if (isset($_REQUEST['t']) and $_REQUEST['t'] != "") na_areasController::ExportFormUserAction();
 
 //EXPORT REVS
-if (isset($_REQUEST['t3']) and $_REQUEST['t3']=="1") na_areasController::ExportFormAllAction();
+if (isset($_REQUEST['t3']) and $_REQUEST['t3'] == "1") na_areasController::ExportFormAllAction();
 
 //DESCARGAR FICHERO USUARIO-FICHEROS
-if (isset($_REQUEST['t2']) and $_REQUEST['t2']=="1") na_areasController::ExportFileUserAction();
+if (isset($_REQUEST['t2']) and $_REQUEST['t2'] == "1") na_areasController::ExportFileUserAction();
 
 //VALIDAR REVISIONES FICHEROS
-if ( isset($_REQUEST['act']) and $_REQUEST['act']=='rev_ok' ) na_areasController::validateRevAction();
+if ( isset($_REQUEST['act']) and $_REQUEST['act'] == 'rev_ok' ) na_areasController::validateRevAction();
 
 addJavascripts(array("js/jquery.numeric.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
 //OBTENER DATOS DE LA TAREA
 $na_areas = new na_areas();
-$id_area = $_REQUEST['a'];
-$id_tarea = $_REQUEST['id'];
+$id_area = intval($_REQUEST['a']);
+$id_tarea = intval($_REQUEST['id']);
 $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 $id_recompensa = (isset($tarea[0]['id_recompensa']) ? $tarea[0]['id_recompensa'] : 0);
 ?>
@@ -51,10 +51,10 @@ $id_recompensa = (isset($tarea[0]['id_recompensa']) ? $tarea[0]['id_recompensa']
 
 		<?php
 		if (count($tarea)==1){
-			$id_grupo=0; 
-			if(isset($_POST['grupo_search']) and $_POST['grupo_search']!="") {$id_grupo = $_POST['grupo_search'];}
-			if(isset($_POST['id_grupo_rev']) and $_POST['id_grupo_rev']!="") {$id_grupo = $_POST['id_grupo_rev'];}
-			if(isset($_REQUEST['idg']) and $_REQUEST['idg'] != "") {$id_grupo = $_REQUEST['idg'];}
+			$id_grupo = 0; 
+			if(isset($_POST['grupo_search']) and $_POST['grupo_search']!="") $id_grupo = intval($_POST['grupo_search']);
+			if(isset($_POST['id_grupo_rev']) and $_POST['id_grupo_rev']!="") $id_grupo = intval($_POST['id_grupo_rev']);
+			if(isset($_REQUEST['idg']) and $_REQUEST['idg'] != "") $id_grupo = intval($_REQUEST['idg']);
 
 			//grupos de la tarea
 			$grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tarea=".$id_tarea." ");
@@ -64,7 +64,7 @@ $id_recompensa = (isset($tarea[0]['id_recompensa']) ? $tarea[0]['id_recompensa']
 							<option value="0">-----todos los grupos de la tarea-----</option>';
 				foreach($grupos_tarea as $grupo_tarea):
 					$selected="";
-					if ($id_grupo == $grupo_tarea['id_grupo']){$selected = ' selected="selected" ';}
+					if ($id_grupo == $grupo_tarea['id_grupo']) $selected = ' selected="selected" ';
 					echo '<option value="'.$grupo_tarea['id_grupo'].'" '.$selected.'>'.$grupo_tarea['grupo_nombre'].'</option>';
 				endforeach;
 				echo '  </select>
@@ -86,15 +86,14 @@ function revisionesFicheros($id_tarea, $id_area, $id_grupo, $id_recompensa){
 	$na_areas = new na_areas();
 	$users = new users();
 	$filtro = " AND id_tarea=".$id_tarea." ";
-	if ($id_grupo!=0){$filtro .= " AND user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
+	if ($id_grupo != 0) $filtro .= " AND user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";
 	$filtro .= " ORDER BY fecha_tarea DESC ";
 	$revisiones = $na_areas->getTareasUser($filtro);
 	
 	echo '<br /><p>pincha <a href="admin-area-revs?t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
 
-	if (count($revisiones) == 0){
+	if (count($revisiones) == 0)
 		echo '<div class="tareas-row">Los usuarios todavia no han enviado archivos para esta tarea.</div>';
-	}
 	else{
 		echo '<table class="table">
 				<tbody>';
@@ -126,13 +125,12 @@ function revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa){
 	$na_areas = new na_areas();
 	$users = new users();
 	$filtro = " AND id_tarea=".$id_tarea." ";
-	if ($id_grupo!=0){$filtro .= " AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";}
+	if ($id_grupo !=0 ) $filtro .= " AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";
 	$filtro .= " ORDER BY date_finalizacion DESC";
 	$revisiones = $na_areas->getFormulariosFinalizados($filtro);
 
-	if (count($revisiones) == 0){
+	if (count($revisiones) == 0)
 		echo '<div class="tareas-row">Los usuarios todavia no han finalizado los formularios para esta tarea.</div>';
-	}
 	else{?>
 		<table class="table">
 			<tr>
@@ -144,7 +142,7 @@ function revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa){
 			</tr>
 		<?php foreach($revisiones as $revision):
 			if ($revision['revision'] == 1){
-				$imagen_revision='<i class="fa fa-check icon-ok"></i>';
+				$imagen_revision = '<i class="fa fa-check icon-ok"></i>';
 				$destino_validar_revision = "";
 				$btn = "";
 				$txt = ' disabled="disabled" ';
@@ -191,9 +189,7 @@ function revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa){
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h4 class="modal-title" id="myModalLabel">Respuestas del usuario</h4>
 					</div>
-					<div class="modal-body">
-
-					</div>
+					<div class="modal-body"></div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->

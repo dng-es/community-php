@@ -23,18 +23,18 @@ class infoController{
 		if (isset($_POST['id']) and $_POST['id'] == 0){
 			$info = new info();
 			$download = ($_POST['download'] == "on" ? 1 : 0);
-			$canal = $_POST['info_canal'];
+			$canal = sanitizeInput($_POST['info_canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
 
 			if ($download == 1){
 				$nombre_archivo = uploadFileToFolder($_FILES['info_file'], PATH_INFO);
 				if ($nombre_archivo == '') session::setFlashMessage('actions_message', "Ocurrió algún error al subir el contenido. No pudo guardarse el archivo.", "alert alert-danger");
-				else $info->updateInfoDoc($_POST['id'], $nombre_archivo);
+				else $info->updateInfoDoc(intval($_POST['id']), $nombre_archivo);
 			}
-			else $nombre_archivo = $_POST['info_url'];
+			else $nombre_archivo = sanitizeInput($_POST['info_url']);
 
-			if ($info->insertInfo($nombre_archivo, $_POST['info_title'], $canal, $_POST['info_tipo'], $_POST['info_campana'], $download)){
-				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
+			if ($info->insertInfo($nombre_archivo, sanitizeInput($_POST['info_title']), $canal, sanitizeInput($_POST['info_tipo']), sanitizeInput($_POST['info_campana']), $download)){
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id = connection::SelectMaxReg("id_info", "info", "");
 				redirectURL("admin-info-doc?act=edit&id=".$id);
 			}
@@ -49,7 +49,7 @@ class infoController{
 		if (isset($_POST['id']) and $_POST['id'] > 0){
 			$info = new info();
 			$download = ($_POST['download'] == "on" ? 1 : 0);
-			$canal = $_POST['info_canal'];
+			$canal = sanitizeInput($_POST['info_canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
 
 			if ($download == 1){
@@ -60,9 +60,9 @@ class infoController{
 				}
 
 			}
-			else $info->updateInfoDoc($_POST['id'], $_POST['info_url']);
+			else $info->updateInfoDoc(intval($_POST['id']), sanitizeInput($_POST['info_url']));
 
-			if ($info->updateInfo($_POST['id'], $_POST['info_title'], $canal, $_POST['info_tipo'], $_POST['info_campana'], $download)) 
+			if ($info->updateInfo(intval($_POST['id']), sanitizeInput($_POST['info_title']), $canal, sanitizeInput($_POST['info_tipo']), sanitizeInput($_POST['info_campana']), $download)) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -74,7 +74,7 @@ class infoController{
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$info = new info();
-			if ($info->deleteInfo($_REQUEST['id'], $_REQUEST['d'])) 
+			if ($info->deleteInfo(intval($_REQUEST['id']), sanitizeInput($_REQUEST['d']))) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

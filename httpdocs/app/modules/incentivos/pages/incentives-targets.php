@@ -3,15 +3,6 @@ incentivosController::exportUserReportAction();
 
 addJavascripts(array("js/libs/highcharts/highcharts.js",
 					 "js/libs/highcharts/modules/exporting.js"));
-
-$referencia_acelerador = (isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
-
-session::getFlashMessage( 'actions_message' );
-$filtro_perfil = incentivosObjetivosController::getFiltroPerfil($_SESSION['user_perfil']);
-$filtro_canal = (($_SESSION['user_canal'] == 'admin') ? "" : " AND canal_objetivo LIKE '%".$_SESSION['user_canal']."%' ");
-
-$elements = incentivosObjetivosController::getListAction(35, $filtro_canal.$filtro_perfil." AND NOW() BETWEEN date_ini_objetivo AND date_fin_objetivo ORDER BY id_objetivo ASC");
-$incentivos = new incentivos();
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -21,6 +12,13 @@ $incentivos = new incentivos();
 			array("ItemLabel"=>"Ventas", "ItemUrl"=>"incentives-targets"),
 			array("ItemLabel"=>strTranslate("Incentives_my_targets"), "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage( 'actions_message' );
+		$referencia_acelerador = intval(isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
+		$filtro_perfil = incentivosObjetivosController::getFiltroPerfil($_SESSION['user_perfil']);
+		$filtro_canal = (($_SESSION['user_canal'] == 'admin') ? "" : " AND canal_objetivo LIKE '%".$_SESSION['user_canal']."%' ");
+		$elements = incentivosObjetivosController::getListAction(35, $filtro_canal.$filtro_perfil." AND NOW() BETWEEN date_ini_objetivo AND date_fin_objetivo ORDER BY id_objetivo ASC");
+		$incentivos = new incentivos();
 		?>
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">

@@ -30,13 +30,13 @@ class incentivosController{
 	public static function getListPuntosAction($reg = 0, $filtro = ""){
 		$incentivos = new incentivos();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro = " AND username_puntuacion LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro = " AND username_puntuacion LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
+		if (isset($_POST['find_reg'])) {$filtro = " AND username_puntuacion LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";$find_reg = $_POST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filtro = " AND username_puntuacion LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";$find_reg = $_REQUEST['f'];} 
 		$filtro .= " ORDER BY id_puntos_venta DESC ";
 		$paginator_items = PaginatorPages($reg);
 
-		$total_reg = connection::countReg("incentives_ventas_puntos",$filtro); 
-		$total_sum = connection::sumReg("incentives_ventas_puntos", 'puntuacion_venta',$filtro); 
+		$total_reg = connection::countReg("incentives_ventas_puntos", $filtro); 
+		$total_sum = connection::sumReg("incentives_ventas_puntos", 'puntuacion_venta', $filtro); 
 		return array('items' => $incentivos->getVentasPuntuaciones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -58,7 +58,7 @@ class incentivosController{
 	public static function exportUserReportAction(){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] != ''){
 			$incentivos = new incentivos();
-			$id_objetivo = sanitizeInput($_REQUEST['id']);
+			$id_objetivo = intval($_REQUEST['id']);
 			//obtener datos del objetivo
 			$objetivo = $incentivos->getIncentivesObjetivos(" AND id_objetivo=".$id_objetivo." ");
 			$productos = $incentivos->getProductosActivos(" AND o.id_objetivo=".$id_objetivo." ");
@@ -118,33 +118,24 @@ class incentivosController{
 	public static function getRankingUsuarioTiendaActionExport($element, $filtro_tienda, $tipo_informe){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$id_zona = ((isset($_REQUEST['idz']) and $_REQUEST['idz'] != "") ? $_REQUEST['idz'] : "");
-			if ($tipo_informe == "tiendas"){
+			if ($tipo_informe == "tiendas")
 				$data = self::getRankingUsuarioTiendaAction($element, $filtro_tienda);
-			}
-			elseif ($tipo_informe == "tiendas_global"){
+			elseif ($tipo_informe == "tiendas_global")
 				$data = self::getRankingUsuarioTiendaAction($element, "");
-			}
-			elseif ($tipo_informe == "areas"){
+			elseif ($tipo_informe == "areas")
 				$data = self::getRankingAreaAction($element, $filtro_tienda);
-			}
-			elseif ($tipo_informe == "zonas_venta" and $_SESSION['user_perfil'] == 'usuario'){
+			elseif ($tipo_informe == "zonas_venta" and $_SESSION['user_perfil'] == 'usuario')
 				$data = self::getRankingUsuarioTiendaAction($element, " AND t.zona_venta=(SELECT zona_venta FROM users_tiendas WHERE cod_tienda='".$_SESSION['user_empresa']."')");
-			}
-			elseif ($tipo_informe == "zonas_venta" and $id_zona > 0){
+			elseif ($tipo_informe == "zonas_venta" and $id_zona > 0)
 				$data = self::getRankingUsuarioTiendaAction($element, $filtro_tienda);
-			}
-			elseif ($tipo_informe == "zonas_venta"){
+			elseif ($tipo_informe == "zonas_venta")
 				$data = self::getRankingZonaAction($element, $filtro_tienda);
-			}
-			elseif ($tipo_informe == "zonas_postventa" and $_SESSION['user_perfil'] == 'usuario'){
+			elseif ($tipo_informe == "zonas_postventa" and $_SESSION['user_perfil'] == 'usuario')
 				$data = self::getRankingUsuarioTiendaAction($element, " AND t.zona_postventa=(SELECT zona_postventa FROM users_tiendas WHERE cod_tienda='".$_SESSION['user_empresa']."')");
-			}
-			elseif ($tipo_informe == "zonas_postventa" and $id_zona > 0){
+			elseif ($tipo_informe == "zonas_postventa" and $id_zona > 0)
 				$data = self::getRankingUsuarioTiendaAction($element, $filtro_tienda);
-			}
-			elseif ($tipo_informe == "zonas_postventa"){
+			elseif ($tipo_informe == "zonas_postventa")
 				$data = self::getRankingZonaPostAction($element, $filtro_tienda);
-			}
 			else{
 				$data = self::getRankingUsuarioAction($element, $filtro_tienda);
 				$i = 0;
@@ -173,9 +164,8 @@ class incentivosController{
 
 	public static function getRankingAreaActionExport($element, $filtro_tienda, $tipo_informe){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
-			if ($tipo_informe == "tiendas"){
+			if ($tipo_informe == "tiendas")
 				$data = incentivosController::getRankingUsuarioTiendaAction($element, $filtro_tienda);
-			}
 			else{
 				$data = incentivosController::getRankingUsuarioAction($element, $filtro_tienda);
 				$i = 0;

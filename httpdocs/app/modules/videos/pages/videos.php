@@ -12,7 +12,7 @@ $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user
 $tags = (isset($_REQUEST['tag']) ? sanitizeInput($_REQUEST['tag']) : '' );
 $filtro_tags = ( $tags != ''  ? " AND tipo_video like '%".$tags."%' " : "" );
 $filter_videos = $filtro_tags.($_SESSION['user_canal'] == 'admin' ? "" : " AND (v.canal IN (".$module_channels.") OR v.canal='') ");
-$filter_id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? " AND id_file=".sanitizeInput($_REQUEST['id'])." " : "");
+$filter_id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? " AND id_file=".intval($_REQUEST['id'])." " : "");
 
 $id_video = connection::SelectMaxReg("id_file", "galeria_videos v ", $filter_id.$filter_videos." AND estado=1 ");
 

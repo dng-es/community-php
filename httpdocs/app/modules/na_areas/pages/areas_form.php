@@ -5,7 +5,7 @@ $module_config = getModuleConfig("na_areas");
 $points_to_success = $module_config['options']['points_to_success'];
 
 addJavascripts(array(getAsset("na_areas")."js/areas_form.js"));
-$id_tarea = ((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id'] : 0);
+$id_tarea = intval((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id'] : 0);
 ?>
 <div class="row row-top">
 	<div class="app-main">

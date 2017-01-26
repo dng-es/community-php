@@ -11,7 +11,7 @@ addJavascripts(array("js/libs/jwplayer/jwplayer.js",
 
 if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""):
 	$na_areas = new na_areas();
-	$id_area = $_REQUEST['id'];
+	$id_area = intval($_REQUEST['id']);
 
 	$module_config = getModuleConfig("na_areas");
 	$acceso = foroController::accesoForoAreaAction($id_area);
@@ -29,7 +29,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""):
 			));
 
 			na_areasController::uploadTareaAction();
-			session::getFlashMessage( 'actions_message' );
+			session::getFlashMessage('actions_message');
 			?>
 			<p><?php echo nl2br($area[0]['area_descripcion']);?></p>
 			<div class="clearfix"></div>
@@ -53,7 +53,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""):
 							ForoList($element);		
 						endforeach;  
 
-						Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], "areas_det&id=".$id_area, '', $elements['find_reg']);
+						Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], "areas_det?id=".$id_area, '', $elements['find_reg']);
 					}?>
 				</div>
 			</div>

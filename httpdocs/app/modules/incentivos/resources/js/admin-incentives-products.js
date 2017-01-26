@@ -15,11 +15,11 @@ jQuery(document).ready(function(){
 			resultado_ok = false;
 		}
 
-		if ($("#canal_producto").val() == null){
-			$("#formData").find("[data-id='canal_producto']").addClass("input-alert");
-			resultado_ok = false;
-		}
-		else $("#formData").find("[data-id='canal_producto']").removeClass("input-alert");
+		// if ($("#canal_producto").val() == null){
+		// 	$("#formData").find("[data-id='canal_producto']").addClass("input-alert");
+		// 	resultado_ok = false;
+		// }
+		// else $("#formData").find("[data-id='canal_producto']").removeClass("input-alert");
 	
 		return resultado_ok;
 	});

@@ -14,8 +14,8 @@ addJavascripts(array(getAsset("mailing")."js/admin-message-proccess.js"));
 		session::getFlashMessage( 'actions_message' );
 
 		//datos del mensaje
-		$id=$_REQUEST['id'];
-		$elements=$mailing->getMessages(" AND id_message=".$id." ");
+		$id = intval($_REQUEST['id']);
+		$elements = $mailing->getMessages(" AND id_message=".$id." ");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-heading">Procesar envío del mensaje</div>

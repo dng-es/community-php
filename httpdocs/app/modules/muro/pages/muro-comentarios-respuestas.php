@@ -2,7 +2,7 @@
 addJavascripts(array(getAsset("muro")."js/muro-comentarios-responder-ajax.js"));
 
 $muro = new muro();
-$id_comentario = ((isset($_REQUEST['id']) and $_REQUEST['id'] != "" ) ? $_REQUEST['id'] : 0);
+$id_comentario = intval((isset($_REQUEST['id']) and $_REQUEST['id'] != "" ) ? $_REQUEST['id'] : 0);
 
 //OBTENER DATOS DEL COMENTARIO
 $filtro_comentario = " AND id_comentario=".$id_comentario." ";

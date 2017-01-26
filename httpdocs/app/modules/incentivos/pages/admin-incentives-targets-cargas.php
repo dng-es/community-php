@@ -1,6 +1,6 @@
 <?php
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("users")."js/admin-cargas.js"));
-$id_objetivo = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
+$id_objetivo = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 $objetivo = incentivosObjetivosController::getItemAction($id_objetivo);
 $modelo = ($objetivo['tipo_objetivo'] == 'Tienda' ? "model_incentivos_groups" : "model_incentivos_users");
 ?>

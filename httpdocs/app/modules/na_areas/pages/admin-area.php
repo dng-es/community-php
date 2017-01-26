@@ -27,9 +27,9 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 		session::getFlashMessage('actions_message');
 
 		$na_areas = new na_areas();
-		$accion = isset($_GET['act']) ? $_GET['act'] : "";
-		$accion1 = isset($_GET['act1']) ? $_GET['act1'] : "";
-		$accion2 = isset($_GET['accion2']) ? $_GET['accion2'] : "";
+		$accion = sanitizeInput(isset($_GET['act']) ? $_GET['act'] : "");
+		$accion1 = sanitizeInput(isset($_GET['act1']) ? $_GET['act1'] : "");
+		$accion2 = sanitizeInput(isset($_GET['accion2']) ? $_GET['accion2'] : "");
 
 		$id = ($accion == 'edit' ? $_GET['id'] : 0);
 		if ($accion == 'edit' and $accion2 == 'ok' and $accion1 != "del") na_areasController::updateAction();
@@ -57,12 +57,12 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 		na_areasController::estadoLinksTareaAction();
 
 		$elements = $na_areas->getAreas(" AND id_area=".$id." ");
-		$area_nombre = isset($elements[0]['area_nombre']) ? $elements[0]['area_nombre'] : "";
-		$area_descripcion = isset($elements[0]['area_descripcion']) ? $elements[0]['area_descripcion'] : "";
-		$puntos = isset($elements[0]['puntos']) ? $elements[0]['puntos'] : "";
-		$limite_users = isset($elements[0]['limite_users']) ? $elements[0]['limite_users'] : "";
-		$area_canal = isset($elements[0]['area_canal']) ? $elements[0]['area_canal'] : "";
-		$registro = isset($elements[0]['registro']) ? $elements[0]['registro'] : 0;
+		$area_nombre = sanitizeInput(isset($elements[0]['area_nombre']) ? $elements[0]['area_nombre'] : "");
+		$area_descripcion = sanitizeInput(isset($elements[0]['area_descripcion']) ? $elements[0]['area_descripcion'] : "");
+		$puntos = sanitizeInput(isset($elements[0]['puntos']) ? $elements[0]['puntos'] : "");
+		$limite_users = sanitizeInput(isset($elements[0]['limite_users']) ? $elements[0]['limite_users'] : "");
+		$area_canal = sanitizeInput(isset($elements[0]['area_canal']) ? $elements[0]['area_canal'] : "");
+		$registro = intval(isset($elements[0]['registro']) ? $elements[0]['registro'] : 0);
 		?>
 
 		<div class="panel panel-default">

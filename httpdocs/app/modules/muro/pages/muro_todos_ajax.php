@@ -44,9 +44,9 @@ $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user
 	$find_reg = "";
 
 	//OBTENER COMENTARIOS DEL MURO
-	if (isset($_REQUEST['c'])) $nombre_muro = $_REQUEST['c'];
-	if (isset($_POST['tipo_responder'])) $nombre_muro = $_POST['tipo_responder'];
-	if (isset($_POST['tipo_muro'])) $nombre_muro = $_POST['tipo_muro'];
+	if (isset($_REQUEST['c'])) $nombre_muro = sanitizeInput($_REQUEST['c']);
+	if (isset($_POST['tipo_responder'])) $nombre_muro = sanitizeInput($_POST['tipo_responder']);
+	if (isset($_POST['tipo_muro'])) $nombre_muro = sanitizeInput($_POST['tipo_muro']);
 	if ($nombre_muro == "") $nombre_muro = "principal";
 
 	$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (c.canal IN (".$module_channels.") OR c.canal='') ");

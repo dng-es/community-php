@@ -5,16 +5,7 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 			"js/bootstrap-datepicker.es.js",
 			"js/jquery.numeric.js",
 			getAsset("incentivos")."js/admin-incentives-targets.js"));
-
-$referencia_acelerador = (isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
-
-session::getFlashMessage( 'actions_message' );
-incentivosObjetivosController::createAction();
-incentivosObjetivosController::deleteAction();
-$elements = incentivosObjetivosController::getListAction(35, "");
-$users = new users();
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -24,6 +15,13 @@ $users = new users();
 			array("ItemLabel"=>strTranslate("Incentives"), "ItemUrl"=>"admin-incentives-targets"),
 			array("ItemLabel"=>strTranslate("Incentives_targets"), "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage( 'actions_message' );
+		incentivosObjetivosController::createAction();
+		incentivosObjetivosController::deleteAction();
+		$referencia_acelerador = (isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
+		$elements = incentivosObjetivosController::getListAction(35, "");
+		$users = new users();
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

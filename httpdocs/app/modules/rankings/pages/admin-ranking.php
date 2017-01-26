@@ -19,7 +19,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		rankingsController::updateAction();
 
 		//OBTENER DATOS DEL Cuestionario
-		$id_ranking = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
+		$id_ranking = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 		if ($id_ranking>0){
 			$ranking=rankingsController::getItemAction($id_ranking);
 			$ranking_nombre = $ranking[0]['nombre_ranking'];

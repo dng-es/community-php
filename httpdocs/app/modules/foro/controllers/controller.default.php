@@ -94,7 +94,7 @@ class foroController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'foro_ok'){
 			$foro = new foro(); 
 			$users = new users();
-			$foro->cambiarEstado($_REQUEST['id'],1);
+			$foro->cambiarEstado(intval($_REQUEST['id']), 1);
 			$users->sumarPuntos($_REQUEST['u'], PUNTOS_FORO, PUNTOS_FORO_MOTIVO);
 			session::setFlashMessage('actions_message', "Comentario validado correctamente.", "alert alert-success");
 			redirectURL("admin-validacion-foro-comentarios?pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1));
@@ -102,8 +102,8 @@ class foroController{
 	}
 
 	public static function changeTipoAction(){
-		if (isset($_POST['find_tipo'])) {
-			$foro->cambiarTipoTema($_POST['id_tema_tipo'], $_POST['find_tipo']);
+		if (isset($_POST['find_tipo'])){
+			$foro->cambiarTipoTema(intval($_POST['id_tema_tipo']), $_POST['find_tipo']);
 			session::setFlashMessage('actions_message', "Tema modificado correctamente.", "alert alert-success");
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
@@ -112,7 +112,7 @@ class foroController{
 	public static function cancelTemaAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'tema_ko'){
 			$foro = new foro();
-			$foro->cambiarEstadoTema($_REQUEST['id'], 0);
+			$foro->cambiarEstadoTema(intval($_REQUEST['id']), 0);
 			session::setFlashMessage('actions_message', "Tema cancelado correctamente.", "alert alert-success");
 			redirectURL("admin-validacion-foro-temas?pag=".(isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1)); 
 		}
@@ -121,7 +121,7 @@ class foroController{
 	public static function exportTemasCommentsAction($filter = ""){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$foro = new foro(); 
-			$elements_exp = $foro->getComentariosExport($filter." AND c.id_tema=".$_REQUEST['id']." ");
+			$elements_exp = $foro->getComentariosExport($filter." AND c.id_tema=".intval($_REQUEST['id'])." ");
 			$file_name = 'exported_file'.date("YmdGis");
 			download_send_headers("comments_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements_exp);
@@ -133,7 +133,8 @@ class foroController{
 		if (isset($_POST['comment-reply-txt']) and $_POST['comment-reply-txt'] != "" and ($_POST['comment-reply-id'] != "" or $_POST['comment-reply-id'] != 0)){
 			$foro = new foro();
 			$texto_comentario = nl2br(sanitizeInput($_POST['comment-reply-txt']));
-			if ($foro->InsertComentario($_POST['id_tema'],
+			$id_tema = intval($_POST['id_tema']);
+			if ($foro->InsertComentario($id_tema,
 								$texto_comentario,
 								$_SESSION['user_name'],
 								ESTADO_COMENTARIOS_FORO,

@@ -116,12 +116,12 @@ function getAsset($modulename){
  * Obtiene todos los modulos instalados
  * @return 	array 		Array con los modulos instalados
  */
-function getListModules(){
+function getListModules($excluido = 'core'){
 	$listModules = array();
 	$i = 0;
 	$folders = FileSystem::showDirFolders(__DIR__."/../modules/");
 	foreach($folders as $folder):
-		if ($folder <>"core"){
+		if ($folder <> $excluido){
 			$listModules[$i]['folder'] = $folder;
 			$i++;	
 		}

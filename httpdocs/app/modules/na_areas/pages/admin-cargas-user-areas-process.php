@@ -1,6 +1,6 @@
 <?php
 set_time_limit(0);
-$id_area = $_REQUEST['id_area'];
+$id_area = intval($_REQUEST['id_area']);
 ?>
 <div class="row row-top">
 	<div class="col-md-9 inset">
@@ -50,8 +50,8 @@ $id_area = $_REQUEST['id_area'];
 
 <?php
 function volcarMySQL($data){
-	$id_area = $_POST['id_area'];
-	$area_canal = $_POST['area_canal'];
+	$id_area = intval($_POST['id_area']);
+	$area_canal = sanitizeInput($_POST['area_canal']);
 	$na_areas = new na_areas();
 	$contador = 0;
 	$mensaje = "";

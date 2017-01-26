@@ -20,25 +20,24 @@ addJavascripts(array("js/jquery.numeric.js",
 
 		$mailing = new mailing();
 		$id=0;
-		$accion = isset($_GET['act']) == true ? $_GET['act'] : "";
-		$accion1 = isset($_GET['act1']) == true ? $_GET['act1'] : "";
-		$accion2 = isset($_GET['accion2']) == true ? $_GET['accion2'] : "";
+		$accion = sanitizeInput(isset($_GET['act']) == true ? $_GET['act'] : "");
+		$accion1 = sanitizeInput(isset($_GET['act1']) == true ? $_GET['act1'] : "");
+		$accion2 = sanitizeInput(isset($_GET['accion2']) == true ? $_GET['accion2'] : "");
 		
-		if ($accion=='edit'){ $id=$_GET['id'];}
+		if ($accion=='edit') $id = intval($_GET['id']);
 		//if ($accion=='edit' and $accion2=='ok' and $accion1!="del"){ UpdateData();}
-		elseif ($accion=='new' and $accion2=='ok'){ 
+		elseif ($accion == 'new' and $accion2 == 'ok'){ 
 			$id = mailingController::createAction();
 			$accion = "edit";
 		}
 		else{
 			$elements=$mailing->getMessages(" AND id_message=".$id." ");
-			ShowData($elements,$id,$accion);
+			ShowData($elements, $id, $accion);
 		}
 		?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>
-
 
 <?php
 function ShowData($elements, $id, $accion){

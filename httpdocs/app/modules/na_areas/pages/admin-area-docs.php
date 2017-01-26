@@ -2,8 +2,8 @@
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
 $na_areas = new na_areas();
-$id_area = $_REQUEST['a'];
-$id_tarea = $_REQUEST['id'];
+$id_area = intval($_REQUEST['a']);
+$id_tarea = intval($_REQUEST['id']);
 
 //OBTENER DATOS DE LA TAREA
 $tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");

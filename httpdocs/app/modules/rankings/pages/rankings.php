@@ -2,15 +2,16 @@
 addJavascripts(array(getAsset("users")."js/ranking-empresas.js"));
 
 $rankings = new rankings();
-$puntos_empresa = $rankings->getRankingsData(" AND d.cod_tienda='".$_SESSION['user_empresa']."' AND d.id_ranking='".$_REQUEST['id']."' ");
+$id = intval($_REQUEST['id']);
+$puntos_empresa = $rankings->getRankingsData(" AND d.cod_tienda='".$_SESSION['user_empresa']."' AND d.id_ranking='".$id."' ");
 
 $posiciones = 10;
 
-$posicion_empresa_user=rankings::posicionRankingEmpresa($_SESSION['user_empresa'], $_REQUEST['id']);
+$posicion_empresa_user=rankings::posicionRankingEmpresa($_SESSION['user_empresa'], $id);
 if ($_SESSION['user_perfil']=='admin'){$posicion_empresa=0;}
-$puntos = $rankings->getRankingsData(" AND id_ranking=".$_REQUEST['id']." ORDER BY value_ranking DESC,d.cod_tienda ASC LIMIT ".$posiciones);
+$puntos = $rankings->getRankingsData(" AND id_ranking=".$id." ORDER BY value_ranking DESC,d.cod_tienda ASC LIMIT ".$posiciones);
 
-$ranking_data = rankingsController::getItemAction($_REQUEST['id'], " AND activo=1 ");
+$ranking_data = rankingsController::getItemAction($id, " AND activo=1 ");
 
 if (count($ranking_data)>0):
 ?>

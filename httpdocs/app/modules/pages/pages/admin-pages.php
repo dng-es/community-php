@@ -4,7 +4,7 @@
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
-			array("ItemLabel"=>strTranslate("Pages"), "ItemUrl"=>"#"),
+			array("ItemLabel"=>strTranslate("Pages"), "ItemUrl"=>"admin-pages"),
 			array("ItemLabel"=>strTranslate("Pages_list"), "ItemClass"=>"active"),
 		));
 		session::getFlashMessage( 'actions_message' );
@@ -16,6 +16,9 @@
 				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-page"><?php e_strTranslate("New_page");?></a></li>
+					<div class="pull-right">
+						<?php echo SearchChannelForm($elements['reg'],"admin-pages","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>	
+					</div>
 				</ul>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">

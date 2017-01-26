@@ -67,9 +67,9 @@ class fotosAlbumController{
 		if (isset($_POST['id']) and $_POST['id'] > 0){
 			$fotos = new fotos();
 
-			$id = sanitizeInput(trim($_POST['id']));
+			$id = intval($_POST['id']);
 			$nombre = sanitizeInput(trim($_POST['nombre']));
-			$canal = (isset($_POST['canal_album']) ? $_POST['canal_album'] : $_SESSION['user_canal']);
+			$canal = (isset($_POST['canal_album']) ? sanitizeInput($_POST['canal_album']) : $_SESSION['user_canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
 
 			if ($fotos->updateAlbum($id, $nombre, $_SESSION['user_name'], $canal)) 
@@ -111,12 +111,12 @@ class fotosAlbumController{
 	public static function cancelFotoAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'foto_ko'){
 			$fotos = new fotos();
-			if ($fotos->cambiarEstado($_REQUEST['idf'], 2, 0))
+			if ($fotos->cambiarEstado(intval($_REQUEST['idf']), 2, 0))
 				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-warning");
 
-			redirectURL("admin-albumes-new?id=".$_REQUEST['id']);
+			redirectURL("admin-albumes-new?id=".intval($_REQUEST['id']));
 		}
 	}
 

@@ -3,7 +3,7 @@ class fotosController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$fotos = new fotos();
 		$find_reg = ((isset($_REQUEST['f']) and $_REQUEST['f'] != 'null') ? $_REQUEST['f'] : (isset($_POST['find_reg']) ? $_POST['find_reg'] : ""));
-		if ($find_reg != "" ) $filter .= " AND titulo LIKE '%".$find_reg."%' ".$filter;
+		if ($find_reg != "" ) $filter .= " AND titulo LIKE '%".sanitizeInput($find_reg)."%' ".$filter;
 		//if ($_SESSION['user_canal'] != 'admin') $filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("galeria_fotos f", $filter); 
@@ -24,8 +24,8 @@ class fotosController{
 		if (isset($_POST['titulo-foto']) and $_POST['titulo-foto'] != ""){
 			$fotos = new fotos();	
 			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-foto']);
-			$id_promocion = ((isset($_POST['id_promocion']) and $_POST['id_promocion'] > 0) ? sanitizeInput($_POST['id_promocion']) : 0);
-			$id_album = (isset($_POST['nombre_album']) ? sanitizeInput($_POST['nombre_album']) : 0);
+			$id_promocion = ((isset($_POST['id_promocion']) and $_POST['id_promocion'] > 0) ? intval($_POST['id_promocion']) : 0);
+			$id_album = (isset($_POST['nombre_album']) ? intval($_POST['nombre_album']) : 0);
 			$etiquetas = (isset($_POST['etiquetas']) ? strtolower(sanitizeInput($_POST['etiquetas'])) : '');
 			$titulo = (isset($_POST['titulo-foto']) ? sanitizeInput($_POST['titulo-foto']) : '');
 			$response = $fotos->insertFile($_FILES['nombre-foto'], PATH_FOTOS, $canal, $titulo, $id_promocion, 0, $etiquetas, $id_album);

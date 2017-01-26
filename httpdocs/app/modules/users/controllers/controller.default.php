@@ -15,8 +15,8 @@ class usersController{
 	public static function getListAction($reg = 0, $filtro = ""){
 		$users = new users();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro .= " AND username LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND username LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
+		if (isset($_POST['find_reg'])) {$filtro .= " AND (surname LIKE '%".$_POST['find_reg']."%' OR username LIKE '%".$_POST['find_reg']."%') ";$find_reg=$_POST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filtro .= " AND (surname LIKE '%".$_REQUEST['f']."%' OR username LIKE '%".$_REQUEST['f']."%') ";$find_reg=$_REQUEST['f'];} 
 		$filtro .= " ORDER BY username";
 		$paginator_items = PaginatorPages($reg);
 		

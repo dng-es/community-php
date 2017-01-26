@@ -3,13 +3,6 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 			"js/bootstrap-datepicker.es.js", 
 			"js/jquery.numeric.js", 
 			getAsset("incentivos")."js/admin-incentives-products-points.js"));
-
-$id_producto = (isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
-
-session::getFlashMessage( 'actions_message' );
-incentivosProductosController::createPuntosAction();
-incentivosProductosController::deletePuntosAction();
-$elements = incentivosProductosController::getListPuntosAction(9999, " AND id_producto=".$id_producto." ");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -21,6 +14,12 @@ $elements = incentivosProductosController::getListPuntosAction(9999, " AND id_pr
 			array("ItemLabel"=>strTranslate("Incentives_products"), "ItemUrl"=>"admin-incentives-products"),
 			array("ItemLabel"=>strTranslate("Incentives_points"), "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage( 'actions_message' );
+		incentivosProductosController::createPuntosAction();
+		incentivosProductosController::deletePuntosAction();
+		$id_producto = intval(isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
+		$elements = incentivosProductosController::getListPuntosAction(9999, " AND id_producto=".$id_producto." ");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

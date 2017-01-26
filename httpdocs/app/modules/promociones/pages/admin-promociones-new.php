@@ -16,8 +16,8 @@ templateload("cmbCanales","users");
 			array("ItemLabel"=>"Entrada en el reto", "ItemClass"=>"active"),
 		));
 
-		$id = (isset($_GET['id']) ? $_GET['id'] : 0);
-		session::getFlashMessage( 'actions_message' );
+		$id = intval(isset($_GET['id']) ? $_GET['id'] : 0);
+		session::getFlashMessage('actions_message');
 		promocionesController::createAction();
 		promocionesController::updateAction();
 		$elements = promocionesController::getItemAction($id);

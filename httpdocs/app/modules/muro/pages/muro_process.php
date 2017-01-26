@@ -30,7 +30,7 @@ if (isset($_POST['texto-comentario']) and $_POST['texto-comentario'] != ""){
 if (isset($_POST['id_comentario_responder']) and $_POST['id_comentario_responder'] != ""){
 	if ($_POST['texto-responder'] == '') ErrorMsg("Debe insertar algo de texto");
 	else{
-		$id = sanitizeInput($_POST['id_comentario_responder']);
+		$id = intval($_POST['id_comentario_responder']);
 		$texto_comentario = nl2br(sanitizeInput($_POST['texto-responder']));
 		ErrorMsg($insercion_respuesta = $muro->responderComentarioMuro( $_SESSION['user_name'],
 			ESTADO_COMENTARIOS_MURO,

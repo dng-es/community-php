@@ -3,7 +3,7 @@ echo '<h1>Tu documentación</h1>';
 
 if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
 	$info = new info();
-	$info_tipo = $_REQUEST['id'];
+	$info_tipo = intval($_REQUEST['id']);
 	$tipo_info = $info->getInfoTipos(" AND id_tipo=".$info_tipo);
 	echo '<h2>Documentación <span>'.$tipo_info[0]['nombre_info'].'</span></h2>
 			<p><a href="info">Volver a toda la documentación</a></p>';

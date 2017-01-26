@@ -19,13 +19,13 @@ class mailingController{
 		$html_content = $mailing->getTemplates(" AND id_template=".$_POST['template_message']);
 
 		$user_direccion = "";
-		if (isset($_POST['calle_direccion']) and $_POST['calle_direccion'] != "") $user_direccion .= $_POST['calle_direccion'];
-		if (isset($_POST['postal_direccion']) and $_POST['postal_direccion'] != "") $user_direccion .= " - ".$_POST['postal_direccion'];
-		if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion'] != "") $user_direccion .= " - ".$_POST['poblacion_direccion'];
-		if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion'] != "") $user_direccion .= " - ".$_POST['provincia_direccion'];
-		if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion'] != "") $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];
-		if (isset($_POST['email_message']) and $_POST['email_message'] != "") $user_direccion .= "<br />".$_POST['email_message'];
-		if (isset($_POST['web_direccion']) and $_POST['web_direccion'] != "") $user_direccion .= "<br />".$_POST['web_direccion'];
+		if (isset($_POST['calle_direccion']) and $_POST['calle_direccion'] != "") $user_direccion .= sanitizeInput($_POST['calle_direccion']);
+		if (isset($_POST['postal_direccion']) and $_POST['postal_direccion'] != "") $user_direccion .= " - ".sanitizeInput($_POST['postal_direccion']);
+		if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion'] != "") $user_direccion .= " - ".sanitizeInput($_POST['poblacion_direccion']);
+		if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion'] != "") $user_direccion .= " - ".sanitizeInput($_POST['provincia_direccion']);
+		if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion'] != "") $user_direccion .= "<br />Tlf.:  ".sanitizeInput($_POST['telefono_direccion']);
+		if (isset($_POST['email_message']) and $_POST['email_message'] != "") $user_direccion .= "<br />".sanitizeInput($_POST['email_message']);
+		if (isset($_POST['web_direccion']) and $_POST['web_direccion'] != "") $user_direccion .= "<br />".sanitizeInput($_POST['web_direccion']);
 
 		$content = $html_content[0]['template_body'];
 		$content = str_replace('[USER_DIRECCION]', $user_direccion, $content);
@@ -153,8 +153,8 @@ class mailingController{
 	function volcarMySQL($data, $id_message){
 		$mailing = new mailing();
 		$respuesta = false;
-		for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
-			$username=trim(strtolower($data->sheets[0]['cells'][$fila][1]));
+		for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+			$username = trim(strtolower($data->sheets[0]['cells'][$fila][1]));
 			//verificar es un email valido
 			if(validateEmail($username)){
 				//verificar no este mas de una vez
@@ -175,7 +175,7 @@ class mailingController{
 		$respuesta = false;
 		$elements = $mailing->getListsUsers(" AND id_list=".$id_list." ");
 		foreach($elements as $element):
-			$username=trim(strtolower($element['email']));
+			$username = trim(strtolower($element['email']));
 			//verificar es un email valido
 			if(validateEmail($username)){
 				//verificar no este mas de una vez
@@ -196,16 +196,16 @@ class mailingController{
 		$lista = $_POST['lista_message'];
 
 		$nombre_lista = $lista;
-		if (trim($lista) == "lista curso") $nombre_lista = $_POST['lista_curso_sel'];
-		if (trim($lista) == "lista tienda") $nombre_lista = $_POST['lista_tienda_sel'];
-		if (trim($lista) == "lista tienda tipo") $nombre_lista = $_POST['lista_tienda_tipo_sel'];
-		if (trim($lista) == "lista usuarios") $nombre_lista = $_POST['lista_users'];
+		if (trim($lista) == "lista curso") $nombre_lista = sanitizeInput($_POST['lista_curso_sel']);
+		if (trim($lista) == "lista tienda") $nombre_lista = sanitizeInput($_POST['lista_tienda_sel']);
+		if (trim($lista) == "lista tienda tipo") $nombre_lista = sanitizeInput($_POST['lista_tienda_tipo_sel']);
+		if (trim($lista) == "lista usuarios") $nombre_lista = sanitizeInput($_POST['lista_users']);
 		$fichero = isset($_FILES['nombre-fichero']) == true ? $_FILES['nombre-fichero'] : null ;
 
 		if ($mailing->insertMessage($_POST['template_message'],
-					$_POST['email_message'],
-					$_POST['nombre_message'],
-					$_POST['asunto_message'],
+					sanitizeInput($_POST['email_message']),
+					sanitizeInput($_POST['nombre_message']),
+					sanitizeInput($_POST['asunto_message']),
 					nl2br($_POST['texto_message']),
 					$nombre_lista,
 					$_SESSION['user_name'],
@@ -299,7 +299,7 @@ class mailingController{
 			}
 
 			//actualizar total de emails a enviar
-			$msgs_total = connection::countReg("mailing_messages_users"," AND id_message=".$id_message);
+			$msgs_total = connection::countReg("mailing_messages_users", " AND id_message=".$id_message);
 			$mailing->updateMessageField($id_message, "total_messages", $msgs_total);
 			$mailing->updateMessageField($id_message, "total_pending", $msgs_total);
 
@@ -314,13 +314,13 @@ class mailingController{
 
 	public static function updateAction(){
 		$mailing = new mailing();
-		if ($mailing->updateMessage($_POST['id_message'],
-									$_POST['template_message'],
-									$_POST['email_message'],
-									$_POST['nombre_message'],
-									$_POST['asunto_message'],
-									$_POST['texto_message'],
-									$_POST['lista_message'])):
+		if ($mailing->updateMessage(intval($_POST['id_message']),
+									sanitizeInput($_POST['template_message']),
+									sanitizeInput($_POST['email_message']),
+									sanitizeInput($_POST['nombre_message']),
+									sanitizeInput($_POST['asunto_message']),
+									sanitizeInput($_POST['texto_message']),
+									sanitizeInput($_POST['lista_message']))):
 			session::setFlashMessage('actions_message', "Comunicación modificacda correctamente", "alert alert-success");
 		else:
 			session::setFlashMessage('actions_message', "Se ha producido un error editando la comunicación.", "alert alert-danger");
@@ -332,7 +332,7 @@ class mailingController{
 	public static function cancelMessageAction($filtro = ""){
 		if (isset($_REQUEST['del']) and $_REQUEST['del'] == true){
 			$mailing = new mailing();
-			if ($mailing->updateMessageField($_REQUEST['id'],'message_status',"'cancelled'", " AND username_add='".$_SESSION['user_name']."' "))
+			if ($mailing->updateMessageField(intval($_REQUEST['id']), 'message_status',"'cancelled'", " AND username_add='".$_SESSION['user_name']."' "))
 				session::setFlashMessage('actions_message', "Comunicación cancelada correctamente", "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', "Se ha producido un error cancelando la comunicación.", "alert alert-danger");
@@ -354,7 +354,7 @@ class mailingController{
 	public static function exportMessageAction($filtro = ""){
 		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm'] == true){
 			$mailing = new mailing();
-			$elements = $mailing->getMessagesUsers($filtro." AND id_message=".$_REQUEST['id']);
+			$elements = $mailing->getMessagesUsers($filtro." AND id_message=".intval($_REQUEST['id']));
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
@@ -364,7 +364,7 @@ class mailingController{
 	public static function exportLinksAction($filtro = ""){
 		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] == 'links'){
 			$mailing = new mailing();
-			$elements = $mailing->getMessageLinkUserExport($filtro." AND l.id_message=".$_REQUEST['id']);
+			$elements = $mailing->getMessageLinkUserExport($filtro." AND l.id_message=".intval($_REQUEST['id']));
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
@@ -374,9 +374,9 @@ class mailingController{
 	public static function createBlackAction(){
 		if (isset($_POST['email_black']) and $_POST['email_black'] != ''){
 			$mailing = new mailing();
-			if ($mailing->insertBlackListUsser($_POST['email_black'])){
+			if ($mailing->insertBlackListUsser(sanitizeInput($_POST['email_black']))){
 				//poner los posibles mensajes pendientes como lista negra
-				$mailing->updateMessageUserBlackList($_POST['email_black']);
+				$mailing->updateMessageUserBlackList(sanitizeInput($_POST['email_black']));
 				session::setFlashMessage('actions_message', "Baja realizada correctamente", "alert alert-success");
 			}
 			else
@@ -394,7 +394,7 @@ class mailingController{
 	public static function insertHtmlLinks($htmlmessage, $id_message){
 		global $ini_conf;
 		$mailing = new mailing();
-		preg_match_all('/<a(.*)href=["\'](.*)["\']([^>]*)>(.*)<\/a>/Umis',$htmlmessage,$links);
+		preg_match_all('/<a(.*)href=["\'](.*)["\']([^>]*)>(.*)<\/a>/Umis', $htmlmessage, $links);
 
 		// to process the Yahoo webpage with base href and link like <a href=link> we'd need this one
 		# preg_match_all('/<a href=([^> ]*)([^>]*)>(.*)<\/a>/Umis',$htmlmessage,$links);
@@ -408,7 +408,7 @@ class mailingController{
 			}
 			if ((preg_match('/^http|ftp/',$link)) && !strpos($link, $clicktrack_root)){
 				# take off personal uids
-				$url = cleanUrl($link,array('PHPSESSID','uid'));
+				$url = cleanUrl($link,array('PHPSESSID', 'uid'));
 
 				#        $url = preg_replace('/&uid=[^\s&]+/','',$link);
 
@@ -428,13 +428,13 @@ class mailingController{
 	public static function convertHtmlLinks($htmlmessage, $id_message, $id_message_user){
 		global $ini_conf;
 		$mailing = new mailing();
-		preg_match_all('/<a(.*)href=["\'](.*)["\']([^>]*)>(.*)<\/a>/Umis',$htmlmessage,$links);
+		preg_match_all('/<a(.*)href=["\'](.*)["\']([^>]*)>(.*)<\/a>/Umis', $htmlmessage, $links);
 
 		// to process the Yahoo webpage with base href and link like <a href=link> we'd need this one
 		# preg_match_all('/<a href=([^> ]*)([^>]*)>(.*)<\/a>/Umis',$htmlmessage,$links);
 		$clicktrack_root = $ini_conf['SiteUrl'].'/unsuscribe';
 
-		for($i=0; $i<count($links[2]); $i++){
+		for($i = 0; $i < count($links[2]); $i++){
 			$link = cleanUrl($links[2][$i]);
 			$link = str_replace('"', '', $link);
 			if (preg_match('/\.$/', $link)) {

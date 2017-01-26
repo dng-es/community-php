@@ -13,9 +13,9 @@ session::ValidateSessionAjax();
 
 //VERIFICAR CÓDIGO DE TIENDA
 if (isset($_POST['id_message']) and $_POST['id_message'] != ""){
-	$id_message = $_POST['id_message'];
-	$action = $_POST['action'];
-	$pasada = $_POST['pasada'];
+	$id_message = intval($_POST['id_message']);
+	$action = sanitizeInput($_POST['action']);
+	$pasada = sanitizeInput($_POST['pasada']);
 	pasadaProccess($id_message, $action, $pasada);
 }
 

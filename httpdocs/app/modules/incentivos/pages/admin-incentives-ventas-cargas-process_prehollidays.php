@@ -1,7 +1,6 @@
 <?php
 set_time_limit(0);
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php 

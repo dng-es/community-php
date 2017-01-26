@@ -8,7 +8,7 @@ include_once($base_dir . "core/class.session.php");
 session::ValidateSessionAjax();
 
 if (isset($_REQUEST['nick']) and $_REQUEST['nick'] != ""){
-	$encontrado = connection::countReg("users", " AND nick='".$_REQUEST['nick']."' ");
+	$encontrado = connection::countReg("users", " AND nick='".sanitizeInput($_REQUEST['nick'])."' ");
 	echo $encontrado;
 }
 ?>

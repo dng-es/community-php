@@ -1,7 +1,7 @@
 <?php
 $filtro = " AND username_order='".$_SESSION['user_name']."' ";
-if (isset($_POST['find_reg'])) $filtro .= " AND d.id_order LIKE '%".$_POST['find_reg']."%' ";
-if (isset($_REQUEST['f'])) $filtro .= " AND d.id_order LIKE '%".$_REQUEST['f']."%' ";
+if (isset($_GET['find_reg'])) $filtro .= " AND d.id_order LIKE '%".intval($_GET['find_reg'])."%' ";
+if (isset($_REQUEST['f'])) $filtro .= " AND d.id_order LIKE '%".intval($_REQUEST['f'])."%' ";
 $filtro .= " ORDER BY d.id_order DESC";
 $elements = shopOrdersController::getListDetailAction(15, $filtro);
 ?>
@@ -17,7 +17,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 			<div class="pull-right">
-				<?php echo SearchForm($elements['reg'], "shoporders", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>
+				<?php echo SearchForm($elements['reg'], "shoporders", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left", "get");?>
 			</div>
 		</ul>
 		<div class="table-responsive">
@@ -56,11 +56,11 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 				<?php endforeach;?>
 			</table>
 		</div>
-		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'shoporders','Pedidos', $elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'shoporders',strTranslate("Shop_orders"), $elements['find_reg']);?>
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<h2>Premios</h2>
+			<h2><?php e_strTranslate("APP_Shop");?></h2>
 			<p>Puedes canjear tus <?php e_strTranslate("APP_Credits");?> por fantasticos <?php strtolower(e_strTranslate("Shop_products"));?>!</p>
 			<p class="text-center"><i class="fa fa-shopping-cart fa-big"></i></p>
 		</div>

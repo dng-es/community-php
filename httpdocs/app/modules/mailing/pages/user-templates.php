@@ -24,7 +24,7 @@
 				if ($columna == 3) {echo '</div>'; $columna = 0;}
 				$columna++;
 			endforeach;
-			if ($columna >2){echo '</div>';}
+			if ($columna >2) echo '</div>';
 			?>
 		</div>
 		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

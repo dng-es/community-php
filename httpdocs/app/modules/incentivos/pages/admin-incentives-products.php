@@ -14,7 +14,7 @@ addJavascripts(array(getAsset("incentivos")."js/admin-incentives-products.js"));
 		session::getFlashMessage('actions_message');
 		incentivosProductosController::createAction();
 		incentivosProductosController::deleteAction();
-		$filtro_productos = ((isset($_REQUEST['m']) and $_REQUEST['m'] > 0) ? " AND p.id_fabricante=".$_REQUEST['m']." " : "");
+		$filtro_productos = ((isset($_REQUEST['m']) and $_REQUEST['m'] > 0) ? " AND p.id_fabricante=".intval($_REQUEST['m'])." " : "");
 		$elements = incentivosProductosController::getListAction(35, $filtro_productos);
 		?>
 		<div class="panel panel-default">

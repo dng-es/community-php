@@ -8,8 +8,8 @@ class na_areasController{
 	public static function getListAction($reg = 0, $filtro = ""){
 		$na_areas = new na_areas();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro .= " AND area_nombre LIKE '%".$_POST['find_reg']."%' "; $find_reg = $_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND area_nombre LIKE '%".$_REQUEST['f']."%' "; $find_reg = $_REQUEST['f'];}
+		if (isset($_POST['find_reg'])) {$filtro .= " AND area_nombre LIKE '%".sanitizeInput($_POST['find_reg'])."%' "; $find_reg = $_POST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filtro .= " AND area_nombre LIKE '%".sanitizeInput($_REQUEST['f'])."%' "; $find_reg = $_REQUEST['f'];}
 		$filtro .= " AND estado<>2  ORDER BY id_area DESC";
 		$paginator_items = PaginatorPages($reg);
 		
@@ -23,14 +23,14 @@ class na_areasController{
 
 	public static function updateAction(){
 		$na_areas = new na_areas();
-		$id_area = sanitizeInput($_POST['id_area']);
+		$id_area = intval($_POST['id_area']);
 		$todos = (isset($_POST['area_todos']) and $_POST['area_todos'] == "on") ? 1 : 0;
 		$nombre = sanitizeInput($_POST['area_nombre']);
 		$descripcion = sanitizeInput($_POST['area_descripcion']);
 		$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
 		$puntos = sanitizeInput($_POST['area_puntos']);
 		$limite = sanitizeInput($_POST['area_limite']);
-		$canal = $_POST['area_canal'];
+		$canal = sanitizeInput($_POST['area_canal']);
 		if (is_array($canal)) $canal = implode(",", $canal);
 
 		if ($na_areas->updateArea($id_area, $nombre, $descripcion, $canal, $puntos, $limite, $registro, $todos)){
@@ -56,7 +56,7 @@ class na_areasController{
 		$limite = sanitizeInput($_POST['area_limite']);
 		$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
 		$todos = (isset($_POST['area_todos']) and $_POST['area_todos'] == "on") ? 1 : 0;
-		$canal = $_POST['area_canal'];
+		$canal = sanitizeInput($_POST['area_canal']);
 		if (is_array($canal)) $canal = implode(",", $canal);
 
 		if ($na_areas->insertArea($nombre, $descripcion, $canal, $puntos, $limite, 0, $registro, $todos)) {
@@ -80,11 +80,11 @@ class na_areasController{
 	}
 
 	public static function RevisarFormAction(){
-		$user_tarea = $_POST['user_rev'];
-		$tarea_user = $_POST['id_tarea_rev'];
-		$id_area = $_POST['id_area_rev'];
-		$puntos = $_POST['puntos_rev'];
-		$id_recompensa = $_POST['id_recompensa_rev'];
+		$user_tarea = sanitizeInput($_POST['user_rev']);
+		$tarea_user = sanitizeInput($_POST['id_tarea_rev']);
+		$id_area = intval($_POST['id_area_rev']);
+		$puntos = sanitizeInput($_POST['puntos_rev']);
+		$id_recompensa = intval($_POST['id_recompensa_rev']);
 		self::revisarTarea($user_tarea, $tarea_user, $id_area, $puntos, $id_recompensa);
 		redirectURL($_SERVER['REQUEST_URI']);
 	}
@@ -123,7 +123,7 @@ class na_areasController{
 	public static function uploadTareaAction(){
 		if (isset($_POST['id_tarea']) and $_POST['id_tarea'] != ""){
 			$na_areas = new na_areas();
-			if($na_areas->insertTareaUser($_POST['id_area'],$_POST['id_tarea'],$_SESSION['user_name'],$_FILES['nombre-fichero'])) 
+			if($na_areas->insertTareaUser(intval($_POST['id_area']), intval($_POST['id_tarea']), $_SESSION['user_name'], $_FILES['nombre-fichero'])) 
 				session::setFlashMessage('actions_message', "Fichero envíado correctamente.", "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', "Se ha producido algún error en el envío del fichero.", "alert alert-danger");
@@ -136,8 +136,8 @@ class na_areasController{
 		//CAMBIAR ESTADO
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$na_areas = new na_areas();
-			$estado = $_REQUEST['e'];
-			if ($na_areas->estadoArea($_REQUEST['id'], $estado))
+			$estado = intval($_REQUEST['e']);
+			if ($na_areas->estadoArea(intval($_REQUEST['id']), $estado))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -159,7 +159,7 @@ class na_areasController{
 	public static function exportUsersAreasAction(){
 		if ((isset($_REQUEST['id']) and $_REQUEST['id'] != "") and !isset($_REQUEST['act'])){
 			$na_areas = new na_areas();
-			$elements = $na_areas->getAreasUsers(" AND id_area=".$_REQUEST['id']);
+			$elements = $na_areas->getAreasUsers(" AND id_area=".intval($_REQUEST['id']));
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
@@ -168,7 +168,7 @@ class na_areasController{
 
 	public static function apuntarseAction(){
 		if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
-			$id_area = $_REQUEST['id'];
+			$id_area = intval($_REQUEST['id']);
 			$na_areas = new na_areas();
 			//verificar si ya se ha alcanzado el limite de usuarios
 			$datos_area = $na_areas->getAreas(" AND id_area=".$id_area." ");
@@ -188,13 +188,14 @@ class na_areasController{
 
 	public static function FinalizacionDeleteAction(){
 		$na_areas = new na_areas();
-		$elements = $na_areas->deleteFinalizacionForm($_REQUEST['id'],$_REQUEST['ut']);
-		redirectURL("admin-area-revs?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
+		$id = intval($_REQUEST['id']);
+		$elements = $na_areas->deleteFinalizacionForm($id, sanitizeInput($_REQUEST['ut']));
+		redirectURL("admin-area-revs?a=".$_REQUEST['a']."&id=".$id);
 	}
 
 	public static function ExportFormUserAction(){
 		$na_areas = new na_areas();
-		$elements = $na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".$_REQUEST['id']." and r.respuesta_user='".$_REQUEST['t']."' ");
+		$elements = $na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".intval($_REQUEST['id'])." and r.respuesta_user='".sanitizeInput($_REQUEST['t'])."' ");
 		download_send_headers("data_" . date("Y-m-d") . ".csv");
 		echo array2csv($elements);
 		die();
@@ -202,7 +203,7 @@ class na_areasController{
 
 	public static function ExportFileUserAction(){
 		$na_areas = new na_areas();
-		$elements = $na_areas->getTareasUserExport($_REQUEST['id'],$_REQUEST['a']);
+		$elements = $na_areas->getTareasUserExport(intval($_REQUEST['id']), intval($_REQUEST['a']));
 		download_send_headers("data_" . date("Y-m-d") . ".csv");
 		echo array2csv($elements);
 		die();
@@ -210,26 +211,28 @@ class na_areasController{
 
 	public static function validateRevAction(){
 		$na_areas = new na_areas();
-		$id_tarea_user = $_REQUEST['idr'];
-		$na_areas->RevisarTareaUser($id_tarea_user,$_SESSION['user_name']);
+		$id_tarea_user = intval($_REQUEST['idr']);
+		$na_areas->RevisarTareaUser($id_tarea_user, $_SESSION['user_name']);
 	}
 
 	public static function ExportFormAllAction(){
 		$na_areas = new na_areas();
-		$elements = $na_areas->getFormulariosFinalizados(" AND id_tarea=".$_REQUEST['id']." ORDER BY user_tarea");
+		$id_tarea = intval($_REQUEST['id']);
+		$id_area = intval($_REQUEST['a']);
+		$elements = $na_areas->getFormulariosFinalizados(" AND id_tarea=".$id_tarea." ORDER BY user_tarea");
 		$file_name = 'exported_file'.date("YmdGis");
 
 		$final = array();
 		foreach($elements as $element):
 			//nombre del grupo
 			$nombre_grupo = '';
-			if (count($grupos = $na_areas->getUsuarioGrupoTarea($_REQUEST['id'],$_REQUEST['a']," AND grupo_username='".$element['user_tarea']."' ")) > 0){
+			if (count($grupos = $na_areas->getUsuarioGrupoTarea($id_tarea, $id_area," AND grupo_username='".$element['user_tarea']."' ")) > 0){
 				$nombre_grupo = $grupos[0]['grupo_nombre'];
 			}
 			$element['nombre_grupo'] = $nombre_grupo;
 
 			//respuestas del usuario
-			$respuestas = $na_areas -> getFormulariosFinalizadosRespuestas($element['id_tarea'],$element['user_tarea']);
+			$respuestas = $na_areas -> getFormulariosFinalizadosRespuestas($element['id_tarea'], $element['user_tarea']);
 			$i=1;
 			foreach($respuestas as $respuesta):
 				$pregunta_texto = "pregunta".$i;
@@ -246,10 +249,10 @@ class na_areasController{
 	public static function saveFormAction(){
 		if (isset($_POST['id_tarea']) and $_POST['id_tarea'] != ""){
 			$na_areas = new na_areas();
-			$id_tarea = $_POST['id_tarea'];
+			$id_tarea = intval($_POST['id_tarea']);
 			$preguntas = $na_areas->getPreguntas(" AND id_tarea=".$id_tarea." ");
 			foreach($preguntas as $pregunta):
-				if($pregunta['pregunta_tipo'] == 'texto') $respuesta_valor = $_POST["respuesta_".$pregunta['id_pregunta']];
+				if($pregunta['pregunta_tipo'] == 'texto') $respuesta_valor = sanitizeInput($_POST["respuesta_".$pregunta['id_pregunta']]);
 				elseif($pregunta['pregunta_tipo'] == 'unica'){
 					$respuesta_valor = "";
 					$respuesta_valor = $_POST["respuesta_".$pregunta['id_pregunta']];
@@ -259,18 +262,18 @@ class na_areasController{
 					$respuestas_usuario = $na_areas->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." ");
 					foreach($respuestas_usuario as $respuesta_usuario):
 						$campo = "respuesta_".$pregunta['id_pregunta']."_".$respuesta_usuario['id_respuesta'];  
-						if (isset($_POST[$campo]) and $_POST[$campo] != ''){$respuesta_valor .= $_POST[$campo]."|";}
+						if (isset($_POST[$campo]) and $_POST[$campo] != '') $respuesta_valor .= sanitizeInput($_POST[$campo]."|");
 					endforeach;
 					$respuesta_valor = substr($respuesta_valor, 0, (strlen($respuesta_valor) - 1));
 				}
-				$respuesta_valor = str_replace("'", "´", $respuesta_valor);
+				$respuesta_valor = sanitizeInput($respuesta_valor);
 				$na_areas->insertRespuesta($pregunta['id_pregunta'], $_SESSION['user_name'], $respuesta_valor);
 			endforeach; 
 			
 			if ($_POST['type-save'] == "1")
 				self::finalizarFormAction($id_tarea);
 			else
-				session::setFlashMessage( 'actions_message', "Respuestas enviadas.", "alert alert-success");
+				session::setFlashMessage('actions_message', "Respuestas enviadas.", "alert alert-success");
 			
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
@@ -339,7 +342,7 @@ class na_areasController{
 	public static function insertDocAction(){
 		if (isset($_POST['id_tarea']) and $_POST['id_tarea'] != ""){
 			$na_areas = new na_areas();
-			$mensaje = $na_areas->insertTareaDoc($_POST['id_tarea'],$_POST['tipo'],$_POST['nombre-documento'],$_FILES['nombre-fichero'],$_POST['documento-link']);
+			$mensaje = $na_areas->insertTareaDoc(intval($_POST['id_tarea']), sanitizeInput($_POST['tipo']), sanitizeInput($_POST['nombre-documento']), $_FILES['nombre-fichero'], sanitizeInput($_POST['documento-link']));
 			session::setFlashMessage('actions_message', $mensaje, "alert alert-warning");
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
@@ -348,19 +351,19 @@ class na_areasController{
 	public static function deleteDocAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$na_areas = new na_areas();
-			if($na_areas->deleteTareaDoc($_REQUEST['idd']))
+			if($na_areas->deleteTareaDoc(intval($_REQUEST['idd'])))
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("admin-area-docs?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
+			redirectURL("admin-area-docs?a=".intval($_REQUEST['a'])."&id=".intval($_REQUEST['id']));
 		}
 	}
 
 	public static function inserGrupoAction(){
 		if (isset($_POST['id_area_grupo']) and $_POST['id_area_grupo'] != ""){
 			$na_areas = new na_areas();
-			if($na_areas->insertGrupoArea($_POST['id_area_grupo'],$_POST['grupo_nombre']))
+			if($na_areas->insertGrupoArea(intval($_POST['id_area_grupo']), sanitizeInput($_POST['grupo_nombre'])))
 				session::setFlashMessage('actions_message', "Grupo creado correctamente.", "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -375,7 +378,7 @@ class na_areasController{
 			if (isset($_POST['tarea_grupo']) and $_POST['tarea_grupo'] == 'on') $grupo = 1;
 			else $grupo = 0;
 
-			$descripcion = nl2br(str_replace("'", "´", $_POST['tarea_descripcion']));
+			$descripcion = nl2br(sanitizeInput($_POST['tarea_descripcion']));
 			$titulo = sanitizeInput($_POST['tarea_titulo']);
 			$tipo = sanitizeInput($_POST['tipo']);
 
@@ -387,9 +390,9 @@ class na_areasController{
 			}
 			else $nombre_archivo = "";
 
-			$id_recompensa = (isset($_POST['id_recompensa']) ? sanitizeInput($_POST['id_recompensa']) : 0);
+			$id_recompensa = intval(isset($_POST['id_recompensa']) ? $_POST['id_recompensa'] : 0);
 
-			if($na_areas->insertTarea($_POST['id_area_tarea'], $titulo, $descripcion, $tipo, $grupo, $_SESSION['user_name'], $nombre_archivo, $id_recompensa))
+			if($na_areas->insertTarea(intval($_POST['id_area_tarea']), $titulo, $descripcion, $tipo, $grupo, $_SESSION['user_name'], $nombre_archivo, $id_recompensa))
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -401,48 +404,48 @@ class na_areasController{
 	public static function estadoTareaAction(){
 		if (isset($_REQUEST['e']) and $_REQUEST['e'] != ""){
 			$na_areas = new na_areas();
-			if($na_areas->estadoTarea($_REQUEST['del_t'], $_REQUEST['e']))
+			if($na_areas->estadoTarea(intval($_REQUEST['del_t']), intval($_REQUEST['e'])))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger"); 
 
-			redirectURL("admin-area?act=edit&t=2&id=".$_REQUEST['id']);
+			redirectURL("admin-area?act=edit&t=2&id=".intval($_REQUEST['id']));
 		}
 	}
 
 	public static function eliminarTareaAction(){
 		if (isset($_REQUEST['del_t2']) and $_REQUEST['del_t2'] != ""){
 			$na_areas = new na_areas();
-			if($na_areas->estadoTarea($_REQUEST['del_t2'], 2))
+			if($na_areas->estadoTarea(intval($_REQUEST['del_t2']), 2))
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("admin-area?act=edit&t=2&id=".$_REQUEST['id']);
+			redirectURL("admin-area?act=edit&t=2&id=".intval($_REQUEST['id']));
 		}
 	}
 
 	public static function estadoLinksTareaAction(){
 		if (isset($_REQUEST['el']) and $_REQUEST['el'] != ""){
 			$na_areas = new na_areas();
-			if($na_areas->estadoLinksTarea($_REQUEST['del_t'], $_REQUEST['el']))
+			if($na_areas->estadoLinksTarea(intval($_REQUEST['del_t']), intval($_REQUEST['el'])))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("admin-area?act=edit&t=2&id=".$_REQUEST['id']);
+			redirectURL("admin-area?act=edit&t=2&id=".intval($_REQUEST['id']));
 		}
 	}
 
 	public static function cambiarTipoTemaAction(){
 		if (isset($_POST['find_tipo'])){
 			$foro = new foro();
-			if($foro->cambiarTipoTema($_POST['id_tema_tipo'],$_POST['find_tipo']))
+			if($foro->cambiarTipoTema(intval($_POST['id_tema_tipo']), sanitizeInput($_POST['find_tipo'])))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("admin-area?act=edit&t=4&id=".$_REQUEST['id']);
+			redirectURL("admin-area?act=edit&t=4&id=".intval($_REQUEST['id']));
 		}
 	}
 
@@ -451,20 +454,20 @@ class na_areasController{
 			$foro = new foro();
 			$users = new users();
 			if ($_REQUEST['act2'] == 'tema_ko')
-				$foro->cambiarEstadoTema($_REQUEST['idt'], 0);
+				$foro->cambiarEstadoTema(intval($_REQUEST['idt']), 0);
 			elseif ($_REQUEST['act2'] == 'foro_ko'){
-				$foro->cambiarEstado($_REQUEST['idc'],2);
-				$users->restarPuntos($_REQUEST['u'],PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
+				$foro->cambiarEstado(intval($_REQUEST['idc']), 2);
+				$users->restarPuntos(sanitizeInput($_REQUEST['u']), PUNTOS_MURO,PUNTOS_MURO_MOTIVO);
 			}
 			session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-warning");
-			redirectURL("admin-area?act=edit&t=4&id=".$_REQUEST['id']);
+			redirectURL("admin-area?act=edit&t=4&id=".intval($_REQUEST['id']));
 		}
 	}
 
 	public static function exportForoAction(){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$foro = new foro();
-			$elements = $foro->getComentariosExport(" AND c.id_tema=".$_REQUEST['idt']." ");
+			$elements = $foro->getComentariosExport(" AND c.id_tema=".intval($_REQUEST['idt'])." ");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
@@ -474,7 +477,7 @@ class na_areasController{
 	public static function exportUsersAreaAction(){
 		if (isset($_REQUEST['t']) and $_REQUEST['t'] == 1){
 			$na_areas = new na_areas();
-			$elements = $na_areas->getAreasUsers(" AND id_area=".$_REQUEST['id']);
+			$elements = $na_areas->getAreasUsers(" AND id_area=".intval($_REQUEST['id']));
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
@@ -485,7 +488,7 @@ class na_areasController{
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'new'){
 			if (trim($_POST['pregunta_texto'])){
 				$na_areas = new na_areas();
-				$na_areas->insertPregunta($_REQUEST['id'],$_POST['pregunta_texto'],$_POST['pregunta_tipo']);
+				$na_areas->insertPregunta(intval($_REQUEST['id']), sanitizeInput($_POST['pregunta_texto']), sanitizeInput($_POST['pregunta_tipo']));
 				$id_pregunta = connection::SelectMaxReg("id_pregunta","na_tareas_preguntas","");
 				
 				if ($_POST['pregunta_tipo'] != 'texto'){
@@ -512,19 +515,19 @@ class na_areasController{
 				}
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}
-			redirectURL("admin-area-form?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
+			redirectURL("admin-area-form?a=".intval($_REQUEST['a'])."&id=".intval($_REQUEST['id']));
 		}
 	}
 
 	public static function deletePreguntaAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$na_areas = new na_areas();
-			if ($na_areas->deletePregunta($_REQUEST['idp']))
+			if ($na_areas->deletePregunta(intval($_REQUEST['idp'])))
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("admin-area-form?a=".$_REQUEST['a']."&id=".$_REQUEST['id']);
+			redirectURL("admin-area-form?a=".intval($_REQUEST['a'])."&id=".intval($_REQUEST['id']));
 		}
 	}
 

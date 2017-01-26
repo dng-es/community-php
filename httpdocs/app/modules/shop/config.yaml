@@ -5,3 +5,4 @@ options:
     show_price: true
     show_user_menu: true
     user_menu_position: 8
+channels: null

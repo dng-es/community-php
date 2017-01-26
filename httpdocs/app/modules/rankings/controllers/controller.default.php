@@ -37,7 +37,7 @@ class rankingsController{
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$rankings = new rankings();
-			if ($rankings->updateEstadoRankings($_REQUEST['id'], $_REQUEST['e'])) 
+			if ($rankings->updateEstadoRankings(intval($_REQUEST['id']), intval($_REQUEST['e']))) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -50,9 +50,9 @@ class rankingsController{
 		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] == 0){
 			$id_ranking = 0;
 			$rankings = new rankings();
-			$nombre = str_replace("'","´",$_POST['nombre']);
-			$descripcion = stripslashes($_POST['descripcion']);
-			$id_ranking_category = $_POST['id_ranking_category'];
+			$nombre = sanitizeInput($_POST['nombre']);
+			$descripcion = stripslashes(sanitizeInput($_POST['descripcion']));
+			$id_ranking_category = intval($_POST['id_ranking_category']);
 
 			if ($rankings->insertRankings($nombre, $descripcion, 0, $id_ranking_category)) {
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
@@ -67,10 +67,10 @@ class rankingsController{
 	public static function updateAction(){
 		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] > 0){
 			$rankings = new rankings();
-			$id_ranking = $_POST['id_ranking'];
-			$nombre = str_replace("'","´",$_POST['nombre']);
-			$descripcion = stripslashes($_POST['descripcion']);
-			$id_ranking_category = $_POST['id_ranking_category'];
+			$id_ranking = intval($_POST['id_ranking']);
+			$nombre = sanitizeInput($_POST['nombre']);
+			$descripcion = stripslashes(sanitizeInput($_POST['descripcion']));
+			$id_ranking_category = intval($_POST['id_ranking_category']);
 
 			//cargar fichero
 			self::uploadRankingData($_POST['id_ranking']);
@@ -87,7 +87,7 @@ class rankingsController{
 		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] == 0){
 			$id_ranking = 0;
 			$rankings = new rankings();
-			$nombre = str_replace("'","´",$_POST['nombre']);
+			$nombre = sanitizeInput($_POST['nombre']);
 
 			if ($rankings->insertRankingsCategory($nombre)){
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
@@ -102,11 +102,11 @@ class rankingsController{
 	public static function updateCategoryAction(){
 		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] > 0){
 			$rankings = new rankings();
-			$id_ranking = $_POST['id_ranking'];
-			$nombre = str_replace("'","´",$_POST['nombre']);
+			$id_ranking = intval($_POST['id_ranking']);
+			$nombre = sanitizeInput($_POST['nombre']);
 
 			//cargar fichero
-			self::uploadRankingData($_POST['id_ranking']);
+			self::uploadRankingData($id_ranking);
 
 			if ($rankings->updateRankingsCategory($id_ranking, $nombre)) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -118,7 +118,6 @@ class rankingsController{
 
 	public static function uploadRankingData($id_ranking){
 		if (isset($_FILES['fichero']) and $_FILES['fichero']['name'] != ""){
-
 			//primero borramos los datos existentes
 			$rankings = new rankings();
 			$rankings->deleteRankingsData(" id_ranking=".$id_ranking);
@@ -154,7 +153,7 @@ class rankingsController{
 	public static function ExportRankingDataAction(){
 		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] > 0){
 			$rankings = new rankings();
-			$elements = $rankings->getRankingsDataSimple(" AND id_ranking=".$_REQUEST['exp']." ");
+			$elements = $rankings->getRankingsDataSimple(" AND id_ranking=".intval($_REQUEST['exp'])." ");
 			exportCsv($elements);
 		}
 	}

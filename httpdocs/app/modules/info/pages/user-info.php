@@ -1,7 +1,7 @@
 <?php
 infoController::getZipAction();
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-info-doc.js"));
-$elements = infoController::getItemAction($_GET['id']);
+$elements = infoController::getItemAction(intval($_GET['id']));
 ?>
 <div class="row row-top">
 	<div class="app-main">

@@ -9,7 +9,7 @@
 			array("ItemLabel"=>strTranslate("Incentives_targets"), "ItemUrl"=>"admin-incentives-targets-detail?id=".$id_objetivo),
 			array("ItemLabel"=>"Importar objetivos", "ItemClass"=>"active"),
 		));
-		$id_objetivo = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
+		$id_objetivo = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 		$objetivo = incentivosObjetivosController::getItemAction($id_objetivo);
 		?>
 

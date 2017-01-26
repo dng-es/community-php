@@ -19,8 +19,8 @@ function pasadaProccess(){
 	$mailing = new mailing();
 
 	//obtener datos del mesaje
-	$message_subject = $_POST['asunto_message'];
-	$message_body = $_POST['texto_message'];
+	$message_subject = sanitizeInput($_POST['asunto_message']);
+	$message_body = sanitizeInput($_POST['texto_message']);
 	$message_from = array($_POST['email_message'] => $_POST['nombre_message']);
 	//$message_attachment = ($_FILES['nombre-fichero'] != "" ? $ini_conf['SiteUrl']."/".PATH_MAILING.'attachments/'.$_FILES['nombre-fichero'] : "");
 	$message_attachment = "";

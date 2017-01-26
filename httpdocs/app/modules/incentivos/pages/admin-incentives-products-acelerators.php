@@ -3,13 +3,6 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 			"js/bootstrap-datepicker.es.js", 
 			"js/jquery.numeric.js", 
 			getAsset("incentivos")."js/admin-incentives-products-acelerators.js"));
-
-$id_producto = (isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
-
-session::getFlashMessage( 'actions_message' ); 
-incentivosProductosController::createAceleratorsAction();
-incentivosProductosController::deleteAceleratorsAction();
-$elements = incentivosProductosController::getListAceleratorsAction(9999, " AND a.id_producto=".$id_producto." ");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -21,6 +14,12 @@ $elements = incentivosProductosController::getListAceleratorsAction(9999, " AND 
 			array("ItemLabel"=>strTranslate("Incentives_products"), "ItemUrl"=>"admin-incentives-products"),
 			array("ItemLabel"=>strTranslate("Incentives_acelerators"), "ItemClass"=>"active"),
 		));
+
+		session::getFlashMessage( 'actions_message' ); 
+		incentivosProductosController::createAceleratorsAction();
+		incentivosProductosController::deleteAceleratorsAction();
+		$id_producto = intval(isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
+		$elements = incentivosProductosController::getListAceleratorsAction(9999, " AND a.id_producto=".$id_producto." ");
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>

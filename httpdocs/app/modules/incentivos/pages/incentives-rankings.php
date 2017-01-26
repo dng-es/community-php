@@ -3,7 +3,7 @@ set_time_limit(0);
 ini_set('memory_limit', '-1');
 
 
-$id_objetivo = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
+$id_objetivo = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 $id_group = ((isset($_REQUEST['idg']) and $_REQUEST['idg'] != "") ? $_REQUEST['idg'] : "");
 
 session::getFlashMessage( 'actions_message' );
