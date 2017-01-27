@@ -39,16 +39,15 @@
 								onClick="location.href='admin-albumes-new?act=edit&id=<?php echo $element['id_album'];?>'"><i class="fa fa-edit icon-table"></i>
 							</button>
 
-							<button type="button" class="btn btn-default btn-xs"><a href="admin-albumes?export=true&id=<?php echo $element['id_album'];?>" class="fa fa-download icon-table" title="<?php e_strTranslate("Download");?>"></a></button>
-								
+							<button type="button" class="btn btn-default btn-xs" onClick="location.href='admin-albumes?export=true&id=<?php echo $element['id_album'];?>'" title="<?php e_strTranslate("Download");?>"><i class="fa fa-download icon-table"></i></button>
 						</td>
 						<td>
 							<?php echo $element['nombre_album'];?>
 							<br /><em class="text-muted"><small><?php echo getDateFormat($element['date_album'], "LONG");?></small></em>';
 						</td>
-						<td><?php echo $element['username_album'];?></td>';
-						<td><?php echo $element['canal_album'];?></td>';
-						<td><center><?php echo $num_fotos;?></center></td>';
+						<td><?php echo $element['username_album'];?></td>
+						<td><?php echo $element['canal_album'];?></td>
+						<td><center><?php echo $num_fotos;?></center></td>
 						</tr>
 						<?php endforeach;?>
 					</table>

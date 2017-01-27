@@ -57,9 +57,9 @@ $id = intval(isset($_GET['id']) ? $_GET['id'] : 0);
 								<small><label for="info_tipo"><?php e_strTranslate("Type");?>:</label></small>
 								<select name="info_tipo" id="info_tipo" class="form-control">
 								<?php
-								$tipo_info = $info->getInfoTipos("");
-								foreach($tipo_info as $tipo):
-									echo '<option value="'.$tipo['id_tipo'].'" '.($tipo['id_tipo']==$tipo_info ? 'selected="selected"' : '').'>'.$tipo['nombre_info'].'</option>';
+								$tipos_info = $info->getInfoTipos("");
+								foreach($tipos_info as $tipo):
+									echo '<option value="'.$tipo['id_tipo'].'" '.($tipo['id_tipo'] == $tipo_info ? 'selected="selected"' : '').'>'.$tipo['nombre_info'].'</option>';
 								endforeach;
 								?>
 								</select>

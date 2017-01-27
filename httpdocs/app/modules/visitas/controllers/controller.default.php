@@ -13,16 +13,23 @@ class visitasController{
 	public static function insertVisita($page){
 		$visitas = new visitas();
 
+		$user_name = ((isset($_SESSION['user_name']) && $_SESSION['user_name'] != "") ? $_SESSION['user_name'] : "");
+		$user_perfil = ((isset($_SESSION['user_perfil']) && $_SESSION['user_perfil'] != "") ? $_SESSION['user_perfil'] : "");
+		$user_empresa = ((isset($_SESSION['user_empresa']) && $_SESSION['user_empresa'] != "") ? $_SESSION['user_empresa'] : "");
+		$user_canal = ((isset($_SESSION['user_canal']) && $_SESSION['user_canal'] != "") ? $_SESSION['user_canal'] : "");
+		$webpage_id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
+		
 		//tiempo de la visita anterior
-		$visitas->updateVisitaSeconds($_SESSION['user_name']);
+		if ($user_name != "") $visitas->updateVisitaSeconds($_SESSION['user_name']);
 
 		//insertar registro de la visita
-		$webpage_id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
-		$visitas ->insertVisita($_SESSION['user_name'], $page, $webpage_id, $_SESSION['user_perfil'], $_SESSION['user_empresa'], $_SESSION['user_canal']);  
+		$visitas ->insertVisita($user_name, $page, $webpage_id, $user_perfil, $user_empresa, $user_canal);  
 
 		//puntuacion semanal
-		if(connection::countReg("accesscontrol"," AND username='".$_SESSION['user_name']."' AND WEEK(fecha)=WEEK(NOW()) AND YEAR(fecha)=YEAR(NOW())") == 1) 
-			users::sumarPuntos($_SESSION['user_name'], PUNTOS_ACCESO_SEMANA, PUNTOS_ACCESO_SEMANA_MOTIVO);
+		if ($user_name != ""){
+			if(connection::countReg("accesscontrol"," AND username='".$_SESSION['user_name']."' AND WEEK(fecha)=WEEK(NOW()) AND YEAR(fecha)=YEAR(NOW())") == 1) 
+				users::sumarPuntos($_SESSION['user_name'], PUNTOS_ACCESO_SEMANA, PUNTOS_ACCESO_SEMANA_MOTIVO);
+		}
 
 		return true;
 	}

@@ -96,7 +96,8 @@ class fotosAlbumController{
 	public static function downloadAction(){
 		if ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) and (isset($_REQUEST['export']) and $_REQUEST['export'] == true)){
 			$fotos = new fotos();
-			$elements = $fotos->getFotos(" AND id_album=".$_REQUEST['id']." AND estado=1 ");
+			$id_album = intval($_REQUEST['id']);
+			$elements = $fotos->getFotos(" AND f.id_album=".$id_album." AND estado=1 ");
 			$files = array();
 			$i = 0;
 			foreach($elements as $element):

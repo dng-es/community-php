@@ -3,7 +3,7 @@ class destacadosController{
 	public static function updateAction(){
 		if (isset($_POST['id_destacado']) and $_POST['id_destacado'] != ""){
 			$destacados = new destacados();
-			$id = intval($_REQUEST['id_destacado']);
+			$id_destacado = intval($_REQUEST['id_destacado']);
 			$tipo_destacado = sanitizeInput($_POST['tipo_destacado']);
 			$texto_destacado = sanitizeInput($_POST['texto_destacado']);
 			$canal_destacado = sanitizeInput($_POST['canal_destacado']);

@@ -191,8 +191,9 @@ class foro{
 	public function getLastTemas($filter = "", $limit = 3){
 		$Sql = "SELECT DISTINCT c.id_tema,t.nombre FROM `foro_comentarios` c
 			LEFT JOIN foro_temas t ON t.id_tema=c.id_tema
-			WHERE t.activo=1 ".$filter."
-			LIMIT ".$limit; //echo $Sql;
+			WHERE t.activo=1 ".$filter." 
+			ORDER BY  date_comentario DESC 
+			LIMIT ".$limit;
 		return connection::getSQL($Sql);
 	}
 }
