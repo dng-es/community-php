@@ -28,25 +28,25 @@ $id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 					<input type="hidden" id="id_recompensa" name="id_recompensa" value="<?php echo $id;?>" />
 					<input type="hidden" id="nombre_imagen" name="nombre_imagen" value="<?php echo $nombre_imagen;?>" />
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-6 form-group">
 							<label for="recompensa_nombre"><small><?php e_strTranslate("Name");?>:</small></label>
 							<input type="text" class="form-control TextDisabled" id="recompensa_nombre" name="recompensa_nombre" value="<?php echo $elements[0]['recompensa_name'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 						</div>
 
-						<div class="col-md-4">
+						<div class="col-md-3 form-group">
 							<label for="recompensa_image"><small><?php e_strTranslate("Image");?>:</small></label>
 							<input type="file" name="recompensa_image" id="recompensa_image" class="btn btn-primary btn-block" title="seleccionar imágen" data-alert="<?php e_strTranslate("Required_field");?>" />
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-3 form-group text-center">
 							<?php
 								if (isset($elements[0]['recompensa_image']) and $elements[0]['recompensa_image'] != ""){
-									echo '<img src="'.PATH_REWARDS.$elements[0]['recompensa_image'].'" style="width: 100%" class="responsive" />';
+									echo '<img src="'.PATH_REWARDS.$elements[0]['recompensa_image'].'" style="width: 50%" class="responsive" />';
 								}
 							?>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 form-group">
 							<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Save_data");?></button>
 						</div>
 					</div>

@@ -5,7 +5,7 @@
 @import "./libs/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.scss"; /*bootstrap checkbox*/
 @import "./libs/sweetalert/sweet-alert.scss"; /*Sweet alert*/
 @import "./libs/font-awesome-animation/font-awesome-animation.scss"; /*Font awesome animations*/
-@import "./libs/bootstrap-select/bootstrap-select.scss"; /*Font awesome animations*/
+@import "./libs/bootstrap-select/bootstrap-select.scss"; /*Bootstrap Selects*/
 
 body{
 	background-color:$body-bg;
@@ -57,6 +57,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 .text-small{
 	font-size: 85%;
+}
+
+.pointer{
+	cursor: pointer;
 }
 
 .section{

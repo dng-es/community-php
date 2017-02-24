@@ -41,16 +41,16 @@ jQuery(document).ready(function(){
 
 	function ValidateResponder(){
 		$("#muro-responder-result").html("");
-		var resultado_ok = true;
+		var form_ok = true;
 		if (jQuery.trim($('#texto-responder').val()) == ""){
 			ShowMensajeResponder("Debes insertar algo de texto.");
-			resultado_ok = false;
+			form_ok = false;
 		}
 		if (document.getElementById('texto-responder').value.length > 160){
 			ShowMensajeResponder("Has superado el límite de caracteres. Máximo 160 caracteres.");
-			resultado_ok = false;
+			form_ok = false;
 		}
-		if (resultado_ok == true){
+		if (form_ok == true){
 			$.ajax({
 				type: 'POST',
 				url: 'app/modules/muro/pages/muro_process.php?t=1',
@@ -69,18 +69,18 @@ jQuery(document).ready(function(){
 
 	function ValidateMuro(){
 		$("#result-muro").html("");
-		var resultado_ok = true;
+		var form_ok = true;
 		if (jQuery.trim($('#texto-comentario').val()) == ""){
 			ShowMensaje("Debes insertar algo de texto en el comentario.");
 			$("#result-muro").addClass("alert alert-danger");
-			resultado_ok = false;
+			form_ok = false;
 		}
 		if (document.getElementById('texto-comentario').value.length > 160){
 			ShowMensaje("Has superado el límite de caracteres. Máximo 160 caracteres.");
 			$("#result-muro").addClass("alert alert-danger");
-			resultado_ok = false;
+			form_ok = false;
 		}
-		if (resultado_ok == true){
+		if (form_ok == true){
 			$.ajax({
 				type: 'POST',
 				url: 'app/modules/muro/pages/muro_process.php',

@@ -25,7 +25,6 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 					<table class="table table-striped table-hover">
 						<?php 	
 						//LOS 10 PRIMEROS DEL RANKING
-						//$total_empresas=$users->getTotalEmpresas();
 						for ($i = 0; $i <= 14; $i++){
 							if (isset($puntos[$i])): ?>
 						<tr>

@@ -11,17 +11,17 @@ jQuery(document).ready(function(){
 
 	$("#emocionesForm").submit(function(evento){
 		$(".alert-message").html("").css("display", "none");
-		var resultado_ok=true;
+		var form_ok = true;
 		if (jQuery.trim($('#id_emocion').val())==""){
 			$("#emociones-alert").html("debes elegir una emoción.").fadeIn().css("display", "block");
-			resultado_ok=false;
+			form_ok = false;
 		}
 
 		if (jQuery.trim($('#mi_emocion').val())==""){
 			 $("#emociones-alert").html("debes explicar por qué te sientes así.").fadeIn().css("display", "block");
-			 resultado_ok=false;
+			 form_ok = false;
 		}
 
-		return resultado_ok;
+		return form_ok;
 	});
 });

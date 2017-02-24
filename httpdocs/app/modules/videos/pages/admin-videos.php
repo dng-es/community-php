@@ -69,7 +69,7 @@ $elements=$videos->getVideos($filtro.' LIMIT '.$inicio.','.$reg);
 							<td><input type="text" name="tipo_video" id="tipo_video_<?php echo $element['id_file'];?>" value="<?php echo $element['tipo_video'];?>" /> <button data-pag="<?php echo $pag;?>" data-id="<?php echo $element['id_file'];?>" class="btn btn-default trigger-tags btn-xs">modificar</button></td>
 							<?php
 							echo '<td>'.$element['user_add'].'</td>';
-							echo '<td>';
+							echo '<td title="'.$num_comentarios.' '.strtolower(strTranslate("Comments")).'">';
 						if ($num_comentarios == 0) echo $num_comentarios;
 						else echo '<a href="admin-videos-comentarios?id='.$element['id_file'].'">'.$num_comentarios.'</a>';
 							echo '</td>';

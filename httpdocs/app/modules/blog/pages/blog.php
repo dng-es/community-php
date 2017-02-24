@@ -128,10 +128,11 @@ $filtro_blog = $filtro_canal." AND activo=1 ";
 					'.strTranslate("You_may_also_like").'</h4>
 					<div class="row">';
 				foreach($elements as $element):
+					$foto = ($element['imagen_tema'] == '' ? 'images/nofile.jpg' : "images/foro/".$element['imagen_tema']);
 					echo '<div class="footer-section full-height">
 							<a href="blog?id='.$element['id_tema'].'"><h4 class="ellipsis">'.$element['nombre'].'</h4></a>
 							<p class="text-muted"><small>'.getDateFormat($element['date_tema'], "LONG").'</small></p>
-							<a href="blog?id='.$element['id_tema'].'"><img src="images/foro/'.$element['imagen_tema'].'" alt="'.$element['nombre'].'" /></a><br />
+							<a href="blog?id='.$element['id_tema'].'"><img src="'.$foto.'" alt="'.$element['nombre'].'" /></a><br />
 							<p class="hidden-md hidden-lg"><br />'.get_resume(strip_tags($element['descripcion'])).'</p>
 						</div>';
 				endforeach; 

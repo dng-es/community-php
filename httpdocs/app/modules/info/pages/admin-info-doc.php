@@ -89,7 +89,6 @@ $id = intval(isset($_GET['id']) ? $_GET['id'] : 0);
 								<input class="form-control" type="text" id="info_url" name="info_url" value="<?php echo $download == 1 ? "" : $titulo_info;?>" />
 							</div>
 						</div>
-
 						<div class="col-md-6">
 							<div class="form-group">
 								<small><label for="info_file">Selecciona el documento:

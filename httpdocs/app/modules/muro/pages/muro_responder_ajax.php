@@ -44,13 +44,12 @@ include_once($base_dir . "modules/muro/classes/class.muro.php");
 	$comentarios_muro = $muro->getComentarios($filtro);
 	echo '<div class="">';
 	foreach($comentarios_muro as $comentario_muro):
-		$votado = connection::countReg("muro_comentarios_votaciones"," AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
+		$votado = connection::countReg("muro_comentarios_votaciones", " AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
 		if ($_SESSION['user_name'] == $comentario_muro['user_comentario']) $votado_user = 1;
 		else $votado_user = 0;
 		echo '<div class="media">
 				<div class="pull-right text-primary">
-					<span class="muro-votado" id="'.$comentario_muro['id_comentario'].'" value="'.$votado.'"></span>
-					
+					<span class="muro-votado" id="'.$comentario_muro['id_comentario'].'" value="'.$votado.'"></span> 
 					<span class="muro-votado-user" id="user_'.$comentario_muro['id_comentario'].'" value="'.$votado_user.'"></span>
 					<span class="murogusta fa fa-heart '.$comentario_muro['id_comentario'].'" 
 						value="'.$comentario_muro['id_comentario'].'" 

@@ -5,7 +5,7 @@ class novedadesController{
 		$paginator_items = PaginatorPages($reg);
 		$find_reg = "";
 		
-		$total_reg = connection::countReg("novedades",$filtro); 
+		$total_reg = connection::countReg("novedades n",$filtro); 
 		return array('items' => $novedades->getNovedades($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

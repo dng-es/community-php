@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
 	});
 
 	$("#formDocumentos").submit(function(evento){
-		var resultado_ok = true;
-		return resultado_ok;
+		var form_ok = true;
+		return form_ok;
 	});
 });

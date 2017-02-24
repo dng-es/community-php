@@ -45,9 +45,8 @@
 								onClick="location.href='admin-cuestionario-revs?id=<?php echo $element['id_cuestionario'];?>'; return false"><i class="fa fa-check icon-table"></i>
 							</button>
 
-							<button type="button" class="btn btn-default btn-xs"><a title="<?php e_strTranslate("Show");?>" target="_blank" href="cuestionario?id=<?php echo $element['id_cuestionario'];?>">
+							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Show");?>" onClick="location.href='cuestionario?id=<?php echo $element['id_cuestionario'];?>'">
 								<i class="fa fa-share icon-table"></i>
-							</a>
 							</button>
 
 							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Clone_item");?>" onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_clone");?>', 'admin-cuestionarios?act=clone&id=<?php echo $element['id_cuestionario'];?>'); return false"><i class="fa fa-copy icon-table"></i>

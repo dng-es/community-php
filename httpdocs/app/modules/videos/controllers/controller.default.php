@@ -110,8 +110,8 @@ class videosController{
 	public static function getCommentsListAction($reg = 0, $filter = ""){
 		$videos = new videos();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filter = " AND comentario LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'].$filter;}
-		if (isset($_REQUEST['f']) and $_REQUEST['f'] != "") $filter = " AND comentario LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'].$filter;
+		if (isset($_POST['find_reg'])) {$filter = " AND comentario LIKE '%".$_POST['find_reg']."%' ";$find_reg = $_POST['find_reg'].$filter;}
+		if (isset($_REQUEST['f']) and $_REQUEST['f'] != ""){$filter = " AND comentario LIKE '%".$_REQUEST['f']."%' ";$find_reg = $_REQUEST['f'].$filter;}
 		$paginator_items = self::PaginatorPagesVideoComments($reg);
 		
 		$total_reg = connection::countReg("galeria_videos_comentarios", $filter);

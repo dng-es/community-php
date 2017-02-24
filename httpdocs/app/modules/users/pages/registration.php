@@ -18,16 +18,16 @@ if ($module_config['options']['allow_registration'] === true):
 		//REGISTRO USUARIO
 		if (isset($_POST['username-text']) and $_POST['username-text']!=""){
 			$users = new users();
-			$confirmar=$users->registerUser($_POST['username-text'],
-											$_POST['user-nick'],
-											$_POST['user-nombre'],
-											$_POST['user-apellidos'],
-											$_POST['user-pass'],
-											$_POST['user-email'],
+			$confirmar=$users->registerUser(sanitizeInput($_POST['username-text']),
+											sanitizeInput($_POST['user-nick']),
+											sanitizeInput($_POST['user-nombre']),
+											sanitizeInput($_POST['user-apellidos']),
+											sanitizeInput($_POST['user-pass']),
+											sanitizeInput($_POST['user-email']),
 											$_FILES['nombre-fichero'],
 											'',
-											$_POST['user-date'],
-											$_POST['user-empresa']);
+											sanitizeInput($_POST['user-date']),
+											sanitizeInput($_POST['user-empresa']));
 
 
 			if ($confirmar == 1){
@@ -180,17 +180,19 @@ if ($module_config['options']['allow_registration'] === true):
 					<input name="nombre-fichero" id="nombre-fichero" type="file"  class="btn btn-default" title="<?php e_strTranslate("Choose_file");?>" />
 				</div>
 			</div>
+
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
-					<div class="checkbox">
-						<label>
-							<input id="user-declaracion" name="user-declaracion" type="checkbox" value="1" /> 
-							<?php e_strTranslate("Acept");?> 
-							<a href="#" id="declaracion-trigger"><?php e_strTranslate("Terms_and_conditions");?></a>
-						</label>
-						<span id="user-declaracion-alert" class="alert-message alert alert-danger"></span>
+					<div class="checkbox checkbox-primary">
+						<input type="checkbox" class="styled" id="user-declaracion"  name="user-declaracion">
+						<label for="confirmed_user"> <?php e_strTranslate("Acept");?> 
+							<a href="#" id="declaracion-trigger"><?php e_strTranslate("Terms_and_conditions");?></a></label>
+					</div>
+					<span id="user-declaracion-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
+
+
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
 					<div class="row">
@@ -211,22 +213,24 @@ if ($module_config['options']['allow_registration'] === true):
 	</div>
 </div>
 
+
+<?php }?>
+<?php else: ?>
+	<h1><?php e_strTranslate("Access_denied");?></h1>
+<?php endif; ?>
+
+
 <!-- Modal -->
 <div class="modal modal-wide fade" id="declaracionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Aceptar términos</h4>
+				<h4 class="modal-title" id="myModalLabel"><?php e_strTranslate("Terms_and_conditions");?></h4>
 			</div>
 			<div class="modal-body">
-				<?php echo $declaracion[0]['page_content'];?>
+			<?php echo $declaracion[0]['page_content'];?>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<?php }?>
-<?php else: ?>
-	<h1><?php e_strTranslate("Access_denied");?></h1>
-<?php endif; ?>

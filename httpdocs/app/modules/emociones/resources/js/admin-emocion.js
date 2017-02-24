@@ -1,17 +1,16 @@
 jQuery(document).ready(function(){
 	$('input[type=file]').bootstrapFileInput();
-	$("#SubmitData").click(function(evento){
-		$(".alert-message").html("").css("display","none");
-		var resultado_ok=true;
-		if (jQuery.trim($('#info_title').val())==""){
-			$("#title-alert").html("Debe insertar un titulo.").fadeIn().css("display","block");
-			resultado_ok=false;
-		}
+	$("#formData").submit(function(evento){
+		var form_ok = true;
 
+		if (jQuery.trim($("#info_title").removeClass("input-alert").val()) == ""){
+			$('#info_title').addClass("input-alert").attr("placeholder", $('#info_title').data("alert")).focus();
+			form_ok = false;
+		}
 		// if (jQuery.trim($('#info_file').val())==""){
 		// 	 $("#file-alert").html("Debe insertar un documento.").fadeIn().css("display","block");
-		// 	 resultado_ok=false;
+		// 	 form_ok=false;
 		// }				
-		if (resultado_ok==true) $("#formData").submit();
+		return form_ok;
 	});
 });

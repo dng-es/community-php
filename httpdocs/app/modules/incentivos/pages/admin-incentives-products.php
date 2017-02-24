@@ -36,9 +36,9 @@ addJavascripts(array(getAsset("incentivos")."js/admin-incentives-products.js"));
 								<?php foreach($elements['items'] as $element):?>
 									<tr>
 										<td nowrap="nowrap">
-											<span class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
-												onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-products?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_producto'];?>', '<?php e_strTranslate("Are_you_sure");?>', '<?php e_strTranslate("Cancel_text");?>', '<?php e_strTranslate("Confirm_text");?>')">
-											</span>
+											<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+												onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-products?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_producto'];?>', '<?php e_strTranslate("Are_you_sure");?>', '<?php e_strTranslate("Cancel_text");?>', '<?php e_strTranslate("Confirm_text");?>'); return false"><i class="fa fa-trash icon-table"></i>
+											</button>
 										</td>
 										<td>
 											<?php echo $element['referencia_producto'];?><br />

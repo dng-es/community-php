@@ -6,7 +6,7 @@ class fotosController{
 		if ($find_reg != "" ) $filter .= " AND titulo LIKE '%".sanitizeInput($find_reg)."%' ".$filter;
 		//if ($_SESSION['user_canal'] != 'admin') $filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = connection::countReg("galeria_fotos f", $filter); 
+		$total_reg = connection::countReg("galeria_fotos f, galeria_fotos_albumes a"," AND f.id_album=a.id_album ".$filter); 
 		return array('items' => $fotos->getFotos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -17,7 +17,7 @@ class fotosController{
 	public static function getItemAction($filter){
 		$fotos = new fotos();
 		$elements = $fotos->getFotos($filter);
-		return $elements[0];
+		return (isset($elements[0]) ? $elements[0] : null);;
 	}
 
 	public static function createAction(){

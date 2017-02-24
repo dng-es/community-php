@@ -20,8 +20,7 @@ templateload("cmbCanales", "users");
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="id_destacado">ID:</label>
 						<div class="col-sm-2">
-							<input type="text" name="id_destacado" id="id_destacado" class="form-control numeric" />
-							<span id="id-destacado-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_number");?></span>
+							<input data-alert="<?php e_strTranslate("Required_number");?>" type="text" name="id_destacado" id="id_destacado" class="form-control numeric" />
 						</div>
 
 						<label class="col-sm-1 control-label" for="tipo_destacado"><?php e_strTranslate("Type");?>:</label>
@@ -43,14 +42,13 @@ templateload("cmbCanales", "users");
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="texto_destacado">Motivo selección:</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" name="texto_destacado" id="texto_destacado"></textarea>
-							<span id="texto-destacado-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+							<textarea data-alert="<?php e_strTranslate("Required_field");?>" class="form-control" name="texto_destacado" id="texto_destacado"></textarea>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-2">
-							<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary btn-block"><?php e_strTranslate("Update");?></button>
+							<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary btn-block"><?php e_strTranslate("Update");?></button>
 						</div>
 					</div>
 				</form>

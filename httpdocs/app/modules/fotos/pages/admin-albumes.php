@@ -43,7 +43,7 @@
 						</td>
 						<td>
 							<?php echo $element['nombre_album'];?>
-							<br /><em class="text-muted"><small><?php echo getDateFormat($element['date_album'], "LONG");?></small></em>';
+							<br /><em class="text-muted"><small><?php echo getDateFormat($element['date_album'], "LONG");?></small></em>
 						</td>
 						<td><?php echo $element['username_album'];?></td>
 						<td><?php echo $element['canal_album'];?></td>

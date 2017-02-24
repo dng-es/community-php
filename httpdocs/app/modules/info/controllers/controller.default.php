@@ -103,7 +103,7 @@ class infoController{
 
 	public static function registerViewAction($user_file, $id_info){
 		$info = new info();
-		$contador = connection::countReg("info_views"," AND username_view='".$user_file."' AND id_file=".$id_info."");
+		$contador = connection::countReg("info_views", " AND username_view='".$user_file."' AND id_file=".$id_info." ");
 		if ($info->insertInfoView($user_file, $id_info)){
 			if ($contador == 0){
 				$users = new users();
@@ -116,7 +116,7 @@ class infoController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$info = new info();
 			$elements = $info->getInfoViews("");
-			download_send_headers("users_" . date("Y-m-d") . ".csv");
+			download_send_headers("views_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
 		}

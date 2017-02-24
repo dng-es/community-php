@@ -19,7 +19,7 @@ class FileSystem {
 	   	if (is_dir($dirname)){    //Operate on dirs only
 			if ($dh = opendir($dirname)){ 
 				while (($file = readdir($dh)) !== false){ 
-					if (is_dir($dirname . $file) && $file!="." && $file!=".."){ 
+					if (is_dir($dirname . $file) && $file != "." && $file != ".."){ 
 						$arrayFolders[$i] = $file;
 						$i++;
 					}
@@ -44,7 +44,7 @@ class FileSystem {
 	   	if (is_dir($dirname)){ 	//Operate on dirs only
 			if ($dh = opendir($dirname)){ 
 				while (($file = readdir($dh)) !== false){ 
-					if (!is_dir($dirname . $file) && $file!="." && $file!=".."){ 
+					if (!is_dir($dirname . $file) && $file != "." && $file != ".."){ 
 						$arrayFolders[$i] = $file;
 						$i++;
 					}
@@ -67,24 +67,24 @@ class FileSystem {
 	function cleanDir($dirname, $nombre_fichero){
 		if (is_dir($dirname)){ 	//Operate on dirs only
 			$result=array();
-			if (substr($dirname,-1)!='/') {$dirname.='/';}	//Append slash if necessary
+			if (substr($dirname,-1) != '/') {$dirname .= '/';}	//Append slash if necessary
 			$handle = opendir($dirname);
 			while (false !== ($file = readdir($handle))){
-				if ($file!='.' && $file!= '..') {	//Ignore . and ..
+				if ($file != '.' && $file != '..') {	//Ignore . and ..
 					$path = $dirname.$file;
 					//echo 'entra dir 2 '.$path;
 					if (is_dir($path)){	//Recurse if subdir, Delete if file
-						$result=array_merge($result,self::rmdirtree($path));
+						$result = array_merge($result,self::rmdirtree($path));
 					}
 					elseif (filectime($path) <= (filectime($dirname.$nombre_fichero)-1000)){
 						unlink($path);
-						$result[].=$path;
+						$result[] .= $path;
 					}
 				}
 			}
 			closedir($handle);
 			//rmdir($dirname); 	//Remove dir
-			$result[].=$dirname;
+			$result[] .= $dirname;
 			return $result; 	//Return array of deleted items
 		}
 		else return false; 	//Return false if attempting to operate on a file
@@ -145,10 +145,10 @@ class FileSystem {
 	public static function rmdirtree($dirname, $nombre_fichero){
 		if (is_dir($dirname)) { 	//Operate on dirs only
 			$result = array();
-			if (substr($dirname,-1)!='/') {$dirname.='/';}	//Append slash if necessary
+			if (substr($dirname,-1) != '/') $dirname .= '/';	//Append slash if necessary
 			$handle = opendir($dirname);
 			while (false !== ($file = readdir($handle))){
-				if ($file!='.' && $file!= '..'){	//Ignore . and ..
+				if ($file != '.' && $file != '..'){	//Ignore . and ..
 					$path = $dirname.$file;
 					//echo 'entra dir 2 '.$path;
 					if (is_dir($path)) {	//Recurse if subdir, Delete if file
@@ -162,7 +162,7 @@ class FileSystem {
 			}
 			closedir($handle);
 			//rmdir($dirname);    //Remove dir
-			$result[].=$dirname;
+			$result[] .= $dirname;
 			return $result;	//Return array of deleted items
 		}
 		else return false;	//Return false if attempting to operate on a file

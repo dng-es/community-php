@@ -5,7 +5,6 @@ include_once ($base_dir_config."/constants.php");
 
 /**
 * Redirect to $url
-*
 * @param 	string 		$url 	Destination redirect
 */
 function redirectURL($url){
@@ -21,7 +20,6 @@ function redirectURL($url){
 
 /**
 * Returns The file to include
-*
 * @param 	string 		$page 		page name to include
 * @return 	string 		 			full path folder
 */
@@ -40,7 +38,6 @@ function pageRouter($page){
 
 /**
 * Used in __autoload() to correctly load classes
-*
 * @param 	string 		$dir 			module path
 * @param 	string 		$modulename 	module name to load
 * @return 	string 		$dir_final 		full path folder
@@ -60,7 +57,6 @@ function dirCarga($dir, $modulename){
 
 /**
 * Load templates
-*
 * @param 	string 		$template 		template name
 * @param 	string 		$classname 		class name where template is placed
 */
@@ -71,7 +67,6 @@ function templateload($template, $classname){
 
 /**
 * Autoload classes
-*
 * @param 	string 		$classname 			CLass name
 */
 function __autoload($classname){
@@ -102,7 +97,6 @@ function __autoload($classname){
 
 /**
 * Returns assets path
-*
 * @param 	string 		$modulename 		module asset container
 * @return 	string 		$path 				module asset container path
 */
@@ -131,7 +125,6 @@ function getListModules($excluido = 'core'){
 
 /**
  * Devulve si un formulario existe
- *
  * @param 	string 		$modulename 		Nombre del modulo a buscar 
  * @return 	boolean 						Resultado de la busqueda
  */
@@ -145,7 +138,6 @@ function getModuleExist($modulename){
 
 /**
  * Obtiene todos los modulos instalados
- *
  * @param 	string 		$modulename 		Nombre del modulo a buscar
  * @return 	array 							Array con los modulos instalados
  */
@@ -158,7 +150,6 @@ function getModuleConfig($modulename){
 
 /**
  * Obtiene los canales del grupo
- *
  * @param 	string 		$modulename 		Nombre del modulo a buscar
  * @return 	array 							Array con los modulos instalados
  */
@@ -174,10 +165,9 @@ function getModuleChannels($groups, $user_canal){
 }
 
 /**
-* Returns the
-*
+* Returns the translation from the given string
 * @param 	string 		$str 		string to translate
-* @return 	string 		 			return translation by defalt language
+* @return 	string 		 			return translation by language
 */
 function strTranslate($str){
 	global $ini_conf;
@@ -241,7 +231,6 @@ function addCss($scripts){
 
 /**
 * Read YAML
-*
 * @param 	string 		$file 		Complete name file, path included
 * @return 	boolean 				Result
 */
@@ -251,7 +240,6 @@ function readYml($file){
 }
 /**
 * Write YAML
-*
 * @param 	array 		$data 		Data to include in given file
 * @param 	string 		$file 		Complete name file, path included
 * @return 	boolean 				Result

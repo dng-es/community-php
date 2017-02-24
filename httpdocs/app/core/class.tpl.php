@@ -42,7 +42,7 @@ class tpl{
 			while (list($key, $val) = each($this->vars)){
 				unset($$key);
 			}
-			$this->mihtml=str_replace ("\'", "'", $this->mihtml);
+			$this->mihtml = str_replace ("\'", "'", $this->mihtml);
 
 			ob_start();
 			include_once(dirname(__FILE__)."/../../css/mails.css");

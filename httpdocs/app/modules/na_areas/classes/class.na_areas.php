@@ -174,12 +174,12 @@ class na_areas{
 		elseif ($tipo == 'video'){
 			//video
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo=NormalizeText($nombre_archivo);
+			$nombre_archivo = NormalizeText($nombre_archivo);
 			$tipo_archivo = $fichero['type'];
 			$tamano_archivo = $fichero['size'];
 
 			move_uploaded_file($fichero['tmp_name'], PATH_VIDEOS.$nombre_archivo);
-			$videos=new videos();
+			$videos = new videos();
 			if ($videos->convertirVideo($nombre_archivo,PATH_VIDEOS,PATH_VIDEOS)){
 				unlink($nombre_archivo);
 			}
@@ -213,7 +213,7 @@ class na_areas{
 		//SUBIR FICHERO
 		if (isset($fichero) and $fichero['name'] != ""){
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-			$nombre_archivo=NormalizeText($nombre_archivo);
+			$nombre_archivo = NormalizeText($nombre_archivo);
 			move_uploaded_file($fichero['tmp_name'], PATH_TAREAS.$nombre_archivo);
 		}
 		else $nombre_archivo = "";
@@ -239,7 +239,7 @@ class na_areas{
 	}
 
 	public function insertPregunta($id_tarea, $pregunta_texto, $pregunta_tipo){
-		$Sql="INSERT INTO na_tareas_preguntas (id_tarea,pregunta_texto,pregunta_tipo) VALUES
+		$Sql = "INSERT INTO na_tareas_preguntas (id_tarea,pregunta_texto,pregunta_tipo) VALUES
 		(".$id_tarea.",'".$pregunta_texto."','".$pregunta_tipo."')";
 		if (connection::execute_query($Sql)) return "Pregunta insertada correctamente";
 		else return "Se ha producido algún error al insertar la pregunta.";
@@ -248,7 +248,7 @@ class na_areas{
 	public function deletePregunta($id){
 		$Sql = "DELETE FROM na_tareas_preguntas WHERE id_pregunta=".$id;
 		if (connection::execute_query($Sql)){ 
-			$Sql="DELETE FROM na_tareas_respuestas WHERE id_pregunta=".$id;
+			$Sql = "DELETE FROM na_tareas_respuestas WHERE id_pregunta=".$id;
 			connection::execute_query($Sql);
 			return "Pregunta eliminada correctamente";}
 		else return "Se ha producido algún error al eliminar la pregunta.";

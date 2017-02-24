@@ -24,7 +24,7 @@ $elements = usersPuntuacionesController::getListAction(100);
 					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
 				</ul>
 				<div class="table-responsive">
-					<table class="table">
+					<table class="table table-hover table-striped">
 						<tr>
 						<th><?php e_strTranslate("User");?></th>
 						<th><?php e_strTranslate("Nick");?></th>

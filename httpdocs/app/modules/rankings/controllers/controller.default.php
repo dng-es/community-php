@@ -154,7 +154,9 @@ class rankingsController{
 		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] > 0){
 			$rankings = new rankings();
 			$elements = $rankings->getRankingsDataSimple(" AND id_ranking=".intval($_REQUEST['exp'])." ");
-			exportCsv($elements);
+			download_send_headers("ranking_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
 		}
 	}
 }

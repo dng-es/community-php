@@ -323,8 +323,8 @@ function getForosActivos($id_area){
 		</td>';
 		echo '<td>'.$element['nombre'].'</td>';
 		echo '<td>'.$element['user'].'</td>';
-		echo '<td>'.$num_comentarios.'</td>';
-		echo '<td>'.$num_visitas.'</td>';   
+		echo '<td title="'.$num_comentarios.' '.strtolower(strTranslate("Comments")).'">'.$num_comentarios.'</td>';
+		echo '<td title="'.$num_visitas.' '.strtolower(strTranslate("Visits")).'">'.$num_visitas.'</td>';   
 		echo '</tr>';
 	endforeach;
 	echo '</table><br />';

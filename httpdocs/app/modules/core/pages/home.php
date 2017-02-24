@@ -52,7 +52,7 @@ $rankings = incentivosObjetivosController::getListAction(99, $filtro_perfil.$fil
 			</div>
 			<div class="col-md-4">
 				<?php panelDestacado();?>
-				<?php panelBlog2();?>
+				<?php panelBlog();?>
 				<?php panelFotos();?>
 				<?php panelVideos();?>
 				<?php panelNovedadesBanner();?>

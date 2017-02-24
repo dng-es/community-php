@@ -67,12 +67,12 @@ class usersController{
 	public static function deleteAction(){
 		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
 			$users = new users();
-			if ($users->disableUser($_REQUEST['id'])) {
+			$username = sanitizeInput($_REQUEST['id']);
+			if ($users->disableUser($username)) {
 				session::setFlashMessage('actions_message', "Usuario deshabilitado correctamente.", "alert alert-success");
 			}
-			else{
-				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
-			}
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
 			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
 			redirectURL("admin-users?pag=".$pag."&f=".$find_reg);

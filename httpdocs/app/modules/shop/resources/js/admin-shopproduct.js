@@ -11,31 +11,31 @@ jQuery(document).ready(function(){
 	$("#formData").submit(function(evento){
 		$(".alert-message").html("").css("display", "none");
 
-		var resultado_ok = true;
+		var form_ok = true;
 
 		if (jQuery.trim($("#date_ini_product").removeClass("input-alert").val())=="") {
-			$('#date_ini_product').addClass("input-alert").attr("placeholder",$('#date_ini_product').data("alert")).focus();
-			resultado_ok = false;
+			$('#date_ini_product').addClass("input-alert").attr("placeholder", $('#date_ini_product').data("alert")).focus();
+			form_ok = false;
 		}
 
 		if (jQuery.trim($("#date_fin_product").removeClass("input-alert").val())=="") {
-			$('#date_fin_product').addClass("input-alert").attr("placeholder",$('#date_fin_product').data("alert")).focus();
-			resultado_ok = false;
+			$('#date_fin_product').addClass("input-alert").attr("placeholder", $('#date_fin_product').data("alert")).focus();
+			form_ok = false;
 		}
 
 		if ($("#canal_product").val() == null){
 			$("#formData").find("[data-id='canal_product']").addClass("input-alert");
-			resultado_ok = false;
+			form_ok = false;
 		}
 		else $("#formData").find("[data-id='canal_product']").removeClass("input-alert");
 
 		if ($("#id_manufacturer").val() == ''){
 			$("#formData").find("[data-id='id_manufacturer']").addClass("input-alert");
-			resultado_ok = false;
+			form_ok = false;
 		}
 		else $("#formData").find("[data-id='id_manufacturer']").removeClass("input-alert");
 		
-		return resultado_ok;
+		return form_ok;
 	});
 
 	$.ajax({

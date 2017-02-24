@@ -25,20 +25,20 @@ $elements = usersParticipacionesController::getListAction(100);
 					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
 				</ul>
 				<div class="table-responsive">
-					<table class="table">
+					<table class="table table-hover table-striped">
 						<tr>
-						<th><?php e_strTranslate("User");?></th>
-						<th><?php e_strTranslate("Nick");?></th>
-						<th>Participación</th>
-						<th><?php e_strTranslate("Date");?></th>
+							<th><?php e_strTranslate("User");?></th>
+							<th><?php e_strTranslate("Nick");?></th>
+							<th>Participación</th>
+							<th><?php e_strTranslate("Date");?></th>
 						</tr>
 						<?php foreach($elements['items'] as $element): ?>
-							<tr>
+						<tr>
 							<td>&nbsp;<?php echo $element['participacion_username'];?></td>
 							<td><?php echo $element['nick'];?></td>
 							<td><?php echo $element['participacion_motivo'];?></td>
 							<td><?php echo getDateFormat($element['participacion_date'], "DATE_TIME");?></td>
-							</tr>
+						</tr>
 						<?php endforeach; ?>
 					</table>
 				</div>

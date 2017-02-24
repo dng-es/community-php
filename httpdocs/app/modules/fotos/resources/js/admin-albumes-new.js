@@ -16,11 +16,11 @@ jQuery(document).ready(function(){
 	});
 	
 	$("#form-album").submit(function(event){
-		var resultado_ok = true;
+		var form_ok = true;
 		if ($("#canal_album").removeClass("input-alert").val() == null){
 			$("#form-album").find("[data-id='canal_album']").addClass("input-alert");
-			resultado_ok = false;
+			form_ok = false;
 		}	
-		return resultado_ok;
+		return form_ok;
 	});
 });

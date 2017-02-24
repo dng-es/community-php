@@ -5,7 +5,10 @@
  * @return string       				Cadena limpiada
  */
 function sanitizeInput($text){
-	return str_replace("'","\'", $text);
+	$final_text = str_replace("'","\'", $text);
+	$final_text = str_replace("<script>","", $final_text);
+	$final_text = str_replace("</script>","", $final_text);
+	return $final_text;
 }
 
 /**
@@ -757,6 +760,11 @@ function prepareString($string){
 	return $string;
 }
 
+/**
+ * Returns a resume from string
+ * @param  string 	$post 		String to be resumed
+ * @return string       		Resume string
+ */
 function get_resume($post){
 	$resume_array = get_extended($post);
 	if (strlen($resume_array['extended']) > 0) $resume = $resume_array['main'];
@@ -800,5 +808,17 @@ function get_extended($post){
 	$more_text = preg_replace('/^[\s]*(.*)[\s]*$/', '\\1', $more_text);
 
 	return array( 'main' => $main, 'extended' => $extended, 'more_text' => $more_text );
+}
+
+/**
+ * Returns days number between two dates
+ * @param  date 	$date_ini 	Date start
+ * @param  date 	$date_end 	Date end
+ * @return int           		Days between $date_ini and $date_end
+ */
+function daysBetween($date_ini, $date_end){
+	$days = (strtotime($date_ini) - strtotime($date_end)) / 86400;
+	$days = floor($days);
+	return $days;
 }
 ?>

@@ -1,17 +1,17 @@
 jQuery(document).ready(function(){
 	$("#formData").submit(function(evento){
-		$(".alert-message").css("display", "none");
-		var resultado_ok = true;
-		
-		if (jQuery.trim($("#name").val()) == ""){
-			$("#nombre-alert").fadeIn().css("display", "block");
-			resultado_ok = false;
+		var form_ok = true;
+			
+		if (jQuery.trim($("#name").removeClass("input-alert").val()) == ""){
+			$('#name').addClass("input-alert").attr("placeholder", $('#name').data("alert")).focus();
+			form_ok = false;
 		}
 
-		if (jQuery.trim($("#desc").val()) == ""){
-			$("#descripcion-alert").fadeIn().css("display", "block");
-			resultado_ok = false;
-		}
-		return resultado_ok;
+		if (jQuery.trim($("#desc").removeClass("input-alert").val()) == ""){
+			$('#desc').addClass("input-alert").attr("placeholder", $('#desc').data("alert")).focus();
+			form_ok = false;
+		}				
+
+		return form_ok;
 	});
 });

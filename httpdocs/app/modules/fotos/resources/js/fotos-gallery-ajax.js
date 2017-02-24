@@ -9,15 +9,15 @@ jQuery(document).ready(function(){
 		/* Validaciones */
 		$(".alert-message").html("").css("display","none");
 
-		var resultado_ok=true;   
+		var form_ok = true;   
 		if (jQuery.trim($("#respuesta-texto").val()) == ""){
 			$("#respuesta-alert").html("Debes intruducir algo de texto.")
 							.fadeIn()
 							.css("display","block");
-			resultado_ok = false;
+			form_ok = false;
 		}
 
-		if (resultado_ok){
+		if (form_ok){
 			$.ajax({
 				type: 'POST',
 				url: 'app/modules/fotos/pages/gallery_process.php',

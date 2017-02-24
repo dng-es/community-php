@@ -72,26 +72,26 @@ jQuery(document).ready(function(){
 		e.preventDefault();
 		$("#nick-comentario, #asunto-comentario, #texto-comentario").removeClass("input-alert");
 
-		var resultado_ok = true,
+		var form_ok = true,
 			destinatario = jQuery.trim($("#nick-comentario").val()),
 			self = this;
 		if (destinatario == ""){
 			$("#nick-comentario").addClass("input-alert");
-			resultado_ok = false;
+			form_ok = false;
 		}
 		if (destinatario == jQuery.trim($("#remitente-comentario").val())){
 			$("#nick-comentario").addClass("input-alert");
-			resultado_ok = false;
+			form_ok = false;
 		}
 		
 		if (jQuery.trim($("#asunto-comentario").val()) == ""){
 			$("#asunto-comentario").addClass("input-alert");
-			resultado_ok = false;
+			form_ok = false;
 		}
 		
 		if (jQuery.trim($("#texto-comentario").val()) == ""){
 			$("#texto-comentario").addClass("input-alert");
-			resultado_ok = false;
+			form_ok = false;
 		}
 
 		//verificar usuario existe
@@ -106,12 +106,12 @@ jQuery(document).ready(function(){
 					$("#nick-comentario").addClass("input-alert");
 				}
 				else{
-					if (resultado_ok == true){self.submit();}
+					if (form_ok == true){self.submit();}
 				}
 			})
 			.fail(function(data){
 				$("#nick-comentario").addClass("input-alert");
-				/*resultado_ok=false;*/
+				/*form_ok = false;*/
 		});
 	});
 });

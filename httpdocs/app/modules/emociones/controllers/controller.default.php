@@ -63,7 +63,7 @@ class emocionesController{
 
 		$find_reg = (isset($_GET['f']) and $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = $emociones->countReg("emociones",$filtro);
+		$total_reg = connection::countReg("emociones",$filtro);
 		return array('items' => $emociones->getEmociones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -129,8 +129,10 @@ class emocionesController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$emociones = new emociones();
 			$elements = $emociones->getEmocionesUser("");
-			exportCsv($elements, "emociones");
-		}
+			download_send_headers("emociones_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}	
 	}
 
 	/**

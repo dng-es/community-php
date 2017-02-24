@@ -20,7 +20,7 @@ class infoCore{
 		$alerts_text = "";
 		if ($module_config['options']['show_alarms']):
 			$num_alerts = infoController::getAlerts();
-			$alerts_text = ($num_alerts>0 ? ' <span class="menu-alert" id="contador-documentos-header">'.$num_alerts.'</span>' : "");
+			$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" id="contador-documentos-header">'.$num_alerts.'</span>' : "");
 		endif;
 
 		if ($session->checkPageViewPermission("user-info-all", $_SESSION['user_perfil'], $user_permissions)){

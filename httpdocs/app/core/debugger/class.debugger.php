@@ -16,8 +16,14 @@ class debugger {
 	static public $num_warnings = 0;
 	static public $num_sql = 0;
 	static public $num_sql_error = 0;
+	static public $num_execution = 0;
 	static public $debugger_output = "screen"; //values: screen or file
 	static public $debugger_file = "errors.log"; //file name for errors log
+
+	//class constructor
+	public function __construct(){
+		debugger::$num_execution = microtime();
+	}
 
 	public static function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
 		if (!(error_reporting() & $errno)) {
@@ -77,21 +83,21 @@ class debugger {
 	public static function addScreenMessage($error_log){
 		$error_log = debugger::prepareJsText($error_log);
 
-		if ( $error_log['errtype']=='php'):
+		if ( $error_log['errtype'] == 'php'):
 			debugger::$num_warnings ++; ?>
 			var err_containner = document.createElement("div");
 			err_containner.className = "debugger-container-warning";
-			err_containner.innerHTML = '<ul class="errTrigger"><b><?php echo $error_log['errfile'];?></b> - Error(<?php echo $error_log['errno'];?>) in line: <?php echo $error_log['errline'];?> - <?php echo $error_log['errstr'];?> <li data-d="0"><div class="debugger-content-code"><b>Error Context</b><br /><pre><?php echo $error_log['errcontext'];?></pre></div><div class="debugger-content-code"><b>Error Backtrace</b><br /><pre><?php echo $error_log['errbacktrace'];?></pre></div></li></ul>';
+			err_containner.innerHTML = '<ul class="errTrigger"><b><?php echo $error_log['errfile'];?></b> - Error(<?php echo $error_log['errno'];?>) in line: <?php echo $error_log['errline'];?> - <?php echo str_replace("'", "\'", $error_log['errstr']);?> <li data-d="0"><div class="debugger-content-code"><b>Error Context</b><br /><pre><?php echo str_replace("'", "\'", $error_log['errcontext']);?></pre></div><div class="debugger-content-code"><b>Error Backtrace</b><br /><pre><?php echo str_replace("'", "\'", $error_log['errbacktrace']);?></pre></div></li></ul>';
 			document.getElementById("contentPhp").appendChild(err_containner);
 		<?php
-		elseif ( $error_log['errtype']=='sql'):
+		elseif ( $error_log['errtype'] == 'sql'):
 			debugger::$num_sql ++; ?>
 			var err_containner = document.createElement("div");
 			err_containner.className = "debugger-container-success";
 			err_containner.innerHTML = '<ul class="errTrigger"><b><?php echo $error_log['errfile'];?></b> - <?php echo $error_log['errstr'];?> </li></ul>';
 			document.getElementById("contentSql").appendChild(err_containner);
 		<?php			
-		elseif ( $error_log['errtype']=='sql_error'):
+		elseif ( $error_log['errtype'] == 'sql_error'):
 			debugger::$num_sql_error ++;?>
 			var err_containner = document.createElement("div");
 			err_containner.className = "debugger-container-danger";
@@ -124,15 +130,19 @@ class debugger {
 					init = function(){
 						createContainers();
 						<?php 
+
 						foreach(debugger::$errors_log as $error_log):
 							debugger::addScreenMessage($error_log);
-						endforeach; ?>
+						endforeach;
+						$execution_time = microtime() - debugger::$num_execution;
+						?>
 
-						var lblSqlError = "<?php echo debugger::$num_sql_error>0 ? '<span>'.debugger::$num_sql_error.'</span>' : debugger::$num_sql_error;?>",			
-							lblPhp = "<?php echo debugger::$num_warnings>0 ? '<span>'.debugger::$num_warnings.'</span>' : debugger::$num_warnings;?>",	
-							lblSql = "<?php echo debugger::$num_sql>0 ? '<span>'.debugger::$num_sql.'</span>' : debugger::$num_sql;?>";
+						var lblSqlError = "<?php echo debugger::$num_sql_error > 0 ? '<span>'.debugger::$num_sql_error.'</span>' : debugger::$num_sql_error;?>",			
+							lblPhp = "<?php echo debugger::$num_warnings > 0 ? '<span>'.debugger::$num_warnings.'</span>' : debugger::$num_warnings;?>",	
+							lblSql = "<?php echo debugger::$num_sql > 0 ? '<span>'.debugger::$num_sql.'</span>' : debugger::$num_sql;?>",
+							lblExecution = "<?php printf('%.5f sec', $execution_time);?>";
 						
-						createLabels (lblSqlError, lblPhp, lblSql);
+						createLabels (lblSqlError, lblPhp, lblSql, lblExecution);
 					}
 
 					elemListen = function (elem, event, fn) { 
@@ -190,7 +200,7 @@ class debugger {
 						document.body.appendChild(debugger_container);
 						
 						var destinoDebug = document.getElementById("debugger-content");
-						destinoDebug.innerHTML = "<div id='debugger-main'><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - <b>Sql queries:</b> <span id='num-sql' class='debugger-label'>0</span> <b>Warnings:</b> <span id='num-warnings' class='debugger-label'>0</span> <b>Sql errors:</b> <span id='num-sql-error' class='debugger-label'>0</span><a href='#' id='debugger-close'>close</a></div>";?>";		
+						destinoDebug.innerHTML = "<div id='debugger-main'><?php echo "PHP " . PHP_VERSION . " (" . PHP_OS . ") - <b>Sql queries:</b> <span id='num-sql' class='debugger-label'>0</span> <b>Warnings:</b> <span id='num-warnings' class='debugger-label'>0</span> <b>Sql errors:</b> <span id='num-sql-error' class='debugger-label'>0</span> <b>Execution time:</b> <span id='num-execution' class='debugger-label'>0</span><a href='#' id='debugger-close'>close</a></div>";?>";		
 						destinoDebug.style.display = "block";
 
 						var destinoSqlError =  document.createElement("div");
@@ -206,10 +216,11 @@ class debugger {
 						destinoDebug.appendChild(destinoSql);
 					}
 
-					createLabels = function(lblSqlError, lblPhp, lblSql){
+					createLabels = function(lblSqlError, lblPhp, lblSql, lblExecution){
 						createLabel ("num-sql-error", lblSqlError, "contentSqlError");
 						createLabel ("num-warnings", lblPhp, "contentPhp");
 						createLabel ("num-sql", lblSql, "contentSql");
+						createLabel ("num-execution", lblExecution, "contentExecution");
 
 						var errTriggers = document.getElementsByClassName("errTrigger");
 						listListen (errTriggers,"click", showErr);

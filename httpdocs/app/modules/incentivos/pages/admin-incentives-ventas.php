@@ -24,7 +24,7 @@ incentivosController::exportAction();
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-responsive">
-							<table class="table">
+							<table class="table table-hover table-striped">
 								<tr>
 									<th><?php e_strTranslate("Username");?></th>
 									<th><?php e_strTranslate("Incentives_product");?></th>

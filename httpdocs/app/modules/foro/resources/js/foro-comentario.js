@@ -24,15 +24,15 @@ jQuery(document).ready(function(){
 	});
 	
 	$("#coment-form").submit(function(evento){
-		var resultado_ok = true;
+		var form_ok = true;
 		if (jQuery.trim($('#texto-comentario').removeClass("input-alert").val()) == ""){
 			$('#texto-comentario').addClass("input-alert").attr("placeholder", $('#texto-comentario').prop("title")).focus();
-			resultado_ok = false;
+			form_ok = false;
 		}
 		if (document.getElementById('texto-comentario').value.length > maxsize_textarea){
-			resultado_ok = false;
+			form_ok = false;
 		}
-		return resultado_ok;
+		return form_ok;
 	});
 
 	$(".comment-reply-trigger").click(function(e){
@@ -44,13 +44,13 @@ jQuery(document).ready(function(){
 	$(".comment-reply-form").submit(function(evento){
 		$(".alert-message").css("display", "none");
 
-		var resultado_ok = true,
+		var form_ok = true,
 		elem = $(this).find('textarea');
 		if (jQuery.trim(elem.val()) == ""){
 			elem.next(".alert-message").fadeIn().css("display", "block");
-			resultado_ok = false;
+			form_ok = false;
 		}
-		return resultado_ok;
+		return form_ok;
 	});
 });
 

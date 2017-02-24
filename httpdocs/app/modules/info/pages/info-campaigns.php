@@ -11,7 +11,7 @@
 		$i = 0;
 		foreach($elements['items'] as $element):
 			$nun_docs = connection::countReg("info", " AND id_campaign=".$element['id_campaign']." ");
-			if ($i==0) echo '<div class="row">';?>
+			if ($i == 0) echo '<div class="row">';?>
 			<div class="col-md-3">
 				<div class="col-md-12 section full-height section-hover">
 					<section>
@@ -23,7 +23,7 @@
 					</section>
 				</div>
 			</div>
-			<?php if ($i==3){
+			<?php if ($i == 3){
 				echo '</div><br />';
 				$i = 0;
 			}

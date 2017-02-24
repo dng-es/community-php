@@ -39,10 +39,10 @@ class users{
 	}	
 
 	public function getUsersListado($filter = ""){
-		$Sql="SELECT u.username AS Usuario,u.nick AS Nick,u.name AS Nombre,u.surname AS Apellidos,u.email AS Email,u.telefono AS Telefono, u.empresa AS IdGroup,t.nombre_tienda AS NameGroup 
-			  FROM users u  
-			  LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
-			  WHERE 1=1 ".$filter; //echo "<br />".$Sql."<br />";
+		$Sql = "SELECT u.username AS Usuario,u.nick AS Nick,u.name AS Nombre,u.surname AS Apellidos,u.email AS Email,u.telefono AS Telefono, u.empresa AS IdGroup,t.nombre_tienda AS NameGroup 
+				FROM users u  
+				LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
+				WHERE 1=1 ".$filter; //echo "<br />".$Sql."<br />";
 		return connection::getSQL($Sql);  
 	}	
 
@@ -63,29 +63,29 @@ class users{
 	}	
 
 	public function insertUserEquipo($username, $empresa, $name_user, $surname, $email, $telefono){
-		$Sql="INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, 
-			  empresa, perfil, telefono, surname, user_comentarios, registered) 
-			  VALUES ('".$username."','".$username."','".$email."','".$name_user."',0,0,
-			  'comercial','".$empresa."','usuario','".$telefono."','".$surname."','',0)";
+		$Sql = "INSERT INTO users (username, user_password, email, name, confirmed, disabled, canal, 
+				empresa, perfil, telefono, surname, user_comentarios, registered) 
+				VALUES ('".$username."','".$username."','".$email."','".$name_user."',0,0,
+				'comercial','".$empresa."','usuario','".$telefono."','".$surname."','',0)";
 		return connection::execute_query($Sql);
 	}	
 
 	public function updateUserEquipo($username,$empresa){		 
-		$Sql="UPDATE users SET
-			 empresa='".$empresa."' 
-			 WHERE username='".$username."'"; //echo $Sql."<br />";
+		$Sql = "UPDATE users SET
+				empresa='".$empresa."' 
+				WHERE username='".$username."'"; //echo $Sql."<br />";
 		return connection::execute_query($Sql);
 	}	
 
 	public function reactivarUserEquipo($username, $empresa, $name_user, $surname, $email, $telefono){		 
-		$Sql="UPDATE users SET
-			 empresa='".$empresa."',
-			 name='".$name_user."',
-			 surname='".$surname."',
-			 email='".$email."',
-			 telefono='".$telefono."', 
-			 disabled=0  
-			 WHERE username='".$username."'"; //echo $Sql;
+		$Sql = "UPDATE users SET
+				empresa='".$empresa."',
+				name='".$name_user."',
+				surname='".$surname."',
+				email='".$email."',
+				telefono='".$telefono."', 
+				disabled=0  
+				WHERE username='".$username."'"; //echo $Sql;
 		return connection::execute_query($Sql);
 	}	
 
@@ -151,7 +151,7 @@ class users{
 		if ($motivo != PUNTOS_ACCESO_SEMANA_MOTIVO and $motivo != PUNTOS_FORO_SEMANA_MOTIVO) self::sumarParticipacion($username, $motivo, $puntos);
 
 		if (self::insertPuntuacion($username, $puntos, $motivo)){
-			$Sql ="UPDATE users SET 
+			$Sql = "UPDATE users SET 
 					puntos=puntos+".$puntos." 
 					WHERE username='".$username."'";
 			return connection::execute_query($Sql);
@@ -228,6 +228,7 @@ class users{
 			$Sql = "UPDATE users SET
 					registered=1,
 					confirmed=1,
+					date_confirmed=NOW(),
 					nick='".$nick."',
 					name='".$user_nombre."',
 					surname='".$user_apellidos."',
@@ -245,13 +246,6 @@ class users{
 	}
 
 	public function registerUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date, $user_empresa){
-		$nick = str_replace("'", "´", $nick);
-		$user_nombre = str_replace("'", "´", $user_nombre);
-		$user_apellidos = str_replace("'", "´", $user_apellidos);
-		$user_pass = str_replace("'", "´", $user_pass);
-		$user_email = str_replace("'", "´", $user_email);
-		$user_empresa = str_replace("'", "´", $user_empresa);
-
 		//verificar si el nick existe, Devolvera: 1->ok, 2-> Error SQL, 3->Nick existe,
 		if (connection::countReg("users"," AND nick='".$nick."' AND username<>'".$username."' ") == 0){
 			$nombre_archivo = "";
@@ -284,8 +278,8 @@ class users{
 
 	public function confirmRegistration($username, $user_email, $user_pass){
 		$Sql = "UPDATE users SET
-		confirmed=1 
-		WHERE sha1(username)='".$username."' AND sha1(user_password)='".$user_pass."' AND sha1(email)='".$user_email."'";	
+				confirmed=1 
+				WHERE sha1(username)='".$username."' AND sha1(user_password)='".$user_pass."' AND sha1(email)='".$user_email."'";	
 
 		return connection::execute_query($Sql);
 	}
@@ -337,9 +331,9 @@ class users{
 	}
 
 	public function updatePassword($username, $user_password){
-		$Sql = "UPDATE users SET
-			 user_password='".$user_password."'
-			 WHERE username='".$username."'";
+		$Sql = "UPDATE users SET 
+				user_password='".$user_password."'
+				WHERE username='".$username."'";
 		return connection::execute_query($Sql);
 	}
 
@@ -397,18 +391,6 @@ class users{
 				WHERE 1=1 ".$filter." 
 				GROUP BY empresa ".$extra;
 		return connection::getSQL($Sql);
-	}
-
-	public function getTotalEmpresas($filter = ""){
-		$Sql = "SELECT COUNT(DISTINCT empresa) AS total FROM users 
-				WHERE confirmed=1 AND disabled=0 AND empresa<>'' AND empresa<>'comunidad'";
-		$result = connection::execute_query($Sql);
-		
-		$users_data = array();  
-		while ($user_data = connection::get_result($result)){  
-			$users_data[] = $user_data;  
-		}
-		return $users_data[0]['total'];  
 	}
 
 	public function getTiendas($filter = ""){

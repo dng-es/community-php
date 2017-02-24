@@ -8,24 +8,24 @@ jQuery(document).ready(function(){
 	//verificación datos del formulario
 	$("#formAddAction").submit(function(evento){
 		$(".alert-message").html("").css("display","none");
-		var resultado_ok = true;
+		var form_ok = true;
 
 		if (jQuery.trim($("#text_alert").removeClass("input-alert").val()) == ""){
 			$('#text_alert').addClass("input-alert").attr("placeholder", $('#text_alert').data("alert")).focus();
-			resultado_ok = false;
+			form_ok = false;
 		}
 
 		if (jQuery.trim($("#date_ini").removeClass("input-alert").val()) == ""){
 			$('#date_ini').addClass("input-alert").attr("placeholder", $('#date_ini').data("alert")).focus();
-			resultado_ok = false;
+			form_ok = false;
 		}
 
 		if (jQuery.trim($("#date_fin").removeClass("input-alert").val()) == ""){
 			$('#date_fin').addClass("input-alert").attr("placeholder", $('#date_fin').data("alert")).focus();
-			resultado_ok = false;
+			form_ok = false;
 		}
 
-		return resultado_ok;
+		return form_ok;
 	});
 
 

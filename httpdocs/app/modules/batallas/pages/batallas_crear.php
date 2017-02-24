@@ -47,18 +47,18 @@ function getContrincante($puntos_batalla, $module_channels){
 				$("#form-batalla-fin").submit(function(e) {
 					e.preventDefault();
 					$(".alert-message").html("").css("display","none");
-					var resultado_ok = true;
+					var form_ok = true;
 					var name;
 					$('input[type="radio"]',this).each(function() {
 						if(name == $(this).attr("name")) return;
 						name = $(this).attr("name");
 						var checked = $(":radio[name="+name+"]:checked");
 						if(checked.length == 0) {
-							resultado_ok=false;
+							form_ok=false;
 						}
 					}); 
 
-					if (resultado_ok==true) this.submit();
+					if (form_ok == true) this.submit();
 					else{
 						$("#batalla-alert").html("Debes responder todas las preguntas.").fadeIn().css("display","block");
 						return false;

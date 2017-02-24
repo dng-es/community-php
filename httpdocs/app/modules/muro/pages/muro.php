@@ -28,7 +28,7 @@ $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user
 				var date2 = $(this).attr("data-date").replace(" ","T") + "Z";
 				var date = prettyDate(ahora,date2);
 				if (date) {
-						$(this).text(date);
+					$(this).text(date);
 				}
 			});
 

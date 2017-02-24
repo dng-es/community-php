@@ -88,8 +88,8 @@ addJavascripts(array(getAsset("foro")."js/admin-validacion-foro-temas.js"));
 						echo '</td>';
 						echo '<td>'.$element['user'].'</td>';
 						echo '<td>'.$element['canal'].'</td>';
-						echo '<td  class="text-center">'.$num_comentarios.'</td>';
-						echo '<td  class="text-center">'.$num_visitas.'</td>';
+						echo '<td  class="text-center" title="'.$num_comentarios.' '.strtolower(strTranslate("Comments")).'">'.$num_comentarios.'</td>';
+						echo '<td  class="text-center" title="'.$num_visitas.' '.strtolower(strTranslate("Visits")).'">'.$num_visitas.'</td>';
 						echo '</tr>';
 					endforeach;?>
 					</table>

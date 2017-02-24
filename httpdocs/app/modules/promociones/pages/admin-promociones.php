@@ -9,8 +9,8 @@ $elements = promocionesController::getListAction(35);
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
-			array("ItemLabel"=>strTranslate("Retos"), "ItemUrl"=>"#"),
-			array("ItemLabel"=>strTranslate("Listado de retos"), "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("promociones"), "ItemUrl"=>"admin-promociones"),
+			array("ItemLabel"=>strTranslate("promociones_list"), "ItemClass"=>"active"),
 		));
 		?>
 		<div class="panel panel-default">
@@ -28,8 +28,8 @@ $elements = promocionesController::getListAction(35);
 						<tr>
 						<th width="40px"></th>
 						<th><?php e_strTranslate("Name");?></th>
-						<th>Fotos</th>
 						<th>Videos</th>
+						<th>Fotos</th>
 						<th>Comentarios</th>
 						<th>Activo</th>
 						<th width="40px"></th>

@@ -8,7 +8,7 @@
 
 		session::getFlashMessage( 'actions_message' );
 		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal LIKE '%".$_SESSION['user_canal']."%' " : "");
-		$elements = agendaController::getListAction(4, $filtro_canal . " AND tipo=1 AND activo=1  ");
+		$elements = agendaController::getListAction(4, $filtro_canal . " AND tipo=1 AND activo=1 ORDER BY date_ini DESC,id_agenda DESC ");
 
 		foreach($elements['items'] as $element): ?>
 

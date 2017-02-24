@@ -12,8 +12,8 @@ templateload("cmbCanales","users");
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
-			array("ItemLabel"=>strTranslate("Reto"), "ItemUrl"=>"admin-blog"),
-			array("ItemLabel"=>"Entrada en el reto", "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("promociones_list"), "ItemUrl"=>"admin-promociones"),
+			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("promocion"), "ItemClass"=>"active"),
 		));
 
 		$id = intval(isset($_GET['id']) ? $_GET['id'] : 0);
@@ -63,28 +63,20 @@ templateload("cmbCanales","users");
 			<div class="panel panel-default">
 				<div class="panel-heading">Opciones del reto</div>
 				<div class="panel-body">
-	
-					<div class="radio">
-						<label>
-							<input type="radio" name="galeria_promocion" id="galeria_promocion1" value="comentarios" <?php echo ($comentarios ==1 ? 'checked' : '');?>>
-							Comentarios
-						</label>
+					<div class="radio radio-primary">
+						<input type="radio" id="galeria_promocion1" name="galeria_promocion" value="comentarios" <?php echo ($comentarios ==1 ? 'checked' : '');?>> 
+						<label>Comentarios</label>
 					</div>
 
-					<div class="radio">
-						<label>
-							<input type="radio" name="galeria_promocion" id="galeria_promocion2" value="fotos" <?php echo ($fotos ==1 ? 'checked' : '');?>>
-							Fotos
-						</label>
+					<div class="radio radio-primary">
+						<input type="radio" id="galeria_promocion2" name="galeria_promocion" value="fotos" <?php echo ($fotos ==1 ? 'checked' : '');?>> 
+						<label>Fotos</label>
 					</div>
 
-					<div class="radio">
-						<label>
-							<input type="radio" name="galeria_promocion" id="galeria_promocion3" value="videos" <?php echo ($videos ==1 ? 'checked' : '');?>>
-							Videos
-						</label>
+					<div class="radio radio-primary">
+						<input type="radio" id="galeria_promocion3" name="galeria_promocion" value="videos" <?php echo ($videos ==1 ? 'checked' : '');?>> 
+						<label>Videos</label>
 					</div>
-
 				</div>
 			</div>
 			<input type="submit" name="SubmitData" class="btn btn-primary btn-block" value="Guardar reto" />

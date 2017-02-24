@@ -6,33 +6,33 @@ jQuery(document).ready(function(){
 	$("#video-form").submit(function(evento){
 		$("#alertas-participa").css("display", "none");
 
-		var resultado_ok = true;
-		var texto_alerta = "";
+		var form_ok = true;
 		if (jQuery.trim($("#titulo-video").val()) == ""){
-			resultado_ok = false;
+			form_ok = false;
 		}
 
 		if (jQuery.trim($("#nombre-video").val()) == ""){
-			resultado_ok = false;
+			form_ok = false;
 		}
 
-		$("#cargando").show();
-
-		if (resultado_ok !== true){
+		if (form_ok !== true){
 			$("#alertas-participa").fadeIn().css("display", "block");
-			return false;
 		}
+		else $("#cargando").show();
+		
+		return form_ok;
+
 	});
 
 	$("#form-video-comment").submit(function(){
 		$(".alert-message").css("display", "none");
-		var resultado_ok = true; 
+		var form_ok = true; 
 
 		if (jQuery.trim($("#video-comentario").val()) == ""){
-			resultado_ok = false;
+			form_ok = false;
 		}
 
-		if (resultado_ok !== true){
+		if (form_ok !== true){
 			$("#video-comentario-alert").fadeIn().css("display", "block");
 			return false;
 		}

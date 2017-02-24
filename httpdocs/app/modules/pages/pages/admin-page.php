@@ -21,6 +21,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		$page_name = isset($_REQUEST['p']) ? $_REQUEST['p'] : (isset($_POST['page_name']) ? $_POST['page_name'] : "");
 		$pages = new pages();
 		$pagina = $pages->getPages(" AND page_name='".$page_name."' ");
+		$page_canal = (isset($pagina[0]['page_canal']) ? $pagina[0]['page_canal'] : "");
 		$page_title = (isset($pagina[0]['page_title']) ? $pagina[0]['page_title'] : "");
 		$page_content = (isset($pagina[0]['page_content']) ? $pagina[0]['page_content'] : "");
 		$page_menu = (isset($pagina[0]['page_menu']) ? $pagina[0]['page_menu'] : 0);

@@ -7,6 +7,7 @@ addJavascripts(array(getAsset("campaigns")."js/admin-campaigns-type.js"));
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"=home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Campaigns"), "ItemUrl"=>"admin-campaigns"),
+			array("ItemLabel"=>strTranslate("Campaign_types"), "ItemUrl"=>"admin-campaigns-types"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Campaign_types"), "ItemClass"=>"active"),
 		));
 		session::getFlashMessage('actions_message'); 
@@ -20,14 +21,12 @@ addJavascripts(array(getAsset("campaigns")."js/admin-campaigns-type.js"));
 					<input type="hidden" name="id" id="id" value="<?php echo $plantilla['id_campaign_type'];?>" />
 					<div class="form-group">
 						<label for="name"><?php e_strTranslate("Name");?>:</label>
-						<input type="text" name="name" id ="name" class="form-control" value="<?php echo $plantilla['campaign_type_name'];?>" />
-						<span id="nombre-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+						<input data-alert="<?php e_strTranslate("Required_field");?>" type="text" name="name" id ="name" class="form-control" value="<?php echo $plantilla['campaign_type_name'];?>" />
 					</div>
 
 					<div class="form-group">
 						<label for="desc"><?php e_strTranslate("Description");?>:</label>
-						<textarea class="form-control" rows="8" id="desc" name="desc"><?php echo $plantilla['campaign_type_desc'];?></textarea>
-						<span id="descripcion-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+						<textarea data-alert="<?php e_strTranslate("Required_field");?>" class="form-control" rows="8" id="desc" name="desc"><?php echo $plantilla['campaign_type_desc'];?></textarea>
 					</div>
 					<button class="btn btn-primary" id="SubmitData" name="SubmitData" type="submit"><?php e_strTranslate("Save_data");?></button>
 				</form>

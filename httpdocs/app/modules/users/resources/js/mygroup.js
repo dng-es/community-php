@@ -23,37 +23,37 @@ jQuery(document).ready(function(){
 	
 	//verificación datos del formulario
 	$("#add-form").submit(function(evento){
-		var resultado_ok=true;   
+		var form_ok = true;   
 		if (jQuery.trim($("#id_username").removeClass("input-alert").val())<=0) {
 				$('#id_username').addClass("input-alert").attr("placeholder",$('#id_username').data("alert")).focus();
-			resultado_ok=false;
+			form_ok = false;
 		}
 
 		
 		if (jQuery.trim($("#empresa_user").removeClass("input-alert").val())=="") {
-			resultado_ok=false;
+			form_ok = false;
 			$("#empresa_user").addClass("input-alert").attr("placeholder",$('#empresa_user').data("alert")).focus();
 		}
 
 		if (jQuery.trim($("#user-nombre").removeClass("input-alert").val())=="") {
 			$('#user-nombre').addClass("input-alert").attr("placeholder",$('#user-nombre').data("alert")).focus();
-			resultado_ok=false;
+			form_ok = false;
 		}
 
 		if (jQuery.trim($("#user-apellidos").removeClass("input-alert").val())=="") {
 				$('#user-apellidos').addClass("input-alert").attr("placeholder",$('#user-apellidos').data("alert")).focus();
-			resultado_ok=false;
+			form_ok = false;
 		}	 
 		if (validateEmail($("#user-email").removeClass("input-alert").val())==false) {
 				$('#user-email').addClass("input-alert").attr("placeholder",$('#user-email').data("alert")).focus();
-			resultado_ok=false;
+			form_ok = false;
 		}
 
 /*		if (jQuery.trim($("#telefono").removeClass("input-alert").val())=="") {
 			$('#telefono').addClass("input-alert").attr("placeholder",$('#telefono').data("alert")).focus();
-			resultado_ok=false;
+			form_ok=false;
 		}	*/
 	
-		return resultado_ok;
+		return form_ok;
 	});
 });

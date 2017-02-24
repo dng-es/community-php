@@ -30,7 +30,7 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
 				</ul>
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<div class="table-responsive">
 							<table class="table table-hover table-striped">
 								<tr>
@@ -40,14 +40,14 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 								<th><?php e_strTranslate("Type");?></th>
 								<th><?php e_strTranslate("Profile");?></th>
 								<th class="text-center">Ranking</th>
-								<th width="40px"></th>
 								</tr>
 								<?php foreach($elements['items'] as $element):?>
 									<tr>
 									<td nowrap="nowrap">
-										<span class="fa fa-ban icon-table" title="Eliminar"
-											onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-targets?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_objetivo'];?>&ref=<?php echo $element['referencia_acelerador'];?>', '<?php e_strTranslate("Are_you_sure");?>', '<?php e_strTranslate("Cancel_text");?>', '<?php e_strTranslate("Confirm_text");?>')">
-										</span>
+										<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+											onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-targets?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_objetivo'];?>&ref=<?php echo $element['referencia_acelerador'];?>', '<?php e_strTranslate("Are_you_sure");?>', '<?php e_strTranslate("Cancel_text");?>', '<?php e_strTranslate("Confirm_text");?>'); return false"><i class="fa fa-trash icon-table"></i>
+										</button>
+										<a href="admin-incentives-targets-detail?id=<?php echo $element['id_objetivo'];?>" class="btn btn-default btn-xs" title="detalle"><i class="fa fa-edit"></i></a>	
 									</td>
 									<td>
 										<?php echo $element['nombre_objetivo'];?><br />
@@ -58,13 +58,12 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 									<td><?php echo $element['tipo_objetivo'];?></td>
 									<td><?php echo $element['perfil_objetivo'];?></td>
 									<td class="text-center"><span class="label<?php echo ($element['ranking_objetivo'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['ranking_objetivo'] == 0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
-									<td><a href="admin-incentives-targets-detail?id=<?php echo $element['id_objetivo'];?>" class="btn btn-default btn-xs">detalle</a></td>
 									</tr>
 								<?php endforeach;?>
 							</table>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4><?php e_strTranslate("Incentives_targets_new");?></h4>

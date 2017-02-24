@@ -39,8 +39,9 @@ foroController::exportCommentsAction($filter);
 							 </td>';
 						echo '<td>'.$element['id_comentario'].'</td>';
 						echo '<td>
-								<p class="text-muted"><small>'.$element['user_comentario'].' ('.$element['canal'].') '.getDateFormat($element['date_comentario'], "SHORT").' - <b>'.strTranslate("Forum").'</b>: '.$element['nombre'].'</small><br />
-							<em class="text-primary">'.$element['comentario'].'</em></p>';
+								'.$element['comentario'].'<br />
+								<em class="legend">'.getDateFormat($element['date_comentario'], "LONG").'</em><br />
+								'.$element['user_comentario'].' ('.$element['canal'].')  - '.strTranslate("Forum").': '.$element['nombre'].'<br />';
 						echo '</tr>';
 					endforeach;?>
 					</table>

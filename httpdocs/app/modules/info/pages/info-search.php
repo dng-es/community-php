@@ -25,7 +25,7 @@
 		<?php if ($elements['total_reg'] == 0):?>
 		<div class="alert alert-warning">no existen documentos en la campaña</div>
 		<?php endif;?>
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
 
 	<div class="app-sidebar">

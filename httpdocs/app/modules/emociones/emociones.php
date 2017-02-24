@@ -38,7 +38,7 @@ class emocionesCore{
 			"LabelHeader" => "Modules",
 			"LabelSection" => strTranslate("Emotions"),
 			"LabelItem" => strTranslate("Emotions_list"),
-			"LabelUrl" => "admin-emocioines",
+			"LabelUrl" => "admin-emociones",
 			"LabelPos" => 1,
 		)));
 

@@ -125,17 +125,17 @@ jQuery(document).ready(function(){
 
 	$("#foto-form").submit(function(evento){
 		$("#alertas-participa").css("display", "none");
-		var resultado_ok = true;
+		var form_ok = true;
 		if (jQuery.trim($("#titulo-foto").val()) == ""){
 			$("#alertas-participa").fadeIn().css("display", "block");
-			resultado_ok = false;
+			form_ok = false;
 		}
 
 		if (jQuery.trim($("#nombre-foto").val()) == ""){
 			$("#alertas-participa").fadeIn().css("display", "block");
-			resultado_ok = false;
+			form_ok = false;
 		}
 
-		return resultado_ok;
+		return form_ok;
 	});
 });

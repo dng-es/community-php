@@ -31,7 +31,7 @@
 						<?php foreach($elements['items'] as $element):?>
 						<tr>
 							<td nowrap="nowrap">
-								<button type="button" class="btn btn-default btn-xs" title="Eliminar" onClick="Confirma('¿Seguro que deseas eliminar la página?', 'admin-pages?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['page_name'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate('Delete');?>" onClick="Confirma('¿Seguro que deseas eliminar la página?', 'admin-pages?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['page_name'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
 								</button>
 								<button type="button" class="btn btn-default btn-xs" title="Ver/editar" onClick="location.href='admin-page?p=<?php echo $element['page_name'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
 								</button>

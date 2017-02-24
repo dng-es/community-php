@@ -5,12 +5,12 @@ $(document).ready(function(){
 	});
 
 	$("#muro-form").submit(function(){
-		var resultado_ok = true;
+		var form_ok = true;
 		if (jQuery.trim($("#texto-comentario").removeClass("input-alert").val()) == ""){
 			$('#texto-comentario').addClass("input-alert").attr("placeholder", $('#texto-comentario').data("alert")).focus();
-			resultado_ok = false;
+			form_ok = false;
 		}
-		return resultado_ok;
+		return form_ok;
 	});
 
 	$(".murogusta").tooltip({placement:"top"}).click(function(e){

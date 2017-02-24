@@ -1,5 +1,8 @@
 <?php
+set_time_limit(0);
+ini_set('memory_limit', '-1');
 infoController::getZipAction();
+
 addJavascripts(array("js/bootstrap.file-input.js", getAsset("info")."js/admin-info-doc.js"));
 $elements = infoController::getItemAction(intval($_GET['id']));
 ?>

@@ -42,7 +42,7 @@ templateload("addalert", "alerts");
 								<?php foreach($elements['items'] as $element):?>
 									<tr>
 									<td nowrap="nowrap">
-										<button type="button" class="btn btn-default btn-xs" title="Eliminar"
+										<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
 											onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-alerts?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_alert'];?>'); return false"><i class="fa fa-trash icon-table"></i>
 										</button>
 									</td>

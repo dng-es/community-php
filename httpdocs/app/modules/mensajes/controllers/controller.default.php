@@ -19,12 +19,12 @@ class mensajesController{
 	public static function getListSentAction($reg = 0, $filtro = "", $find_reg = ""){
 		$mensajes = new mensajes();
 		if (isset($_POST['find_reg'])) $find_reg = $_POST['find_reg'];
-		if (isset($_REQUEST['f'])) $find_reg=$_REQUEST['f'];
+		if (isset($_REQUEST['f'])) $find_reg = $_REQUEST['f'];
 		if ($find_reg != "") $filtro = " AND (mensaje_cuerpo LIKE '%".sanitizeInput($find_reg)."%' OR asunto_mensaje LIKE '%".sanitizeInput($find_reg)."%') ";
 		$filtro .= " AND user_remitente='".$_SESSION['user_name']."' AND estado_remitente=0 ORDER BY date_mensaje DESC ";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("mensajes",$filtro);
+		$total_reg = connection::countReg("mensajes", $filtro);
 		return array('items' => $mensajes->getMensajesEnviados($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -45,10 +45,10 @@ class mensajesController{
 												$nick,
 												$asunto,
 												$mensaje);
-			if ($respuesta==0) session::setFlashMessage( 'actions_message', strTranslate("Mailing_sent_ok"), "alert alert-success");
-			elseif ($respuesta == 2) session::setFlashMessage( 'actions_message', "No se encuentra el destinatario ".$_POST['nick-comentario'].".", "alert alert-danger");
-			elseif ($respuesta == 3) session::setFlashMessage( 'actions_message', strTranslate("Mailing_sent_yourself"), "alert alert-danger");
-			else session::setFlashMessage( 'actions_message', strTranslate("Error"), "alert alert-danger");
+			if ($respuesta == 0) session::setFlashMessage('actions_message', strTranslate("Mailing_sent_ok"), "alert alert-success");
+			elseif ($respuesta == 2) session::setFlashMessage('actions_message', "No se encuentra el destinatario ".$_POST['nick-comentario'].".", "alert alert-danger");
+			elseif ($respuesta == 3) session::setFlashMessage('actions_message', strTranslate("Mailing_sent_yourself"), "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error"), "alert alert-danger");
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
 	}
@@ -81,14 +81,14 @@ class mensajesController{
 
 	public static function deleteUserAction($id, $user_type){
 		if (self::verifyOwner($id, $user_type)) self::deleteAction($id, $user_type);
-		else session::setFlashMessage( 'actions_message', strTranslate("Error"), "alert alert-danger");
+		else session::setFlashMessage('actions_message', strTranslate("Error"), "alert alert-danger");
 	}
 
 	public static function deleteAction($id, $user_type){
 		$mensajes = new mensajes();
 		$function_delete = ($user_type == 'user_destinatario' ? "deleteMensajeRecibido": "deleteMensajeEnviado");
 		if ($mensajes->$function_delete($id)) session::setFlashMessage( 'actions_message', strTranslate("Mailing_delete_ok"), "alert alert-success");
-		else session::setFlashMessage( 'actions_message', strTranslate("Error"), "alert alert-danger");
+		else session::setFlashMessage('actions_message', strTranslate("Error"), "alert alert-danger");
 	}
 
 	/**

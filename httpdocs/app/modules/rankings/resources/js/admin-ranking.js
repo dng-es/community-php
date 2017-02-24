@@ -2,12 +2,13 @@ jQuery(document).ready(function(){
 	$('#fichero').bootstrapFileInput();
 
 	$("#formRanking").submit(function(evento){
-		$(".alert-message").css("display","none");
 		var form_ok = true;
-		if (jQuery.trim($("#nombre").val()) == ""){
-			$("#nombre-alert").fadeIn().css("display", "block");
+
+		if (jQuery.trim($("#nombre").removeClass("input-alert").val()) == ""){
+			$('#nombre').addClass("input-alert").attr("placeholder", $('#nombre').data("alert")).focus();
 			form_ok = false;
 		}
+		
 		return form_ok;
 	});
 });

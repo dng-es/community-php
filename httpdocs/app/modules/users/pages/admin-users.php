@@ -48,14 +48,14 @@ $elements = usersController::getListAction(35);
 						<th><?php e_strTranslate("Channel");?></th>
 						<th><?php e_strTranslate("Group_user");?></th>
 						<th>Email</th>
-						<th><?php e_strTranslate("Confirmed");?></th>
-						<th><?php e_strTranslate("Disabled");?></th>
+						<th class="text-center"><?php e_strTranslate("Confirmed");?></th>
+						<th class="text-center"><?php e_strTranslate("Disabled");?></th>
 						<th width="40px"></th>
 						</tr>	
 						<?php foreach($elements['items'] as $element):?>
 							<tr>
 							<td nowrap="nowrap">
-								<button type="button" class="btn btn-default btn-xs" title="Eliminar"
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
 									onClick="Confirma('¿Seguro que desea deshabilitar al usuario?', 'admin-users?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['username'];?>'); return false"><i class="fa fa-trash icon-table"></i>
 								</button>
 								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-user?id=<?php echo $element['username'];?>'; return false;"><i class="fa fa-edit icon-table"></i>
@@ -69,8 +69,8 @@ $elements = usersController::getListAction(35);
 							<td><?php echo $element['canal'];?></td>
 							<td><?php echo $element['nombre_tienda'];?></td>
 							<td><?php echo $element['email'];?></td>
-							<td><span class="label<?php echo ($element['confirmed'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['confirmed'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
-							<td><span class="label<?php echo ($element['disabled'] == 1 ? " label-danger" : " label-success");?>"><?php echo ($element['disabled'] == 0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
+							<td class="text-center"><span class="label<?php echo ($element['confirmed'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['confirmed'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
+							<td class="text-center"><span class="label<?php echo ($element['disabled'] == 1 ? " label-danger" : " label-success");?>"><?php echo ($element['disabled'] == 0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
 							<td><button type="button" class="btn btn-default btn-xs connect-as" title="<?php e_strTranslate("Connect_as");?>" data-u="<?php echo $element['username'];?>" data-p="<?php echo $element['user_password'];?>"><i class="fa fa-plug"></i></button></td>
 							</tr>
 						<?php endforeach; ?>

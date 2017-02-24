@@ -15,40 +15,40 @@ jQuery(document).ready(function(){
 
 	$(".enviarButton").click(function(evento){
 		$(".alert-message").css("display", "none");
-		var resultado_ok = true;
+		var form_ok = true;
 		var identificador = $(this).attr("name");
 		var identificador_fichero = "#nombre-fichero-" + identificador;
 		var identificador_alerta = "#fichero-comentario-alert-" + identificador;
 		var identificador_form="#data-" + identificador;
 		if (jQuery.trim($(identificador_fichero).val()) == ""){
 			$(identificador_alerta).html("Debe insertar un archivo.").fadeIn().css("display", "block");
-			resultado_ok = false;
+			form_ok = false;
 		}
-		if (resultado_ok == true){
+		if (form_ok == true){
 			$(identificador_form).submit();
 		}
 	});
 
 	$("#grupoSubmit").click(function(evento){
 		$(".alert-message").css("display", "none");
-		var resultado_ok = true;
+		var form_ok = true;
 		if (jQuery.trim($("#nombre-grupo").val()) == ""){
 			$("#nombre-grupo-alert").html("Debes introducir el nombre del grupo.").fadeIn().css("display", "block");
-			resultado_ok = false;
+			form_ok = false;
 		}			
-		if (resultado_ok == true){
+		if (form_ok == true){
 			$("#grupo-crear").submit();
 		}
 	});
 
 	$("#invitacionSubmit").click(function(evento){
 		$(".alert-message").css("display", "none");
-		var resultado_ok = true;
+		var form_ok = true;
 		if (jQuery.trim($("#user-nick").val()) == ""){
 			$("#nick-alert").html("Debes introducir el nick del usuario al que quieres invitar.").fadeIn().css("display", "block");
-			resultado_ok = false;
+			form_ok = false;
 		}			
-		if (resultado_ok == true){
+		if (form_ok == true){
 			$("#grupo-invitar").submit();
 		}
 	});

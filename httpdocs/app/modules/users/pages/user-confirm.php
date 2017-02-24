@@ -17,14 +17,14 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 			$users = new users();
 			$comentarios = sanitizeInput($_POST['user-piensas']);
 			$confirmar=$users->confirmUser($_POST['user-username'],
-											$_POST['user-nick'],
-											$_POST['user-nombre'],
-											$_POST['user-apellidos'],
-											$_POST['user-pass'],
-											$_POST['user-email'],
+											trim(sanitizeInput($_POST['user-nick'])),
+											trim(sanitizeInput($_POST['user-nombre'])),
+											trim(sanitizeInput($_POST['user-apellidos'])),
+											trim(sanitizeInput($_POST['user-pass'])),
+											trim(sanitizeInput($_POST['user-email'])),
 											$_FILES['nombre-fichero'],
 											$comentarios,
-											$_POST['user-date']);
+											trim(sanitizeInput($_POST['user-date'])));
 			if ($confirmar ==1 ){?>
 				<p><?php e_strTranslate("Confirmation_message");?> .</p>
 				<br />

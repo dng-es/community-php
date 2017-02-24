@@ -51,8 +51,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 								<div class="row">
 									<div class="col-md-6">
 										<label for="nombre"><small><?php e_strTranslate("Name");?>:</small></label>
-										<input type="text" name="nombre" id ="nombre" class="form-control" value="<?php echo $ranking_nombre;?>" />
-										<div class="alert-message alert alert-danger" id="nombre-alert">Introduce el nombre del ranking</div>
+										<input data-alert="<?php e_strTranslate("Required_field");?>" type="text" name="nombre" id ="nombre" class="form-control" value="<?php echo $ranking_nombre;?>" />
 									</div>
 
 									<div class="col-md-6">

@@ -11,7 +11,7 @@ class muro{
 		$Sql = "INSERT INTO muro_comentarios (canal,comentario,user_comentario,estado,tipo_muro,seccion_comentario) VALUES 
 				('".$canal."','".$texto_comentario."','".$usuario."',".$estado.",'".$tipo."','".$tipo_comentario."')";
 		if (connection::execute_query($Sql)){ 
-			if ($estado==1){users::sumarPuntos($usuario, PUNTOS_MURO, PUNTOS_MURO_MOTIVO);}
+			if ($estado == 1){users::sumarPuntos($usuario, PUNTOS_MURO, PUNTOS_MURO_MOTIVO);}
 			return 1;
 		}
 		else return 2;

@@ -57,7 +57,6 @@ class session{
 	 * @return array 						Array with permissions
 	 */
 	public function checkPagePermission($pagename, $username){
-		//return array_filter($this->user_permissions, function ($var){ global $page; return ($var['pagename']==$page);} );
 		return array_values(array_filter($this->user_permissions, function($arrayValue) use($pagename) { return $arrayValue['pagename'] == $pagename; }));
 	}
 
@@ -99,7 +98,7 @@ class session{
 			else{
 				if (strpos($page, 'admin') === 0) return false;
 				elseif (strpos($page, 'supervisor') === 0 and $user_perfil === 'supervisor') return true;
-				elseif (strpos($page, 'supervisor')===0 and $user_perfil!=='supervisor') return false;
+				elseif (strpos($page, 'supervisor') === 0 and $user_perfil !== 'supervisor') return false;
 				else return true;
 			}
 		}

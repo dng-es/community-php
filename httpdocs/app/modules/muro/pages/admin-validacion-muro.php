@@ -26,6 +26,7 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 							<th width="40px">&nbsp;</th>
 							<th>ID</th>
 							<th><?php e_strTranslate("Comment");?></th>
+							<th><?php e_strTranslate("Channel");?></th>
 						</tr>
 						<?php foreach($elements['items'] as $element):
 							echo '<tr>';
@@ -37,9 +38,11 @@ $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('
 								</td>';
 							echo '<td>'.$element['id_comentario'].'</td>';
 							echo '<td>
-								<p class="text-muted"><small>'.$element['user_comentario'].' ('.$element['canal_comentario'].') '.getDateFormat($element['date_comentario'], "DATE_TIME").'</small><br />
-								<em class="text-primary">'.$element['comentario'].'</em></p>
+								'.$element['comentario'].'<br />
+								<em class="legend">'.getDateFormat($element['date_comentario'], "DATE_TIME").'</em><br />
+								'.$element['user_comentario'].'
 								</td>';
+							echo '<td>'.$element['canal_comentario'].'</td>';
 							echo '</tr>';
 						endforeach;?>
 					</table>

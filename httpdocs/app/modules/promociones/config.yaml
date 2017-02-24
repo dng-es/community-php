@@ -1,4 +1,5 @@
 ---
 options:
-    show_user_menu: false
+    show_user_menu: true
     user_menu_position: 2
+channels: null

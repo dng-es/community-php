@@ -13,7 +13,7 @@ templateload("tags","agenda");
 
 		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal LIKE '%".$_SESSION['user_canal']."%' " : "");
 		$filtro_tags = ((isset($_REQUEST['f']) and $_REQUEST['f'] <> '') ? " AND etiquetas LIKE '%".$_REQUEST['f']."%' " : '');
-		$elements = agendaController::getListAction(4, $filtro_canal.$filtro_tags. " AND tipo=2 AND activo=1  ");
+		$elements = agendaController::getListAction(4, $filtro_canal.$filtro_tags. " AND tipo=2 AND activo=1  ORDER BY date_ini DESC,id_agenda DESC ");
 
 		foreach($elements['items'] as $element): ?>
 		<div class="row">
@@ -72,7 +72,8 @@ templateload("tags","agenda");
 			ksort($tags);
 
 			foreach(array_keys($tags) as $key){
-				$valor_relativo = round((($tags[$key] - $valor_min) / $diferencia) * 10);
+				if ($diferencia > 0) $valor_relativo = round((($tags[$key] - $valor_min) / $diferencia) * 10);
+				else $valor_relativo = 1;
 				echo '<a href="ofertas?f='.$key.'" class="tag'.$valor_relativo.'">'.$key.'</a> ';
 			}
 
