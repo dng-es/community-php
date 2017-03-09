@@ -11,7 +11,6 @@ addJavascripts(array("js/bootstrap-textarea.js",
 $filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal LIKE '%".$_SESSION['user_canal']."%' " : "");
 $filtro_blog = $filtro_canal." AND activo=1 ";
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -33,7 +32,7 @@ $filtro_blog = $filtro_canal." AND activo=1 ";
 
 		echo '<div class="message-form" id="alertas-mensajes" style="display: none"></div>';
 
-		if (isset($id_tema) and $id_tema != ""){
+		if (isset($id_tema) && $id_tema != ""){
 			//buscador
 			if (isset($_POST['find_reg'])){
 				$filtro_comentarios = " AND c.id_tema=".$_POST['find_reg']." ";
@@ -42,13 +41,13 @@ $filtro_blog = $filtro_canal." AND activo=1 ";
 			if (isset($id_tema)){
 				$filtro_comentarios = " AND c.id_tema=".$id_tema." ";
 				$find_reg = $id_tema;
-			} 
+			}
 			if ($filtro_comentarios == "") $filtro_comentarios = " AND c.id_tema=0 ";
 			$filtro_comentarios .= " AND estado=1 ";
 
 			//paginador. Valor muy alto de $reg para que se muestren todos los comentarios
 			$reg = 999999;
-			if (isset($_GET["pag"]) and $_GET["pag"] != "") $pag = $_GET["pag"];
+			if (isset($_GET["pag"]) && $_GET["pag"] != "") $pag = $_GET["pag"];
 			if (!isset($pag)){
 				$inicio = 0;
 				$pag = 1;
@@ -118,7 +117,7 @@ $filtro_blog = $filtro_canal." AND activo=1 ";
 			endforeach;
 			$filtro_etiquetas = substr($filtro_etiquetas, 3);
 			$filtro_etiquetas = " AND (".$filtro_etiquetas.") AND id_tema<>".$tema['id_tema']." ";
-			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ".$filtro_etiquetas." ORDER BY rand() DESC LIMIT 4 "); 
+			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ".$filtro_etiquetas." ORDER BY rand() DESC LIMIT 4 ");
 			if (count($elements) > 0){
 				echo '<h4>
 					<span class="fa-stack fa-lg text-muted">
@@ -153,7 +152,7 @@ $filtro_blog = $filtro_canal." AND activo=1 ";
 				</span>
 				<?php e_strTranslate("Last_blog");?>
 			</h4>
-			<?php 			
+			<?php 
 			$elements = $foro->getTemas($filtro_blog." AND ocio=1 AND activo=1 ORDER BY id_tema DESC LIMIT 3 ");
 			entradasBlog($elements);
 			?>

@@ -18,7 +18,7 @@ if (isset($_POST['nombre'])){
 }
 
 //OBTEBNER ALBUMES
-if (isset($_REQUEST['albums']) and $_REQUEST['albums'] == true){
+if (isset($_REQUEST['albums']) && $_REQUEST['albums'] == true){
 	$fotos = new fotos();
 	$elements = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album ");?>
 	<option value="0">---Selecciona el album---</option>

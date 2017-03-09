@@ -33,7 +33,7 @@ class mensajesController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['texto-comentario']) and $_POST['texto-comentario'] != ""){
+		if (isset($_POST['texto-comentario']) && $_POST['texto-comentario'] != ""){
 			$mensajes = new mensajes();
 			$nick = sanitizeInput($_POST['nick-comentario']);
 			$asunto = sanitizeInput($_POST['asunto-comentario']);
@@ -54,7 +54,7 @@ class mensajesController{
 	}
 
 	public static function createNickAction(){
-		if (isset($_REQUEST['n']) and $_REQUEST['n'] != ''){
+		if (isset($_REQUEST['n']) && $_REQUEST['n'] != ''){
 			echo '
 			<script>
 			$(document).ready(function(){
@@ -66,14 +66,14 @@ class mensajesController{
 	}
 
 	public static function deleteRecibidoAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'ko'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'ko'){
 			self::deleteUserAction(intval($_REQUEST['id']), 'user_destinatario');
 			redirectURL("inbox");
 		}
 	}
 
 	public static function deleteEnviadoAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'ko'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'ko'){
 			self::deleteUserAction(intval($_REQUEST['id']), 'user_remitente');
 			redirectURL("sent-items");
 		}

@@ -1,27 +1,20 @@
 <?php
+$filtro = " AND estado=1 ORDER BY id_file DESC";
+videosController::exportListAction($filtro);
 addJavascripts(array(getAsset("videos")."js/admin-videos.js"));
 
 $videos = new videos();
 $find_reg = "";
-$filtro = " AND estado=1 ORDER BY id_file DESC";
-if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') $videos->cambiarEstado($_REQUEST['id'],2);
-
-//EXPORT EXCEL - SHOW AND GENERATE
-if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
-	$elements = $videos->getVideos($filtro);
-	download_send_headers("data_" . date("Y-m-d") . ".csv");
-	echo array2csv($elements);
-	die();
-}
+if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del') $videos->cambiarEstado($_REQUEST['id'],2);
 
 //SHOW PAGINATOR
 $reg = 25;
-if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
+if (isset($_GET["pag"])) $pag = $_GET["pag"];
 if (!isset($pag)) { $inicio = 0; $pag = 1;}
-else { $inicio = ($pag - 1) * $reg;}
+else $inicio = ($pag - 1) * $reg;
 $total_reg = connection::countReg("galeria_videos",$filtro);
 
-$elements=$videos->getVideos($filtro.' LIMIT '.$inicio.','.$reg);
+$elements = $videos->getVideos($filtro.' LIMIT '.$inicio.','.$reg);
 ?>
 
 <div class="row row-top">

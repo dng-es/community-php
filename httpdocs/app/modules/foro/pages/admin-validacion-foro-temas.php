@@ -1,6 +1,6 @@
 <?php
-$filtro_temas = (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") ? " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' " : "";
-$find_tipo = (isset($_POST['tipo_search']) and $_POST['tipo_search'] != "") ? $_POST['tipo_search'] : "";
+$filtro_temas = (isset($_POST['tipo_search']) && $_POST['tipo_search'] != "") ? " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' " : "";
+$find_tipo = (isset($_POST['tipo_search']) && $_POST['tipo_search'] != "") ? $_POST['tipo_search'] : "";
 
 $find_reg = "";
 if (isset($_POST['find_reg'])){

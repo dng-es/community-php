@@ -1,6 +1,6 @@
 <?php
 addJavascripts(array(getAsset("cuestionarios")."js/cuestionario.js"));
-$id_cuestionario = intval((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id'] : 0);
+$id_cuestionario = intval((isset($_REQUEST['id']) && $_REQUEST['id'] != 0) ? $_REQUEST['id'] : 0);
 
 $filter = ($_SESSION['user_perfil'] == 'admin' ? "" : " AND activo=1 ");
 $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter);
@@ -25,15 +25,15 @@ $cuestionario = cuestionariosController::getItemAction($id_cuestionario, $filter
 		if ($finalizados > 0){
 			//obtener resultado de la valoracion
 			$valoracion = $cuestionarios->getFormulariosFinalizados(" AND user_tarea='".$_SESSION['user_name']."' AND id_cuestionario=".$id_cuestionario);
-			if (count($valoracion)>0){
-				if ($valoracion[0]['revision'] == 1){ $msg = "Has conseguido un <b>".$valoracion[0]['puntos']."</b> en este cuestionario";}
-				if ($valoracion[0]['revision'] == 0){ $msg = "Tus respuestas serán revisadas. Muy pronto podrás consultar la puntuación obtenida accediendo al cuestionario.";}
+			if (count($valoracion) > 0){
+				if ($valoracion[0]['revision'] == 1) $msg = "Has conseguido un <b>".$valoracion[0]['puntos']."</b> en este cuestionario";
+				if ($valoracion[0]['revision'] == 0) $msg = "Tus respuestas serán revisadas. Muy pronto podrás consultar la puntuación obtenida accediendo al cuestionario.";
 			}
 			echo '<div class="alert alert-info"><span class="fa fa-info-circle"></span> '.$msg.'</div>';
 		}
 
-		if (count($elements)>0){
-			if ($finalizados==0){
+		if (count($elements) > 0){
+			if ($finalizados == 0){
 			echo '<form action="" method="post" name="formTarea" id="formTarea" role="form" >
 					<input type="hidden" id="type-save" name="type-save" value="" />
 					<input type="hidden" id="id_cuestionario" name="id_cuestionario" value="'.$id_cuestionario.'" />';

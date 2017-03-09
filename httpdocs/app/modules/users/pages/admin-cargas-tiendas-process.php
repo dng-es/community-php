@@ -59,7 +59,8 @@ function volcarMySQL($data){
 		$provincia_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][9])));
 		$telefono_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][10])));
 		$email_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][11])));
-		$activa = (int)$data->sheets[0]['cells'][$fila][12];
+		$territorial_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][12])));
+		$activa = (int)$data->sheets[0]['cells'][$fila][13];
 
 		if (strtoupper($tipo_tienda) == 'FRANQUICIA') $empresa_usuarios = "0002";
 		else $empresa_usuarios = "0003";
@@ -68,12 +69,12 @@ function volcarMySQL($data){
 			//VERIFICAR QUE EXISTA LA TIENDA PARA ALTA Y ACTUALIZACION
 			if (connection::countReg("users_tiendas", " AND cod_tienda='".$cod_tienda."' ") > 0){
 				//actualizar tienda	
-				$users->updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa);
+				$users->updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $territorial_tienda, $activa);
 				$contador_update++;
 			}
 			else{
 				//insertar_tienda
-				$users->insertTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa);
+				$users->insertTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $territorial_tienda, $activa);
 				$contador_insert++;
 			}
 
@@ -81,14 +82,14 @@ function volcarMySQL($data){
 			if ($activa == 0) $users->disableUsersTiendas($cod_tienda);
 			else{
 				//VERIFICAR QUE EXISTA EL REGIONAL PARA ALTA O MODIFICACION DE DATOS
-				if ($regional_tienda != "" and connection::countReg("users", " AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ") == 0){
+				if ($regional_tienda != "" && connection::countReg("users", " AND TRIM(UCASE(username))=TRIM('".$regional_tienda."') ") == 0){
 					//insertar usuario
 					$users->insertUser($regional_tienda, $regional_tienda, "", "", 0, 0, "", $empresa_usuarios, '', CANAL_DEF, 'regional', '', '', '', '', 0);
 				}
 				else $users->updateJerarquiaUsers($regional_tienda, 'regional', $empresa_usuarios);
 
 				//VERIFICAR QUE EXISTA EL RESPONSABLE PARA ALTA O MODIFICACION DE DATOS
-				if ($responsable_tienda != "" and connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ") == 0){
+				if ($responsable_tienda != "" && connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ") == 0){
 					//insertar usuario
 					$users->insertUser($responsable_tienda, $responsable_tienda, "", "", 0, 0, "", $empresa_usuarios, '', CANAL_DEF, 'responsable', '', '', '', '', 0);
 				}

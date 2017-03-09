@@ -4,8 +4,7 @@ function showBatallas($tipo, $total_reg, $usuario){
 	$users = new users();
 	$filtro = "";
 	$tipo_filtro = "";
-	$p=0; //indica la pestaña que hay que mostar en el paginador
-
+	$p = 0; //indica la pestaña que hay que mostar en el paginador
 	$reg = 3;
 	if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
 	if (!isset($pag)) { $inicio = 0; $pag = 1;}
@@ -15,25 +14,25 @@ function showBatallas($tipo, $total_reg, $usuario){
 	case "ganadas":
 		$filtro =  " AND finalizada=1 AND ganador='".$_SESSION['user_name']."' ";
 		$tipo_filtro = $tipo;
-		if (isset($_REQUEST['f']) and $_REQUEST['f'] != 1) {$inicio = 0; $pag = 1;}
+		if (isset($_REQUEST['f']) && $_REQUEST['f'] != 1) {$inicio = 0; $pag = 1;}
 		$p=1;
 		break;
 	case "perdidas":
 		$filtro =  " AND finalizada=1 AND ganador<>'' AND ganador<>'".$_SESSION['user_name']."' AND (user_create='".$_SESSION['user_name']."' OR user_retado='".$_SESSION['user_name']."') ";
 		$tipo_filtro = $tipo;
-		if (isset($_REQUEST['f']) and $_REQUEST['f'] != 2) {$inicio = 0; $pag = 1;}
+		if (isset($_REQUEST['f']) && $_REQUEST['f'] != 2) {$inicio = 0; $pag = 1;}
 		$p=2;
 		break;
 	case "pendientes usuario":
 		$filtro =  " AND finalizada=0 AND user_retado='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$_SESSION['user_name']."' ) ";
 		$tipo_filtro = "pendientes-usuario";
-		if (isset($_REQUEST['f']) and $_REQUEST['f'] != 3) {$inicio = 0; $pag = 1;}
+		if (isset($_REQUEST['f']) && $_REQUEST['f'] != 3) {$inicio = 0; $pag = 1;}
 		$p=3;
 		break;
 	case "pendientes contrincario":
 		$filtro =  " AND finalizada=0 AND user_create='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha<>'".$_SESSION['user_name']."' )";
 		$tipo_filtro = "pendientes-contrincario";
-		if (isset($_REQUEST['f']) and $_REQUEST['f'] != 4) {$inicio = 0; $pag = 1;}
+		if (isset($_REQUEST['f']) && $_REQUEST['f'] != 4) {$inicio = 0; $pag = 1;}
 		$p=4;
 		break;
 	}
@@ -44,16 +43,16 @@ function showBatallas($tipo, $total_reg, $usuario){
 	echo '<div class="row">';
 	echo '<div class="col-md-12 nopadding">';
 
-	if ($tipo=="pendientes contrincario"){$texto_tipo = 'Total de "sus" batallas pendientes';}
-	elseif ($tipo=="pendientes usuario"){$texto_tipo = 'Total de "mis" batallas pendientes';}
-	else{$texto_tipo = 'Total batallas '.$tipo;}
+	if ($tipo == "pendientes contrincario") $texto_tipo = 'Total de "sus" batallas pendientes';
+	elseif ($tipo == "pendientes usuario") $texto_tipo = 'Total de "mis" batallas pendientes';
+	else $texto_tipo = 'Total batallas '.$tipo;
 
 	$i=0;
 	foreach($elements as $element):
 		//obtener contrincario
 		$contrincario_data ="";
-		if ($element['user_create']==$_SESSION['user_name']){$contrincario=$element['user_retado'];}
-		else {$contrincario = $element['user_create'];}
+		if ($element['user_create'] == $_SESSION['user_name']) $contrincario = $element['user_retado'];
+		else $contrincario = $element['user_create'];
 		$contrincario_data = $users->getUsers("AND username='".$contrincario."' ");
 		$contrincario_data[0]['id_comentario'] = $tipo_filtro.$i;
 
@@ -95,7 +94,7 @@ function showBatallas($tipo, $total_reg, $usuario){
 								<div class="col-md-2 col-sm-2">
 									<span class="text-primary text-center"><big>VS</big></span>';
 
-									if ($jugadas==0 and ($tipo!='perdidas' or $tipo='ganadas')){
+									if ($jugadas == 0 && ($tipo != 'perdidas' || $tipo != 'ganadas')){
 										echo '<input type="button" class="jugar-batalla btn btn-primary btn-block" value="jugar!!!" data-c="'.$element['tipo_batalla'].'" data-id="'.$element['id_batalla'].'" />';
 									}
 		echo '					</div>
@@ -107,30 +106,22 @@ function showBatallas($tipo, $total_reg, $usuario){
 										<div class="col-md-10 col-xs-9">
 											<ul class="list-unstyled">
 												<li><small><span class="text-primary">Mis aciertos:</span> '.$mi_partida[0]['aciertos_lucha'].'
-											('.$mi_partida[0]['tiempo_lucha'].' seg.)</small></li>
+											('.$mi_partida[0]['tiempo_lucha'];?> seg.)</small></li>
 										</div>
 									</div>
-								</div>';
-
-
-
-		echo '</div>';
-		echo '</div>';
-		echo '</div>';
-		echo '</div>';
-		echo '</div>';
-
-
-		$i++;
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php $i++;
 	endforeach;
 
-	if (count($elements) == 0){
-		echo '<div class="col-md-12">No tienes batallas.</div>';
-	}
+	if (count($elements) == 0) 	echo '<div class="col-md-12">No tienes batallas.</div>';
 
-	PaginatorTabs($pag,$reg,$total_reg,'batallas','batallas',$p);
+	PaginatorTabs($pag, $reg, $total_reg, 'batallas', 'batallas', $p);?>
 	
-	echo '</div>';
-	echo '</div>';
-}
-?>
+		</div>
+	</div>
+<?php }?>

@@ -56,7 +56,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 				<?php endforeach;?>
 			</table>
 		</div>
-		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'shoporders',strTranslate("Shop_orders"), $elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'shoporders', strTranslate("Shop_orders"), $elements['find_reg']);?>
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">

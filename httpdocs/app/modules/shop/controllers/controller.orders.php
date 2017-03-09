@@ -36,7 +36,7 @@ class shopOrdersController{
 	}
 
 	public static function estadosAction($filter = ""){
-		if (isset($_POST['id_order']) and $_POST['id_order'] > 0){
+		if (isset($_POST['id_order']) && $_POST['id_order'] > 0){
 			$id_order = sanitizeInput($_POST['id_order']);
 			$status_order_old = sanitizeInput($_POST['status_order_old']);
 			$status_order = sanitizeInput($_POST['status_order']);
@@ -80,7 +80,7 @@ class shopOrdersController{
 	}
 
 	public static function exportListAction($filter = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$shop = new shop(); 
 			$elements = $shop->getOrders($filter);
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -90,7 +90,7 @@ class shopOrdersController{
 	}
 
 	public static function exportListDetailAction($filter = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$shop = new shop(); 
 			$elements = $shop->getOrdersDetails($filter);
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -100,7 +100,7 @@ class shopOrdersController{
 	}
 
 	public static function createAction($filter = ""){
-		if (isset($_POST['id_product']) and $_POST['id_product'] > 0){
+		if (isset($_POST['id_product']) && $_POST['id_product'] > 0){
 			$shop = new shop();
 			$order_ok = true;
 			$id_product = trim(sanitizeInput($_POST['id_product']));
@@ -121,7 +121,7 @@ class shopOrdersController{
 			$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
 			
 			//verificar campos
-			if (!isset($product_detail) or $name_order == "" or $surname_order == "" or $address_order == "" or $city_order == "" or $state_order == "" or $postal_order == "" or $telephone_order == ""){
+			if (!isset($product_detail) || $name_order == "" || $surname_order == "" || $address_order == "" || $city_order == "" || $state_order == "" || $postal_order == "" || $telephone_order == ""){
 				$destino = "shopproductorder?id=".$id_product;
 				$order_ok = false;
 				session::setFlashMessage('actions_message', "Todos los campos son obligatorios", "alert alert-danger");

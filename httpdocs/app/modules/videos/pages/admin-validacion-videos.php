@@ -27,7 +27,7 @@ $pendientes = $videos->getVideos(" AND estado=0 ");?>
 		<?php foreach($pendientes as $element):
 			$convertido = ((file_exists(PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4')) ? true : false);
 			echo '<div class="col-md-4"><br />';
-			if ($convertido==true) playVideo("VideoConvertido".$element['id_file'], PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4', 165, 100);
+			if ($convertido == true) playVideo("VideoConvertido".$element['id_file'], PATH_VIDEOS_CONVERT.$element['name_file'].'.mp4', 165, 100);
 			else playVideo("VideoPendiente".$element['id_file'], PATH_VIDEOS_TEMP.$element['name_file'], 165, 100);
 		
 			if ($convertido == true){

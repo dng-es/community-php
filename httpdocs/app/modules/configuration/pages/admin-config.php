@@ -1,6 +1,4 @@
-<?php
-addJavascripts(array(getAsset("configuration")."js/admin-config.js"));
-?>
+<?php addJavascripts(array(getAsset("configuration")."js/admin-config.js"));?>
 <div class="row  row-top">
 	<div class="app-main">
 		<?php 
@@ -10,7 +8,6 @@ addJavascripts(array(getAsset("configuration")."js/admin-config.js"));
 			array("ItemLabel"=>strTranslate("Configuration"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Main_data"), "ItemClass"=>"active"),
 		));
-
 		session::getFlashMessage('actions_message');
 		configurationController::updateAction();
 		$elements = configurationController::getItemAction();

@@ -211,7 +211,7 @@ class na_areas{
 
 	public function insertTareaUser($id_area, $id_tarea, $user_tarea, $fichero){
 		//SUBIR FICHERO
-		if (isset($fichero) and $fichero['name'] != ""){
+		if (isset($fichero) && $fichero['name'] != ""){
 			$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
 			$nombre_archivo = NormalizeText($nombre_archivo);
 			move_uploaded_file($fichero['tmp_name'], PATH_TAREAS.$nombre_archivo);

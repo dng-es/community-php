@@ -16,7 +16,7 @@ if ($module_config['options']['allow_registration'] === true):
 		session::getFlashMessage( 'actions_message' );
 
 		//REGISTRO USUARIO
-		if (isset($_POST['username-text']) and $_POST['username-text']!=""){
+		if (isset($_POST['username-text']) && $_POST['username-text'] != ""){
 			$users = new users();
 			$confirmar=$users->registerUser(sanitizeInput($_POST['username-text']),
 											sanitizeInput($_POST['user-nick']),
@@ -50,7 +50,7 @@ if ($module_config['options']['allow_registration'] === true):
 			elseif ($confirmar == 5) ErrorMsg("<p>El DNI/usuario ya existe.</p>");
 		}
 
-		if (isset($_REQUEST['m']) and $_REQUEST['m'] == 1){ ?>
+		if (isset($_REQUEST['m']) && $_REQUEST['m'] == 1){ ?>
 				<h1><?php e_strTranslate("Registration");?></h1>
 				<p>
 					Tus datos se han registrado correctamente.<br />
@@ -144,7 +144,7 @@ if ($module_config['options']['allow_registration'] === true):
 						  language: "es-ES",
 						  startDate: "2014/01/01"
 						});
-						<?php if (isset($user_date) and $user_date != ""){
+						<?php if (isset($user_date) && $user_date != ""){
 							echo "var fecha = '".date('D M d Y H:i:s O',strtotime($user_date))."';";
 							echo '$("#datetimepicker1").data("datetimepicker").setLocalDate(new Date (fecha));';
 						}?>

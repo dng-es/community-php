@@ -14,7 +14,7 @@ addJavascripts(array(getAsset("incentivos")."js/admin-incentives-products.js"));
 		session::getFlashMessage('actions_message');
 		incentivosProductosController::createAction();
 		incentivosProductosController::deleteAction();
-		$filtro_productos = ((isset($_REQUEST['m']) and $_REQUEST['m'] > 0) ? " AND p.id_fabricante=".intval($_REQUEST['m'])." " : "");
+		$filtro_productos = ((isset($_REQUEST['m']) && $_REQUEST['m'] > 0) ? " AND p.id_fabricante=".intval($_REQUEST['m'])." " : "");
 		$elements = incentivosProductosController::getListAction(35, $filtro_productos);
 		?>
 		<div class="panel panel-default">
@@ -81,7 +81,7 @@ addJavascripts(array(getAsset("incentivos")."js/admin-incentives-products.js"));
 										$incentivos = new incentivos();
 										$fabricantes = $incentivos->getIncentivesFabricantes(" AND activo_fabricante=1 ORDER BY nombre_fabricante ");
 										foreach($fabricantes as $fabricante):
-											echo '<option value="'.$fabricante['id_fabricante'].'" '.((isset($_REQUEST['m']) and $_REQUEST['m'] > 0 and $_REQUEST['m']==$fabricante['id_fabricante']) ? ' selected="selected" ' : '').'>'.$fabricante['nombre_fabricante'].'</option>';
+											echo '<option value="'.$fabricante['id_fabricante'].'" '.((isset($_REQUEST['m']) && $_REQUEST['m'] > 0 && $_REQUEST['m'] == $fabricante['id_fabricante']) ? ' selected="selected" ' : '').'>'.$fabricante['nombre_fabricante'].'</option>';
 										endforeach;
 										?>
 										</select>

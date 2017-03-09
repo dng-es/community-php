@@ -11,7 +11,7 @@ addJavascripts(array("js/jquery.numeric.js",
 					 getAsset("na_areas")."js/admin-area.js"));
 
 templateload("cmbCanales","users");
-if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas");
+templateload("user_recompensa", "recompensas");
 
 ?>
 <div class="row row-top">
@@ -32,8 +32,8 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 		$accion2 = sanitizeInput(isset($_GET['accion2']) ? $_GET['accion2'] : "");
 
 		$id = ($accion == 'edit' ? $_GET['id'] : 0);
-		if ($accion == 'edit' and $accion2 == 'ok' and $accion1 != "del") na_areasController::updateAction();
-		elseif ($accion == 'new' and $accion2 == 'ok') na_areasController::insertAction();
+		if ($accion == 'edit' && $accion2 == 'ok' && $accion1 != "del") na_areasController::updateAction();
+		elseif ($accion == 'new' && $accion2 == 'ok') na_areasController::insertAction();
 
 		//VALIDAR CONTENIDOS FORO
 		na_areasController::validarComentarioAction();
@@ -70,9 +70,9 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 				<ul class="nav nav-tabs">
 					<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
 					<?php if ($accion == 'edit'): ?>
-					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Tasks");?>" data-toggle="tab"><?php e_strTranslate("Tasks");?></a></li>
-					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Users");?>" data-toggle="tab"><?php e_strTranslate("Users");?></a></li>
-					<li<?php echo ((isset($_GET['t']) and $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Forums");?>" data-toggle="tab"><?php e_strTranslate("Forums");?></a></li>
+					<li<?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Tasks");?>" data-toggle="tab"><?php e_strTranslate("Tasks");?></a></li>
+					<li<?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Users");?>" data-toggle="tab"><?php e_strTranslate("Users");?></a></li>
+					<li<?php echo ((isset($_GET['t']) && $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#<?php e_strTranslate("Forums");?>" data-toggle="tab"><?php e_strTranslate("Forums");?></a></li>
 					<?php endif;?>
 				</ul>
 			
@@ -138,7 +138,7 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 					if ($accion == 'edit'){
 						$id_area = $elements[0]['id_area'];
 						$area_canal = $elements[0]['area_canal']; ?>
-						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="<?php e_strTranslate("Tasks");?>">
+						<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' in active' : '');?>" id="<?php e_strTranslate("Tasks");?>">
 							<br />
 							<div class="row">
 								<div class="col-md-12">
@@ -147,7 +147,7 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 							</div>
 						</div>
 
-						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==3) ? ' in active' : '');?>" id="<?php e_strTranslate("Users");?>">
+						<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' in active' : '');?>" id="<?php e_strTranslate("Users");?>">
 							<br />
 							<div class="row">
 								<div class="col-md-6">
@@ -160,7 +160,7 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 							</div>
 						</div>
 
-						<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==4) ? ' in active' : '');?>" id="<?php e_strTranslate("Forums");?>">
+						<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 4) ? ' in active' : '');?>" id="<?php e_strTranslate("Forums");?>">
 							<br />
 							<div class="row">
 								<div class="col-md-12">
@@ -179,49 +179,34 @@ if(getModuleExist("recompensas")) templateload("user_recompensa", "recompensas")
 <?php 
 function showUsuariosArea($id_area,$area_canal){
 	$na_areas = new na_areas;
+	$elements = $na_areas->getAreasUsers(" AND id_area=".$id_area);?>
 
-	echo '<div class="panel panel-default">
-			<div class="panel-heading">Importar usuarios al curso</div>
-			<div class="panel-body">
-				<p>Los usuarios actuales serán reemplazados por los incluídos en el fichero. El fichero <strong>Excel XLS</strong> deberá contener una única columna con el nombre de usuario. 
-				La primera fila será considerada como encabezado y no será importada.</p>
-				<form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="admin-cargas-user-areas-process?id='.$id_area.'">
-					<input type="hidden" name="id_area" id="id_area" value="'.$id_area.'" />
-					<input type="hidden" name="area_canal" id="area_canal" value="'.$area_canal.'" />
-					<input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
-					<button type="submit" id="inputFile" name="inputFile" class="btn btn-primary">importar fichero</button>
-					<div id="fichero-alert" class="alert-message alert alert-danger alert alert-danger"></div>
-				</form>
-			</div>
-		</div>';
+	<div class="panel panel-default">
+		<div class="panel-heading">Importar usuarios al curso</div>
+		<div class="panel-body">
+			<p>Los usuarios actuales serán reemplazados por los incluídos en el fichero. El fichero <strong>Excel XLS</strong> deberá contener una única columna con el nombre de usuario. 
+			La primera fila será considerada como encabezado y no será importada.</p>
+			<form role="form" id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="admin-cargas-user-areas-process?id='<?php echo $id_area;?>">
+				<input type="hidden" name="id_area" id="id_area" value="<?php echo $id_area;?>" />
+				<input type="hidden" name="area_canal" id="area_canal" value="<?php echo $area_canal;?>" />
+				<input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="<?php e_strTranslate("Choose_file");?>" />
+				<button type="submit" id="inputFile" name="inputFile" class="btn btn-primary"><?php e_strTranslate("Import_file");?></button>
+				<div id="fichero-alert" class="alert-message alert alert-danger alert alert-danger"></div>
+			</form>
+		</div>
+	</div>
 
-	$elements = $na_areas->getAreasUsers(" AND id_area=".$id_area); 
-	echo '<div class="panel panel-default full-height">
-				<div class="panel-heading">Usuarios incluídos en el curso</div>
-				<div class="panel-body">';
-
-	if (count($elements) > 0){
-		echo '  <p>Total usuarios inscritos: <b>'.count($elements).'</b>. Puedes descargar un fichero CSV con los usuarios inscritos en el curso: <br /><br />
-				<a href="admin-area?act=edit&id='.$id_area.'&t=1" class="btn btn-primary">Descargar fichero</a></span></p>';
-/*		echo '<table class="table">';
-		echo '	<tr>';
-		echo '	<th>Usuario</th>';
-		echo '	<th>Alias</th>';
-		echo '	</tr>';
-		foreach($elements as $element):
-			echo '<tr>';          
-			echo '<td>&nbsp;'.$element['username'].'</td>';
-			echo '<td>&nbsp;'.$element['nick'].'</td>';
-			echo '</tr>';   
-		endforeach;
-		echo '</table>';*/
-	}
-	else{
-		echo '<p>No hay usuarios incluídos en el curso</p>';
-	}
-	echo '</div>
-	</div>';
-}
+	<div class="panel panel-default full-height">
+		<div class="panel-heading">Usuarios incluídos en el curso</div>
+		<div class="panel-body">
+			<?php if (count($elements) > 0):?>
+			<p>Total usuarios inscritos: <b><?php echo count($elements);?></b>. Puedes descargar un fichero CSV con los usuarios inscritos en el curso: <br /><br />
+			<a href="admin-area?act=edit&id='<?php echo $id_area;?>&t=1" class="btn btn-primary"><?php e_strTranslate("Download_file");?></a></span></p>
+			<?php else:?> <p>No hay usuarios incluídos en el curso</p>
+			<?php endif;?>
+		</div>
+	</div>
+<?php }
 
 function showGruposArea($id_area){
 	$na_areas = new na_areas;
@@ -269,20 +254,20 @@ function showForosArea($id_area){
 
 function getForosActivos($id_area){
 	$foro = new foro();
-	$temas = $foro->getTemas(" AND id_tema_parent<>0 AND activo=1 AND id_area=".$id_area);
-	echo '<p>Hay los siguientes <span class="orange-color">TEMAS</span> creados en los foros</p><br />';
-	echo '<table class="table table-striped">';
-	echo '	<tr>';
-	echo '	<th width="40px">&nbsp;</th>';
-	echo '	<th>ID</th>';
-	echo '	<th>'.strTranslate("Type").'</th>';
-	echo '	<th>'.strTranslate("Name").'</th>';
-	echo '	<th>'.strTranslate("Username").'</th>';
-	echo '	<th><span class="fa fa-comment"></span></th>';
-	echo '	<th><span class="fa fa-eye"></span></th>';
-	echo '	</tr>';
+	$temas = $foro->getTemas(" AND id_tema_parent<>0 AND activo=1 AND id_area=".$id_area);?>
+	<p>Hay los siguientes <span class="orange-color">TEMAS</span> creados en los foros</p><br />
+	<table class="table table-striped">
+		<tr>
+			<th width="40px">&nbsp;</th>
+			<th>ID</th>
+			<th><?php e_strTranslate("Type");?></th>
+			<th><?php e_strTranslate("Name");?></th>
+			<th><?php e_strTranslate("Username");?></th>
+			<th><span class="fa fa-comment"></span></th>
+			<th><span class="fa fa-eye"></span></th>
+		</tr>
 
-	foreach($temas as $element):
+	<?php foreach($temas as $element):
 		$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$element['id_tema']." ");
 		$num_visitas = connection::countReg("foro_visitas"," AND id_tema=".$element['id_tema']." ");
 		echo '<tr>';
@@ -341,20 +326,19 @@ function getForoPendientes($id_area){
 	}
 	else{
 		echo '<p>Hay los siguientes mensajes en el <span class="orange-color">FORO</span> insertados ultimamente (fecha: '.$fecha_ayer.').<br />
-				'.ucfirst(strTranslate("APP_points")).' a otorgar por mensaje: <span class="orange-color">'.PUNTOS_FORO.'.</span></p><br />';
-		echo '<table class="table table-striped">';
-		echo '	<tr>';
-		echo '	<th width="30px">&nbsp;</th>';
-		echo '	<th>&nbsp;ID</th>';
-		echo '	<th>&nbsp;Res.</th>';
-		echo '	<th>&nbsp;usuario</th>';
-		echo '	<th>&nbsp;canal</th>';
-		echo '	<th>fecha</th>';
-		echo '	<th>tema</th>';
-		echo '	<th>tipo tema</th>';
-		echo '	</tr>';
+				'.ucfirst(strTranslate("APP_points")).' a otorgar por mensaje: <span class="orange-color">'.PUNTOS_FORO.'.</span></p><br />';?>
+		<table class="table table-striped">
+		<tr>
+		<th width="30px">&nbsp;</th>
+		<th>ID</th>
+		<th><?php e_strTranslate("User");?></th>
+		<th><?php e_strTranslate("Channel");?></th>
+		<th><?php e_strTranslate("Date");?></th>
+		<th><?php e_strTranslate("Forum");?></th>
+		<th><?php e_strTranslate("Type");?></th>
+		</tr>
 	
-		foreach($pendientes as $element):
+		<?php foreach($pendientes as $element):
 			echo '<tr>';
 			echo '<td nowrap="nowrap">
 					<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el comentario '.$element['id_comentario'].'?\',
@@ -379,9 +363,6 @@ function getForoPendientes($id_area){
 						</div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
 			</td>';
-			if ($element['responsables'] == 1) {$responsables = "SI";}
-			else {$responsables="NO";}
-			echo '<td>'.$responsables.'</td>';
 			echo '<td>'.$element['user_comentario'].'</td>';
 			echo '<td>'.$element['canal'].'</td>';
 			echo '<td>'.getDateFormat($element['date_comentario'], "SHORT").'</td>'; 
@@ -510,7 +491,7 @@ function showTareasArea($id_area){
 										}
 							echo '</td>';
 							echo '<td>';
-							echo ((isset($element['id_recompensa']) and $element['id_recompensa']>0) ? '<img width="25px" title="'.$element['recompensa_name'].'" src="'.PATH_REWARDS.$element['recompensa_image'].'" />' : '');
+							echo ((isset($element['id_recompensa']) && $element['id_recompensa'] > 0) ? '<img width="25px" title="'.$element['recompensa_name'].'" src="'.PATH_REWARDS.$element['recompensa_image'].'" />' : '');
 							echo '</td>';
 							echo '</tr>';
 						endforeach; ?>

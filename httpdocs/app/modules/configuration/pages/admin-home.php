@@ -26,7 +26,6 @@ $j = 1;
 // templateload("panels", "users");
 // templateload("panels", "videos");
 
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -130,7 +129,7 @@ $j = 1;
 <div id="container-rows-invisibles">
 	<?php 
 	//filas ocultas
-	for ($k =  (count($elements_rows)+1); $k<$tot_panels; $k++){
+	for ($k = (count($elements_rows) + 1); $k < $tot_panels; $k++){
 		createFilaPage(array(), $k, false);
 	}
 	?>

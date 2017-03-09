@@ -25,7 +25,6 @@ class blogCore{
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("blog", $_SESSION['user_name']));
-		
 		$module_config = getModuleConfig("blog");
 		$alerts_text = "";
 		if ($module_config['options']['show_alarms']):
@@ -33,14 +32,13 @@ class blogCore{
 			$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" id="contador-blog-header">'.$num_alerts.'</span>' : "");
 		endif;
 
-		if ($session->checkPageViewPermission("blog", $_SESSION['user_perfil'], $user_permissions)){
+		if($session->checkPageViewPermission("blog", $_SESSION['user_perfil'], $user_permissions)){
 			array_push($array_final, array("LabelIcon" => "fa fa-globe",
 							"LabelItem" => strTranslate("Blog").$alerts_text,
 							"LabelUrl" => 'blog',
 							"LabelTarget" => '_self',
 							"LabelPos" => $menu_order));
 		}
-
 		return $array_final;
 	}
 

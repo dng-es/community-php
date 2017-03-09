@@ -4,7 +4,6 @@ function panelAgenda(){
 	$filter = $filtro_canal." AND activo=1 AND tipo=1 AND (NOW() BETWEEN date_ini AND date_fin)";
 	$elements = agendaController::getListAction(100, $filter);
 	$elements = $elements['items'];
-
 	$i = 0;?>
 	<div class="col-md-12 panel-sidebar">
 		<h4>
@@ -24,7 +23,6 @@ function panelAgenda(){
 		<?php else: ?>
 			<div id="carousel-agenda" class="carousel slide" data-ride="carousel">
 			  <!-- Wrapper for slides -->
-
 				<div class="carousel-inner" role="listbox">
 					<?php foreach($elements as $element):?>
 						<div class="item <?php echo ($element === reset($elements) ? 'active' : '');?>">
@@ -36,7 +34,6 @@ function panelAgenda(){
 						</div>
 					<?php endforeach;?>
 				</div>
-
 				<!-- Controls -->
 				<a class="left carousel-control" href="#carousel-agenda" role="button" data-slide="prev">
 					<span class="control-icon glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -47,7 +44,6 @@ function panelAgenda(){
 					<span class="sr-only">Next</span>
 				</a>
 			</div>
-
 	<?php endif;
 	endif;?>
 </div>

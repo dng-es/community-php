@@ -28,15 +28,13 @@ templateload("na_areasuser", "na_areas");
 		<ul class="nav nav-tabs">
 			<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
 			<?php if(getModuleExist("na_areas")):  ?>
-			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#areas" data-toggle="tab"><?php e_strTranslate("Na_areas");?></a></li>
+			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#areas" data-toggle="tab"><?php e_strTranslate("Na_areas");?></a></li>
 			<?php endif;?>
 			<?php if(getModuleExist("fotos")): ?>
-			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#fotos" data-toggle="tab"><?php e_strTranslate("Photos");?></a></li>
+			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#fotos" data-toggle="tab"><?php e_strTranslate("Photos");?></a></li>
 			<?php endif; ?>
-			<?php if(getModuleExist("videos")): 
-			$videos = videosController::getListAction(1000, " AND user_add='".$usuario['username']."' AND estado=1 ");
-			?>
-			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#videos" data-toggle="tab"><?php e_strTranslate("Videos");?></a></li>
+			<?php if(getModuleExist("videos")): ?>
+			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#videos" data-toggle="tab"><?php e_strTranslate("Videos");?></a></li>
 			<?php endif; ?>
 		</ul>
 
@@ -201,12 +199,12 @@ templateload("na_areasuser", "na_areas");
 				</div>
 			</div>
 			<?php if(getModuleExist("na_areas")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' in active' : '');?>" id="areas">
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' in active' : '');?>" id="areas">
 				<?php userNaAreas($_SESSION['user_name']);?>
 			</div>
 			<?php endif; ?>
 			<?php if(getModuleExist("fotos")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==3) ? ' in active' : '');?>" id="fotos">
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' in active' : '');?>" id="fotos">
 
 				<section id="photos">
 
@@ -231,24 +229,25 @@ templateload("na_areasuser", "na_areas");
 			</div>
 			<?php endif; ?>
 			<?php if(getModuleExist("videos")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t'] == 4) ? ' in active' : '');?>" id="videos">
-					<div class="row">
-					<?php
-					foreach($videos['items'] as $element):
-					echo '<div class="media-preview-container col-md-4 inset" style="clear: none">
-								<a href="videos?id='.$element['id_file'].'">
-								<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.$element['titulo'].'" /></a>
-								<div><a href="videos?id='.$element['id_file'].'">'.$element['titulo'].'</a><br />
-									 <span>'.getDateFormat($element['date_video'], "LONG").'</span><br />
-									 '.$element['nick'].'
-								</div>
-							</div>';
-					endforeach;
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 4) ? ' in active' : '');?>" id="videos">
+				<div class="row">
+				<?php
+				$videos = videosController::getListAction(1000, " AND user_add='".$usuario['username']."' AND estado=1 ");
+				foreach($videos['items'] as $element):
+				echo '<div class="media-preview-container col-md-4 inset" style="clear: none">
+							<a href="videos?id='.$element['id_file'].'">
+							<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.$element['titulo'].'" /></a>
+							<div><a href="videos?id='.$element['id_file'].'">'.$element['titulo'].'</a><br />
+								 <span>'.getDateFormat($element['date_video'], "LONG").'</span><br />
+								 '.$element['nick'].'
+							</div>
+						</div>';
+				endforeach;
 
-					if ($videos['total_reg'] == 0) echo '<br /><div class="alert alert-warning"><b>'.$usuario['nick'].'</b> no ha subido videos</div>';
-					?>
-					</div>
-					<br />
+				if ($videos['total_reg'] == 0) echo '<br /><div class="alert alert-warning"><b>'.$usuario['nick'].'</b> no ha subido videos</div>';
+				?>
+				</div>
+				<br />
 			</div>
 			<?php endif; ?>
 		</div>

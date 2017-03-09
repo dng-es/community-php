@@ -32,7 +32,7 @@ class mailingListsController{
 	}
 
 	public static function exportListAction($filtro = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$mailing = new mailing();
 			$elements = $mailing->getLists($filtro . " AND activo=1 ORDER BY name_list DESC ");
 			download_send_headers("listas_" . date("Y-m-d") . ".csv");
@@ -42,7 +42,7 @@ class mailingListsController{
 	}
 
 	public static function exportUserListAction($filtro = ""){
-		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm'] == true){
+		if (isset($_REQUEST['exportm']) && $_REQUEST['exportm'] == true){
 			$mailing = new mailing();
 			$elements = $mailing->getListsUsers($filtro." AND id_list=".intval($_REQUEST['id']));
 			download_send_headers("emails_" . date("Y-m-d") . ".csv");
@@ -52,7 +52,7 @@ class mailingListsController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['name_list']) and $_POST['name_list'] != "" and $_POST['id_list'] == 0){
+		if (isset($_POST['name_list']) && $_POST['name_list'] != "" && $_POST['id_list'] == 0){
 			$mailing = new mailing();
 			$id_list = 0;
 			$name = sanitizeInput($_POST['name_list']);
@@ -71,7 +71,7 @@ class mailingListsController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['name_list']) and $_POST['name_list'] != "" and $_POST['id_list'] > 0){
+		if (isset($_POST['name_list']) && $_POST['name_list'] != "" && $_POST['id_list'] > 0){
 			$mailing = new mailing();
 			$id_list = intval($_POST['id_list']);
 			$name_list = sanitizeInput($_POST['name_list']);
@@ -88,7 +88,7 @@ class mailingListsController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$mailing = new mailing();
 			if ($mailing->deleteList(intval($_REQUEST['id'])))
 				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
@@ -100,7 +100,7 @@ class mailingListsController{
 	}
 
 	private static function importAction($id_list){
-		if (isset($_FILES['nombre-fichero']['name']) and $_FILES['nombre-fichero']['name'] != ""){
+		if (isset($_FILES['nombre-fichero']['name']) && $_FILES['nombre-fichero']['name'] != ""){
 			$nombre_archivo = uploadFileToFolder($_FILES['nombre-fichero'], "docs/cargas/");
 
 			require_once 'docs/reader.php';

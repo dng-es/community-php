@@ -1,6 +1,5 @@
 <?php
 class campaigns{
-
 	/**
 	 * Devuelve array con los registros
 	 * @param  string 	$filter 	Filtro SQL

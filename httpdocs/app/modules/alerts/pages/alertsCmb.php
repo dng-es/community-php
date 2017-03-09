@@ -33,7 +33,7 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 			$destination_field_text = "nombre_tienda";
 			if ($_SESSION['user_perfil'] == 'admin') echo '<option value="">--- Todas las tiendas ---</option>';
 		}
-		
+
 		foreach($destinations as $destination):?>
 			<option value="<?php echo $destination[$destination_field];?>">
 				<?php echo $destination[$destination_field_text];?>

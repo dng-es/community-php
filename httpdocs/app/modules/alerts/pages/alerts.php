@@ -25,12 +25,12 @@ include_once($base_dir . "modules/alerts/classes/class.alerts.php");
 		<div id="messagesGroup"> 
 			<h5>Avisos pendientes</h5>
 			<ul class="list-unstyled">
-		<?php foreach($messages_group as $message_group):?>
+				<?php foreach($messages_group as $message_group):?>
 				<li>
 					<span class="<?php echo $message_group['priority'];?>"></span>
 					<?php echo $message_group['text_alert'];?>
 				</li>
-		<?php endforeach;?>
+				<?php endforeach;?>
 			</ul>
 		</div>
 		<?php endif;?>

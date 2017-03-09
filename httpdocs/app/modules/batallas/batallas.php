@@ -6,7 +6,7 @@
 * @version 1.1
 *
 */
-class batallasCore {
+class batallasCore{
 	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array					Array con los elementos del menu
@@ -19,7 +19,7 @@ class batallasCore {
 			//batallas pendientes
 			$filtro_batallas =  " AND finalizada=0 AND user_retado='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$_SESSION['user_name']."' ) ";
 			$pendientes_batallas = connection::countReg("batallas",$filtro_batallas);
-			$label_batallas = ($pendientes_batallas==0 ? '' : ' <span class="menu-alert">'.$pendientes_batallas.'</span>');
+			$label_batallas = ($pendientes_batallas == 0 ? '' : ' <span class="menu-alert">'.$pendientes_batallas.'</span>');
 
 			array_push($array_final, array("LabelIcon" => "fa fa-bomb",
 							"LabelItem" => strTranslate("Battles").$label_batallas,

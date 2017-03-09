@@ -24,10 +24,10 @@ class na_areasController{
 	public static function updateAction(){
 		$na_areas = new na_areas();
 		$id_area = intval($_POST['id_area']);
-		$todos = (isset($_POST['area_todos']) and $_POST['area_todos'] == "on") ? 1 : 0;
+		$todos = (isset($_POST['area_todos']) && $_POST['area_todos'] == "on") ? 1 : 0;
 		$nombre = sanitizeInput($_POST['area_nombre']);
 		$descripcion = sanitizeInput($_POST['area_descripcion']);
-		$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
+		$registro = (isset($_POST['area_registro']) && $_POST['area_registro'] == "on") ? 1 : 0;
 		$puntos = sanitizeInput($_POST['area_puntos']);
 		$limite = sanitizeInput($_POST['area_limite']);
 		$canal = sanitizeInput($_POST['area_canal']);
@@ -36,10 +36,10 @@ class na_areasController{
 		if ($na_areas->updateArea($id_area, $nombre, $descripcion, $canal, $puntos, $limite, $registro, $todos)){
 			$foro = new foro();
 			//si existe el foro se actualiza, si no existe se crea
-			if (connection::countReg("foro_temas"," AND id_area=".$id_area." AND id_tema_parent=0 ") > 0) 
+			if (connection::countReg("foro_temas", " AND id_area=".$id_area." AND id_tema_parent=0 ") > 0) 
 				$foro->updateTemaArea($id_area, $nombre, $descripcion, $canal);
 			else 
-				$foro->InsertTema(0,'foro '.$nombre, $descripcion, "", $_SESSION['user_name'], $canal, 0, 1, '', $id_area);
+				$foro->InsertTema(0, 'foro '.$nombre, $descripcion, "", $_SESSION['user_name'], $canal, 0, 1, '', $id_area);
 
 			session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 		}
@@ -54,8 +54,8 @@ class na_areasController{
 		$descripcion = sanitizeInput($_POST['area_descripcion']);
 		$puntos = sanitizeInput($_POST['area_puntos']);
 		$limite = sanitizeInput($_POST['area_limite']);
-		$registro = (isset($_POST['area_registro']) and $_POST['area_registro'] == "on") ? 1 : 0;
-		$todos = (isset($_POST['area_todos']) and $_POST['area_todos'] == "on") ? 1 : 0;
+		$registro = (isset($_POST['area_registro']) && $_POST['area_registro'] == "on") ? 1 : 0;
+		$todos = (isset($_POST['area_todos']) && $_POST['area_todos'] == "on") ? 1 : 0;
 		$canal = sanitizeInput($_POST['area_canal']);
 		if (is_array($canal)) $canal = implode(",", $canal);
 
@@ -65,7 +65,7 @@ class na_areasController{
 			//se crea su foro general si solo hay un canal. 
 			if (count($canal) > 1){
 				$foro = new foro();
-				$foro->InsertTema(0,'foro '.$nombre, $descripcion, "", $_SESSION['user_name'], $canal, 0, 1, '', $id_area);
+				$foro->InsertTema(0, 'foro '.$nombre, $descripcion, "", $_SESSION['user_name'], $canal, 0, 1, '', $id_area);
 			}
 			session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 		}
@@ -99,7 +99,7 @@ class na_areasController{
 				//obtener datos del area
 				$area = $na_areas->getAreas(" AND id_area=".$id_area." ");
 				$users = new users();
-				$puntos = (count($area )> 0 ? $area[0]['puntos']: 0 );
+				$puntos = (count($area ) > 0 ? $area[0]['puntos']: 0 );
 				$users->sumarPuntos($user_tarea, $puntos, "Superación curso ID: ".$id_area);
 
 				//enviar email al usuario. Primero hay que obtener sus datos
@@ -121,7 +121,7 @@ class na_areasController{
 	}
 
 	public static function uploadTareaAction(){
-		if (isset($_POST['id_tarea']) and $_POST['id_tarea'] != ""){
+		if (isset($_POST['id_tarea']) && $_POST['id_tarea'] != ""){
 			$na_areas = new na_areas();
 			if($na_areas->insertTareaUser(intval($_POST['id_area']), intval($_POST['id_tarea']), $_SESSION['user_name'], $_FILES['nombre-fichero'])) 
 				session::setFlashMessage('actions_message', "Fichero envíado correctamente.", "alert alert-success");
@@ -134,7 +134,7 @@ class na_areasController{
 
 	public static function activateAction(){
 		//CAMBIAR ESTADO
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$na_areas = new na_areas();
 			$estado = intval($_REQUEST['e']);
 			if ($na_areas->estadoArea(intval($_REQUEST['id']), $estado))
@@ -147,7 +147,7 @@ class na_areasController{
 	}
 
 	public static function exportAreasAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$na_areas = new na_areas();
 			$elements = $na_areas->getAreas(" AND estado=1");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -157,7 +157,7 @@ class na_areasController{
 	}
 
 	public static function exportUsersAreasAction(){
-		if ((isset($_REQUEST['id']) and $_REQUEST['id'] != "") and !isset($_REQUEST['act'])){
+		if ((isset($_REQUEST['id']) && $_REQUEST['id'] != "") && !isset($_REQUEST['act'])){
 			$na_areas = new na_areas();
 			$elements = $na_areas->getAreasUsers(" AND id_area=".intval($_REQUEST['id']));
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -167,20 +167,20 @@ class na_areasController{
 	}	
 
 	public static function apuntarseAction(){
-		if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
+		if (isset($_REQUEST['id']) && $_REQUEST['id'] != ""){
 			$id_area = intval($_REQUEST['id']);
 			$na_areas = new na_areas();
 			//verificar si ya se ha alcanzado el limite de usuarios
 			$datos_area = $na_areas->getAreas(" AND id_area=".$id_area." ");
 			$limite_users = $datos_area[0]['limite_users'];
 			$total_users = connection::countReg("na_areas_users"," AND id_area=".$id_area." ");
-			if ($total_users<$limite_users):	
+			if ($total_users < $limite_users):	
 				if ($na_areas->insertUserArea($id_area,$_SESSION['user_name']))
 					session::setFlashMessage('actions_message', strTranslate("Enroll_successful"), "alert alert-success");
 				else
 					session::setFlashMessage('actions_message', strTranslate("Enroll_fail"), "alert alert-danger");
 			else:
-				session::setFlashMessage( 'actions_message', strTranslate("Enroll_limit_reached"), "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Enroll_limit_reached"), "alert alert-danger");
 			endif;
 			redirectURL("areas");
 		}
@@ -204,7 +204,7 @@ class na_areasController{
 	public static function ExportFileUserAction(){
 		$na_areas = new na_areas();
 		$elements = $na_areas->getTareasUserExport(intval($_REQUEST['id']), intval($_REQUEST['a']));
-		download_send_headers("data_" . date("Y-m-d") . ".csv");
+		download_send_headers("data_".date("Y-m-d") . ".csv");
 		echo array2csv($elements);
 		die();
 	}
@@ -226,7 +226,7 @@ class na_areasController{
 		foreach($elements as $element):
 			//nombre del grupo
 			$nombre_grupo = '';
-			if (count($grupos = $na_areas->getUsuarioGrupoTarea($id_tarea, $id_area," AND grupo_username='".$element['user_tarea']."' ")) > 0){
+			if (count($grupos = $na_areas->getUsuarioGrupoTarea($id_tarea, $id_area, " AND grupo_username='".$element['user_tarea']."' ")) > 0){
 				$nombre_grupo = $grupos[0]['grupo_nombre'];
 			}
 			$element['nombre_grupo'] = $nombre_grupo;
@@ -247,7 +247,7 @@ class na_areasController{
 	}
 
 	public static function saveFormAction(){
-		if (isset($_POST['id_tarea']) and $_POST['id_tarea'] != ""){
+		if (isset($_POST['id_tarea']) && $_POST['id_tarea'] != ""){
 			$na_areas = new na_areas();
 			$id_tarea = intval($_POST['id_tarea']);
 			$preguntas = $na_areas->getPreguntas(" AND id_tarea=".$id_tarea." ");
@@ -262,7 +262,7 @@ class na_areasController{
 					$respuestas_usuario = $na_areas->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." ");
 					foreach($respuestas_usuario as $respuesta_usuario):
 						$campo = "respuesta_".$pregunta['id_pregunta']."_".$respuesta_usuario['id_respuesta'];  
-						if (isset($_POST[$campo]) and $_POST[$campo] != '') $respuesta_valor .= sanitizeInput($_POST[$campo]."|");
+						if (isset($_POST[$campo]) && $_POST[$campo] != '') $respuesta_valor .= sanitizeInput($_POST[$campo]."|");
 					endforeach;
 					$respuesta_valor = substr($respuesta_valor, 0, (strlen($respuesta_valor) - 1));
 				}
@@ -295,18 +295,18 @@ class na_areasController{
 				//valorar respuestas
 				$aciertos = 0;
 				foreach($preguntas as $pregunta):
-					if ($pregunta['pregunta_tipo']=='unica'){
+					if ($pregunta['pregunta_tipo'] == 'unica'){
 						$respuestas = $na_areas->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 "); 
 						$respuesta_user=$na_areas->getRespuestasUser(" AND id_pregunta=".$pregunta['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");            
 						foreach($respuestas as $respuesta):
 							//echo $respuesta_user[0]['respuesta_valor'].' ***** '.$respuesta['respuesta_texto']."<br />";
-							if ($respuesta_user[0]['respuesta_valor']==$respuesta['respuesta_texto']){
+							if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']){
 								$aciertos++;
 								//echo "acierto: ".$pregunta['id_pregunta'];
 							}
 						endforeach;
 					}
-					elseif ($pregunta['pregunta_tipo']=='multiple'){
+					elseif ($pregunta['pregunta_tipo'] == 'multiple'){
 						$aciertos_multiples = 0;
 						$respuestas = $na_areas->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 "); 
 						$respuesta_user = $na_areas->getRespuestasUser(" AND id_pregunta=".$pregunta['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");            
@@ -316,7 +316,7 @@ class na_areasController{
 						endforeach;		
 
 						//echo "aciertos mul: ".$aciertos_multiples." - respuestas: ".count($respuestas)." - resp.user: ".count($respuesta_multiple). "<br /> ";
-						if ($aciertos_multiples == (count($respuestas)) and (count($respuestas) == count($respuesta_multiple)))	$aciertos++;		
+						if ($aciertos_multiples == (count($respuestas)) && (count($respuestas) == count($respuesta_multiple)))	$aciertos++;		
 					}
 				endforeach;
 				//calcular resultado final del cuestionario $puntos
@@ -335,12 +335,12 @@ class na_areasController{
 	public static function accesoAreaAction($id_area){
 		$acceso = 1;
 		if ($_SESSION['user_canal'] != 'admin')
-			$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
+			$acceso = connection::countReg("na_areas_users", " AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
 		return $acceso;
 	}
 	
 	public static function insertDocAction(){
-		if (isset($_POST['id_tarea']) and $_POST['id_tarea'] != ""){
+		if (isset($_POST['id_tarea']) && $_POST['id_tarea'] != ""){
 			$na_areas = new na_areas();
 			$mensaje = $na_areas->insertTareaDoc(intval($_POST['id_tarea']), sanitizeInput($_POST['tipo']), sanitizeInput($_POST['nombre-documento']), $_FILES['nombre-fichero'], sanitizeInput($_POST['documento-link']));
 			session::setFlashMessage('actions_message', $mensaje, "alert alert-warning");
@@ -349,7 +349,7 @@ class na_areasController{
 	}
 
 	public static function deleteDocAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$na_areas = new na_areas();
 			if($na_areas->deleteTareaDoc(intval($_REQUEST['idd'])))
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
@@ -361,7 +361,7 @@ class na_areasController{
 	}
 
 	public static function inserGrupoAction(){
-		if (isset($_POST['id_area_grupo']) and $_POST['id_area_grupo'] != ""){
+		if (isset($_POST['id_area_grupo']) && $_POST['id_area_grupo'] != ""){
 			$na_areas = new na_areas();
 			if($na_areas->insertGrupoArea(intval($_POST['id_area_grupo']), sanitizeInput($_POST['grupo_nombre'])))
 				session::setFlashMessage('actions_message', "Grupo creado correctamente.", "alert alert-success");
@@ -373,9 +373,9 @@ class na_areasController{
 	}
 
 	public static function inserTareaAction(){
-		if (isset($_POST['id_area_tarea']) and $_POST['id_area_tarea'] != ""){
+		if (isset($_POST['id_area_tarea']) && $_POST['id_area_tarea'] != ""){
 			$na_areas = new na_areas();
-			if (isset($_POST['tarea_grupo']) and $_POST['tarea_grupo'] == 'on') $grupo = 1;
+			if (isset($_POST['tarea_grupo']) && $_POST['tarea_grupo'] == 'on') $grupo = 1;
 			else $grupo = 0;
 
 			$descripcion = nl2br(sanitizeInput($_POST['tarea_descripcion']));
@@ -383,7 +383,7 @@ class na_areasController{
 			$tipo = sanitizeInput($_POST['tipo']);
 
 			//SUBIR FICHERO
-			if (isset($_FILES['fichero-tarea']) and $_FILES['fichero-tarea']['name'] != ""){
+			if (isset($_FILES['fichero-tarea']) && $_FILES['fichero-tarea']['name'] != ""){
 				$nombre_archivo = time().'_'.str_replace(" ", "_", $_FILES['fichero-tarea']['name']);
 				$nombre_archivo = NormalizeText($nombre_archivo);		
 				move_uploaded_file($_FILES['fichero-tarea']['tmp_name'], PATH_TAREAS.$nombre_archivo);
@@ -402,7 +402,7 @@ class na_areasController{
 	}
 
 	public static function estadoTareaAction(){
-		if (isset($_REQUEST['e']) and $_REQUEST['e'] != ""){
+		if (isset($_REQUEST['e']) && $_REQUEST['e'] != ""){
 			$na_areas = new na_areas();
 			if($na_areas->estadoTarea(intval($_REQUEST['del_t']), intval($_REQUEST['e'])))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -414,7 +414,7 @@ class na_areasController{
 	}
 
 	public static function eliminarTareaAction(){
-		if (isset($_REQUEST['del_t2']) and $_REQUEST['del_t2'] != ""){
+		if (isset($_REQUEST['del_t2']) && $_REQUEST['del_t2'] != ""){
 			$na_areas = new na_areas();
 			if($na_areas->estadoTarea(intval($_REQUEST['del_t2']), 2))
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
@@ -426,7 +426,7 @@ class na_areasController{
 	}
 
 	public static function estadoLinksTareaAction(){
-		if (isset($_REQUEST['el']) and $_REQUEST['el'] != ""){
+		if (isset($_REQUEST['el']) && $_REQUEST['el'] != ""){
 			$na_areas = new na_areas();
 			if($na_areas->estadoLinksTarea(intval($_REQUEST['del_t']), intval($_REQUEST['el'])))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -465,7 +465,7 @@ class na_areasController{
 	}
 
 	public static function exportForoAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$foro = new foro();
 			$elements = $foro->getComentariosExport(" AND c.id_tema=".intval($_REQUEST['idt'])." ");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -475,21 +475,21 @@ class na_areasController{
 	}
 
 	public static function exportUsersAreaAction(){
-		if (isset($_REQUEST['t']) and $_REQUEST['t'] == 1){
+		if (isset($_REQUEST['t']) && $_REQUEST['t'] == 1){
 			$na_areas = new na_areas();
 			$elements = $na_areas->getAreasUsers(" AND id_area=".intval($_REQUEST['id']));
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers("data_".date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
 		}
 	}
 
 	public static function insertPreguntaAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'new'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'new'){
 			if (trim($_POST['pregunta_texto'])){
 				$na_areas = new na_areas();
 				$na_areas->insertPregunta(intval($_REQUEST['id']), sanitizeInput($_POST['pregunta_texto']), sanitizeInput($_POST['pregunta_tipo']));
-				$id_pregunta = connection::SelectMaxReg("id_pregunta","na_tareas_preguntas","");
+				$id_pregunta = connection::SelectMaxReg("id_pregunta", "na_tareas_preguntas","");
 				
 				if ($_POST['pregunta_tipo'] != 'texto'){
 					//INSERTAR PREGUNTA-RESPUESTA
@@ -503,11 +503,11 @@ class na_areasController{
 
 						if ($_POST['pregunta_tipo']=='multiple'){
 							$campo_correcta = "checkRespuesta".$i;
-							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta]!='') ? 1 : 0);
+							$correcta = ((isset($_POST[$campo_correcta]) && $_POST[$campo_correcta] != '') ? 1 : 0);
 						}
-						if ($_POST['pregunta_tipo']=='unica'){
+						if ($_POST['pregunta_tipo'] == 'unica'){
 							$campo_correcta = "radioRespuesta1";
-							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta]==$i) ? 1 : 0);
+							$correcta = ((isset($_POST[$campo_correcta]) && $_POST[$campo_correcta] == $i) ? 1 : 0);
 						}
 
 						if ($valor != "") $na_areas->insertPreguntaRespuesta($id_pregunta, $valor, $correcta);
@@ -520,7 +520,7 @@ class na_areasController{
 	}
 
 	public static function deletePreguntaAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$na_areas = new na_areas();
 			if ($na_areas->deletePregunta(intval($_REQUEST['idp'])))
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");

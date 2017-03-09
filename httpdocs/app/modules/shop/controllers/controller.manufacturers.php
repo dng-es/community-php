@@ -9,6 +9,7 @@ class shopManufacturersController{
 		else{
 			$element['name_manufacturer'] = "";
 			$element['active_manufacturer'] = "";
+			$element['notes_manufacturer'] = "";
 		}
 		return $element;
 	}
@@ -29,7 +30,7 @@ class shopManufacturersController{
 	}
 
 	public static function exportListAction($filter = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$shop = new shop(); 
 			$elements = $shop->getManufacturers($filter);
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -39,7 +40,7 @@ class shopManufacturersController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id_manufacturer']) and $_POST['id_manufacturer'] == 0){
+		if (isset($_POST['id_manufacturer']) && $_POST['id_manufacturer'] == 0){
 			$shop = new shop();
 			$name_manufacturer = trim(sanitizeInput($_POST['name_manufacturer']));
 			$notes_manufacturer = trim(sanitizeInput($_POST['notes_manufacturer']));
@@ -57,7 +58,7 @@ class shopManufacturersController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id_manufacturer']) and $_POST['id_manufacturer'] > 0){
+		if (isset($_POST['id_manufacturer']) && $_POST['id_manufacturer'] > 0){
 			$shop = new shop();
 			$id_manufacturer = trim(sanitizeInput($_POST['id_manufacturer']));
 			$name_manufacturer = trim(sanitizeInput($_POST['name_manufacturer']));
@@ -76,7 +77,7 @@ class shopManufacturersController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$shop = new shop();
 			if ($shop->updateManufacturerState($_REQUEST['id'], 0)) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");

@@ -17,11 +17,11 @@
 					$fichero=$_FILES['nombre-fichero'];
 					//SUBIR FICHERO
 					$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-					$nombre_archivo=NormalizeText($nombre_archivo);
+					$nombre_archivo = NormalizeText($nombre_archivo);
 					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 					$tamano_archivo = $fichero['size'];
 					//compruebo si las características del archivo son las que deseo
-					if ($tipo_archivo!="XLS"){
+					if ($tipo_archivo != "XLS"){
 						ErrorMsg("La extensión no es correcta.".$tipo_archivo);
 					}else{
 						if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
@@ -52,11 +52,11 @@ function volcarMySQL($data){
 	$contador_ko = 0;
 	$incentivos = new incentivos();
 
-	for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
-		$referencia_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
-		$fabricante_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
-		$cantidad_venta = utf8_encode(str_replace(',','.',str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][3])))));
-		$username_venta = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][4])));
+	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+		$referencia_producto = utf8_encode(str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
+		$fabricante_producto = utf8_encode(str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
+		$cantidad_venta = utf8_encode(str_replace(',', '.', str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][3])))));
+		$username_venta = utf8_encode(str_replace ("'", "´", trim($data->sheets[0]['cells'][$fila][4])));
 		//datos del usuario (obtener canal)
 		$usuario = usersController::getPerfilAction($username_venta, "");
 
@@ -80,8 +80,8 @@ function volcarMySQL($data){
 					$puntuacion_venta = (0 + (count($puntuacion_producto)>0 ? $puntuacion_producto[0]['puntos'] : 0)) * (count($puntuacion_acelerador)>0 ? $puntuacion_acelerador[0]['valor_acelerador'] : 1);
 
 					$puntuacion_venta = ($puntuacion_venta * $cantidad_venta);
-					if ($incentivos->insertIncentivesProductosVentas($username_venta, str_replace(',','.',$puntuacion_venta), $producto[0]['id_producto'], $fechaV, $detalle) and $puntuacion_venta > 0){
-						users::sumarPuntos($username_venta, str_replace(',','.',$puntuacion_venta), $detalle);
+					if ($incentivos->insertIncentivesProductosVentas($username_venta, str_replace(',', '.', $puntuacion_venta), $producto[0]['id_producto'], $fechaV, $detalle) && $puntuacion_venta > 0){
+						users::sumarPuntos($username_venta, str_replace(',', '.', $puntuacion_venta), $detalle);
 					}
 				}
 			}

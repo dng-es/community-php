@@ -1,7 +1,7 @@
 <?php
 class emocionesController{
 	public static function createAction(){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$emociones = new emociones();
 			$info_title = sanitizeInput($_POST['info_title']);
 			$resultado=$emociones->insertEmocion($_FILES['info_file'], $info_title);
@@ -22,7 +22,7 @@ class emocionesController{
 	}
 
 	public static function updateAction($id){
-		if (isset($_POST['id']) and $_POST['id'] > 0){
+		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$emociones = new emociones();
 			if ($emociones->updateEmocion($id, $_FILES['info_file'], $_POST['info_title'])) {
 				session::setFlashMessage('actions_message', "Registro modificado correctamente", "alert alert-success");
@@ -35,14 +35,14 @@ class emocionesController{
 	}
 
 	public function getItemAction($id){
-		if (isset($_GET['act']) and $_GET['act']=='edit'){
+		if (isset($_GET['act']) && $_GET['act'] == 'edit'){
 			$emociones = new emociones();
 			return $emociones->getEmociones(" AND id_emocion=".$id);
 		}
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') {
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del') {
 			$emociones = new emociones();
 			$id = intval($_REQUEST['id']);
 			if ($emociones->disableEmociones($id)) {
@@ -61,7 +61,7 @@ class emocionesController{
 		$emociones = new emociones();
 		$filtro = $filter." ORDER BY id_emocion ASC ";
 
-		$find_reg = (isset($_GET['f']) and $_GET['f'] > 0) ? $_GET['f'] : "";
+		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("emociones",$filtro);
 		return array('items' => $emociones->getEmociones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -73,15 +73,15 @@ class emocionesController{
 
 	public static function createUserAction(){
 
-		if (isset($_POST['id_emocion']) and $_POST['id_emocion'] == ""){
+		if (isset($_POST['id_emocion']) && $_POST['id_emocion'] == ""){
 			session::setFlashMessage( 'actions_message', "debes elegir una emoción.", "alert alert-danger");
 			redirectURL("?page=home");
 		}
-		elseif (isset($_POST['mi_emocion']) and trim($_POST['mi_emocion']) == ""){
+		elseif (isset($_POST['mi_emocion']) && trim($_POST['mi_emocion']) == ""){
 			session::setFlashMessage( 'actions_message', "debes explicar por qué te sientes así", "alert alert-danger");
 			redirectURL("?page=home");
 		}
-		elseif (isset($_POST['id_emocion']) and $_POST['id_emocion'] != ""){
+		elseif (isset($_POST['id_emocion']) && $_POST['id_emocion'] != ""){
 			$emociones = new emociones();
 			if ($emociones->insertEmocionUser($_POST['id_emocion'], $_SESSION['user_name'], $_POST['mi_emocion'])){
 				//verificar si el usuario esta en postformacion para mostrarle un mensaje aleatorio
@@ -107,15 +107,15 @@ class emocionesController{
 		$emociones = new emociones();
 		$filtro = $filter." ORDER BY date_emocion DESC ";
 
-		if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0){
+		if (isset($_REQUEST['id']) && $_REQUEST['id'] > 0){
 			$filtro = " AND eu.id_emocion=".$_REQUEST['id'] . " " .$filtro;
 		}
 
-		if (isset($_REQUEST['i']) and $_REQUEST['i'] != "") {
+		if (isset($_REQUEST['i']) && $_REQUEST['i'] != "") {
 			$filtro = " AND date_emocion BETWEEN " . str_replace("%27", "'", $_REQUEST['i']) . " " .$filtro;
 		}
 
-		$find_reg = (isset($_GET['f']) and $_GET['f'] > 0) ? $_GET['f'] : "";
+		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("emociones_user eu",$filtro);
 		return array('items' => $emociones->getEmocionesUser($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -126,35 +126,13 @@ class emocionesController{
 	}
 
 	public static function exportListUserAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$emociones = new emociones();
 			$elements = $emociones->getEmocionesUser("");
 			download_send_headers("emociones_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
 		}	
-	}
-
-	/**
-	 * Elementos para el menu de administración
-	 * @return 	array           			Array con datos
-	 */
-	public static function adminMenu(){
-		return array(array("LabelHeader" => 'Modules',
-							"LabelSection" => 'Emociones',
-							"LabelItem" => 'Ver todas las emociones',
-							"LabelUrl" => 'admin-emociones',
-							"LabelPos" => 1),
-					array("LabelHeader" => 'Modules',
-							"LabelSection" => 'Emociones',
-							"LabelItem" => 'Emociones de los usuarios',
-							"LabelUrl" => 'admin-emociones-users',
-							"LabelPos" => 2),
-					array("LabelHeader" => 'Modules',
-							"LabelSection" => 'Emociones',
-							"LabelItem" => 'Nueva emoción',
-							"LabelUrl" => 'admin-emocion',
-							"LabelPos" => 2));	
 	}
 }
 ?>

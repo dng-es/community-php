@@ -18,7 +18,7 @@ templateload("comment", "foro");
 		//OBTENCION DE LOS DATOS DEL FORO
 		if (isset($_REQUEST['id'])) $id_tema = $_REQUEST['id'];
 		if (isset($_REQUEST['f'])) $id_tema = $_REQUEST['f'];
-		if (isset($id_tema) and $id_tema != ""){
+		if (isset($id_tema) && $id_tema != ""){
 			$filtro_tema = " AND id_tema=".$id_tema." AND activo=1 ";
 			if ($_SESSION['user_canal'] != "admin") $filtro_tema .= " AND canal='".$_SESSION['user_canal']."' ";
 			$tema = $foro->getTemas($filtro_tema); 
@@ -46,7 +46,7 @@ templateload("comment", "foro");
 				$reg = $module_config['options']['comments_per_page'];
 				$pag = 1;
 				$inicio = 0;
-				if (isset($_GET["pag"]) and $_GET["pag"] != ""){
+				if (isset($_GET["pag"]) && $_GET["pag"] != ""){
 					$pag = $_GET["pag"];
 					$inicio = ($pag - 1) * $reg;
 				}

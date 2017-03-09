@@ -9,8 +9,8 @@ class blogController{
 		$foro = new foro();
 		$filtro_tema = "";
 		$tema = array();
-		if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0) $id_tema = intval($_REQUEST['id']);
-		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_tema = intval($_REQUEST['f']);
+		if (isset($_REQUEST['id']) && $_REQUEST['id'] > 0) $id_tema = intval($_REQUEST['id']);
+		elseif (isset($_REQUEST['f']) && $_REQUEST['f'] > 0) $id_tema = intval($_REQUEST['f']);
 		else $id_tema = connection::SelectMaxReg("id_tema", "foro_temas", $filtro_blog." AND ocio=1 AND id_tema_parent=0 AND activo=1 ");
 
 		if ($id_tema > 0){
@@ -23,12 +23,12 @@ class blogController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$foro = new foro();
 			$id = 0;
 			$nombre = sanitizeInput($_POST['nombre']);
 			$descripcion = sanitizeInput(stripslashes($_POST['descripcion']));
-			$destacado = (isset($_POST['destacado']) and $_POST['destacado'] == "on") ? 1 : 0;
+			$destacado = (isset($_POST['destacado']) && $_POST['destacado'] == "on") ? 1 : 0;
 			$etiquetas = sanitizeInput($_POST['etiquetas']);
 			$canal = sanitizeInput($_POST['canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
@@ -49,12 +49,12 @@ class blogController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id']) and $_POST['id'] > 0){
+		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$id = intval($_POST['id']);
 			$foro = new foro();	
 			$nombre = sanitizeInput($_POST['nombre']);
 			$descripcion = sanitizeInput(stripslashes($_POST['descripcion']));
-			$destacado = (isset($_POST['destacado']) and $_POST['destacado'] == "on") ? 1 : 0;
+			$destacado = (isset($_POST['destacado']) && $_POST['destacado'] == "on") ? 1 : 0;
 			$etiquetas = sanitizeInput($_POST['etiquetas']);
 			$canal = sanitizeInput($_POST['canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
@@ -95,7 +95,7 @@ class blogController{
 	}
 
 	public static function exportCommentsAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$foro = new foro();
 			$id = intval($_REQUEST['id']);
 			$elements_exp = $foro->getComentariosExport(" AND c.estado=1 AND c.id_tema=".$id." ");

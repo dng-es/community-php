@@ -26,13 +26,14 @@ class novedadesController{
 			$element['perfil'] = "";
 			$element['activo'] = 0;
 			$element['tipo'] = "slider";
+			$element['orden'] = 0;
 		}
 
 		return $element;
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id_novedad']) and $_POST['id_novedad'] == 0){
+		if (isset($_POST['id_novedad']) && $_POST['id_novedad'] == 0){
 			$novedades = new novedades();
 			$titulo = sanitizeInput($_POST['titulo']);
 			$cuerpo = stripslashes($_POST['texto']);
@@ -54,7 +55,7 @@ class novedadesController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id_novedad']) and $_POST['id_novedad'] > 0){
+		if (isset($_POST['id_novedad']) && $_POST['id_novedad'] > 0){
 			$novedades = new novedades();
 			$id_novedad = intval($_POST['id_novedad']);
 			$titulo = sanitizeInput($_POST['titulo']);
@@ -76,7 +77,7 @@ class novedadesController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$novedades = new novedades();
 			$id_novedad = intval($_REQUEST['id']);
 			

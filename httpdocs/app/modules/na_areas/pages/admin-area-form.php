@@ -31,7 +31,7 @@ $tarea=$na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 			<a href="areas_form?id=<?php echo $id_tarea;?>" target="_blank" id="ver-formulario" class="">Ver formulario</a>
 		</p>
 		<?php
-		if (count($tarea) == 1 and $tarea[0]['tipo'] == 'formulario') FormularioTarea($id_tarea, $id_area, $tarea);
+		if (count($tarea) == 1 && $tarea[0]['tipo'] == 'formulario') FormularioTarea($id_tarea, $id_area, $tarea);
 		else ErrorMsg("Error al cargar el formulario la tarea"); ?>
 	</div>
 	<?php menu::adminMenu();?>

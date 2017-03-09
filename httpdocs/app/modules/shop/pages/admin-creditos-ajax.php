@@ -9,7 +9,7 @@ include_once($base_dir . "modules/shop/classes/class.shop.php");
 
 session::ValidateSessionAjax();
 
-if (isset($_REQUEST['id_usuario']) and $_REQUEST['id_usuario'] != ""){
+if (isset($_REQUEST['id_usuario']) && $_REQUEST['id_usuario'] != ""){
 	$shop = new shop();
 	//VERIFICAR USUARIO EXISTE
 	if (connection::countReg("users", " AND username='". $_REQUEST['id_usuario']."' ") == 0){

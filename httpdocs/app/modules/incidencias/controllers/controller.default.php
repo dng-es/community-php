@@ -1,9 +1,24 @@
 <?php
 class incidenciasController{
+
 	public static function getItemAction($id, $filter){
 		$incidencias = new incidencias();
+		$element = array();
 		$elements = $incidencias->getIncidencias(" AND  id_incidencia=".$id." ".$filter);
-		return $elements[0];
+
+		if (isset($elements[0])) {
+			$element = $elements[0];
+			$estados = incidenciasController::getListEstadosAction(9999, " AND id_incidencia=".$id." ");
+			$element['estados'] = $estados['items'];
+		}
+		else{
+			$element['date_incidencia'] = '';
+			$element['texto_incidencia'] = '';
+			$element['estado_incidencia'] = '';
+			$element['solucion_incidencia'] = '';
+			$element['estados'] = array();
+		}
+		return $element;
 	}
 
 	public static function getListAction($reg = 0, $filtro = ""){
@@ -49,7 +64,7 @@ class incidenciasController{
 	}
 
 	public static function exportListAction($filter){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$incidencias = new incidencias();
 			$elements = $incidencias->getIncidenciasExport($filter);
 			download_send_headers("incidencias" . date("Y-m-d") . ".csv");
@@ -105,7 +120,7 @@ class incidenciasController{
 			}
 			else{
 				if ($incidencias->updateIncidencias($id, $_SESSION['user_name'], $texto_incidencia)){
-					if (isset($_REQUEST['a']) and $_REQUEST['a'] >= 0){
+					if (isset($_REQUEST['a']) && $_REQUEST['a'] >= 0){
 						self::changeEstadoAction($id, intval($_REQUEST['a']), true, " AND username_incidencia='".$_SESSION['user_name']."' ");
 					}
 					session::setFlashMessage('actions_message',  strTranslate("Update_procesing"), "alert alert-success");
@@ -119,7 +134,7 @@ class incidenciasController{
 	}
 
 	// public static function cancelAction(){
-	// 	if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+	// 	if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 	// 		$incidencias = new incidencias();
 	// 		$id_incidencia = intval($_REQUEST['id']);
 	// 		self::changeEstadoAction($id_incidencia, 2, true, '');
@@ -130,7 +145,7 @@ class incidenciasController{
 	// }
 
 	// public static function estadosAction($filter = "", $destination = "admin-incidence"){
-	// 	if (isset($_REQUEST['e']) and $_REQUEST['e'] >= 0){
+	// 	if (isset($_REQUEST['e']) && $_REQUEST['e'] >= 0){
 	// 		$incidencias = new incidencias();
 	// 		$estado_incidencia = intval($_REQUEST['e']);
 	// 		$id_incidencia = intval($_REQUEST['id']);
@@ -149,15 +164,15 @@ class incidenciasController{
 	// }
 
 	public static function updateAdminAction($filter = "", $destination = "admin-incidence"){
-		if (isset($_POST['solucion_incidencia']) and $_POST['solucion_incidencia'] >= 0){
+		if (isset($_POST['solucion_incidencia']) && $_POST['solucion_incidencia'] >= 0){
 			$incidencias = new incidencias();
 			$solucion_incidencia = sanitizeInput($_POST['solucion_incidencia']);
 			$categoria_incidencia = sanitizeInput($_POST['categoria_incidencia']);
 			$id_incidencia = intval($_POST['id']);
-			$enviar_email = (isset($_POST['enviar_email']) and $_POST['enviar_email'] == "on") ? 1 : 0;
+			$enviar_email = (isset($_POST['enviar_email']) && $_POST['enviar_email'] == "on") ? 1 : 0;
 			if ($incidencias->updateAdminIncidencias($id_incidencia, $solucion_incidencia, $categoria_incidencia, $filter)) {
 				session::setFlashMessage('actions_message',  strTranslate("Update_procesing"), "alert alert-success");
-				if (isset($_REQUEST['a']) and $_REQUEST['a'] >= 0)self::changeEstadoAction($id_incidencia, intval($_REQUEST['a']), true, "");
+				if (isset($_REQUEST['a']) && $_REQUEST['a'] >= 0)self::changeEstadoAction($id_incidencia, intval($_REQUEST['a']), true, "");
 				elseif($enviar_email) self::emailEstadoAction($id_incidencia, $estado_incidencia);
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

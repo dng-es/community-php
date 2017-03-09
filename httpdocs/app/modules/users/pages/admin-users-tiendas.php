@@ -1,7 +1,4 @@
-<?php
-//EXPORT TIENDAS
-usersTiendasController::exportListAction();
-?>
+<?php usersTiendasController::exportListAction();?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php

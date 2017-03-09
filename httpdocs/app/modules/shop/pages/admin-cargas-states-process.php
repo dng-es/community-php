@@ -16,11 +16,11 @@
 					$fichero=$_FILES['nombre-fichero'];
 					//SUBIR FICHERO		
 					$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-					$nombre_archivo=NormalizeText($nombre_archivo);
+					$nombre_archivo = NormalizeText($nombre_archivo);
 					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 					$tamano_archivo = $fichero['size'];
 					//compruebo si las características del archivo son las que deseo
-					if ($tipo_archivo!="XLS") {
+					if ($tipo_archivo != "XLS") {
 						ErrorMsg("La extensión no es correcta.".$tipo_archivo);
 					}else{
 						if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
@@ -34,7 +34,8 @@
 							
 							/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
 							volcarMySQL($data);
-						}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
+						}
+						else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
 					}
 				}?>
 			</div>
@@ -53,7 +54,7 @@ function volcarMySQL($data){
 	$contador_baja = 0;
 	$mensaje_baja = "";
 
-	for($fila=2; $fila<=$data->sheets[0]['numRows']; $fila += 1){
+	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 		$id_order =  sanitizeInput($data->sheets[0]['cells'][$fila][1]);
 		$status_order = sanitizeInput($data->sheets[0]['cells'][$fila][2]);
 		$shop_orders_status = shop::getOrders(" AND id_order = ".$id_order." ");

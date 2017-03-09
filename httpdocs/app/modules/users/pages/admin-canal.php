@@ -21,7 +21,7 @@
 					<div class="row">
 						<div class="col-md-6 form-group">
 							<label for="canal"><small><?php e_strTranslate("Channel");?>: <span class="text-muted">(texto corto identificativo del canal)</span></small></label>
-							<input type="text" class="form-control<?php if (isset($_REQUEST['id']) and $_REQUEST['id']!="") {echo ' TextDisabled" readonly="readonly';}?>" id="canal" name="canal" value="<?php echo $elements['canal'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							<input type="text" class="form-control<?php if (isset($_REQUEST['id']) && $_REQUEST['id']!="") {echo ' TextDisabled" readonly="readonly';}?>" id="canal" name="canal" value="<?php echo $elements['canal'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 						</div>
 
 						<div class="col-md-3 form-group">

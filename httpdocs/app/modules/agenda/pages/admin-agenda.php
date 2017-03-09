@@ -1,5 +1,5 @@
 <?php
-session::getFlashMessage( 'actions_message' );
+session::getFlashMessage('actions_message');
 agendaController::exportAction();
 agendaController::deleteAgendaAction();
 $elements = agendaController::getListAction(10, " ORDER BY id_agenda DESC");?>
@@ -11,7 +11,6 @@ $elements = agendaController::getListAction(10, " ORDER BY id_agenda DESC");?>
 			array("ItemLabel"=>strTranslate("Diary_and_offers"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Posts_list"), "ItemClass"=>"active"),
 		));?>
-
 
 		<div class="panel panel-default">
 			<div class="panel-body">

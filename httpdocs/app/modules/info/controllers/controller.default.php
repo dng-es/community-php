@@ -20,7 +20,7 @@ class infoController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$info = new info();
 			$download = ($_POST['download'] == "on" ? 1 : 0);
 			$canal = sanitizeInput($_POST['info_canal']);
@@ -46,7 +46,7 @@ class infoController{
 	}
 
 	public static function updateAction($id){
-		if (isset($_POST['id']) and $_POST['id'] > 0){
+		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$info = new info();
 			$download = ($_POST['download'] == "on" ? 1 : 0);
 			$canal = sanitizeInput($_POST['info_canal']);
@@ -72,7 +72,7 @@ class infoController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$info = new info();
 			if ($info->deleteInfo(intval($_REQUEST['id']), sanitizeInput($_REQUEST['d']))) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
@@ -84,7 +84,7 @@ class infoController{
 	}
 
 	public static function getZipAction(){
-		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] != ""){
+		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] != ""){
 			fileToZip($_REQUEST['exp'], PATH_INFO);
 		}
 	}
@@ -113,7 +113,7 @@ class infoController{
 	}
 
 	public static function exportViewsAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$info = new info();
 			$elements = $info->getInfoViews("");
 			download_send_headers("views_" . date("Y-m-d") . ".csv");

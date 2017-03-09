@@ -4,7 +4,7 @@ templateload("cmbCanales", "users");
 function PanelSubirFoto($id_promocion = 0, $albumes = null, $id_album = 0){
 
 	$module_config = getModuleConfig("fotos");
-	if ($module_config['options']['allow_uploads'] == true or $_SESSION['user_perfil'] == 'admin'){?>
+	if ($module_config['options']['allow_uploads'] == true || $_SESSION['user_perfil'] == 'admin'){?>
 	<h4>
 		<span class="fa-stack fa-sx">
 			<i class="fa fa-circle fa-stack-2x"></i>
@@ -23,7 +23,7 @@ function PanelSubirFoto($id_promocion = 0, $albumes = null, $id_album = 0){
 			<?php //ComboCanales()?>
 		<!--</select>-->
 		<?php //endif;?> 
-		<?php if (($module_config['options']['allow_users_albums'] == true) and $albumes != null): 
+		<?php if (($module_config['options']['allow_users_albums'] == true) && $albumes != null): 
 			if ($id_album == 0):
 				ComboAlbumes(0, $albumes, "id_album"); ?>
 				<!--<p>Para crear un nuevo album pincha <a href="#" id="createAlbum">aquí</a></p>-->

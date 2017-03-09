@@ -1,5 +1,5 @@
 <div class="row inset row-top">
-	<div class="col-md-6">
+	<div class="col-md-6 col-md-offset-3">
 		<div class="panel panel-warning">
 			<div class="panel-heading">
 				<h1 class="panel-title"><?php e_strTranslate("Underconstruction");?></h1>

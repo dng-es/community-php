@@ -41,7 +41,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					<button class="btn btn-primary" id="SubmitCuestionario" name="SubmitForm" type="submit"><?php e_strTranslate("Save_data");?></button>
 					<br />
 				<br />
-				<?php if ($id_ranking>0 ):?>
+				<?php if ($id_ranking > 0 ):?>
 				<?php endif;?>
 				</form>
 			</div>

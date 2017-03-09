@@ -18,7 +18,7 @@ $semana3 = semanaFecha(date ( 'Y' , $nuevafechaIni ), date ( 'm' , $nuevafechaIn
 $nuevafechaIni = strtotime ( '-21 day' , strtotime ( $semana1[0][0] ) );
 $semana4 = semanaFecha(date ( 'Y' , $nuevafechaIni ), date ( 'm' , $nuevafechaIni ), date ( 'd' , $nuevafechaIni ));
 
-if(isset($_POST['semana']) and $_POST['semana']!="") $filtro_fecha = $_POST['semana'];
+if(isset($_POST['semana']) && $_POST['semana'] != "") $filtro_fecha = $_POST['semana'];
 else $filtro_fecha = " '".trim($semana1[0][0])."' AND '".trim($semana1[1][0])."'";
 
 ?>
@@ -31,10 +31,10 @@ else $filtro_fecha = " '".trim($semana1[0][0])."' AND '".trim($semana1[1][0])."'
 				<br />
 				<form id="formEmociones" role="form" action="?page=emociones-graph" method="post">
 				<select class="form-control" id="semana" name="semana">
-					<option <?php echo (isset($_POST['semana']) and $_POST['semana']==" '".$semana1[0][0]."' AND '".$semana1[1][0]."' ") ? 'selected="selected" ' : '';?> value=" '<?php echo $semana1[0][0];?>' AND '<?php echo $semana1[1][0];?>' ">semana del <?php echo $semana1[0][1];?> al <?php echo $semana1[1][1];?></option>
-					<option <?php echo (isset($_POST['semana']) and $_POST['semana']==" '".$semana2[0][0]."' AND '".$semana2[1][0]."' ") ? 'selected="selected" ' : '';?> value=" '<?php echo $semana2[0][0];?>' AND '<?php echo $semana2[1][0];?>' ">semana del <?php echo $semana2[0][1];?> al <?php echo $semana2[1][1];?></option>
-					<option <?php echo (isset($_POST['semana']) and $_POST['semana']==" '".$semana3[0][0]."' AND '".$semana3[1][0]."' ") ? 'selected="selected" ' : '';?> value=" '<?php echo $semana3[0][0];?>' AND '<?php echo $semana3[1][0];?>' ">semana del <?php echo $semana3[0][1];?> al <?php echo $semana3[1][1];?></option>
-					<option <?php echo (isset($_POST['semana']) and $_POST['semana']==" '".$semana4[0][0]."' AND '".$semana4[1][0]."' ") ? 'selected="selected" ' : '';?> value=" '<?php echo $semana4[0][0];?>' AND '<?php echo $semana4[1][0];?>' ">semana del <?php echo $semana4[0][1];?> al <?php echo $semana4[1][1];?></option>
+					<option <?php echo (isset($_POST['semana']) && $_POST['semana'] == " '".$semana1[0][0]."' AND '".$semana1[1][0]."' ") ? 'selected="selected" ' : '';?> value=" '<?php echo $semana1[0][0];?>' AND '<?php echo $semana1[1][0];?>' ">semana del <?php echo $semana1[0][1];?> al <?php echo $semana1[1][1];?></option>
+					<option <?php echo (isset($_POST['semana']) && $_POST['semana'] == " '".$semana2[0][0]."' AND '".$semana2[1][0]."' ") ? 'selected="selected" ' : '';?> value=" '<?php echo $semana2[0][0];?>' AND '<?php echo $semana2[1][0];?>' ">semana del <?php echo $semana2[0][1];?> al <?php echo $semana2[1][1];?></option>
+					<option <?php echo (isset($_POST['semana']) && $_POST['semana'] == " '".$semana3[0][0]."' AND '".$semana3[1][0]."' ") ? 'selected="selected" ' : '';?> value=" '<?php echo $semana3[0][0];?>' AND '<?php echo $semana3[1][0];?>' ">semana del <?php echo $semana3[0][1];?> al <?php echo $semana3[1][1];?></option>
+					<option <?php echo (isset($_POST['semana']) && $_POST['semana'] == " '".$semana4[0][0]."' AND '".$semana4[1][0]."' ") ? 'selected="selected" ' : '';?> value=" '<?php echo $semana4[0][0];?>' AND '<?php echo $semana4[1][0];?>' ">semana del <?php echo $semana4[0][1];?> al <?php echo $semana4[1][1];?></option>
 				</select>
 				</form>
 			</div>

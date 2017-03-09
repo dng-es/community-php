@@ -1,6 +1,5 @@
 <?php
 class coreContactController{
-
 	public static function contactAction(){
 		if (isset($_POST['subject_form'])){
 			global $ini_conf;

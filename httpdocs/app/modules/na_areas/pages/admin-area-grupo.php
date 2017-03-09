@@ -4,10 +4,10 @@ $id_area = intval($_REQUEST['a']);
 $id_grupo = intval($_REQUEST['g']);
 
 //agregar usuario al area
-if (isset($_POST['id_grupo_add']) and $_POST['id_grupo_add']!="")
+if (isset($_POST['id_grupo_add']) && $_POST['id_grupo_add'] != "")
 	$na_areas->insertGrupoUser(intval($_POST['id_grupo_add']), sanitizeInput($_POST['user_add']));
 //quitar usuario del area
-if (isset($_POST['id_grupo_del']) and $_POST['id_grupo_del']!="")
+if (isset($_POST['id_grupo_del']) && $_POST['id_grupo_del'] != "")
 	$na_areas->deleteGrupoUser(intval($_POST['id_grupo_del']), sanitizeInput($_POST['user_del']));
 
 //usuarios del area

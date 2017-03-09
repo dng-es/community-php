@@ -14,9 +14,9 @@ class shopCreditosController{
 	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$shop = new shop(); 
-			$filtro =" AND credito_puntos<>0 ";
+			$filtro = " AND credito_puntos<>0 ";
 			$elements = $shop->getCreditos($filtro." ORDER BY credito_date DESC ");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);

@@ -19,7 +19,6 @@ $plantilla = campaignsController::getItemAction();
 			<div class="panel-body">
 				<form id="formData" name="formData" method="post" action="" role="form" enctype="multipart/form-data">
 					<input type="hidden" name="id_campaign" id="id_campaign" value="<?php echo $plantilla['id_campaign'];?>" />
-
 					<div class="col-md-12 form-group">
 						<label for="name_campaign"><?php e_strTranslate("Name");?>:</label>
 						<input type="text" name="name_campaign" id ="name_campaign" class="form-control form-big" data-alert="<?php e_strTranslate("Required_field");?>" value="<?php echo $plantilla['name_campaign'];?>" />
@@ -33,8 +32,7 @@ $plantilla = campaignsController::getItemAction();
 						$tipo_campana = $campaigns->getCampaignsTypes("");
 						foreach($tipo_campana as $campana):
 							echo '<option value="'.$campana['id_campaign_type'].'" '.($campana['id_campaign_type'] == $plantilla['id_campaign_type'] ? 'selected="selected"' : '').'>'.$campana['campaign_type_name'].'</option>';    
-						endforeach;
-						?>
+						endforeach;?>
 						</select>
 					</div>
 
@@ -63,19 +61,17 @@ $plantilla = campaignsController::getItemAction();
 								<label for="nombre-fichero">Imagen miniatura de la campaña</label>
 								<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="<?php e_strTranslate("Choose_file");?>" />
 								<?php 
-								if (isset($plantilla['imagen_mini']) and $plantilla['imagen_mini'] != ""){
+								if (isset($plantilla['imagen_mini']) && $plantilla['imagen_mini'] != ""){
 									echo '<br /><img src="images/banners/'.$plantilla['imagen_mini'].'" style="width:100%" />';
-								}
-								?>
+								} ?>
 							</div>
 							<div class="col-md-3">
 								<label for="nombre-fichero">Imagen Slide de la campaña</label>
 								<input name="nombre-fichero-big" id="nombre-fichero-big" type="file" class="btn btn-primary btn-block" title="<?php e_strTranslate("Choose_file");?>" />
 								<?php 
-								if (isset($plantilla['imagen_big']) and $plantilla['imagen_big'] != ""){
+								if (isset($plantilla['imagen_big']) && $plantilla['imagen_big'] != ""){
 									echo '<br /><img src="images/banners/'.$plantilla['imagen_big'].'" style="width:100%" />';
-								}
-								?>
+								} ?>
 							</div>
 						</div>
 					</div>

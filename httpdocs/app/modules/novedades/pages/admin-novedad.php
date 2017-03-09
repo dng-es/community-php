@@ -20,7 +20,7 @@ templateload("cmbCanales", "users");
 		novedadesController::createAction();
 		novedadesController::updateAction();
 
-		$id_novedad = intval((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
+		$id_novedad = intval((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
 		$element = novedadesController::getItemAction($id_novedad);
 		?>
 		<div class="panel panel-default">

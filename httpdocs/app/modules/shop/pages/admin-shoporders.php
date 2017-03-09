@@ -1,5 +1,5 @@
 <?php
-$base_dir = str_replace('modules/shop/pages', '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/shop/pages' : 'modules\\shop\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "modules/class.headers.php");
 include_once($base_dir . "modules/pages/classes/class.pages.php");
 include_once($base_dir . "modules/class.footer.php");
@@ -96,7 +96,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 						<?php endforeach;?>
 					</table>
 				</div>
-				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'admin-shoporders','Pedidos', $elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'admin-shoporders', 'Pedidos', $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>

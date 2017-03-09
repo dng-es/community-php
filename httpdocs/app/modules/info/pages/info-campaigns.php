@@ -29,7 +29,7 @@
 			}
 			else $i++; ?>
 		<?php endforeach;?>
-		<?php if ($i <= 3 and $i > 0) echo '</div>';?>
+		<?php if ($i <= 3 && $i > 0) echo '</div>';?>
 		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 		<br />
 	</div>

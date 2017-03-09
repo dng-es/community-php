@@ -9,7 +9,7 @@ addJavascripts(array("js/libs/highcharts/highcharts.js",
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
-			array("ItemLabel"=>"Ventas", "ItemUrl"=>"incentives-targets"),
+			array("ItemLabel"=>strTranslate("Incentives"), "ItemUrl"=>"incentives-targets"),
 			array("ItemLabel"=>strTranslate("Incentives_my_targets"), "ItemClass"=>"active"),
 		));
 
@@ -37,7 +37,7 @@ addJavascripts(array("js/libs/highcharts/highcharts.js",
 							<?php
 							//se muestra el ranking solo si el objetivo lo permite
 							if ($element['ranking_objetivo'] == 1): ?>
-								<small><a href="incentives-rankings?id=<?php echo $element['id_objetivo'];?>">ver ranking del objetivo <i class="fa fa-angle-double-right"></i></a></small>
+								<small><a href="incentives-rankings?id=<?php echo $element['id_objetivo'];?>"><?php e_strTranslate("View_ranking");?> <i class="fa fa-angle-double-right"></i></a></small>
 							<?php endif;?>
 						</b></h3>
 						<div class="row">
@@ -47,10 +47,10 @@ addJavascripts(array("js/libs/highcharts/highcharts.js",
 									<?php e_strTranslate("Date_start");?>: <?php echo getDateFormat( $element['date_ini_objetivo'], 'SHORT');?> -
 									<?php e_strTranslate("Date_end");?>: <?php echo getDateFormat( $element['date_fin_objetivo'], 'SHORT');?>
 									<!-- <a href="incentives-targets?export=ventas&tipo=<?php //echo $element['tipo_objetivo'];?>&id=<?php //echo $element['id_objetivo'];?>">descargar ventas <i class="fa fa-angle-double-right"></i></a> -->
-									<a href="incentives-targets?export=ventas&tipo=<?php echo $element['tipo_objetivo'];?>&id=<?php echo $element['id_objetivo'];?>">descargar detalle <i class="fa fa-angle-double-right"></i></a>
+									<a href="incentives-targets?export=ventas&tipo=<?php echo $element['tipo_objetivo'];?>&id=<?php echo $element['id_objetivo'];?>"><?php e_strTranslate("Download");?> <i class="fa fa-angle-double-right"></i></a>
 								</p>
 								<?php
-								if (count($objetivos)>0):
+								if (count($objetivos) > 0):
 									$total_puntos_user = 0;
 									?>
 									<!-- <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapse<?php //echo $element['id_objetivo'];?>" aria-expanded="false" aria-controls="collapseExample">ver detalle</a> -->
@@ -97,11 +97,16 @@ addJavascripts(array("js/libs/highcharts/highcharts.js",
 		</div>
 		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
-	<div class="col-md-4 col-lg-3 nopadding lateral-container">
-		<div class="panel-interior">
-			<h4>Ventas</h4>
-			<p>Estos son tus objetivos, puedes ver el ranking de cada uno y comprobar quienes son los mejores.</p>
-			<p class="text-center"><i class="fa fa-pie-chart fa-big"></i></p>
+	<div class="app-sidebar">
+		<div class="panel-interior hidden-xs hidden-sm">
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-pie-chart fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php e_strTranslate("Incentives");?>
+			</h4>
+			<p><?php e_strTranslate("Incentives_text");?></p>
 		</div>
 	</div>
 </div>

@@ -9,7 +9,7 @@ include_once($base_dir . "modules/users/classes/class.incidencias.php");
 
 session::ValidateSessionAjax();
 
-if (isset($_POST['opt']) and $_POST['opt'] == 'categorias'){
+if (isset($_POST['opt']) && $_POST['opt'] == 'categorias'){
 	$incidencias = new incidencias();
 	$elements = $incidencias->getCategorias("");
 	$json_elements = "[";

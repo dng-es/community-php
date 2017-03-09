@@ -22,7 +22,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		shopProductsController::createAction();
 		shopProductsController::updateAction();
 		
-		$id_product = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
+		$id_product = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
 		$element = shopProductsController::getItemAction($id_product);
 		$manufacturers = shopManufacturersController::getListAction(9999999, " AND active_manufacturer=1 ORDER BY name_manufacturer");
 		$foto_product = (is_file("images/shop/".$element['image_product']) ? "images/shop/".$element['image_product'] : "images/nofile.jpg");

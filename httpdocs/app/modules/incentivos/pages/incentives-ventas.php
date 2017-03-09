@@ -1,6 +1,4 @@
-<?php
-incentivosController::exportAction(" AND username_venta='".$_SESSION['user_name']."' ");
-?>
+<?php incentivosController::exportAction(" AND username_venta='".$_SESSION['user_name']."' ");?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php

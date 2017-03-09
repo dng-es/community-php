@@ -6,7 +6,6 @@ class headers{
 	*/
 	public static function PageHeader(){
 		global $ini_conf, $scripts_js, $scripts_css, $KEYWORDS_META_PAGE, $SUBJECT_META_PAGE, $TITLE_META_PAGE;
-
 		$Key_Words = (isset( $KEYWORDS_META_PAGE ) ? $KEYWORDS_META_PAGE : $ini_conf['SiteKeywords']);
 		$Subject = (isset( $SUBJECT_META_PAGE ) ? $SUBJECT_META_PAGE : $ini_conf['SiteSubject']);
 		$Title = (isset( $TITLE_META_PAGE ) ? $ini_conf['SiteTitle']." - ".$TITLE_META_PAGE : $ini_conf['SiteTitle']);
@@ -64,7 +63,7 @@ class headers{
 		</head>
 			<body id="page-<?php echo $page;?>">
 			<img alt="" id="bg" src="themes/<?php echo $_SESSION['user_theme'];?>/images/bg.jpg" class="hidden-print" />
-		<?php if ( isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true and (isset($_REQUEST['page']) and !in_array($_REQUEST['page'], $paginas_free))): ?>
+		<?php if (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true && (isset($_REQUEST['page']) && !in_array($_REQUEST['page'], $paginas_free))): ?>
 
 				<?php //if (class_exists('globaloptionsController')):	
 					//globaloptionsController::gettoken( $_SESSION['user_name'], $_SESSION['user_pass']);?>

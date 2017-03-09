@@ -6,17 +6,15 @@
 		));
 		$id = intval($_REQUEST['f']);
 		$elements = campaignsController::getListAction(4, " AND c.id_campaign_type=".$id);
-		$plantilla = campaignsController::getItemTypesAction();	
+		$plantilla = campaignsController::getItemTypesAction();
 		?>
 		<h1><?php echo $plantilla['campaign_type_name']?></h1>
 		<p class="text-muted"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php e_strTranslate("Items");?></p>
 		<p><?php echo $plantilla['campaign_type_desc']?></p>
-
 		<?php 
 		$columna = 1;
 		foreach($elements['items'] as $element): 
-			if ($columna == 1) echo '<div class="row">';
-			?>
+			if ($columna == 1) echo '<div class="row">';?>
 			<div class="col-md-3">
 				<a href="user-campaign?id=<?php echo $element['id_campaign'];?>">
 					<h3><?php echo $element['name_campaign'];?></h3>
@@ -32,7 +30,6 @@
 			$columna++;
 		endforeach;
 		if ($columna == 2) echo '</div>';
-		
 		Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 	</div>
 </div>

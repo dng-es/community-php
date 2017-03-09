@@ -28,7 +28,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 					<table class="table">
 					<?php foreach($elements['items'] as $mensaje):
 						if ($mensaje['estado'] == 0){$estilo_leido="MensajeNoLeido";$estilo_titulo="TituloNoleido ";}
-						else {$estilo_leido = "";$estilo_titulo = "";}?>
+						else {$estilo_leido = ""; $estilo_titulo = "";}?>
 						
 						<tr id="MensajeOvejaContent<?php echo $mensaje['id_mensaje'];?>" class="MensajeCuerpo <?php echo $estilo_leido;?>">
 							<td nowrap="nowrap" valign="top">

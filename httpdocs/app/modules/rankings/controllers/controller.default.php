@@ -35,7 +35,7 @@ class rankingsController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$rankings = new rankings();
 			if ($rankings->updateEstadoRankings(intval($_REQUEST['id']), intval($_REQUEST['e']))) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -47,7 +47,7 @@ class rankingsController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] == 0){
+		if (isset($_POST['id_ranking']) && $_POST['id_ranking'] == 0){
 			$id_ranking = 0;
 			$rankings = new rankings();
 			$nombre = sanitizeInput($_POST['nombre']);
@@ -65,7 +65,7 @@ class rankingsController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] > 0){
+		if (isset($_POST['id_ranking']) && $_POST['id_ranking'] > 0){
 			$rankings = new rankings();
 			$id_ranking = intval($_POST['id_ranking']);
 			$nombre = sanitizeInput($_POST['nombre']);
@@ -84,7 +84,7 @@ class rankingsController{
 	}
 
 	public static function createCategoryAction(){
-		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] == 0){
+		if (isset($_POST['id_ranking']) && $_POST['id_ranking'] == 0){
 			$id_ranking = 0;
 			$rankings = new rankings();
 			$nombre = sanitizeInput($_POST['nombre']);
@@ -100,7 +100,7 @@ class rankingsController{
 	}
 
 	public static function updateCategoryAction(){
-		if (isset($_POST['id_ranking']) and $_POST['id_ranking'] > 0){
+		if (isset($_POST['id_ranking']) && $_POST['id_ranking'] > 0){
 			$rankings = new rankings();
 			$id_ranking = intval($_POST['id_ranking']);
 			$nombre = sanitizeInput($_POST['nombre']);
@@ -117,7 +117,7 @@ class rankingsController{
 	}
 
 	public static function uploadRankingData($id_ranking){
-		if (isset($_FILES['fichero']) and $_FILES['fichero']['name'] != ""){
+		if (isset($_FILES['fichero']) && $_FILES['fichero']['name'] != ""){
 			//primero borramos los datos existentes
 			$rankings = new rankings();
 			$rankings->deleteRankingsData(" id_ranking=".$id_ranking);
@@ -151,7 +151,7 @@ class rankingsController{
 	}
 
 	public static function ExportRankingDataAction(){
-		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] > 0){
+		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] > 0){
 			$rankings = new rankings();
 			$elements = $rankings->getRankingsDataSimple(" AND id_ranking=".intval($_REQUEST['exp'])." ");
 			download_send_headers("ranking_" . date("Y-m-d") . ".csv");

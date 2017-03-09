@@ -1,10 +1,4 @@
-<?php
-set_time_limit(0);
-
-//EXPORT EXCEL - SHOW AND GENERATE
-usersPuntuacionesController::exportListAction();
-$elements = usersPuntuacionesController::getListAction(100);
-?>
+<?php usersPuntuacionesController::exportListAction();?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -14,6 +8,7 @@ $elements = usersPuntuacionesController::getListAction(100);
 			array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Report")." ".strTranslate("APP_points"), "ItemClass"=>"active"),
 		));
+		$elements = usersPuntuacionesController::getListAction(100);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

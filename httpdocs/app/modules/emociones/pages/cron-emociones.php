@@ -11,7 +11,7 @@ include_once($base_dir . "modules/users/class.users.php");
 //OBTENER USUARIOS A LOS QUE HAY QUE ENVIAR EMAL
 $users = new users();
 $mensajes = $users->getUsers(" AND  confirmed=1 AND disabled=0 "); 
-if (count($mensajes)>0){
+if (count($mensajes) > 0){
 	pasadaProccess($mensajes);
 }
 

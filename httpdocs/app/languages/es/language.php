@@ -143,4 +143,5 @@ deselect_all = "Desmarcar todo"
 select_all = "Marcar todo"
 Useful_links = "Enlaces de interés"
 Legal_bases = "Bases legales"
+Tags = "Etiquetas"
 ?>

@@ -9,7 +9,7 @@ include_once($base_dir . "modules/shop/classes/shop.php");
 
 session::ValidateSessionAjax();
 
-if (isset($_POST['opt']) and $_POST['opt'] == 'categorias'){
+if (isset($_POST['opt']) && $_POST['opt'] == 'categorias'){
 	$shop = new shop();
 	$elements = $shop->getProductsCategories();
 	$json_elements = "[";
@@ -21,7 +21,7 @@ if (isset($_POST['opt']) and $_POST['opt'] == 'categorias'){
 	echo $json_elements;
 }
 
-if (isset($_POST['opt']) and $_POST['opt'] == 'subcategorias'){
+if (isset($_POST['opt']) && $_POST['opt'] == 'subcategorias'){
 	$shop = new shop();
 	$elements = $shop->getProductsSubcategories();
 	$json_elements = "[";

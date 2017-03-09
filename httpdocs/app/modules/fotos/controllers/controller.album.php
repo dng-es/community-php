@@ -19,7 +19,7 @@ class fotosAlbumController{
 	}
 
 	public static function createAction($destination = "admin-albumes-new" ){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$nombre = sanitizeInput(trim($_POST['nombre']));
 			$canal = (isset($_POST['canal_album']) ? $_POST['canal_album'] : $_SESSION['user_canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
@@ -64,7 +64,7 @@ class fotosAlbumController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id']) and $_POST['id'] > 0){
+		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$fotos = new fotos();
 
 			$id = intval($_POST['id']);
@@ -82,7 +82,7 @@ class fotosAlbumController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$fotos = new fotos();
 			if ($fotos->cambiarEstadoAlbum($_REQUEST['id'], 0))
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
@@ -94,7 +94,7 @@ class fotosAlbumController{
 	}
 
 	public static function downloadAction(){
-		if ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) and (isset($_REQUEST['export']) and $_REQUEST['export'] == true)){
+		if ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) && (isset($_REQUEST['export']) && $_REQUEST['export'] == true)){
 			$fotos = new fotos();
 			$id_album = intval($_REQUEST['id']);
 			$elements = $fotos->getFotos(" AND f.id_album=".$id_album." AND estado=1 ");
@@ -110,7 +110,7 @@ class fotosAlbumController{
 	}
 
 	public static function cancelFotoAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'foto_ko'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'foto_ko'){
 			$fotos = new fotos();
 			if ($fotos->cambiarEstado(intval($_REQUEST['idf']), 2, 0))
 				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");

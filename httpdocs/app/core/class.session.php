@@ -18,11 +18,10 @@ class session{
 		if (isset($_POST['form-login-user'])) self::createSession(sanitizeInput($_POST['form-login-user']), sanitizeInput($_POST['form-login-password']));
 		else self::ValidateSession();
 
-
 		global $page, $paginas_free;
 		visitasController::insertVisita($page);
 		if (in_array($page, $paginas_free) == false){
-			if (!isset($_SESSION['user_name']) or trim($_SESSION['user_name']) == "") self::destroySession();
+			if (!isset($_SESSION['user_name']) || trim($_SESSION['user_name']) == "") self::destroySession();
 			else {
 				//obtener permisos el usuario
 				$this->getUserPermissions($_SESSION['user_name']);
@@ -97,8 +96,8 @@ class session{
 			if ($user_perfil == 'admin') return true;
 			else{
 				if (strpos($page, 'admin') === 0) return false;
-				elseif (strpos($page, 'supervisor') === 0 and $user_perfil === 'supervisor') return true;
-				elseif (strpos($page, 'supervisor') === 0 and $user_perfil !== 'supervisor') return false;
+				elseif (strpos($page, 'supervisor') === 0 && $user_perfil === 'supervisor') return true;
+				elseif (strpos($page, 'supervisor') === 0 && $user_perfil !== 'supervisor') return false;
 				else return true;
 			}
 		}
@@ -110,7 +109,7 @@ class session{
 	*/
 	public static function curPageURL(){
 		$pageURL = 'http';
-		if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] == "on") $pageURL .= "s";
+		if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") $pageURL .= "s";
 		$pageURL .= "://";
 		if ($_SERVER["SERVER_PORT"] != "80")  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
 		else $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
@@ -123,18 +122,18 @@ class session{
 	*/
 	public static function ValidateSession(){
 		global $paginas_free;
-		if ((isset($_SESSION['user_logged']) and $_SESSION['user_logged'] != true) && in_array($_REQUEST['page'], $paginas_free) == false){
+		if ((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] != true) && in_array($_REQUEST['page'], $paginas_free) == false){
 			//Si alguno de los datos ingresados son incorrectos redirigimos a la pÃ¡gina de
 			//error o de nuevo al formulario de ingreso.
 			header ("Location: " . APP_DEF_PAGE);
 			exit();
 		}
-		elseif( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) or (isset($_REQUEST['page']) and $_REQUEST['page'] == ""))){
+		elseif( (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) || (isset($_REQUEST['page']) && $_REQUEST['page'] == ""))){
 			header ("Location: home");
 		}
 		else {
 			//SI HAN PASADO 15 MINUTOS DE INACTIVIDAD SE CIERRA LA SESION (60*15=900)
-			if ( (isset($_SESSION['user_logged']) and $_SESSION['user_logged'] == true) and (time()-$_SESSION["session_time"] > SESSION_MAXTIME)) self::destroySession();
+			if ( (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true) && (time()-$_SESSION["session_time"] > SESSION_MAXTIME)) self::destroySession();
 			else {
 				$_SESSION["session_time"] = time();
 				if (isset($_SESSION['user_name']) && in_array($_REQUEST['page'], $paginas_free) == false){
@@ -151,7 +150,7 @@ class session{
 	* @param 	string 		$url 			redirect url if user is not logged	
 	*/
 	public static function ValidateSessionAjax($url = "login"){
-		if (!isset($_SESSION['user_logged']) or $_SESSION['user_logged'] != true){
+		if (!isset($_SESSION['user_logged']) || $_SESSION['user_logged'] != true){
 			header ("Location: ".$url);
 			exit();
 		}
@@ -172,7 +171,7 @@ class session{
 		if (count($result_user) == 1){
 			$_SESSION['user_name'] = $Login_user;
 			$_SESSION['user_logged'] = false;
-			if ($result_user[0]['confirmed'] == 1 and $result_user[0]['registered'] == 1){
+			if ($result_user[0]['confirmed'] == 1 && $result_user[0]['registered'] == 1){
 				//Si ambos datos son correctos guardamos estos datos en la session.
 				self::setTheme($result_user[0]['canal']);
 				$_SESSION["session_time"] = time();
@@ -204,7 +203,7 @@ class session{
 				visitasController::insertVisita("Inicio sesion");
 				$users->updateLastAccess($_SESSION['user_name']);
 			}
-			elseif ($result_user[0]['confirmed'] == 0 and $result_user[0]['registered'] == 0){
+			elseif ($result_user[0]['confirmed'] == 0 && $result_user[0]['registered'] == 0){
 				//Redirijimos a la pagina de confirmacion de datos.
 				header ("Location: ".$url_confirm);
 				exit();
@@ -220,9 +219,7 @@ class session{
 		global $paginas_free;
 		if(!session_id()) session_start();
 		if (isset($_REQUEST['page'])){
-			if (in_array($_REQUEST['page'], $paginas_free) == false){
-				$_SESSION['url_request'] = self::curPageURL();
-			}
+			if (in_array($_REQUEST['page'], $paginas_free) == false) $_SESSION['url_request'] = self::curPageURL();
 		}
 	}
 
@@ -231,7 +228,7 @@ class session{
 	* @param 	string 	$url 		redirect url after session is destroyed
 	*
 	*/
-	public static function destroySession( $url = APP_DEF_PAGE ){
+	public static function destroySession($url = APP_DEF_PAGE){
 		$users = new users();
 		if (isset($_SESSION['user_name'])){
 			$users->deleteUserConn($_SESSION['user_name']);
@@ -285,7 +282,7 @@ class session{
 	* @param 	array	$perfiles_autorizados 	Authorized users
 	*/
 	public static function AccessLevel($perfiles_autorizados){
-		if (in_array($_SESSION['user_perfil'], $perfiles_autorizados) == false and $_SESSION['user_perfil'] != 'admin'){
+		if (in_array($_SESSION['user_perfil'], $perfiles_autorizados) == false && $_SESSION['user_perfil'] != 'admin'){
 			ErrorMsg(strTranslate("Access_denied"));
 			die();
 		}
@@ -296,7 +293,7 @@ class session{
 	*/
 	public static function setLanguage(){
 		global $ini_conf;
-		if (isset($_REQUEST['lan']) and $_REQUEST['lan'] != "") $_SESSION['language'] = $_REQUEST['lan'];
+		if (isset($_REQUEST['lan']) && $_REQUEST['lan'] != "") $_SESSION['language'] = $_REQUEST['lan'];
 		if (!isset($_SESSION['language'])) $_SESSION['language'] = $ini_conf['language'];
 		include(dirname(__FILE__)."/../languages/".(isset($_SESSION['language']) ? $_SESSION['language'] : $ini_conf['language'])."/options.php");
 		setlocale(LC_ALL, $LANGUAGE_LOCALE);
@@ -307,7 +304,7 @@ class session{
 	* Set user channel
 	*/
 	public static function setChannel(){
-		if (isset($_POST['chooseFormValue']) and $_POST['chooseFormValue'] != "") {
+		if (isset($_POST['chooseFormValue']) && $_POST['chooseFormValue'] != "") {
 			$_SESSION['user_canal'] = sanitizeInput($_POST['chooseFormValue']);
 			self::setTheme(sanitizeInput($_POST['chooseFormValue']));
 		}
@@ -317,15 +314,15 @@ class session{
 	* Set user default channel
 	*/
 	public static function setDefaultTheme(){
-		if (!isset($_SESSION['user_theme']) or $_SESSION['user_theme'] == "") $_SESSION['user_theme'] = DEFAULT_THEME;
-	}	
+		if (!isset($_SESSION['user_theme']) || $_SESSION['user_theme'] == "") $_SESSION['user_theme'] = DEFAULT_THEME;
+	}
 
 	/**
 	* Set user theme
 	*/
 	public static function setTheme($channel){
 		$channels = usersCanalesController::getListAction(1, " AND canal='".$channel."' ");
-		$_SESSION['user_theme'] = ((isset($channels['items'][0]['theme']) and is_file("themes/".$channels['items'][0]['theme']."/css/styles.css")) ? $channels['items'][0]['theme'] : "default");
-	}		
+		$_SESSION['user_theme'] = ((isset($channels['items'][0]['theme']) && is_file("themes/".$channels['items'][0]['theme']."/css/styles.css")) ? $channels['items'][0]['theme'] : "default");
+	}
 }
 ?>

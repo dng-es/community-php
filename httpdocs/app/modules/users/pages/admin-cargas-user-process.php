@@ -52,9 +52,9 @@ function volcarMySQL($data){
 	$contador_baja = 0;
 	$mensaje_baja = "";
 
-	$proceso_insert = (isset($_POST['insert']) and $_POST['insert'] == "on") ? true : false;
-	$proceso_update = (isset($_POST['update']) and $_POST['update'] == "on") ? true : false;
-	$proceso_delete = (isset($_POST['delete']) and $_POST['delete'] == "on") ? true : false;
+	$proceso_insert = (isset($_POST['insert']) && $_POST['insert'] == "on") ? true : false;
+	$proceso_update = (isset($_POST['update']) && $_POST['update'] == "on") ? true : false;
+	$proceso_delete = (isset($_POST['delete']) && $_POST['delete'] == "on") ? true : false;
 
 	//dependiendo del canal se insertará un idioma por defecto al usuario
 	$canales = $users->getCanales("");

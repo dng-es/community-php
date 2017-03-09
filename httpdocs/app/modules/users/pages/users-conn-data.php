@@ -30,7 +30,7 @@ $users_conn = users::getUsersConn($filtro_canal." LIMIT ".$inicio.",".$reg);
 				$(".trigger-msg").click(function(e){
 					e.preventDefault();
 					var nick = $(this).attr("n");
-					if (nick!=""){location.href="inbox?n="+nick;}
+					if (nick != ""){location.href="inbox?n="+nick;}
 				});
 			});
 		</script>

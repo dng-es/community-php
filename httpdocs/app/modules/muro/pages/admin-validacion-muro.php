@@ -1,5 +1,5 @@
 <?php
-session::getFlashMessage( 'actions_message' );
+session::getFlashMessage('actions_message');
 muroController::validateAction();
 muroController::cancelAction();
 $elements = muroController::getListAction(15, " AND estado=1 AND tipo_muro IN ('principal','responsable') ORDER BY date_comentario DESC"); ?>

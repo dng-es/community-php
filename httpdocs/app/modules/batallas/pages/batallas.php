@@ -1,9 +1,9 @@
 <?php
-templateload("showbatallas","batallas");
-templateload("paginator","batallas");
-templateload("tipuser","users");
+templateload("showbatallas", "batallas");
+templateload("paginator", "batallas");
+templateload("tipuser", "users");
 
-addJavascripts(array("js/jquery.numeric.js",getAsset("batallas")."js/batallas.js"));
+addJavascripts(array("js/jquery.numeric.js", getAsset("batallas")."js/batallas.js"));
 
 $module_config = getModuleConfig("batallas");
 $puntos_batalla = $module_config['options']['battle_points'];
@@ -63,25 +63,25 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 		?>
 		<div class="tab-container">
 			<ul class="nav nav-tabs">
-				<li <?php echo ((!isset($_GET['f']) or ($_GET['f'] != 2 and $_GET['f'] != 3 and $_GET['f'] != 4)) ? ' class="active"' : '');?>><a href="#ganadas" data-toggle="tab">Ganadas (<?php echo $ganadas_total_reg;?>)</a></li>
-				<li <?php echo ((isset($_GET['f']) and $_GET['f'] == 2) ? ' class="active"' : '');?>><a href="#perdidas" data-toggle="tab">Perdidas (<?php echo $perdidas_total_reg;?>)</a></li>
-				<li <?php echo ((isset($_GET['f']) and $_GET['f'] == 3) ? ' class="active"' : '');?>><a href="#pendientes" data-toggle="tab">Pendientes (<?php echo $pendientes_usuario_total_reg;?>)</a></li>
-				<li <?php echo ((isset($_GET['f']) and $_GET['f'] == 4) ? ' class="active"' : '');?>><a href="#pendientes_contrincario" data-toggle="tab">Pendientes jugador (<?php echo $pendientes_contrincario_total_reg;?>)</a></li>
+				<li <?php echo ((!isset($_GET['f']) || ($_GET['f'] != 2 && $_GET['f'] != 3 && $_GET['f'] != 4)) ? ' class="active"' : '');?>><a href="#ganadas" data-toggle="tab">Ganadas (<?php echo $ganadas_total_reg;?>)</a></li>
+				<li <?php echo ((isset($_GET['f']) && $_GET['f'] == 2) ? ' class="active"' : '');?>><a href="#perdidas" data-toggle="tab">Perdidas (<?php echo $perdidas_total_reg;?>)</a></li>
+				<li <?php echo ((isset($_GET['f']) && $_GET['f'] == 3) ? ' class="active"' : '');?>><a href="#pendientes" data-toggle="tab">Pendientes (<?php echo $pendientes_usuario_total_reg;?>)</a></li>
+				<li <?php echo ((isset($_GET['f']) && $_GET['f'] == 4) ? ' class="active"' : '');?>><a href="#pendientes_contrincario" data-toggle="tab">Pendientes jugador (<?php echo $pendientes_contrincario_total_reg;?>)</a></li>
 			</ul>
 
 			<div class="tab-content">
-				<div class="inset tab-pane fade <?php echo ((!isset($_GET['f']) or ($_GET['f'] != 2 and $_GET['f'] != 3 and $_GET['f'] != 4)) ? ' in active' : '');?>" id="ganadas">
+				<div class="inset tab-pane fade <?php echo ((!isset($_GET['f']) || ($_GET['f'] != 2 && $_GET['f'] != 3 && $_GET['f'] != 4)) ? ' in active' : '');?>" id="ganadas">
 					<?php showBatallas("ganadas", $ganadas_total_reg, $usuario);?>
 				</div>
 
-				<div class="inset tab-pane fade <?php echo ((isset($_GET['f']) and $_GET['f'] == 2) ? ' in active' : '');?>" id="perdidas">
+				<div class="inset tab-pane fade <?php echo ((isset($_GET['f']) && $_GET['f'] == 2) ? ' in active' : '');?>" id="perdidas">
 					<?php showBatallas("perdidas", $perdidas_total_reg, $usuario);?>
 				</div>
-				<div class="inset tab-pane fade <?php echo ((isset($_GET['f']) and $_GET['f'] == 3) ? ' in active' : '');?>" id="pendientes">
+				<div class="inset tab-pane fade <?php echo ((isset($_GET['f']) && $_GET['f'] == 3) ? ' in active' : '');?>" id="pendientes">
 					<?php showBatallas("pendientes usuario", $pendientes_usuario_total_reg, $usuario);?>
 				</div>
 
-				<div class="inset tab-pane fade <?php echo ((isset($_GET['f']) and $_GET['f'] == 4) ? ' in active' : '');?>" id="pendientes_contrincario">
+				<div class="inset tab-pane fade <?php echo ((isset($_GET['f']) && $_GET['f'] == 4) ? ' in active' : '');?>" id="pendientes_contrincario">
 					<?php showBatallas("pendientes contrincario", $pendientes_contrincario_total_reg, $usuario);?>
 				</div>
 			</div>
@@ -89,14 +89,20 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<br />
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-bomb fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php e_strTranslate("Battles");?>
+			</h4>
 			<p>
 				Reta a otros jugadores a una batalla.
 				En cada batalla te juegas <big><span class="text-primary"><?php echo $puntos_batalla;?></span></big> <?php e_strTranslate("APP_points");?>.
 				Cuando retes a otro jugador los <?php e_strTranslate("APP_points");?> quedarán pendientes hasta que se acepte tu reto.
 			</p>
 
-			<?php if($_SESSION['user_canal'] != '' and $_SESSION['user_canal'] !='admin'):?>
+			<?php if($_SESSION['user_canal'] != '' && $_SESSION['user_canal'] !='admin'):?>
 			<form action="" method="post" name="form-batalla" id="form-batalla">
 				<input type="hidden" name="batalla-categoria" id="batalla-categoria" value="General" />
 			<!--
@@ -122,7 +128,7 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas",$filtro);
 				</div> -->
 				<br />
 				<div class="alert alert-danger" id="alertas-batalla" style="display: none"><?php e_strTranslate("Required_all_fields");?></div>
-				<input class="btn btn-primary btn-block" type="submit" name="batalla-btn" id="batalla-btn" value="Crear y empezar batalla" />
+				<input class="btn btn-primary btn-block" type="submit" name="batalla-btn" id="batalla-btn" value="<?php e_strTranslate("Start_battle");?>" />
 				<div id="cargando" style="display:none; margin-top:0px; top: 0; position: relative"><i class="fa fa-spinner fa-spin ajax-load" style="margin-top:15px"></i></div>
 			</form>
 			<?php else:?>

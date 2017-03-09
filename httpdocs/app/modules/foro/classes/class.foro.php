@@ -50,7 +50,7 @@ class foro{
 			$descripcion = nl2br(sanitizeInput($descripcion));
 		}
 
-		if (isset($imagen_tema['name']) and $imagen_tema['name'] != "") $imagen_tema = self::insertTemaFoto($imagen_tema);
+		if (isset($imagen_tema['name']) && $imagen_tema['name'] != "") $imagen_tema = self::insertTemaFoto($imagen_tema);
 
 		$Sql = "INSERT INTO foro_temas (id_tema_parent,nombre,descripcion,imagen_tema,user,canal,responsables,activo,itinerario,id_area,ocio,tipo_tema) VALUES 
 			 (".$id_tema_parent.",'".$nombre."','".$descripcion."','".$imagen_tema."','".$user."','".$canal."',".$responsables.",".$activo.",'".$itinerario."',".$id_area.",".$ocio.",'".$tipo."')";
@@ -171,12 +171,12 @@ class foro{
 	}
 
 	public function getArchivoBlog($filter = ""){
-		$Sql = "SELECT MONTH(date_tema) AS mes,YEAR(date_tema) AS ano,COUNT(id_tema) AS contador FROM foro_temas WHERE ocio=1 AND activo=1 ".$filter." GROUP BY MONTH(date_tema),YEAR(date_tema) ORDER BY ano DESC,mes DESC ";
+		$Sql = "SELECT MONTH(date_tema) AS mes,YEAR(date_tema) AS ano,COUNT(id_tema) AS contador FROM foro_temas t WHERE ocio=1 AND activo=1 ".$filter." GROUP BY MONTH(date_tema),YEAR(date_tema) ORDER BY ano DESC,mes DESC ";
 		return connection::getSQL($Sql);
 	}
 
 	public function getCategorias($filter = ""){
-		$Sql = "SELECT DISTINCT tipo_tema AS categoria FROM foro_temas WHERE tipo_tema<>'' ".$filter;
+		$Sql = "SELECT DISTINCT tipo_tema AS categoria FROM foro_temas t WHERE tipo_tema<>'' ".$filter;
 		$result = connection::execute_query($Sql);
 		$registros = "";
 		while ($registro = connection::get_result($result)){  

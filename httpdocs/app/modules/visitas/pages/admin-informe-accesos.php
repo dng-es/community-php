@@ -18,8 +18,8 @@ global $total1,$total2,$total3,$media1,$media2,$media3;
 
 if (isset($_POST['generate-stats']) or isset($_POST['export-stats'])):
 	$filtro_informe = " AND fecha BETWEEN '".$_POST['fecha_ini']." 00:00:00' AND '".$_POST['fecha_fin']." 23:59:59' ";
-	$filtro_empresa = ((isset($_POST['empresa_sel']) and trim($_POST['empresa_sel']) != '') ? " AND empresa_access='".utf8_decode($_POST['empresa_sel'])."' " : "");
-	$filtro_empresa_users = ((isset($_POST['empresa_sel']) and trim($_POST['empresa_sel']) != '') ? " AND empresa='".utf8_decode($_POST['empresa_sel'])."' " : "");
+	$filtro_empresa = ((isset($_POST['empresa_sel']) && trim($_POST['empresa_sel']) != '') ? " AND empresa_access='".utf8_decode($_POST['empresa_sel'])."' " : "");
+	$filtro_empresa_users = ((isset($_POST['empresa_sel']) && trim($_POST['empresa_sel']) != '') ? " AND empresa='".utf8_decode($_POST['empresa_sel'])."' " : "");
 	$empresa_sel = $_POST['empresa_sel'];
 else:
 	$filtro_informe = " AND fecha>=DATE_ADD(NOW(), INTERVAL -1 MONTH) ";
@@ -405,7 +405,7 @@ $('#containerHoras').highcharts({
 	$visitas = new visitas();
 
 	//VACIAR LOGS
-	if (isset($_REQUEST['act']) and $_REQUEST['act']=='del') $visitas->deleteVisitas();
+	if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del') $visitas->deleteVisitas();
 
 	if (isset($_POST['fecha_ini'])){
 		$fecha_ini = $_POST['fecha_ini'];

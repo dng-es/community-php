@@ -5,8 +5,7 @@
  * @copyright 2010 Grass Roots Spain
  * @version 1.0
  */
-class FileSystem {
-
+class FileSystem{
 	/**
 	* Show all folders within an existing folder
 	*
@@ -16,7 +15,7 @@ class FileSystem {
 	public static function showDirFolders($dirname) {
 		$i = 0;
 		$arrayFolders = array();
-	   	if (is_dir($dirname)){    //Operate on dirs only
+		if (is_dir($dirname)){    //Operate on dirs only
 			if ($dh = opendir($dirname)){ 
 				while (($file = readdir($dh)) !== false){ 
 					if (is_dir($dirname . $file) && $file != "." && $file != ".."){ 
@@ -41,7 +40,7 @@ class FileSystem {
 	public static function showFilesFolder($dirname) {
 		$i = 0;
 		$arrayFolders = array();
-	   	if (is_dir($dirname)){ 	//Operate on dirs only
+		if (is_dir($dirname)){ 	//Operate on dirs only
 			if ($dh = opendir($dirname)){ 
 				while (($file = readdir($dh)) !== false){ 
 					if (!is_dir($dirname . $file) && $file != "." && $file != ".."){ 

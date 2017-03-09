@@ -12,7 +12,7 @@ include_once($base_dir . "modules/videos/classes/class.videos.php");
 session::ValidateSessionAjax();
 $videos = new videos();
 //REGISTRAR REPRODUCCION
-if (isset($_POST['v']) and $_POST['v'] != ""){
+if (isset($_POST['v']) && $_POST['v'] != ""){
 	echo $videos->insertVideoView($_POST['v'], $_SESSION['user_name']);
 }
 ?>

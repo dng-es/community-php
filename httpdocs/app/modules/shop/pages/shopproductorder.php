@@ -1,7 +1,7 @@
 <?php
-addJavascripts(array(getAsset("shop")."js/shopproductorder.js"));
+addJavascripts(array("js/jquery.numeric.js", getAsset("shop")."js/shopproductorder.js"));
 
-$id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
+$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
 $filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
 $filtro = $filtro_canal." AND active_product=1 AND id_product=".$id." ";
 
@@ -135,7 +135,7 @@ $module_config = getModuleConfig("shop");
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="control-label" for="telephone_order"><small><?php e_strTranslate("Telephone");?></small></label>
-									<input value="<?php echo $telephone_order;?>" tabindex=3 type="text" name="telephone_order" id="telephone_order" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>" />
+									<input value="<?php echo $telephone_order;?>" tabindex=3 type="text" name="telephone_order" id="telephone_order" class="form-control numeric" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="state_order"><small><?php e_strTranslate("Provincia");?></small></label>
@@ -153,7 +153,7 @@ $module_config = getModuleConfig("shop");
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="control-label" for="postal_order"><small><?php e_strTranslate("Código postal");?></small></label>
-									<input readonly="readonly" value="<?php echo $postal_order;?>" tabindex=8 type="text" name="postal_order" id="postal_order" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>" />
+									<input readonly="readonly" value="<?php echo $postal_order;?>" tabindex=8 type="text" name="postal_order" id="postal_order" class="form-control numeric" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
 							</div>
 						</div>

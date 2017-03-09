@@ -30,7 +30,7 @@ class cuestionariosController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario'] == 0){
+		if (isset($_POST['id_cuestionario']) && $_POST['id_cuestionario'] == 0){
 			$id_cuestionario = 0;
 			$cuestionarios = new cuestionarios();
 			$nombre = sanitizeInput($_POST['nombre']);
@@ -47,7 +47,7 @@ class cuestionariosController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario'] > 0){
+		if (isset($_POST['id_cuestionario']) && $_POST['id_cuestionario'] > 0){
 			$cuestionarios = new cuestionarios();
 			$id_cuestionario = intval($_POST['id_cuestionario']);
 			$nombre = sanitizeInput($_POST['nombre']);
@@ -62,7 +62,7 @@ class cuestionariosController{
 	}
 
 	public static function insertPreguntaAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'new'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'new'){
 			if (trim($_POST['pregunta_texto'])){
 				$cuestionarios = new cuestionarios();
 				$id_cuestionario = intval($_REQUEST['id']);
@@ -80,11 +80,11 @@ class cuestionariosController{
 
 						if ($_POST['pregunta_tipo']=='multiple'){
 							$campo_correcta = "checkRespuesta".$i;
-							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta] != '') ? 1 : 0);
+							$correcta = ((isset($_POST[$campo_correcta]) && $_POST[$campo_correcta] != '') ? 1 : 0);
 						}
 						if ($_POST['pregunta_tipo']=='unica'){
 							$campo_correcta = "radioRespuesta1";
-							$correcta = ((isset($_POST[$campo_correcta]) and $_POST[$campo_correcta] == $i) ? 1 : 0);
+							$correcta = ((isset($_POST[$campo_correcta]) && $_POST[$campo_correcta] == $i) ? 1 : 0);
 						}
 
 						if ($valor != "") $cuestionarios->insertPreguntaRespuesta($id_pregunta, $valor, $correcta);
@@ -98,7 +98,7 @@ class cuestionariosController{
 
 	public static function deletePreguntaAction(){
 		$cuestionarios = new cuestionarios();
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$idp = intval($_REQUEST['idp']);
 			$id = intval($_REQUEST['id']);
 			if ($cuestionarios->deletePregunta($idp))
@@ -111,7 +111,7 @@ class cuestionariosController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$cuestionarios = new cuestionarios();
 			if ($cuestionarios->deleteCuestionarios(intval($_REQUEST['id']), intval($_REQUEST['e'])))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -123,7 +123,7 @@ class cuestionariosController{
 	}
 
 	public static function cloneAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'clone'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'clone'){
 			$cuestionarios = new cuestionarios();
 			//datos del cuestionario original
 			$id = intval($_REQUEST['id']);
@@ -151,7 +151,7 @@ class cuestionariosController{
 	}
 
 	public static function saveFormAction(){
-		if (isset($_POST['id_cuestionario']) and $_POST['id_cuestionario'] != ""){
+		if (isset($_POST['id_cuestionario']) && $_POST['id_cuestionario'] != ""){
 			$cuestionarios = new cuestionarios();
 			$id_cuestionario = intval($_POST['id_cuestionario']);
 			$preguntas=$cuestionarios->getPreguntas(" AND id_cuestionario=".$id_cuestionario." ");
@@ -168,7 +168,7 @@ class cuestionariosController{
 					$respuestas_usuario = $cuestionarios->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." ");
 					foreach($respuestas_usuario as $respuesta_usuario):
 						$campo = "respuesta_".$pregunta['id_pregunta']."_".$respuesta_usuario['id_respuesta'];  
-						if (isset($_POST[$campo]) and $_POST[$campo] != '') $respuesta_valor .= $_POST[$campo]."|";
+						if (isset($_POST[$campo]) && $_POST[$campo] != '') $respuesta_valor .= $_POST[$campo]."|";
 					endforeach;
 					$respuesta_valor=substr($respuesta_valor, 0, (strlen($respuesta_valor) - 1));
 				}
@@ -198,7 +198,7 @@ class cuestionariosController{
 						$respuesta_user = $cuestionarios->getRespuestasUser(" AND id_pregunta=".$pregunta['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");
 						foreach($respuestas as $respuesta):
 							//echo $respuesta_user[0]['respuesta_valor'].' ***** '.$respuesta['respuesta_texto']."<br />";
-							if ($respuesta_user[0]['respuesta_valor']==$respuesta['respuesta_texto']){
+							if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']){
 								$aciertos++;
 								//echo "acierto: ".$pregunta['id_pregunta'];
 							}
@@ -214,7 +214,7 @@ class cuestionariosController{
 						endforeach;
 
 						//echo "aciertos mul: ".$aciertos_multiples." - respuestas: ".count($respuestas)." - resp.user: ".count($respuesta_multiple). "<br /> ";
-						if ($aciertos_multiples == (count($respuestas)) and (count($respuestas) == count($respuesta_multiple)))	$aciertos++;
+						if ($aciertos_multiples == (count($respuestas)) && (count($respuestas) == count($respuesta_multiple)))	$aciertos++;
 					}
 				endforeach;
 				//calcular resultado final del cuestionario $puntos
@@ -231,7 +231,7 @@ class cuestionariosController{
 	}
 
 	public static function RevisarFormAction(){
-		if ( isset($_POST['id_tarea_rev']) and $_POST['id_tarea_rev'] != '' ){
+		if ( isset($_POST['id_tarea_rev']) && $_POST['id_tarea_rev'] != '' ){
 			$cuestionarios = new cuestionarios();
 			$user_tarea = sanitizeInput($_POST['user_rev']);
 			$tarea_user = sanitizeInput($_POST['id_tarea_rev']);
@@ -246,7 +246,7 @@ class cuestionariosController{
 	}
 
 	public static function FinalizacionDeleteAction(){
-		if (isset($_REQUEST['act_f']) and $_REQUEST['act_f'] == "del"){
+		if (isset($_REQUEST['act_f']) && $_REQUEST['act_f'] == "del"){
 			$cuestionarios = new cuestionarios();
 			$id = intval($_REQUEST['id']);
 			$ut = sanitizeInput($_REQUEST['ut']);
@@ -256,11 +256,11 @@ class cuestionariosController{
 	}
 
 	public static function ExportFormUserAction(){
-		if (isset($_REQUEST['t']) and $_REQUEST['t'] != ""){
+		if (isset($_REQUEST['t']) && $_REQUEST['t'] != ""){
 			$cuestionarios = new cuestionarios();
 			$id = intval($_REQUEST['id']);
 			$t = sanitizeInput($_REQUEST['t']);
-			$elements = $cuestionarios->getRespuestasUserAdmin(" AND p.id_cuestionario=".$id." and r.respuesta_user='".$t."' ");
+			$elements = $cuestionarios->getRespuestasUserAdmin(" AND p.id_cuestionario=".$id." AND r.respuesta_user='".$t."' ");
 			download_send_headers("data_export_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
@@ -268,7 +268,7 @@ class cuestionariosController{
 	}
 
 	public static function ExportFormAllAction(){
-		if (isset($_REQUEST['t3']) and $_REQUEST['t3'] == "1"){
+		if (isset($_REQUEST['t3']) && $_REQUEST['t3'] == "1"){
 			$cuestionarios = new cuestionarios();
 			$id = intval($_REQUEST['id']);
 			$elements=$cuestionarios->getFormulariosFinalizados(" AND id_cuestionario=".$id." ORDER BY user_tarea"); 
@@ -292,7 +292,7 @@ class cuestionariosController{
 	}
 
 	public static function deleteCuestionarioAction($id_cuestionario){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == "del"){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == "del"){
 			$cuestionarios = new cuestionarios();
 			$id = intval($_REQUEST['id']);
 			//eliminar finalizaciones

@@ -12,7 +12,7 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 session::ValidateSessionAjax();
 
 //VERIFICAR CÓDIGO DE TIENDA
-if (isset($_POST['id_message']) and $_POST['id_message'] != ""){
+if (isset($_POST['id_message']) && $_POST['id_message'] != ""){
 	$id_message = intval($_POST['id_message']);
 	$action = sanitizeInput($_POST['action']);
 	$pasada = sanitizeInput($_POST['pasada']);

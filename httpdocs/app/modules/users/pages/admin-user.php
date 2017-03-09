@@ -7,8 +7,6 @@ templateload("cmbCanales", "users");
 
 
 $id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
-
-$modules = getListModules(); 
 $user_permissions = usersController::getUserPermissions($id);
 $special_pages = array("login", "registration", "registration_process", "registration-confirm", "remember", "user-confirm", "users-conn-ajax", "users-conn-data", "admin-puntos-ajax", "admin-cargas-user-process", "admin-cargas-puntos-process",  
 	"muro_responder_ajax", "muro_process", "muro_todos_ajax", "muro-respuestas", "mensajes-leer", "mensajes-verify", 
@@ -256,7 +254,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									$permission_edit_found = false;
 									if(!in_array($page_name, $special_pages)):  
 										foreach($user_permissions as $permission):  
-											if ($permission['pagename'] == $page_name and $permission['permission_type'] == "view"){
+											if ($permission['pagename'] == $page_name && $permission['permission_type'] == "view"){
 												if ($permission['permission_type_value'] == 1){
 													$permission_check_view = ' checked="checked" ';
 													$permission_input_view = 1;
@@ -264,7 +262,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 												$permission_view_found = true;
 											}
 
-											if ($permission['pagename'] == $page_name and $permission['permission_type'] == "edit"){
+											if ($permission['pagename'] == $page_name && $permission['permission_type'] == "edit"){
 												if ($permission['permission_type_value'] == 1){
 													$permission_check_edit = ' checked="checked" ';
 													$permission_input_edit = 1;
@@ -288,12 +286,12 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 										}
 										else{
 											//permisos genericos usuarios
-											if (!$permission_view_found and (strpos($page_name, 'admin') !== 0)){
+											if (!$permission_view_found && (strpos($page_name, 'admin') !== 0)){
 												$permission_check_view = ' checked="checked" ';
 												$permission_input_view = 1;
 											}
 
-											if (!$permission_edit_found and (strpos($page_name, 'admin') !== 0)){
+											if (!$permission_edit_found && (strpos($page_name, 'admin') !== 0)){
 												$permission_check_edit = ' checked="checked" ';
 												$permission_input_edit = 1;
 											}

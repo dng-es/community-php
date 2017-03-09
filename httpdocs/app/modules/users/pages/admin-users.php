@@ -13,10 +13,6 @@ $SUBJECT_META_PAGE = strTranslate("Users_list");
 $TITLE_META_PAGE = strTranslate("Users_list");
 
 addJavascripts(array(getAsset("users")."js/connect-as.js"));
-
-session::getFlashMessage( 'actions_message' );
-usersController::deleteAction();
-$elements = usersController::getListAction(35);
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -27,6 +23,9 @@ $elements = usersController::getListAction(35);
 			array("ItemLabel"=>strTranslate("Users"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Users_list"), "ItemClass"=>"active"),
 		));
+		session::getFlashMessage( 'actions_message' );
+		usersController::deleteAction();
+		$elements = usersController::getListAction(35);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -45,9 +44,9 @@ $elements = usersController::getListAction(35);
 						<tr>
 						<th width="40px"></th>
 						<th><?php e_strTranslate("Username");?></th>
-						<th><?php e_strTranslate("Channel");?></th>
 						<th><?php e_strTranslate("Group_user");?></th>
-						<th>Email</th>
+						<th><?php e_strTranslate("Channel");?></th>
+						<th><?php e_strTranslate("Profile");?></th>
 						<th class="text-center"><?php e_strTranslate("Confirmed");?></th>
 						<th class="text-center"><?php e_strTranslate("Disabled");?></th>
 						<th width="40px"></th>
@@ -62,13 +61,13 @@ $elements = usersController::getListAction(35);
 								</button>
 							</td>
 							<td>
-								<?php echo $element['username'];?><br />
+								<?php echo $element['username'];?> - <?php echo $element['email'];?><br />
 								<small class="text-muted"><?php echo $element['name'];?> <?php echo $element['surname'];?>  
 								<a href="user-profile?n=<?php echo $element['nick'];?>" title="Ver perfil público"><?php echo $element['nick'];?></small></a>
 							</td>
-							<td><?php echo $element['canal'];?></td>
 							<td><?php echo $element['nombre_tienda'];?></td>
-							<td><?php echo $element['email'];?></td>
+							<td><?php echo $element['canal'];?></td>
+							<td><?php echo $element['perfil'];?></td>
 							<td class="text-center"><span class="label<?php echo ($element['confirmed'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['confirmed'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
 							<td class="text-center"><span class="label<?php echo ($element['disabled'] == 1 ? " label-danger" : " label-success");?>"><?php echo ($element['disabled'] == 0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
 							<td><button type="button" class="btn btn-default btn-xs connect-as" title="<?php e_strTranslate("Connect_as");?>" data-u="<?php echo $element['username'];?>" data-p="<?php echo $element['user_password'];?>"><i class="fa fa-plug"></i></button></td>

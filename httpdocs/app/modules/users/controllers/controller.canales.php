@@ -28,7 +28,7 @@ class usersCanalesController{
 	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$users = new users();
 			$elements = $users->getCanales("");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -38,7 +38,7 @@ class usersCanalesController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id_canal']) and $_POST['id_canal'] == ''){
+		if (isset($_POST['id_canal']) && $_POST['id_canal'] == ''){
 			$canal = sanitizeInput($_POST['canal']);
 			$canal = str_replace(" ", "_", $canal);
 			$canal = NormalizeText($canal);
@@ -60,7 +60,7 @@ class usersCanalesController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id_canal']) and $_POST['id_canal'] != ''){
+		if (isset($_POST['id_canal']) && $_POST['id_canal'] != ''){
 			$canal = sanitizeInput($_POST['id_canal']);
 			$canal_name = sanitizeInput($_POST['canal_name']);
 			$canal_lan = sanitizeInput($_POST['canal_lan']);

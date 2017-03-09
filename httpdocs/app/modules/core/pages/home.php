@@ -71,5 +71,4 @@ $rankings = incentivosObjetivosController::getListAction(99, $filtro_perfil.$fil
 		<?php panelAgenda();?>
 	</div>
 </div>
-
 <?php popupNovedades();?>

@@ -3,8 +3,8 @@ class agendaController{
 	public static function getListAction($reg = 0, $filter=""){
 		$agendas = new agenda();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filter = " AND titulo LIKE '%".$_POST['find_reg']."%' ".$filter; $find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filter = " AND titulo LIKE '%".$_REQUEST['f']."%' ".$filter; $find_reg=$_REQUEST['f'];} 
+		if (isset($_POST['find_reg'])) {$filter = " AND (titulo LIKE '%".$_POST['find_reg']."%' OR etiquetas LIKE '%".$_POST['find_reg']."%') ".$filter; $find_reg=$_POST['find_reg'];}
+		if (isset($_REQUEST['f'])) {$filter = " AND (titulo LIKE '%".$_REQUEST['f']."%' OR etiquetas LIKE '%".$_REQUEST['f']."%') ".$filter; $find_reg=$_REQUEST['f'];} 
 		$paginator_items = PaginatorPages($reg);
 
 		$total_reg = connection::countReg("agenda",$filter);
@@ -20,9 +20,8 @@ class agendaController{
 		return $agenda->getAgenda(" AND id_agenda='".$id."' ");
 	}
 
-
 	public static function exportAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$agenda = new agenda();
 			$elements = $agenda->getAgenda(" ORDER BY id_agenda DESC ");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -32,7 +31,7 @@ class agendaController{
 	}
 
 	public static function deleteAgendaAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'):
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'):
 			$id_agenda = intval($_REQUEST['id']);
 			$agenda = new agenda();
 			if ($agenda->deleteAgenda($id_agenda))
@@ -45,7 +44,7 @@ class agendaController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$agenda = new agenda();
 			$id = 0;
 			$activo = intval((isset($_POST['activo']) && $_POST['activo'] == '1') ? 1 : 0);
@@ -56,9 +55,9 @@ class agendaController{
 			$canal = sanitizeInput($_POST['canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
 
-			if ((isset($_FILES['fichero']))&& ($_FILES['fichero']['name']!='')){
+			if ((isset($_FILES['fichero'])) && ($_FILES['fichero']['name']!='')){
 				//SUBIR FICHERO
-				$nombre_archivo = time().'_'.str_replace(" ","_",$_FILES['fichero']['name']);
+				$nombre_archivo = time().'_'.str_replace(" ", "_", $_FILES['fichero']['name']);
 				$nombre_archivo = strtolower($nombre_archivo);
 				$nombre_archivo = NormalizeText($nombre_archivo);
 
@@ -70,12 +69,12 @@ class agendaController{
 			else $nombre_archivo = "";
 
 
-			if ($agenda->insertActividad(sanitizeInput($_POST['nombre']), sanitizeInput(stripslashes($_POST['descripcion'])), $_FILES['banner'], $date_ini, $date_fin,$nombre_archivo ,$tipo,$canal, $activo, $etiquetas)) {
+			if ($agenda->insertActividad(sanitizeInput($_POST['nombre']), sanitizeInput(stripslashes($_POST['descripcion'])), $_FILES['banner'], $date_ini, $date_fin, $nombre_archivo, $tipo,$canal, $activo, $etiquetas)) {
 
 				$id = connection::SelectMaxReg("id_agenda", "agenda", " ");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
-			}else
-				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			}
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-agenda-new?id=".$id);
 		}
@@ -93,8 +92,7 @@ class agendaController{
 			$canal = $_POST['canal'];
 			if (is_array($canal)) $canal = implode(",", $canal);
 
-			if ((isset($_FILES['fichero']))&& ($_FILES['fichero']['name']!='')){
-
+			if ((isset($_FILES['fichero'])) && ($_FILES['fichero']['name'] != '')){
 				//SUBIR FICHERO
 				$nombre_archivo = time().'_'.str_replace(" ","_",$_FILES['fichero']['name']);
 				$nombre_archivo = strtolower($nombre_archivo);
@@ -106,11 +104,11 @@ class agendaController{
 			}
 			else $nombre_archivo = "";
 
-			if ($agenda->updateActividad($_POST['id'],sanitizeInput($_POST['nombre']), sanitizeInput(stripslashes($_POST['descripcion'])),$_FILES['banner'],$date_ini, $date_fin, $nombre_archivo ,$tipo, $canal, $activo, $etiquetas)) {
+			if ($agenda->updateActividad($_POST['id'],sanitizeInput($_POST['nombre']), sanitizeInput(stripslashes($_POST['descripcion'])),$_FILES['banner'], $date_ini, $date_fin, $nombre_archivo , $tipo, $canal, $activo, $etiquetas)){
 				$id = connection::SelectMaxReg("id_agenda", "agenda", " ");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
-			}else
-				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			}
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-agenda-new?id=".$_POST['id']);
 		}

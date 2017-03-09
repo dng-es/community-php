@@ -8,8 +8,7 @@
 		));
 		session::getFlashMessage('actions_message');
 		campaignsController::deleteAction();
-		$elements = campaignsController::getListAction(20);
-		?>
+		$elements = campaignsController::getListAction(20);?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">
@@ -41,7 +40,7 @@
 							<td><?php echo $element['canal_campaign'];?></td>
 							<td><?php echo $element['tipo'];?></td>
 							<td><?php echo $element['desc_campaign'];?></td>
-							<td align="center"><span class="label<?php echo ($element['novedad']==0 ? " label-warning" : " label-success");?>"><?php echo ($element['novedad']==0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
+							<td align="center"><span class="label<?php echo ($element['novedad']==0 ? " label-warning" : " label-success");?>"><?php echo ($element['novedad'] == 0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
 							</tr>
 						<?php endforeach;?>
 					</table>

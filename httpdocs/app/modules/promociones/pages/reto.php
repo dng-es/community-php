@@ -35,7 +35,7 @@ addJavascripts(array("js/jquery.jtextarea.js",
 		$promocion = promocionesController::getLastPromocionAction(" AND active=1 ");
 		$id_promocion = $promocion['id_promocion'];
 
-		if (isset($id_promocion) and $id_promocion != ""){?>
+		if (isset($id_promocion) && $id_promocion != ""){?>
 			<div class="panel panel-default panel-blog">
 				<div class="panel-body">
 					<div class="panel-blog-header">
@@ -54,9 +54,9 @@ addJavascripts(array("js/jquery.jtextarea.js",
 						<h3>Videos de apoyo</h3>
 						<?php foreach($videos_admin['items'] as $video):
 							echo '<div class="col-md-3"><div class="media-preview-container">
-								<a href="videos?id='.$video['id_file'].'&pag='.$pagina_sig.'">
+								<a href="videos?id='.$video['id_file'].'">
 								<img src="'.PATH_VIDEOS.$video['name_file'].'.jpg" class="media-preview" alt="'.prepareString($video['titulo']).'" /></a>
-								<div><a href="videos?id='.$video['id_file'].'&pag='.$pagina_sig.'">'.$video['titulo'].'</a><br />
+								<div><a href="videos?id='.$video['id_file'].'">'.$video['titulo'].'</a><br />
 									 '.$video['nick'].'<br />
 									 <span><small>'.getDateFormat($video['date_video'], "LONG").'</small></span>
 								</div>
@@ -77,9 +77,9 @@ addJavascripts(array("js/jquery.jtextarea.js",
 						<?php if (count($videos['items']) > 0): ?>
 						<?php foreach($videos['items'] as $video):
 							echo '<div class="col-md-3"><div class="media-preview-container">
-								<a href="videos?id='.$video['id_file'].'&pag='.$pagina_sig.'">
+								<a href="videos?id='.$video['id_file'].'">
 								<img src="'.PATH_VIDEOS.$video['name_file'].'.jpg" class="media-preview" alt="'.prepareString($video['titulo']).'" /></a>
-								<div><a href="videos?id='.$video['id_file'].'&pag='.$pagina_sig.'">'.$video['titulo'].'</a><br />
+								<div><a href="videos?id='.$video['id_file'].'">'.$video['titulo'].'</a><br />
 									 '.$video['nick'].'<br />
 									 <span><small>'.getDateFormat($video['date_video'], "LONG").'</small></span>
 								</div>
@@ -137,10 +137,10 @@ addJavascripts(array("js/jquery.jtextarea.js",
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior full-height">
-			<?php if (isset($id_promocion) and $id_promocion != ""):?>
-				<?php if ($promocion['galeria_videos'] ==1 or $_SESSION['user_perfil'] == 'admin') PanelSubirVideo($promocion['id_promocion']);?>
-				<?php if ($promocion['galeria_fotos'] ==1) PanelSubirFoto($promocion['id_promocion']);?>
-				<?php if ($promocion['galeria_comentarios'] ==1) addComment($promocion['id_promocion'], false, "Enviar respuesta");?>
+			<?php if (isset($id_promocion) && $id_promocion != ""):?>
+				<?php if ($promocion['galeria_videos'] == 1 || $_SESSION['user_perfil'] == 'admin') PanelSubirVideo($promocion['id_promocion']);?>
+				<?php if ($promocion['galeria_fotos'] == 1) PanelSubirFoto($promocion['id_promocion']);?>
+				<?php if ($promocion['galeria_comentarios'] == 1) addComment($promocion['id_promocion'], false, "Enviar respuesta");?>
 			<?php endif;?>
 			<br />
 		</div>

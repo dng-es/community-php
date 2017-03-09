@@ -11,7 +11,6 @@ function ForoList($sub_tema, $destino = "foro-comentarios"){
 	$descripcion = get_resume($sub_tema['descripcion']);
 	$nombre = strip_tags($sub_tema['nombre']);
 	?>
-
 	<div class="panel panel-default panel-comunidad" value="<?php echo $sub_tema['id_tema'];?>">
 		<div class="panel-footer">
 			<h4><a href="<?php echo $destino.'?id='.$sub_tema['id_tema'];?>"><?php echo $nombre;?></a></h4>
@@ -26,6 +25,4 @@ function ForoList($sub_tema, $destino = "foro-comentarios"){
 			<p><?php echo $descripcion;?></p>
 		</div>
 	</div>
-<?php
-}
-?>
+<?php } ?>

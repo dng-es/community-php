@@ -4,8 +4,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					"js/bootstrap.file-input.js", 
 					getAsset("blog")."js/admin-blog-new.js"));
 
-templateload("cmbCanales","users");
-?>
+templateload("cmbCanales","users");?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -17,7 +16,7 @@ templateload("cmbCanales","users");
 		));
 
 		$id = (isset($_GET['id']) ? $_GET['id'] : 0);
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		blogController::createAction();
 		blogController::updateAction();
 		$elements = blogController::getItemAction($id);
@@ -28,6 +27,7 @@ templateload("cmbCanales","users");
 			$descripcion = $elements[0]['descripcion'];
 			$tipo_tema = $elements[0]['tipo_tema'];
 			$canal = $elements[0]['canal'];
+			$destacado = $elements[0]['destacado'];
 		}
 		else{
 			$accion = "new";
@@ -35,6 +35,7 @@ templateload("cmbCanales","users");
 			$descripcion = "";
 			$tipo_tema = "";
 			$canal = "";
+			$destacado = 0;
 		}
 		?>
 			<div class="panel panel-default">
@@ -56,7 +57,7 @@ templateload("cmbCanales","users");
 						</div>
 						<div class="col-md-4 form-group">
 							<div class="checkbox checkbox-primary">
-								<input type="checkbox" class="styled" id="destacado"  name="destacado" <?php echo $elements[0]['destacado'] == 1 ? "checked" : "";?>>
+								<input type="checkbox" class="styled" id="destacado"  name="destacado" <?php echo $destacado == 1 ? "checked" : "";?>>
 								<label for="confirmed_user">Destacada</label>
 							</div>
 						</div>
@@ -80,7 +81,7 @@ templateload("cmbCanales","users");
 							<input type="submit" name="SubmitData" class="btn btn-primary btn-block" value="Guardar entrada" />
 							<hr />
 							<?php
-								if ($id > 0){
+								if($id > 0){
 									$num_comentarios = connection::countReg("foro_comentarios"," AND estado=1 AND id_tema=".$id." ");
 									echo '<a target="_blank" href="blog?id='.$id.'" title="ver entrada">Ver entrada</a><br />';
 									echo '<a href="admin-blog-foro?id='.$id.'" title="comentario">Comentarios de la entrada ('.$num_comentarios.')</a><br />';
@@ -94,7 +95,7 @@ templateload("cmbCanales","users");
 						<div class="panel-body">
 							<p>Selecciona la imágen principal de la entrada:</p>
 							<?php
-								if (isset($elements[0]['imagen_tema']) and $elements[0]['imagen_tema'] != ""){
+								if(isset($elements[0]['imagen_tema']) && $elements[0]['imagen_tema'] != ""){
 									echo '<img src="images/foro/'.$elements[0]['imagen_tema'].'" style="width: 100%" class="responsive" />';
 								}
 							?>

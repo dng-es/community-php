@@ -43,7 +43,6 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getVentasRankingUser($filter = "", $id_objetivo = 1){
-
 		$Sql = "SELECT username_puntuacion AS username_venta,SUM(puntuacion_venta) AS suma,u.nick,u.name,u.surname,u.foto,
 			IFNULL(t.nombre_tienda, '') AS nombre_tienda, t.regional_tienda 
 			FROM incentives_ventas_puntos v 
@@ -61,7 +60,7 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getVentasRankingUserTiendas($filter = "", $id_objetivo = 1){
-			$Sql = "SELECT u.empresa,IFNULL(t.nombre_tienda, '') AS nombre_tienda ,SUM(puntuacion_venta) AS suma, t.provincia_tienda 
+			$Sql = "SELECT u.empresa,IFNULL(t.nombre_tienda, '') AS nombre_tienda ,SUM(puntuacion_venta) AS suma, t.provincia_tienda,t.territorial_tienda  
 			FROM incentives_ventas_puntos v 
 			LEFT JOIN users u ON u.username=v.username_puntuacion 
 			LEFT JOIN users_tiendas t ON u.empresa=t.cod_tienda 

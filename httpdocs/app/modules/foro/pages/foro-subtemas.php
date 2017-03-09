@@ -20,7 +20,7 @@ $canal = "";
 		session::getFlashMessage( 'actions_message' );
 		$module_config = getModuleConfig("foro");
 
-		if (isset($_REQUEST['id']) and $_REQUEST['id'] > 0){
+		if (isset($_REQUEST['id']) && $_REQUEST['id'] > 0){
 			$id_tema_parent = $_REQUEST['id'];
 		}
 		else{
@@ -29,13 +29,13 @@ $canal = "";
 			$id_tema_parent = connection::SelectMaxReg("id_tema", "foro_temas", " AND id_tema_parent=0 AND id_area=0 AND ocio=0 ".$filtro_canal);
 		}
 		//OBTENCION DE LOS TEMAS DEL FORO
-		if (isset($id_tema_parent) and $id_tema_parent != ""){
+		if (isset($id_tema_parent) && $id_tema_parent != ""){
 			$filtro = " AND id_tema=".$id_tema_parent." AND activo=1 AND ocio=0 ";
 			if ($_SESSION['user_canal'] != 'admin') $filtro .= " AND canal='".$_SESSION['user_canal']."' ";
 			$temas = $foro->getTemas($filtro); 
 		}
 
-		if (isset($id_tema_parent) and $id_tema_parent != ""){
+		if (isset($id_tema_parent) && $id_tema_parent != ""){
 		//OBTENER SUBTEMAS DE FORO
 		$filtro_subtemas = " AND id_tema_parent=".$temas[0]['id_tema']." AND activo=1 AND ocio=0 ";
 		$reg = $module_config['options']['forums_per_page'];
@@ -49,20 +49,20 @@ $canal = "";
 		}
 		else $inicio = ($pag - 1) * $reg;
 
-		if (isset($_POST['find_reg']) and $_POST['find_reg'] != ""){
-			$filtro_subtemas.=" AND (nombre LIKE  '%".$_POST['find_reg']."%') ";
+		if (isset($_POST['find_reg']) && $_POST['find_reg'] != ""){
+			$filtro_subtemas .= " AND (nombre LIKE  '%".$_POST['find_reg']."%') ";
 			$find_reg = $_POST['find_reg'];
 		}
-		if (isset($_REQUEST['f']) and $_REQUEST['f'] != "") {
+		if (isset($_REQUEST['f']) && $_REQUEST['f'] != "") {
 			$filtro_subtemas .= " AND (nombre LIKE '%".$_REQUEST['f']."%') ";
 			$find_reg = $_REQUEST['f'];
 		}
-		if (isset($_POST['find_tipo']) and $_POST['find_tipo'] != ""){
+		if (isset($_POST['find_tipo']) && $_POST['find_tipo'] != ""){
 			$filtro_subtemas .= " AND tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
 			$find_tipo = $_POST['find_tipo'];
 			$marca = 1;
 		}
-		if (isset($_REQUEST['m']) and $_REQUEST['m'] == 1){
+		if (isset($_REQUEST['m']) && $_REQUEST['m'] == 1){
 			$filtro_subtemas .= " AND tipo_tema LIKE '%".$_REQUEST['t']."%' ";
 			$find_tipo = $_REQUEST['t'];
 			$marca = 1;
@@ -86,7 +86,7 @@ $canal = "";
 			ForoSearch($reg,'foro-subtemas?id='.$id_tema_parent, $find_reg, $marca, $find_tipo);
 
 			//BANNER CREAR TEMA
-			if ($module_config['options']['allow_new'] == true or $_SESSION['user_perfil'] == 'admin') PanelSubirTemaForo($id_tema_parent, $temas[0]['canal']);
+			if ($module_config['options']['allow_new'] == true || $_SESSION['user_perfil'] == 'admin') PanelSubirTemaForo($id_tema_parent, $temas[0]['canal']);
 			?>
 		</div>
 	</div>

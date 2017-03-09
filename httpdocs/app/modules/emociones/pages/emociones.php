@@ -37,4 +37,9 @@
 			</div>
 		</div>
 	</div>
+	<div class="app-sidebar">
+		<div class="panel-interior hidden-xs hidden-sm">
+
+		</div>
+	</div>
 </div>

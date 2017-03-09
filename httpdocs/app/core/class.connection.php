@@ -69,7 +69,7 @@ class connection extends connection_sql{
 	public static function getSQL($Sql){
 		$result = self::execute_query($Sql);
 		$registros = array();  
-		while ($registro = self::get_result($result)){  
+		while ($registro = self::get_result($result)){ 
 			$registros[] = $registro;
 		}
 		return $registros;

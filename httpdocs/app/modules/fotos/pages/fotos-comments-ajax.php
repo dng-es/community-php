@@ -26,7 +26,7 @@ $module_config = getModuleConfig("fotos");
 
 	$fotos = new fotos();
 	$id_file = 0;
-	if(isset($_REQUEST['id']) and $_REQUEST['id'] != "") $id_file = $_REQUEST['id'];
+	if(isset($_REQUEST['id']) && $_REQUEST['id'] != "") $id_file = $_REQUEST['id'];
 	//OBTENCION DE LAS FOTOS
 	$filtro = " AND estado=1 AND id_file=".$id_file." ";
 	//if ($_SESSION['user_canal'] != 'admin') $filtro .= " AND f.canal='".$_SESSION['user_canal']."' ";

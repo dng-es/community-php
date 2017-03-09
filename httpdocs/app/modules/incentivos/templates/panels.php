@@ -23,7 +23,7 @@ function panelRanking($id_objetivo){
 			if (count($ranking['ranking']) > 0):
 				$limite = ($posicion_user > 0 ? 5 : 6);
 				for($i=0; $i < $limite; $i++){ ?>
-					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 incentivos-ranking-user text-center <?php if((($i + 1) % 2) == 0 and isset($ranking['ranking'][$i])) { echo 'back-rank';} ?>">
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 incentivos-ranking-user text-center <?php if((($i + 1) % 2) == 0 && isset($ranking['ranking'][$i])) { echo 'back-rank';} ?>">
 						<?php if(isset($ranking['ranking'][$i])):
 							$ranking_user = $ranking['ranking'][$i];
 							?>
@@ -31,7 +31,7 @@ function panelRanking($id_objetivo){
 							<img width="100%" src="<?php echo usersController::getUserFoto($ranking_user['foto']);?>" />
 							<div class="text-center ellipsis">
 								<div class="text-center text-user ellipsis font-white"><?php echo $ranking_user['nick'];?></div>
-								<small class="text-primary"><?php echo $ranking_user['suma'];?> puntos</small>
+								<small class="text-primary"><?php echo $ranking_user['suma'];?> <?php e_strTranslate("Incentives_points");?></small>
 							</div>
 						<?php endif;?>
 					</div>
@@ -42,7 +42,7 @@ function panelRanking($id_objetivo){
 						<img width="100%" src="<?php echo usersController::getUserFoto($usuario['foto']);?>" />
 						<div class="text-center incentivos-ranking-user2-div ellipsis">
 							<big><strong class="font-white incentivos-ranking-user2-puntos"><?php echo $posicion_user;?>&deg;</strong></big><br />
-							<span class="font-white"><small><?php echo $total_user;?> puntos</small></span>
+							<span class="font-white"><small><?php echo $total_user;?> <?php e_strTranslate("Incentives_points");?></small></span>
 						</div>
 					</div>
 				<?php endif;?>

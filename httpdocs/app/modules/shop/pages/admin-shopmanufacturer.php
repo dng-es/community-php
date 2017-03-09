@@ -14,7 +14,7 @@ addJavascripts(array(getAsset("shop")."js/admin-shopmanufacturer.js"));
 		shopManufacturersController::createAction();
 		shopManufacturersController::updateAction();
 		
-		$id_manufacturer = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
+		$id_manufacturer = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
 		$element = shopManufacturersController::getItemAction($id_manufacturer);
 		?>
 		<div class="panel panel-default">

@@ -25,9 +25,8 @@ class tpl{
 	 * @return string HTML template
 	 */
 	function getTpl(){
-		if (!($this->fd = @fopen($this->tpl_file, 'r'))){
-			echo 'error al abrir la plantilla ' . $this->tpl_file;
-		} else{
+		if (!($this->fd = @fopen($this->tpl_file, 'r'))) echo 'error al abrir la plantilla ' . $this->tpl_file;
+		else{
 			$this->template_file = fread($this->fd, filesize($this->tpl_file));
 			fclose($this->fd);
 			$this->mihtml = $this->template_file;

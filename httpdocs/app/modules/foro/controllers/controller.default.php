@@ -19,12 +19,12 @@ class foroController{
 
 	public static function getLastTemasAction($limit = 3, $filter = ""){
 		$foro = new foro();
-		$filter .= ($_SESSION['user_canal']!='admin' ? " AND t.canal='".$_SESSION['user_canal']."' " : "");
+		$filter .= ($_SESSION['user_canal'] != 'admin' ? " AND t.canal='".$_SESSION['user_canal']."' " : "");
 		return $foro->getLastTemas($filter, $limit);
 	}
 
 	public static function insertCommentAction(){
-		if (isset($_POST['texto-comentario']) and $_POST['texto-comentario'] != "" and ($_POST['id_tema'] != "" or $_POST['id_tema'] != 0)){
+		if (isset($_POST['texto-comentario']) && $_POST['texto-comentario'] != "" && ($_POST['id_tema'] != "" || $_POST['id_tema'] != 0)){
 			$foro = new foro();
 			$texto_comentario = nl2br(sanitizeInput($_POST['texto-comentario']));
 			if ($foro->InsertComentario($_POST['id_tema'],
@@ -40,7 +40,7 @@ class foroController{
 	}
 
 	public static function exportCommentsAction($filter = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$foro = new foro();
 			$elements = $foro->getComentarios($filter);
 			download_send_headers("comments_" . date("Y-m-d") . ".csv");
@@ -50,7 +50,7 @@ class foroController{
 	}
 
 	public static function exportTemasAction($filter = ""){
-		if (isset($_REQUEST['export2']) and $_REQUEST['export2'] == true){
+		if (isset($_REQUEST['export2']) && $_REQUEST['export2'] == true){
 			$foro = new foro();
 			$elements = $foro->getTemas($filter);
 			download_send_headers("temas_" . date("Y-m-d") . ".csv");
@@ -71,7 +71,7 @@ class foroController{
 		$foro = new foro();
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("foro_comentarios",$filtro);
+		$total_reg = connection::countReg("foro_comentarios", $filtro);
 		return array('items' => $foro->getComentarios($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -80,7 +80,7 @@ class foroController{
 	}
 
 	public static function cancelComentarioAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'foro_ko'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'foro_ko'){
 			$foro = new foro(); 
 			$users = new users();
 			$foro->cambiarEstado($_REQUEST['id'],2);
@@ -91,7 +91,7 @@ class foroController{
 	}
 
 	public static function validateComentarioAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'foro_ok'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'foro_ok'){
 			$foro = new foro(); 
 			$users = new users();
 			$foro->cambiarEstado(intval($_REQUEST['id']), 1);
@@ -110,7 +110,7 @@ class foroController{
 	}
 
 	public static function cancelTemaAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'tema_ko'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'tema_ko'){
 			$foro = new foro();
 			$foro->cambiarEstadoTema(intval($_REQUEST['id']), 0);
 			session::setFlashMessage('actions_message', "Tema cancelado correctamente.", "alert alert-success");
@@ -119,7 +119,7 @@ class foroController{
 	}
 
 	public static function exportTemasCommentsAction($filter = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$foro = new foro(); 
 			$elements_exp = $foro->getComentariosExport($filter." AND c.id_tema=".intval($_REQUEST['id'])." ");
 			$file_name = 'exported_file'.date("YmdGis");
@@ -130,7 +130,7 @@ class foroController{
 	}
 
 	public static function createRespuestaAction(){
-		if (isset($_POST['comment-reply-txt']) and $_POST['comment-reply-txt'] != "" and ($_POST['comment-reply-id'] != "" or $_POST['comment-reply-id'] != 0)){
+		if (isset($_POST['comment-reply-txt']) && $_POST['comment-reply-txt'] != "" && ($_POST['comment-reply-id'] != "" || $_POST['comment-reply-id'] != 0)){
 			$foro = new foro();
 			$texto_comentario = nl2br(sanitizeInput($_POST['comment-reply-txt']));
 			$id_tema = intval($_POST['id_tema']);
@@ -149,7 +149,7 @@ class foroController{
 
 	public static function votarAction(){
 		//VOTAR COMENTARIO
-		if (isset($_REQUEST['idvf']) and $_REQUEST['idvf'] != ""){
+		if (isset($_REQUEST['idvf']) && $_REQUEST['idvf'] != ""){
 			$foro = new foro();
 			$page_num = isset($_GET['pag']) ? $_GET['pag'] : "";
 			$resultado = $foro->InsertVotacion($_REQUEST['idvf'], $_SESSION['user_name']);

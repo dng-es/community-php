@@ -5,7 +5,7 @@
 			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemUrl"=>"info-all"),
 			array("ItemLabel"=>strTranslate("Search_results"), "ItemClass"=>"active"),
 		));
-		$filtro = ((isset($_REQUEST['find_reg']) and $_REQUEST['find_reg']!="") ? " AND titulo_info LIKE '%".sanitizeInput($_REQUEST['find_reg'])."%' " : "");
+		$filtro = ((isset($_REQUEST['find_reg']) && $_REQUEST['find_reg'] != "") ? " AND titulo_info LIKE '%".sanitizeInput($_REQUEST['find_reg'])."%' " : "");
 		$elements = infoController::getListAction(20, $filtro);
 
 		?>

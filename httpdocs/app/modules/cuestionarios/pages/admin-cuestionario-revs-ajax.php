@@ -9,7 +9,7 @@ include_once($base_dir . "modules/cuestionarios/classes/class.cuestionarios.php"
 //session::ValidateSessionAjax();
 
 //OBTENER RESPUESTAS
-if (isset($_POST['cuestionario']) and $_POST['cuestionario'] != ""){
+if (isset($_POST['cuestionario']) && $_POST['cuestionario'] != ""){
 	$cuestionarios = new cuestionarios();
 	$datos = "<ul>";
 	$respuestas=$cuestionarios->getRespuestasUserAdmin(" AND p.id_cuestionario=".$_POST['cuestionario']." and r.respuesta_user='".$_POST['user']."' ");

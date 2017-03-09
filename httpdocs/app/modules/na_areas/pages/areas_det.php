@@ -9,7 +9,7 @@ addJavascripts(array("js/libs/jwplayer/jwplayer.js",
 					 "js/bootstrap.file-input.js", 
 					 getAsset("na_areas")."js/areas_det.js"));
 
-if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""):
+if (isset($_REQUEST['id']) && $_REQUEST['id'] != ""):
 	$na_areas = new na_areas();
 	$id_area = intval($_REQUEST['id']);
 
@@ -89,14 +89,14 @@ function printTareas($id_area){
 				$acceso_grupo = count($na_areas->getUsersTareaGrupos($element['id_tarea'],$_SESSION['user_name']));
 			}
 		}
-		if ($element['tarea_grupo'] == 0 or $acceso_grupo == 1){
+		if ($element['tarea_grupo'] == 0 || $acceso_grupo == 1){
 			$contador_tareas++;
 
 			if ($contador_tareas == 1) echo '<div class="col-md-6"><h4>Tareas del curso</h4>';
 
 			echo '<div class="panel panel-default">
 				  <div class="panel-heading">';
-			echo ((isset($element['id_recompensa']) and $element['id_recompensa']>0) ? '<img class="pull-right" width="15px" title="'.$element['recompensa_name'].'" src="'.PATH_REWARDS.$element['recompensa_image'].'" />' : '');
+			echo ((isset($element['id_recompensa']) && $element['id_recompensa'] > 0) ? '<img class="pull-right" width="15px" title="'.$element['recompensa_name'].'" src="'.PATH_REWARDS.$element['recompensa_image'].'" />' : '');
 			echo ' <h3 class="panel-title">'.$element['tarea_titulo'].'</h3></div>
 				  <div class="panel-body">
 				  <p>'.$element['tarea_descripcion'].'</p>';
@@ -116,7 +116,7 @@ function printTareas($id_area){
 									<input type="hidden" name="id_area" value="'.$id_area.'"/>
 									<input type="file" class="btn btn-default" name="nombre-fichero" id="nombre-fichero-'.$element['id_tarea'].'" title="'.strTranslate("Choose_file").'" /> 
 									<span id="fichero-comentario-alert-'.$element['id_tarea'].'" class="alert-message alert alert-danger"></span>
-									<button type="button" class="enviarButton btn btn-default btnfileTarea" id="'.$element['id_tarea'].'" name="'.$element['id_tarea'].'">'.strTranslate("Upload").'</button>						
+									<button type="button" class="enviarButton btn btn-primary btnfileTarea" id="'.$element['id_tarea'].'" name="'.$element['id_tarea'].'">'.strTranslate("Upload").'</button>						
 								</form>
 							</div>';
 				}

@@ -7,7 +7,7 @@ include_once($base_dir . "modules/class.footer.php");
 session::getFlashMessage( 'actions_message' );
 
 shopOrdersController::createAction();
-$id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
+$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
 $filtro_order = " AND username_order='".$_SESSION['user_name']."' AND d.id_order=".$id." ";
 
 $elements = shopOrdersController::getListDetailAction(1, $filtro_order);
@@ -41,14 +41,19 @@ $historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id
 							<?php endif;?>
 						</h2>
 						<div class="col-md-6">
-							<hr>
-							<label class="control-label"><i class="fa fa-check-square-o"></i> Fecha solicitud:</label> <?php echo getDateFormat($element['date_order'], 'DATE_TIME');?><br />
-							<hr>
-							<ul class="list-funny">
+							<table class="table">
+								<tr><td colspan="2">
+									<label class="control-label"><i class="fa fa-check-square-o"></i> Fecha solicitud:</label> <?php echo getDateFormat($element['date_order'], 'DATE_TIME');?>
+								</td></tr>
+
 							<?php foreach($historico['items'] as $historico_status): ?>
-								<li><span class="label label-info"><?php echo $historico_status['order_status'];?></span> <?php echo getDateFormat($historico_status['date_status'], 'DATE_TIME');?></li>
+								<tr>
+									<td><span class="label label-info"><?php echo $historico_status['order_status'];?></span></td>
+									<td width="100%"><?php echo getDateFormat($historico_status['date_status'], 'DATE_TIME');?></td>
+								</tr>
 							<?php endforeach;?>
-							</ul>
+
+							</table>
 						</div>
 						<div class="col-md-6">
 							<div class="table-responsive">
@@ -76,35 +81,48 @@ $historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id
 					<div class="row">
 						<h2>Datos de entrega</h2>
 						<div class="col-md-6">
-							<label class="control-label" for="name_order"><?php e_strTranslate("Name");?>: </label>
-							<?php echo $element['name_order'];?>
-							<hr />
-							<label class="control-label" for="surname_order"><?php e_strTranslate("Surname");?>: </label>
-							<?php echo $element['surname_order'];?>
-							<hr />
-							<label class="control-label" for="telephone_order"><?php e_strTranslate("Teléfono de contacto");?>: </label>
-							<?php echo $element['telephone_order'];?>
-							<hr />
+							<table class="table">
+								<tr><td>
+									<label class="control-label" for="name_order"><?php e_strTranslate("Name");?>: </label>
+									<?php echo $element['name_order'];?>
+								</td></tr>
+								<tr><td>
+									<label class="control-label" for="surname_order"><?php e_strTranslate("Surname");?>: </label>
+									<?php echo $element['surname_order'];?>
+								</td></tr>
+								<tr><td>
+									<label class="control-label" for="telephone_order"><?php e_strTranslate("Teléfono de contacto");?>: </label>
+									<?php echo $element['telephone_order'];?>
+								</td></tr>
+								<tr><td>
+									<label class="control-label" for="postal_order">Observaciones: </label>
+									<?php echo $element['notes_order'];?>
+								</td></tr>
+							</table>
 						</div>
 						<div class="col-md-6">
-							<label class="control-label" for="address_order"><?php e_strTranslate("Group_user");?>: </label>
-							<?php echo $element['address_order'];?>
-							<hr />
-							<label class="control-label" for="address_order"><?php e_strTranslate("Address");?>: </label>
-							<?php echo $element['address2_order'];?>
-							<hr />
-							<label class="control-label" for="city_order"><?php e_strTranslate("Localidad");?>: </label>
-							<?php echo $element['city_order'];?>
-							<hr />
-							<label class="control-label" for="state_order"><?php e_strTranslate("Provincia");?>: </label>
-							<?php echo $element['state_order'];?>
-							<hr />
-							<label class="control-label" for="postal_order"><?php e_strTranslate("Código postal");?>: </label>
-							<?php echo $element['postal_order'];?>
-							<hr />
-							<label class="control-label" for="postal_order">Observaciones: </label>
-							<?php echo $element['notes_order'];?>
-							<hr />
+							<table class="table">
+								<tr><td>
+									<label class="control-label" for="address_order"><?php e_strTranslate("Group_user");?>: </label>
+									<?php echo $element['address_order'];?>
+								</td></tr>
+								<tr><td>
+									<label class="control-label" for="address_order"><?php e_strTranslate("Address");?>: </label>
+									<?php echo $element['address2_order'];?>
+								</td></tr>
+								<tr><td>
+									<label class="control-label" for="city_order"><?php e_strTranslate("Localidad");?>: </label>
+									<?php echo $element['city_order'];?>
+								</td></tr>
+								<tr><td>
+									<label class="control-label" for="state_order"><?php e_strTranslate("Provincia");?>: </label>
+									<?php echo $element['state_order'];?>
+								</td></tr>
+								<tr><td>
+									<label class="control-label" for="postal_order"><?php e_strTranslate("Código postal");?>: </label>
+									<?php echo $element['postal_order'];?>
+								</td></tr>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -117,7 +135,7 @@ $historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id
 			</div>
 			<?php endif;?>
 	</div>
-	<div class="app-sidebar">
+	<div class="app-sidebar hidden-xs hidden-sm">
 		<div class="panel-interior">
 			<h2>Premios</h2>
 			<p>Puedes canjear tus <?php e_strTranslate("APP_Credits");?> por fantasticos <?php strtolower(e_strTranslate("Shop_products"));?>!</p>

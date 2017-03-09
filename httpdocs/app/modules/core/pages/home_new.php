@@ -23,10 +23,6 @@ $elements_rows = $configuration->getPanelsRows(" AND page_name='home' AND panel_
 ?>
 <div class="row row-top">
 	<br />
-
-
-
-
 		<?php foreach($elements_rows as $element_row):
 				$elements = $configuration->getPanels(" AND panel_row=".$element_row['rows']." AND page_name='home' AND panel_visible=1 ORDER BY panel_pos ");
 				?>
@@ -41,8 +37,5 @@ $elements_rows = $configuration->getPanelsRows(" AND page_name='home' AND panel_
 					endforeach;?>
 				</div>	
 		<?php endforeach; ?>
-
-	
 </div>
-
 <?php popupNovedades();?>

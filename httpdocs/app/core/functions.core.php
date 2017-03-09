@@ -61,8 +61,10 @@ function dirCarga($dir, $modulename){
 * @param 	string 		$classname 		class name where template is placed
 */
 function templateload($template, $classname){
-	$file = dirCarga( dirname(__FILE__) , "/modules/".$classname."/templates/".$template.".php");
-	if (file_exists($file)) include_once ($file);
+	if (is_dir(dirCarga(dirname(__FILE__) , "/modules/".$classname))){
+		$file = dirCarga(dirname(__FILE__) , "/modules/".$classname."/templates/".$template.".php");
+		if (file_exists($file)) include_once ($file);	
+	}
 }
 
 /**
@@ -170,12 +172,10 @@ function getModuleChannels($groups, $user_canal){
 * @return 	string 		 			return translation by language
 */
 function strTranslate($str){
-	global $ini_conf;
-
-	$language = (isset($_SESSION['language']) and $_SESSION['language'] != "") ? $_SESSION['language'] : $ini_conf['language'];
+	global $ini_conf, $modules;
+	$language = (isset($_SESSION['language']) && $_SESSION['language'] != "") ? $_SESSION['language'] : $ini_conf['language'];
 
 	//translations from modules
-	$modules = getListModules();
 	foreach($modules as $module):
 		$path_module = realpath(dirname(__FILE__))."/../modules/".$module['folder']."/resources/languages/".$language."/language.php";
 		$str = getTranlationStr($path_module,$str);

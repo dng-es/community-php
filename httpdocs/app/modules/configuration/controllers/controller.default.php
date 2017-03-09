@@ -1,7 +1,7 @@
 <?php
 class configurationController{
 	public static function updateAction(){
-		if (isset($_POST['site-name']) and $_POST['site-name'] != ''){
+		if (isset($_POST['site-name']) && $_POST['site-name'] != ''){
 			$configuration = new configuration();
 			if ($configuration->UpdateConfiguracion($_POST['telefono'],
 										 $_POST['telefono2'],
@@ -59,25 +59,25 @@ class configurationController{
 	}
 
 	public static function exportModulesPagesAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
+			global $modules;
 			$users = new users();
 			$elements = array();
 			$i = 0;
-			$modules = getListModules("");
 
 			foreach($modules as $module):
 				$folder_files = FileSystem::showFilesFolder(__DIR__."/../../".$module['folder']."/pages");
 				foreach($folder_files as $folder_file):
 						$elements[$i]['Pagina'] = $folder_file;
 						$elements[$i]['Modulo'] = $module['folder'];
-						$i++;	
-				endforeach;					
+						$i++;
+				endforeach;
 			endforeach;
 
 			download_send_headers("pages_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
 		}
-	}	
+	}
 }
 ?>

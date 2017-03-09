@@ -2,7 +2,15 @@
 class recompensasController{
 	public static function getItemAction($id){
 		$recompensas = new recompensas();
-		return $recompensas->getRecompensas(" AND id_recompensa=".$id." ");
+		$element = array();
+		$elements = $recompensas->getRecompensas(" AND id_recompensa=".$id." ");
+
+		if (isset($elements[0])) $element = $elements[0];
+		else{
+			$element['recompensa_image'] = "";
+			$element['recompensa_name'] = "";
+		}
+		return $element;
 	}
 
 	public static function getListAction($reg = 0, $filtro = ""){
@@ -20,7 +28,7 @@ class recompensasController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id_recompensa']) and $_POST['id_recompensa'] == 0){
+		if (isset($_POST['id_recompensa']) && $_POST['id_recompensa'] == 0){
 			$recompensas = new recompensas();
 			$id = 0;
 			$recompensa_nombre = sanitizeInput($_POST['recompensa_nombre']);
@@ -37,10 +45,10 @@ class recompensasController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id_recompensa']) and $_POST['id_recompensa'] > 0){
+		if (isset($_POST['id_recompensa']) && $_POST['id_recompensa'] > 0){
 			$recompensas = new recompensas();	
 			$recompensa_nombre = sanitizeInput($_POST['recompensa_nombre']);
-			$recompensa_image = ((isset($_FILES['recompensa_image']['name']) and $_FILES['recompensa_image']['name'] != "") ? uploadFileToFolder($_FILES['recompensa_image'], PATH_REWARDS) : $_POST['nombre_imagen']);
+			$recompensa_image = ((isset($_FILES['recompensa_image']['name']) && $_FILES['recompensa_image']['name'] != "") ? uploadFileToFolder($_FILES['recompensa_image'], PATH_REWARDS) : $_POST['nombre_imagen']);
 
 			if ($recompensas->updateRecompensas($_POST['id_recompensa'], $recompensa_nombre, $recompensa_image)){
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -75,7 +83,7 @@ class recompensasController{
 	}
 
 	public static function deleteUserRewardAction(){
-		if(isset($_REQUEST['del_rew']) and $_REQUEST['del_rew'] != ""){
+		if(isset($_REQUEST['del_rew']) && $_REQUEST['del_rew'] != ""){
 			$recompensas = new recompensas;
 			if ($recompensas->deleteRecompensaUser(sanitizeInput($_REQUEST['del_rew']))) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
@@ -86,7 +94,7 @@ class recompensasController{
 	}
 
 	public static function insertUserRewardAction(){
-		if(isset($_POST['recompensa_user']) and $_POST['recompensa_user'] != ""){
+		if(isset($_POST['recompensa_user']) && $_POST['recompensa_user'] != ""){
 			$recompensas = new recompensas;
 			if (!sanitizeInput($_POST['id_recompensa']) > 0)
 				session::setFlashMessage('actions_message', "Tienes que selecionar una recompensa", "alert alert-warning");

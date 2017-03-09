@@ -8,17 +8,17 @@ include_once($base_dir . "core/class.session.php");
 
 session::ValidateSessionAjax();
 //modificar configuracion del modulo
-if (isset($_POST['modulename']) and $_POST['modulename'] != ""){
+if (isset($_POST['modulename']) && $_POST['modulename'] != ""){
 	$module_config = getModuleConfig($_POST['modulename']);
 	$array['options'] = null;
 	$array['channels'] = null;
 	$k = 1;
 	foreach(array_keys($_POST) as $element):
-		if ($element != 'modulename' and substr($element, (strlen($element)-7), strlen($element)) == "_typeof"){
+		if ($element != 'modulename' && substr($element, (strlen($element)-7), strlen($element)) == "_typeof"){
 			$form_field = substr($element, 0, strlen($element)-7);
 			switch ($_POST[$element]) {
 				case 'boolean':
-					$value = ((isset($_POST[$form_field]) and $_POST[$form_field] == 'on') ? true : false);
+					$value = ((isset($_POST[$form_field]) && $_POST[$form_field] == 'on') ? true : false);
 					break;
 				case 'double':
 					$value = str_replace(",", ".", $_POST[$form_field]);
@@ -30,7 +30,7 @@ if (isset($_POST['modulename']) and $_POST['modulename'] != ""){
 			$array['options'][$form_field] = $value;
 		}
 
-		if ($element != 'modulename' and substr($element, (strlen($element)-8), strlen($element)) == "_channel"){
+		if ($element != 'modulename' && substr($element, (strlen($element)-8), strlen($element)) == "_channel"){
 			$form_field = substr($element, 0, strlen($element)-8);
 			$value = $_POST[$form_field."_channel"];
 			if (trim($value) != '') {

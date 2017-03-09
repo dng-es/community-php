@@ -1,7 +1,7 @@
 <?php
 templateload("searchproducts","shop");
 
-$id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? intval($_REQUEST['id']) : 0);
+$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? intval($_REQUEST['id']) : 0);
 $filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
 $filtro = $filtro_canal." AND active_product=1 AND id_product=".$id." ";
 
@@ -31,9 +31,9 @@ $module_config = getModuleConfig("shop");
 
 		$card_text = "Canjear premio";
 		$card_text = ($element['price_product'] > $user_detail['creditos'] ? "No canjeable" : $card_text);
-		$card_text = ($element['stock_product'] <=0 ? "No canjeable" : $card_text);
+		$card_text = ($element['stock_product'] <= 0 ? "No canjeable" : $card_text);
 		$card_disabled = ($element['price_product'] > $user_detail['creditos'] ? "disabled" : "");
-		$card_disabled = ($element['stock_product'] <=0 ? "disabled" : $card_disabled);
+		$card_disabled = ($element['stock_product'] <= 0 ? "disabled" : $card_disabled);
 		$foto = ($element['image_product'] == '' ? 'images/nofile.jpg' : "images/shop/".$element['image_product']);
 		?>
 

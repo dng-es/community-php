@@ -54,8 +54,14 @@ incidenciasController::exportListAction($filter);
 		</div>
 	</div>
 	<div class="app-sidebar">
-		<div class="panel-interior hidden-xs">
-			<h3><?php e_strTranslate("My_incidences");?></h3>
+		<div class="panel-interior hidden-xs hidden-sm">
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-life-ring fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php e_strTranslate("My_incidences");?>
+			</h4>
 			<p class="text-center"><i class="fa fa-life-ring fa-big"></i></p>
 		</div>
 	</div>

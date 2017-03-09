@@ -18,7 +18,7 @@ class videosController{
 		$filter .= " ORDER BY id_file DESC";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("galeria_videos v",$filter);
+		$total_reg = connection::countReg("galeria_videos v, users u"," AND u.username=v.user_add ".$filter);
 		return array('items' => $videos->getVideos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -27,10 +27,10 @@ class videosController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['titulo-video']) and $_POST['titulo-video'] != ""){
+		if (isset($_POST['titulo-video']) && $_POST['titulo-video'] != ""){
 			$videos = new videos();	
 			$canal = (($_SESSION['user_canal'] != 'admin') ? $_SESSION['user_canal'] : $_POST['canal-video']);
-			$id_promocion = ((isset($_POST['id_promocion']) and $_POST['id_promocion'] > 0) ? sanitizeInput($_POST['id_promocion']) : 0);
+			$id_promocion = ((isset($_POST['id_promocion']) && $_POST['id_promocion'] > 0) ? sanitizeInput($_POST['id_promocion']) : 0);
 			$etiquetas = (isset($_POST['etiquetas']) ? strtolower(sanitizeInput($_POST['etiquetas'])) : '');
 			$titulo = (isset($_POST['titulo-video']) ? sanitizeInput($_POST['titulo-video']) : '');
 			$response = $videos->insertFile($_FILES['nombre-video'],PATH_VIDEOS_TEMP,$canal,$titulo, $id_promocion, 0, $etiquetas);
@@ -48,7 +48,7 @@ class videosController{
 	}
 
 	public static function voteAction($destination = "videos"){
-		if (isset($_REQUEST['idvv']) and $_REQUEST['idvv'] != ""){
+		if (isset($_REQUEST['idvv']) && $_REQUEST['idvv'] != ""){
 			$videos = new videos();
 			$response = $videos->InsertVotacion($_REQUEST['idvv'],$_SESSION['user_name']);
 			if ($response == 1)
@@ -58,15 +58,15 @@ class videosController{
 			elseif ($response == 3)
 				session::setFlashMessage('actions_message', strTranslate("Video_vote_own"), "alert alert-warning");
 
-			if (isset($_REQUEST['f']) and $_REQUEST['f'] != "") $destination .= "&f=".$_REQUEST['f'];
-			if (isset($_REQUEST['pag']) and $_REQUEST['pag'] != "") $destination .= "&pag=".$_REQUEST['pag'];
+			if (isset($_REQUEST['f']) && $_REQUEST['f'] != "") $destination .= "&f=".$_REQUEST['f'];
+			if (isset($_REQUEST['pag']) && $_REQUEST['pag'] != "") $destination .= "&pag=".$_REQUEST['pag'];
 
 			redirectURL($destination."?id=".$_REQUEST['idvv']);
 		}
 	}
 
 	public static function downloadZipFile(){
-		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] != "") fileToZip($_REQUEST['exp'], PATH_VIDEOS_TEMP);
+		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] != "") fileToZip($_REQUEST['exp'], PATH_VIDEOS_TEMP);
 	}
 
 	public static function adminActions(){
@@ -111,7 +111,7 @@ class videosController{
 		$videos = new videos();
 		$find_reg = "";
 		if (isset($_POST['find_reg'])) {$filter = " AND comentario LIKE '%".$_POST['find_reg']."%' ";$find_reg = $_POST['find_reg'].$filter;}
-		if (isset($_REQUEST['f']) and $_REQUEST['f'] != ""){$filter = " AND comentario LIKE '%".$_REQUEST['f']."%' ";$find_reg = $_REQUEST['f'].$filter;}
+		if (isset($_REQUEST['f']) && $_REQUEST['f'] != ""){$filter = " AND comentario LIKE '%".$_REQUEST['f']."%' ";$find_reg = $_REQUEST['f'].$filter;}
 		$paginator_items = self::PaginatorPagesVideoComments($reg);
 		
 		$total_reg = connection::countReg("galeria_videos_comentarios", $filter);
@@ -123,7 +123,7 @@ class videosController{
 	}
 
 	public static function createCommentAction(){
-		if (isset($_POST['video-comentario']) and trim($_POST['video-comentario']) != ""){
+		if (isset($_POST['video-comentario']) && trim($_POST['video-comentario']) != ""){
 			$videos = new videos();
 			$id_video = sanitizeInput($_POST['video-id']);
 			$texto_comentario = nl2br(sanitizeInput($_POST['video-comentario']));
@@ -136,7 +136,7 @@ class videosController{
 	}
 
 	public static function validateCommentAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'elem_ko'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'elem_ko'){
 			$videos = new videos();
 			$videos->cambiarEstadoComentario($_REQUEST['idc'], 2);
 
@@ -146,7 +146,7 @@ class videosController{
 	}
 
 	public static function voteCommentAction($destination = "videos"){
-		if (isset($_REQUEST['idvc']) and $_REQUEST['idvc'] != "") {
+		if (isset($_REQUEST['idvc']) && $_REQUEST['idvc'] != "") {
 			$videos = new videos();
 			$response = $videos->InsertVotacionVideo($_REQUEST['idvc'],$_SESSION['user_name']);
 			if ($response == 1)
@@ -156,8 +156,8 @@ class videosController{
 			elseif ($response == 3)
 				$message = strTranslate("Video_comment_vote_own");
 
-			if (isset($_REQUEST['f']) and $_REQUEST['f'] != "") $destination .= "&f=".$_REQUEST['f'];
-			if (isset($_REQUEST['pag2']) and $_REQUEST['pag2'] != "") $destination .= "&pag2=".$_REQUEST['pag2'];
+			if (isset($_REQUEST['f']) && $_REQUEST['f'] != "") $destination .= "&f=".$_REQUEST['f'];
+			if (isset($_REQUEST['pag2']) && $_REQUEST['pag2'] != "") $destination .= "&pag2=".$_REQUEST['pag2'];
 
 			session::setFlashMessage('actions_message', $message, "alert alert-warning");
 			redirectURL($destination);
@@ -172,7 +172,7 @@ class videosController{
 		$find_reg = "";
 		$pag = 1;
 		$inicio = 0;
-		if (isset($_GET["pag2"]) and $_GET["pag2"] != ""){
+		if (isset($_GET["pag2"]) && $_GET["pag2"] != ""){
 			$pag = $_GET["pag2"];
 			$inicio = ($pag - 1) * $reg;
 		}
@@ -194,6 +194,16 @@ class videosController{
 
 			redirectURL("admin-videos?pag=".$pag);
 		}
-	}		
+	}
+
+	public static function exportListAction($filtro){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
+			$videos = new videos();
+			$elements = $videos->getVideos($filtro);
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}
+	}			
 }
 ?>

@@ -4,7 +4,7 @@ class batallasController{
 		$batallas = new batallas();
 		$filtro = $filter." ORDER BY date_batalla DESC ";
 
-		$find_reg = (isset($_GET['f']) and $_GET['f']>0) ? $_GET['f'] : "";
+		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("batallas",$filtro);
 		return array('items' => $batallas->getBatallas($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -15,7 +15,7 @@ class batallasController{
 	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$batallas = new batallas();
 			$elements = $batallas->getBatallas(" ORDER BY date_batalla DESC ");
 			download_send_headers( strTranslate("Battles") . "_" . date("Y-m-d") . ".csv");
@@ -25,14 +25,14 @@ class batallasController{
 	}
 
 	public static function responderBatallaAction(){
-		if (isset($_POST['batalla-create']) and $_POST['batalla-create'] == 1){
+		if (isset($_POST['batalla-create']) && $_POST['batalla-create'] == 1){
 			//insertar respuestas del usuario
 			self::responderBatalla();
 		}
 	}
 
 	public static function responderContrincarioBatallaAction(){
-		if (isset($_POST['batalla-play']) and $_POST['batalla-play'] == 1){
+		if (isset($_POST['batalla-play']) && $_POST['batalla-play'] == 1){
 			//insertar respuestas del usuario
 			self::responderBatalla();
 		}
@@ -82,7 +82,7 @@ class batallasController{
 	
 		//texto del emnsaje al usuario
 		$mensaje = "";
-		if (isset($ganador[0]['ganador']) and $ganador[0]['ganador'] != ""){
+		if (isset($ganador[0]['ganador']) && $ganador[0]['ganador'] != ""){
 			if ($ganador[0]['ganador'] == $_SESSION['user_name']) $mensaje = "Has ganado esta batalla.\n";
 			else $mensaje = "Has perdido esta batalla.\n";
 		}

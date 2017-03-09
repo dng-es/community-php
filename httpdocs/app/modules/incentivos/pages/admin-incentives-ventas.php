@@ -1,6 +1,4 @@
-<?php
-incentivosController::exportAction();
-?>
+<?php incentivosController::exportAction();?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php

@@ -36,9 +36,9 @@ $module_config = getModuleConfig("shop");
 			<?php foreach($elements['items'] as $element):
 				$card_text = "Canjear";
 				$card_text = ($element['price_product'] > $user_detail['creditos'] ? "No canjeable" : $card_text);
-				$card_text = ($element['stock_product'] <=0 ? "No canjeable" : $card_text);
+				$card_text = ($element['stock_product'] <= 0 ? "No canjeable" : $card_text);
 				$card_disabled = ($element['price_product'] > $user_detail['creditos'] ? "disabled" : "");
-				$card_disabled = ($element['stock_product'] <=0 ? "disabled" : $card_disabled);
+				$card_disabled = ($element['stock_product'] <= 0 ? "disabled" : $card_disabled);
 				$foto = ($element['image_product'] == '' ? 'images/nofile.jpg' : "images/shop/".$element['image_product']);
 				?>
 				<div class="card-section">
@@ -78,7 +78,7 @@ $module_config = getModuleConfig("shop");
 				</div>
 			<?php endforeach; ?>
 
-			<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'shopproducts','Pedidos', $elements['find_reg']);?>
+			<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'shopproducts', 'Pedidos', $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>

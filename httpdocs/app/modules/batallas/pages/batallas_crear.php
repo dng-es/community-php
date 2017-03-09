@@ -39,17 +39,16 @@ function getContrincante($puntos_batalla, $module_channels){
 ?>
 <html>
 	<head>
-
 		<script type="text/javascript" src="js/libs/jquery-1.10.1.min.js"></script>
 		<script type="text/javascript" src="css/libs/bootstrap-sass-3.2.0/assets/javascripts/bootstrap.js"></script>
 		<script>
 			$(document).ready(function(){
-				$("#form-batalla-fin").submit(function(e) {
+				$("#form-batalla-fin").submit(function(e){
 					e.preventDefault();
 					$(".alert-message").html("").css("display","none");
 					var form_ok = true;
 					var name;
-					$('input[type="radio"]',this).each(function() {
+					$('input[type="radio"]',this).each(function(){
 						if(name == $(this).attr("name")) return;
 						name = $(this).attr("name");
 						var checked = $(":radio[name="+name+"]:checked");
@@ -74,7 +73,7 @@ function getContrincante($puntos_batalla, $module_channels){
 //elseif ($puntos_disponibles < $_POST['batalla-puntos']) echo '<div class="alert alert-warning">Estas jugando más puntos de los que dispones</div>';
 if ($puntos_disponibles < $puntos_batalla) echo '<div class="alert alert-warning">No dispones de puntos suficientes</div>';
 //elseif ($puntos_disponibles_contrincante < $puntos_batalla) echo '<div class="alert alert-warning">Tu contrincante no tiene puntos suficientes</div>';
-elseif ($contrincante == 0) {
+elseif ($contrincante == 0){
 	echo '<div class="alert alert-warning">No se encuentra contrincante</div>';
 	redirectURL("batallas");
 }
@@ -94,7 +93,6 @@ else{
 
 			//marcar la batalla como empezada
 			$batallas->insertBatallaLucha($id_batalla,$_SESSION['user_name'], 0, 0, 1);
-			
 			$i=1;
 			?>
 			<p class="text-danger text-center">ATENCIÓN!!: no cierres esta ventana o perderás la batalla</p>

@@ -3,7 +3,7 @@ class usersTiendasController{
 	public static function getListAction($reg = 0, $filtro = ""){
 		$users = new users();
 		$find_reg = "";
-		if (isset($_POST['find_reg']) or isset($_REQUEST['f'])){
+		if (isset($_POST['find_reg']) || isset($_REQUEST['f'])){
 			$filtro = " AND nombre_tienda LIKE '%".$_POST['find_reg']."%' OR cod_tienda LIKE '%".$_POST['find_reg']."%' ";
 			$find_reg = (isset($_POST['find_reg']) ? $_POST['find_reg'] : $_REQUEST['f']);
 		}
@@ -25,7 +25,7 @@ class usersTiendasController{
 	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$users = new users();
 			$elements=$users->getTiendas("");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");

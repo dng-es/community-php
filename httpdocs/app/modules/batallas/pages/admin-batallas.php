@@ -10,7 +10,7 @@ batallasController::exportListAction();
 			array("ItemLabel"=>strTranslate("Battles"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Battles_list"), "ItemClass"=>"active"),
 		));
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		$elements = batallasController::getListAction(20);
 		?>
 		<div class="panel panel-default">

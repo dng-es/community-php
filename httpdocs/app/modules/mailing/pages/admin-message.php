@@ -25,8 +25,8 @@ addJavascripts(array("js/jquery.numeric.js",
 		$accion2 = sanitizeInput(isset($_GET['accion2']) == true ? $_GET['accion2'] : "");
 		
 		if ($accion=='edit') $id = intval($_GET['id']);
-		//if ($accion=='edit' and $accion2=='ok' and $accion1!="del"){ UpdateData();}
-		elseif ($accion == 'new' and $accion2 == 'ok'){ 
+		//if ($accion=='edit' && $accion2=='ok' && $accion1!="del"){ UpdateData();}
+		elseif ($accion == 'new' && $accion2 == 'ok'){ 
 			$id = mailingController::createAction();
 			$accion = "edit";
 		}
@@ -69,7 +69,7 @@ function ShowData($elements, $id, $accion){
 						<span id="asunto-alert" class="alert-message alert alert-danger"></span>
 					</div>
 
-					<?php if (isset($_REQUEST['id']) and $_REQUEST['id']>0):?>
+					<?php if (isset($_REQUEST['id']) && $_REQUEST['id']>0):?>
 						<input type="hidden" id="template_message" name="template_message" value="<?php echo $_REQUEST['id'];?>" />
 					<?php else: ?>
 					<div class="form-group">

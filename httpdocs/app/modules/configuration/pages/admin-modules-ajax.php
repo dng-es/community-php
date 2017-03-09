@@ -7,7 +7,6 @@ include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/users/classes/class.users.php");
 session::ValidateSessionAjax();
-
 $users = new users();
 $canales = $users->getCanales(" AND canal<>'admin' AND visible=1 ");
 ?>
@@ -22,7 +21,7 @@ $canales = $users->getCanales(" AND canal<>'admin' AND visible=1 ");
 	<body>
 
 	<?php
-	if (isset($_REQUEST['module']) and $_REQUEST['module'] != ""){
+	if (isset($_REQUEST['module']) && $_REQUEST['module'] != ""){
 		$module_config = getModuleConfig($_REQUEST['module']);?>
 		<form method="post" action="" role="form" class="form-horizontal" name="configForm" id="configForm">
 		<?php if (isset($module_config['options']) || isset($module_config['channels'])): ?>

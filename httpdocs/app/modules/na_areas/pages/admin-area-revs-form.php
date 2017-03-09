@@ -9,10 +9,10 @@ include_once($base_dir . "modules/na_areas/classes/class.na_areas.php");
 //session::ValidateSessionAjax();
 
 //OBTENER RESPUESTAS
-if (isset($_POST['tarea']) and $_POST['tarea']!=""){
+if (isset($_POST['tarea']) && $_POST['tarea']!=""){
 	$na_areas = new na_areas();
 	$datos = "<ul>";
-	$respuestas = $na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".intval($_POST['tarea'])." and r.respuesta_user='".sanitizeInput($_POST['user'])."' ");
+	$respuestas = $na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".intval($_POST['tarea'])." AND r.respuesta_user='".sanitizeInput($_POST['user'])."' ");
 	foreach($respuestas as $respuesta):
 		$datos .= "<li>".$respuesta['Pregunta'].": <strong>".$respuesta['Respuesta']."</strong></li>";
 	endforeach;

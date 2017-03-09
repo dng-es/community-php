@@ -5,7 +5,7 @@ $module_config = getModuleConfig("na_areas");
 $points_to_success = $module_config['options']['points_to_success'];
 
 addJavascripts(array(getAsset("na_areas")."js/areas_form.js"));
-$id_tarea = intval((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST['id'] : 0);
+$id_tarea = intval((isset($_REQUEST['id']) && $_REQUEST['id'] != 0) ? $_REQUEST['id'] : 0);
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -33,12 +33,12 @@ $id_tarea = intval((isset($_REQUEST['id']) and $_REQUEST['id'] != 0) ? $_REQUEST
 			$elements = $na_areas->getPreguntas(" AND id_tarea=".$id_tarea." ");
 			$finalizados = connection::countReg("na_tareas_formularios_finalizados"," AND id_tarea=".$id_tarea." AND user_tarea='".$_SESSION['user_name']."' ");
 			
-			if ($finalizados>0){
+			if ($finalizados > 0){
 				//obtener resultado de la valoracion
 				$valoracion = $na_areas->getFormulariosFinalizados(" AND user_tarea='".$_SESSION['user_name']."' AND id_tarea=".$id_tarea);
 				if (count($valoracion)>0){
-					if ($valoracion[0]['revision'] == 1 and $valoracion[0]['puntos'] >= $points_to_success){ $msg = strTranslate("Na_areas_congratulations")." <b>".$valoracion[0]['puntos']."</b> ".strTranslate("Na_areas_congratulations2")."<b>".$area[0]['puntos']."</b> ".strTranslate("APP_points").".";}
-					if ($valoracion[0]['revision'] == 1 and $valoracion[0]['puntos'] < $points_to_success){ $msg = "Tu nota es de <b>".$valoracion[0]['puntos']."</b>,  no has conseguido superar el mínimo en este curso para conseguir ".strTranslate("APP_points").".";}
+					if ($valoracion[0]['revision'] == 1 && $valoracion[0]['puntos'] >= $points_to_success){ $msg = strTranslate("Na_areas_congratulations")." <b>".$valoracion[0]['puntos']."</b> ".strTranslate("Na_areas_congratulations2")."<b>".$area[0]['puntos']."</b> ".strTranslate("APP_points").".";}
+					if ($valoracion[0]['revision'] == 1 && $valoracion[0]['puntos'] < $points_to_success){ $msg = "Tu nota es de <b>".$valoracion[0]['puntos']."</b>,  no has conseguido superar el mínimo en este curso para conseguir ".strTranslate("APP_points").".";}
 					if ($valoracion[0]['revision'] == 0){ $msg = strTranslate("Revision_pending");}
 				}
 				echo '<div class="alert alert-info"><span class="fa fa-info-circle"></span> '.$msg.'</div>';

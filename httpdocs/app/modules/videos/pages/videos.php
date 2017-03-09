@@ -12,7 +12,7 @@ $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user
 $tags = (isset($_REQUEST['tag']) ? sanitizeInput($_REQUEST['tag']) : '' );
 $filtro_tags = ( $tags != ''  ? " AND tipo_video like '%".$tags."%' " : "" );
 $filter_videos = $filtro_tags.($_SESSION['user_canal'] == 'admin' ? "" : " AND (v.canal IN (".$module_channels.") OR v.canal='') ");
-$filter_id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? " AND id_file=".intval($_REQUEST['id'])." " : "");
+$filter_id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? " AND id_file=".intval($_REQUEST['id'])." " : "");
 
 $id_video = connection::SelectMaxReg("id_file", "galeria_videos v ", $filter_id.$filter_videos." AND estado=1 ");
 
@@ -33,6 +33,7 @@ $num_videos = 6;
 
 		templateload("gallery","videos");
 		templateload("addfile","videos");
+		templateload("tags","videos");
 		templateload("addcomment","videos");
 		templateload("comment","videos");
 
@@ -73,36 +74,37 @@ $num_videos = 6;
 			<?php SearchVideo(1000, "videos?id=".$id_video, "searchForm", strTranslate("Search_video_by_title"), strTranslate("Search"));?>
 			<?php PanelSubirVideo(0);?>
 			<div class="alert-message alert alert-danger" id="alertas-participa"></div>
-			<br />
-			<h4>
-				<span class="fa-stack fa-sx">
-					<i class="fa fa-circle fa-stack-2x"></i>
-					<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
-				</span>
-				<?php e_strTranslate("Last_videos");?>
-			</h4>
-			<br />
-			<?php 
-			if ($id_video > 0):
-				foreach($elements['items'] as $element):
-					echo '<div class="media-preview-container">
-								<a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'&tag='.$tags.'">
-								<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.prepareString($element['titulo']).'" /></a>
-								<div><a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'&tag='.$tags.'">'.$element['titulo'].'</a><br />
-									 '.$element['nick'].'<br />
-									 <span><small>'.getDateFormat($element['date_video'], "LONG").'</small></span>
-								</div>
-							</div>';
-				endforeach;
-			
-				if (($num_videos * $pagina_sig) < $elements['total_reg']):
-			endif;
-			?>
-			<div class="ver-mas">
-				<a href="videos?id=<?php echo $id_video;?>&v=1&pag=<?php echo $pagina_sig + 1;?>&tag=<?php echo $tags;?>">
-				<span class="fa fa-search"></span> <?php e_strTranslate("See_more_videos");?></a>
+			<?php tagsCloud();?>
+			<div>
+				<h4>
+					<span class="fa-stack fa-sx">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-folder fa-stack-1x fa-inverse"></i>
+					</span>
+					<?php e_strTranslate("Last_videos");?>
+				</h4>
+				<br />
+				<?php 
+				if ($id_video > 0):
+					foreach($elements['items'] as $element):
+						echo '<div class="media-preview-container">
+									<a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'&tag='.$tags.'">
+									<img src="'.PATH_VIDEOS.$element['name_file'].'.jpg" class="media-preview" alt="'.prepareString($element['titulo']).'" /></a>
+									<div><a href="videos?id='.$element['id_file'].'&pag='.$pagina_sig.'&tag='.$tags.'">'.$element['titulo'].'</a><br />
+										 '.$element['nick'].'<br />
+										 <span><small>'.getDateFormat($element['date_video'], "LONG").'</small></span>
+									</div>
+								</div>';
+					endforeach;
+				
+					if (($num_videos * $pagina_sig) < $elements['total_reg']):
+					endif;?>
+				<div class="ver-mas">
+					<a href="videos?id=<?php echo $id_video;?>&v=1&pag=<?php echo $pagina_sig + 1;?>&tag=<?php echo $tags;?>">
+					<span class="fa fa-search"></span> <?php e_strTranslate("See_more_videos");?></a>
+				</div>
+				<?php endif;?>
 			</div>
-			<?php endif;?>
 		</div>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 <?php
 $pages = new pages();
-if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
+if (isset($_REQUEST['id']) && $_REQUEST['id'] != ""){
 	$id = $_REQUEST['id'];
 	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND (page_canal='".$_SESSION['user_canal']."' OR page_canal='') " : "");
 	$pagename = $pages->getPages($filtro_canal." AND page_name='".$id."' ");

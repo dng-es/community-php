@@ -9,7 +9,7 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 //session::ValidateSessionAjax();
 
 //VERIFICAR CÓDIGO DE TIENDA
-if (isset($_POST['cod_tienda']) and $_POST['cod_tienda'] != ""){
+if (isset($_POST['cod_tienda']) && $_POST['cod_tienda'] != ""){
 	$users = new users();
 	$tienda = $users->getTiendas(" AND cod_tienda='".$_POST['cod_tienda']."' ");
 	if (count($tienda) == 1) echo $tienda[0]['nombre_tienda'];

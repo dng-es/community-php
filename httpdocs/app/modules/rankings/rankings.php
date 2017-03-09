@@ -19,11 +19,11 @@ class rankingsCore{
 			//OBTENCION DE RANKINGS ACTIVOS
 			$rankings_cat_menu = rankingsController::getListCategoryAction(999, " ");
 
-			if ($rankings_cat_menu['total_reg']>0):
+			if ($rankings_cat_menu['total_reg'] > 0):
 				foreach ($rankings_cat_menu['items'] as $ranking_cat):
 					
 					$rankings_menu = rankingsController::getListAction(999, " AND activo=1 AND r.id_ranking_category=".$ranking_cat['id_ranking_category']." ");
-					if ($rankings_menu['total_reg']>0):
+					if ($rankings_menu['total_reg'] > 0):
 						$array_final_items = array();
 						foreach ($rankings_menu['items'] as $ranking):
 							array_push($array_final_items , array("LabelIcon" => "",

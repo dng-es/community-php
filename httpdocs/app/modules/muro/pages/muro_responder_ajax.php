@@ -37,7 +37,7 @@ include_once($base_dir . "modules/muro/classes/class.muro.php");
 	<?php
 	session::ValidateSessionAjax();
 	$muro = new muro();
-	$id_comentario = intval((isset($_REQUEST['id']) and $_REQUEST['id'] != "") ? $_REQUEST['id'] : 0);
+	$id_comentario = intval((isset($_REQUEST['id']) && $_REQUEST['id'] != "") ? $_REQUEST['id'] : 0);
 	templateload("tipuser","users");
 
 	$filtro = " AND estado=1 AND id_comentario_id=".$id_comentario." ORDER BY date_comentario DESC";

@@ -4,7 +4,6 @@ ini_set('memory_limit', '-1');
 
 //EXPORT MODULES/PAGES
 configurationController::exportModulesPagesAction();
-
 addJavascripts(array(getAsset("configuration")."js/admin-modules.js"));
 ?>
 <div class="row row-top">

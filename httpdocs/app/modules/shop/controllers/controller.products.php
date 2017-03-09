@@ -37,7 +37,7 @@ class shopProductsController{
 	}
 
 	public static function exportListAction($filter = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$shop = new shop(); 
 			$elements = $shop->getProducts($filter);
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -47,14 +47,14 @@ class shopProductsController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id_product']) and $_POST['id_product'] == 0){
+		if (isset($_POST['id_product']) && $_POST['id_product'] == 0){
 			$shop = new shop();
 			$name_product = sanitizeInput($_POST['name_product']);
 			$description_product = sanitizeInput($_POST['description_product']);
 			$price_product = sanitizeInput($_POST['price_product']);
 			$stock_product = sanitizeInput($_POST['stock_product']);
-			$important_product = (isset($_POST['important_product']) and $_POST['important_product'] == "on") ? 1 : 0;
-			$active_product = (isset($_POST['active_product']) and $_POST['active_product'] == "on") ? 1 : 0;
+			$important_product = (isset($_POST['important_product']) && $_POST['important_product'] == "on") ? 1 : 0;
+			$active_product = (isset($_POST['active_product']) && $_POST['active_product'] == "on") ? 1 : 0;
 			$id_manufacturer = sanitizeInput($_POST['id_manufacturer']);
 			$category_product = sanitizeInput($_POST['category_product']);
 			$subcategory_product = sanitizeInput($_POST['subcategory_product']);
@@ -83,15 +83,15 @@ class shopProductsController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id_product']) and $_POST['id_product'] != 0){
+		if (isset($_POST['id_product']) && $_POST['id_product'] != 0){
 			$shop = new shop();
 			$id = sanitizeInput($_POST['id_product']);
 			$name_product = sanitizeInput($_POST['name_product']);
 			$description_product = sanitizeInput($_POST['description_product']);
 			$price_product = sanitizeInput($_POST['price_product']);
 			$stock_product = sanitizeInput($_POST['stock_product']);
-			$important_product = (isset($_POST['important_product']) and $_POST['important_product'] == "on") ? 1 : 0;
-			$active_product = (isset($_POST['active_product']) and $_POST['active_product'] == "on") ? 1 : 0;
+			$important_product = (isset($_POST['important_product']) && $_POST['important_product'] == "on") ? 1 : 0;
+			$active_product = (isset($_POST['active_product']) && $_POST['active_product'] == "on") ? 1 : 0;
 			$id_manufacturer = sanitizeInput($_POST['id_manufacturer']);
 			$category_product = sanitizeInput($_POST['category_product']);
 			$subcategory_product = sanitizeInput($_POST['subcategory_product']);
@@ -119,14 +119,14 @@ class shopProductsController{
 	}
 
 	private static function insertPhoto(){
-		if (isset($_FILES['image_product']['name']) and $_FILES['image_product']['name'] !="") $name_photo = uploadFileToFolder($_FILES['image_product'], "images/shop/");
+		if (isset($_FILES['image_product']['name']) && $_FILES['image_product']['name'] != "") $name_photo = uploadFileToFolder($_FILES['image_product'], "images/shop/");
 		else $name_photo = $_POST['image_product_old'];
 
 		return $name_photo;
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$shop = new shop();
 			$state_new = ($_REQUEST['est'] == 0 ? 1 : 0); 
 			if ($shop->updateProductState($_REQUEST['id'], $state_new)) 

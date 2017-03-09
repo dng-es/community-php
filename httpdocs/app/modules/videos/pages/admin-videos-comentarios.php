@@ -1,7 +1,3 @@
-<?php
-session::getFlashMessage('actions_message');
-videosController::validateCommentAction();
-?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -12,10 +8,13 @@ videosController::validateCommentAction();
 			array("ItemLabel"=>strTranslate("Video_comments"), "ItemClass"=>"active"),
 		));
 		
+		session::getFlashMessage('actions_message');
+		videosController::validateCommentAction();
+
 		$videos = new videos();
-		$id_file= $_REQUEST['id'];
+		$id_file = intval($_REQUEST['id']);
 		$pendientes = $videos->getComentariosVideo(" AND c.estado=1 AND c.id_file=".$id_file." ORDER BY id_comentario DESC");
-		if (count($pendientes)==0): ?>
+		if (count($pendientes) == 0): ?>
 			<div class="alert alert-danger"><?php e_strTranslate("No_video_comments");?></div>
 		<?php else: ?>
 			<div class="panel panel-default">
@@ -47,7 +46,7 @@ videosController::validateCommentAction();
 					</div>
 				</div>
 			</div>
-		<?php endif; ?>
+		<?php endif;?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

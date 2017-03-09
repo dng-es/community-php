@@ -2,10 +2,7 @@
 templateload("cmbCanales", "users");
 
 function PanelSubirVideo($id_promocion = 0){
-	$module_config = getModuleConfig("videos");
-	$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
-	$filter_videos = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (v.canal IN (".$module_channels.") OR v.canal='') ");
-	if ($module_config['options']['allow_uploads'] == true or $_SESSION['user_canal'] == 'admin'){?>
+	$module_config = getModuleConfig("videos");?>
 	<h4>
 		<span class="fa-stack fa-sx">
 			<i class="fa fa-circle fa-stack-2x"></i>
@@ -31,29 +28,7 @@ function PanelSubirVideo($id_promocion = 0){
 		<input type="file" class="btn btn-default btn-block" name="nombre-video" id="nombre-video" title="<?php e_strTranslate("Choose_file");?>" />
 		<div class="alert alert-danger" id="alertas-participa" style="display: none"><?php e_strTranslate("Required_all_fields");?></div>
 		<button type="submit" class="btn btn-primary btn-block" id="video-submit" name="video-submit"><?php e_strTranslate("Send_video");?></button>
-		<br /><span class="text-muted">Etiquetas existentes: </span>
-		<div class="tags">
-		<?php
-		$videos = new videos();
-		$tags = $videos->getTags($filter_videos); //print_r($tags);
-		$valor_max = max($tags);
-		$valor_min = min($tags);
-		$diferencia = $valor_max - $valor_min;
-
-		//ordeno el array
-		ksort($tags);
-
-		//$separator = (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?" : "&");
-		//$enlace = (isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? "&id": "?";
-
-		foreach(array_keys($tags) as $key){
-			$valor_relativo = round((($tags[$key] - $valor_min) / $diferencia) * 10);
-			echo '<a href="videos?tag='.$key.'" class="tag'.$valor_relativo.'">'.$key.'</a> ';
-		}
-
-		?>
-		</div>
+		
 	</form>
 	<div id="cargando" style="background-color: red;display:none">cargando....</div>
-	<?php }?>
 <?php }?>

@@ -13,7 +13,7 @@
 				<?php if (isset($_FILES['nombre-fichero']['name'])) {
 					$fichero = $_FILES['nombre-fichero'];
 					//SUBIR FICHERO
-					$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
+					$nombre_archivo = time().'_'.str_replace(" ", "_",$fichero['name']);
 					$nombre_archivo = NormalizeText($nombre_archivo);
 
 					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
@@ -52,12 +52,12 @@ function volcarMySQL($data){
 		
 	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 		$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
-		$puntos = str_replace (",",".", $data->sheets[0]['cells'][$fila][2]);
+		$puntos = str_replace (",", ".", $data->sheets[0]['cells'][$fila][2]);
 		$motivo = utf8_encode(sanitizeInput(trim($data->sheets[0]['cells'][$fila][3])));
 		$detalle = utf8_encode(sanitizeInput(trim($data->sheets[0]['cells'][$fila][4])));
 		if ($username != ""){
 			//VERIFICAR QUE EXISTA EL USUARIO
-			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") > 0){
+			if (connection::countReg("users", " AND TRIM(UCASE(username))=TRIM('".$username."') ") > 0){
 				if (shop::sumarCreditos($username, $puntos, $motivo, $detalle)) $contador++;
 			}
 		}

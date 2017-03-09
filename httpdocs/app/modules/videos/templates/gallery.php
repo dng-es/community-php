@@ -11,8 +11,8 @@ templateload("player", "videos");
  */
 function galleryVideos($elements, $rating, $id_promocion, $cols){
 	$columna = 1;
-	if ($cols == 3){ $grid_cols = "col-md-4";}
-	else{$grid_cols = "col-md-3";}
+	if ($cols == 3) $grid_cols = "col-md-4";
+	else $grid_cols = "col-md-3";
 	foreach($elements as $element):
 		if ($columna == 1) echo '<div class="row">';
 		echo '<div class="'.$grid_cols.'">';
@@ -24,7 +24,7 @@ function galleryVideos($elements, $rating, $id_promocion, $cols){
 		}
 		$columna++;
 	endforeach;
-	if ($columna <= $cols and $columna > 1) echo '</div>';
+	if ($columna <= $cols && $columna > 1) echo '</div>';
 }
 
 /**
@@ -46,9 +46,9 @@ function showVideoGaleria($file_galeria, $rating = true, $id_promocion = 0){
 	else $page = $page.'?pag='.$num_pag;
 
 	$destination = "";
-	if (isset($_POST['find_reg']) and $_REQUEST['find_reg'] != "") $destination .= "&f=".$_POST['find_reg'];
-	if (isset($_REQUEST['f']) and $_REQUEST['f'] != "") $destination .= "&f=".$_REQUEST['f'];
-	if (isset($_REQUEST['pag']) and $_REQUEST['pag'] != "") $destination .= "&pag=".$_REQUEST['pag'];
+	if (isset($_POST['find_reg']) && $_REQUEST['find_reg'] != "") $destination .= "&f=".$_POST['find_reg'];
+	if (isset($_REQUEST['f']) && $_REQUEST['f'] != "") $destination .= "&f=".$_REQUEST['f'];
+	if (isset($_REQUEST['pag']) && $_REQUEST['pag'] != "") $destination .= "&pag=".$_REQUEST['pag'];
 	?>
 
 	<div class="thumbnail">

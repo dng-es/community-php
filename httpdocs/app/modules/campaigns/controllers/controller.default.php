@@ -3,8 +3,7 @@ class campaignsController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$campaigns = new campaigns();
 		$filtro = $filter." AND active=1 ORDER BY name_campaign ASC ";
-
-		$find_reg = (isset($_GET['f']) and $_GET['f'] > 0) ? $_GET['f'] : "";
+		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("campaigns c",$filtro);
 		return array('items' => $campaigns->getCampaigns($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -24,7 +23,7 @@ class campaignsController{
 	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$campaigns = new campaigns();
 			$elements = $campaigns->getCampaigns(" AND active=1 ORDER BY name_campaign DESC ");
 			download_send_headers("campaigns_" . date("Y-m-d") . ".csv");
@@ -34,11 +33,11 @@ class campaignsController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['name_campaign']) and $_POST['name_campaign'] != "" and $_POST['id_campaign'] == 0){
+		if (isset($_POST['name_campaign']) && $_POST['name_campaign'] != "" && $_POST['id_campaign'] == 0){
 			$campaigns = new campaigns();
 			$id_campaign = 0;
 			$name_campaign = sanitizeInput($_POST['name_campaign']);
-			$desc_campaign = sanitizeInput($_POST['desc_campaign']); 
+			$desc_campaign = sanitizeInput($_POST['desc_campaign']);
 			$id_type = intval($_POST['id_type']);
 			$novedad = intval(($_POST['novedad'] == 'on') ? 1 : 0);
 			$canal_campaign = sanitizeInput($_POST['canal_campaign']);
@@ -59,7 +58,7 @@ class campaignsController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['name_campaign']) and $_POST['name_campaign'] != "" and $_POST['id_campaign'] > 0){
+		if (isset($_POST['name_campaign']) && $_POST['name_campaign'] != "" && $_POST['id_campaign'] > 0){
 			$campaigns = new campaigns();
 			$id_campaign = intval($_POST['id_campaign']);
 			$name_campaign = sanitizeInput($_POST['name_campaign']);
@@ -70,7 +69,7 @@ class campaignsController{
 			if (is_array($canal_campaign)) $canal_campaign = implode(",", $canal_campaign);
 
 			$imagen_mini = uploadFileToFolder($_FILES['nombre-fichero'], "images/banners/");
-			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");		
+			$imagen_big = uploadFileToFolder($_FILES['nombre-fichero-big'], "images/banners/");
 
 			if ($campaigns->updateCampaigns($id_campaign, $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad, $canal_campaign)) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -82,7 +81,7 @@ class campaignsController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$campaigns = new campaigns();
 			if ($campaigns->deleteCampaigns($_REQUEST['id'])) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
@@ -116,13 +115,13 @@ class campaignsController{
 	}
 
 	public static function createTypeAction(){
-		if (isset($_POST['name']) and $_POST['name']!="" and $_POST['id'] == 0){
+		if (isset($_POST['name']) && $_POST['name'] != "" && $_POST['id'] == 0){
 			$campaigns = new campaigns();
 			$id = 0;
 			$name = sanitizeInput($_POST['name']);
 			$desc = sanitizeInput($_POST['desc']);
 
-			if ($campaigns->insertCampaignsType($name, $desc)) {
+			if ($campaigns->insertCampaignsType($name, $desc)){
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id = connection::SelectMaxReg("id_campaign_type", "campaigns_types", "");
 			}
@@ -134,7 +133,7 @@ class campaignsController{
 	}
 
 	public static function updateTypeAction(){
-		if (isset($_POST['name']) and $_POST['name'] != "" and $_POST['id'] > 0){
+		if (isset($_POST['name']) && $_POST['name'] != "" && $_POST['id'] > 0){
 			$campaigns = new campaigns();
 			$id = intval($_POST['id']);
 			$name = sanitizeInput($_POST['name']);
@@ -150,7 +149,7 @@ class campaignsController{
 	}
 
 	public static function deleteTypeAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$campaigns = new campaigns();
 			if ($campaigns->deleteCampaignsType(intval($_REQUEST['id']))) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");

@@ -28,12 +28,12 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 		<ul class="nav nav-tabs">
 			<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
 			<?php if(getModuleExist("fotos")): ?>
-			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#fotos" data-toggle="tab"><?php e_strTranslate("Photos");?></a></li>
+			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#fotos" data-toggle="tab"><?php e_strTranslate("Photos");?></a></li>
 			<?php endif; ?>
 			<?php if(getModuleExist("videos")): 
 			$videos = videosController::getListAction(1000, " AND user_add='".$usuario['username']."' AND estado=1 ");
 			?>
-			<li <?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#videos" data-toggle="tab"><?php e_strTranslate("Videos");?></a></li>
+			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#videos" data-toggle="tab"><?php e_strTranslate("Videos");?></a></li>
 			<?php endif; ?>
 		</ul>
 		
@@ -41,7 +41,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 			<div class="tab-pane fade in <?php echo (!(isset($_GET['t'])) ? ' active' : '');?>" id="general">
 				<div class="row inset"> 
 					<div class="col-md-12">
-						<?php if (count($usuario)>0): ?>
+						<?php if (count($usuario) > 0): ?>
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="control-label" for="user-empresa"><small><?php e_strTranslate("Group_user");?></small></label>
@@ -84,7 +84,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 				</div>
 			</div>
 			<?php if(getModuleExist("fotos")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t']==2) ? ' in active' : '');?>" id="fotos">
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' in active' : '');?>" id="fotos">
 
 				<section id="photos">
 
@@ -109,7 +109,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 			</div>
 			<?php endif; ?>
 			<?php if(getModuleExist("videos")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) and $_GET['t'] == 3) ? ' in active' : '');?>" id="videos">
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' in active' : '');?>" id="videos">
 					<div class="row">
 					<?php
 					foreach($videos['items'] as $element):

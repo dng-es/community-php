@@ -13,7 +13,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 		<h1><?php e_strTranslate("Confirm_data");?></h1>
 		<?php
 		//CONFIRMAR USUARIO
-		if (isset($_POST['user-username']) and $_POST['user-username'] != ""){
+		if (isset($_POST['user-username']) && $_POST['user-username'] != ""){
 			$users = new users();
 			$comentarios = sanitizeInput($_POST['user-piensas']);
 			$confirmar=$users->confirmUser($_POST['user-username'],
@@ -25,7 +25,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 											$_FILES['nombre-fichero'],
 											$comentarios,
 											trim(sanitizeInput($_POST['user-date'])));
-			if ($confirmar ==1 ){?>
+			if ($confirmar == 1 ){?>
 				<p><?php e_strTranslate("Confirmation_message");?> .</p>
 				<br />
 				<a href="login" class="btn btn-primary"><?php e_strTranslate("Identify_to_access");?></a>
@@ -61,14 +61,14 @@ function ShowForm(){
 	}
 	else {
 		if (isset($_POST['user-nombre'])){
-			$user_nombre=$_POST['user-nombre'];
-			$user_apellidos=$_POST['user-apellidos'];
-			$user_email=$_POST['user-email'];
+			$user_nombre = $_POST['user-nombre'];
+			$user_apellidos = $_POST['user-apellidos'];
+			$user_email = $_POST['user-email'];
 		}
 		else {
-			$user_nombre=$usuario[0]['name'];
-			$user_apellidos=$usuario[0]['surname'];
-			$user_email=$usuario[0]['email'];
+			$user_nombre = $usuario[0]['name'];
+			$user_apellidos = $usuario[0]['surname'];
+			$user_email = $usuario[0]['email'];
 		}
 		$user_nick = "";
 		$user_pass = "";

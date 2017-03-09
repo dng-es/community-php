@@ -7,7 +7,6 @@ $num_canales = usersCanalesController::getCanalesAction();
 
 templateload("upgrades", "configuration");
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php

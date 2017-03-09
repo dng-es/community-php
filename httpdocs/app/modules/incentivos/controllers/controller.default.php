@@ -156,7 +156,7 @@ class incentivosController{
 				endforeach;
 			}
 
-			download_send_headers(strTranslate("data")."_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Incentives")."_" . date("Y-m-d") . ".csv");
 			echo array2csv($data['ranking']);
 			die();
 		}

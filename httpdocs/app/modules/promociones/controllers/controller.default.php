@@ -25,8 +25,8 @@ class promocionesController{
 		$promociones = new promociones();
 		$filtro_promocion = "";
 		$promocion = array();
-		if (isset($_REQUEST['idp']) and $_REQUEST['idp'] > 0) $id_promocion = intval($_REQUEST['idp']);
-		elseif (isset($_REQUEST['f']) and $_REQUEST['f'] > 0) $id_promocion = intval($_REQUEST['f']);
+		if (isset($_REQUEST['idp']) && $_REQUEST['idp'] > 0) $id_promocion = intval($_REQUEST['idp']);
+		elseif (isset($_REQUEST['f']) && $_REQUEST['f'] > 0) $id_promocion = intval($_REQUEST['f']);
 		else $id_promocion = connection::SelectMaxReg("id_promocion", "promociones", $filtro_promocion." AND active=1 ");
 
 		if ($id_promocion > 0){
@@ -38,7 +38,7 @@ class promocionesController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$promociones = new promociones();
 			$id = 0;
 
@@ -69,7 +69,7 @@ class promocionesController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id']) and $_POST['id'] > 0){
+		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$promociones = new promociones();
 			$id = intval($_POST['id']);
 			if ($_POST['galeria_promocion'] == 'videos'){
@@ -98,7 +98,7 @@ class promocionesController{
 	}
 
 	public static function activeAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$promociones = new promociones();
 			if ($promociones->updateActive(intval($_REQUEST['id']), intval($_REQUEST['idd']))) {
 					//desactivar resto de registros

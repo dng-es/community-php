@@ -6,7 +6,6 @@
 * @version 0.9
 *
 */
-
 class alertsCore {
 	/**
 	 * Elementos para el menu de administración

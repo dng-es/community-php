@@ -46,6 +46,9 @@ templateload("cmbAgenda","agenda");
 			$canal = "";
 			$date_ini = "";
 			$date_fin = "";
+			$fichero = "";
+			$tipo =  "";
+			$activo = 0;
 		}
 
 		?>
@@ -113,7 +116,7 @@ templateload("cmbAgenda","agenda");
 						<div class="panel-body">
 							<small><label for="banner">Selecciona el banner de la actividad:</small></label>
 							<?php
-							if (isset($elements[0]['banner']) and $elements[0]['banner'] != ""){
+							if (isset($elements[0]['banner']) && $elements[0]['banner'] != ""){
 								echo '<img src="images/banners/'.$elements[0]['banner'].'" style="width: 100%" class="responsive" />';
 							}
 							?>

@@ -1,5 +1,4 @@
 <?php 
-
 function showUpdates(){ 
 	$file = "UPGRADE.yaml";
 	if (is_file($file)):

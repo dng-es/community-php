@@ -69,10 +69,15 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<?php echo SearchForm(0, "info-search", "searchForm", strTranslate("Info_search"), strTranslate("Search"), "", "", "get");?>
-			<h4><?php e_strTranslate("Info_Documents");?></h4>
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-newspaper-o fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php e_strTranslate("Info_Documents");?>
+			</h4>
 			<p><?php e_strTranslate("Info_Documents_Text");?>.</p>
-			<p class="text-center"><i class="fa fa-newspaper-o fa-big"></i></p>
+			<?php echo SearchForm(0, "info-search", "searchForm", strTranslate("Info_search"), strTranslate("Search"), "", "", "get");?>
 		</div>
 	</div>
 </div>

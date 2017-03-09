@@ -1,7 +1,7 @@
 <?php
 echo '<h1>Tu documentación</h1>';
 
-if (isset($_REQUEST['id']) and $_REQUEST['id'] != ""){
+if (isset($_REQUEST['id']) && $_REQUEST['id'] != ""){
 	$info = new info();
 	$info_tipo = intval($_REQUEST['id']);
 	$tipo_info = $info->getInfoTipos(" AND id_tipo=".$info_tipo);

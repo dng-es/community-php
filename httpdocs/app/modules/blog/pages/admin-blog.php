@@ -13,7 +13,7 @@ if (isset($_REQUEST['f'])){
 }
 
 $filtro .= " ORDER BY id_tema DESC ";
-if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') $foro->cambiarEstadoTema($_REQUEST['id'], 0);
+if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del') $foro->cambiarEstadoTema($_REQUEST['id'], 0);
 
 //SHOW PAGINATOR
 $reg = 15;
@@ -22,9 +22,8 @@ if (!isset($pag)) { $inicio = 0; $pag = 1;}
 else $inicio = ($pag - 1) * $reg;
 $total_reg = connection::countReg("foro_temas",$filtro);
 
-
 //EXPORT EXCEL - SHOW AND GENERATE
-if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 	$elements = $foro->getTemas($filtro);
 	download_send_headers("data_" . date("Y-m-d") . ".csv");
 	echo array2csv($elements);

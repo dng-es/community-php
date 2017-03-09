@@ -7,17 +7,17 @@ include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/class.session.php");
 session::ValidateSessionAjax();
 
-if (isset($_POST['action']) and $_POST['action'] == "init"):
+if (isset($_POST['action']) && $_POST['action'] == "init"):
 	$configuration = new configuration();
 	$configuration->deletePanel(" AND page_name='home' ");
 endif;
 
-if (isset($_POST['panel_name']) and $_POST['panel_name'] != ""):
+if (isset($_POST['panel_name']) && $_POST['panel_name'] != ""):
 	$configuration = new configuration();
 	$configuration->updatePanel('home', $_POST['panel_name'], $_POST['panel_cols'], $_POST['panel_pos'], $_POST['panel_row']);
 endif;
 
-if (isset($_POST['action']) and $_POST['action'] == "panels"):
+if (isset($_POST['action']) && $_POST['action'] == "panels"):
 	$configuration = new configuration();
 	$elements = $configuration->getPanels(" AND panel_visible=0 ");
 
@@ -25,5 +25,4 @@ if (isset($_POST['action']) and $_POST['action'] == "panels"):
 		echo '<option value="'.$element['panel_name'].'">'.$element['panel_name'].'</option>';
 	endforeach;
 endif;
-
 ?>

@@ -184,7 +184,7 @@ class users{
 					WHERE username='".$username."'";
 			return connection::execute_query($Sql);
 		}
-		else  return false;
+		else return false;
 	}
 
 	public function restarPuntos($username, $puntos, $motivo){
@@ -240,7 +240,7 @@ class users{
 					WHERE username='".$username."'";
 
 			 if (connection::execute_query($Sql)) return 1;
-			 else  return 2;
+			 else return 2;
 		}
 		else return 3;
 	}
@@ -294,8 +294,8 @@ class users{
 				if ($nombre_archivo != "") $SqlFoto = "foto='".$nombre_archivo."',";
 			}	
 						 
-			if ($user_date=="") $user_date="(NULL)";
-			else $user_date="'".$user_date."'";
+			if ($user_date == "") $user_date = "(NULL)";
+			else $user_date = "'".$user_date."'";
 			 
 			$Sql = "UPDATE users SET
 					nick='".$nick."',
@@ -352,12 +352,10 @@ class users{
 			//REDIMENSIONAR Y SUBIR IMAGEN
 			$temp = $fichero["tmp_name"];
 			$thumb = new Thumbnail($temp);
-			if($thumb->error) {
-				return false;
-			}
+			if($thumb->error) return false;
 			else {
 				$thumb->resize(200);
-				$nombre_sinext=substr($nombre_archivo,0,(strlen($nombre_archivo)-strlen($ext))-1);
+				$nombre_sinext = substr($nombre_archivo, 0, (strlen($nombre_archivo) - strlen($ext)) - 1);
 				$thumb->save_jpg($path_archivo, $nombre_sinext);
 				return $nombre_sinext.".jpeg";
 			}
@@ -379,8 +377,8 @@ class users{
 			(SELECT SUM(puntos) AS suma_puntos,empresa FROM users WHERE empresa<>'' AND empresa<>'comunidad' GROUP BY empresa HAVING SUM(puntos)>=
 			(SELECT SUM(puntos) FROM users WHERE empresa='".$empresa."' GROUP BY empresa) ORDER BY suma_puntos DESC,empresa DESC) r,  
 			(SELECT @rownum:=0) ro ) f WHERE empresa='".$empresa."' GROUP BY empresa";
-		$result=connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
-		$row=connection::get_result($result);
+		$result = connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
+		$row = connection::get_result($result);
 		return $row['rownum'];
 	}
 
@@ -469,13 +467,13 @@ class users{
 		return connection::execute_query($Sql);
 	}
 
-	public function insertTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa){
-		$Sql = "INSERT INTO users_tiendas (cod_tienda, nombre_tienda, regional_tienda, responsable_tienda, tipo_tienda, direccion_tienda, cpostal_tienda, ciudad_tienda, provincia_tienda, telefono_tienda, email_tienda, activa) 
-				VALUES ('".$cod_tienda."','".$nombre_tienda."','".$regional_tienda."','".$responsable_tienda."','".$tipo_tienda."','".$direccion_tienda."','". $cpostal_tienda."','". $ciudad_tienda."','". $provincia_tienda."','". $telefono_tienda."','". $email_tienda."',".$activa.")";
+	public function insertTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $territorial_tienda, $activa){
+		$Sql = "INSERT INTO users_tiendas (cod_tienda, nombre_tienda, regional_tienda, responsable_tienda, tipo_tienda, direccion_tienda, cpostal_tienda, ciudad_tienda, provincia_tienda, telefono_tienda, email_tienda, territorial_tienda, activa) 
+				VALUES ('".$cod_tienda."','".$nombre_tienda."','".$regional_tienda."','".$responsable_tienda."','".$tipo_tienda."','".$direccion_tienda."','". $cpostal_tienda."','". $ciudad_tienda."','". $provincia_tienda."','". $telefono_tienda."','". $email_tienda."','".$territorial_tienda."',".$activa.")";
 		return connection::execute_query($Sql);
 	}
 
-	public function updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $activa){
+	public function updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $territorial_tienda, $activa){
 		$Sql = "UPDATE users_tiendas SET 
 				nombre_tienda ='".$nombre_tienda."', 
 				regional_tienda ='".$regional_tienda."', 
@@ -487,6 +485,7 @@ class users{
 				provincia_tienda = '".$provincia_tienda."',
 				telefono_tienda = '".$telefono_tienda."',
 				email_tienda = '".$email_tienda."',		 
+				territorial_tienda = '".$territorial_tienda."',		 
 				activa = ".$activa." 
 				WHERE cod_tienda='".$cod_tienda."'";
 		return connection::execute_query($Sql);

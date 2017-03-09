@@ -1,27 +1,27 @@
 <?php
-$base_dir = str_replace('modules/na_areas/pages', '', realpath(dirname(__FILE__))) ;
+$base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/na_areas/pages' : 'modules\\na_areas\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "modules/class.headers.php");
 include_once($base_dir . "modules/pages/classes/class.pages.php");
 if(file_exists($base_dir . "modules/recompensas/classes/class.recompensas.php")) include_once($base_dir . "modules/recompensas/classes/class.recompensas.php");
 include_once($base_dir . "modules/class.footer.php");
 
 //VALIDAR REVISIONES FORMULARIOS
-if ( isset($_POST['id_tarea_rev']) and $_POST['id_tarea_rev'] != '' ) na_areasController::RevisarFormAction();
+if (isset($_POST['id_tarea_rev']) && $_POST['id_tarea_rev'] != '' ) na_areasController::RevisarFormAction();
 
 //ELIMINACION DE FINALIZACION DE FORMULARIO
-if (isset($_REQUEST['act_f']) and $_REQUEST['act_f'] == "del") na_areasController::FinalizacionDeleteAction();
+if (isset($_REQUEST['act_f']) && $_REQUEST['act_f'] == "del") na_areasController::FinalizacionDeleteAction();
 
 //DESCARGAR FORMULARIO
-if (isset($_REQUEST['t']) and $_REQUEST['t'] != "") na_areasController::ExportFormUserAction();
+if (isset($_REQUEST['t']) && $_REQUEST['t'] != "") na_areasController::ExportFormUserAction();
 
 //EXPORT REVS
-if (isset($_REQUEST['t3']) and $_REQUEST['t3'] == "1") na_areasController::ExportFormAllAction();
+if (isset($_REQUEST['t3']) && $_REQUEST['t3'] == "1") na_areasController::ExportFormAllAction();
 
 //DESCARGAR FICHERO USUARIO-FICHEROS
-if (isset($_REQUEST['t2']) and $_REQUEST['t2'] == "1") na_areasController::ExportFileUserAction();
+if (isset($_REQUEST['t2']) && $_REQUEST['t2'] == "1") na_areasController::ExportFileUserAction();
 
 //VALIDAR REVISIONES FICHEROS
-if ( isset($_REQUEST['act']) and $_REQUEST['act'] == 'rev_ok' ) na_areasController::validateRevAction();
+if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'rev_ok' ) na_areasController::validateRevAction();
 
 addJavascripts(array("js/jquery.numeric.js", getAsset("na_areas")."js/admin-area-docs.js"));
 
@@ -53,18 +53,18 @@ $id_recompensa = (isset($tarea[0]['id_recompensa']) ? $tarea[0]['id_recompensa']
 				<?php
 				if (count($tarea)==1){
 					$id_grupo = 0; 
-					if(isset($_POST['grupo_search']) and $_POST['grupo_search']!="") $id_grupo = intval($_POST['grupo_search']);
-					if(isset($_POST['id_grupo_rev']) and $_POST['id_grupo_rev']!="") $id_grupo = intval($_POST['id_grupo_rev']);
-					if(isset($_REQUEST['idg']) and $_REQUEST['idg'] != "") $id_grupo = intval($_REQUEST['idg']);
+					if(isset($_POST['grupo_search']) && $_POST['grupo_search'] != "") $id_grupo = intval($_POST['grupo_search']);
+					if(isset($_POST['id_grupo_rev']) && $_POST['id_grupo_rev'] != "") $id_grupo = intval($_POST['id_grupo_rev']);
+					if(isset($_REQUEST['idg']) && $_REQUEST['idg'] != "") $id_grupo = intval($_REQUEST['idg']);
 
 					//grupos de la tarea
 					$grupos_tarea = $na_areas->getGruposTareas(" AND id_area=".$id_area." AND id_tarea=".$id_tarea." ");
-					if (count($grupos_tarea)>0){
+					if (count($grupos_tarea) > 0){
 						echo '<form action="admin-area-revs?a='.$id_area.'&id='.$id_tarea.'" method="post" id="frm_search" name="frm_search">
 								<select name="grupo_search" id="grupo_search" class="cuadroTexto cuadroTextoSelect" style="width:300px !important">
 									<option value="0">-----todos los grupos de la tarea-----</option>';
 						foreach($grupos_tarea as $grupo_tarea):
-							$selected="";
+							$selected = "";
 							if ($id_grupo == $grupo_tarea['id_grupo']) $selected = ' selected="selected" ';
 							echo '<option value="'.$grupo_tarea['id_grupo'].'" '.$selected.'>'.$grupo_tarea['grupo_nombre'].'</option>';
 						endforeach;
@@ -131,7 +131,7 @@ function revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa){
 	$na_areas = new na_areas();
 	$users = new users();
 	$filtro = " AND id_tarea=".$id_tarea." ";
-	if ($id_grupo !=0 ) $filtro .= " AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";
+	if ($id_grupo != 0 ) $filtro .= " AND f.user_tarea IN (SELECT grupo_username FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo.") ";
 	$filtro .= " ORDER BY date_finalizacion DESC";
 	$revisiones = $na_areas->getFormulariosFinalizados($filtro);
 

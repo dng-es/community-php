@@ -13,7 +13,7 @@ function archivoBlog($elements){
 				echo '<li><a href="blog-list?a='.$element['ano'].'&m='.$element['mes'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</a></li>';
 			endforeach;
 	echo '	</ul>
-		  </div>';
+		</div>';
 }
 
 function entradasBlog($elements){
@@ -63,8 +63,7 @@ function nextPost($id_tema, $filtro_blog){
 	}
 	else $siguiente_enlace = 'blog?id='.$siguiente[0]['id_tema']; ?>
 	<li class="next <?php echo $siguiente_disabled ;?>"><a href="<?php echo $siguiente_enlace;?>"><?php e_strTranslate("Next_post");?> &rarr;</a></li>
-	<?php 
-}
+<?php }
 
 function previousPost($id_tema, $filtro_blog){
 	$foro = new foro();
@@ -74,9 +73,6 @@ function previousPost($id_tema, $filtro_blog){
 		$anterior_disabled = "disabled";
 		$anterior_enlace = "#";
 	}
-	else $anterior_enlace = "blog?id=".$anterior[0]['id_tema'];
-	?>
+	else $anterior_enlace = "blog?id=".$anterior[0]['id_tema'];?>
 	<li class="previous <?php echo $anterior_disabled;?>"><a href="<?php echo $anterior_enlace;?>">&larr; <?php e_strTranslate("Previous_post");?></a></li>
-	<?php 
-}
-?>
+<?php } ?>

@@ -1,5 +1,6 @@
 // JavaScript Document
 jQuery(document).ready(function(){
+	$(".numeric").numeric();
 	//verificación datos del formulario
 	$("#form-order").submit(function(evento){
 		var form_ok = true;

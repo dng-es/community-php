@@ -20,17 +20,16 @@ $id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 		recompensasController::updateAction();
 
 		$elements = recompensasController::getItemAction($id);
-		$nombre_imagen = (isset($elements[0]['recompensa_image']) ? $elements[0]['recompensa_image'] : "");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form id="formData" role="form" name="formData" method="post" action="" enctype="multipart/form-data">
 					<input type="hidden" id="id_recompensa" name="id_recompensa" value="<?php echo $id;?>" />
-					<input type="hidden" id="nombre_imagen" name="nombre_imagen" value="<?php echo $nombre_imagen;?>" />
+					<input type="hidden" id="nombre_imagen" name="nombre_imagen" value="<?php echo $elements['recompensa_image'];?>" />
 					<div class="row">
 						<div class="col-md-6 form-group">
 							<label for="recompensa_nombre"><small><?php e_strTranslate("Name");?>:</small></label>
-							<input type="text" class="form-control TextDisabled" id="recompensa_nombre" name="recompensa_nombre" value="<?php echo $elements[0]['recompensa_name'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							<input type="text" class="form-control TextDisabled" id="recompensa_nombre" name="recompensa_nombre" value="<?php echo $elements['recompensa_name'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 						</div>
 
 						<div class="col-md-3 form-group">
@@ -39,8 +38,8 @@ $id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 						</div>
 						<div class="col-md-3 form-group text-center">
 							<?php
-								if (isset($elements[0]['recompensa_image']) and $elements[0]['recompensa_image'] != ""){
-									echo '<img src="'.PATH_REWARDS.$elements[0]['recompensa_image'].'" style="width: 50%" class="responsive" />';
+								if ($elements['recompensa_image'] != ""){
+									echo '<img src="'.PATH_REWARDS.$elements['recompensa_image'].'" style="width: 50%" class="responsive" />';
 								}
 							?>
 						</div>

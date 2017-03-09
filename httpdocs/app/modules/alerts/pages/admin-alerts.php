@@ -3,8 +3,7 @@ addJavascripts(array("js/bootstrap-datepicker.js",
 					"js/bootstrap-datepicker.es.js",
 					getAsset("alerts")."js/addalert.js"));
 
-templateload("addalert", "alerts");
-?>
+templateload("addalert", "alerts");?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -71,6 +70,5 @@ templateload("addalert", "alerts");
 			</div>
 		</div>
 	</div>
-
 	<?php menu::adminMenu();?>
 </div>

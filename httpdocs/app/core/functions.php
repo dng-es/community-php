@@ -17,7 +17,7 @@ function sanitizeInput($text){
  * @param 	integer 	$msg_show 		Opción para mostrar o no alertas
  */
 function ErrorMsg($msg, $msg_show = 1){
-	if ($msg_show == 1) {echo '<div class="alert alert-danger">'.$msg.'</div>';}
+	if ($msg_show == 1) echo '<div class="alert alert-danger">'.$msg.'</div>';
 }
 
 /**
@@ -110,7 +110,7 @@ function SendEmail($from_mail, $to_mail, $subject_mail, $body_mail, $html_mode =
 	$headers_mail .= "From: ".$from_mail_real." <".$from_mail.">";
 	//$headers_mail .= 'From: '.$from_mail_real.' <'.$from_mail.'>\nReply-To: '.$from_mail.'\nX-Mailer: PHP/' . phpversion();
 
-	if (mail($to_mail,$subject_mail,$body_mail,$headers_mail)) return true;
+	if (mail($to_mail, $subject_mail, $body_mail, $headers_mail)) return true;
 }
 
 /**
@@ -122,7 +122,7 @@ function PaginatorPages($reg){
 	$find_reg = "";
 	$pag = 1;
 	$inicio = 0;
-	if (isset($_GET["pag"]) and $_GET["pag"] != "") {
+	if (isset($_GET["pag"]) && $_GET["pag"] != ""){
 		$pag = $_GET["pag"];
 		$inicio = ($pag - 1) * $reg;
 	}
@@ -412,7 +412,7 @@ function ComboTiposTemas($tipo_tema){?>
 	<option value="Promociones" <?php if ($tipo_tema == 'Promociones') echo ' selected="selected" ';?>>Promociones</option>
 	<option value="Formacion" <?php if ($tipo_tema == 'Formacion') echo ' selected="selected" ';?>>Formacion</option>
 	<option value="Tarifas" <?php if ($tipo_tema == 'Tarifas') echo ' selected="selected" ';?>>Tarifas</option>
-<?php	
+<?php 
 }
 
 /**
@@ -428,11 +428,11 @@ function ComboPerfiles($perfil){?>
 }
 
 function ComboLanguages($lan){
-    global $ini_conf;
-    $folders = FileSystem::showDirFolders(__DIR__."/../languages/");
-    foreach($folders as $folder):?>
-       <option <?php echo ($lan == $folder ? ' selected="selected" ' : '');?> value="<?php echo $folder;?>"><?php echo $folder;?></option>
-    <?php endforeach;
+	global $ini_conf;
+	$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
+	foreach($folders as $folder):?>
+		<option <?php echo ($lan == $folder ? ' selected="selected" ' : '');?> value="<?php echo $folder;?>"><?php echo $folder;?></option>
+	<?php endforeach;
 }
 
 /**
@@ -552,7 +552,6 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
 
 		//Attachemts
 		//->attach(Swift_Attachment::fromPath($message_attachment))
-
 	;
 
 	if ($message_attachment != ""){
@@ -571,7 +570,7 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
  */
 function uploadFileToFolder($fichero, $destino){
 	$nombre_archivo = "";
-	if (isset($fichero) and $fichero['name'] != ""){
+	if (isset($fichero) && $fichero['name'] != ""){
 		$nombre_archivo = time().'_'.str_replace(" ", "_", $fichero['name']);
 		$nombre_archivo = strtolower($nombre_archivo);
 		$nombre_archivo = NormalizeText($nombre_archivo);
@@ -607,7 +606,7 @@ function imgThumbnail($nombre_archivo, $path_archivo, $width, $height = 0){
 	else{
 		$thumb->resize($width, $height);
 		$ext = strtoupper(substr($nombre_archivo, strrpos($nombre_archivo, ".") + 1));
-		$nombre_sinext = substr($nombre_archivo,0,(strlen($nombre_archivo) - strlen($ext)) - 1);
+		$nombre_sinext = substr($nombre_archivo, 0, (strlen($nombre_archivo) - strlen($ext)) - 1);
 		return $thumb->save_jpg($path_archivo, "mini".$nombre_sinext);
 	}
 }
@@ -666,16 +665,16 @@ function cleanUrl($url, $disallowed_params = array('PHPSESSID')){
 		$parsed['query'] = '';
 	}
 	# hmm parse_str should take the delimiters as a parameter
-	if (strpos($parsed['query'],'&amp;')){
-		$pairs = explode('&amp;',$parsed['query']);
+	if (strpos($parsed['query'], '&amp;')){
+		$pairs = explode('&amp;', $parsed['query']);
 		foreach ($pairs as $pair){
 			list($key,$val) = explode('=',$pair);
 			$params[$key] = $val;
 		}
-	} else {
-		parse_str($parsed['query'],$params);
 	}
-	$uri = !empty($parsed['scheme']) ? $parsed['scheme'].':'.((strtolower($parsed['scheme']) == 'mailto') ? '':'//'): '';
+	else parse_str($parsed['query'],$params);
+
+	$uri = !empty($parsed['scheme']) ? $parsed['scheme'].':'.((strtolower($parsed['scheme']) == 'mailto') ? '' : '//') : '';
 	$uri .= !empty($parsed['user']) ? $parsed['user'].(!empty($parsed['pass'])? ':'.$parsed['pass']:'').'@':'';
 	$uri .= !empty($parsed['host']) ? $parsed['host'] : '';
 	$uri .= !empty($parsed['port']) ? ':'.$parsed['port'] : '';
@@ -683,9 +682,9 @@ function cleanUrl($url, $disallowed_params = array('PHPSESSID')){
 	#  $uri .= $parsed['query'] ? '?'.$parsed['query'] : '';
 	$query = '';
 	foreach ($params as $key => $val) {
-		if (!in_array($key,$disallowed_params)) {
+		if (!in_array($key, $disallowed_params)) {
 			//0008980: Link Conversion for Click Tracking. no = will be added if key is empty.
-			$query .= $key . ( $val ? '=' . $val . '&' : '&' );
+			$query .= $key.( $val ? '='.$val.'&' : '&' );
 		}
 	}
 	$query = substr($query,0,-1);
@@ -704,9 +703,7 @@ function cleanUrl($url, $disallowed_params = array('PHPSESSID')){
  * @return array         array de valores de la columna especificada
  */
 function arraycolumn($array, $column, $index_key = null){
-	if (function_exists("array_column")){
-		return array_column($array, $column, $index_key);
-	}
+	if (function_exists("array_column")) return array_column($array, $column, $index_key);
 	else{
 		$ret = array();
 		foreach ($array as $row) $ret[] = $row[$column];
@@ -793,10 +790,11 @@ function get_resume($post){
  */
 function get_extended($post){
 	//Match the new style more links
-	if ( preg_match('/<!--more(.*?)?-->/', $post, $matches) ) {
+	if (preg_match('/<!--more(.*?)?-->/', $post, $matches)){
 		list($main, $extended) = explode($matches[0], $post, 2);
 		$more_text = $matches[1];
-	} else {
+	}
+	else{
 		$main = $post;
 		$extended = '';
 		$more_text = '';
@@ -820,5 +818,32 @@ function daysBetween($date_ini, $date_end){
 	$days = (strtotime($date_ini) - strtotime($date_end)) / 86400;
 	$days = floor($days);
 	return $days;
+}
+
+/**
+ * Devuelve el primer y ultimo día de una semana
+ * @param  int 		$year  		Año de la fecha de refrencia
+ * @param  int 		$month 		Mes de la fecha de referencia
+ * @param  int 		$day   		Día de la fecha de refrencia
+ * @return array        		Array con el primer y último día de la semana
+ */
+function semanaFecha($year, $month, $day){
+	# Obtenemos el numero de la semana 
+	$semana = date("W", mktime(0, 0, 0, $month, $day, $year)); 
+	# Obtenemos el día de la semana de la fecha dada 
+	$diaSemana = date("w", mktime(0, 0, 0, $month, $day, $year)); 
+	# el 0 equivale al domingo... 
+	if($diaSemana == 0) $diaSemana = 7; 
+	# A la fecha recibida, le restamos el dia de la semana y obtendremos el lunes 
+	$primerDia = date("Y-m-d",mktime(0, 0, 0, $month, $day - $diaSemana + 1, $year));
+	$primerDiaNum = date("d", mktime(0, 0, 0, $month, $day - $diaSemana + 1, $year));
+	# A la fecha recibida, le sumamos el dia de la semana menos siete y obtendremos el domingo 
+	$ultimoDia = date("Y-m-d", mktime(0, 0, 0, $month, $day + (7 - $diaSemana), $year));
+	$ultimoDiaNum = date("d", mktime(0, 0, 0, $month, $day + (7 - $diaSemana), $year));
+
+	return array(
+		array($primerDia, $primerDiaNum),
+		array($ultimoDia, $ultimoDiaNum)
+	);
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 class usersController{
 	public static function getItemAction(){
-		if (isset($_GET['id']) and $_GET['id'] != ''){ 
+		if (isset($_GET['id']) && $_GET['id'] != ''){ 
 			$users = new users();
 			return $users->getUsers(" AND username='".$_GET['id']."'");
 		}
@@ -39,7 +39,7 @@ class usersController{
 	}
 
 	public static function exportListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$users = new users();
 			$elements = $users->getUsers("");
 			download_send_headers("users_" . date("Y-m-d") . ".csv");
@@ -49,7 +49,7 @@ class usersController{
 	}
 
 	public static function exportStatisticsAction(){
-		if (isset($_REQUEST['export_s']) and $_REQUEST['export_s'] == true){
+		if (isset($_REQUEST['export_s']) && $_REQUEST['export_s'] == true){
 			$users = new users();
 			$elements = $users->getUsers("");
 			$usuarios = array();
@@ -65,7 +65,7 @@ class usersController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$users = new users();
 			$username = sanitizeInput($_REQUEST['id']);
 			if ($users->disableUser($username)) {
@@ -101,7 +101,7 @@ class usersController{
 
 	public static function updatePerfilAction(){
 		$users = new users();
-		if (isset($_POST['user-username']) and $_POST['user-username'] != ""){
+		if (isset($_POST['user-username']) && $_POST['user-username'] != ""){
 			
 			$comentarios = trim(sanitizeInput($_POST['user-comentarios']));
 
@@ -136,7 +136,7 @@ class usersController{
 	}
 
 	public static function getUserStatistics(){
-		if (isset($_GET['id']) and $_GET['id'] != '') return self::userStatistics($_GET['id']);
+		if (isset($_GET['id']) && $_GET['id'] != '') return self::userStatistics($_GET['id']);
 	}
 
 	public static function recoverPasswordAction(){
@@ -175,20 +175,20 @@ class usersController{
 	}
 
 	public static function loginRedirectAction(){
-		if (isset($_SESSION['user_logged']) and $_SESSION['user_logged']) {		
-			if (isset($_SESSION['url_request']) and $_SESSION['url_request'] != "") redirectURL($_SESSION['url_request']);
+		if (isset($_SESSION['user_logged']) && $_SESSION['user_logged']) {		
+			if (isset($_SESSION['url_request']) && $_SESSION['url_request'] != "") redirectURL($_SESSION['url_request']);
 			else redirectURL("home");
 		}
 	}
 
 	public static function insertUserAction(){
-		if (isset($_POST['id_username']) and $_POST['id_username'] == ""){
+		if (isset($_POST['id_username']) && $_POST['id_username'] == ""){
 			$users = new users();
 			//VERIFICAR NOMBRE USUARIO YA EXISTE
 			if (count($users->getUsers(" AND username='".$_POST['username']."' ")) == 0){
-				$confirmed = (isset($_POST['confirmed_user']) and $_POST['confirmed_user'] == "on") ? 1 : 0;
-				$registered = (isset($_POST['registered_user']) and $_POST['registered_user'] == "on") ? 1 : 0;
-				$disabled = (isset($_POST['disabled_user']) and $_POST['disabled_user'] == "on") ? 1 : 0;
+				$confirmed = (isset($_POST['confirmed_user']) && $_POST['confirmed_user'] == "on") ? 1 : 0;
+				$registered = (isset($_POST['registered_user']) && $_POST['registered_user'] == "on") ? 1 : 0;
+				$disabled = (isset($_POST['disabled_user']) && $_POST['disabled_user'] == "on") ? 1 : 0;
 				if ($users->insertUser($_POST['username'],
 							$_POST['user_password'],
 							$_POST['email_user'],
@@ -218,11 +218,11 @@ class usersController{
 	}
 
 	public static function updateUserAction(){
-		if (isset($_POST['id_username']) and $_POST['id_username'] != ""){
+		if (isset($_POST['id_username']) && $_POST['id_username'] != ""){
 			$users = new users();
-			$confirmed = (isset($_POST['confirmed_user']) and $_POST['confirmed_user'] == "on") ? 1 : 0;
-			$registered = (isset($_POST['registered_user']) and $_POST['registered_user'] == "on") ? 1 : 0;
-			$disabled = (isset($_POST['disabled_user']) and $_POST['disabled_user'] == "on") ? 1 : 0;
+			$confirmed = (isset($_POST['confirmed_user']) && $_POST['confirmed_user'] == "on") ? 1 : 0;
+			$registered = (isset($_POST['registered_user']) && $_POST['registered_user'] == "on") ? 1 : 0;
+			$disabled = (isset($_POST['disabled_user']) && $_POST['disabled_user'] == "on") ? 1 : 0;
 
 			if ($users->updateUser($_POST['id_username'],
 						$_POST['user_password'],
@@ -250,7 +250,7 @@ class usersController{
 
 	public static function deleteFotoAction(){
 		$users = new users();
-		if (isset($_REQUEST['f']) and $_REQUEST['f'] != ""){
+		if (isset($_REQUEST['f']) && $_REQUEST['f'] != ""){
 			if ($users->deleteFoto($_REQUEST['id'],$_REQUEST['f'])) 
 				session::setFlashMessage('actions_message', "foto borrada correctamente.", "alert alert-success");
 			else 
@@ -260,7 +260,7 @@ class usersController{
 	}
 
 	public static function updatePermissionsAction(){
-		if (isset($_POST['user_permission']) and $_POST['user_permission'] != ""){
+		if (isset($_POST['user_permission']) && $_POST['user_permission'] != ""){
 			foreach(array_keys($_POST) as $permission):
 				if ($permission != "user_permission"){
 					//detectar permisos de editar
@@ -297,12 +297,12 @@ class usersController{
 	 * @return 	array           			Array con datos
 	 */	
 	public static function userStatistics($username){
+		global $modules;
 		$users = new users();
 		$array_final = array();
 		$usuario = $users->getUsers(" AND username='".$username."' ");
-		$last_access = ($usuario[0]['last_access']!= null ? getDateFormat($usuario[0]['last_access'], "DATE_TIME") : "sin accesos");
+		$last_access = ($usuario[0]['last_access'] != null ? getDateFormat($usuario[0]['last_access'], "DATE_TIME") : "sin accesos");
 		$array_final = array_merge($array_final, array(strTranslate("Last_access") => $last_access));
-		$modules = getListModules();
 		foreach($modules as $module):
 			if (file_exists(__DIR__."/../../".$module['folder']."/".$module['folder'].".php")){
 				include_once (__DIR__."/../../".$module['folder']."/".$module['folder'].".php");
@@ -317,7 +317,7 @@ class usersController{
 	}
 
 	public static function exportEquipoListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true) {
 			$users = new users();
 
 			$filtro_tienda = ($_SESSION['user_perfil'] == 'responsable' ? " AND responsable_tienda='".$_SESSION['user_name']."' " : "");
@@ -331,7 +331,7 @@ class usersController{
 	}
 
 	public static function insertEquipoAction(){
-		if (isset($_POST['id_username']) and $_POST['id_username'] != ""){
+		if (isset($_POST['id_username']) && $_POST['id_username'] != ""){
 			$users = new users();
 			//VERIFICAR NOMBRE USUARIO YA EXISTE
 			$old_user = $users->getUsers(" AND username='".$_POST['id_username']."' ");
@@ -371,7 +371,7 @@ class usersController{
 	}
 
 	public static function updateEquipoAction(){
-		if (isset($_POST['id_user_edit']) and $_POST['id_user_edit'] != ""){
+		if (isset($_POST['id_user_edit']) && $_POST['id_user_edit'] != ""){
 			$users = new users();
 			$id_user_edit = sanitizeInput($_POST['id_user_edit']);
 			//VERIFICAR QUE EL USUARIO PERTENECE AL RESPONSABLE
@@ -379,7 +379,7 @@ class usersController{
 													AND empresa IN (SELECT DISTINCT cod_tienda FROM users_tiendas WHERE responsable_tienda='".$_SESSION['user_name']."') ");
 			
 			//echo "Contador: ".$contador."<br/>";
-			if ($contador > 0 or $_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'responsable'){
+			if ($contador > 0 || $_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
 				$empresa = sanitizeInput($_POST['user_edit_empresa']);
 				if ($users->updateUserEquipo($id_user_edit, $empresa)) 
 					session::setFlashMessage( 'actions_message', "Usuario modificado correctamente.", "alert alert-success");
@@ -394,7 +394,7 @@ class usersController{
 
 
 	public static function deleteEquipoAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del') {
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del') {
 			$username = sanitizeInput($_REQUEST['id']);
 			$users = new users();
 			$acceso = 1;
@@ -452,7 +452,7 @@ class usersController{
 	 * @return string filtro tienda en la tabla users
 	 */
 	public static function getTiendaFilter($campo_filtro = 'empresa'){
-		if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'visualizador'){
+		if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'visualizador'){
 			$filter = "";
 		}
 		elseif ($_SESSION['user_perfil'] == 'regional'){

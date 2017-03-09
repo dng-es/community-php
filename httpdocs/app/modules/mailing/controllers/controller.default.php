@@ -19,37 +19,37 @@ class mailingController{
 		$html_content = $mailing->getTemplates(" AND id_template=".$_POST['template_message']);
 
 		$user_direccion = "";
-		if (isset($_POST['calle_direccion']) and $_POST['calle_direccion'] != "") $user_direccion .= sanitizeInput($_POST['calle_direccion']);
-		if (isset($_POST['postal_direccion']) and $_POST['postal_direccion'] != "") $user_direccion .= " - ".sanitizeInput($_POST['postal_direccion']);
-		if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion'] != "") $user_direccion .= " - ".sanitizeInput($_POST['poblacion_direccion']);
-		if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion'] != "") $user_direccion .= " - ".sanitizeInput($_POST['provincia_direccion']);
-		if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion'] != "") $user_direccion .= "<br />Tlf.:  ".sanitizeInput($_POST['telefono_direccion']);
-		if (isset($_POST['email_message']) and $_POST['email_message'] != "") $user_direccion .= "<br />".sanitizeInput($_POST['email_message']);
-		if (isset($_POST['web_direccion']) and $_POST['web_direccion'] != "") $user_direccion .= "<br />".sanitizeInput($_POST['web_direccion']);
+		if (isset($_POST['calle_direccion']) && $_POST['calle_direccion'] != "") $user_direccion .= sanitizeInput($_POST['calle_direccion']);
+		if (isset($_POST['postal_direccion']) && $_POST['postal_direccion'] != "") $user_direccion .= " - ".sanitizeInput($_POST['postal_direccion']);
+		if (isset($_POST['poblacion_direccion']) && $_POST['poblacion_direccion'] != "") $user_direccion .= " - ".sanitizeInput($_POST['poblacion_direccion']);
+		if (isset($_POST['provincia_direccion']) && $_POST['provincia_direccion'] != "") $user_direccion .= " - ".sanitizeInput($_POST['provincia_direccion']);
+		if (isset($_POST['telefono_direccion']) && $_POST['telefono_direccion'] != "") $user_direccion .= "<br />Tlf.:  ".sanitizeInput($_POST['telefono_direccion']);
+		if (isset($_POST['email_message']) && $_POST['email_message'] != "") $user_direccion .= "<br />".sanitizeInput($_POST['email_message']);
+		if (isset($_POST['web_direccion']) && $_POST['web_direccion'] != "") $user_direccion .= "<br />".sanitizeInput($_POST['web_direccion']);
 
 		$content = $html_content[0]['template_body'];
 		$content = str_replace('[USER_DIRECCION]', $user_direccion, $content);
 		$content = str_replace('[USER_EMPRESA]', $_SESSION['user_empresa'], $content);
 		$content = str_replace('[USER_LOGO]', '<img src="'.$ini_conf['SiteUrl'].'/images/usuarios/'.$_SESSION['user_foto'].'" />', $content);
 		
-		if (isset($_POST['claim_promocion']) and $_POST['claim_promocion'] != "") $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);
-		if (isset($_POST['descuento_promocion']) and $_POST['descuento_promocion'] != "") $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);
-		if (isset($_POST['date_promocion']) and $_POST['date_promocion'] != "") $content = str_replace('[DATE_PROMOCION]', $_POST['date_promocion'], $content);
+		if (isset($_POST['claim_promocion']) && $_POST['claim_promocion'] != "") $content = str_replace('[CLAIM_PROMOCION]', $_POST['claim_promocion'], $content);
+		if (isset($_POST['descuento_promocion']) && $_POST['descuento_promocion'] != "") $content = str_replace('[DESCUENTO_PROMOCION]', $_POST['descuento_promocion'], $content);
+		if (isset($_POST['date_promocion']) && $_POST['date_promocion'] != "") $content = str_replace('[DATE_PROMOCION]', $_POST['date_promocion'], $content);
 
 		return $content;
 	}
 
 	public static function previewUserAction(){
-		if (isset($_POST['template_message']) and $_POST['template_message'] > 0) return self::createMsgBodyAction();
+		if (isset($_POST['template_message']) && $_POST['template_message'] > 0) return self::createMsgBodyAction();
 	}
 
 	public static function createUserAction(){
-		if (isset($_POST['template_message']) and $_POST['template_message'] > 0){
+		if (isset($_POST['template_message']) && $_POST['template_message'] > 0){
 			$mailing = new mailing();
 
 			$fichero = isset($_FILES['nombre-fichero']) == true ? $_FILES['nombre-fichero'] : null ; 
 			$nombre_lista = ($_POST['tipo-lista'] == 'fichero') ? $fichero['name'] : $_POST['id_list'];
-			$date_scheduled = ((isset($_REQUEST['a']) and $_REQUEST['a'] == 1) ? "'".$_POST['user-date']."'" : "NULL" );
+			$date_scheduled = ((isset($_REQUEST['a']) && $_REQUEST['a'] == 1) ? "'".$_POST['user-date']."'" : "NULL" );
 	
 			$content = self::createMsgBodyAction();
 			
@@ -126,7 +126,7 @@ class mailingController{
 				$mailing->updateMessageField($id_message, "total_messages", $msgs_total);
 				$mailing->updateMessageField($id_message, "total_pending", $msgs_total);
 
-				if (isset($_REQUEST['a']) and $_REQUEST['a'] == 1){
+				if (isset($_REQUEST['a']) && $_REQUEST['a'] == 1){
 					//redireccion a agenda de mensaje
 					$mensaje ="Envio programado correctamente. Si lo deseas puedes crear más envios.";
 					$mensaje = ($respuesta_black == true) ? $mensaje." Algunos destinatarios no se han cargado por que han solicitado la baja del servicio." : $mensaje;
@@ -330,7 +330,7 @@ class mailingController{
 	}
 
 	public static function cancelMessageAction($filtro = ""){
-		if (isset($_REQUEST['del']) and $_REQUEST['del'] == true){
+		if (isset($_REQUEST['del']) && $_REQUEST['del'] == true){
 			$mailing = new mailing();
 			if ($mailing->updateMessageField(intval($_REQUEST['id']), 'message_status',"'cancelled'", " AND username_add='".$_SESSION['user_name']."' "))
 				session::setFlashMessage('actions_message', "Comunicación cancelada correctamente", "alert alert-success");
@@ -342,7 +342,7 @@ class mailingController{
 	}
 
 	public static function exportListAction($filtro = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$mailing = new mailing();
 			$elements = $mailing->getMessages($filtro);
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
@@ -352,7 +352,7 @@ class mailingController{
 	}
 
 	public static function exportMessageAction($filtro = ""){
-		if (isset($_REQUEST['exportm']) and $_REQUEST['exportm'] == true){
+		if (isset($_REQUEST['exportm']) && $_REQUEST['exportm'] == true){
 			$mailing = new mailing();
 			$elements = $mailing->getMessagesUsers($filtro." AND id_message=".intval($_REQUEST['id']));
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
@@ -362,7 +362,7 @@ class mailingController{
 	}
 
 	public static function exportLinksAction($filtro = ""){
-		if (isset($_REQUEST['exp']) and $_REQUEST['exp'] == 'links'){
+		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] == 'links'){
 			$mailing = new mailing();
 			$elements = $mailing->getMessageLinkUserExport($filtro." AND l.id_message=".intval($_REQUEST['id']));
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
@@ -372,7 +372,7 @@ class mailingController{
 	}
 
 	public static function createBlackAction(){
-		if (isset($_POST['email_black']) and $_POST['email_black'] != ''){
+		if (isset($_POST['email_black']) && $_POST['email_black'] != ''){
 			$mailing = new mailing();
 			if ($mailing->insertBlackListUsser(sanitizeInput($_POST['email_black']))){
 				//poner los posibles mensajes pendientes como lista negra

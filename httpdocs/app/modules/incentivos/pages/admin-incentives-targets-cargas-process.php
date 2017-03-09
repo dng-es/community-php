@@ -53,10 +53,10 @@ function volcarMySQL($data, $id_objetivo){
 	$incentivos = new incentivos();
 
 	for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
-		$referencia_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
-		$fabricante_producto = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
-		$cantidad_venta = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][3]))));
-		$username_venta = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][4])));
+		$referencia_producto = utf8_encode(str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
+		$fabricante_producto = utf8_encode(str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
+		$cantidad_venta = utf8_encode(str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][3]))));
+		$username_venta = utf8_encode(str_replace ("'", "´", trim($data->sheets[0]['cells'][$fila][4])));
 
 		if ($referencia_producto!=""){
 			//buscar id_producto por referencia y fabriacante
@@ -64,7 +64,7 @@ function volcarMySQL($data, $id_objetivo){
 			if (count($producto)>0){
 				//verificar que no exista un objetivo para el mismo destinatario y producto
 				$verificacion = $incentivos->getIncentivesObjetivosDetalle(" AND d.id_producto=".$producto[0]['id_producto']." AND d.destino_objetivo='".$username_venta."' AND d.id_objetivo=".$id_objetivo." ");
-				if (count($verificacion)==0){
+				if (count($verificacion) == 0){
 					if ($incentivos->insertIncentivesObjetivosDetalle( $id_objetivo, $username_venta, $producto[0]['id_producto'], $cantidad_venta )) $contador_insert ++;
 				}
 				else $contador_ko ++;

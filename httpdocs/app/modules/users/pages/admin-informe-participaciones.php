@@ -1,11 +1,4 @@
-<?php
-set_time_limit(0);
-
-//EXPORT CSV
-usersParticipacionesController::exportListAction();
-
-$elements = usersParticipacionesController::getListAction(100);
-?>
+<?php usersParticipacionesController::exportListAction();?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -15,6 +8,7 @@ $elements = usersParticipacionesController::getListAction(100);
 			array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Report")." ".strTranslate("APP_shares"), "ItemClass"=>"active"),
 		));
+		$elements = usersParticipacionesController::getListAction(100);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

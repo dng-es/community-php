@@ -8,7 +8,7 @@ $puntos_empresa = $rankings->getRankingsData(" AND d.cod_tienda='".$_SESSION['us
 $posiciones = 10;
 
 $posicion_empresa_user=rankings::posicionRankingEmpresa($_SESSION['user_empresa'], $id);
-if ($_SESSION['user_perfil']=='admin'){$posicion_empresa=0;}
+if ($_SESSION['user_perfil'] == 'admin') $posicion_empresa = 0;
 $puntos = $rankings->getRankingsData(" AND id_ranking=".$id." ORDER BY value_ranking DESC,d.cod_tienda ASC LIMIT ".$posiciones);
 
 $ranking_data = rankingsController::getItemAction($id, " AND activo=1 ");

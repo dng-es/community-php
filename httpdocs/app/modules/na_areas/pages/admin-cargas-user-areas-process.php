@@ -16,7 +16,7 @@ $id_area = intval($_REQUEST['id_area']);
 				<?php if (isset($_FILES['nombre-fichero']['name'])){
 					$fichero = $_FILES['nombre-fichero'];
 					//SUBIR FICHERO
-					$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
+					$nombre_archivo = time().'_'.str_replace(" ", "_",$fichero['name']);
 					$nombre_archivo = NormalizeText($nombre_archivo);
 
 					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
@@ -58,11 +58,11 @@ function volcarMySQL($data){
 	
 	//ELIMINAR USUARIOS ACTALUES
 	$na_areas->deleteUsersArea($id_area);
-	for($fila=2;$fila<=$data->sheets[0]['numRows'];$fila += 1){
-		$username=trim($data->sheets[0]['cells'][$fila][1]);
+	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+		$username = trim($data->sheets[0]['cells'][$fila][1]);
 		if ($username != ""){
 			//VERIFICAR QUE EXISTA EL USUARIO Y PERTENEZCA AL CANAL DEL AREA
-			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".strtoupper($username)."') AND (canal LIKE '%".$area_canal."%' OR canal='admin') ")==1){
+			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".strtoupper($username)."') AND (canal LIKE '%".$area_canal."%' OR canal='admin') ") == 1){
 				if ($na_areas->insertUserArea($id_area,$username)){
 					$contador++;
 					$mensaje .= $contador." - ".$username." insertado correctamente.<br />";

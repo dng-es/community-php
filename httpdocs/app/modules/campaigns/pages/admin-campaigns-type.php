@@ -1,6 +1,4 @@
-<?php
-addJavascripts(array(getAsset("campaigns")."js/admin-campaigns-type.js"));
-?>
+<?php addJavascripts(array(getAsset("campaigns")."js/admin-campaigns-type.js"));?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php menu::breadcrumb(array(
@@ -10,10 +8,10 @@ addJavascripts(array(getAsset("campaigns")."js/admin-campaigns-type.js"));
 			array("ItemLabel"=>strTranslate("Campaign_types"), "ItemUrl"=>"admin-campaigns-types"),
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Campaign_types"), "ItemClass"=>"active"),
 		));
-		session::getFlashMessage('actions_message'); 
+		session::getFlashMessage('actions_message');
 		campaignsController::createTypeAction();
 		campaignsController::updateTypeAction();
-		$plantilla = campaignsController::getItemTypesAction();	
+		$plantilla = campaignsController::getItemTypesAction();
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

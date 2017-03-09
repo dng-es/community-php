@@ -12,7 +12,7 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 session::ValidateSessionAjax();
 
 //VERIFICAR CÓDIGO DE TIENDA
-if (isset($_POST['asunto_message']) and $_POST['asunto_message']!="") pasadaProccess();
+if (isset($_POST['asunto_message']) && $_POST['asunto_message']!="") pasadaProccess();
 
 function pasadaProccess(){
 	global $ini_conf;

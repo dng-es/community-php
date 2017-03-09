@@ -37,7 +37,7 @@ class menu{
 								}
 							}
 
-							if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'responsable'){
+							if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
 								echo '<li class="hidden-md hidden-lg"><a href="mygroup"><i class="fa fa-users visible-xs-inline-block text-primary"></i> <span class="visible-xs-inline-block text-primary">'.strTranslate("My_team").'</span></a></li>';
 							}
 							?>
@@ -61,16 +61,15 @@ class menu{
 
 		foreach ($array_final as  $fila) {
 			$labelId = (isset($fila['LabelId']) ? 'id="'.$fila['LabelId'].'"' : '');
-			if (isset($fila['SubItems']) and count($fila['SubItems']) > 0){
+			if (isset($fila['SubItems']) && count($fila['SubItems']) > 0){
 				echo '<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].' <b class="caret"></b></a>
-								<ul class="dropdown-menu">';
-									foreach ($fila['SubItems'] as $elem):
-									echo '<li><a target="'.$elem['LabelTarget'].'" href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
-									endforeach;
-				echo '
-								</ul>
-							</li>';
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].' <b class="caret"></b></a>
+						<ul class="dropdown-menu">';
+							foreach ($fila['SubItems'] as $elem):
+							echo '<li><a target="'.$elem['LabelTarget'].'" href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+							endforeach;
+				echo '	</ul>
+					</li>';
 			}
 			else 
 				echo '<li><a '.$labelId.' target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
@@ -115,7 +114,7 @@ class menu{
 						if ($_SESSION['user_perfil'] == 'admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
 					}
 
-					if ($_SESSION['user_perfil'] == 'admin' or $_SESSION['user_perfil'] == 'responsable'){
+					if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
 						echo '<a href="mygroup" title="'.strTranslate("My_team").'"><i class="fa fa-users"></i></a>';
 					}
 					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
@@ -150,8 +149,8 @@ class menu{
 		foreach($elems as $elem):
 			if ($elem['LabelHeader'] == $section){
 				$main_url = explode("&", $elem['LabelUrl']);
-				$active = (($_GET['page'] == $main_url[0] or $_GET['page'] == $elem['LabelUrl']) ? " class=\"active\" " : "");
-				if($header_name != "" and $header_name != $elem['LabelSection']) $content .= '</ul>';
+				$active = (($_GET['page'] == $main_url[0] || $_GET['page'] == $elem['LabelUrl']) ? " class=\"active\" " : "");
+				if($header_name != "" && $header_name != $elem['LabelSection']) $content .= '</ul>';
 
 				if ($header_name != $elem['LabelSection']){
 					$header_name = $elem['LabelSection'];
@@ -162,10 +161,9 @@ class menu{
 				elseif($header_name == $elem['LabelSection']) $content .= '<li><a '.$active.' href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
 			}
 		endforeach;
-		if ($content != ""){
+		if ($content != "")
 			echo '<h3><i class="'.$icon.'"></i> '.strTranslate($section).'</h3>
 				<ul>'.$content.'</ul></ul>';
-		}
 	}
 
 	/**
@@ -175,7 +173,7 @@ class menu{
 	static function getAdminPanels($elems){
 		$header_name = "";
 		foreach($elems as $elem):
-			if($header_name != "" and $header_name != $elem['LabelSection']){
+			if($header_name != "" && $header_name != $elem['LabelSection']){
 				echo '</dl></div>
 					</div>
 				</div>';
@@ -202,7 +200,7 @@ class menu{
 	*
 	*/
 	static function channelSelector(){
-		if ($_SESSION['user_perfil'] == 'admin' or trim($_SESSION['user_canal']) == ''): ?>
+		if ($_SESSION['user_perfil'] == 'admin' || trim($_SESSION['user_canal']) == ''): ?>
 		<form role="form" name="chooseForm" id="chooseForm" action="" method="post" class="form-inline">
 			<select name="chooseFormValue" id="chooseFormValue" class="form-control input-xs">
 				<?php ComboCanales($_SESSION['user_canal'], ($_SESSION['user_perfil'] == 'admin' ? "": " AND visible=1 "));?>
@@ -233,7 +231,7 @@ class menu{
 	*
 	*/
 	static function adminMenu(){
-		if ($_SESSION['user_logged'] == true and $_SESSION['user_perfil'] == 'admin'){
+		if ($_SESSION['user_logged'] == true && $_SESSION['user_perfil'] == 'admin'){
 			global $array_adminmenu;
 			$array_final = $array_adminmenu;
 
@@ -281,9 +279,9 @@ class menu{
 	*
 	*/
 	static function adminPanels(){
-		if ($_SESSION['user_logged'] == true and $_SESSION['user_perfil'] == 'admin'){
+		if ($_SESSION['user_logged'] == true && $_SESSION['user_perfil'] == 'admin'){
 			$array_final = array();
-			$modules = getListModules();
+			global $modules;
 			foreach($modules as $module):
 				if (file_exists(__DIR__."/".$module['folder']."/".$module['folder'].".php")){
 					include_once (__DIR__."/".$module['folder']."/".$module['folder'].".php");
@@ -320,7 +318,7 @@ class menu{
 						'.(isset($elem["ItemUrl"]) ? '</a>' : '').'
 					</li>';
 			endforeach;
-			$TITLE_META_PAGE = ((isset( $TITLE_META_PAGE ) and $TITLE_META_PAGE != '') ? $TITLE_META_PAGE : $elem['ItemLabel']);
+			$TITLE_META_PAGE = ((isset( $TITLE_META_PAGE ) && $TITLE_META_PAGE != '') ? $TITLE_META_PAGE : $elem['ItemLabel']);
 			echo '</ol>';
 		}
 	}

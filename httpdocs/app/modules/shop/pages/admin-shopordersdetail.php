@@ -7,7 +7,7 @@ include_once($base_dir . "modules/class.footer.php");
 session::getFlashMessage( 'actions_message' );
 
 shopOrdersController::createAction();
-$id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
+$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
 $filtro_order = " AND d.id_order=".$id." ";
 
 $elements = shopOrdersController::getListDetailAction(1, $filtro_order);

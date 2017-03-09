@@ -11,7 +11,7 @@ include_once($base_dir . "modules/muro/classes/class.muro.php");
 session::ValidateSessionAjax();
 $muro = new muro();
 //INSERTAR COMENTARIO
-if (isset($_POST['texto-comentario']) and $_POST['texto-comentario'] != ""){
+if (isset($_POST['texto-comentario']) && $_POST['texto-comentario'] != ""){
 	if ($_SESSION['user_canal'] != 'admin') $canal = $_SESSION['user_canal'];
 	else $canal = sanitizeInput($_POST['canal_comentario']);
 
@@ -27,7 +27,7 @@ if (isset($_POST['texto-comentario']) and $_POST['texto-comentario'] != ""){
 	ErrorMsg($mensaje_insert);
 }
 //RESPONDER COMENTARIO
-if (isset($_POST['id_comentario_responder']) and $_POST['id_comentario_responder'] != ""){
+if (isset($_POST['id_comentario_responder']) && $_POST['id_comentario_responder'] != ""){
 	if ($_POST['texto-responder'] == '') ErrorMsg("Debe insertar algo de texto");
 	else{
 		$id = intval($_POST['id_comentario_responder']);

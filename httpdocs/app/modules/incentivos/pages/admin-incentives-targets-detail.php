@@ -61,13 +61,13 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 										//obtener datos del destinatario dependiendo si es usuario o tienda
 										if ($objetivo['tipo_objetivo'] == 'Tienda'){
 											$destinatario = $users->getTiendas(" AND cod_tienda='".$element['destino_objetivo']."' ");
-											if (count($destinatario)>0){
+											if (count($destinatario) > 0){
 												echo '<br /><small class="text-muted">'.$destinatario[0]['nombre_tienda'].'<em></em></small>';
 											}
 										}
 										else{
 											$destinatario = $users->getUsers(" AND username='".$element['destino_objetivo']."' ");
-											if (count($destinatario)>0){
+											if (count($destinatario) > 0){
 												echo '<br /><small class="text-muted">'.$destinatario[0]['surname'].' - '.$destinatario[0]['name'].'<em></em></small>';
 											}
 										}

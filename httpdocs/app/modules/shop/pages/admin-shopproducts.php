@@ -68,7 +68,7 @@ $elements = shopProductsController::getListAction(15, $filtro);
 						<?php searchProducts("admin-shopproducts");?>
 					</div>
 				</div>
-				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'admin-shopproducts',strTranslate("APP_Shop"), $elements['find_reg']);?>
+				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], 'admin-shopproducts', strTranslate("APP_Shop"), $elements['find_reg']);?>
 			</div>
 		</div>
 	</div>

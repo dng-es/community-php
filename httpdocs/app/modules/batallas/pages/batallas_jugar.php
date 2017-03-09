@@ -23,7 +23,6 @@ $puntos_disponibles = $user_data[0]['puntos'] - $puntos_reservados;
 		<script type="text/javascript" src="css/libs/bootstrap-sass-3.2.0/assets/javascripts/bootstrap.js"></script>
 		<script>
 			$(document).ready(function(){
-
 				$("#form-batalla-fin").submit(function(e){
 					e.preventDefault();
 					$(".alert-message").html("").css("display","none");
@@ -50,7 +49,7 @@ $puntos_disponibles = $user_data[0]['puntos'] - $puntos_reservados;
 	<body>
 
 <?php
-if (isset($_POST['id']) && $_POST['id']!=""){ 
+if (isset($_POST['id']) && $_POST['id']!=""){
 	$id_batalla = $_POST['id'];
 	//obtener datos de la batalla
 	$batalla_data = $batallas->getBatallas(" AND id_batalla=".$id_batalla." ");
@@ -66,8 +65,8 @@ if (isset($_POST['id']) && $_POST['id']!=""){
 	$contrincante = $users->getUsers(" AND username='".$usuario_contrario."' AND disabled=0 AND confirmed=1 AND username<>'".$_SESSION['user_name']."' ");
 	$puntos_reservados_contrincante = connection::sumReg("batallas", "puntos", " AND finalizada=0 AND (user_create='".$contrincante[0]['username']."' or user_retado='".$contrincante[0]['username']."') ");
 	$puntos_disponibles_contrincante = $contrincante[0]['puntos'] - $puntos_reservados_contrincante;
-	
-	$i=1;
+
+	$i = 1;
 	echo '<p class="text-danger text-center">ATENCIÓN!!: no cierres esta ventana o perderás la batalla</p>';
 	echo '<h3 class="text-center">Luchas contra <b>'.$contrincante[0]['nick'].'</b></h3>';
 	echo '<form method="post" name="form-batalla-fin" id="form-batalla-fin" action="">';

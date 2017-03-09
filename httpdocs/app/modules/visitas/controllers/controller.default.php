@@ -1,7 +1,7 @@
 <?php
 class visitasController{
 	public static function exportAction($filter){
-		if (isset($_POST['export-stats']) and isset($_POST['fecha_ini'])){
+		if (isset($_POST['export-stats']) && isset($_POST['fecha_ini'])){
 			$visitas = new visitas();
 			$elements = $visitas->getVisitasInformes($filter." ORDER BY fecha DESC ");
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -12,7 +12,6 @@ class visitasController{
 
 	public static function insertVisita($page){
 		$visitas = new visitas();
-
 		$user_name = ((isset($_SESSION['user_name']) && $_SESSION['user_name'] != "") ? $_SESSION['user_name'] : "");
 		$user_perfil = ((isset($_SESSION['user_perfil']) && $_SESSION['user_perfil'] != "") ? $_SESSION['user_perfil'] : "");
 		$user_empresa = ((isset($_SESSION['user_empresa']) && $_SESSION['user_empresa'] != "") ? $_SESSION['user_empresa'] : "");
@@ -35,7 +34,7 @@ class visitasController{
 	}
 
 	public static function exportNaAreasAction($filter){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == 'na_areas'){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == 'na_areas'){
 			$visitas = new visitas();
 			$elements = visitas::getAccessNaAreas($filter);
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
@@ -45,7 +44,7 @@ class visitasController{
 	}
 
 	public static function exportGroupAction($filter){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == 'group'){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == 'group'){
 			$visitas = new visitas();
 			$elements = visitas::getAccessGroup($filter);
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
