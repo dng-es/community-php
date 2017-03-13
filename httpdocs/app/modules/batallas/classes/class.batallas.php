@@ -11,7 +11,7 @@ class batallas{
 	 * @return array 				Array con registros
 	 */
 	public function getBatallas($filter = ""){
-		$Sql="SELECT * FROM batallas b WHERE 1=1 ".$filter;
+		$Sql = "SELECT * FROM batallas b WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -75,21 +75,21 @@ class batallas{
 		return connection::execute_query($Sql);
 	}
 
-	public function finalizarBatalla($id_batalla,$user_ganador){
+	public function finalizarBatalla($id_batalla, $user_ganador){
 		$Sql = "UPDATE batallas SET finalizada=1,
 				ganador = '".$user_ganador."' 
 				WHERE id_batalla=".$id_batalla;
 		return connection::execute_query($Sql);
 	}
 
-	public function insertBatallaLucha($id_batalla,$user_lucha,$tiempo_lucha,$aciertos_lucha,$origen=3){
+	public function insertBatallaLucha($id_batalla, $user_lucha, $tiempo_lucha, $aciertos_lucha, $origen=3){
 		if ($tiempo_lucha < 1) $aciertos_lucha = 0;
 		$Sql = "INSERT INTO batallas_luchas (id_batalla,user_lucha,tiempo_lucha,aciertos_lucha,origen) 
 				VALUES (".$id_batalla.",'".$user_lucha."',".$tiempo_lucha.",".$aciertos_lucha.",".$origen.")";
 		return connection::execute_query($Sql);
 	}
 
-	public function updateBatallaLucha($id_batalla,$user_lucha,$tiempo_lucha,$aciertos_lucha){
+	public function updateBatallaLucha($id_batalla, $user_lucha, $tiempo_lucha, $aciertos_lucha){
 		if ($tiempo_lucha < 1) $aciertos_lucha = 0;
 		$Sql = "UPDATE batallas_luchas SET 
 				tiempo_lucha=".$tiempo_lucha.",
@@ -155,7 +155,7 @@ class batallas{
 		else return false;
 	}
 
-	public function updateBatallaGanador($id_batalla,$user){
+	public function updateBatallaGanador($id_batalla, $user){
 		$Sql = "update batallas SET 
 				ganador='".$user."',
 				finalizada=1 
@@ -181,7 +181,7 @@ class batallas{
 	}
 
 	public static function getBatallasRankingUser($username){
-		$Sql="SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM 
+		$Sql = "SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM 
 			(SELECT SUM(finalizada) AS victorias,ganador FROM batallas WHERE ganador<>'' GROUP BY ganador HAVING SUM(finalizada)>=
 			(SELECT SUM(finalizada) FROM batallas WHERE ganador='".$username."') ORDER BY victorias DESC,ganador ASC) r,  
 			(SELECT @rownum:=0) ro ) f WHERE ganador='".$username."'";

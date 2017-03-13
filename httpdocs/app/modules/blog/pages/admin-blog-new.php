@@ -67,7 +67,7 @@ templateload("cmbCanales","users");?>
 							<label for="descripcion" class="sr-only">Cuerpo de la entrada:</label>
 							<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>
 							<script type="text/javascript">
-								var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-blog.js'});
+								var editor = CKEDITOR.replace('descripcion', {customConfig : 'config-blog.js'});
 								CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 							</script>
 						</div>
@@ -104,7 +104,7 @@ templateload("cmbCanales","users");?>
 					</div>
 
 					<div class="panel panel-default">
-						<div class="panel-heading">Etiquetas</div>
+						<div class="panel-heading"><?php e_strTranslate("Tags");?></div>
 						<div class="panel-body">
 							<p>Introduce las etiquetas de la entrada:</p>
 							<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="<?php echo $tipo_tema;?>" />

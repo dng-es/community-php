@@ -108,11 +108,10 @@ function volcarMySQL($data){
 	$usuarios_regionales = $users->getUsuariosPerfilBaja('regional', 'regional_tienda');
 	foreach($usuarios_regionales as $usuario_regionales):
 		$users->disableUser($usuario_regionales['username'], 1);
-	endforeach;
+	endforeach;?>
 
-	echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a></p>
-	<p>El proceso de importaci&oacute;n ha finalizado con éxito</p>';
-	echo '<p>Se ha actualizado <b>'.$contador_update.'</b> registros</p>';
-	echo '<p>Se ha insertado <b>'.$contador_insert.'</b> registros</p>';
-}
-?>
+	<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a></p>
+	<p>El proceso de importación ha finalizado con éxito</p>
+	<p>Se ha actualizado <b><?php $contador_update;?></b> registros</p>
+	<p>Se ha insertado <b><?php echo $contador_insert;?></b> registros</p>
+<?php } ?>

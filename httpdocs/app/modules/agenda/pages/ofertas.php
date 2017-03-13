@@ -24,17 +24,14 @@
 							</div>
 							<div class="col-md-9">
 								<h3><b><?php echo $element['titulo'];?></b></h3>
-								<?php
-								if (!is_null($element['date_ini']) && !is_null($element['date_fin'])){
+								<?php if (!is_null($element['date_ini']) && !is_null($element['date_fin'])){
 									echo '<small class="text-muted">'.ucfirst(getDateFormat($element['date_ini'], 'LONG')).' al '.getDateFormat($element['date_fin'], 'LONG').'</small>';
-								}
-								?>
+								}?>
 								<?php showTags($element['etiquetas']);?>
 								<p><?php echo $element['descripcion'];?></p>
-								<?php if ($element['archivo']<>''){
-									$enlace = 'docs/showfile.php?file='.$element['archivo'];
-								echo '<br><a target="_blank" href="'.$enlace.'"><b><u>Descargar Voucher</u></b></a>';
-								 }?>
+								<?php if ($element['archivo'] <> ''):?>
+									<br><a target="_blank" href="docs/showfile.php?file=<?php echo $element['archivo'];?>"><b><u>Descargar Voucher</u></b></a>
+								<?php endif;?>
 							</div>
 						</div>
 					</div>
@@ -42,7 +39,7 @@
 			</div>
 		</div>
 		<?php endforeach;?>
-		<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
+		<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>
 		<br />
 	</div>
 	<div class="app-sidebar">
@@ -57,7 +54,7 @@
 				</h4>
 				<?php
 				$agenda = new agenda();
-				$tags = $agenda->getTags(" AND tipo=2 "); //print_r($tags);
+				$tags = $agenda->getTags(" AND tipo=2 ");
 				$valor_max = max($tags);
 				$valor_min = min($tags);
 				$diferencia = $valor_max - $valor_min;

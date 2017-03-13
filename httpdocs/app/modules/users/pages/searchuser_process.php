@@ -21,7 +21,7 @@ if(isset($_POST['find_user'])){
 	elseif ($tot_result == 0){
 		echo '<p class="text-danger text-center"><i class="fa fa-warning"></i> No se ha encontrado coincidencias</p>';
 	}
-	else{?>
+	else{ ?>
 		<div class="table-responsive">
 			<table class="table table-hover table-stripped">
 				<tr>
@@ -39,6 +39,5 @@ if(isset($_POST['find_user'])){
 			</table>
 		</div>
 	<?php }
-
 }
 ?>

@@ -3,11 +3,18 @@ class agendaController{
 	public static function getListAction($reg = 0, $filter=""){
 		$agendas = new agenda();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filter = " AND (titulo LIKE '%".$_POST['find_reg']."%' OR etiquetas LIKE '%".$_POST['find_reg']."%') ".$filter; $find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filter = " AND (titulo LIKE '%".$_REQUEST['f']."%' OR etiquetas LIKE '%".$_REQUEST['f']."%') ".$filter; $find_reg=$_REQUEST['f'];} 
+		if (isset($_POST['find_reg'])){
+			$filter = " AND (titulo LIKE '%".$_POST['find_reg']."%' OR etiquetas LIKE '%".$_POST['find_reg']."%') ".$filter;
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter = " AND (titulo LIKE '%".$_REQUEST['f']."%' OR etiquetas LIKE '%".$_REQUEST['f']."%') ".$filter;
+			$find_reg = $_REQUEST['f'];
+		}
+
 		$paginator_items = PaginatorPages($reg);
 
-		$total_reg = connection::countReg("agenda",$filter);
+		$total_reg = connection::countReg("agenda", $filter);
 		return array('items' => $agendas->getAgenda($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -35,7 +42,7 @@ class agendaController{
 			$id_agenda = intval($_REQUEST['id']);
 			$agenda = new agenda();
 			if ($agenda->deleteAgenda($id_agenda))
-				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"),"alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
@@ -55,7 +62,7 @@ class agendaController{
 			$canal = sanitizeInput($_POST['canal']);
 			if (is_array($canal)) $canal = implode(",", $canal);
 
-			if ((isset($_FILES['fichero'])) && ($_FILES['fichero']['name']!='')){
+			if ((isset($_FILES['fichero'])) && ($_FILES['fichero']['name'] != '')){
 				//SUBIR FICHERO
 				$nombre_archivo = time().'_'.str_replace(" ", "_", $_FILES['fichero']['name']);
 				$nombre_archivo = strtolower($nombre_archivo);

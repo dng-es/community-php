@@ -6,7 +6,7 @@ class alerts{
 	 * @return array 				Array con registros
 	 */
 	public static  function getAlerts($filter = ""){
-		$Sql="SELECT * FROM alerts WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT * FROM alerts WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -15,7 +15,7 @@ class alerts{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function insertAlerts($text_alert, $type_alert, $destination_alert, $user_post, $priority, $date_ini, $date_fin){
-		$Sql="INSERT INTO alerts (text_alert, type_alert, destination_alert, user_post, priority, date_ini, date_fin) 
+		$Sql = "INSERT INTO alerts (text_alert, type_alert, destination_alert, user_post, priority, date_ini, date_fin) 
 				VALUES ('".$text_alert."', '".$type_alert."', '".$destination_alert."', '".$user_post."', '".$priority."', '".$date_ini."', '".$date_fin."')";
 		return connection::execute_query($Sql);
 	}
@@ -26,7 +26,7 @@ class alerts{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deleteAlerts($id){
-		$Sql="DELETE FROM alerts WHERE id_alerts=".$id;
+		$Sql = "DELETE FROM alerts WHERE id_alerts=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -36,8 +36,8 @@ class alerts{
 	 * @param  string	$value 		Nuevo valor
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function updateAlerts($id,$value){
-		$Sql="UPDATE alerts SET 
+	public function updateAlerts($id, $value){
+		$Sql = "UPDATE alerts SET 
 			field='".$value."',
 			WHERE id_alerts=".$id;
 		return connection::execute_query($Sql);
@@ -49,8 +49,8 @@ class alerts{
 	 * @param  string	$value 		Nuevo valor
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public static function disableAlerts($id,$value = 0){
-		$Sql="UPDATE alerts SET 
+	public static function disableAlerts($id, $value = 0){
+		$Sql = "UPDATE alerts SET 
 			activa=".$value." 
 			WHERE id_alert=".$id;
 		return connection::execute_query($Sql);

@@ -7,12 +7,11 @@ $module_config = getModuleConfig("users");
 $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
 $filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND canal IN (".$module_channels.") ");
 
-$users = new users();
-$puntos_user = $users->getUsers(" AND username='".$_SESSION['user_name']."' ");
-$puntuacion_user = $puntos_user[0]['puntos'];
+$user_data = usersController::getPerfilAction($_SESSION['user_name']);
 $posicion_user = users::posicionRanking($_SESSION['user_name'], " AND confirmed=1 AND disabled=0 ".$filtro_canal);
 if ($_SESSION['user_perfil'] == 'admin') $posicion_user = 0;
 
+$users = new users();
 $puntos = $users->getUsers($filtro_canal." AND puntos>0 AND perfil<>'admin' AND confirmed=1 AND disabled=0 ORDER BY puntos DESC,username ASC LIMIT 15");
 ?>
 <div class="row row-top">
@@ -38,7 +37,7 @@ $puntos = $users->getUsers($filtro_canal." AND puntos>0 AND perfil<>'admin' AND 
 							//$total_usuarios = connection::countReg("users"," AND confirmed=1 AND disabled=0 ORDER BY username");
 							//echo '	<p>Los mejores en el ranking, total de usuarios activos: '.$total_usuarios.'</p>';
 
-							for ($i=0;$i<=14;$i++){	
+							for ($i = 0; $i <= 14; $i++){	
 								if (isset($puntos[$i])): ?>
 									<tr>
 										<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i + 1);?></small></i></td>
@@ -66,9 +65,9 @@ $puntos = $users->getUsers($filtro_canal." AND puntos>0 AND perfil<>'admin' AND 
 		<div class="panel-interior">
 			<a href="ranking-empresas" class="btn btn-primary btn-block"><?php e_strTranslate("Go_to_companies_ranking");?></a>
 			<h3><?php e_strTranslate("Your_ranking");?> <small><?php echo $posicion_user;?></small></h3>
-			<p><?php echo $puntos_user[0]['name'].' '.$puntos_user[0]['surname'];?><br />
-			<?php echo $puntos_user[0]['nombre_tienda'];?><br />
-			<?php echo $puntos_user[0]['puntos'];?> <?php e_strTranslate("APP_points");?>
+			<p><?php echo $user_data['name'].' '.$user_data['surname'];?><br />
+			<?php echo $user_data['nombre_tienda'];?><br />
+			<?php echo $user_data['puntos'];?> <?php e_strTranslate("APP_points");?>
 			</p>
 			<hr />
 			<h3>¿Cómo ganar <?php e_strTranslate("APP_points");?>?</h3>

@@ -52,7 +52,7 @@
 				</span>
 				<?php e_strTranslate("Diary");?>
 			</h4>
-			<p class="text-center"><span class="fa fa-bullhorn  fa-big"></span></p>
+			<p class="text-center"><span class="fa fa-bullhorn fa-big"></span></p>
 		</div>
 	</div>
 </div>

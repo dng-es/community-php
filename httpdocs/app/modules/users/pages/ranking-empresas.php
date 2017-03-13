@@ -4,7 +4,7 @@ addJavascripts(array(getAsset("users")."js/ranking-empresas.js"));
 $users = new users();
 $puntos_empresa = $users->getPuntosEmpresa(" AND empresa='".$_SESSION['user_empresa']."' ");
 $puntuacion_user = $puntos_empresa[0]['puntos_empresa'];
-$posicion_empresa_user=users::posicionRankingEmpresa($_SESSION['user_empresa']);
+$posicion_empresa_user = users::posicionRankingEmpresa($_SESSION['user_empresa']);
 if ($_SESSION['user_perfil'] == 'admin') $posicion_empresa = 0;
 $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ","ORDER BY puntos_empresa DESC,empresa ASC LIMIT 15");
 ?>

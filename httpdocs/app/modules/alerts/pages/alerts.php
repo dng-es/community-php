@@ -20,8 +20,7 @@ include_once($base_dir . "modules/alerts/classes/class.alerts.php");
 		$filtro = " AND activa=1 AND (NOW() BETWEEN date_ini AND date_fin) AND ((type_alert='user' AND destination_alert='".$_SESSION['user_name']."') OR (type_alert='group' AND destination_alert='".$_SESSION['user_empresa']."') OR destination_alert='') ORDER BY priority, date_alert";
 
 		$messages_group = $alerts->getAlerts($filtro);
-		if (count($messages_group) > 0):
-		?>
+		if (count($messages_group) > 0):?>
 		<div id="messagesGroup"> 
 			<h5>Avisos pendientes</h5>
 			<ul class="list-unstyled">

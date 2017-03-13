@@ -20,7 +20,7 @@ $reg = 15;
 if (isset($_GET["pag"])) $pag = $_GET["pag"];
 if (!isset($pag)) { $inicio = 0; $pag = 1;}
 else $inicio = ($pag - 1) * $reg;
-$total_reg = connection::countReg("foro_temas",$filtro);
+$total_reg = connection::countReg("foro_temas", $filtro);
 
 //EXPORT EXCEL - SHOW AND GENERATE
 if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
@@ -55,7 +55,7 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 					<table class="table table-striped table-hover">
 					<tr>
 					<th width="40px"></th>
-					<th>Título</th>
+					<th><?php e_strTranslate("Title");?></th>
 					<th><?php e_strTranslate("Channel");?></th>
 					<th class="text-center"><span class="fa fa-comment"></span></th>
 					<th class="text-center"><span class="fa fa-eye"></span></th>
@@ -71,18 +71,18 @@ $elements = $foro->getTemas($filtro.' LIMIT '.$inicio.','.$reg); ?>
 								<button type="button" class="btn btn-default btn-xs" title="Ver/editar entrada" onClick="location.href='admin-blog-new?id=<?php echo $element['id_tema'];?>'; return false"><i class="fa fa-edit icon-table"></i>
 								</button>
 							</td>
-						<?php 
-						echo '<td>'.$element['nombre'].'<br />';
-						echo '<em class="legend">'.getDateFormat($element['date_tema'], "LONG").'</em><br />';
-						echo $element['user'].'</td>';
-						echo '<td>'.ucfirst($element['canal']).'</td>';
-						echo '<td class="text-center" title="'.$num_comentarios.' '.strtolower(strTranslate("Comments")).'">';
-						if ($num_comentarios == 0) echo $num_comentarios;
-						else echo '<a href="admin-blog-foro?id='.$element['id_tema'].'">'.$num_comentarios.'</a>';
-						echo '</td>';
-						echo '<td class="text-center" title="'.$num_visitas.' '.strtolower(strTranslate("Visits")).'">'.$num_visitas.'</td>';
-						echo '</tr>';
-					endforeach;?>
+							<td>
+								<?php echo $element['nombre'];?><br />
+								<em class="legend"><?php echo getDateFormat($element['date_tema'], "LONG");?></em><br />
+								<?php echo $element['user'];?></td>
+							<td><?php echo ucfirst($element['canal']);?></td>
+							<td class="text-center" title="<?php echo $num_comentarios.' '.strtolower(strTranslate("Comments"));?>">
+							<?php if ($num_comentarios == 0) echo $num_comentarios;
+							else echo '<a href="admin-blog-foro?id='.$element['id_tema'].'">'.$num_comentarios.'</a>';?>
+							</td>
+							<td class="text-center" title="<?php echo $num_visitas.' '.strtolower(strTranslate("Visits"));?>"><?php echo $num_visitas;?></td>
+						</tr>
+					<?php endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($pag, $reg, $total_reg, 'admin-blog', 'Entradas', $find_reg);?>

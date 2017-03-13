@@ -18,7 +18,7 @@ if ($module_config['options']['allow_registration'] === true):
 		//REGISTRO USUARIO
 		if (isset($_POST['username-text']) && $_POST['username-text'] != ""){
 			$users = new users();
-			$confirmar=$users->registerUser(sanitizeInput($_POST['username-text']),
+			$confirmar = $users->registerUser(sanitizeInput($_POST['username-text']),
 											sanitizeInput($_POST['user-nick']),
 											sanitizeInput($_POST['user-nombre']),
 											sanitizeInput($_POST['user-apellidos']),

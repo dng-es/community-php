@@ -8,8 +8,7 @@
 			array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Report")." ".strTranslate("APP_shares"), "ItemClass"=>"active"),
 		));
-		$elements = usersParticipacionesController::getListAction(100);
-		?>
+		$elements = usersParticipacionesController::getListAction(100);	?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">     
@@ -28,7 +27,7 @@
 						</tr>
 						<?php foreach($elements['items'] as $element): ?>
 						<tr>
-							<td>&nbsp;<?php echo $element['participacion_username'];?></td>
+							<td><?php echo $element['participacion_username'];?></td>
 							<td><?php echo $element['nick'];?></td>
 							<td><?php echo $element['participacion_motivo'];?></td>
 							<td><?php echo getDateFormat($element['participacion_date'], "DATE_TIME");?></td>

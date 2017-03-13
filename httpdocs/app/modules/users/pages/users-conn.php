@@ -2,7 +2,7 @@
 addJavascripts(array(getAsset("users")."js/users-conn.js"));
 
 //usuarios conectados
-$filtroCanal= ($_SESSION['user_canal'] != "admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') " : "");
+$filtroCanal = ($_SESSION['user_canal'] != "admin" ? " AND (connection_canal='".$_SESSION['user_canal']."' or connection_canal='admin') " : "");
 $users_conn = count(users::getUsersConn($filtroCanal));
 ?>
 <div class="row row-top">

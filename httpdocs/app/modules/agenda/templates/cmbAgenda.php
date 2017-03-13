@@ -1,5 +1,5 @@
 <?php
-function ComboTipo($seleccionado = "", $filter = "" ){
+function ComboTipo($seleccionado = "", $filter = ""){
 	$agenda = new agenda();
 	$elements = $agenda->getTipos($filter." ORDER BY tipo_name");
 	foreach($elements as $element):?>

@@ -28,9 +28,9 @@ $elements = agendaController::getListAction(10, " ORDER BY id_agenda DESC");?>
 					<tr>
 					<th width="40px"></th>
 					<th><?php e_strTranslate("Title");?></th>
-					<th>Sección</th>
-					<th>Fecha inicio</th>
-					<th>Fecha fin</th>
+					<th><?php e_strTranslate("Type");?></th>
+					<th><?php e_strTranslate("Date_start");?></th>
+					<th><?php e_strTranslate("Date_end");?></th>
 					<th><?php e_strTranslate("Channel");?></th>
 					<th class="text-center"><?php e_strTranslate("Active");?></th>
 					</tr>
@@ -44,17 +44,20 @@ $elements = agendaController::getListAction(10, " ORDER BY id_agenda DESC");?>
 								<button type="button" class="btn btn-default btn-xs" title="Ver/editar entrada" onClick="location.href='admin-agenda-new?id=<?php echo $element['id_agenda'];?>'; return false"><i class="fa fa-edit icon-table"></i>
 								</button>
 							</td>
-						<?php
-						echo '<td>'.$element['titulo'].'<br />';
-						echo '<em class="legend">'.getDateFormat($element['date_add'], "LONG").'</em><br />';
-						echo $element['user_add'].'</td>';
-						echo '<td>'.$element['tipo_name'].'</td>';
-						if (!(is_null($element['date_ini']))){$date_ini = date('d/m/Y',strtotime($element['date_ini']));}else{$date_ini ='';}
-						if (!(is_null($element['date_fin']))){$date_fin = date('d/m/Y',strtotime($element['date_fin']));}else{$date_fin ='';}
-						echo '<td>'.ucfirst($date_ini).'</td>';
-						echo '<td>'.ucfirst($date_fin ).'</td>';
-						echo '<td>'.ucfirst($element['canal']).'</td>';?>
-						<td class="text-center"><span class="label<?php echo ($element['activo'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['activo'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
+							<td>
+								<?php echo $element['titulo'];?><br />
+								<em class="legend"><?php echo getDateFormat($element['date_add'], "LONG");?></em><br />
+								<?php echo $element['user_add'];?>
+							</td>
+							<td><?php echo $element['tipo_name'];?></td>
+							<?php
+							if (!(is_null($element['date_ini']))){$date_ini = date('d/m/Y',strtotime($element['date_ini']));}else{$date_ini ='';}
+							if (!(is_null($element['date_fin']))){$date_fin = date('d/m/Y',strtotime($element['date_fin']));}else{$date_fin ='';}
+							?>
+							<td><?php echo ucfirst($date_ini);?></td>
+							<td><?php echo ucfirst($date_fin );?></td>
+							<td><?php echo ucfirst($element['canal']);?></td>
+							<td class="text-center"><span class="label<?php echo ($element['activo'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['activo'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
 						</tr>
 					<?php endforeach;?>
 					</table>

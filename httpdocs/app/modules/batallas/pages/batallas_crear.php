@@ -51,7 +51,7 @@ function getContrincante($puntos_batalla, $module_channels){
 					$('input[type="radio"]',this).each(function(){
 						if(name == $(this).attr("name")) return;
 						name = $(this).attr("name");
-						var checked = $(":radio[name="+name+"]:checked");
+						var checked = $(":radio[name=" + name + "]:checked");
 						if(checked.length == 0) {
 							form_ok=false;
 						}

@@ -2,12 +2,18 @@
 class alertsController{
 	public static function getListAction($reg = 0, $filtro = ""){
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro .= " AND text_alert LIKE '%".$_POST['find_reg']."%' ";$find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND text_alert LIKE '%".$_REQUEST['f']."%' ";$find_reg=$_REQUEST['f'];} 
+		if (isset($_POST['find_reg'])){
+			$filtro .= " AND text_alert LIKE '%".$_POST['find_reg']."%' ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filtro .= " AND text_alert LIKE '%".$_REQUEST['f']."%' ";
+			$find_reg = $_REQUEST['f'];
+		} 
 		$filtro .= " ORDER BY date_ini DESC";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("alerts",$filtro);
+		$total_reg = connection::countReg("alerts", $filtro);
 		return array('items' => alerts::getAlerts($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

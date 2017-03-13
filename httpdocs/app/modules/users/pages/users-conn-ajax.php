@@ -6,6 +6,8 @@ include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/class.session.php");
 include_once($base_dir . "modules/users/classes/class.users.php");
+		
+session::ValidateSessionAjax();
 ?>
 <!DOCTYPE html>
 	<html lang="es">
@@ -16,8 +18,6 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 		</head>
 		<body>
 		<?php
-		session::ValidateSessionAjax();
-
 		$pagina = $_REQUEST['pagina'];
 		$reg = 10;
 		$inicio = ($pagina - 1) * $reg;

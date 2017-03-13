@@ -20,8 +20,8 @@ $filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (connection_can
 
 $users_conn = users::getUsersConn($filtro_canal." LIMIT ".$inicio.",".$reg);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+	<html lang="es">
 	<head>
 		<LINK rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/themes/<?php echo $_SESSION['user_theme'];?>/css/styles.css" />
 		<script type="text/javascript" src="js/main.min.js"></script>
@@ -30,7 +30,7 @@ $users_conn = users::getUsersConn($filtro_canal." LIMIT ".$inicio.",".$reg);
 				$(".trigger-msg").click(function(e){
 					e.preventDefault();
 					var nick = $(this).attr("n");
-					if (nick != ""){location.href="inbox?n="+nick;}
+					if (nick != "") location.href = "inbox?n=" + nick;
 				});
 			});
 		</script>

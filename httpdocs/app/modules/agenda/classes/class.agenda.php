@@ -65,14 +65,22 @@ class agenda{
 
 		//Formato fecha
 		$Sql = "UPDATE agenda SET titulo = '".$nombre."',descripcion='".$descripcion."'";
-		if ($banner<>''){$Sql .= ",banner='".$banner."'";}
-		if (is_null($dateIni) || ($dateIni=='')) {$date_ini = 'NULL';$Sql .= ",date_ini=".$date_ini;}
+		if ($banner <> '') $Sql .= ",banner='".$banner."'";
+		
+		if (is_null($dateIni) || ($dateIni=='')) {
+			$date_ini = 'NULL';
+			$Sql .= ",date_ini=".$date_ini;
+		}
 		else{
 			$date1 = str_replace('/', '-', trim(sanitizeInput($dateIni)));
 			$date_ini = date('Y-m-d',strtotime($date1));
 			$Sql .= ",date_ini='".$date_ini."'";
 		}
-		if (is_null($dateFin) || ($dateFin == '')) {$date_fin = 'NULL';$Sql .= ",date_fin=".$date_fin;}
+
+		if (is_null($dateFin) || ($dateFin == '')) {
+			$date_fin = 'NULL';
+			$Sql .= ",date_fin=".$date_fin;
+		}
 		else{
 			$date2 = str_replace('/', '-', trim(sanitizeInput($dateFin)));
 			$date_fin = date('Y-m-d',strtotime($date2));
@@ -114,7 +122,7 @@ class agenda{
 	public function getTags($filter = ""){
 		$Sql = "SELECT GROUP_CONCAT(etiquetas) AS tag FROM agenda WHERE activo=1 ".$filter;
 		$result = connection::getSQL($Sql);
-		$registros = str_replace(', ',',',$result[0]['tag']);
+		$registros = str_replace(', ', ',', $result[0]['tag']);
 		$registros =  explode(",", $registros);
 		$registros = array_count_values($registros);
 		return $registros;

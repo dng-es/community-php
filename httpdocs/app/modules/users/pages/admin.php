@@ -57,10 +57,7 @@ templateload("upgrades", "configuration");
 			</div>
 		</div>
 		<div class="row">
-			<?php
-			//mostrar información sobre otros módulos activos
-			menu::adminPanels();
-			?>
+			<?php menu::adminPanels();?>
 		</div>
 
 		<div class="row">

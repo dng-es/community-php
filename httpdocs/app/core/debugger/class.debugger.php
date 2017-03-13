@@ -11,7 +11,6 @@ set_error_handler('debugger::errorHandler');
 register_shutdown_function('debugger::shutdownHandler');
 
 class debugger {
-	
 	static public $errors_log = array();
 	static public $num_warnings = 0;
 	static public $num_sql = 0;
@@ -25,7 +24,7 @@ class debugger {
 		debugger::$num_execution = microtime();
 	}
 
-	public static function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext){
+	public static function errorHandler($errno, $errstr, $errfile, $errline, $errcontext){
 		if (!(error_reporting() & $errno)) {
 			// Este código de error no está incluido en error_reporting
 			return;
@@ -37,8 +36,8 @@ class debugger {
 	    return true;
 	}
 
-	public static function shutdownHandler (){
-		if (count(debugger::$errors_log)>0): 
+	public static function shutdownHandler(){
+		if (count(debugger::$errors_log) > 0): 
 			switch (debugger::$debugger_output){
 				case "file":
 					debugger::fileDebug();
@@ -68,9 +67,7 @@ class debugger {
 
 	private function fileDebug(){
 		foreach(debugger::$errors_log as $error_log):
-			if ($error_log['errtype']!="sql"){
-				debugger::addFileMessage($error_log['errstr'],$error_log['errtype']);
-			}
+			if ($error_log['errtype'] != "sql") debugger::addFileMessage($error_log['errstr'], $error_log['errtype']);
 		endforeach;
 	}
 
@@ -123,7 +120,7 @@ class debugger {
 
 	private static function jsDebug(){ ?>
 		<script type="text/javascript">
-			(function(global,undefined){ 
+			(function(global, undefined){ 
 
 				daDebugger = function(){
 

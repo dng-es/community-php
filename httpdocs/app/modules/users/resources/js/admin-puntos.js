@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
 				puntos = $("#num_puntos").val(),
 				motivo_puntos = $("#motivo_puntos").val();
 			$("#resultado-puntos").css("display","none")
-									.load("app/modules/users/pages/admin-puntos-ajax.php", {id_usuario: username,num: puntos, motivo: motivo_puntos})
+									.load("app/modules/users/pages/admin-puntos-ajax.php", {id_usuario: username, num: puntos, motivo: motivo_puntos})
 									.fadeIn()
 									.css("display","block");
 		}

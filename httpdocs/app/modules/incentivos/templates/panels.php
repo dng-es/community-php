@@ -22,9 +22,9 @@ function panelRanking($id_objetivo){
 			<?php
 			if (count($ranking['ranking']) > 0):
 				$limite = ($posicion_user > 0 ? 5 : 6);
-				for($i=0; $i < $limite; $i++){ ?>
+				for($i = 0; $i < $limite; $i++){ ?>
 					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 incentivos-ranking-user text-center <?php if((($i + 1) % 2) == 0 && isset($ranking['ranking'][$i])) { echo 'back-rank';} ?>">
-						<?php if(isset($ranking['ranking'][$i])):
+						<?php if (isset($ranking['ranking'][$i])):
 							$ranking_user = $ranking['ranking'][$i];
 							?>
 							<span class="font-white"><strong><?php echo ($i + 1);?>&deg;</strong></span><br />

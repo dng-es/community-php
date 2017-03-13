@@ -6,34 +6,34 @@ function showBatallas($tipo, $total_reg, $usuario){
 	$tipo_filtro = "";
 	$p = 0; //indica la pestaña que hay que mostar en el paginador
 	$reg = 3;
-	if (isset($_GET["pag"])) {$pag = $_GET["pag"];}
+	if (isset($_GET["pag"])) $pag = $_GET["pag"];
 	if (!isset($pag)) { $inicio = 0; $pag = 1;}
-	else { $inicio = ($pag - 1) * $reg;}
+	else $inicio = ($pag - 1) * $reg;
 
 	switch ($tipo){
 	case "ganadas":
 		$filtro =  " AND finalizada=1 AND ganador='".$_SESSION['user_name']."' ";
 		$tipo_filtro = $tipo;
 		if (isset($_REQUEST['f']) && $_REQUEST['f'] != 1) {$inicio = 0; $pag = 1;}
-		$p=1;
+		$p = 1;
 		break;
 	case "perdidas":
 		$filtro =  " AND finalizada=1 AND ganador<>'' AND ganador<>'".$_SESSION['user_name']."' AND (user_create='".$_SESSION['user_name']."' OR user_retado='".$_SESSION['user_name']."') ";
 		$tipo_filtro = $tipo;
 		if (isset($_REQUEST['f']) && $_REQUEST['f'] != 2) {$inicio = 0; $pag = 1;}
-		$p=2;
+		$p = 2;
 		break;
 	case "pendientes usuario":
 		$filtro =  " AND finalizada=0 AND user_retado='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$_SESSION['user_name']."' ) ";
 		$tipo_filtro = "pendientes-usuario";
 		if (isset($_REQUEST['f']) && $_REQUEST['f'] != 3) {$inicio = 0; $pag = 1;}
-		$p=3;
+		$p = 3;
 		break;
 	case "pendientes contrincario":
 		$filtro =  " AND finalizada=0 AND user_create='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha<>'".$_SESSION['user_name']."' )";
 		$tipo_filtro = "pendientes-contrincario";
 		if (isset($_REQUEST['f']) && $_REQUEST['f'] != 4) {$inicio = 0; $pag = 1;}
-		$p=4;
+		$p = 4;
 		break;
 	}
 
@@ -47,7 +47,7 @@ function showBatallas($tipo, $total_reg, $usuario){
 	elseif ($tipo == "pendientes usuario") $texto_tipo = 'Total de "mis" batallas pendientes';
 	else $texto_tipo = 'Total batallas '.$tipo;
 
-	$i=0;
+	$i = 0;
 	foreach($elements as $element):
 		//obtener contrincario
 		$contrincario_data ="";
@@ -82,7 +82,7 @@ function showBatallas($tipo, $total_reg, $usuario){
 											<ul class="list-unstyled">
 												<li><small><span class="text-primary">Jugador:</span> '.$contrincario_data[0]['nick'].' 
 												('.$contrincario_data[0]['nombre_tienda'].')</small></li>';
-												if ($tipo!='pendientes usuario'){
+												if ($tipo != 'pendientes usuario'){
 
 												echo '	<li><small><span class="text-primary">Sus aciertos:</span> '.(isset($su_partida[0]['aciertos_lucha']) ? $su_partida[0]['aciertos_lucha'] : "").' ('.(isset($su_partida[0]['tiempo_lucha']) ? $su_partida[0]['tiempo_lucha'] : "").' seg.)</small></li>';
 												}

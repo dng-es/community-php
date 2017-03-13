@@ -25,7 +25,7 @@ templateload("addalert", "alerts");?>
 						<ul class="nav nav-pills navbar-default">
 							<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 							<div class="pull-right">
-								<?php echo SearchForm($elements['reg'],"admin-alerts","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
+								<?php echo SearchForm($elements['reg'], "admin-alerts", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left");?>
 							</div>
 						</ul>
 

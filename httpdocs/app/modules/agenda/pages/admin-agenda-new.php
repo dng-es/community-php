@@ -20,7 +20,7 @@ templateload("cmbAgenda","agenda");
 		));
 		//si tiene id, se trata de la edición de una actividad.
 		$id = intval(isset($_GET['id']) ? $_GET['id'] : 0);
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		agendaController::createAction();
 		agendaController::updateAction();
 		$elements = agendaController::getItemAction($id);
@@ -30,8 +30,12 @@ templateload("cmbAgenda","agenda");
 			$nombre = $elements[0]['titulo'];
 			$descripcion = $elements[0]['descripcion'];
 			$banner = $elements[0]['banner'];
-			if (!(is_null($elements[0]['date_ini']))){$date_ini = date('d/m/Y',strtotime($elements[0]['date_ini']));}else{$date_ini ='';}
-			if (!(is_null($elements[0]['date_fin']))){$date_fin = date('d/m/Y',strtotime($elements[0]['date_fin']));}else{$date_fin ='';}
+			if (!(is_null($elements[0]['date_ini'])))$date_ini = date('d/m/Y',strtotime($elements[0]['date_ini']));
+			else $date_ini = '';
+
+			if (!(is_null($elements[0]['date_fin']))) $date_fin = date('d/m/Y',strtotime($elements[0]['date_fin']));
+			else $date_fin = '';
+
 			$fichero = $elements[0]['archivo'];
 			$tipo =  $elements[0]['tipo'];
 			$canal = $elements[0]['canal'];
@@ -87,7 +91,7 @@ templateload("cmbAgenda","agenda");
 							<label for="descripcion" class="sr-only">Cuerpo de la entrada:</label>
 							<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>
 							<script type="text/javascript">
-								var editor=CKEDITOR.replace('descripcion',{customConfig : 'config-blog.js'});
+								var editor = CKEDITOR.replace('descripcion', {customConfig : 'config-blog.js'});
 								CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 							</script>
 						</div>
@@ -140,7 +144,7 @@ templateload("cmbAgenda","agenda");
 					</div>
 
 					<div class="panel panel-default">
-						<div class="panel-heading">Etiquetas</div>
+						<div class="panel-heading"><?php e_strTranslate("Tags");?></div>
 						<div class="panel-body">
 							<p>Introduce las etiquetas de la entrada:</p>
 							<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="<?php echo $etiquetas;?>" />

@@ -31,7 +31,7 @@ $puntos_disponibles = $user_data[0]['puntos'] - $puntos_reservados;
 					$('input[type="radio"]',this).each(function() {
 						if(name == $(this).attr("name")) return;
 						name = $(this).attr("name");
-						var checked = $(":radio[name="+name+"]:checked");
+						var checked = $(":radio[name=" + name + "]:checked");
 						if(checked.length == 0) {
 							form_ok = false;
 						}
@@ -49,16 +49,16 @@ $puntos_disponibles = $user_data[0]['puntos'] - $puntos_reservados;
 	<body>
 
 <?php
-if (isset($_POST['id']) && $_POST['id']!=""){
+if (isset($_POST['id']) && $_POST['id'] != ""){
 	$id_batalla = $_POST['id'];
 	//obtener datos de la batalla
 	$batalla_data = $batallas->getBatallas(" AND id_batalla=".$id_batalla." ");
 
 	//obtener preguntas de la batalla
-	$preguntas = $batallas->getBatallaRespuestasPreguntas($id_batalla,$_SESSION['user_name']);
+	$preguntas = $batallas->getBatallaRespuestasPreguntas($id_batalla, $_SESSION['user_name']);
 
 	//marcar la batalla como empezada
-	$batallas->insertBatallaLucha($id_batalla,$_SESSION['user_name'],0,0,1);
+	$batallas->insertBatallaLucha($id_batalla, $_SESSION['user_name'], 0, 0, 1);
 
 	//datos del contrincante
 	$usuario_contrario = $batalla_data[0]['user_create'];

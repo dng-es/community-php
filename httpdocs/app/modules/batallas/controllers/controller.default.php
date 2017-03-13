@@ -32,10 +32,7 @@ class batallasController{
 	}
 
 	public static function responderContrincarioBatallaAction(){
-		if (isset($_POST['batalla-play']) && $_POST['batalla-play'] == 1){
-			//insertar respuestas del usuario
-			self::responderBatalla();
-		}
+		if (isset($_POST['batalla-play']) && $_POST['batalla-play'] == 1) self::responderBatalla();
 	}
 
 	public static function responderBatalla(){

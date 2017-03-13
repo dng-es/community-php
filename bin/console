@@ -45,7 +45,7 @@ class Console {
 	private $foreground_colors = array();
 	private $public_path;
 
-	public function __construct($public_path = "") {
+	public function __construct($public_path = ""){
 		$this->public_path = $public_path;
 		$this->setShellColors();
 	}
@@ -211,7 +211,7 @@ findpage			Find page by name
 	 * @param  string $moduleName Module name
 	 * @return string             File content
 	 */
-	private function fileModuleContent( $moduleName ){
+	private function fileModuleContent($moduleName){
 		$content = "<?php
 /**
 * @Manage ".$moduleName."
@@ -232,7 +232,7 @@ class ".$moduleName."Core {
 	 * @param  string $moduleName Module name
 	 * @return string             File content
 	 */
-	private function fileClassContent( $moduleName ){
+	private function fileClassContent($moduleName){
 		$content = "<?php
 
 class ".$moduleName."{
@@ -243,7 +243,7 @@ class ".$moduleName."{
 	 * @return array 				Array con registros
 	 */
 	public function get".ucfirst($moduleName)."(\$filter = \"\"){
-		\$Sql=\"SELECT * FROM ".$moduleName." WHERE 1=1 \".\$filter;
+		\$Sql = \"SELECT * FROM ".$moduleName." WHERE 1=1 \".\$filter;
 		return connection::getSQL(\$Sql);
 	}   
 
@@ -252,7 +252,7 @@ class ".$moduleName."{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function insert".ucfirst($moduleName)."( ){		
-		\$Sql=\"INSERT INTO ".$moduleName." ( ) 
+		\$Sql = \"INSERT INTO ".$moduleName." ( ) 
 			  VALUES ()\";
 		return connection::execute_query(\$Sql);
 	}
@@ -263,7 +263,7 @@ class ".$moduleName."{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function delete".ucfirst($moduleName)."(\$id){
-		\$Sql=\"DELETE FROM ".$moduleName." WHERE id_".$moduleName."=\".\$id;
+		\$Sql = \"DELETE FROM ".$moduleName." WHERE id_".$moduleName."=\".\$id;
 		return connection::execute_query(\$Sql);
 	}
 
@@ -273,8 +273,8 @@ class ".$moduleName."{
 	 * @param  string	\$value 		Nuevo valor
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function update".ucfirst($moduleName)."(\$id,\$value){
-		\$Sql=\"UPDATE ".$moduleName." SET
+	public function update".ucfirst($moduleName)."(\$id, \$value){
+		\$Sql = \"UPDATE ".$moduleName." SET
 			 field='\".\$value.\"',
 			 WHERE id_".$moduleName."=\".\$id;
 		return connection::execute_query(\$Sql);
@@ -289,7 +289,7 @@ class ".$moduleName."{
 	 * @param  string $moduleName Modulename
 	 * @return string             File content
 	 */
-	private function fileControllerContent( $moduleName ){
+	private function fileControllerContent($moduleName){
 		$content = "<?php
 class ".$moduleName."Controller{
 	public static function createAction(){
