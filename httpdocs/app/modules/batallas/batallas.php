@@ -3,7 +3,7 @@
 * @Manage batallas
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.1
+* @version 1.1.2
 *
 */
 class batallasCore{
@@ -16,16 +16,19 @@ class batallasCore{
 		global $session;
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("batallas", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("batallas", $_SESSION['user_perfil'], $user_permissions)){
-			//batallas pendientes
-			$filtro_batallas =  " AND finalizada=0 AND user_retado='".$_SESSION['user_name']."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$_SESSION['user_name']."' ) ";
-			$pendientes_batallas = connection::countReg("batallas",$filtro_batallas);
-			$label_batallas = ($pendientes_batallas == 0 ? '' : ' <span class="menu-alert">'.$pendientes_batallas.'</span>');
+			$module_config = getModuleConfig("batallas");
+			$alerts_text = "";
+			if ($module_config['options']['show_alarms']):
+				$batallas_pendientes = batallasController::getPendientes($_SESSION['user_name']);
+				$alerts_text = ($batallas_pendientes == 0 ? '' : ' <span class="menu-alert">'.$batallas_pendientes.'</span>');
+			endif;
 
-			array_push($array_final, array("LabelIcon" => "fa fa-bomb",
-							"LabelItem" => strTranslate("Battles").$label_batallas,
-							"LabelUrl" => 'batallas',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-bomb",
+				"LabelItem" => strTranslate("Battles").$alerts_text,
+				"LabelUrl" => 'batallas',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 		return $array_final;
 	}

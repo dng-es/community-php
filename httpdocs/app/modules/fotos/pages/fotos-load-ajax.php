@@ -26,5 +26,5 @@ $id_album = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? $_REQUEST['id'] :
 $tag = ((isset($_REQUEST['tags']) && $_REQUEST['tags'] != '') ? $_REQUEST['tags'] : 0 );
 $elements = fotosController::getListAction(18, $filtro_canal.$filtro_tags.$filtro_album.$filtro_nick.$filtro_promocion." AND estado=1 ORDER BY id_file DESC ");
 $destino = ((isset($_REQUEST['idp']) && $_REQUEST['idp'] > 0) ? 'reto' : 'fotos' );
-galleryPhotos($elements['items'], true, $id_promocion, 4, $destino, $module_config['options']['allow_comments'], $id_album, $tag);
+galleryPhotos($elements['items'], true, $id_promocion, $destino, $module_config['options']['allow_comments'], $id_album, $tag);
 ?>

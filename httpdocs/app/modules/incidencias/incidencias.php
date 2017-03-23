@@ -15,12 +15,12 @@ class incidenciasCore {
 	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
-
-		array_push($array_final, array("LabelIcon" => "fa fa-life-ring",
-				"LabelItem" => strTranslate("My_incidences"),
-				"LabelUrl" => 'myincidences',
-				"LabelTarget" => '_self',
-				"LabelPos" => $menu_order));
+		array_push($array_final, array(
+			"LabelIcon" => "fa fa-life-ring",
+			"LabelItem" => strTranslate("My_incidences"),
+			"LabelUrl" => 'myincidences',
+			"LabelTarget" => '_self',
+			"LabelPos" => $menu_order));
 
 		return $array_final;
 	}

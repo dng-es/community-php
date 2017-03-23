@@ -1,7 +1,11 @@
 <?php
 templateload("cmbCanales", "users");
 
-function ModalSubirAlbum(){ 
+/**
+ * Formulario modal para crear un nuevo album
+ * @return 	String       			HTML modal form
+ */
+function modalSubirAlbum(){ 
 	$module_config = getModuleConfig("fotos");
 	if ($module_config['options']['allow_users_albums'] == true){?>
 	<!-- Modal -->
@@ -32,9 +36,13 @@ function ModalSubirAlbum(){
 	<?php }
 }
 
+/**
+ * Panel para crear albumes nuevos
+ * @return 	String       			HTML panel
+ */
 function subirAlbum(){ 
 	$module_config = getModuleConfig("fotos");
-	if ($module_config['options']['allow_users_albums'] == true){?>
+	if ($module_config['options']['allow_users_albums'] == true){ ?>
 	<h4>
 		<span class="fa-stack fa-sx">
 			<i class="fa fa-circle fa-stack-2x"></i>
@@ -61,5 +69,5 @@ function subirAlbum(){
 			<input type="submit" name="SubmitData" class="btn btn-primary btn-block" value="<?php e_strTranslate("Save_data");?>" />
 		</div>
 	</form>
-	<?php }?>
+	<?php } ?>
 <?php } ?>

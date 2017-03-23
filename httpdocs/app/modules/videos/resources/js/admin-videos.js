@@ -12,7 +12,8 @@ jQuery(document).ready(function(){
 			id_album = $(this).attr("data-album"),
 			pag = $(this).attr("data-pag"),
 			tags = $("#tipo_video_" + id_file).val();
+			destacado = $("#destacado_video_" + id_file).is(":checked") ? 1 : 0;
 
-		document.location.href = 'admin-videos?idf=' + id_file + '&tags=' + tags + '&pag=' + pag;
+		document.location.href = 'admin-videos?idf=' + id_file + '&dest=' + destacado + '&tags=' + tags + '&pag=' + pag;
 	});
 });

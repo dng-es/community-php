@@ -22,6 +22,9 @@ rankingsController::ExportRankingDataAction();
 				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-ranking"><?php e_strTranslate("New_ranking");?></a></li>
+					<div class="pull-right">
+						<?php echo SearchForm($elements['reg'],"admin-rankings","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
+					</div>
 				</ul>
 				
 				<div class="table-responsive">

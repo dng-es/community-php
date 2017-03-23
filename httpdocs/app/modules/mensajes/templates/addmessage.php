@@ -1,4 +1,8 @@
 <?php
+/**
+ * Print HTML new message modal form 
+ * @return	String						HTML modal form
+ */
 function addMensaje(){ ?>
 <!-- Modal -->
 <div class="modal modal-wide fade" id="new_mensaje" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -29,4 +33,4 @@ function addMensaje(){ ?>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<?php }?>
+<?php } ?>

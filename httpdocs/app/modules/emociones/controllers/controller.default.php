@@ -59,12 +59,11 @@ class emocionesController{
 
 	public static function getListAction($reg = 0, $filter = ""){
 		$emociones = new emociones();
-		$filtro = $filter." ORDER BY id_emocion ASC ";
-
+		$filter .= " ORDER BY id_emocion ASC ";
 		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("emociones",$filtro);
-		return array('items' => $emociones->getEmociones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("emociones", $filter);
+		return array('items' => $emociones->getEmociones($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -72,7 +71,6 @@ class emocionesController{
 	}
 
 	public static function createUserAction(){
-
 		if (isset($_POST['id_emocion']) && $_POST['id_emocion'] == ""){
 			session::setFlashMessage( 'actions_message', "debes elegir una emoción.", "alert alert-danger");
 			redirectURL("?page=home");
@@ -105,20 +103,17 @@ class emocionesController{
 
 	public static function getListuserAction($reg = 0, $filter = ""){
 		$emociones = new emociones();
-		$filtro = $filter." ORDER BY date_emocion DESC ";
-
-		if (isset($_REQUEST['id']) && $_REQUEST['id'] > 0){
-			$filtro = " AND eu.id_emocion=".$_REQUEST['id'] . " " .$filtro;
-		}
-
-		if (isset($_REQUEST['i']) && $_REQUEST['i'] != "") {
-			$filtro = " AND date_emocion BETWEEN " . str_replace("%27", "'", $_REQUEST['i']) . " " .$filtro;
-		}
-
 		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
+		if (isset($_REQUEST['id']) && $_REQUEST['id'] > 0){
+			$filter = " AND eu.id_emocion=".$_REQUEST['id'] . " " .$filter;
+		}
+		if (isset($_REQUEST['i']) && $_REQUEST['i'] != ""){
+			$filter = " AND date_emocion BETWEEN " . str_replace("%27", "'", $_REQUEST['i']) . " " .$filter;
+		}
+		$filter .= " ORDER BY date_emocion DESC ";
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = connection::countReg("emociones_user eu",$filtro);
-		return array('items' => $emociones->getEmocionesUser($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("emociones_user eu", $filter);
+		return array('items' => $emociones->getEmocionesUser($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,

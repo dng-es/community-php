@@ -3,7 +3,7 @@
 * @Libreria de archivos descargables para el usuario
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.1.1
+* @version 1.1.2
 *
 */
 class infotopdfCore{
@@ -12,11 +12,12 @@ class infotopdfCore{
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-infotopdf-all", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("user-infotopdf-all", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-file-pdf-o",
-							"LabelItem" => strTranslate("Infotopdf_Documents"),
-							"LabelUrl" => 'user-infotopdf-all',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-file-pdf-o",
+				"LabelItem" => strTranslate("Infotopdf_Documents"),
+				"LabelUrl" => 'user-infotopdf-all',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 
 		return $array_final;

@@ -1,4 +1,17 @@
 <?php 
+/**
+ * Print HTML tabs
+ * @param	int			$pag			Número de página actual
+ * @param	int			$reg			Número de registros por página
+ * @param	int			$total_reg		Total de registros
+ * @param	string		$pag_dest		URL de destino
+ * @param	string		$title			Título del paginador
+ * @param	string		$find_reg		Cadena de busqueada. Dato que el paginador tiene que arrastrar
+ * @param	integer		$num_paginas	Número máximo de páginas a mostrar en el paginador
+ * @param	string		$addClass		Clase CSS
+ * @param	string		$pagecount_dest	Nombre del contador de pagians
+ * @return 	string       				HTML tabs
+ */
 function PaginatorTabs($pag, $reg, $total_reg, $pag_dest, $title, $find_reg="", $num_paginas=10, $addClass="", $pagecount_dest = "pag"){
 	$total_pag = ceil($total_reg / $reg);
 	if ($total_pag > 1){

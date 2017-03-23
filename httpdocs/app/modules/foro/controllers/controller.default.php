@@ -1,11 +1,11 @@
 <?php
 class foroController{
-	public static function getListTemasAction($reg = 0, $filtro = ""){
+	public static function getListTemasAction($reg = 0, $filter = ""){
 		$foro = new foro();
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("foro_temas",$filtro); 
-		return array('items' => $foro->getTemas($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("foro_temas", $filter); 
+		return array('items' => $foro->getTemas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -26,11 +26,13 @@ class foroController{
 	public static function insertCommentAction(){
 		if (isset($_POST['texto-comentario']) && $_POST['texto-comentario'] != "" && ($_POST['id_tema'] != "" || $_POST['id_tema'] != 0)){
 			$foro = new foro();
+			$id_tema = intval($_POST['id_tema']);
 			$texto_comentario = nl2br(sanitizeInput($_POST['texto-comentario']));
-			if ($foro->InsertComentario($_POST['id_tema'],
+			if ($foro->InsertComentario($id_tema,
 								$texto_comentario,
 								$_SESSION['user_name'],
 								ESTADO_COMENTARIOS_FORO)){
+				notificationsController::insertNotifications($id_tema, 'foro');
 				session::setFlashMessage('actions_message', strTranslate("Message_published"), "alert alert-success");
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_message_published"), "alert alert-danger");
@@ -43,7 +45,7 @@ class foroController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$foro = new foro();
 			$elements = $foro->getComentarios($filter);
-			download_send_headers("comments_" . date("Y-m-d") . ".csv");
+			download_send_headers("comments_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -53,7 +55,7 @@ class foroController{
 		if (isset($_REQUEST['export2']) && $_REQUEST['export2'] == true){
 			$foro = new foro();
 			$elements = $foro->getTemas($filter);
-			download_send_headers("temas_" . date("Y-m-d") . ".csv");
+			download_send_headers("temas_" . date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -67,12 +69,21 @@ class foroController{
 		return $acceso;
 	}
 
-	public static function getListComentariosAction($reg = 0, $filtro = ""){
+	public static function getListComentariosAction($reg = 0, $filter = ""){
 		$foro = new foro();
 		$find_reg = "";
+		if (isset($_POST['find_reg'])){
+			$filter .= " AND comentario LIKE '%".$_POST['find_reg']."%' ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter .= " AND comentario LIKE '%".$_REQUEST['f']."%' ";
+			$find_reg = $_REQUEST['f'];
+		}
+		$filter .= " ORDER BY id_comentario DESC ";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("foro_comentarios", $filtro);
-		return array('items' => $foro->getComentarios($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("foro_comentarios", $filter);
+		return array('items' => $foro->getComentarios($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -123,7 +134,7 @@ class foroController{
 			$foro = new foro(); 
 			$elements_exp = $foro->getComentariosExport($filter." AND c.id_tema=".intval($_REQUEST['id'])." ");
 			$file_name = 'exported_file'.date("YmdGis");
-			download_send_headers("comments_" . date("Y-m-d") . ".csv");
+			download_send_headers("comments_".date("Y-m-d") . ".csv");
 			echo array2csv($elements_exp);
 			die();
 		}

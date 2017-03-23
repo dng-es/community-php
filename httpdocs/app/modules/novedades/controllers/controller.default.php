@@ -1,12 +1,20 @@
 <?php
 class novedadesController{
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$novedades = new novedades();
 		$paginator_items = PaginatorPages($reg);
 		$find_reg = "";
+		if (isset($_POST['find_reg'])){
+			$filter = " AND titulo LIKE '%".$_POST['find_reg']."%' ".$filter;
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter = " AND titulo LIKE '%".$_REQUEST['f']."%' ".$filter;
+			$find_reg = $_REQUEST['f'];
+		}
 		
-		$total_reg = connection::countReg("novedades n",$filtro); 
-		return array('items' => $novedades->getNovedades($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("novedades n", $filter); 
+		return array('items' => $novedades->getNovedades($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,

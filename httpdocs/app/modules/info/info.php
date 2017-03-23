@@ -3,7 +3,7 @@
 * @Libreria de archivos descargables para el usuario. Depende del modulo campaigns
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.3
+* @version 1.3.1
 *
 */	
 class infoCore{
@@ -20,15 +20,16 @@ class infoCore{
 		$alerts_text = "";
 		if ($module_config['options']['show_alarms']):
 			$num_alerts = infoController::getAlerts();
-			$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" id="contador-documentos-header">'.$num_alerts.'</span>' : "");
+			$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" title="'.strTranslate("Notifications_content_new").'" id="contador-documentos-header">'.$num_alerts.'</span>' : "");
 		endif;
 
 		if ($session->checkPageViewPermission("user-info-all", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-file",
-							"LabelItem" => strTranslate("Info_Documents").$alerts_text,
-							"LabelUrl" => 'info-all',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-file",
+				"LabelItem" => strTranslate("Info_Documents").$alerts_text,
+				"LabelUrl" => 'info-all',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 
 		return $array_final;

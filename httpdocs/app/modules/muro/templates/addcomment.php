@@ -1,6 +1,13 @@
 <?php
 templateload("cmbCanales", "users");
 
+/**
+ * Print HTML combo
+ * @param	String 		$tipo_muro 		Tipo de muro en el que se insertaran los datos
+ * @param	Boolean		$canal_sel 		Para mostrar o no el selector de canales
+ * @param	String 		$title_label 	Texto del título del panel
+ * @return	String						HTML panel
+ */
 function addComment($tipo_muro = 'principal', $canal_sel = true, $title_label = "New_comment_on_wall"){ ?>
 	<h4>
 		<span class="fa-stack fa-sx">
@@ -19,5 +26,4 @@ function addComment($tipo_muro = 'principal', $canal_sel = true, $title_label = 
 		<?php endif;?>
 		<button class="muro-enviar btn btn-primary btn-block" type="button" id="muro-submit" value="Enviar" name="coment-submit"><?php e_strTranslate("Send");?></button>
 	</form>
-
 <?php } ?>

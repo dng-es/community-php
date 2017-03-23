@@ -1,8 +1,8 @@
 <?php
 /**
  * Limpia una cadena. Utilizada para evitar errores y Sql injection
- * @param  string 		$text 			Cadena a limpiar
- * @return string       				Cadena limpiada
+ * @param	string		$text 			Cadena a limpiar
+ * @return	string						Cadena limpiada
  */
 function sanitizeInput($text){
 	$final_text = str_replace("'","\'", $text);
@@ -13,8 +13,8 @@ function sanitizeInput($text){
 
 /**
  * Print HTML message Error
- * @param 	string  	$msg      		Message text
- * @param 	integer 	$msg_show 		Opción para mostrar o no alertas
+ * @param 	string		$msg			Message text
+ * @param 	integer		$msg_show		Opción para mostrar o no alertas
  */
 function ErrorMsg($msg, $msg_show = 1){
 	if ($msg_show == 1) echo '<div class="alert alert-danger">'.$msg.'</div>';
@@ -22,8 +22,8 @@ function ErrorMsg($msg, $msg_show = 1){
 
 /**
  * Print HTML message OK
- * @param 	string  	$msg      		Message text
- * @param 	integer 	$msg_show 		Opción para mostrar o no alertas
+ * @param	string		$msg			Message text
+ * @param	integer		$msg_show		Opción para mostrar o no alertas
  */
 function OkMsg($msg,$msg_show = 1){
 	if ($msg_show == 1) echo '<div class="alert alert-success">'.$msg.'</div>';
@@ -31,9 +31,9 @@ function OkMsg($msg,$msg_show = 1){
 
 /**
  * Eliminada de una cadena de texto los carateres extraños (todo lo que no sean numeros, letras y algún caracter más)
- * @param 	string  	$text      		Texto a normalizar
- * @param 	string  	$text_separator Caracter separador para la cadena normalizada
- * @return 	string  	        		Texto normalizado
+ * @param	string		$text			Texto a normalizar
+ * @param	string		$text_separator Caracter separador para la cadena normalizada
+ * @return	string						Texto normalizado
  */
 function NormalizeText( $text, $text_separator = "_"){
 	//utilizada para subida de ficheros, elimina todos los caracteres extraños
@@ -42,9 +42,9 @@ function NormalizeText( $text, $text_separator = "_"){
 
 /**
  * Acorta un texto añadiendo puntos suspensivos
- * @param 	string 		$text_html 		Cadena de texto a acortar
- * @param 	int 		$num_car   		Numero de carateres
- * @return 	string  	        		Texto acortado con puntos suspensivos si es mas largo que $num_car
+ * @param	string		$text_html		Cadena de texto a acortar
+ * @param	int			$num_car		Numero de carateres
+ * @return	string						Texto acortado con puntos suspensivos si es mas largo que $num_car
  */
 function shortText($text_html, $num_car){
 	if (strlen($text_html) <= $num_car) return $text_html;
@@ -53,9 +53,9 @@ function shortText($text_html, $num_car){
 
 /**
  * Devuelve una fecha formateada con el mes con texto
- * @param  	date 		$date 			Fecha a dar formato
- * @param  	string 		$format 		Formato de salida
- * @return 	string        				Fecha formateada
+ * @param	date		$date 			Fecha a dar formato
+ * @param	string		$format 		Formato de salida
+ * @return	string						Fecha formateada
  */
 function getDateFormat($date, $format){
 	global $ini_conf;
@@ -93,13 +93,13 @@ function getDateFormat($date, $format){
 
 /**
  * Envia un correo empleando la función mail de PHP
- * @param 	string  	$from_mail      Email del remitente
- * @param 	string  	$to_mail        Email del destinatario
- * @param 	string  	$subject_mail   Asunto del email
- * @param 	string  	$body_mail      Cuerpo del mensaje
- * @param 	integer 	$html_mode      Formato del email: 1-> formato HTML; 0->formato texto
- * @param 	string  	$from_mail_real Nombre compleato del remitente
- * @return 	boolean  	        		Resultado del envio
+ * @param	string		$from_mail		Email del remitente
+ * @param	string		$to_mail		Email del destinatario
+ * @param	string		$subject_mail	Asunto del email
+ * @param	string		$body_mail		Cuerpo del mensaje
+ * @param	integer		$html_mode		Formato del email: 1-> formato HTML; 0->formato texto
+ * @param	string		$from_mail_real	Nombre compleato del remitente
+ * @return	boolean						Resultado del envio
  */
 function SendEmail($from_mail, $to_mail, $subject_mail, $body_mail, $html_mode = 0, $from_mail_real = ''){
 	$headers_mail = "";
@@ -115,8 +115,8 @@ function SendEmail($from_mail, $to_mail, $subject_mail, $body_mail, $html_mode =
 
 /**
  * Funcion para obtener variables del paginador
- * @param 	int 		$reg 			Número de registros por página
- * @return 	array  	        			Array con parámetros para el paginador
+ * @param	int			$reg			Número de registros por página
+ * @return	array						Array con parámetros para el paginador
  */
 function PaginatorPages($reg){
 	$find_reg = "";
@@ -128,19 +128,20 @@ function PaginatorPages($reg){
 	}
 	return array('find_reg' => $find_reg,
 				'pag' => $pag,
-				'inicio' =>$inicio );
+				'inicio' =>$inicio);
 }
 
 /**
  * Print HTML paginator
- * @param 	int  		$pag         	Número de página actual
- * @param 	int  		$reg         	Número de registros por página
- * @param 	int  		$total_reg   	Total de registros
- * @param 	string  	$pag_dest    	URL de destino
- * @param 	string  	$title       	Título del paginador
- * @param 	string  	$find_reg    	Cadena de busqueada. Dato que el paginador tiene que arrastrar
- * @param 	integer 	$num_paginas 	Número máximo de páginas a mostrar en el paginador
- * @param 	string  	$addClass    	Clase CSS
+ * @param	Int			$pag			Número de página actual
+ * @param	Int			$reg			Número de registros por página
+ * @param	Int			$total_reg		Total de registros
+ * @param	String		$pag_dest		URL de destino
+ * @param	String		$title			Título del paginador
+ * @param	String		$find_reg		Cadena de busqueada. Dato que el paginador tiene que arrastrar
+ * @param	Integer		$num_paginas	Número máximo de páginas a mostrar en el paginador
+ * @param	String		$addClass		Clase CSS
+ * @return  String						HTML paginator
  */
 function Paginator($pag, $reg, $total_reg, $pag_dest, $title, $find_reg = "", $num_paginas = 10, $addClass = "", $pagecount_dest = "pag"){
 	$total_pag = ceil($total_reg / $reg);
@@ -193,8 +194,8 @@ function noCache(){
 
 /**
  * Valida un texto si es o no una cuenta de correo válida
- * @param 	string 		$email 			Cadena de texto a validar
- * @return 	boolean  	        		Resultado de la validación
+ * @param	string		$email			Cadena de texto a validar
+ * @return	boolean						Resultado de la validación
  */
 function validateEmail($email){
 	$res = ereg(
@@ -206,9 +207,9 @@ function validateEmail($email){
 
 /**
  * Valida si una cadena es una fecha valida
- * @param  string 		$date   		Valor a verificar
- * @param  string 		$format 		formato de la fecha
- * @return boolean 						resultado de la verificacion
+ * @param	string		$date			Valor a verificar
+ * @param	string		$format 		formato de la fecha
+ * @return	boolean						resultado de la verificacion
  */
 function validateDate($date, $format = 'Y-m-d H:i:s'){
 	$d = DateTime::createFromFormat($format, $date);
@@ -217,8 +218,8 @@ function validateDate($date, $format = 'Y-m-d H:i:s'){
 
 /**
  * Comprueba si una cadena es un NIF, CIF, NIE
- * @param  	string 		$cif 			Cadena de texto a verificar
- * @return 	int      					1 = NIF ok, 2 = CIF ok, 3 = NIE ok, -1 = NIF bad, -2 = CIF bad, -3 = NIE bad, 0 = ??? bad
+ * @param	string		$cif 			Cadena de texto a verificar
+ * @return	int							1 = NIF ok, 2 = CIF ok, 3 = NIE ok, -1 = NIF bad, -2 = CIF bad, -3 = NIE bad, 0 = ??? bad
  */
 function validateNifCifNie($cif){
 	$cif = strtoupper($cif);
@@ -267,8 +268,8 @@ function validateNifCifNie($cif){
 
 /**
  * Convierte un array a formato csv
- * @param  array 	$array 		Array a procesar
- * @return         				Array en formato cvs
+ * @param	array	$array		Array a procesar
+ * @return						Array en formato cvs
  *
  * Usage: primero se envian las cabeceras para descarga
  * 
@@ -285,7 +286,7 @@ function array2csv(array &$array){
 	fputcsv($df, array_keys(reset($array)), ";");
 	foreach ($array as $row) {
 		foreach(array_keys($row) as $key){
-			//$row[$key] = iconv("UTF-8", "Windows-1252", $row[$key]);
+			$row[$key] = iconv("UTF-8", "Windows-1252", $row[$key]);
 			$row[$key] = $row[$key];
 		}
 		fputcsv($df, $row, ";");
@@ -296,7 +297,7 @@ function array2csv(array &$array){
 
 /**
  * Envia cabeceras para descarga
- * @param  string 		$filename 		Nombre del archivo que se va a descargar
+ * @param	string 		$filename 		Nombre del archivo que se va a descargar
  */
 function download_send_headers($filename){
 	// disable caching
@@ -317,9 +318,9 @@ function download_send_headers($filename){
 
 /**
  * Genera una cadena aleatoria segun el patron definido en $chars
- * @param 	int 		$num_car         Número de caracteres de la cadena a generar
- * @param 	string 		$chars           Caracteres permitidos
- * @return  string 						 Cadena generada de forma aleatoria
+ * @param	int 		$num_car		Número de caracteres de la cadena a generar
+ * @param	string 		$chars			Caracteres permitidos
+ * @return	string						Cadena generada de forma aleatoria
  */
 function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz023456789"){
 	srand((double)microtime()*1000000);
@@ -327,9 +328,9 @@ function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz0
 	$pass = '';
 
 	while ($i <= $num_car){
-		$num = rand() % 33; 
-		$tmp = substr($chars, $num, 1); 
-		$pass = $pass . $tmp; 
+		$num = rand() % 33;
+		$tmp = substr($chars, $num, 1);
+		$pass = $pass.$tmp;
 		$i++;
 	}
 	return $pass;
@@ -337,15 +338,15 @@ function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz0
 
 /**
  * Print HTML  search form
- * @param 	int 		$reg         	Número de registros. Empleado por paginador
- * @param 	int 		$pag         	Número de página. Empleado por paginador
- * @param 	string 		$formId      	Id del formulario HTML
- * @param 	string 		$labelForm   	Texto para el label del formulario
- * @param 	string 		$labelButton 	Texto para el botón de buscar
- * @param 	string 		$clase_css   	Clase CSS para el panel contenedor del form
- * @param 	string 		$class_form  	Clase CSS para el form
+ * @param	Int			$reg			Número de registros. Empleado por paginador
+ * @param	Int			$pag			Número de página. Empleado por paginador
+ * @param	String		$formId			Id del formulario HTML
+ * @param	String		$labelForm		Texto para el label del formulario
+ * @param	String		$labelButton	Texto para el botón de buscar
+ * @param	String		$clase_css		Clase CSS para el panel contenedor del form
+ * @param	String		$class_form		Clase CSS para el form
+ * @return	String						HTML search form
  */
-
 function SearchForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "", $class_form = "", $method_form = "post"){
 	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : ""); ?>
 	<div class="<?php echo $clase_css;?>">  
@@ -364,15 +365,14 @@ function SearchForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", 
 
 /**
  * Print HTML  search form
- * @param 	int 		$reg         	Número de registros. Empleado por paginador
- * @param 	int 		$pag         	Número de página. Empleado por paginador
- * @param 	string 		$formId      	Id del formulario HTML
- * @param 	string 		$labelForm   	Texto para el label del formulario
- * @param 	string 		$labelButton 	Texto para el botón de buscar
- * @param 	string 		$clase_css   	Clase CSS para el panel contenedor del form
- * @param 	string 		$class_form  	Clase CSS para el form
+ * @param	Int			$reg			Número de registros. Empleado por paginador
+ * @param	Int			$pag			Número de página. Empleado por paginador
+ * @param	String		$formId			Id del formulario HTML
+ * @param	String		$labelForm		Texto para el label del formulario
+ * @param	String		$labelButton	Texto para el botón de buscar
+ * @param	String		$clase_css		Clase CSS para el panel contenedor del form
+ * @param	String		$class_form		Clase CSS para el form
  */
-
 function SearchChannelForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "", $class_form = "", $method_form = "post"){
 	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : ""); ?>
 	<div class="<?php echo $clase_css;?>">  
@@ -394,7 +394,7 @@ function SearchChannelForm($reg, $pag, $formId = "searchForm", $labelForm = "Bus
 
 /**
  * Descarga un archivo
- * @param 	string 		$fichero 		Ruta completa del archivo a descargar
+ * @param	String 		$fichero		Ruta completa del archivo a descargar
  */
 function DescargarArchivo($fichero){
 	$basefichero = basename($fichero);
@@ -406,7 +406,7 @@ function DescargarArchivo($fichero){
 
 /**
  * Print HTML combo para los temas de los foros
- * @param 	string 		$tipo_tema 		Elemento del combo marcado
+ * @param	String 		$tipo_tema		Elemento del combo marcado
  */
 function ComboTiposTemas($tipo_tema){?>
 	<option value="Promociones" <?php if ($tipo_tema == 'Promociones') echo ' selected="selected" ';?>>Promociones</option>
@@ -417,7 +417,7 @@ function ComboTiposTemas($tipo_tema){?>
 
 /**
  * Print HTML combo para los perfiles de la comunidad
- * @param 	string 		$perfil 		Elemento del combo marcado
+ * @param	String		$perfil			Elemento del combo marcado
  */
 function ComboPerfiles($perfil){?>
 	<option value="usuario" <?php if ($perfil=='usuario') echo ' selected="selected" ';?>>Usuario</option>
@@ -427,6 +427,10 @@ function ComboPerfiles($perfil){?>
 <?php 
 }
 
+/**
+ * Print HTML combo para los perfiles de la comunidad
+ * @param	String		$lan			Elemento del combo marcado
+ */
 function ComboLanguages($lan){
 	global $ini_conf;
 	$folders = FileSystem::showDirFolders(__DIR__."/../languages/");
@@ -438,8 +442,8 @@ function ComboLanguages($lan){
 /**
  * Obtiene la versión del navegador según el UserAgent. 
  * Esta función hay que actualizarla según van saliendo nuevos navegadores.
- * @param  	string 		$user_agent 	UserAgent del navegador
- * @return 	string             			Nombre del navegador
+ * @param	String		$user_agent 	UserAgent del navegador
+ * @return	String						Nombre del navegador
  */
 function getBrowser($user_agent){
 	$navegadores = array(
@@ -472,8 +476,8 @@ function getBrowser($user_agent){
 /**
  * Obtiene el Sistema Operativo según el UserAgent del navegador
  * Esta función hay que actualizarla según van saliendo nuevos SO.
- * @param  	string 		$user_agent 	UserAgent del navegador
- * @return 	string             			Nombre del SO
+ * @param	String		$user_agent		UserAgent del navegador
+ * @return	String						Nombre del SO
  */
 function getPlatform($user_agent){
 	$plataformas = array(
@@ -502,12 +506,12 @@ function getPlatform($user_agent){
 
 /**
  * Envia un email con Swift Mailer
- * @param  	string 		$message_subject    	Asunto del mensaje
- * @param  	array  		$message_from       	Remitente del mensaje
- * @param  	array  		$message_to         	Destinatarios del mensaje
- * @param  	string 		$message_body       	Cuerpo del mensaje
- * @param  	string 		$message_attachment 	Fichero adjunto
- * @return 	boolean                     		Resultado del envío
+ * @param  	String 		$message_subject    	Asunto del mensaje
+ * @param  	Array  		$message_from       	Remitente del mensaje
+ * @param  	Array  		$message_to         	Destinatarios del mensaje
+ * @param  	String 		$message_body       	Cuerpo del mensaje
+ * @param  	String 		$message_attachment 	Fichero adjunto
+ * @return 	Boolean                     		Resultado del envío
  */
 function messageProcess($message_subject, $message_from = array('john@doe.com' => 'John Doe'), $message_to = array('receiver@domain.org', 'other@domain.org' => 'A name'), $message_body, $message_attachment = null, $message_protocol = "Mail"){
 	require_once("Swift-5.1.0/lib/swift_required.php");
@@ -566,7 +570,7 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
  * Sube un fichero a la ruta especificada
  * @param  	FILE 		$fichero 			Fichero a subir
  * @param  	string 		$destino 			Directorio donde subir el fichero. Debe ir acabado con /
- * @return 	string          				Nombre definitivo del archivo subido
+ * @return 	string							Nombre definitivo del archivo subido
  */
 function uploadFileToFolder($fichero, $destino){
 	$nombre_archivo = "";
@@ -581,8 +585,8 @@ function uploadFileToFolder($fichero, $destino){
 
 /**
  * Convierte a PDF la cadena de texto en formato HTML
- * @param  	string 		$content 			cadena en formato HTML a convertir a PDF
- * @return 	string      $size				tamaño del PDF
+ * @param  	string		$content			cadena en formato HTML a convertir a PDF
+ * @return 	string		$size				tamaño del PDF
  */
 function HTMLtoPDF($content, $size = 'A4'){
 	require_once('html2pdf/html2pdf.class.php');
@@ -593,11 +597,11 @@ function HTMLtoPDF($content, $size = 'A4'){
 
 /**
  * Genera imagen de miniatura del archivo especificado
- * @param  string 		$nombre_archivo 	Nombre de la imagen
- * @param  string 		$path_archivo   	Ruta del archivo
- * @param  double 		$width          	Ancho de la miniatura a generar
- * @param  double 		$height         	Alto de la minatura a generar
- * @return boolean 							Resultado del proceso
+ * @param  string		$nombre_archivo 	Nombre de la imagen
+ * @param  string		$path_archivo 		Ruta del archivo
+ * @param  double		$width 				Ancho de la miniatura a generar
+ * @param  double		$height 			Alto de la minatura a generar
+ * @return boolean							Resultado del proceso
  */
 function imgThumbnail($nombre_archivo, $path_archivo, $width, $height = 0){
 	require_once ("class.resizeimage.php");
@@ -613,7 +617,7 @@ function imgThumbnail($nombre_archivo, $path_archivo, $width, $height = 0){
 
 /**
  * Comprime a zip el fichero especificado por $filename alojado en la ruta $path
- * @param  string 		$filename   	archivo a comprimir
+ * @param  string 		$filename 		archivo a comprimir
  * @param  string 		$path 			ruta del archivo a comprimir
  * @return								resultado de la verificacion
  */
@@ -631,12 +635,12 @@ function fileToZip($filename, $path){
 
 /**
  * Comprime a zip el fichero especificado por $filename alojado en la ruta $path
- * @param  string 		$array_files   	Array con archivos a comprimir (ruta completa). $array_files[$i][0]=>PATH; $array_files[$i][1]=>NAME_FILE
- * @return          					resultado de la verificacion
+ * @param  string 		$array_files 	Array con archivos a comprimir (ruta completa). $array_files[$i][0]=>PATH; $array_files[$i][1]=>NAME_FILE
+ * @return								resultado de la verificacion
  */
 function filesToZip($array_files){
 	set_time_limit(0);
-	ini_set("memory_limit","-1");
+	ini_set("memory_limit", "-1");
 	require_once("class.zipfile.php");
 	$zipfile = new zipfile();
 
@@ -687,7 +691,7 @@ function cleanUrl($url, $disallowed_params = array('PHPSESSID')){
 			$query .= $key.( $val ? '='.$val.'&' : '&' );
 		}
 	}
-	$query = substr($query,0,-1);
+	$query = substr($query, 0, -1);
 	$uri .= $query ? '?'.$query : '';
 	#  if (!empty($params['p'])) {
 	#    $uri .= '?p='.$params['p'];
@@ -722,7 +726,6 @@ function arraySort($array, $field, $sort_mode = SORT_DESC){
 	foreach ($array as $clave => $fila){
 		$posicion[$clave] = $fila[$field];
 	}
-
 	array_multisort($posicion, $sort_mode, $array);
 	return $array;
 }
@@ -767,7 +770,7 @@ function get_resume($post){
 	if (strlen($resume_array['extended']) > 0) $resume = $resume_array['main'];
 	else{
 		$resume = strip_tags($post);
-		if (strlen($resume) > 400) $resume = substr($resume,0,400)."...";
+		if (strlen($resume) > 400) $resume = substr($resume, 0, 400)."...";
 	}
 	return $resume;
 }

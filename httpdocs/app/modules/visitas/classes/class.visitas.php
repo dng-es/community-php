@@ -20,7 +20,7 @@ class visitas{
 	}
 
 	public static function deleteVisitas(){
-		$Sql="DELETE FROM accesscontrol";
+		$Sql = "DELETE FROM accesscontrol";
 		return connection::execute_query($Sql);
 	}
 

@@ -52,6 +52,6 @@ function tagsCloud(){
 		foreach(array_keys($tags) as $key){
 			$valor_relativo = round((($tags[$key] - $valor_min) / $diferencia) * 10);
 			echo '<a href="videos?tag='.$key.'" class="tag'.$valor_relativo.'">'.$key.'</a> ';
-		}?>
+		} ?>
 	</div>
- <?php }?>
+ <?php } ?>

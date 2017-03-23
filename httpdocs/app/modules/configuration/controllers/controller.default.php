@@ -3,18 +3,18 @@ class configurationController{
 	public static function updateAction(){
 		if (isset($_POST['site-name']) && $_POST['site-name'] != ''){
 			$configuration = new configuration();
-			if ($configuration->UpdateConfiguracion($_POST['telefono'],
-										 $_POST['telefono2'],
-										 $_POST['fax'],
-										 $_POST['direccion'],
-										 $_POST['email-contact'],
-										 $_POST['site-name'],
-										 $_POST['site-title'],
-										 $_POST['site-desc'],
-										 $_POST['site-subject'],
-										 $_POST['site-keywords'],
-										 $_POST['site-url'],
-										 $_POST['email-mailing'])) 
+			if ($configuration->UpdateConfiguracion(sanitizeInput($_POST['telefono']),
+										 sanitizeInput($_POST['telefono2']),
+										 sanitizeInput($_POST['fax']),
+										 sanitizeInput($_POST['direccion']),
+										 sanitizeInput($_POST['email-contact']),
+										 sanitizeInput($_POST['site-name']),
+										 sanitizeInput($_POST['site-title']),
+										 sanitizeInput($_POST['site-desc']),
+										 sanitizeInput($_POST['site-subject']),
+										 sanitizeInput($_POST['site-keywords']),
+										 sanitizeInput($_POST['site-url']),
+										 sanitizeInput($_POST['email-mailing']))) 
 				
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
@@ -35,8 +35,7 @@ class configurationController{
 		foreach($modules as $module):
 			$annotations = FileSystem::getClassAnnotations($module['folder']."Core");
 			$ano = $annotations[1];
-			$ann = "";
-			
+			$ann = "";	
 			$icon = "user";
 			foreach($ano as $annotation):
 				$thisann = isset($annotation) ? ucfirst($annotation) : "";
@@ -64,17 +63,15 @@ class configurationController{
 			$users = new users();
 			$elements = array();
 			$i = 0;
-
 			foreach($modules as $module):
 				$folder_files = FileSystem::showFilesFolder(__DIR__."/../../".$module['folder']."/pages");
 				foreach($folder_files as $folder_file):
-						$elements[$i]['Pagina'] = $folder_file;
-						$elements[$i]['Modulo'] = $module['folder'];
-						$i++;
+					$elements[$i]['Pagina'] = $folder_file;
+					$elements[$i]['Modulo'] = $module['folder'];
+					$i++;
 				endforeach;
 			endforeach;
-
-			download_send_headers("pages_" . date("Y-m-d") . ".csv");
+			download_send_headers("pages_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

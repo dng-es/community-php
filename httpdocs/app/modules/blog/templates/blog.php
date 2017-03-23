@@ -1,21 +1,31 @@
 <?php
-function archivoBlog($elements){
-	echo '<div class="btn-group btn-block">
-			<button type="button" class="btn btn-default desplegable">---'.strTranslate("Choose_archive").'---</button>
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			<span class="caret"></span>
-			<span class="sr-only">Toggle Dropdown</span>
-			</button>
-			<ul class="dropdown-menu" style="width:96%" role="menu">';
-			foreach($elements as $element):
-				$nombre = strftime("%B",mktime(0, 0, 0, $element['mes'], 1, 2000));
-				//echo '<option value="'.$element['mes'].','.$element['ano'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</option>';
-				echo '<li><a href="blog-list?a='.$element['ano'].'&m='.$element['mes'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</a></li>';
-			endforeach;
-	echo '	</ul>
-		</div>';
-}
+/**
+* Print HTML Archive panel
+* @param 	Array 	$elements 	Array con elementos del combo
+* @return 	String       		HTML panel
+*/
+function archivoBlog($elements){ ?>
+	<div class="btn-group btn-block">
+		<button type="button" class="btn btn-default desplegable">---<?php e_strTranslate("Choose_archive");?>---</button>
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+		<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul class="dropdown-menu" style="width:96%" role="menu">';
+		<?php foreach($elements as $element):
+			$nombre = strftime("%B",mktime(0, 0, 0, $element['mes'], 1, 2000));
+			//echo '<option value="'.$element['mes'].','.$element['ano'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</option>';
+			echo '<li><a href="blog-list?a='.$element['ano'].'&m='.$element['mes'].'">'.ucfirst($nombre).' '.$element['ano'].' ('.$element['contador'].')</a></li>';
+		endforeach; ?>
+		</ul>
+	</div>
+<?php }
 
+/**
+* Print HTML Posts item 
+* @param 	Array 	$elements 	Array con elementos del panel
+* @return 	String       		HTML panel
+*/
 function entradasBlog($elements){
 	foreach($elements as $element):
 		$foto = ($element['imagen_tema'] == '' ? 'images/nofile.jpg' : "images/foro/".$element['imagen_tema']);
@@ -30,6 +40,10 @@ function entradasBlog($elements){
 	endforeach;
 }
 
+/**
+* Print HTML Search panel
+* @return 	String       		HTML panel
+*/
 function searchBlog(){ ?>
 	<form role="form" action="blog-list" method="get" id="form-blog">
 		<div class="input-group">
@@ -42,6 +56,11 @@ function searchBlog(){ ?>
 	</form>
 <?php }
 
+/**
+* Print HTML add comment
+* @param 	Array 	$elements 	Array con elementos de la lista
+* @return 	String       		HTML panel
+*/
 function categoriasBlog($elements){
 	if (count($elements) > 0):
 		echo '<ul class="lista-lateral">';
@@ -53,6 +72,12 @@ function categoriasBlog($elements){
 	endif;
 }
 
+/**
+* Print HTML next post button
+* @param 	Int 	$id_tema 	ID del Post actual
+* @param 	String 	$filtro_bog	Filtro a aplicar
+* @return 	String       		HTML button
+*/
 function nextPost($id_tema, $filtro_blog){
 	$foro = new foro();
 	$siguiente_disabled = "";
@@ -65,11 +90,17 @@ function nextPost($id_tema, $filtro_blog){
 	<li class="next <?php echo $siguiente_disabled ;?>"><a href="<?php echo $siguiente_enlace;?>"><?php e_strTranslate("Next_post");?> &rarr;</a></li>
 <?php }
 
+/**
+* Print HTML previous post button
+* @param 	Int 	$id_tema 	ID del Post actual
+* @param 	String 	$filtro_bog	Filtro a aplicar
+* @return 	String       		HTML button
+*/
 function previousPost($id_tema, $filtro_blog){
 	$foro = new foro();
 	$anterior_disabled = "";
 	$anterior = $foro->getTemas($filtro_blog." AND activo=1 AND ocio=1 AND id_tema>".$id_tema." ORDER BY id_tema ASC  LIMIT 1");
-	if (count($anterior)!=1){
+	if (count($anterior) != 1){
 		$anterior_disabled = "disabled";
 		$anterior_enlace = "#";
 	}

@@ -1,6 +1,9 @@
 <?php
-
-function panelForos($tema = -1){
+/**
+* Print HTML last Foros panel. Used in home page
+* @return 		String			HTML panel
+*/
+function panelForos(){
 	$last_foros = foroController::getLastTemasAction(3, " AND t.id_area=0 AND ocio=0 ");?>
 	<div class="col-md-12 section panel">
 		<h3><?php e_strTranslate("Last_formus");?></h3>

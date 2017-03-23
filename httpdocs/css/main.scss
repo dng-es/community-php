@@ -1475,6 +1475,12 @@ dt {
 	a.label {
 		color:#fff !important;
 	}
+	.badge{
+		color: #fff;
+	}
+	.badge.active{
+		background-color: $color1;
+	}
 }
 .navbar-brand {
 	.fa{
@@ -2210,5 +2216,62 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 	text-align:center;
 	.fa-circle{
 		color: $color1;
+	}
+}
+
+.carousel-inner .active.left { left: -16.7%; }
+.carousel-inner .next        { left:  16.7%; }
+.carousel-inner .prev        { left: -16.7%; }
+.carousel-control.left,.carousel-control.right {background-image:none;}
+.item:not(.prev) {visibility: visible;}
+.item.right:not(.prev) {visibility: hidden;}
+.rightest{ visibility: visible;}
+
+.carousel-slide-title{
+	text-transform: uppercase;
+	font-weight: bolder;
+	@media screen and (min-width: $break-medium) {
+		margin-left: 10%;
+	}
+}
+.carousel.slide.infinite{
+	margin: 0 10%;
+	width: 80%;
+	.carousel-control.left{
+		left: -5%;
+		@media screen and (max-width: $break-medium) {
+			left: -10%;
+		}
+		width: 50px;
+	}
+
+	.carousel-control.right{
+		right: -5%;
+		@media screen and (max-width: $break-medium) {
+			right: -10%;
+		}
+		width: 50px;
+	}
+
+	.slide-info-title{
+		display: block;
+		font-size: 18px;
+		line-height: 20px;
+		margin: 3px 0 0 0;
+	}
+	.slide-info{
+		@extend .text-muted;
+		font-size: 11px;
+		margin: 0 0 3px 0;
+	}
+	a.slide-info{
+		//color: $color3;
+		&:hover{
+			color: $color3;
+		}
+	}
+	.slide-user{
+		@include border-radius(50%);
+		width:20px;
 	}
 }

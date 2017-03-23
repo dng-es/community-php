@@ -5,7 +5,7 @@
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Rankings"), "ItemUrl"=>"#"),
-			array("ItemLabel"=>strTranslate("Listado de categorías"), "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Ranking_categories_list"), "ItemClass"=>"active"),
 		));
 
 		session::getFlashMessage( 'actions_message' );
@@ -15,7 +15,10 @@
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-					<li><a href="admin-rankings-category">nueva categoria</a></li>
+					<li><a href="admin-rankings-category"><?php e_strTranslate("New_ranking_category");?></a></li>
+					<div class="pull-right">
+						<?php echo SearchForm($elements['reg'],"admin-rankings-categories","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
+					</div>
 				</ul>
 				
 				<div class="table-responsive">

@@ -57,7 +57,7 @@ class FileSystem{
 	}
 
 	/**
-	* Remove all files and folder from a given folder name
+	* Remove all files and folders from a given folder name
 	*
 	* @param 	string 			$dirname 			Folder to clean
 	* @param 	string 			$nombre_fichero		file which determinate the date limit to remove existing files
@@ -65,8 +65,8 @@ class FileSystem{
 	*/
 	function cleanDir($dirname, $nombre_fichero){
 		if (is_dir($dirname)){ 	//Operate on dirs only
-			$result=array();
-			if (substr($dirname,-1) != '/') {$dirname .= '/';}	//Append slash if necessary
+			$result = array();
+			if (substr($dirname,-1) != '/') $dirname .= '/';	//Append slash if necessary
 			$handle = opendir($dirname);
 			while (false !== ($file = readdir($handle))){
 				if ($file != '.' && $file != '..') {	//Ignore . and ..
@@ -125,11 +125,9 @@ class FileSystem{
 	*/
 	function getAnnotations($className){
 		$annotations_array = array();
-		$i = 0;
 		$annotations = self::getClassAnnotations($className);
-		foreach ($annotations as $annotation):
-			$annotations_array[$i] = $annotation;
-			$i++;
+		foreach ($annotations as $key => $annotation):
+			$annotations_array[$key] = $annotation;
 		endforeach;
 		return $annotations_array;
 	}

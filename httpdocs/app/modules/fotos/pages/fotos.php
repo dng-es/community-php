@@ -76,4 +76,4 @@ $id_album = (isset($_REQUEST['id']) ? sanitizeInput(trim($_REQUEST['id'])) : 0);
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<?php //ModalSubirAlbum();?>
+<?php //modalSubirAlbum();?>

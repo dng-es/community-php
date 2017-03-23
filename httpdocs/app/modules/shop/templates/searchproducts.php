@@ -1,5 +1,9 @@
 <?php 
-
+/**
+ * Print HTML form panel for products search
+ * @param	String 		$dstination		Página de destino del buscador
+ * @return	String						HTML form panel
+ */
 function searchProducts($destination = "shopproducts"){ 
 	$ref_search = (isset($_REQUEST['ref_search']) ? $_REQUEST['ref_search'] : "");
 	$name_search = (isset($_REQUEST['name_search']) ? $_REQUEST['name_search'] : "");
@@ -38,7 +42,7 @@ function searchProducts($destination = "shopproducts"){
 								<option value="">Buscar por <?php e_strTranslate("Shop_manufacturer");?></option>
 								<?php foreach($manufacturers as $manufacturer):?>
 									<option value="<?php echo $manufacturer['name_manufacturer'];?>" <?php echo ($manufacturer['name_manufacturer'] == $manufacturer_search ? ' selected="selected" ' : '');?>><?php echo $manufacturer['name_manufacturer'];?></option>
-								<?php endforeach;?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
@@ -50,7 +54,7 @@ function searchProducts($destination = "shopproducts"){
 								<option value="">Buscar por <?php e_strTranslate("Category");?></option>
 								<?php foreach($categories as $category):?>
 									<option value="<?php echo $category['category'];?>" <?php echo ($category['category'] == $category_search ? ' selected="selected" ' : '');?>><?php echo $category['category'];?></option>
-								<?php endforeach;?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
@@ -62,7 +66,7 @@ function searchProducts($destination = "shopproducts"){
 								<option value="">Buscar por Subcategoría</option>
 								<?php foreach($subcategories as $subcategory):?>
 									<option value="<?php echo $subcategory['subcategory'];?>" <?php echo ($subcategory['subcategory'] == $subcategory_search ? ' selected="selected" ' : '');?>><?php echo $subcategory['subcategory'];?></option>
-								<?php endforeach;?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
@@ -73,10 +77,8 @@ function searchProducts($destination = "shopproducts"){
 							<input type="text" name="ref_search" id="ref_search" class="form-control" value="<?php echo $ref_search;?>" />
 						</div>
 					</div>
-				</div>	
-
+				</div>
 			</form>
 		</div>
 	</div>
-<?php }
-?>
+<?php } ?>

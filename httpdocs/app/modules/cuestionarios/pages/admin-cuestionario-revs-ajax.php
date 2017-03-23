@@ -12,7 +12,7 @@ include_once($base_dir . "modules/cuestionarios/classes/class.cuestionarios.php"
 if (isset($_POST['cuestionario']) && $_POST['cuestionario'] != ""){
 	$cuestionarios = new cuestionarios();
 	$datos = "<ul>";
-	$respuestas=$cuestionarios->getRespuestasUserAdmin(" AND p.id_cuestionario=".$_POST['cuestionario']." and r.respuesta_user='".$_POST['user']."' ");
+	$respuestas = $cuestionarios->getRespuestasUserAdmin(" AND p.id_cuestionario=".intval($_POST['cuestionario'])." and r.respuesta_user='".sanitizeInput($_POST['user'])."' ");
 	foreach($respuestas as $respuesta):
 		$datos.="<li>".$respuesta['Pregunta'].": <strong>".$respuesta['Respuesta']."</strong></li>";
 	endforeach;

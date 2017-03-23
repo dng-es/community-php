@@ -1,23 +1,20 @@
 <?php
 class cuestionariosController{
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$cuestionarios = new cuestionarios();
-		$paginator_items = PaginatorPages($reg);
-		
 		$find_reg = "";
 		if (isset($_POST['find_reg'])){
 			$find_reg = sanitizeInput($_POST['find_reg']);
-			$filtro .= " AND nombre LIKE '%".$find_reg."%' ";
+			$filter .= " AND nombre LIKE '%".$find_reg."%' ";
 		}
 		if (isset($_REQUEST['f'])){
 			$find_reg = sanitizeInput($_REQUEST['f']);
-			$filtro .= " AND nombre LIKE '%".$find_reg."%' ";
+			$filter .= " AND nombre LIKE '%".$find_reg."%' ";
 		}
-
-		$filtro .= " ORDER BY id_cuestionario DESC";
-
-		$total_reg = connection::countReg("cuestionarios", $filtro);
-		return array('items' => $cuestionarios->getCuestionarios($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$filter .= " ORDER BY id_cuestionario DESC";
+		$paginator_items = PaginatorPages($reg);
+		$total_reg = connection::countReg("cuestionarios", $filter);
+		return array('items' => $cuestionarios->getCuestionarios($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -35,7 +32,7 @@ class cuestionariosController{
 			$cuestionarios = new cuestionarios();
 			$nombre = sanitizeInput($_POST['nombre']);
 			$descripcion = sanitizeInput($_POST['descripcion']);
-			if ($cuestionarios->insertCuestionarios($nombre, $descripcion)) {
+			if ($cuestionarios->insertCuestionarios($nombre, $descripcion)){
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_cuestionario = connection::SelectMaxReg("id_cuestionario", "cuestionarios");
 			}
@@ -78,11 +75,11 @@ class cuestionariosController{
 						$valor = str_replace("'", "´", $valor);
 						$valor = str_replace('"', '´', $valor);
 
-						if ($_POST['pregunta_tipo']=='multiple'){
+						if ($_POST['pregunta_tipo'] == 'multiple'){
 							$campo_correcta = "checkRespuesta".$i;
 							$correcta = ((isset($_POST[$campo_correcta]) && $_POST[$campo_correcta] != '') ? 1 : 0);
 						}
-						if ($_POST['pregunta_tipo']=='unica'){
+						if ($_POST['pregunta_tipo'] == 'unica'){
 							$campo_correcta = "radioRespuesta1";
 							$correcta = ((isset($_POST[$campo_correcta]) && $_POST[$campo_correcta] == $i) ? 1 : 0);
 						}
@@ -193,18 +190,14 @@ class cuestionariosController{
 				//valorar respuestas
 				$aciertos = 0;
 				foreach($preguntas as $pregunta):
-					if ($pregunta['pregunta_tipo']=='unica'){
+					if ($pregunta['pregunta_tipo'] == 'unica'){
 						$respuestas = $cuestionarios->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 "); 
 						$respuesta_user = $cuestionarios->getRespuestasUser(" AND id_pregunta=".$pregunta['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");
 						foreach($respuestas as $respuesta):
-							//echo $respuesta_user[0]['respuesta_valor'].' ***** '.$respuesta['respuesta_texto']."<br />";
-							if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']){
-								$aciertos++;
-								//echo "acierto: ".$pregunta['id_pregunta'];
-							}
+							if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']) $aciertos++;
 						endforeach;
 					}
-					elseif ($pregunta['pregunta_tipo']=='multiple'){
+					elseif ($pregunta['pregunta_tipo'] == 'multiple'){
 						$aciertos_multiples = 0;
 						$respuestas = $cuestionarios->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 "); 
 						$respuesta_user = $cuestionarios->getRespuestasUser(" AND id_pregunta=".$pregunta['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");            

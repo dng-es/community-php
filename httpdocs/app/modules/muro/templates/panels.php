@@ -1,6 +1,10 @@
 <?php
 templateload("reply", "muro");
 
+/**
+ * Print Muro. Used in home page
+ * @return	String						HTML panel
+ */
 function panelMuro(){ ?>
 	<div id="muro-insert">
 		<form id="muro-form" name="coment-form" action="" method="post" role="form">
@@ -23,7 +27,7 @@ function panelMuro(){ ?>
 	</div>
 	<div id="result-muro"></div>
 	<div id="destino" class="panel-muro">
-			<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
+		<div id="cargando" style="display:none"><i class="fa fa-spinner fa-spin ajax-load"></i></div>
 	</div>
 	<?php replyMuro();?>
 <?php } ?>

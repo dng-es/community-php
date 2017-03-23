@@ -3,7 +3,7 @@
 * @Manage rankings
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.0.2
+* @version 1.0.3
 * 
 */
 class rankingsCore{
@@ -18,7 +18,6 @@ class rankingsCore{
 		if ($session->checkPageViewPermission("ranking", $_SESSION['user_perfil'], $user_permissions)){
 			//OBTENCION DE RANKINGS ACTIVOS
 			$rankings_cat_menu = rankingsController::getListCategoryAction(999, " ");
-
 			if ($rankings_cat_menu['total_reg'] > 0):
 				foreach ($rankings_cat_menu['items'] as $ranking_cat):
 					
@@ -26,26 +25,26 @@ class rankingsCore{
 					if ($rankings_menu['total_reg'] > 0):
 						$array_final_items = array();
 						foreach ($rankings_menu['items'] as $ranking):
-							array_push($array_final_items , array("LabelIcon" => "",
-											"LabelItem" => $ranking['nombre_ranking'],
-											"LabelUrl" => 'rankings?id='.$ranking['id_ranking'],
-											"LabelTarget" => '_self'));
+							array_push($array_final_items , array(
+								"LabelIcon" => "",
+								"LabelItem" => $ranking['nombre_ranking'],
+								"LabelUrl" => 'rankings?id='.$ranking['id_ranking'],
+								"LabelTarget" => '_self'));
 						endforeach;
 
-						array_push($array_final, array("LabelIcon" => "fa fa-th-list",
-										"LabelItem" => $ranking_cat['ranking_category_name'],
-										"LabelUrl" => '',
-										"LabelTarget" => '',
-										"SubItems" => $array_final_items,
-										"LabelPos" => $menu_order));
+						array_push($array_final, array(
+							"LabelIcon" => "fa fa-th-list",
+							"LabelItem" => $ranking_cat['ranking_category_name'],
+							"LabelUrl" => '',
+							"LabelTarget" => '',
+							"SubItems" => $array_final_items,
+							"LabelPos" => $menu_order));
 
 						$menu_order ++;
 					endif;
 				endforeach;
 			endif;
-
 		}
-
 		return $array_final;
 	}	
 
@@ -75,7 +74,7 @@ class rankingsCore{
 				"PageName" => "admin-rankings-category",
 				"LabelHeader" => "Modules",
 				"LabelSection" => strTranslate("Rankings"),
-				"LabelItem" => strTranslate("Nueva categoría"),
+				"LabelItem" => strTranslate("New_ranking_category"),
 				"LabelUrl" => "admin-rankings-category",
 				"LabelPos" => 3,
 			)),
@@ -83,7 +82,7 @@ class rankingsCore{
 				"PageName" => "admin-rankings-categories",
 				"LabelHeader" => "Modules",
 				"LabelSection" => strTranslate("Rankings"),
-				"LabelItem" => strTranslate("Listado de categorías"),
+				"LabelItem" => strTranslate("Ranking_categories_list"),
 				"LabelUrl" => "admin-rankings-categories",
 				"LabelPos" => 4,
 			))

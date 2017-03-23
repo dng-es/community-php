@@ -1,5 +1,4 @@
 <?php
-
 	/**
 	 * Thumbnail
 	 * 
@@ -94,7 +93,7 @@
 		 * @return
 		 */
 		public function save_jpg($dir, $name, $quality = 95){
-			$path = $dir . $name . image_type_to_extension(IMAGETYPE_JPEG);
+			$path = $dir.$name.image_type_to_extension(IMAGETYPE_JPEG);
 			imagejpeg($this->thumbnail, $path, $quality);
 			imagedestroy($this->thumbnail);
 		}
@@ -107,7 +106,7 @@
 		 * @return
 		 */
 		public function save_gif($dir, $name){
-			$path = $dir . $name . image_type_to_extension(IMAGETYPE_GIF);
+			$path = $dir.$name.image_type_to_extension(IMAGETYPE_GIF);
 			imagegif($this->thumbnail, $path);
 			imagedestroy($this->thumbnail);
 		}
@@ -120,7 +119,7 @@
 		 * @return
 		 */
 		public function save_png($dir, $name){
-			$path = $dir . $name . image_type_to_extension(IMAGETYPE_PNG);
+			$path = $dir.$name.image_type_to_extension(IMAGETYPE_PNG);
 			imagegif($this->thumbnail, $path);
 			imagedestroy($this->thumbnail);
 		}

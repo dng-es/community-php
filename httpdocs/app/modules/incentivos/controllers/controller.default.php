@@ -1,23 +1,23 @@
 <?php
 class incentivosController{
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$incentivos = new incentivos();
 		$find_reg = "";
-		$filtro .= " ORDER BY id_venta DESC ";
+		$filter .= " ORDER BY id_venta DESC ";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("incentives_ventas",$filtro); 
-		return array('items' => $incentivos->getVentas($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("incentives_ventas", $filter); 
+		return array('items' => $incentivos->getVentas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
 	}
 
-	public static function getRankingUserAction($reg = 0, $filtro = ""){
+	public static function getRankingUserAction($reg = 0, $filter = ""){
 		return 18;
 	}
 
-	public static function exportAction($filter=""){
+	public static function exportAction($filter = ""){
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getVentasExport($filter);
@@ -27,17 +27,23 @@ class incentivosController{
 		}
 	}
 
-	public static function getListPuntosAction($reg = 0, $filtro = ""){
+	public static function getListPuntosAction($reg = 0, $filter = ""){
 		$incentivos = new incentivos();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro = " AND username_puntuacion LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";$find_reg = $_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro = " AND username_puntuacion LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";$find_reg = $_REQUEST['f'];} 
-		$filtro .= " ORDER BY id_puntos_venta DESC ";
+		if (isset($_POST['find_reg'])){
+			$filter .= " AND username_puntuacion LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filtro .= " AND username_puntuacion LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";
+			$find_reg = $_REQUEST['f'];
+		} 
+		$filter .= " ORDER BY id_puntos_venta DESC ";
 		$paginator_items = PaginatorPages($reg);
 
-		$total_reg = connection::countReg("incentives_ventas_puntos", $filtro); 
-		$total_sum = connection::sumReg("incentives_ventas_puntos", 'puntuacion_venta', $filtro); 
-		return array('items' => $incentivos->getVentasPuntuaciones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("incentives_ventas_puntos", $filter); 
+		$total_sum = connection::sumReg("incentives_ventas_puntos", 'puntuacion_venta', $filter); 
+		return array('items' => $incentivos->getVentasPuntuaciones($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -46,7 +52,7 @@ class incentivosController{
 	}
 
 	public static function exportPuntuacionesAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true) {
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true) {
 			$incentivos = new incentivos();
 			$elements = $incentivos->getVentasPuntuaciones("");
 			download_send_headers(strTranslate("Incentives_points")."_" . date("Y-m-d") . ".csv");
@@ -56,34 +62,34 @@ class incentivosController{
 	}
 
 	public static function exportUserReportAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] != ''){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] != ''){
 			$incentivos = new incentivos();
 			$id_objetivo = intval($_REQUEST['id']);
 			//obtener datos del objetivo
 			$objetivo = $incentivos->getIncentivesObjetivos(" AND id_objetivo=".$id_objetivo." ");
 			$productos = $incentivos->getProductosActivos(" AND o.id_objetivo=".$id_objetivo." ");
-			if ($_REQUEST['export']=='puntos') self::exportUserPuntosAction(" AND id_producto_venta IN (".$productos[0]['productos'].") AND date_venta BETWEEN '".$objetivo[0]['date_ini_objetivo']."' AND '".$objetivo[0]['date_fin_objetivo']."' ");
-			if ($_REQUEST['export']=='ventas') self::exportUserVentasAction(" AND v.id_producto IN (".$productos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo[0]['date_ini_objetivo']."' AND '".$objetivo[0]['date_fin_objetivo']."' ");
+			if ($_REQUEST['export'] == 'puntos') self::exportUserPuntosAction(" AND id_producto_venta IN (".$productos[0]['productos'].") AND date_venta BETWEEN '".$objetivo[0]['date_ini_objetivo']."' AND '".$objetivo[0]['date_fin_objetivo']."' ");
+			if ($_REQUEST['export'] == 'ventas') self::exportUserVentasAction(" AND v.id_producto IN (".$productos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo[0]['date_ini_objetivo']."' AND '".$objetivo[0]['date_fin_objetivo']."' ");
 		}
 	}
 
-	private static function exportUserVentasAction($filtro){
+	private static function exportUserVentasAction($filter){
 		$incentivos = new incentivos();
 		//$filtro_user = ($_REQUEST['tipo'] == 'Usuario' ? $_SESSION['user_name'] : $_SESSION['user_empresa']);
-		//$elements = $incentivos->getVentasExport($filtro." AND username_venta='".$filtro_user."' ");
+		//$elements = $incentivos->getVentasExport($filter." AND username_venta='".$filtro_user."' ");
 		$filtro_tienda = incentivosObjetivosController::getFiltroTienda($_SESSION['user_perfil'], $_SESSION['user_name'], $_SESSION['user_empresa'], ($_SESSION['user_perfil'] == 'usuario'));
-		$elements = $incentivos->getVentasExport($filtro_tienda.$filtro);
+		$elements = $incentivos->getVentasExport($filtro_tienda.$filter);
 		download_send_headers(strTranslate("ventas")."_" . date("Y-m-d") . ".csv");
 		echo array2csv($elements);
 		die();
 	}
 
-	private static function exportUserPuntosAction($filtro){
+	private static function exportUserPuntosAction($filter){
 		$incentivos = new incentivos();
 		//$filtro_user = ($_REQUEST['tipo'] == 'Usuario' ? $_SESSION['user_name'] : $_SESSION['user_empresa']);
-		//$elements = $incentivos->getVentasPuntuacionesUser($filtro." AND username_puntuacion='".$filtro_user."' ");
+		//$elements = $incentivos->getVentasPuntuacionesUser($filter." AND username_puntuacion='".$filtro_user."' ");
 		$filtro_tienda = incentivosObjetivosController::getFiltroTienda($_SESSION['user_perfil'], $_SESSION['user_name'], $_SESSION['user_empresa']);
-		$elements = $incentivos->getVentasPuntuacionesUser($filtro_tienda);
+		$elements = $incentivos->getVentasPuntuacionesUser($filtro_tienda.$filter);
 		download_send_headers(strTranslate("puntos")."_" . date("Y-m-d") . ".csv");
 		echo array2csv($elements);
 		die();
@@ -95,44 +101,39 @@ class incentivosController{
 	}
 
 	public static function getRankingUsuarioAction($objetivo, $filter = ""){
-		//echo "usuario";
 		$users = new users;
 		$incentivos = new incentivos();
 		$objetivos = $incentivos->getObjetivosRanking(" AND id_objetivo=".$objetivo['id_objetivo']." ");
 
-		//$filtro = $filter." AND id_producto IN (".$objetivos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
+		//$filter .= " AND id_producto IN (".$objetivos[0]['productos'].") AND fecha_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
 
-		$filtro = $filter." AND date_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
-		$ventas = $incentivos->getVentasRankingUser($filtro." GROUP BY username_venta,t.cod_tienda ORDER BY suma DESC, username_venta DESC", $objetivo['id_objetivo']);
-		$posicion_user = $incentivos->getPosicionRankingUser($filtro, $_SESSION['user_name'], $objetivo['id_objetivo']);
-
+		$filter .= " AND date_venta BETWEEN '".$objetivo['date_ini_objetivo']."' AND '".$objetivo['date_fin_objetivo']."' ";
+		$ventas = $incentivos->getVentasRankingUser($filter." GROUP BY username_venta,t.cod_tienda ORDER BY suma DESC, username_venta DESC", $objetivo['id_objetivo']);
+		$posicion_user = $incentivos->getPosicionRankingUser($filter, $_SESSION['user_name'], $objetivo['id_objetivo']);
 		$result = array();
 		$result['ranking'] = $ventas;
 		$result['posicion_user'] = $posicion_user;
-		// echo '<pre>';
-		// var_dump($result);
-		// echo '</pre>';
 		return $result;
 	}
 
 	public static function getRankingUsuarioTiendaActionExport($element, $filtro_tienda, $tipo_informe){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
-			$id_zona = ((isset($_REQUEST['idz']) and $_REQUEST['idz'] != "") ? $_REQUEST['idz'] : "");
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
+			$id_zona = ((isset($_REQUEST['idz']) && $_REQUEST['idz'] != "") ? $_REQUEST['idz'] : "");
 			if ($tipo_informe == "tiendas")
 				$data = self::getRankingUsuarioTiendaAction($element, $filtro_tienda);
 			elseif ($tipo_informe == "tiendas_global")
 				$data = self::getRankingUsuarioTiendaAction($element, "");
 			elseif ($tipo_informe == "areas")
 				$data = self::getRankingAreaAction($element, $filtro_tienda);
-			elseif ($tipo_informe == "zonas_venta" and $_SESSION['user_perfil'] == 'usuario')
+			elseif ($tipo_informe == "zonas_venta" && $_SESSION['user_perfil'] == 'usuario')
 				$data = self::getRankingUsuarioTiendaAction($element, " AND t.zona_venta=(SELECT zona_venta FROM users_tiendas WHERE cod_tienda='".$_SESSION['user_empresa']."')");
-			elseif ($tipo_informe == "zonas_venta" and $id_zona > 0)
+			elseif ($tipo_informe == "zonas_venta" && $id_zona > 0)
 				$data = self::getRankingUsuarioTiendaAction($element, $filtro_tienda);
 			elseif ($tipo_informe == "zonas_venta")
 				$data = self::getRankingZonaAction($element, $filtro_tienda);
-			elseif ($tipo_informe == "zonas_postventa" and $_SESSION['user_perfil'] == 'usuario')
+			elseif ($tipo_informe == "zonas_postventa" && $_SESSION['user_perfil'] == 'usuario')
 				$data = self::getRankingUsuarioTiendaAction($element, " AND t.zona_postventa=(SELECT zona_postventa FROM users_tiendas WHERE cod_tienda='".$_SESSION['user_empresa']."')");
-			elseif ($tipo_informe == "zonas_postventa" and $id_zona > 0)
+			elseif ($tipo_informe == "zonas_postventa" && $id_zona > 0)
 				$data = self::getRankingUsuarioTiendaAction($element, $filtro_tienda);
 			elseif ($tipo_informe == "zonas_postventa")
 				$data = self::getRankingZonaPostAction($element, $filtro_tienda);

@@ -1,5 +1,5 @@
 <?php
-$filter = " AND estado=1 ORDER BY id_comentario DESC";
+$filter = " AND estado=1";
 //EXPORT COMMENTS
 foroController::exportCommentsAction($filter);
 ?>
@@ -8,7 +8,7 @@ foroController::exportCommentsAction($filter);
 		<?php menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
-			array("ItemLabel"=>strTranslate("Forums"), "ItemUrl"=>"#"),
+			array("ItemLabel"=>strTranslate("Forums"), "ItemUrl"=>"admin-validacion-foro-temas"),
 			array("ItemLabel"=>"Comentarios en los foros", "ItemClass"=>"active"),
 		));
 		session::getFlashMessage( 'actions_message' );
@@ -21,6 +21,9 @@ foroController::exportCommentsAction($filter);
 				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?>. <?php echo ucfirst(strTranslate("APP_points"));?> a otorgar por mensaje: <b><?php echo PUNTOS_FORO;?></b></a></li>
 					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
+					<div class="pull-right">
+						<?php echo SearchForm($elements['reg'],"admin-validacion-foro-comentarios","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
+					</div>
 				</ul>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">

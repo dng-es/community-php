@@ -1,12 +1,12 @@
 <?php
 /**
 * Print HTML add tema foro
-*
-* @param  int   	$id_tema_parent		id_tema_parent new tema
-* @param  string 	$canal         		tema canal
-* @param  boolean   $show_canales  		show canales true/false
-* @param  string   	$descripcion_foro  	tema description
-* @param  int   	$ocio  				used for news, blog, ...
+* @param  	Int   		$id_tema_parent		id_tema_parent new tema
+* @param  	String 		$canal         		tema canal
+* @param  	Boolean   	$show_canales  		show canales true/false
+* @param  	String   	$descripcion_foro  	tema description
+* @param  	Int   		$ocio  				used for news, blog, ...
+* @return 	String							HTML panel
 */
 
 templateload("cmbCanales", "users");
@@ -71,6 +71,4 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 			<button type="submit" id="tema-submit" name="tema-submit" class="btn btn-primary btn-block"><?php echo $title_btn;?></button>
 		</form>
 	</div>
-	<?php
-}
-?>
+<?php } ?>

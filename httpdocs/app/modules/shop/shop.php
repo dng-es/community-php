@@ -8,7 +8,7 @@
 */
 
 class shopCore {
-		/**
+	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
@@ -17,15 +17,20 @@ class shopCore {
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("shopproducts", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("shopproducts", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-shopping-cart",
-							"LabelItem" => strTranslate("APP_Shop"),
-							"LabelUrl" => 'shopproducts',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-shopping-cart",
+				"LabelItem" => strTranslate("APP_Shop"),
+				"LabelUrl" => 'shopproducts',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 		return $array_final;
 	}
-
+	
+	/**
+	 * Elementos para el menu de administración
+	 * @return 	array           			Array con datos
+	 */
 	public static function adminMenu(){
 		return array(
 			menu::addAdminMenu(array(

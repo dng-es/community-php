@@ -53,7 +53,7 @@ class fotos{
 		return connection::execute_query($Sql);
 	}
 
-	public function insertAlbum($nombre, $usuario, $canal_album=''){
+	public function insertAlbum($nombre, $usuario, $canal_album = ''){
 		$Sql = "INSERT INTO galeria_fotos_albumes (nombre_album, username_album, canal_album) 
 				VALUES ('".$nombre."','".$usuario."', '".$canal_album."')";
 		return connection::execute_query($Sql);
@@ -86,7 +86,7 @@ class fotos{
 		else{
 			if (move_uploaded_file($fichero['tmp_name'], $path_archivo.$nombre_archivo)){
 				//INSERTAR REGISTRO EN LA BBDD  
-				$Sql="INSERT INTO galeria_fotos (titulo,name_file,user_add,canal,id_promocion,formacion,tipo_foto,id_album) VALUES (
+				$Sql = "INSERT INTO galeria_fotos (titulo,name_file,user_add,canal,id_promocion,formacion,tipo_foto,id_album) VALUES (
 					'".$titulo."',
 					'".$nombre_archivo."',
 					'".$_SESSION['user_name']."',
@@ -155,11 +155,11 @@ class fotos{
 			//VERIFICAR NO VOTO CON ANTERIORIDA AL MISMO ARCHIVO
 			if (connection::countReg("galeria_fotos_comentarios_votaciones"," AND id_comentario=".$id." AND user_votacion='".$usuario."' ") == 0){
 				//INSERTAR COMENTARIO
-				$Sql="INSERT INTO galeria_fotos_comentarios_votaciones (id_comentario,user_votacion) VALUES (".$id.",'".$usuario."')";
+				$Sql = "INSERT INTO galeria_fotos_comentarios_votaciones (id_comentario,user_votacion) VALUES (".$id.",'".$usuario."')";
 				connection::execute_query($Sql);
 				
 				//SUMAR VOTACION
-				$Sql="UPDATE galeria_fotos_comentarios
+				$Sql = "UPDATE galeria_fotos_comentarios
 						SET votaciones=votaciones+1 
 						WHERE id_comentario=".$id;
 

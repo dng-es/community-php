@@ -2,7 +2,7 @@
 class configuration{
 	function getConfigIni($filter = ""){
 		$Sql = "SELECT * FROM config WHERE 1=1 ".$filter;
-		$result=connection::execute_query($Sql);
+		$result = connection::execute_query($Sql);
 		$array_data = array();
 		$array_data = connection::get_result($result);
 		return $array_data;

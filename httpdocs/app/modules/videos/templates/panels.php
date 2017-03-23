@@ -1,4 +1,8 @@
 <?php
+/**
+ * Print HTML last Video panel. Used in home page
+ * @return								HTML panel
+ */
 function panelVideos(){
 	$module_config = getModuleConfig("videos");
 	$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
@@ -6,7 +10,7 @@ function panelVideos(){
 	$last_video = videosController::getListAction(1, $filtro_canal." AND estado=1 ");
 	?>
 	<div class="col-md-12 section panel">
-		<h3><?php e_strTranslate("Last_videos");?></h3>
+		<h3><?php e_strTranslate("Last_videos"); ?></h3>
 		<?php if (isset($last_video['items'][0])): ?>
 		<div class="media-preview-container">
 			<a href="videos">
@@ -14,7 +18,7 @@ function panelVideos(){
 			<div>
 				<a href="videos"><?php echo $last_video['items'][0]['titulo'];?></a><br />
 				<?php echo $last_video['items'][0]['nick'];?><br />
-				<small><span><?php echo ucfirst(getDateFormat($last_video['items'][0]['date_video'], "LONG"));?></small></span>
+				<small><span><?php echo ucfirst(getDateFormat($last_video['items'][0]['date_video'], "LONG")); ?></small></span>
 			</div>
 		</div>
 		<?php else: ?>

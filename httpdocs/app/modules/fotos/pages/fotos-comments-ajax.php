@@ -10,6 +10,8 @@ include_once($base_dir . "modules/fotos/classes/class.fotos.php");
 include_once($base_dir . "modules/users/templates/tipuser.php");
 include_once($base_dir . "modules/fotos/templates/gallery.php");
 include_once($base_dir . "modules/fotos/templates/tags.php");
+include_once($base_dir . "modules/notifications/controllers/controller.default.php");
+include_once($base_dir . "modules/notifications/templates/notifications.php");
 
 $module_config = getModuleConfig("fotos");
 ?>
@@ -33,6 +35,8 @@ $module_config = getModuleConfig("fotos");
 	$filtro .= ($_SESSION['user_canal'] != 'admin' ? " AND canal_album LIKE '%".$_SESSION['user_canal']."%' " : "");
 
 	$files_galeria = $fotos->getFotos($filtro." ORDER BY id_file DESC ");
+
+	notificationsController::deleteNotification($id_file, 'fotos');
 	?>
 	<div class="row">
 		<div class="col-md-12">
@@ -71,6 +75,7 @@ function showFotoModal($file_galeria, $votaciones = true, $movil = 0, $reto = 0)
 	if ($_SESSION['user_perfil'] == 'admin') echo ' - ID: '.$file_galeria['id_file'];
 	echo ' - <a href="#" data-id="'.$file_galeria['id_file'].'" data-v="'.$votado.'"  title="'.strTranslate("Photo_vote").'" class="fa fa-heart trigger-votar"> '.$file_galeria['fotos_puntos'].'</a>';
 	echo '</span><br />';
+	fotoNotifications($file_galeria['id_file']);
 	showTags($file_galeria['tipo_foto']);
 	echo '<div class="alert-votacion text-danger"></div>';
 	echo '</div></div>';

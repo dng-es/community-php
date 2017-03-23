@@ -1,10 +1,14 @@
 <?php 
+/**
+ * Print HTML rewards for a given user
+ * @param	String 		$username 		Usuario del que se muestran las recompensas
+ * @return	String						HTML panel
+ */
 function userRecompensa($username){ 
 	$elements = recompensasController::getListUserAction(" AND recompensa_user='".$username."' ");
-	
 	if ($elements['total_reg'] > 0): ?>
 	<br /><p class="text-center">
-	<?php foreach($elements['items'] as $element):?>
+	<?php foreach($elements['items'] as $element): ?>
 		<span style="width:100px;height: 150px;margin-right: 15px;display:inline-block;position:relative">
 			<span width="60px" style="position: relative">
 				<img width="60px" src="<?php echo PATH_REWARDS.$element['recompensa_image'];?>" />
@@ -13,13 +17,18 @@ function userRecompensa($username){
 			<small class="text-muted"><?php echo $element['recompensa_name'];?></small>
 			</td>
 		</span>	
-	<?php endforeach;?>
+	<?php endforeach; ?>
 	</p>
-	<?php endif;?>
+	<?php endif; ?>
 <?php }
 
+/**
+ * Print HTML rewards for a given user. Used in admin pages
+ * @param	String 		$username 		Usuario del que se muestran las recompensas
+ * @return	String						HTML panel
+ */
 function userRecompensaAdmin($username){ 
-	$elements = recompensasController::getListUserListAction(9999999, " AND recompensa_user='".$username."' ");?>
+	$elements = recompensasController::getListUserListAction(9999999, " AND recompensa_user='".$username."' "); ?>
 	<div class="row">
 		<div class="col-md-5">
 			<?php userRecompensaInsert($username);?>
@@ -48,17 +57,22 @@ function userRecompensaAdmin($username){
 	</div>
 <?php }
 
-function userRecompensaInsert($username){?>
+/**
+ * Print HTML insert reward form
+ * @param	String 		$username 		Usuario al que se le va a insertar la recompensa
+ * @return	String						HTML form
+ */
+function userRecompensaInsert($username){ ?>
 	<form action="" name="reward-insert" id="reward-insert" method="post" role="form">
 		<input type="hidden" name="recompensa_user" value="<?php echo $username;?>" />
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="id_recompensa"><?php e_strTranslate("New_reward");?>:</label>
+					<label for="id_recompensa"><?php e_strTranslate("New_reward"); ?>:</label>
 					<?php comboRecompensas(0, "", "id_recompensa");?>
 				</div>
 				<div class="form-group">
-					<label for="recompensa_comment"><?php e_strTranslate("Comment");?>:</label>
+					<label for="recompensa_comment"><?php e_strTranslate("Comment"); ?>:</label>
 					<textarea name="recompensa_comment" id="recompensa_comment" class="form-control"></textarea>
 				</div>
 				<div class="form-group">
@@ -69,6 +83,11 @@ function userRecompensaInsert($username){?>
 	</form>
 <?php }
 
+/**
+ * Print HTML rewards tiptool for a given users
+ * @param	String 		$username 		Usuario del que se muestran las recompensas
+ * @return	String						HTML tiptool info
+ */
 function userRecompensaTip($username){ 
 	$elements = recompensasController::getListUserAction(" AND recompensa_user='".$username."' ");
 	$output = "";
@@ -79,8 +98,15 @@ function userRecompensaTip($username){
 	return $output.'<div class="clearfix"></div>';
 }
 
-function comboRecompensas($id_recompensa = 0, $filtro="", $name_control="id_recompensa"){
-	$elements = recompensasController::getListAction(9999, $filtro); ?>
+/**
+ * Print HTML combo rewards
+ * @param	Int 		$id_recompensa 		Id de la recomensa seleccionada
+ * @param	String 		$filter 			Filtro a aplicar en las recompensas
+ * @param	String 		$name_control 		Id/name del combo
+ * @return	String							HTML combo
+ */
+function comboRecompensas($id_recompensa = 0, $filter = "", $name_control = "id_recompensa"){
+	$elements = recompensasController::getListAction(9999, $filter); ?>
 	<select name="<?php echo $name_control;?>" id="<?php echo $name_control;?>" class="form-control">
 		<option value="0"> ---- Selecciona una recompensa ---- </option>
 		<?php foreach($elements['items'] as $element):?>

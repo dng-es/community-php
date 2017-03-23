@@ -9,6 +9,8 @@ include_once($base_dir . "modules/users/classes/class.users.php");
 include_once($base_dir . "modules/fotos/classes/class.fotos.php");
 include_once($base_dir . "modules/users/templates/tipuser.php");
 include_once($base_dir . "modules/fotos/templates/comment.php");
+include_once($base_dir . "modules/notifications/classes/class.notifications.php");
+include_once($base_dir . "modules/notifications/controllers/controller.default.php");
 
 session::ValidateSessionAjax();
 $fotos = new fotos();
@@ -18,6 +20,19 @@ if (isset($_POST['respuesta-texto']) && $_POST['respuesta-texto'] != ""){
 	$id = sanitizeInput($_POST['id_file']);
 	$texto_comentario = nl2br(sanitizeInput($_POST['respuesta-texto']));
 	echo $fotos->InsertComentario($id, $texto_comentario, $_SESSION['user_name'], 1);
+	notificationsController::insertNotifications($id, 'fotos');
+}
+
+//NOTIFICACIONES
+if (isset($_POST['idn']) && $_POST['idn'] > 0){
+	$notifications = new notifications();
+	$id = intval($_POST['idn']);
+	$opt = intval($_POST['opt']);
+
+	if ($opt == 1)
+		$notifications->insertNotificationInscription($_SESSION['user_name'], 'fotos', $id);
+	elseif ($opt == 0)
+		$notifications->deleteNotificationInscription($_SESSION['user_name'], 'fotos', $id);
 }
 
 //VOTAR FOTO
@@ -40,7 +55,7 @@ else{
 	if (isset($_REQUEST['idf']) && $_REQUEST['idf'] != ""){
 		$elements = $fotos->getComentariosFoto(" AND id_file=".$_REQUEST['idf']." AND estado=1 ORDER BY id_comentario DESC");
 		foreach($elements as $element):
-			commentFoto($element, "");
+			commentFoto($element);
 		endforeach;
 	}
 	?>

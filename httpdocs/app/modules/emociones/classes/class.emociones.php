@@ -7,7 +7,7 @@ class emociones{
 	 * @return array 				Array con registros
 	 */
 	public function getEmociones($filter = ""){
-		$Sql="SELECT * FROM emociones WHERE 1=1 ".$filter;
+		$Sql = "SELECT * FROM emociones WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -17,7 +17,7 @@ class emociones{
 	 * @return array 				Array con registros
 	 */
 	public function getEmocionesConsejos($filter = ""){
-		$Sql="SELECT * FROM emociones_consejos WHERE 1=1 ".$filter;
+		$Sql = "SELECT * FROM emociones_consejos WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -27,7 +27,7 @@ class emociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deleteEmociones($id){
-		$Sql="DELETE FROM emociones WHERE id_emocion=".$id;
+		$Sql = "DELETE FROM emociones WHERE id_emocion=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -38,7 +38,7 @@ class emociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function disableEmociones($id, $estado=0){
-		$Sql="UPDATE emociones SET active=".$estado." WHERE id_emocion=".$id;
+		$Sql = "UPDATE emociones SET active=".$estado." WHERE id_emocion=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -50,7 +50,7 @@ class emociones{
 	
 		if (move_uploaded_file($fichero['tmp_name'], "images/banners/".$nombre_archivo)){
 			//INSERTAR REGISTRO EN LA BBDD  
-			$Sql="INSERT INTO emociones (name_emocion,image_emocion) 
+			$Sql = "INSERT INTO emociones (name_emocion,image_emocion) 
 				 VALUES
 				 ('".$titulo."','".$nombre_archivo."')";
 			if (connection::execute_query($Sql)) return 0;
@@ -67,11 +67,14 @@ class emociones{
 			if (move_uploaded_file($document_file['tmp_name'], "images/banners/".$nombre_archivo)){
 				$SqlUpdate = "image_emocion='".$nombre_archivo."', ";
 			}
-			else{ErrorMsg('Error al subir el documento.');return false;}
+			else{
+				ErrorMsg('Error al subir el documento.');
+				return false;
+			}
 		}
 		else $SqlUpdate = "";
 
-		$Sql="UPDATE emociones SET 
+		$Sql = "UPDATE emociones SET 
 			".$SqlUpdate." 
 			name_emocion='".$title."' 
 			WHERE id_emocion=".$id;
@@ -84,7 +87,7 @@ class emociones{
 	 * @return array 				Array con registros
 	 */
 	public function getEmocionesUser($filter = ""){
-		$Sql="SELECT eu.*, e.* FROM emociones_user eu
+		$Sql = "SELECT eu.*, e.* FROM emociones_user eu
 			LEFT JOIN emociones e ON e.id_emocion=eu.id_emocion 
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
@@ -92,7 +95,7 @@ class emociones{
 
 	public function insertEmocionUser($id_emocion, $user_emocion, $descripcion){
 		//INSERTAR REGISTRO EN LA BBDD  
-		$Sql="INSERT INTO emociones_user (id_emocion,user_emocion,desc_emocion_user) 
+		$Sql = "INSERT INTO emociones_user (id_emocion,user_emocion,desc_emocion_user) 
 			VALUES 
 			(".$id_emocion.",'".$user_emocion."','".$descripcion."')";
 		return connection::execute_query($Sql);

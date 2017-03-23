@@ -13,14 +13,21 @@ class recompensasController{
 		return $element;
 	}
 
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$recompensas = new recompensas();
 		$find_reg = "";
-		$filtro .= " ORDER BY recompensa_name";
-		$paginator_items = PaginatorPages($reg);
-		
-		$total_reg = connection::countReg("recompensas",$filtro);
-		return array('items' => $recompensas->getRecompensas($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		if (isset($_POST['find_reg'])){
+			$filter .= " AND recompensa_name LIKE '%".$_POST['find_reg']."%' ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter .= " AND recompensa_name LIKE '%".$_REQUEST['f']."%' ";
+			$find_reg = $_REQUEST['f'];
+		}
+		$filter .= " ORDER BY recompensa_name";
+		$paginator_items = PaginatorPages($reg);		
+		$total_reg = connection::countReg("recompensas", $filter);
+		return array('items' => $recompensas->getRecompensas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -59,24 +66,24 @@ class recompensasController{
 		}
 	}
 
-	public static function getListUserListAction($reg = 0, $filtro = ""){
+	public static function getListUserListAction($reg = 0, $filter = ""){
 		$recompensas = new recompensas();
 		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("recompensas_user",$filtro);
-		return array('items' => $recompensas->getRecompensasUserList($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("recompensas_user", $filter);
+		return array('items' => $recompensas->getRecompensasUserList($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
 	}
 
-	public static function getListUserAction($filtro = ""){
+	public static function getListUserAction($filter = ""){
 		$recompensas = new recompensas();
 		$find_reg = "";
 
-		$total_recomensas = $recompensas->getRecompensasUser($filtro);
+		$total_recomensas = $recompensas->getRecompensasUser($filter);
 		return array('items' => $total_recomensas,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => count($total_recomensas));

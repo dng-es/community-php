@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
 	});
 });
 
-function createDialog(id_cuestionario,usuario){
+function createDialog(id_cuestionario, usuario){
 	$.ajax({
 		type: 'POST',
 		url: 'app/modules/cuestionarios/pages/admin-cuestionario-revs-ajax.php',

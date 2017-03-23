@@ -14,7 +14,7 @@ class blogCore{
 	 */
 	public function userModuleStatistis($username){
 		$num = connection::countReg("foro_comentarios c LEFT JOIN foro_temas t ON c.id_tema=t.id_tema ", " AND t.ocio=1 AND c.user_comentario='".$username."' ");
-		return array('Comentarios en los blogs' => $num);
+		return array(strTranslate("Comments_in_blogs") => $num);
 	}
 
 	/**
@@ -25,19 +25,19 @@ class blogCore{
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("blog", $_SESSION['user_name']));
-		$module_config = getModuleConfig("blog");
-		$alerts_text = "";
-		if ($module_config['options']['show_alarms']):
-			$num_alerts = blogController::getAlerts();
-			$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" id="contador-blog-header">'.$num_alerts.'</span>' : "");
-		endif;
-
 		if($session->checkPageViewPermission("blog", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-globe",
-							"LabelItem" => strTranslate("Blog").$alerts_text,
-							"LabelUrl" => 'blog',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			$module_config = getModuleConfig("blog");
+			$alerts_text = "";
+			if ($module_config['options']['show_alarms']):
+				$num_alerts = blogController::getAlerts();
+				$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" title="'.strTranslate("Notifications_content_new").'" id="contador-blog-header">'.$num_alerts.'</span>' : "");
+			endif;
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-globe",
+				"LabelItem" => strTranslate("Blog").$alerts_text,
+				"LabelUrl" => 'blog',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 		return $array_final;
 	}

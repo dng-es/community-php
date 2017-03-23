@@ -5,33 +5,39 @@ class promocionesController{
 		return $promociones->getPromociones(" AND id_promocion=".$id." ");
 	}
 
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$promociones = new promociones();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro .= " AND nombre_promocion LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";$find_reg = $_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND nombre_promocion LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";$find_reg = $_REQUEST['f'];} 
-		$filtro .= " ORDER BY id_promocion DESC ";
+		if (isset($_POST['find_reg'])){
+			$filter .= " AND nombre_promocion LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter .= " AND nombre_promocion LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";
+			$find_reg = $_REQUEST['f'];
+		} 
+		$filter .= " ORDER BY id_promocion DESC ";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("promociones",$filtro);
-		return array('items' => $promociones->getPromociones($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("promociones", $filter);
+		return array('items' => $promociones->getPromociones($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
 	}
 
-	public static function getLastPromocionAction($filtro_promocion){
+	public static function getLastPromocionAction($filter){
 		$promociones = new promociones();
-		$filtro_promocion = "";
+		$filter = "";
 		$promocion = array();
 		if (isset($_REQUEST['idp']) && $_REQUEST['idp'] > 0) $id_promocion = intval($_REQUEST['idp']);
 		elseif (isset($_REQUEST['f']) && $_REQUEST['f'] > 0) $id_promocion = intval($_REQUEST['f']);
-		else $id_promocion = connection::SelectMaxReg("id_promocion", "promociones", $filtro_promocion." AND active=1 ");
+		else $id_promocion = connection::SelectMaxReg("id_promocion", "promociones", $filter." AND active=1 ");
 
 		if ($id_promocion > 0){
-			$filtro_promocion .= " AND id_promocion=".$id_promocion." AND active=1 ";
-			$promocion = $promociones->getPromociones($filtro_promocion);
+			$filter .= " AND id_promocion=".$id_promocion." AND active=1 ";
+			$promocion = $promociones->getPromociones($filter);
 		}
 
 		return $promocion[0];
@@ -88,7 +94,7 @@ class promocionesController{
 				$galeria_comentarios = 1;
 			}
 
-			if ($promociones->updatePromociones($id, sanitizeInput($_POST['nombre_promocion']), sanitizeInput(stripslashes($_POST['texto_promocion'])), $galeria_videos, $galeria_fotos, $galeria_comentarios)) {
+			if ($promociones->updatePromociones($id, sanitizeInput($_POST['nombre_promocion']), sanitizeInput(stripslashes($_POST['texto_promocion'])), $galeria_videos, $galeria_fotos, $galeria_comentarios)){
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

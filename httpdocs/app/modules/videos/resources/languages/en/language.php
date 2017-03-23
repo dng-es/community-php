@@ -1,4 +1,5 @@
 <?php
+Video = "Video"
 Videos = "Videos"
 Video_list = "Video list"
 Video_validation = "Video validation"
@@ -38,4 +39,5 @@ Views = "Views"
 Vote_video = "Vote video"
 No_video_comments = "No comments yet, be the first!"
 No_video_uploads = "There isn't any video uploaded yet, be the first!"
+Important_videos = "Important videos"
 ?>

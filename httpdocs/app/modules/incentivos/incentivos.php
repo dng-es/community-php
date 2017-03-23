@@ -3,7 +3,7 @@
 * @Manage incentivos
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.1
+* @version 1.1.1
 *
 */
 
@@ -17,11 +17,12 @@ class incentivosCore {
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("incentives-targets", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("incentives-targets", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-trophy",
-							"LabelItem" => strTranslate("Incentives"),
-							"LabelUrl" => 'incentives-targets',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-trophy",
+				"LabelItem" => strTranslate("Incentives"),
+				"LabelUrl" => 'incentives-targets',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 		return $array_final;
 	}

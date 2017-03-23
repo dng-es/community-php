@@ -4,6 +4,7 @@ addJavascripts(array("js/bootstrap-textarea.js",
 
 templateload("addcomment", "foro");
 templateload("comment", "foro");
+templateload("notifications","notifications");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -19,6 +20,9 @@ templateload("comment", "foro");
 		if (isset($_REQUEST['id'])) $id_tema = $_REQUEST['id'];
 		if (isset($_REQUEST['f'])) $id_tema = $_REQUEST['f'];
 		if (isset($id_tema) && $id_tema != ""){
+			notificationsController::deleteNotification($id_tema, 'foro');
+			notificationsController::notificationInscription($id_tema, 'foro', 'foro-comentarios?id='.$id_tema);
+
 			$filtro_tema = " AND id_tema=".$id_tema." AND activo=1 ";
 			if ($_SESSION['user_canal'] != "admin") $filtro_tema .= " AND canal='".$_SESSION['user_canal']."' ";
 			$tema = $foro->getTemas($filtro_tema); 
@@ -65,7 +69,10 @@ templateload("comment", "foro");
 				<div class="panel pane-default">
 					<div class="panel-body">
 						<h2><?php echo $tema[0]['nombre'];?></h2>
-						<p class="legend"><span class="fa fa-comment"></span> <?php echo $total_reg_resp.' '.strTranslate("Comments");?> <span class="fa fa-eye"></span> <?php echo $num_visitas.' '.strTranslate("Visits");?> <i class="fa fa-mail-reply"></i> <a href="<?php echo $volver;?>" title="<?php e_strTranslate("Go_back");?>"><?php e_strTranslate("Go_back");?></a></p>
+						<p class="legend">
+							<span class="fa fa-comment"></span> <?php echo $total_reg_resp.' '.strTranslate("Comments");?> <span class="fa fa-eye"></span> <?php echo $num_visitas.' '.strTranslate("Visits");?> <i class="fa fa-mail-reply"></i> <a href="<?php echo $volver;?>" title="<?php e_strTranslate("Go_back");?>"><?php e_strTranslate("Go_back");?></a>
+							<?php foroNotifications($id_tema);?>
+						</p>
 						<p><?php echo $tema[0]['descripcion'];?></p>
 						<div class="panel-container-foro">
 							<?php foreach($comentarios_foro as $comentario_foro):

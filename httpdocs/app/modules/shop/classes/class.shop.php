@@ -133,7 +133,7 @@ class shop{
 
 	public static function sumarCreditos($username, $puntos, $motivo, $detalle = ""){
 		if (self::insertCredito($username, $puntos, $motivo, $detalle)){
-			$Sql ="UPDATE users SET 
+			$Sql = "UPDATE users SET 
 					creditos=creditos+".$puntos." 
 					WHERE username='".$username."'";
 			return connection::execute_query($Sql);

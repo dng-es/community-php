@@ -2,11 +2,12 @@
 /**
 * Print HTML search foro panel
 *
-* @param 	int 		$reg 			Number of items per page
-* @param 	int 		$pag 			Current page number
-* @param 	array 		$iniValue 		Ini search value
-* @param 	int 		$marca_tipo 	NOT IN USE
-* @param 	string 		$tipo_tema 		Current selected $tipo_tema
+* @param 	Int 		$reg 			Number of items per page
+* @param 	Int 		$pag 			Current page number
+* @param 	Array 		$iniValue 		Ini search value
+* @param 	Int 		$marca_tipo 	NOT IN USE
+* @param 	String 		$tipo_tema 		Current selected $tipo_tema
+* @return 	String						HTML panel
 */
 function ForoSearch($reg, $pag, $iniValue, $marca_tipo, $tipo_tema){ ?>
 	<div class="search-form">

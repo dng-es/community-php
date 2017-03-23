@@ -2,15 +2,15 @@
 class mailingTemplatesController{
 	public static function getListAction($reg = 0, $activo = "todos", $filter = ""){
 		$mailing = new mailing();
-		$filtro = $filter." ORDER BY template_name DESC ";
-		if (isset($_GET['f']) && $_GET['f']!="") $filtro = " AND t.id_campaign=".intval($_GET['f'])." ".$filtro;
-		if ($activo == "activos") $filtro = " AND activo=1 ".$filtro;
-		if ($activo == "todos") $filtro = " AND activo<>2 ".$filtro;
+		$filter .= " ORDER BY template_name DESC ";
+		if (isset($_GET['f']) && $_GET['f']!="") $filter = " AND t.id_campaign=".intval($_GET['f'])." ".$filter;
+		if ($activo == "activos") $filter = " AND activo=1 ".$filter;
+		if ($activo == "todos") $filter = " AND activo<>2 ".$filter;
 
 		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = connection::countReg("mailing_templates t ", $filtro);
-		return array('items' => $mailing->getTemplates($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("mailing_templates t ", $filter);
+		return array('items' => $mailing->getTemplates($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,

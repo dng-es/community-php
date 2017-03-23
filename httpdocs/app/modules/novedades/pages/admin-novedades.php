@@ -11,12 +11,15 @@
 		novedadesController::deleteAction();
 		$elements = novedadesController::getListAction(5555, " ORDER BY orden ASC ");
 		?>
-		<ul class="nav nav-pills navbar-default">
-			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-			<li><a href="admin-novedad"><?php e_strTranslate("News_new");?></a></li>
-		</ul>
 		<div class="panel panel-default">
 			<div class="panel-body">
+				<ul class="nav nav-pills navbar-default">
+					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+					<li><a href="admin-novedad"><?php e_strTranslate("News_new");?></a></li>
+					<div class="pull-right">
+						<?php echo SearchForm($elements['reg'],"admin-novedades","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
+					</div>
+				</ul>
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
 						<tr>

@@ -1,4 +1,8 @@
 <?php
+/**
+ * Imprime el panel de la agenda
+ * @return 	string       		HTML panel
+ */
 function panelAgenda(){
 	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal LIKE '%".$_SESSION['user_canal']."%' " : "");
 	$filter = $filtro_canal." AND activo=1 AND tipo=1 AND (NOW() BETWEEN date_ini AND date_fin)";

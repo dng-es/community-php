@@ -1,4 +1,9 @@
 <?php
+/**
+ * Print HTML combo
+ * @param	String 		$usuario_email 	Email del usuario al que se envía el mensaje
+ * @return	String						HTML email footer
+ */
 function footerMail($usuario_email){
 	global $ini_conf;
 

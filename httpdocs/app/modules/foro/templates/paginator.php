@@ -1,4 +1,17 @@
 <?php
+/**
+ * Print HTML paginator
+ * @param	Int			$pag			Número de página actual
+ * @param	Int			$reg			Número de registros por página
+ * @param	Int			$total_reg		Total de registros
+ * @param	String		$pag_dest		URL de destino
+ * @param	String		$title			Título del paginador
+ * @param	String		$find_reg		Cadena de busqueada. Dato que el paginador tiene que arrastrar
+ * @param	String		$find_tipo		Cadena de busqueada. Dato que el paginador tiene que arrastrar
+ * @param	Integer		$marcado		Cadena de busqueada . Dato que el paginador tiene que arrastrar
+ * @param	Integer		$num_paginas	Número máximo de páginas a mostrar en el paginador
+ * @return  String		String			HTML paginator
+ */
 function ForoPaginator($pag, $reg, $total_reg, $pag_dest, $title, $find_reg = "", $find_tipo = "", $marcado = 0, $num_paginas = 10){
 	$total_pag = ceil($total_reg / $reg);
 	if ($total_reg > 0 && $total_pag > 1){
@@ -13,14 +26,9 @@ function ForoPaginator($pag, $reg, $total_reg, $pag_dest, $title, $find_reg = ""
 		if(($pag - 1) > 0) echo '<li><a href="'.$pag_dest.$separator.'pag=1&regs='.$reg.'&f='.$find_reg.'&t='.$find_tipo.'&m='.$marcado.'">&laquo;</a></li>';
 		else echo '<li class="disabled"><a href="#">&laquo;</a></li>';
 
-
 		$pagina_inicial = $pag - 1;
 		if ($pagina_inicial <= 0) $pagina_inicial = 1;
 		$pagina_final = $pagina_inicial + $num_paginas;
-
-		//if ($pag>1){ echo '<li><a href="'.$pag_dest.'?pag='.($pag-1).'&regs='.$reg.'&f='.$find_reg.'"></a></li>';}
-		//else { echo '<li class="disabled"><a href="#">1</a></li>';}
-
 
 		for ($i = $pagina_inicial; $i <= $pagina_final; $i++){
 			if($i <= $total_pag){
@@ -29,16 +37,10 @@ function ForoPaginator($pag, $reg, $total_reg, $pag_dest, $title, $find_reg = ""
 			}
 		}
 
-		// if ($pag<$total_pag){
-		// 	echo '<li><a href="'.$pag_dest.'?pag='.($pag+1).'&regs='.$reg.'&f='.$find_reg.'">sig</a></li>';
-		// }
-		// else { echo '<li class="disabled"></li>';}
-
 		if(($pag + 1) <= $total_pag) echo '<li><a href="'.$pag_dest.$separator.'pag='.$total_pag.'&regs='.$reg.'&f='.$find_reg.'&t='.$find_tipo.'&m='.$marcado.'">&raquo;</a></li>';
 		else echo '<li class="disabled"><a href="#">&raquo;</a></li>';
 
 		echo '</ul>
 		</div>';
 	}
-}
-?>
+} ?>

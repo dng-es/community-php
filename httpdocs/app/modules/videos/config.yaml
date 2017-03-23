@@ -4,6 +4,7 @@ options:
     allow_comments: true
     show_user_menu: true
     user_menu_position: 2
+    show_alarms: true
 channels:
     group1: test, gerente
     group2: comercial

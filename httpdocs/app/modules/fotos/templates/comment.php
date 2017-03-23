@@ -1,5 +1,10 @@
 <?php
-function commentFoto($comment, $destino = "fotos-comentarios"){?>
+/**
+ * Show tags from a post
+ * @param  	Array 		$comment 	Comment data
+ * @return 	String       			HTML comment panel
+ */
+function commentFoto($comment){ ?>
 	<div class="media media-comment">
 		<?php userFicha($comment);?>
 		<p>
@@ -12,4 +17,4 @@ function commentFoto($comment, $destino = "fotos-comentarios"){?>
 			<?php if ($_SESSION['user_perfil'] == 'admin') echo ' <span class="label" title="ID del comentario">id: '.$comment['id_comentario'].'</span>';?>
 		</div>
 	</div>
-<?php }?>
+<?php } ?>

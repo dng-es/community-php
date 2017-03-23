@@ -1,8 +1,9 @@
 <?php
 /**
  * Show tags from a post
- * @param  	string 		$tags 		Tags to show
- * @return 	string       			HTML tags
+ * @param  	string 		$tags 			Tags to show
+ * @param  	string 		$destination	Pagina de destino de los Tags
+ * @return 	string       				HTML tags
  */
 function showTags($tags, $destination = "ofertas"){
 	$array_tags = explode(",", $tags);

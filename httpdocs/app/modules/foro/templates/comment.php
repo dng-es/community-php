@@ -1,9 +1,9 @@
 <?php
 /**
 * Print HTML tema comment. Used in foros, blog, áreas de trabajo
-*
-* @param 	array 		$comment	comentario data
-* @param 	string		$destino 			Links destination (foros, blog, áreas de trabajo) used for "likes"
+* @param 	Array 		$comment	comentario data
+* @param 	String		$destino 	Links destination (foros, blog, áreas de trabajo) used for "likes"
+* @return 	String					HTML panel
 */
 templateload("tipuser", "users");
 
@@ -43,6 +43,4 @@ function commentForo($comment, $destino = "foro-comentarios"){
 			?>
 		</div>
 	</div>
-	<?php
-}
-?>
+<?php } ?>

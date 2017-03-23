@@ -58,7 +58,7 @@ $albumes = $fotos->getFotosAlbumes(" AND activo=1 ORDER BY nombre_album");?>
 									</span>';
 							echo'</td>';
 							echo '<td>';
-							ComboAlbumes($element['id_album'], $albumes, "nombre_album_" .$element['id_file']);
+							comboAlbumes($element['id_album'], $albumes, "nombre_album_" .$element['id_file']);
 							echo '</td>';
 							echo '<td>'.$element['user_add'].'</td>';
 							echo '<td><a href="#" class="abrir-modal" title="MensajeFoto'.$element['id_file'].'">'.$element['titulo'].'</a>

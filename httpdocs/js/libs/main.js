@@ -1,4 +1,9 @@
 jQuery(document).ready(function(){
+	$(".menu-alert").css({"text-transform": "none"}).tooltip({
+		"container" : "body",
+		"placement" : "right"
+	});
+
 	$("#chooseFormValue").change(function(){
 		$("#chooseForm").submit();
 	});

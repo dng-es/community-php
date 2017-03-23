@@ -1,8 +1,14 @@
 <?php
 templateload("cmbCanales", "users");
 
+/**
+ * Print HTML panel for uploads
+ * @param  	Int 		$id_promocion 	Id promocion de la foto
+ * @param  	Array 		$albumes 		Array con los albumes de fotos
+ * @param  	Int 		$id_album 		Id del album al que va a pertenecer la foto
+ * @return 	String       				HTML panel
+ */
 function PanelSubirFoto($id_promocion = 0, $albumes = null, $id_album = 0){
-
 	$module_config = getModuleConfig("fotos");
 	if ($module_config['options']['allow_uploads'] == true || $_SESSION['user_perfil'] == 'admin'){?>
 	<h4>
@@ -25,7 +31,7 @@ function PanelSubirFoto($id_promocion = 0, $albumes = null, $id_album = 0){
 		<?php //endif;?> 
 		<?php if (($module_config['options']['allow_users_albums'] == true) && $albumes != null): 
 			if ($id_album == 0):
-				ComboAlbumes(0, $albumes, "id_album"); ?>
+				comboAlbumes(0, $albumes, "id_album"); ?>
 				<!--<p>Para crear un nuevo album pincha <a href="#" id="createAlbum">aquí</a></p>-->
 			<?php else: ?>
 				<input type="hidden" name="nombre_album" id="nombre_album" value="<?php echo $id_album;?>" />

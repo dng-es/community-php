@@ -3,7 +3,7 @@
 * @Modulo de foros
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version  1.0.2
+* @version  1.0.3
 *
 */
 class foroCore{
@@ -33,11 +33,19 @@ class foroCore{
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("foro-subtemas", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("foro-subtemas", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-comment",
-							"LabelItem" => strTranslate("Forums"),
-							"LabelUrl" => 'foro-subtemas',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			$module_config = getModuleConfig("foro");
+			$alerts_text = "";
+			if ($module_config['options']['show_alarms']):
+				$num_alerts = connection::countReg("notifications"," AND username_notification='".$_SESSION['user_name']."' AND type_notification='foro' ");
+				$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" title="'.strTranslate("Notifications_comment_new").'" id="contador-foro-header">'.$num_alerts.'</span>' : "");
+			endif;
+
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-comment",
+				"LabelItem" => strTranslate("Forums").$alerts_text,
+				"LabelUrl" => 'foro-subtemas',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 
 		return $array_final;

@@ -1,30 +1,46 @@
 <?php
 class rankingsController{
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$rankings = new rankings();
+		$find_reg = "";
+		if (isset($_POST['find_reg'])){
+			$filter = " AND nombre_ranking LIKE '%".$_POST['find_reg']."%' ".$filter;
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter = " AND nombre_ranking LIKE '%".$_REQUEST['f']."%' ".$filter;
+			$find_reg = $_REQUEST['f'];
+		}
 		$paginator_items = PaginatorPages($reg);
-		
-		$total_reg = connection::countReg("users_tiendas_rankings r",$filtro); 
-		return array('items' => $rankings->getRankings($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("users_tiendas_rankings r", $filter); 
+		return array('items' => $rankings->getRankings($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
-					'find_reg' 	=> $paginator_items['find_reg'],
+					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
 	}
 
-	public static function getListCategoryAction($reg = 0, $filtro = ""){
+	public static function getListCategoryAction($reg = 0, $filter = ""){
 		$rankings = new rankings();
+		$find_reg = "";
+		if (isset($_POST['find_reg'])){
+			$filter = " AND ranking_category_name LIKE '%".$_POST['find_reg']."%' ".$filter;
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter = " AND ranking_category_name LIKE '%".$_REQUEST['f']."%' ".$filter;
+			$find_reg = $_REQUEST['f'];
+		}
 		$paginator_items = PaginatorPages($reg);
-		
-		$total_reg = connection::countReg("users_tiendas_ranking_category",$filtro); 
-		return array('items' => $rankings->getRankingsCategories($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("users_tiendas_ranking_category", $filter); 
+		return array('items' => $rankings->getRankingsCategories($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
-					'find_reg' 	=> $paginator_items['find_reg'],
+					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
 	}
 
-	public static function getItemAction($id, $filter=" "){
+	public static function getItemAction($id, $filter = " "){
 		$rankings = new rankings();
 		return $rankings->getRankings(" AND id_ranking=".$id.$filter);
 	}

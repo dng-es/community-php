@@ -22,7 +22,6 @@
 						<?php echo SearchForm($elements['reg'],"admin-cuestionarios","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
 					</div>
 				</ul>
-
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
 					<tr>

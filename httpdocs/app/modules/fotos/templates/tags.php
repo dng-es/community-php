@@ -1,8 +1,8 @@
 <?php
 /**
  * Show tags from a post
- * @param  	string 		$tags 		Tags to show
- * @return 	string       			HTML tags
+ * @param  	String 		$tags 		Tags to show
+ * @return 	String       			HTML tags
  */
 function showTags($tags){
 	$array_tags = explode(",", $tags);

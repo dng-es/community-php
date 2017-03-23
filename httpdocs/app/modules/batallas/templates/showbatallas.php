@@ -1,4 +1,11 @@
 <?php 
+/**
+ * Muestra las batallas de un usuario
+ * @param	string		$tipo		Tipod de batallas: perdidas, ganadas, pendientes, pendientes contrincante
+ * @param	int			$total_reg	Total de registros
+ * @param	string		$usuario	Usuario del que se muestran datos
+ * @return 	string       			HTML panel de batallas
+ */
 function showBatallas($tipo, $total_reg, $usuario){
 	$batallas = new batallas();
 	$users = new users();
@@ -47,10 +54,9 @@ function showBatallas($tipo, $total_reg, $usuario){
 	elseif ($tipo == "pendientes usuario") $texto_tipo = 'Total de "mis" batallas pendientes';
 	else $texto_tipo = 'Total batallas '.$tipo;
 
-	$i = 0;
-	foreach($elements as $element):
+	foreach($elements as $i=>$element):
 		//obtener contrincario
-		$contrincario_data ="";
+		$contrincario_data = "";
 		if ($element['user_create'] == $_SESSION['user_name']) $contrincario = $element['user_retado'];
 		else $contrincario = $element['user_create'];
 		$contrincario_data = $users->getUsers("AND username='".$contrincario."' ");
@@ -65,49 +71,47 @@ function showBatallas($tipo, $total_reg, $usuario){
 		//datos partida oponente
 		$su_partida = $batallas->getBatallasLuchas(" AND id_batalla=".$element['id_batalla']." AND user_lucha<>'".$_SESSION['user_name']."' ");
 
-		echo '		<div class="row">
-						<div class="col-md-12">
-						<div class="panel panel-default">
-						<div class="panel-heading">
-							'.getDateFormat($element["date_batalla"], "DATE_TIME").'  - <span class="text-primary">Categoría:</span> '.$element['tipo_batalla'].' - <span class="text-primary">Puntos jugados:</span> '.$element['puntos'].'<br />
-						</div>
-						<div class="panel-body">	
-							<div class="row">
-								<div class="col-md-5 col-sm-5 nopadding">
-									<div class="row">
-										<div class="col-md-2 col-xs-3 nopadding">';
-										userFicha($contrincario_data[0]);
-									echo '</div>
-										<div class="col-md-10 col-xs-9">
-											<ul class="list-unstyled">
-												<li><small><span class="text-primary">Jugador:</span> '.$contrincario_data[0]['nick'].' 
-												('.$contrincario_data[0]['nombre_tienda'].')</small></li>';
-												if ($tipo != 'pendientes usuario'){
+		echo '	<div class="row">
+					<div class="col-md-12">
+					<div class="panel panel-default">
+					<div class="panel-heading">
+						'.getDateFormat($element["date_batalla"], "DATE_TIME").'  - <span class="text-primary">Categoría:</span> '.$element['tipo_batalla'].' - <span class="text-primary">Puntos jugados:</span> '.$element['puntos'].'<br />
+					</div>
+					<div class="panel-body">	
+						<div class="row">
+							<div class="col-md-5 col-sm-5 nopadding">
+								<div class="row">
+									<div class="col-md-2 col-xs-3 nopadding">';
+									userFicha($contrincario_data[0]);
+								echo '</div>
+									<div class="col-md-10 col-xs-9">
+										<ul class="list-unstyled">
+											<li><small><span class="text-primary">Jugador:</span> '.$contrincario_data[0]['nick'].' 
+											('.$contrincario_data[0]['nombre_tienda'].')</small></li>';
+											if ($tipo != 'pendientes usuario'){
 
-												echo '	<li><small><span class="text-primary">Sus aciertos:</span> '.(isset($su_partida[0]['aciertos_lucha']) ? $su_partida[0]['aciertos_lucha'] : "").' ('.(isset($su_partida[0]['tiempo_lucha']) ? $su_partida[0]['tiempo_lucha'] : "").' seg.)</small></li>';
-												}
-									echo '	</ul>
-										</div>
+											echo '	<li><small><span class="text-primary">Sus aciertos:</span> '.(isset($su_partida[0]['aciertos_lucha']) ? $su_partida[0]['aciertos_lucha'] : "").' ('.(isset($su_partida[0]['tiempo_lucha']) ? $su_partida[0]['tiempo_lucha'] : "").' seg.)</small></li>';
+											}
+								echo '	</ul>
 									</div>
 								</div>
+							</div>
 
-								<div class="col-md-2 col-sm-2">
-									<span class="text-primary text-center"><big>VS</big></span>';
-
-									if ($jugadas == 0 && ($tipo != 'perdidas' || $tipo != 'ganadas')){
-										echo '<input type="button" class="jugar-batalla btn btn-primary btn-block" value="jugar!!!" data-c="'.$element['tipo_batalla'].'" data-id="'.$element['id_batalla'].'" />';
-									}
-		echo '					</div>
-								<div class="col-md-5 col-sm-5">
-									<div class="row">
-										<div class="col-md-2 col-xs-3 nopadding">
-											<img class="comment-mini-img pull-right" src="'.$usuario['user_foto'].'" />
-										</div>
-										<div class="col-md-10 col-xs-9">
-											<ul class="list-unstyled">
-												<li><small><span class="text-primary">Mis aciertos:</span> '.$mi_partida[0]['aciertos_lucha'].'
-											('.$mi_partida[0]['tiempo_lucha'];?> seg.)</small></li>
-										</div>
+							<div class="col-md-2 col-sm-2">
+								<span class="text-primary text-center"><big>VS</big></span>';
+								if ($jugadas == 0 && ($tipo != 'perdidas' || $tipo != 'ganadas')){
+									echo '<input type="button" class="jugar-batalla btn btn-primary btn-block" value="jugar!!!" data-c="'.$element['tipo_batalla'].'" data-id="'.$element['id_batalla'].'" />';
+								}
+		echo '				</div>
+							<div class="col-md-5 col-sm-5">
+								<div class="row">
+									<div class="col-md-2 col-xs-3 nopadding">
+										<img class="comment-mini-img pull-right" src="'.$usuario['user_foto'].'" />
+									</div>
+									<div class="col-md-10 col-xs-9">
+										<ul class="list-unstyled">
+											<li><small><span class="text-primary">Mis aciertos:</span> '.$mi_partida[0]['aciertos_lucha'].'
+										('.$mi_partida[0]['tiempo_lucha'];?> seg.)</small></li>
 									</div>
 								</div>
 							</div>
@@ -115,13 +119,10 @@ function showBatallas($tipo, $total_reg, $usuario){
 					</div>
 				</div>
 			</div>
-		<?php $i++;
-	endforeach;
-
-	if (count($elements) == 0) 	echo '<div class="col-md-12">No tienes batallas.</div>';
-
-	PaginatorTabs($pag, $reg, $total_reg, 'batallas', 'batallas', $p);?>
-	
+		</div>
+	<?php endforeach;
+		if (count($elements) == 0) 	echo '<div class="col-md-12">No tienes batallas.</div>';
+		PaginatorTabs($pag, $reg, $total_reg, 'batallas', 'batallas', $p);?>
 		</div>
 	</div>
 <?php }?>

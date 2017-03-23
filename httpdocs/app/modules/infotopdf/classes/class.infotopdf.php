@@ -31,7 +31,7 @@ class infotopdf{
 			//generar miniatura
 			imgThumbnail($nombre_archivo, PATH_BANNERS, 200, 100);
 			//INSERTAR REGISTRO EN LA BBDD
-			$Sql="INSERT INTO infotopdf (titulo_info,file_info,canal_info,tipo_info,id_campaign,cuerpo_info) 
+			$Sql = "INSERT INTO infotopdf (titulo_info,file_info,canal_info,tipo_info,id_campaign,cuerpo_info) 
 					VALUES
 					('".$titulo."','".$nombre_archivo."','".$canal."',".$tipo.",".$id_campaign.",'".$cuerpo_info."')";
 			if (connection::execute_query($Sql)) return "";

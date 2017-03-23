@@ -3,7 +3,7 @@
 * @Modulo para mailing masivo
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.2.1
+* @version 1.2.2
 * 
 */
 class mailingCore{
@@ -29,40 +29,41 @@ class mailingCore{
 		//menu ver todas las comunicaciones	
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-templates", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("user-templates", $_SESSION['user_perfil'], $user_permissions)){
-
-			array_push($array_final_items , array("LabelIcon" => "",
-							"LabelItem" => "Ver todas las comunicaciones",
-							"LabelUrl" => 'user-templates',
-							"LabelTarget" => '_self'));
+			array_push($array_final_items , array(
+				"LabelIcon" => "",
+				"LabelItem" => "Ver todas las comunicaciones",
+				"LabelUrl" => 'user-templates',
+				"LabelTarget" => '_self'));
 		}
 
 		//menu ver todas las comunicaciones	
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-lists", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("user-lists", $_SESSION['user_perfil'], $user_permissions)){
-
-			array_push($array_final_items , array("LabelIcon" => "",
-							"LabelItem" => strTranslate("Mailing_lists"),
-							"LabelUrl" => 'user-lists',
-							"LabelTarget" => '_self'));
+			array_push($array_final_items , array(
+				"LabelIcon" => "",
+				"LabelItem" => strTranslate("Mailing_lists"),
+				"LabelUrl" => 'user-lists',
+				"LabelTarget" => '_self'));
 		}
 
 		//menu ver todas las comunicaciones	
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("user-messages", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("user-messages", $_SESSION['user_perfil'], $user_permissions)){
-
-			array_push($array_final_items , array("LabelIcon" => "",
-							"LabelItem" => "Mis comunicaciones enviadas",
-							"LabelUrl" => 'user-messages',
-							"LabelTarget" => '_self'));
+			array_push($array_final_items , array(
+				"LabelIcon" => "",
+				"LabelItem" => "Mis comunicaciones enviadas",
+				"LabelUrl" => 'user-messages',
+				"LabelTarget" => '_self'));
 		}
 
 		if (count($array_final_items)>0){
-				array_push($array_final, array("LabelIcon" => "fa fa-envelope-o",
-								"LabelItem" => strTranslate("Massive_Mailing"),
-								"LabelUrl" => '',
-								"LabelTarget" => '',
-								"SubItems" => $array_final_items,
-								"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-envelope-o",
+				"LabelItem" => strTranslate("Massive_Mailing"),
+				"LabelUrl" => '',
+				"LabelTarget" => '',
+				"SubItems" => $array_final_items,
+				"LabelPos" => $menu_order));
 		}
 
 		return $array_final;

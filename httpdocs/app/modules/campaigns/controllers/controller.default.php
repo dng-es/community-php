@@ -2,11 +2,20 @@
 class campaignsController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$campaigns = new campaigns();
-		$filtro = $filter." AND active=1 ORDER BY name_campaign ASC ";
-		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
+		$find_reg = "";
+		if (isset($_POST['find_reg'])){
+			$filter .= " AND name_campaign LIKE '%".$_POST['find_reg']."%' ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter .= " AND name_campaign LIKE '%".$_REQUEST['f']."%' ";
+			$find_reg = $_REQUEST['f'];
+		}
+		$filter .= " AND active=1 ORDER BY name_campaign ASC ";
+
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("campaigns c",$filtro);
-		return array('items' => $campaigns->getCampaigns($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("campaigns c", $filter);
+		return array('items' => $campaigns->getCampaigns($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -92,13 +101,21 @@ class campaignsController{
 		}
 	}
 
-	public static function getListTypesAction($reg = 0){
+	public static function getListTypesAction($reg = 0, $filter = ""){
 		$campaigns = new campaigns();
-		$filtro = " ORDER BY campaign_type_name ASC ";
 		$find_reg = "";
+		if (isset($_POST['find_reg'])){
+			$filter .= " AND campaign_type_name LIKE '%".$_POST['find_reg']."%' ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter .= " AND campaign_type_name LIKE '%".$_REQUEST['f']."%' ";
+			$find_reg = $_REQUEST['f'];
+		}
+		$filter .= " ORDER BY campaign_type_name ASC ";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("campaigns_types",$filtro);
-		return array('items' => $campaigns->getCampaignsTypes($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("campaigns_types", $filter);
+		return array('items' => $campaigns->getCampaignsTypes($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,

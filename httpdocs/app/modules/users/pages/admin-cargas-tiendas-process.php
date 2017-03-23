@@ -48,18 +48,18 @@ function volcarMySQL($data){
 	$contador_update = 0;
 
 	for($fila = 2;$fila <= $data->sheets[0]['numRows']; $fila += 1){
-		$cod_tienda = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
-		$nombre_tienda = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
-		$regional_tienda = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][3]))));
-		$responsable_tienda = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][4]))));
-		$tipo_tienda = ucfirst(utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][5]))));
-		$direccion_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][6])));
-		$cpostal_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][7])));
-		$ciudad_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][8])));
-		$provincia_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][9])));
-		$telefono_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][10])));
-		$email_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][11])));
-		$territorial_tienda = utf8_encode(str_replace ("'","´",trim($data->sheets[0]['cells'][$fila][12])));
+		$cod_tienda = utf8_encode(str_replace ("'","\'",trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
+		$nombre_tienda = utf8_encode(str_replace ("'","\'",trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
+		$regional_tienda = utf8_encode(str_replace ("'","\'",trim(strtoupper($data->sheets[0]['cells'][$fila][3]))));
+		$responsable_tienda = utf8_encode(str_replace ("'","\'",trim(strtoupper($data->sheets[0]['cells'][$fila][4]))));
+		$tipo_tienda = ucfirst(utf8_encode(str_replace ("'","\'",trim($data->sheets[0]['cells'][$fila][5]))));
+		$direccion_tienda = utf8_encode(str_replace ("'","\'",trim($data->sheets[0]['cells'][$fila][6])));
+		$cpostal_tienda = utf8_encode(str_replace ("'","\'",trim($data->sheets[0]['cells'][$fila][7])));
+		$ciudad_tienda = utf8_encode(str_replace ("'","\'",trim($data->sheets[0]['cells'][$fila][8])));
+		$provincia_tienda = utf8_encode(str_replace ("'","\'",trim($data->sheets[0]['cells'][$fila][9])));
+		$telefono_tienda = utf8_encode(str_replace ("'","\'",trim($data->sheets[0]['cells'][$fila][10])));
+		$email_tienda = utf8_encode(str_replace ("'","\'",trim($data->sheets[0]['cells'][$fila][11])));
+		$territorial_tienda = utf8_encode(str_replace ("'","\'",trim($data->sheets[0]['cells'][$fila][12])));
 		$activa = (int)$data->sheets[0]['cells'][$fila][13];
 
 		if (strtoupper($tipo_tienda) == 'FRANQUICIA') $empresa_usuarios = "0002";

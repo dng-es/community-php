@@ -16,11 +16,12 @@ class usersCore{
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("ranking", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("ranking", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-trophy",
-							"LabelItem" => 'Ranking',
-							"LabelUrl" => 'ranking',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-trophy",
+				"LabelItem" => 'Ranking',
+				"LabelUrl" => 'ranking',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 		return $array_final;
 	}

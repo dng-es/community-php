@@ -1,11 +1,19 @@
 <?php
 class muroController{
-	public static function getListAction($reg = 0, $filtro=""){
+	public static function getListAction($reg = 0, $filter=""){
 		$muro = new muro();
 		$find_reg = "";
+		if (isset($_POST['find_reg'])){
+			$filter = " AND comentario LIKE '%".sanitizeInput($_POST['find_reg'])."%' ".$filter;
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter = " AND comentario LIKE '%".sanitizeInput($_REQUEST['f'])."%' ".$filter;
+			$find_reg = $_REQUEST['f'];
+		} 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("muro_comentarios",$filtro);
-		return array('items' => $muro->getComentarios($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("muro_comentarios", $filter);
+		return array('items' => $muro->getComentarios($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,

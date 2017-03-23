@@ -36,7 +36,7 @@ class mensajes{
 
 			if (count($usuario) == 1){
 				//INSERTAR REGISTRO EN BBDD
-				$Sql="INSERT INTO mensajes (user_remitente,user_destinatario,asunto_mensaje,mensaje_cuerpo) VALUES (
+				$Sql = "INSERT INTO mensajes (user_remitente,user_destinatario,asunto_mensaje,mensaje_cuerpo) VALUES (
 					 '".$remitente_nombre."','".$destinatario."','".$asunto."','".$mensaje."')";
 				if (connection::execute_query($Sql)) return 0;
 				else return 1;

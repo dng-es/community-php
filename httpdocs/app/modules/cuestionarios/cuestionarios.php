@@ -50,18 +50,20 @@ class cuestionariosCore{
 			if ($cuestionarios_menu['total_reg']>0):
 				$array_final_items = array();
 				foreach ($cuestionarios_menu['items'] as $cuestionario):
-					array_push($array_final_items , array("LabelIcon" => "",
-									"LabelItem" => $cuestionario['nombre'],
-									"LabelUrl" => 'cuestionario?id='.$cuestionario['id_cuestionario'],
-									"LabelTarget" => '_self'));
+					array_push($array_final_items , array(
+						"LabelIcon" => "",
+						"LabelItem" => $cuestionario['nombre'],
+						"LabelUrl" => 'cuestionario?id='.$cuestionario['id_cuestionario'],
+						"LabelTarget" => '_self'));
 				endforeach;
 
-				array_push($array_final, array("LabelIcon" => "fa fa-th-list",
-								"LabelItem" => strTranslate("Forms"),
-								"LabelUrl" => '',
-								"LabelTarget" => '',
-								"SubItems" => $array_final_items,
-								"LabelPos" => $menu_order));
+				array_push($array_final, array(
+					"LabelIcon" => "fa fa-th-list",
+					"LabelItem" => strTranslate("Forms"),
+					"LabelUrl" => '',
+					"LabelTarget" => '',
+					"SubItems" => $array_final_items,
+					"LabelPos" => $menu_order));
 			endif;
 
 		}

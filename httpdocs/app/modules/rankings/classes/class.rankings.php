@@ -28,7 +28,7 @@ class rankings{
 	 * Inserta registro en rankings
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertRankings( $nombre_ranking, $descripcion_ranking, $activo = 0, $id_ranking_category = 0 ){
+	public function insertRankings($nombre_ranking, $descripcion_ranking, $activo = 0, $id_ranking_category = 0){
 		$Sql = "INSERT INTO users_tiendas_rankings (nombre_ranking, descripcion_ranking, activo, id_ranking_category) 
 			  VALUES ('".$nombre_ranking."','".$descripcion_ranking."',".$activo.",".$id_ranking_category.")";
 		return connection::execute_query($Sql);
@@ -61,7 +61,7 @@ class rankings{
 	 * Inserta registro en rankings
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertRankingsCategory( $nombre ){
+	public function insertRankingsCategory($nombre){
 		$Sql = "INSERT INTO users_tiendas_ranking_category (ranking_category_name) 
 				VALUES ('".$nombre."')";
 		return connection::execute_query($Sql);
@@ -99,7 +99,7 @@ class rankings{
 	 * Inserta registro en rankings
 	 * @return boolean 				Resultado de la SQL
 	 */
-	public function insertRankingsData( $id_ranking, $cod_tienda, $value_ranking ){
+	public function insertRankingsData( $id_ranking, $cod_tienda, $value_ranking){
 		$Sql = "INSERT INTO users_tiendas_rankings_data (id_ranking, cod_tienda, value_ranking) 
 				VALUES (".$id_ranking.",'".$cod_tienda."','".$value_ranking."')"; //echo $Sql."<br />";
 		return connection::execute_query($Sql);

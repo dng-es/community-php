@@ -1,5 +1,12 @@
 <?php
-function ComboAlbumes($seleccionado, $elements, $id_combo = "nombre_album"){?>
+/**
+ * Show Albums combo
+ * @param  	Int 		$seleccionado 	Elemento seleccionado
+ * @param  	Array 		$elements 		Elementos del combo
+ * @param  	String 		$id_combo 		ID para el combo HTML
+ * @return 	String       				HTML combo
+ */
+function comboAlbumes($seleccionado, $elements, $id_combo = "nombre_album"){?>
 	<select class="form-control" name="nombre_album" id="<?php echo $id_combo;?>">
 		<option value="0" <?php if ($seleccionado == 0){ echo ' selected="selected" ';}?>>---Selecciona el album---</option>
 		<?php foreach($elements as $element):?>

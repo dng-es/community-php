@@ -12,8 +12,14 @@ class videosController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$videos = new videos();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filter .= " AND titulo LIKE '%".$_POST['find_reg']."%' ";$find_reg = $_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filter .= " AND titulo LIKE '%".$_REQUEST['f']."%' ";$find_reg = $_REQUEST['f'];} 
+		if (isset($_POST['find_reg'])){
+			$filter .= " AND titulo LIKE '%".$_POST['find_reg']."%' ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter .= " AND titulo LIKE '%".$_REQUEST['f']."%' ";
+			$find_reg = $_REQUEST['f'];
+		}
 		//if ($_SESSION['user_canal'] != 'admin') $filter.=" AND v.canal='".$_SESSION['user_canal']."' ";
 		$filter .= " ORDER BY id_file DESC";
 		$paginator_items = PaginatorPages($reg);
@@ -110,8 +116,14 @@ class videosController{
 	public static function getCommentsListAction($reg = 0, $filter = ""){
 		$videos = new videos();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filter = " AND comentario LIKE '%".$_POST['find_reg']."%' ";$find_reg = $_POST['find_reg'].$filter;}
-		if (isset($_REQUEST['f']) && $_REQUEST['f'] != ""){$filter = " AND comentario LIKE '%".$_REQUEST['f']."%' ";$find_reg = $_REQUEST['f'].$filter;}
+		if (isset($_POST['find_reg'])){
+			$filter = " AND comentario LIKE '%".$_POST['find_reg']."%' ";
+			$find_reg = $_POST['find_reg'].$filter;
+		}
+		if (isset($_REQUEST['f']) && $_REQUEST['f'] != ""){
+			$filter = " AND comentario LIKE '%".$_REQUEST['f']."%' ";
+			$find_reg = $_REQUEST['f'].$filter;
+		}
 		$paginator_items = self::PaginatorPagesVideoComments($reg);
 		
 		$total_reg = connection::countReg("galeria_videos_comentarios", $filter);
@@ -127,8 +139,10 @@ class videosController{
 			$videos = new videos();
 			$id_video = sanitizeInput($_POST['video-id']);
 			$texto_comentario = nl2br(sanitizeInput($_POST['video-comentario']));
-			if ($videos->InsertComentario($id_video, $texto_comentario, $_SESSION['user_name'],1)) 
+			if ($videos->InsertComentario($id_video, $texto_comentario, $_SESSION['user_name'],1)){
 				session::setFlashMessage('actions_message', strTranslate("Video_comment_insert_ok"), "alert alert-success");
+				notificationsController::insertNotifications($id_video, 'videos');
+			} 
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Video_comment_insert_ko"), "alert alert-warning");
 			redirectURL($_SERVER['REQUEST_URI']);
@@ -146,7 +160,7 @@ class videosController{
 	}
 
 	public static function voteCommentAction($destination = "videos"){
-		if (isset($_REQUEST['idvc']) && $_REQUEST['idvc'] != "") {
+		if (isset($_REQUEST['idvc']) && $_REQUEST['idvc'] != ""){
 			$videos = new videos();
 			$response = $videos->InsertVotacionVideo($_REQUEST['idvc'],$_SESSION['user_name']);
 			if ($response == 1)
@@ -178,7 +192,19 @@ class videosController{
 		}
 		return array('find_reg' => $find_reg,
 					'pag' => $pag,
-					'inicio' =>$inicio );
+					'inicio' =>$inicio);
+	}
+
+	public static function changeEstado(){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
+			$videos = new videos();
+			if ($videos->cambiarEstado(intval($_REQUEST['id']), 2))
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
+			else 
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
+
+			redirectURL("admin-videos");
+		}
 	}
 
 	public static function changeTags(){
@@ -187,7 +213,8 @@ class videosController{
 			$id_file = sanitizeInput($_REQUEST['idf']);
 			$pag = sanitizeInput($_REQUEST['pag']);
 			$tags = strtolower(sanitizeInput($_REQUEST['tags']));
-			if ($videos->cambiarTags($id_file, $tags))
+			$destacado = intval($_REQUEST['dest']);
+			if ($videos->cambiarTags($id_file, $tags, $destacado))
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");

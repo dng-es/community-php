@@ -8,7 +8,7 @@
 */
 
 class promocionesCore {
-/**
+	/**
 	 * Elementos para el menu de usuarios
 	 * @return 	array           			Array con los elementos del menu
 	 */
@@ -16,17 +16,15 @@ class promocionesCore {
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("reto", $_SESSION['user_name']));
-
 		$id_promocion = connection::SelectMaxReg("id_promocion", "promociones", " AND active=1 ");
-
 		if ($session->checkPageViewPermission("reto", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-globe",
-							"LabelItem" => "Reto",
-							"LabelUrl" => 'reto?idp='.$id_promocion,
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-globe",
+				"LabelItem" => "Reto",
+				"LabelUrl" => 'reto?idp='.$id_promocion,
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
-
 		return $array_final;
 	}
 

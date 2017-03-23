@@ -1,9 +1,9 @@
 <?php
 /**
 * Print HTML tema foro info. Used in foros, blog, áreas de trabajo
-*
 * @param 	array 		$sub_tema 		tema data
 * @param 	string		$destino 		Links destination (foros, blog, áreas de trabajo)
+* @return 	String       				HTML panel
 */
 function ForoList($sub_tema, $destino = "foro-comentarios"){
 	$num_comentarios = connection::countReg("foro_comentarios", " AND estado=1 AND id_tema=".$sub_tema['id_tema']." ");

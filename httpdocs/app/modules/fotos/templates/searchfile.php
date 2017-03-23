@@ -1,4 +1,15 @@
 <?php
+/**
+ * Print HTML  search form
+ * @param	Int			$pag			Número de página. Empleado por paginador
+ * @param	String		$formId			Id del formulario HTML
+ * @param	String		$labelForm		Texto para el label del formulario
+ * @param	String		$labelButton	Texto para el botón de buscar
+ * @param	String		$clase_css		Clase CSS para el panel contenedor del form
+ * @param	String		$class_form		Clase CSS para el form
+ * @param	String		$method_form	Método de envío de datos del cormularios
+ * @return 	String						HTML search form
+ */
 function SearchPhoto($pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "" , $class_form = "", $method_form = "post") {
 	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['find_reg']) ? $_REQUEST['find_reg'] : "");?>
 <div class="<?php echo $clase_css;?>">

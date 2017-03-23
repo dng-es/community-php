@@ -130,6 +130,7 @@ class session{
 		}
 		elseif( (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true) && (!isset($_REQUEST['page']) || (isset($_REQUEST['page']) && $_REQUEST['page'] == ""))){
 			header ("Location: home");
+			exit();
 		}
 		else {
 			//SI HAN PASADO 15 MINUTOS DE INACTIVIDAD SE CIERRA LA SESION (60*15=900)
@@ -191,10 +192,7 @@ class session{
 				$user_foto = ($result_user[0]['foto'] == '' ? "themes/".$_SESSION['user_theme']."/images/".DEFAULT_IMG_PROFILE : PATH_USERS_FOTO.$result_user[0]['foto']);
 				$_SESSION['user_foto'] = $user_foto;
 				$_SESSION['user_canal_nombre'] = ($result_user[0]['canal'] == 'admin') ? "Administración" : ucfirst($result_user[0]['canal']);
-
-
 				$_SESSION['language'] = $result_user[0]['user_lan'];
-				
 				//por defecto se mostraran los puntos. En loader.php se tomará el valor de configuración
 				$_SESSION['show_user_points'] = true;
 

@@ -25,11 +25,10 @@ function redirectURL($url){
 */
 function pageRouter($page){
 	$path = "app/modules/";
-	if ($dh = opendir($path)) {
-		while (($file = readdir($dh)) !== false) {
-			if (is_dir($path.$file) && $file != "." && $file != ".."){
+	if ($dh = opendir($path)){
+		while (($file = readdir($dh)) !== false){
+			if (is_dir($path.$file) && $file != "." && $file != "..")
 				if (file_exists($path.$file."/pages/".$page)) return $path.$file."/pages/".$page;
-			}
 		}
 		closedir($dh);
 	}
@@ -61,8 +60,8 @@ function dirCarga($dir, $modulename){
 * @param 	string 		$classname 		class name where template is placed
 */
 function templateload($template, $classname){
-	if (is_dir(dirCarga(dirname(__FILE__) , "/modules/".$classname))){
-		$file = dirCarga(dirname(__FILE__) , "/modules/".$classname."/templates/".$template.".php");
+	if (is_dir(dirCarga(dirname(__FILE__), "/modules/".$classname))){
+		$file = dirCarga(dirname(__FILE__), "/modules/".$classname."/templates/".$template.".php");
 		if (file_exists($file)) include_once ($file);	
 	}
 }
@@ -74,10 +73,10 @@ function templateload($template, $classname){
 function __autoload($classname){
 	global $ini_conf;
 	if ($classname == "connection" || $classname == "session" || $classname == "FileSystem" || $classname == "tpl")
-		include_once (dirname(__FILE__) ."/class.".strtolower($classname).".php");
+		include_once (dirname(__FILE__)."/class.".strtolower($classname).".php");
 	elseif ($classname == "debugger") {
 		if ($ini_conf['debug_app'] == 1 || $ini_conf['debug_app'] == 2){
-			include_once (dirname(__FILE__) ."/debugger/class.".strtolower($classname).".php");
+			include_once (dirname(__FILE__)."/debugger/class.".strtolower($classname).".php");
 			if ($ini_conf['debug_app'] == 2) debugger::$debugger_output = "file";
 		}
 	}
@@ -94,7 +93,7 @@ function __autoload($classname){
 	elseif ($classname == "headers" || $classname == "footer" || $classname == "menu")
 		include_once(dirCarga(dirname(__FILE__), "/modules/class.".$classname.".php"));
 	else 
-		include_once (dirCarga(dirname(__FILE__) , "/modules/".$classname."/classes/class.".$classname.".php"));
+		include_once (dirCarga(dirname(__FILE__), "/modules/".$classname."/classes/class.".$classname.".php"));
 }
 
 /**
@@ -172,10 +171,11 @@ function getModuleChannels($groups, $user_canal){
 * @return 	string 		 			return translation by language
 */
 function strTranslate($str){
-	global $ini_conf, $modules;
+	global $ini_conf;
 	$language = (isset($_SESSION['language']) && $_SESSION['language'] != "") ? $_SESSION['language'] : $ini_conf['language'];
 
 	//translations from modules
+	$modules = getListModules();
 	foreach($modules as $module):
 		$path_module = realpath(dirname(__FILE__))."/../modules/".$module['folder']."/resources/languages/".$language."/language.php";
 		$str = getTranlationStr($path_module,$str);

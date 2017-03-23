@@ -1,15 +1,21 @@
 <?php
 class incentivosObjetivosController{
-	public static function getListAction($reg = 0, $filtro = ""){
-		$filtro = " AND activo_objetivo=1".$filtro;
+	public static function getListAction($reg = 0, $filter = ""){
+		$filter = " AND activo_objetivo=1".$filter;
 		$incentivos = new incentivos();
 		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro .= " AND nombre_objetivo LIKE '%".sanitizeInput($_POST['find_reg'])."%' "; $find_reg = $_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND nombre_objetivo LIKE '%".sanitizeInput($_REQUEST['f'])."%' "; $find_reg = $_REQUEST['f'];} 
+		if (isset($_POST['find_reg'])){
+			$filter .= " AND nombre_objetivo LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter .= " AND nombre_objetivo LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";
+			$find_reg = $_REQUEST['f'];
+		} 
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("incentives_objetivos", $filtro); 
-		return array('items' => $incentivos->getIncentivesObjetivos($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("incentives_objetivos", $filter); 
+		return array('items' => $incentivos->getIncentivesObjetivos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -56,14 +62,14 @@ class incentivosObjetivosController{
 		}
 	}
 
-	public static function getListDetalleAction($reg = 0, $filtro = ""){
+	public static function getListDetalleAction($reg = 0, $filter = ""){
 		$incentivos = new incentivos();
 		$find_reg = "";
-		$filtro .= " ORDER BY d.destino_objetivo,d.id_producto";
+		$filter .= " ORDER BY d.destino_objetivo,d.id_producto";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("incentives_objetivos_detalle d", $filtro); 
-		return array('items' => $incentivos->getIncentivesObjetivosDetalle($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("incentives_objetivos_detalle d", $filter); 
+		return array('items' => $incentivos->getIncentivesObjetivosDetalle($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,

@@ -1,4 +1,16 @@
 <?php
+/**
+ * Print HTML  search form
+ * @param	Int			$reg			Número de registros. Empleado por paginador
+ * @param	Int			$pag			Número de página. Empleado por paginador
+ * @param	String		$formId			Id del formulario HTML
+ * @param	String		$labelForm		Texto para el label del formulario
+ * @param	String		$labelButton	Texto para el botón de buscar
+ * @param	String		$clase_css		Clase CSS para el panel contenedor del form
+ * @param	String		$class_form		Clase CSS para el form
+ * @param	String		$method_form	Metodo de envío de datos
+ * @return	String						HTML search form
+ */
 function SearchVideo($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "", $class_form = "", $method_form = "post"){
 	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : ""); ?>
 
@@ -14,4 +26,4 @@ function SearchVideo($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:",
 			</div>
 		</form>
 	</div>
-<?php }?>
+<?php } ?>

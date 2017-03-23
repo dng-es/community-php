@@ -3,7 +3,7 @@
 * @Modulo de fotos, depends on Users module. 
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.2
+* @version 1.2.1
 
 */
 class fotosCore{
@@ -65,11 +65,18 @@ class fotosCore{
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("foto-albums", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("foto-albums", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-camera",
-							"LabelItem" => strTranslate("Photos"),
-							"LabelUrl" => 'foto-albums',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			$module_config = getModuleConfig("fotos");
+			$alerts_text = "";
+			if ($module_config['options']['show_alarms']):
+				$num_alerts = connection::countReg("notifications"," AND username_notification='".$_SESSION['user_name']."' AND type_notification='fotos' ");
+				$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" title="'.strTranslate("Notifications_comment_new").'" id="contador-fotos-header">'.$num_alerts.'</span>' : "");
+			endif;
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-camera",
+				"LabelItem" => strTranslate("Photos").$alerts_text,
+				"LabelUrl" => 'foto-albums',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 		return $array_final;
 	}

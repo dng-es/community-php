@@ -1,4 +1,9 @@
 <?php
+/**
+* Print HTML tema foro info. Used in foros, blog, áreas de trabajo
+* @param 	Array 		$sub_tema 		Tema data
+* @return 	String						HTML panel
+*/
 function ForoList($sub_tema){
 	$num_comentarios = users::countReg("foro_comentarios", " AND estado=1 AND id_tema=".$sub_tema['id_tema']." ");
 	$num_visitas = users::countReg("foro_visitas"," AND id_tema=".$sub_tema['id_tema']." ");

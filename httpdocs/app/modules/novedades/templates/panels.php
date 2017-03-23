@@ -1,12 +1,15 @@
 <?php
 templateload("player", "videos");
 
+/**
+ * Print HTML slide, type slider. Used in home page
+ * @return	String						HTML slide
+ */
 function panelNovedades(){
 	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND n.canal LIKE '%".$_SESSION['user_canal']."%' " : "");
 	$filtro_perfil = ($_SESSION['user_perfil'] != 'admin' ? " AND (n.perfil='".$_SESSION['user_perfil']."' OR n.perfil='') " : "");
 	$filter = $filtro_canal.$filtro_perfil." AND activo=1 AND tipo='slider' ORDER BY orden ASC ";
 	$elements = novedadesController::getListAction(100, $filter);
-
 	$i = 0;
 	if (count($elements['items']) > 0): ?>
 		<?php if (count($elements['items']) == 1): ?>
@@ -49,6 +52,10 @@ function panelNovedades(){
 	endif;
 }
 
+/**
+ * Print HTML slide, type banner. Used in home page
+ * @return	String						HTML slide
+ */
 function panelNovedadesBanner(){
 	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND n.canal LIKE '%".$_SESSION['user_canal']."%' " : "");
 	$filtro_perfil = ($_SESSION['user_perfil'] != 'admin' ? " AND (n.perfil='".$_SESSION['user_perfil']."' OR n.perfil='') " : "");
@@ -97,12 +104,15 @@ function panelNovedadesBanner(){
 	endif;
 }
 
+/**
+ * Print HTML modal, type modal. Used in home page
+ * @return	String						HTML modal
+ */
 function popupNovedades(){
 	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND n.canal LIKE '%".$_SESSION['user_canal']."%' " : "");
 	$filtro_perfil = ($_SESSION['user_perfil'] != 'admin' ? " AND (n.perfil='".$_SESSION['user_perfil']."' OR n.perfil='') " : "");
 	$filter = $filtro_canal.$filtro_perfil." AND activo=1 AND tipo='popup' ORDER BY orden ASC ";
 	$elements = novedadesController::getListAction(1, $filter);
-
 	if ((count($elements['items']) > 0) && (!isset($_SESSION['modal_home']) || $_SESSION['modal_home'] != 1)): ?>
         <!-- Modal Derechos y responsabilidades (declaración)-->
 		<div class="modal modal-wide fade" id="modalNovedades" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -110,10 +120,10 @@ function popupNovedades(){
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel"><?php echo $elements['items'][0]['titulo'];?></h4>
+						<h4 class="modal-title" id="myModalLabel"><?php echo $elements['items'][0]['titulo']; ?></h4>
 					</div>
 					<div class="modal-body">
-						<?php echo $elements['items'][0]['cuerpo'];?>
+						<?php echo $elements['items'][0]['cuerpo']; ?>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
@@ -122,5 +132,4 @@ function popupNovedades(){
 						
 		$_SESSION['modal_home'] = 1;
 	endif; 
-}
-?>
+} ?>

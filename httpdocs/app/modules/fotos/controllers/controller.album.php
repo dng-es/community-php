@@ -8,9 +8,16 @@ class fotosAlbumController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$fotos = new fotos();
 		$find_reg = "";
-		$paginator_items = PaginatorPages($reg);
-		
-		$total_reg = connection::countReg("galeria_fotos_albumes",$filter); 
+		if (isset($_POST['find_reg'])){
+			$filter = " AND nombre_album LIKE '%".$_POST['find_reg']."%' ".$filter;
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f'])){
+			$filter = " AND nombre_album LIKE '%".$_REQUEST['f']."%' ".$filter;
+			$find_reg = $_REQUEST['f'];
+		}
+		$paginator_items = PaginatorPages($reg);	
+		$total_reg = connection::countReg("galeria_fotos_albumes", $filter); 
 		return array('items' => $fotos->getFotosAlbumes($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -66,7 +73,6 @@ class fotosAlbumController{
 	public static function updateAction(){
 		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$fotos = new fotos();
-
 			$id = intval($_POST['id']);
 			$nombre = sanitizeInput(trim($_POST['nombre']));
 			$canal = (isset($_POST['canal_album']) ? sanitizeInput($_POST['canal_album']) : $_SESSION['user_canal']);

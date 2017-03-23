@@ -15,14 +15,13 @@ class globaloptionsCore {
 	public static function userMenu($menu_order){
 		$array_final = array();
 		global $session;
-
-
-		array_push($array_final, array("LabelIcon" => "fa fa-comment",
-						"LabelItem" => "Global options",
-						"LabelId" => "tienda_go",
-						"LabelUrl" => 'home?gogo=1',
-						"LabelTarget" => '_blank',
-						"LabelPos" => $menu_order));
+		array_push($array_final, array(
+			"LabelIcon" => "fa fa-comment",
+			"LabelItem" => "Global options",
+			"LabelId" => "tienda_go",
+			"LabelUrl" => 'home?gogo=1',
+			"LabelTarget" => '_blank',
+			"LabelPos" => $menu_order));
 
 		return $array_final;		
 	}	

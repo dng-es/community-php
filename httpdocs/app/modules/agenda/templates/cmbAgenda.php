@@ -1,4 +1,10 @@
 <?php
+/**
+ * Muestra las batallas de un usuario
+ * @param	string		$seleccionado	Elemento seleccionado del combo
+ * @param	string		$filter			Filtro en los elementos del combo
+ * @return 	string       				HTML combo elements
+ */
 function ComboTipo($seleccionado = "", $filter = ""){
 	$agenda = new agenda();
 	$elements = $agenda->getTipos($filter." ORDER BY tipo_name");

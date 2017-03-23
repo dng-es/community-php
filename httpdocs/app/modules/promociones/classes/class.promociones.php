@@ -6,7 +6,7 @@ class promociones{
 	 * @return array 				Array con registros
 	 */
 	public function getPromociones($filter = ""){
-		$Sql="SELECT * FROM promociones WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT * FROM promociones WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -15,7 +15,7 @@ class promociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function insertPromociones($nombre_promocion, $texto_promocion, $active, $galeria_videos, $galeria_fotos, $galeria_comentarios){
-		$Sql="INSERT INTO promociones(nombre_promocion,texto_promocion,active,galeria_videos,galeria_fotos,galeria_comentarios)
+		$Sql = "INSERT INTO promociones(nombre_promocion,texto_promocion,active,galeria_videos,galeria_fotos,galeria_comentarios)
 				VALUES
 				('".$nombre_promocion."','".$texto_promocion."',".$active.",".$galeria_videos.",".$galeria_fotos.",".$galeria_comentarios.")";
 		return connection::execute_query($Sql);
@@ -27,7 +27,7 @@ class promociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deletePromociones($id){
-		$Sql="DELETE FROM promociones WHERE id_promociones=".$id;
+		$Sql = "DELETE FROM promociones WHERE id_promociones=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -38,7 +38,7 @@ class promociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function updatePromociones($id, $nombre_promocion, $texto_promocion, $galeria_videos, $galeria_fotos, $galeria_comentarios){
-		$Sql="UPDATE promociones SET
+		$Sql = "UPDATE promociones SET
 			 nombre_promocion='".$nombre_promocion."', 
 			 texto_promocion='".$texto_promocion."', 
 			 galeria_videos=".$galeria_videos.", 
@@ -55,7 +55,7 @@ class promociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function updateActive($id, $value){
-		$Sql="UPDATE promociones SET
+		$Sql = "UPDATE promociones SET
 			 active=".$value." 
 			 WHERE id_promocion=".$id;
 		return connection::execute_query($Sql);
@@ -68,7 +68,7 @@ class promociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function updateActiveTodos($value, $filter){
-		$Sql="UPDATE promociones SET
+		$Sql = "UPDATE promociones SET
 			 active=".$value." 
 			 WHERE 1=1 ".$filter;
 		return connection::execute_query($Sql);

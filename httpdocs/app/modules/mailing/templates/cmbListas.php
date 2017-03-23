@@ -1,4 +1,10 @@
 <?php
+/**
+ * Print HTML combo
+ * @param	Int 		$seleccionado 	Id del elemento seleccionadp
+ * @param	String 		$id_combo 		Id del combo HTML
+ * @return	String						HTML combo for mailing list
+ */
 function ComboListas($seleccionado, $id_combo = "id_list"){
 	$mailing = new mailing();
 	$elements = $mailing->getLists(" AND activo=1 AND user_list='".$_SESSION['user_name']."' ");

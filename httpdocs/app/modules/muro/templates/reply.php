@@ -1,4 +1,8 @@
 <?php
+/**
+ * Print HTML reply form
+ * @return	String						HTML form panel
+ */
 function replyMuro(){ ?>
 <div id="muro-responder" class="panel panel-default">
 	<div id="muro-responder-cerrar"><span class="fa fa-times"></span></div>

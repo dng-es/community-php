@@ -17,20 +17,22 @@ class agendaCore{
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("agenda", $_SESSION['user_name']));
 
 		if ($session->checkPageViewPermission("agenda", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-bullhorn",
-							"LabelItem" => strTranslate("Diary"),
-							"LabelUrl" => 'agenda',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-bullhorn",
+				"LabelItem" => strTranslate("Diary"),
+				"LabelUrl" => 'agenda',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("ofertas", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("ofertas", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-star",
-							"LabelItem" => strTranslate("Offers"),
-							"LabelUrl" => 'ofertas',
-							"LabelTarget" => '_self',
-							"LabelPos" => $menu_order));
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-star",
+				"LabelItem" => strTranslate("Offers"),
+				"LabelUrl" => 'ofertas',
+				"LabelTarget" => '_self',
+				"LabelPos" => $menu_order));
 		}
 
 		return $array_final;

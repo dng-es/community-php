@@ -16,7 +16,6 @@ templateload("cmbCanales", "users");
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form id="formData" name="formData" method="post" action="" role="form" class="form-horizontal">
-
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="id_destacado">ID:</label>
 						<div class="col-sm-2">
@@ -26,8 +25,8 @@ templateload("cmbCanales", "users");
 						<label class="col-sm-1 control-label" for="tipo_destacado"><?php e_strTranslate("Type");?>:</label>
 						<div class="col-sm-3">
 							<select name="tipo_destacado" id="tipo_destacado" class="form-control">
-								<option value="video">Vídeo</option>
-								<option value="foto">Foto</option>
+								<option value="video"><?php e_strTranslate("Video");?></option>
+								<option value="foto"><?php e_strTranslate("Photo");?></option>
 							</select>
 						</div>
 

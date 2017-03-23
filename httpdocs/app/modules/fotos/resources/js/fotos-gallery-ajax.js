@@ -60,6 +60,24 @@ jQuery(document).ready(function(){
 
 	});
 
+	$(".triger-notification").click(function(event){
+		event.preventDefault();
+		var idn = $(this).data("idn"),
+			opt = $(this).data("opt"),
+			msg_in = $(this).data("msg-in"),
+			msg_out = $(this).data("msg-out"),
+			elem = $(this);
+
+		$.ajax({
+			type: "POST",
+			url: "app/modules/fotos/pages/gallery_process.php",
+			data: {"idn": idn, "opt": opt},
+			success: function(data) {
+				if (opt == 1) elem.data("opt", "0").html('<i class="fa fa-bell-slash"></i> ' + msg_out)
+				if (opt == 0) elem.data("opt", "1").html('<i class="fa fa-bell"></i> ' + msg_in)
+			}
+		});
+	});
 	$(".trigger-votar").click(function(event){
 		event.preventDefault();
 		var id = $(this).attr("data-id"),

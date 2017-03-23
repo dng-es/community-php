@@ -1,8 +1,8 @@
 <?php
 /**
 * Print HTML add comment
-*
 * @param 	int 	$id_tema 	id_tema new comment
+* @return 	string       		HTML panel
 */
 function addForoComment($id_tema){
 	foroController::insertCommentAction();?>

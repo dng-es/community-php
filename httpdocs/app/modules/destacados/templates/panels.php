@@ -1,4 +1,8 @@
 <?php
+/**
+* Print HTML Destacado panel. Used in home page 
+* @return 	String       		HTML panel
+*/
 function panelDestacado(){ ?>
 	<div class="col-md-12 section panel">
 		<?php $destacados = new destacados();
@@ -10,16 +14,14 @@ function panelDestacado(){ ?>
 			?>
 			<h3><?php e_strTranslate("Highlights");?></h3>
 			<div class="media-preview-container">
-				<?php
-				if ($destacado[0]['destacado_tipo'] == 'foto'){
+				<?php if ($destacado[0]['destacado_tipo'] == 'foto'){
 					echo '<a target="_blank" href="docs/fotos/'.$destacado_file[0]['name_file'].'">
 						<img src="docs/fotos/'.$destacado_file[0]['name_file'].'" class="media-preview" alt="'.prepareString($destacado_file[0]['titulo']).'" /></a>';
 				}
 				elseif ($destacado[0]['destacado_tipo'] == 'video'){ 
 					echo '<a href="videos?id='.$destacado_file[0]['id_file'].'">
 					<img src="'.PATH_VIDEOS.$destacado_file[0]['name_file'].'.jpg" class="media-preview" alt="'.prepareString($destacado_file[0]['titulo']).'" /></a>';
-				}
-				?>
+				} ?>
 				<div>
 					<p>
 						<a href="<?php echo ($destacado[0]['destacado_tipo'] == 'foto' ? 'fotos' : 'videos?id='.$destacado_file[0]['id_file']);?>"><?php echo $destacado_file[0]['destacado_texto'];?></a><br />

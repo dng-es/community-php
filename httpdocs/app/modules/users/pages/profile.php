@@ -5,11 +5,13 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					"js/bootstrap-datepicker.es.js", 
 					getAsset("users")."js/profile.js",
 					getAsset("alerts")."js/alerts.js",
+					getAsset("notifications")."js/notifications.js",
 					"js/jquery.geturlparam.js",
 					getAsset("fotos")."js/fotos.js"));
 
 templateload("panels", "alerts");
 templateload("tipuser", "users");
+templateload("notifications", "notifications");
 templateload("na_areasuser", "na_areas");
 ?>
 <div class="row row-top">
@@ -172,15 +174,8 @@ templateload("na_areasuser", "na_areas");
 					</form>
 					</div>
 					<div class="col-md-4">
-						<br />
-						<br />
-						<a class="btn btn-default btn-block" href="group?id=<?php echo $_SESSION['user_empresa'];?>"><?php e_strTranslate("My_group");?></a>
-						
-						<?php if(getModuleExist("shop")):  ?>
-						<a class="btn btn-default btn-block" href="shoporders"><?php e_strTranslate("Shop_my_orders");?></a>
-						<?php endif; ?>
-
-						<br />
+						<?php if(getModuleExist("notifications")) userNotifications();?>
+						<h3><?php e_strTranslate("User_info");?></h3>
 						<table class="table table-striped">
 							<tr><td><label><small><?php e_strTranslate("Date_add");?></small></label></td><td><small class="text-muted"><?php echo getDateFormat($usuario['date_add'], "DATE_TIME");?></small></td></tr>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("Last_access"));?></small></label></td><td><small class="text-muted"><?php echo getDateFormat($usuario['last_access'], "DATE_TIME");?></small></td></tr>
@@ -192,6 +187,12 @@ templateload("na_areasuser", "na_areas");
 							<?php endif; ?>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_shares"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['participaciones'];?></small></td></tr>
 						</table>
+
+						<a class="btn btn-info btn-block" href="group?id=<?php echo $_SESSION['user_empresa'];?>"><?php e_strTranslate("My_group");?></a>
+						
+						<?php if(getModuleExist("shop")): ?>
+						<a class="btn btn-info btn-block" href="shoporders"><?php e_strTranslate("Shop_my_orders");?></a>
+						<?php endif; ?>
 
 						<?php panelAlerts();?>
 

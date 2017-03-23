@@ -1,4 +1,8 @@
 <?php
+/**
+ * Show Last Photo panel. Used in home page
+ * @return 	String       			HTML panel
+ */
 function panelFotos(){
 	$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_album LIKE '%".$_SESSION['user_canal']."%' " : "");
 	$last_photo = fotosController::getListAction(1, $filtro_canal." AND estado=1 ORDER BY id_file DESC ");
@@ -20,6 +24,10 @@ function panelFotos(){
 	</div>
 <?php }
 
+/**
+ * Show Last Photo and Video panel
+ * @return 	String       			HTML panel
+ */
 function panelFotosVideos(){
 	$last_photo = fotosController::getListAction(5, " AND estado=1 ORDER BY id_file DESC ");
 	$last_video = videosController::getListAction(5, " AND estado=1 ");
@@ -44,71 +52,70 @@ function panelFotosVideos(){
 	shuffle($elements);
 	?>
 
-
-<div class="container-fluid" style="margin-bottom: 25px">
-	<div class="row-fluid"  id="carrusel-media-container">
-		<div style="width:150px;float:left;height: 150px">
-			<img src="images/carrusel.jpg" style="height: 150px" />
-		</div>
-		<div style="width:50px;float:left;height: 150px; background-color: #E60000; color: #fff">
-			<a data-href="#thumbCarousel" data-target="#thumbCarousel" data-toggle="carousel" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left" style="color: #fff; margin-top: 70px; font-size: 22px;left: 10px; cursor: pointer"></span>
-			</a>
-		</div>
-		<div id="carrusel-centro" style="width:86%;float:left;height: 150px; background-color: #222">
-			<div id="thumbCarousel" class="carousel slide">
-				<!-- Carousel items -->
-				<div class="carousel-inner thumb-inner" style="height: 150px;">
-					<?php foreach($elements as $element): $i++;?>
-					<div class="<?php echo ($i==1 ? 'active' : '');?> item">
-						<div style="float:left">
-							<?php if($element['tipo'] == 'foto'):?>
-							<a href="fotos">
-								<img src="<?php echo PATH_FOTOS.$element['name_file'];?>" style="height: 150px;" alt="<?php echo $element['titulo'];?>">
-							</a>
-							<?php endif;?>
-							<?php if($element['tipo'] == 'video'):?>
-							<a href="videos?id=<?php echo $element['id'];?>" style="position: relative">
-								<p class="play-video">
-									<span class="fa-stack fa-2x">
-										<i class="fa fa-circle fa-stack-2x"></i>
-										<i class="fa fa-play fa-stack-1x fa-inverse"></i>
-									</span>
-								</p>
-								<img src="<?php echo PATH_VIDEOS.$element['name_file'];?>.jpg" style="height: 150px;" alt="<?php echo $element['titulo'];?>">
-							</a>
-							<?php endif;?>
+	<div class="container-fluid" style="margin-bottom: 25px">
+		<div class="row-fluid"  id="carrusel-media-container">
+			<div style="width:150px;float:left;height: 150px">
+				<img src="images/carrusel.jpg" style="height: 150px" />
+			</div>
+			<div style="width:50px;float:left;height: 150px; background-color: #E60000; color: #fff">
+				<a data-href="#thumbCarousel" data-target="#thumbCarousel" data-toggle="carousel" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left" style="color: #fff; margin-top: 70px; font-size: 22px;left: 10px; cursor: pointer"></span>
+				</a>
+			</div>
+			<div id="carrusel-centro" style="width:86%;float:left;height: 150px; background-color: #222">
+				<div id="thumbCarousel" class="carousel slide">
+					<!-- Carousel items -->
+					<div class="carousel-inner thumb-inner" style="height: 150px;">
+						<?php foreach($elements as $element): $i++;?>
+						<div class="<?php echo ($i==1 ? 'active' : '');?> item">
+							<div style="float:left">
+								<?php if($element['tipo'] == 'foto'):?>
+								<a href="fotos">
+									<img src="<?php echo PATH_FOTOS.$element['name_file'];?>" style="height: 150px;" alt="<?php echo $element['titulo'];?>">
+								</a>
+								<?php endif;?>
+								<?php if($element['tipo'] == 'video'):?>
+								<a href="videos?id=<?php echo $element['id'];?>" style="position: relative">
+									<p class="play-video">
+										<span class="fa-stack fa-2x">
+											<i class="fa fa-circle fa-stack-2x"></i>
+											<i class="fa fa-play fa-stack-1x fa-inverse"></i>
+										</span>
+									</p>
+									<img src="<?php echo PATH_VIDEOS.$element['name_file'];?>.jpg" style="height: 150px;" alt="<?php echo $element['titulo'];?>">
+								</a>
+								<?php endif;?>
+							</div>
 						</div>
-					</div>
-					<?php endforeach;?>
-				</div><!--/carousel-inner-->
-			</div><!--/myCarousel-->
-		</div><!--/col-md-12-->
-		<div style="width:50px;float:left;height: 150px; background-color: #E60000; color: #fff">
-			<a data-href="#thumbCarousel" data-target="#thumbCarousel" data-toggle="carousel" data-slide="next" >
-				<span class="glyphicon glyphicon-chevron-right" style="color: #fff; margin-top: 70px; font-size: 22px;left: 10px; cursor: pointer"></span>
-			</a>
+						<?php endforeach;?>
+					</div><!--/carousel-inner-->
+				</div><!--/myCarousel-->
+			</div><!--/col-md-12-->
+			<div style="width:50px;float:left;height: 150px; background-color: #E60000; color: #fff">
+				<a data-href="#thumbCarousel" data-target="#thumbCarousel" data-toggle="carousel" data-slide="next" >
+					<span class="glyphicon glyphicon-chevron-right" style="color: #fff; margin-top: 70px; font-size: 22px;left: 10px; cursor: pointer"></span>
+				</a>
+			</div>
 		</div>
 	</div>
-</div>
 
-<script type="text/javascript">
-	$('#thumbCarousel .item').each(function(){
-		var next = $(this).next();
-		if(!next.length){
-			next = $(this).siblings(':first');
-		}
-		
-		next.children(':first-child').clone().appendTo($(this));
-
-		for(var i=0;i<10;i++){
-			next=next.next();
-			if (!next.length){
+	<script type="text/javascript">
+		$('#thumbCarousel .item').each(function(){
+			var next = $(this).next();
+			if(!next.length){
 				next = $(this).siblings(':first');
 			}
-
+			
 			next.children(':first-child').clone().appendTo($(this));
-		}
-	});
-</script>
+
+			for(var i=0;i<10;i++){
+				next=next.next();
+				if (!next.length){
+					next = $(this).siblings(':first');
+				}
+
+				next.children(':first-child').clone().appendTo($(this));
+			}
+		});
+	</script>
 <?php } ?>

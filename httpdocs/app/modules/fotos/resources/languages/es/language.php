@@ -1,4 +1,5 @@
 <?php
+Photo = "Foto"
 Photos = "Fotos"
 Photo_list = "Listado de fotos"
 Photo_validation = "Validación de fotos"

@@ -260,7 +260,7 @@ class users{
 					$perfil = 'usuario';
 					$canal = CANAL_DEF;
 
-					$Sql="INSERT INTO users (username,nick, user_password, email, name, confirmed, disabled, canal, 
+					$Sql = "INSERT INTO users (username,nick, user_password, email, name, confirmed, disabled, canal, 
 							empresa, perfil,surname,user_comentarios,foto,user_date) 
 							VALUES ('".$username."','".$nick."','".$user_pass."','".$user_email."','".$user_nombre."',0,0,
 							'".$canal."','".$user_empresa."','".$perfil."','".$user_apellidos."',
@@ -421,7 +421,7 @@ class users{
 		return connection::execute_query($Sql);
 	}
 
-	public static function getUsersConn($filter = "") {
+	public static function getUsersConn($filter = ""){
 		$Sql = "SELECT u.* FROM users_connected c 
 				LEFT JOIN users u ON u.username=c.username 
 				WHERE FROM_UNIXTIME(UNIX_TIMESTAMP(connection_time)+".SESSION_MAXTIME.")>NOW() ".$filter;
@@ -490,6 +490,7 @@ class users{
 				WHERE cod_tienda='".$cod_tienda."'";
 		return connection::execute_query($Sql);
 	}
+	
 	/////////////////////////////////////////////////////////////
 	/// FUNCIONES DE PERMISOS
 	/////////////////////////////////////////////////////////////

@@ -7,7 +7,7 @@ class tpl{
 	 * @param  string 	$modulename    		Module name whre template is placed
 	 */
 	function tpl($template_file, $modulename){
-		$this->tpl_file = dirname(__FILE__) . '/../modules/'.$modulename.'/templates/mails/' . $template_file . '.tpl';
+		$this->tpl_file = dirname(__FILE__).'/../modules/'.$modulename.'/templates/mails/'.$template_file.'.tpl';
 	}
 	
 	/**
@@ -17,7 +17,7 @@ class tpl{
 	function setVars($vars){
 		global $ini_conf;
 		$vars = array_merge($vars, $ini_conf);
-		$this->vars = (empty($this->vars)) ? $vars : $this->vars . $vars;
+		$this->vars = (empty($this->vars)) ? $vars : $this->vars.$vars;
 	}
 	
 	/**
@@ -25,7 +25,7 @@ class tpl{
 	 * @return string HTML template
 	 */
 	function getTpl(){
-		if (!($this->fd = @fopen($this->tpl_file, 'r'))) echo 'error al abrir la plantilla ' . $this->tpl_file;
+		if (!($this->fd = @fopen($this->tpl_file, 'r'))) echo 'error al abrir la plantilla '.$this->tpl_file;
 		else{
 			$this->template_file = fread($this->fd, filesize($this->tpl_file));
 			fclose($this->fd);

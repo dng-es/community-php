@@ -1,8 +1,8 @@
 <?php
-addJavascripts(array("js/jquery.numeric.js", getAsset("cuestionarios")."js/admin-cuestionario-revs.js"));
-
 cuestionariosController::ExportFormUserAction();
 cuestionariosController::ExportFormAllAction();
+
+addJavascripts(array("js/jquery.numeric.js", getAsset("cuestionarios")."js/admin-cuestionario-revs.js"));
 
 //OBTENER DATOS DEL CUESTIONARIO
 $cuestionarios = new cuestionarios();
@@ -23,8 +23,8 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 		cuestionariosController::deleteCuestionarioAction($id_cuestionario);
 		cuestionariosController::RevisarFormAction();
 		cuestionariosController::FinalizacionDeleteAction();
-		$filtro = " AND id_cuestionario=".$id_cuestionario." ORDER BY user_tarea";
-		$revisiones = $cuestionarios->getFormulariosFinalizados($filtro);
+		$filter = " AND id_cuestionario=".$id_cuestionario." ORDER BY user_tarea";
+		$revisiones = $cuestionarios->getFormulariosFinalizados($filter);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -48,16 +48,15 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 						</tr>
 						<?php foreach($revisiones as $revision):
 							if ($revision['revision'] == 1){
-								$imagen_revision='<i class="fa fa-check icon-ok"></i>';
+								$imagen_revision = '<i class="fa fa-check icon-ok"></i>';
 								$btn = "";
 								$txt = ' disabled="disabled" ';
 							}
 							else {
-								$imagen_revision='<i class="fa fa-exclamation icon-alert"></i>';
+								$imagen_revision = '<i class="fa fa-exclamation icon-alert"></i>';
 								$btn = '<button type="submit" class="btn btn-default">validar</button>';
 								$txt = "";
 							}
-
 							echo '<tr>';
 							echo '<td>
 									<button type="button" class="btn btn-default btn-xs" onClick="Confirma(\'¿Seguro que deseas eliminar la finalización del cuestionario?\',
@@ -82,7 +81,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 							echo '<td>('.getDateFormat($revision['date_finalizacion'], "DATE_TIME").')</td>';
 							echo '<td><a href="#" onclick="createDialog('.$id_cuestionario.',\''.$revision['user_tarea'].'\'); return false;">ver respuestas</a></td>';
 							echo '</tr>';
-						endforeach; ?>
+						endforeach;?>
 					</table>
 				</div>
 				<div id="dialog-confirm" title="Respuestas del usuario" style="display:none"><div id="dialog-info"></div></div>
@@ -101,10 +100,7 @@ $cuestionario=cuestionariosController::getItemAction($id_cuestionario);
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Respuestas del usuario</h4>
 			</div>
-			<div class="modal-body">
-
-
-			</div>
+			<div class="modal-body"></div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

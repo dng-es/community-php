@@ -1,4 +1,10 @@
 <?php
+/**
+ * Print HTML user tooltip
+ * @param	Array 		$user_data 			Datos del usuario
+ * @param	String 		$estrellas_print 	Estrellas de participación del usuario
+ * @return	String							HTML tooltip
+ */
 function userTip($user_data, $estrellas_print){
 	$foto = usersController::getUserFoto($user_data['foto']);
 	$output = '<div class="text-left inset-small">
@@ -43,6 +49,11 @@ function userTip($user_data, $estrellas_print){
 	return $output;
 }
 
+/**
+ * Print HTML user data
+ * @param	Array 		$user_data 		user info array
+ * @return	String						HTML data
+ */
 function userFicha($user_data){
 	$foto = usersController::getUserFoto($user_data['foto']);
 	$estrellas_print = userEstrellas($user_data['participaciones']);
@@ -52,6 +63,11 @@ function userFicha($user_data){
 	echo '</a>';
 }
 
+/**
+ * Print HTML user participation stars
+ * @param	Int 		$participaciones 	Numero de participaciones del usuario
+ * @return	String							HTML participation stars
+ */
 function userEstrellas($participaciones){
 	$estrellas = $participaciones / APORTACIONES_VALORACION;
 	$estrellas_print = "";
@@ -61,5 +77,4 @@ function userEstrellas($participaciones){
 		$estrellas_print .= '<span class="'.$clase.'"></span>';
 	}
 	return $estrellas_print;
-}
-?>
+} ?>

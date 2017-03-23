@@ -1,14 +1,15 @@
 <?php 
 /**
  * Print HTML paginator
- * @param 	int  		$pag         	Número de página actual
- * @param 	int  		$reg         	Número de registros por página
- * @param 	int  		$total_reg   	Total de registros
- * @param 	string  	$pag_dest    	URL de destino
- * @param 	string  	$title       	Título del paginador
- * @param 	string  	$find_reg    	Cadena de busqueada. Dato que el paginador tiene que arrastrar
- * @param 	integer 	$num_paginas 	Número máximo de páginas a mostrar en el paginador
- * @param 	string  	$addClass    	Clase CSS
+ * @param	Int			$pag			Número de página actual
+ * @param	Int			$reg			Número de registros por página
+ * @param	Int			$total_reg		Total de registros
+ * @param	String		$pag_dest		URL de destino
+ * @param	String		$title			Título del paginador
+ * @param	String		$find_reg		Cadena de busqueada. Dato que el paginador tiene que arrastrar
+ * @param	Int			$num_paginas	Número máximo de páginas a mostrar en el paginador
+ * @param	String		$addClass		Clase CSS
+ * @return	String						HTML paginator
  */
 function PaginatorIncidences($pag, $reg, $total_reg, $pag_dest, $title, $find_reg = "", $find_reg2 = "", $num_paginas = 10, $addClass = "", $pagecount_dest = "pag"){
 	$total_pag = ceil($total_reg / $reg);

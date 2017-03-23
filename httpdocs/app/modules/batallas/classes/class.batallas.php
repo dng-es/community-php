@@ -1,9 +1,4 @@
 <?php
-/**
-* @Manage batallas
-* @author David Noguera Gutierrez <dnoguera@imagar.com>
-* @version 1.0.1
-*/
 class batallas{
 	/**
 	 * Devuelve array con los registros
@@ -90,73 +85,15 @@ class batallas{
 	}
 
 	public function updateBatallaLucha($id_batalla, $user_lucha, $tiempo_lucha, $aciertos_lucha){
-		if ($tiempo_lucha < 1) $aciertos_lucha = 0;
 		$Sql = "UPDATE batallas_luchas SET 
 				tiempo_lucha=".$tiempo_lucha.",
 				aciertos_lucha=".$aciertos_lucha. " 
 				WHERE id_batalla=".$id_batalla." AND user_lucha='".$user_lucha."' ";
-		if (connection::execute_query($Sql)){ 
-			//comprobar ganadores: obtener contrincantes de la batalla y verificar si han terminado la batalla.
-			$batalla_datos = $this->getBatallas(" AND b.id_batalla=".$id_batalla);
-			$creador = $batalla_datos[0]['user_create'];
-			$oponente = $batalla_datos[0]['user_retado'];
-			$partida_creador = $this->getBatallasLuchas(" AND id_batalla=".$id_batalla." AND user_lucha='".$creador."' ");
-			$partida_oponente = $this->getBatallasLuchas(" AND id_batalla=".$id_batalla." AND user_lucha='".$oponente."' ");
-
-			if (count($partida_creador) == 1 && count($partida_oponente) == 1){
-				$partida_ganador = "";
-				$partida_perdedor = "";
-				//obtener ganador y perdedor
-				if($partida_creador[0]['aciertos_lucha'] == 0 && $partida_oponente[0]['aciertos_lucha'] == 0){
-					//ninguno ha acertado alguna respuesta: no hay ganador
-					$partida_ganador = "";
-					$partida_perdedor = "";
-				}
-				elseif($partida_creador[0]['aciertos_lucha'] > $partida_oponente[0]['aciertos_lucha']){
-					$partida_ganador = $creador;
-					$partida_perdedor = $oponente;
-				}
-				elseif($partida_creador[0]['aciertos_lucha'] < $partida_oponente[0]['aciertos_lucha']){
-					$partida_ganador = $oponente;
-					$partida_perdedor = $creador;
-				}
-				else{
-					//empate a aciertos, verificar tiempo
-					if($partida_creador[0]['tiempo_lucha'] < $partida_oponente[0]['tiempo_lucha']){
-					$partida_ganador = $creador;
-					$partida_perdedor = $oponente;
-					}
-					elseif($partida_creador[0]['tiempo_lucha'] > $partida_oponente[0]['tiempo_lucha']){
-						$partida_ganador = $oponente;
-						$partida_perdedor = $creador;
-					}
-				}
-
-				//sumar y restar huellas. Verificar antes que la batalla no este finalizada
-				$finalizada = connection::countReg("batallas", " AND id_batalla=".$id_batalla." AND finalizada=1 ");
-				if ($finalizada == 0){
-					if ($partida_ganador != "" && $partida_perdedor != ""){
-						$users = new users();
-						$users->sumarPuntos($partida_ganador,$batalla_datos[0]['puntos'],"ganador reto gamificacion");
-						$users->sumarPuntos($partida_perdedor,-$batalla_datos[0]['puntos'],"perdedor reto gamificacion");
-					}
-					elseif ($partida_creador[0]['aciertos_lucha'] == 0 && $partida_oponente[0]['aciertos_lucha'] == 0){
-						$users = new users();
-						$users->sumarPuntos($creador,-$batalla_datos[0]['puntos'],"0 puntos reto gamificacion");
-						$users->sumarPuntos($oponente,-$batalla_datos[0]['puntos'],"0 puntos reto gamificacion");
-					}
-				}
-
-				//actualizar ganador
-				$this->updateBatallaGanador($id_batalla,$partida_ganador);
-			}
-			return true;
-		}
-		else return false;
+		return connection::execute_query($Sql);
 	}
 
 	public function updateBatallaGanador($id_batalla, $user){
-		$Sql = "update batallas SET 
+		$Sql = "UPDATE batallas SET 
 				ganador='".$user."',
 				finalizada=1 
 				WHERE id_batalla=".$id_batalla." ";

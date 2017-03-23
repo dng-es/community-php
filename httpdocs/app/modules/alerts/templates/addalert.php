@@ -1,4 +1,8 @@
 <?php 
+/**
+ * Show create new panel alerts
+ * @return 	string       		HTML panel
+ */
 function addAlert(){ ?>
 	<form action="" name="formAddAction" id="formAddAction" method="post" role="form">
 		<div class="form-group col-md-12">

@@ -29,9 +29,10 @@ class videos{
 		return connection::execute_query($Sql);
 	}
 
-	public function cambiarTags($id, $tags){
+	public function cambiarTags($id, $tags, $destacado = 0){
 		$Sql = "UPDATE galeria_videos SET
-				tipo_video='".$tags."'
+				tipo_video='".$tags."',
+				destacado=".$destacado." 
 				WHERE id_file=".$id."";
 		return connection::execute_query($Sql);
 	}	
@@ -162,7 +163,7 @@ class videos{
 	public function getTags($filter = ""){
 		$Sql = "SELECT GROUP_CONCAT(tipo_video) AS tag FROM galeria_videos v WHERE tipo_video<>'' AND estado=1 ".$filter;
 		$result = connection::getSQL($Sql);
-		$registros = $registros = str_replace(', ',',',$result[0]['tag']);
+		$registros = $registros = str_replace(', ', ',', $result[0]['tag']);
 		$registros =  explode(",", $registros);
 		$registros = array_count_values($registros);
 		return $registros;  

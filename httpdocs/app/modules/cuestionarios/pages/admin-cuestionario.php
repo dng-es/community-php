@@ -22,7 +22,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		//OBTENER DATOS DEL Cuestionario
 		$id_cuestionario = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 		if ($id_cuestionario>0){
-			$cuestionario=cuestionariosController::getItemAction($id_cuestionario);
+			$cuestionario = cuestionariosController::getItemAction($id_cuestionario);
 			$cuestionario_nombre = $cuestionario[0]['nombre'];
 			$cuestionario_descripcion = $cuestionario[0]['descripcion'];
 		}
@@ -33,21 +33,18 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
 					<?php if ($id_cuestionario > 0 ):?>
 					<li><a href="#formquestions" data-toggle="tab"><?php e_strTranslate("Form_questions");?></a></li>
 					<?php endif;?>
-				</ul>	
-
+				</ul>
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="general">
 						<div class="row">
 							<div class="col-md-12">
 								<form method="post" name="form-cuestionario" id="form-cuestionario" role="form">
 									<input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $id_cuestionario;?>" />
-
 									<label for="nombre"><?php e_strTranslate("Name");?></label>
 									<input type="text" name="nombre" id ="nombre" class="form-control form-big" value="<?php echo $cuestionario_nombre;?>" />
 									<br />
@@ -67,8 +64,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 							</div>
 						</div>
 					</div>
-
-				<?php if ($id_cuestionario > 0 ):?>
+					<?php if($id_cuestionario > 0 ):?>
 					<div class="tab-pane fade in" id="formquestions">
 						<div class="row">
 							<div class="col-md-12">
@@ -77,7 +73,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 							</div>
 						</div>
 					</div>
-				<?php endif;?>
+					<?php endif;?>
 				</div>
 			</div>
 		</div>
@@ -99,7 +95,6 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 					<th><?php e_strTranslate("Form_question");?></th>
 					<th><?php e_strTranslate("Form_question_type");?></th>
 				</tr>
-
 				<?php foreach($preguntas as $pregunta): ?>
 				<tr>
 					<td nowrap="nowrap">
@@ -112,7 +107,6 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 				<?php endforeach;?>
 			</table>
 		<?php endif; ?>
-
 		<div class="col-md-5">
 			<div class="panel panel-default">
 				<div class="panel-heading"><?php e_strTranslate("Form_new_question");?></div>

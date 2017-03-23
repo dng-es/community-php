@@ -21,7 +21,7 @@ class campaigns{
 	 * @param  string	$imagen_big 		Nombre del archivo de la imagen big
 	 * @return boolean 						Resultado de la SQL
 	 */
-	public function insertCampaigns( $name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad, $canal_campaign){
+	public function insertCampaigns($name_campaign, $desc_campaign, $id_type, $imagen_mini, $imagen_big, $novedad, $canal_campaign){
 		$Sql = "INSERT INTO campaigns (name_campaign,desc_campaign, id_campaign_type, imagen_mini, imagen_big, novedad, canal_campaign) 
 				VALUES ('".$name_campaign."','".$desc_campaign."',".$id_type.",'".$imagen_mini."','".$imagen_big."',".$novedad.",'".$canal_campaign."')";
 		return connection::execute_query($Sql);
