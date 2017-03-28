@@ -78,6 +78,7 @@ jQuery(document).ready(function(){
 			}
 		});
 	});
+	
 	$(".trigger-votar").click(function(event){
 		event.preventDefault();
 		var id = $(this).attr("data-id"),

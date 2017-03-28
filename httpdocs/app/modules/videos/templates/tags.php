@@ -9,9 +9,8 @@ function showTags($tags){
 	if (count($array_tags) > 0){
 		echo '<span class="items-tags">';
 		foreach($array_tags as $tag):
-			if (trim($tag) != ""){
+			if (trim($tag) != "")
 				echo '<span class="label label-default"><a href="videos?tag='.trim($tag).'"><i class="fa fa-tag"></i> '.trim($tag).'</a></span>';
-			}
 		endforeach;
 		echo '</span>';
 	}
@@ -42,13 +41,7 @@ function tagsCloud(){
 		$valor_min = min($tags);
 		$diferencia = $valor_max - $valor_min;
 		$diferencia = ($diferencia == 0 ? 1 : $diferencia) ;
-
-		//ordeno el array
 		ksort($tags);
-
-		//$separator = (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?" : "&");
-		//$enlace = (isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? "&id": "?";
-
 		foreach(array_keys($tags) as $key){
 			$valor_relativo = round((($tags[$key] - $valor_min) / $diferencia) * 10);
 			echo '<a href="videos?tag='.$key.'" class="tag'.$valor_relativo.'">'.$key.'</a> ';
