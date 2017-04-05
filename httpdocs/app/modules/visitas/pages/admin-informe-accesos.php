@@ -165,6 +165,17 @@ $(function () {
 				pointPadding: 0.2,
 				borderWidth: 0
 			}
+			// ,
+	  //       series: {
+	  //           cursor: 'pointer',
+	  //           point: {
+	  //               events: {
+	  //                   click: function () {
+	  //                       alert('Category: ' + this.category + ', value: ' + this.y);
+	  //                   }
+	  //               }
+	  //           }
+	  //       }
 		},
 		series: [{
 			name: 'Visitas',
@@ -217,8 +228,8 @@ $('#containerHoras').highcharts({
 			column: {
 				pointPadding: 0.2,
 				borderWidth: 0
-			}
-		},
+			}			
+		},	
 		series: [{
 			name: 'Visitas',
 			data: [<?php echo $output_y5;?>],

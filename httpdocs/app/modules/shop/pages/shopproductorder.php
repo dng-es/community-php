@@ -61,7 +61,7 @@ $module_config = getModuleConfig("shop");
 			<div class="panel panel-default">
 				<div class="row">
 					<div class="col-md-12">
-						<h1>Datos del pedido</h1>
+						<h1><?php e_strTranslate("Shop_order_details");?></h1>
 						<hr />
 					</div>
 				</div>
@@ -172,20 +172,21 @@ $module_config = getModuleConfig("shop");
 						</div>
 					</form>
 				<?php endif;?>
-			<?php else:?>
-					<div class="row">
-						<div class="col-md-12">
-							Error al obtener datos
-						</div>
-					</div>
-			<?php endif;?>
+			</div>
 		</div>
+		<?php else:?>
+		<div class="row">
+			<div class="col-md-12">
+				<?php e_strTranslate("Error_procesing");?>
+			</div>
+		</div>
+		<?php endif;?>
 	</div>
 
-	</div>
+
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<h2>Premios</h2>
+			<h2><?php e_strTranslate("APP_Shop");?></h2>
 			<p>Puedes canjear tus <?php e_strTranslate("APP_Credits");?> por fantasticos <?php strtolower(e_strTranslate("Shop_products"));?>!</p>
 			<p class="text-center"><i class="fa fa-shopping-cart fa-big"></i></p>
 		</div>

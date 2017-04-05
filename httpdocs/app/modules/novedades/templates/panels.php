@@ -114,7 +114,7 @@ function popupNovedades(){
 	$filter = $filtro_canal.$filtro_perfil." AND activo=1 AND tipo='popup' ORDER BY orden ASC ";
 	$elements = novedadesController::getListAction(1, $filter);
 	if ((count($elements['items']) > 0) && (!isset($_SESSION['modal_home']) || $_SESSION['modal_home'] != 1)): ?>
-        <!-- Modal Derechos y responsabilidades (declaración)-->
+        <!-- Modal Pop-Novedades-->
 		<div class="modal modal-wide fade" id="modalNovedades" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">

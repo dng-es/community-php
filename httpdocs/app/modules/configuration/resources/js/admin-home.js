@@ -1,21 +1,4 @@
 // JavaScript Document
-
-
-// $(function() {
-//     $( ".draggablePanelList" ).sortable({
-//       revert: true
-//     });
-
-//     $( ".container-drop" ).draggable({
-//       connectToSortable: ".draggablePanelList",
-//       cursor: "move",
-//       cursorAt: { top: 56, left: 56 }
-//       //helper: "clone",
-//       //revert: "invalid"
-//     });
-//     $( ".panel" ).disableSelection();    
-//  });
-
 jQuery(function($) {
 	var panelList = $('.draggablePanelList');
 
@@ -32,6 +15,7 @@ jQuery(function($) {
 			});
 		}
 	});
+	
 	$(".plus").click(function(e){
 		e.preventDefault();
 		//var elem_container = $(this).parent().parent().parent().parent(),
@@ -103,7 +87,7 @@ jQuery(function($) {
 		$.ajax({
 			type: 'POST',
 			url: 'app/modules/configuration/pages/admin-home-ajax.php',
-			cache: 'false',
+			cache: false,
 			data: {"action" : "panels"},
 			// Mostramos un mensaje con la respuesta de PHP
 			success: function(data) {

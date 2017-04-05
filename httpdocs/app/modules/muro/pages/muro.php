@@ -23,13 +23,11 @@ $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user
 	<script type="text/javascript">
 		jQuery(document).ready(function(){
 			var ahora = "<?php echo connection::timeServer();?>";
-			ahora = ahora.replace(" ","T") + "Z";
+			ahora = ahora.replace(" ", "T") + "Z";
 			$(".date-format-ago").each(function(){
-				var date2 = $(this).attr("data-date").replace(" ","T") + "Z";
-				var date = prettyDate(ahora,date2);
-				if (date) {
-					$(this).text(date);
-				}
+				var date2 = $(this).data("date").replace(" ", "T") + "Z";
+				var date = prettyDate(ahora, date2);
+				if (date) $(this).text(date);
 			});
 
 			$(".user-tip").tooltip({
