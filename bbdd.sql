@@ -1,6 +1,6 @@
 /*
 SQLyog Community v12.2.6 (32 bit)
-MySQL - 5.5.53-0+deb8u1 : Database - comunidad
+MySQL - 5.5.54-0+deb8u1 : Database - comunidad
 *********************************************************************
 */
 
@@ -28,6 +28,7 @@ CREATE TABLE `accesscontrol` (
   `canal_access` varchar(100) NOT NULL DEFAULT '',
   `webpage` varchar(250) NOT NULL,
   `webpage_id` varchar(250) NOT NULL,
+  `webpage_origin` text NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip` varchar(100) NOT NULL DEFAULT '',
   `agent` varchar(250) NOT NULL DEFAULT 'Desconocido',
@@ -38,7 +39,9 @@ CREATE TABLE `accesscontrol` (
   KEY `webpage` (`webpage`),
   KEY `fecha` (`fecha`),
   KEY `browser` (`browser`),
-  KEY `platform` (`platform`)
+  KEY `platform` (`platform`),
+  KEY `username` (`username`),
+  KEY `empresa_access` (`empresa_access`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `accesscontrol` */
@@ -60,7 +63,7 @@ CREATE TABLE `agenda` (
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_add` varchar(100) NOT NULL DEFAULT '',
   `etiquetas` text NOT NULL,
-  `activo` tinyint(1) NOT NULL DEFAULT '0',
+  `activo` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1: activo; 0:inactivo',
   PRIMARY KEY (`id_agenda`),
   KEY `agenda` (`id_agenda`)
 ) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
@@ -69,8 +72,8 @@ CREATE TABLE `agenda` (
 
 insert  into `agenda`(`id_agenda`,`titulo`,`descripcion`,`banner`,`date_ini`,`date_fin`,`archivo`,`tipo`,`canal`,`date_add`,`user_add`,`etiquetas`,`activo`) values 
 (1,'Red Day','<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consectetur sem id dui tincidunt porta. Nunc porta sit amet erat eu convallis. Sed tempor lobortis hendrerit. Donec ante mi, convallis in condimentum nec, finibus eu ipsum. Ut viverra faucibus metus ac pretium. Donec in mauris faucibus, dignissim urna in, mollis libero. Suspendisse interdum tortor lacus, sed malesuada dolor scelerisque nec. Etiam convallis lacus vel porttitor facilisis.</p>\r\n','1479818779_1476963167_2016_12_14_red_day_navidad_3__1_.jpg','2016-10-01 00:00:00','2019-10-31 00:00:00','',1,'comercial','2016-10-04 16:21:21','admin','etiquetas',1),
-(2,'Music Vodafone Yu: Melendi','<p>Cras vitae nisi scelerisque ante aliquet rutrum. Suspendisse mauris nulla, rhoncus non dictum non, aliquam vitae ligula. Nunc scelerisque semper ipsum, quis lacinia est aliquet vitae. In at massa fermentum, rhoncus ipsum sed, congue sem. Integer vulputate sit amet nunc interdum semper. Nulla vehicula ipsum vitae ligula ultrices, eu bibendum dolor mattis. Ut ut mauris nec ante tincidunt maximus. Nulla facilisi. Phasellus sed erat vulputate, imperdiet lectus nec, finibus velit. Sed tempor purus nisl, non dapibus urna aliquam vitae. Quisque sed laoreet lacus. Phasellus faucibus interdum iaculis. Nullam nibh quam, faucibus sed euismod quis, pretium at arcu. Ut vulputate odio ac metus volutpat, sit amet laoreet elit aliquet. Proin turpis leo, sagittis vel malesuada a, sodales et odio. Mauris facilisis nulla quis aliquam malesuada. Duis sed sem sed eros varius elementum semper id erat. Sed efficitur sapien ac ultricies ultrices. Mauris venenatis tempor massa. Fusce ultrices nunc non dolor semper aliquet. Pellentesque nec interdum ante. Etiam maximus eget nisl et rutrum.</p>\r\n','1479818751_1476962730_2016_10_17_melendi_3.jpg','2016-10-09 00:00:00','2019-10-31 00:00:00','',1,'gerente','2016-10-04 16:22:53','admin','etiquetas',1),
-(25,'Los 40 music Awards','<p>algo de texto en la entrada</p>\r\n','1479818733_1479804804_los40musicawards-690x308.jpg','2016-11-02 00:00:00','2017-12-01 00:00:00','',1,'comercial,gerente,test','2016-11-16 12:18:50','admin','',0),
+(2,'Music Vodafone Yu: Melendi','<p>Cras vitae nisi scelerisque ante aliquet rutrum. Suspendisse mauris nulla, rhoncus non dictum non, aliquam vitae ligula. Nunc scelerisque semper ipsum, quis lacinia est aliquet vitae. In at massa fermentum, rhoncus ipsum sed, congue sem. Integer vulputate sit amet nunc interdum semper. Nulla vehicula ipsum vitae ligula ultrices, eu bibendum dolor mattis. Ut ut mauris nec ante tincidunt maximus. Nulla facilisi. Phasellus sed erat vulputate, imperdiet lectus nec, finibus velit. Sed tempor purus nisl, non dapibus urna aliquam vitae. Quisque sed laoreet lacus. Phasellus faucibus interdum iaculis. Nullam nibh quam, faucibus sed euismod quis, pretium at arcu. Ut vulputate odio ac metus volutpat, sit amet laoreet elit aliquet. Proin turpis leo, sagittis vel malesuada a, sodales et odio. Mauris facilisis nulla quis aliquam malesuada. Duis sed sem sed eros varius elementum semper id erat. Sed efficitur sapien ac ultricies ultrices. Mauris venenatis tempor massa. Fusce ultrices nunc non dolor semper aliquet. Pellentesque nec interdum ante. Etiam maximus eget nisl et rutrum.</p>\r\n','1479818751_1476962730_2016_10_17_melendi_3.jpg','2016-10-01 00:00:00','2019-10-31 00:00:00','',1,'gerente','2016-10-04 16:22:53','admin','etiquetas',1),
+(25,'Los 40 music Awards','<p>algo de texto en la entrada</p>\r\n','1479818733_1479804804_los40musicawards-690x308.jpg','2016-11-02 00:00:00','2017-12-01 00:00:00','',1,'comercial,gerente,test','2016-11-16 12:18:50','admin','musica',0),
 (30,'Una oferta para todos','<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula dignissim velit condimentum iaculis sed non dui. Ut eget nunc a augue dapibus imperdiet a in ex. Aliquam erat volutpat. In auctor, ex vel bibendum lacinia, nulla arcu vestibulum mi, a lacinia sapien nisi eget turpis. Praesent vitae risus non dui ullamcorper pellentesque quis quis turpis. Donec placerat varius ante, in hendrerit nulla venenatis vitae. Morbi elementum massa at bibendum euismod. Sed vitae consectetur purus. Integer nibh eros, pellentesque ut dictum eget, consequat cursus neque. Donec tristique libero finibus ligula molestie ultricies. Aliquam ut bibendum neque, nec semper diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean convallis justo sit amet diam finibus mattis. Suspendisse quis odio elit. Nulla eget est in eros mattis tincidunt. Phasellus quis turpis laoreet, lacinia velit ut, tincidunt nulla.</p>\r\n\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">Donec pharetra et diam cursus dapibus. Duis egestas ipsum ac augue gravida, sed egestas ipsum sodales. Donec tincidunt mattis condimentum. Curabitur turpis orci, pellentesque tristique congue eu, congue et mi. Maecenas justo leo, porttitor nec convallis eget, consectetur vitae felis. Praesent a purus tempor neque placerat faucibus finibus malesuada velit. Cras ultrices gravida augue, id mattis tellus fermentum a.</p>\r\n','1482133279_1476858388.gif','2016-12-01 00:00:00','2017-08-11 00:00:00','1482133279_presupuesto5752a.pdf',2,'comercial,gerente,test','2016-12-19 08:41:19','admin','Animados',1);
 
 /*Table structure for table `agenda_tipos` */
@@ -106,7 +109,7 @@ CREATE TABLE `alerts` (
   `date_fin` datetime NOT NULL,
   `activa` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_alert`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 /*Data for the table `alerts` */
 
@@ -122,7 +125,10 @@ insert  into `alerts`(`id_alert`,`text_alert`,`type_alert`,`destination_alert`,`
 (9,'Una com prioridad baja','user','jgonzalez','2016-02-26 11:22:24','pedro','low','2016-02-26 00:00:00','2016-02-27 23:59:59',1),
 (10,'Tareas e prioridad media para TIENDAS PROPIAS2','group','0004','2016-02-26 11:54:32','pedro','medium','2016-02-25 00:00:00','2016-03-12 23:59:59',1),
 (11,'Hay que limpiar la tienda todos los días','group','0002','2016-03-14 10:13:46','admin','hight','2016-03-01 00:00:00','2016-06-30 23:59:59',1),
-(12,'Encárgate de que limpien la tienda todos los días','user','pedro','2016-03-14 10:14:51','admin','hight','2016-03-01 00:00:00','2016-06-30 23:59:59',1);
+(12,'Encárgate de que limpien la tienda todos los días','user','pedro','2016-03-14 10:14:51','admin','hight','2016-03-01 00:00:00','2016-06-30 23:59:59',1),
+(13,'Nueva alerta para CENTRAL','group','0001','2017-02-02 12:52:16','admin','hight','2017-02-01 00:00:00','2017-12-31 23:59:59',1),
+(14,'Una para todos los usuarios','user','','2017-02-02 12:57:33','admin','hight','2017-01-29 00:00:00','2017-05-31 23:59:59',1),
+(15,'yuiyuiy uiyui','user','','2017-02-02 12:58:38','pedro','hight','2017-01-30 00:00:00','2017-02-18 23:59:59',0);
 
 /*Table structure for table `batallas` */
 
@@ -139,14 +145,18 @@ CREATE TABLE `batallas` (
   `puntos` int(11) NOT NULL DEFAULT '0',
   `canal_batalla` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_batalla`)
-) ENGINE=MyISAM AUTO_INCREMENT=748 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=755 DEFAULT CHARSET=latin1;
 
 /*Data for the table `batallas` */
 
 insert  into `batallas`(`id_batalla`,`user_create`,`user_retado`,`date_batalla`,`tipo_batalla`,`finalizada`,`ganador`,`puntos`,`canal_batalla`) values 
 (732,'admin','senen','2016-02-26 12:27:04','General',1,'admin',5,'gerente'),
 (734,'senen','david','2016-02-26 12:28:49','General',1,'david',5,'comercial'),
-(736,'admin','borja','2016-03-11 10:16:49','General',1,'borja',15,'comercial');
+(736,'admin','borja','2016-03-11 10:16:49','General',1,'borja',15,'comercial'),
+(748,'admin','senen','2017-01-26 09:59:08','General',1,'senen',15,'gerente'),
+(753,'admin','odelgado','2017-03-23 09:59:42','General',1,'admin',15,'comercial'),
+(752,'admin','david','2017-03-23 09:57:52','General',0,'',15,'comercial'),
+(754,'odelgado','Redbull','2017-03-23 10:03:51','General',0,'',15,'comercial');
 
 /*Table structure for table `batallas_luchas` */
 
@@ -163,7 +173,7 @@ CREATE TABLE `batallas_luchas` (
   PRIMARY KEY (`id_lucha`),
   KEY `id_batalla` (`id_batalla`),
   KEY `user_lucha` (`user_lucha`)
-) ENGINE=MyISAM AUTO_INCREMENT=759 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=768 DEFAULT CHARSET=latin1;
 
 /*Data for the table `batallas_luchas` */
 
@@ -187,7 +197,16 @@ insert  into `batallas_luchas`(`id_lucha`,`id_batalla`,`date_lucha`,`user_lucha`
 (755,744,'2016-08-23 09:50:10','admin',0,0,1),
 (756,745,'2016-08-23 09:50:10','admin',0,0,1),
 (757,746,'2016-08-23 10:01:38','admin',0,0,1),
-(758,747,'2016-08-29 14:14:30','admin',5,0,1);
+(758,747,'2016-08-29 14:14:30','admin',5,0,1),
+(759,748,'2017-01-26 09:59:08','admin',46,1,1),
+(760,748,'2017-01-26 13:30:20','senen',6,2,1),
+(761,749,'2017-02-23 17:10:21','admin',16,1,1),
+(762,750,'2017-02-27 09:29:06','admin',7,3,1),
+(763,751,'2017-02-27 15:44:25','claudio',6,0,1),
+(764,752,'2017-03-23 09:57:52','admin',10,0,1),
+(765,753,'2017-03-23 09:59:42','admin',10,3,1),
+(766,753,'2017-03-23 10:00:47','odelgado',10,1,1),
+(767,754,'2017-03-23 10:03:51','odelgado',5,1,1);
 
 /*Table structure for table `batallas_preguntas` */
 
@@ -300,7 +319,7 @@ CREATE TABLE `batallas_respuestas` (
   KEY `id_batalla` (`id_batalla`),
   KEY `username_batalla` (`username_batalla`),
   KEY `batalla_pregunta` (`batalla_pregunta`)
-) ENGINE=MyISAM AUTO_INCREMENT=4465 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4507 DEFAULT CHARSET=latin1;
 
 /*Data for the table `batallas_respuestas` */
 
@@ -388,7 +407,49 @@ insert  into `batallas_respuestas`(`id_respuesta`,`id_batalla`,`username_batalla
 (4461,747,'admin',50,'2'),
 (4462,747,'Redbull',50,''),
 (4463,747,'admin',56,'1'),
-(4464,747,'Redbull',56,'');
+(4464,747,'Redbull',56,''),
+(4465,748,'admin',22,'2'),
+(4466,748,'senen',22,'2'),
+(4467,748,'admin',10,'3'),
+(4468,748,'senen',10,'1'),
+(4469,748,'admin',6,'1'),
+(4470,748,'senen',6,'1'),
+(4471,749,'admin',26,'2'),
+(4472,749,'Redbull',26,''),
+(4473,749,'admin',20,'2'),
+(4474,749,'Redbull',20,''),
+(4475,749,'admin',54,'2'),
+(4476,749,'Redbull',54,''),
+(4477,750,'admin',12,'3'),
+(4478,750,'senen',12,''),
+(4479,750,'admin',22,'1'),
+(4480,750,'senen',22,''),
+(4481,750,'admin',10,'1'),
+(4482,750,'senen',10,''),
+(4483,751,'claudio',10,'2'),
+(4484,751,'senen',10,''),
+(4485,751,'claudio',6,'2'),
+(4486,751,'senen',6,''),
+(4487,751,'claudio',19,'2'),
+(4488,751,'senen',19,''),
+(4489,752,'admin',27,'2'),
+(4490,752,'david',27,''),
+(4491,752,'admin',62,'1'),
+(4492,752,'david',62,''),
+(4493,752,'admin',2,'2'),
+(4494,752,'david',2,''),
+(4495,753,'admin',74,'3'),
+(4496,753,'odelgado',74,'1'),
+(4497,753,'admin',11,'2'),
+(4498,753,'odelgado',11,'3'),
+(4499,753,'admin',37,'2'),
+(4500,753,'odelgado',37,'2'),
+(4501,754,'odelgado',63,'3'),
+(4502,754,'Redbull',63,''),
+(4503,754,'odelgado',74,'1'),
+(4504,754,'Redbull',74,''),
+(4505,754,'odelgado',33,'3'),
+(4506,754,'Redbull',33,'');
 
 /*Table structure for table `blog_alerts` */
 
@@ -475,7 +536,22 @@ insert  into `blog_alerts`(`id_tema`,`username_alert`,`date_alert`) values
 (61,'dramos','2016-10-14 09:49:35'),
 (60,'dramos','2016-10-14 09:49:35'),
 (68,'dramos','2016-10-14 09:49:35'),
-(69,'dramos','2016-10-14 09:49:35');
+(69,'dramos','2016-10-14 09:49:35'),
+(85,'admin','2017-01-26 11:36:07'),
+(85,'pedro','2017-01-26 11:36:22'),
+(85,'claudio','2017-02-27 15:25:50'),
+(50,'dcancho','2017-03-08 11:01:22'),
+(51,'dcancho','2017-03-08 11:01:22'),
+(52,'dcancho','2017-03-08 11:01:22'),
+(53,'dcancho','2017-03-08 11:01:22'),
+(54,'dcancho','2017-03-08 11:01:22'),
+(59,'dcancho','2017-03-08 11:01:22'),
+(61,'dcancho','2017-03-08 11:01:22'),
+(60,'dcancho','2017-03-08 11:01:22'),
+(68,'dcancho','2017-03-08 11:01:22'),
+(69,'dcancho','2017-03-08 11:01:22'),
+(85,'dcancho','2017-03-08 11:01:22'),
+(91,'admin','2017-03-21 11:29:56');
 
 /*Table structure for table `campaigns` */
 
@@ -515,7 +591,7 @@ CREATE TABLE `campaigns_types` (
   `campaign_type_name` varchar(250) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `campaign_type_desc` text CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id_campaign_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `campaigns_types` */
 
@@ -586,18 +662,19 @@ CREATE TABLE `config_panels` (
 /*Data for the table `config_panels` */
 
 insert  into `config_panels`(`page_name`,`panel_name`,`panel_cols`,`panel_row`,`panel_pos`,`panel_visible`) values 
-('home','panelUser',3,1,8,1),
-('home','panelForos',3,1,2,1),
-('home','panelMuro',3,1,1,1),
-('home','panelNovedades',5,1,2,0),
-('home','panelBlog',3,1,3,1),
-('home','panelAlerts',6,2,9,0),
+('home','panelUser',6,0,1,1),
+('home','panelForos',6,1,9,0),
+('home','panelMuro',4,2,7,1),
+('home','panelNovedades',8,2,8,1),
+('home','panelBlog',3,1,6,1),
+('home','panelAlerts',4,1,5,0),
 ('home','panelFotos',3,1,4,1),
-('home','panelVideos',3,1,5,1),
-('home','panelDestacado',3,1,6,1),
-('home','panelAreas',3,2,7,0),
-('home','panelConnected',3,1,7,1),
-('home','panelBlog2',4,3,10,0);
+('home','panelVideos',3,1,3,1),
+('home','panelDestacado',3,1,5,1),
+('home','panelAreas',4,1,6,0),
+('home','panelConnected',6,0,2,1),
+('home','panelBlog2',4,1,4,0),
+('home','panelNovedadesBanner',5,1,10,0);
 
 /*Table structure for table `cuestionarios` */
 
@@ -610,7 +687,7 @@ CREATE TABLE `cuestionarios` (
   `date_tarea` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `activo` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '0 inactivo; 1 activo; 2 eliminado',
   PRIMARY KEY (`id_cuestionario`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cuestionarios` */
 
@@ -620,7 +697,8 @@ insert  into `cuestionarios`(`id_cuestionario`,`nombre`,`descripcion`,`date_tare
 (14,'prueba','jdskbslkd fsdjkfhsdjkfhsdjhfsdljfh sdmnf&nbsp;','2014-11-07 11:00:31',0),
 (15,'Primer cuestionario - Clon','La descripci&oacute;n del primer cuestionario ampliado2','2014-11-07 11:38:29',2),
 (16,'Primer cuestionario - Clon','La descripci&oacute;n del primer cuestionario ampliado2','2016-05-09 12:37:03',1),
-(17,'Cuestionario autocorregible','<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a volutpat neque, non aliquet velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus velit vitae porttitor egestas. Etiam et leo interdum, viverra metus eu, pellentesque ligula. Nullam rhoncus iaculis neque, eu sollicitudin augue venenatis sed. Nulla facilisi. Aliquam erat volutpat. Phasellus vel justo ut diam eleifend fermentum. Vivamus odio justo, luctus eu erat ut, venenatis interdum massa. Integer id malesuada libero. Integer purus eros, dapibus non accumsan at, mollis vitae elit. Vivamus eu aliquet est, id vestibulum nibh. Cras gravida justo id enim imperdiet auctor. Maecenas hendrerit in turpis ac congue. Nunc nibh lorem, hendrerit pulvinar urna vitae, rhoncus malesuada tellus.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet mauris ultrices, malesuada sapien sed, auctor felis. Maecenas ornare nibh ante, quis pharetra est ullamcorper non. Integer nulla urna, venenatis vel arcu sed, rutrum condimentum leo. Praesent feugiat metus ut sodales vehicula. Maecenas cursus eu purus eget vestibulum. Quisque finibus in erat quis pellentesque. Etiam at quam risus. Aenean consectetur tortor sapien, sit amet auctor risus dapibus at. Ut imperdiet nibh arcu, non eleifend arcu imperdiet nec. Donec gravida dignissim ipsum, sit amet feugiat massa tincidunt sit amet. Aenean semper turpis justo, quis cursus lorem sollicitudin nec. Phasellus hendrerit ipsum est, eu ultrices massa interdum ut. Donec justo lacus, molestie ac mollis in, dignissim at elit.</p>\r\n','2016-12-21 16:36:10',1);
+(17,'Cuestionario autocorregible','<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a volutpat neque, non aliquet velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus velit vitae porttitor egestas. Etiam et leo interdum, viverra metus eu, pellentesque ligula. Nullam rhoncus iaculis neque, eu sollicitudin augue venenatis sed. Nulla facilisi. Aliquam erat volutpat. Phasellus vel justo ut diam eleifend fermentum. Vivamus odio justo, luctus eu erat ut, venenatis interdum massa. Integer id malesuada libero. Integer purus eros, dapibus non accumsan at, mollis vitae elit. Vivamus eu aliquet est, id vestibulum nibh. Cras gravida justo id enim imperdiet auctor. Maecenas hendrerit in turpis ac congue. Nunc nibh lorem, hendrerit pulvinar urna vitae, rhoncus malesuada tellus.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet mauris ultrices, malesuada sapien sed, auctor felis. Maecenas ornare nibh ante, quis pharetra est ullamcorper non. Integer nulla urna, venenatis vel arcu sed, rutrum condimentum leo. Praesent feugiat metus ut sodales vehicula. Maecenas cursus eu purus eget vestibulum. Quisque finibus in erat quis pellentesque. Etiam at quam risus. Aenean consectetur tortor sapien, sit amet auctor risus dapibus at. Ut imperdiet nibh arcu, non eleifend arcu imperdiet nec. Donec gravida dignissim ipsum, sit amet feugiat massa tincidunt sit amet. Aenean semper turpis justo, quis cursus lorem sollicitudin nec. Phasellus hendrerit ipsum est, eu ultrices massa interdum ut. Donec justo lacus, molestie ac mollis in, dignissim at elit.</p>\r\n','2016-12-21 16:36:10',1),
+(18,'Primer cuestionario - Clon','La descripci&oacute;n del primer cuestionario ampliado2','2017-02-23 12:50:25',1);
 
 /*Table structure for table `cuestionarios_finalizados` */
 
@@ -640,9 +718,8 @@ CREATE TABLE `cuestionarios_finalizados` (
 /*Data for the table `cuestionarios_finalizados` */
 
 insert  into `cuestionarios_finalizados`(`id_cuestionario`,`user_tarea`,`date_finalizacion`,`revision`,`puntos`,`user_revision`,`date_revision`) values 
-(13,'admin','2014-10-13 18:03:10',0,0,'',NULL),
-(17,'admin','2016-12-21 17:17:55',1,6,'admin','2016-12-21 17:17:55'),
-(17,'borja','2016-12-21 17:19:53',1,10,'admin','2016-12-21 17:19:53');
+(13,'admin','2017-02-02 15:44:07',1,0,'admin','2017-02-02 15:44:07'),
+(12,'admin','2017-02-23 12:52:10',1,0,'admin','2017-02-23 12:52:10');
 
 /*Table structure for table `cuestionarios_preguntas` */
 
@@ -654,7 +731,7 @@ CREATE TABLE `cuestionarios_preguntas` (
   `pregunta_texto` longtext NOT NULL,
   `pregunta_tipo` varchar(100) NOT NULL DEFAULT 'texto' COMMENT 'texto;unica;multiple',
   PRIMARY KEY (`id_pregunta`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cuestionarios_preguntas` */
 
@@ -672,7 +749,10 @@ insert  into `cuestionarios_preguntas`(`id_pregunta`,`id_cuestionario`,`pregunta
 (47,16,'Sexo','unica'),
 (48,17,'Pregunta de resp unica','unica'),
 (49,17,'Pregunta multiple','multiple'),
-(50,17,'Otra única','unica');
+(50,17,'Otra única','unica'),
+(51,18,'Color favorito','unica'),
+(52,18,'¿Que comida te gusta?','multiple'),
+(53,18,'Sexo','unica');
 
 /*Table structure for table `cuestionarios_respuestas` */
 
@@ -695,21 +775,13 @@ insert  into `cuestionarios_respuestas`(`id_respuesta`,`id_pregunta`,`respuesta_
 (145,41,'Tomar un café',0),
 (146,41,'Fumar un cigarro',0),
 (147,42,'azul',0),
-(148,42,'rojo',0),
+(148,42,'rojo',1),
 (149,42,'amarillo',0),
 (150,43,'Carne',0),
 (151,43,'Pescado',0),
 (152,43,'Verdura',0),
 (153,44,'Hombre',0),
-(154,44,'Mujer',0),
-(155,48,'OPT1 ok',1),
-(156,48,'OPT2',0),
-(157,49,'OPT1 ok',1),
-(158,49,'OPT2',0),
-(159,49,'OPT3 ok',1),
-(160,50,'OPT1',0),
-(161,50,'OPT2 ok',1),
-(162,50,'OPT3',0);
+(154,44,'Mujer',0);
 
 /*Table structure for table `cuestionarios_respuestas_user` */
 
@@ -721,25 +793,28 @@ CREATE TABLE `cuestionarios_respuestas_user` (
   `respuesta_user` varchar(100) NOT NULL DEFAULT '',
   `respuesta_valor` longtext NOT NULL,
   PRIMARY KEY (`id_respuesta_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=4810 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4813 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cuestionarios_respuestas_user` */
 
 insert  into `cuestionarios_respuestas_user`(`id_respuesta_user`,`id_pregunta`,`respuesta_user`,`respuesta_valor`) values 
-(4796,37,'admin','azul'),
-(4797,38,'admin','Carne|Pescado'),
-(4798,39,'admin','Hombre'),
+(4796,37,'admin',''),
+(4797,38,'admin',''),
+(4798,39,'admin',''),
 (4799,40,'admin','No'),
 (4800,41,'admin','Tomar un café|Fumar un cigarro'),
 (4801,37,'david','azul'),
 (4802,38,'david','Carne|Pescado|Verdura'),
 (4803,39,'david','Mujer'),
-(4804,48,'admin','OPT1 ok'),
-(4805,49,'admin','OPT1 ok|OPT3 ok'),
-(4806,50,'admin','OPT1'),
+(4804,48,'admin','OPT2'),
+(4805,49,'admin','OPT1 ok|OPT2|OPT3 ok'),
+(4806,50,'admin','OPT3'),
 (4807,48,'borja','OPT1 ok'),
 (4808,49,'borja','OPT1 ok|OPT3 ok'),
-(4809,50,'borja','OPT2 ok');
+(4809,50,'borja','OPT2 ok'),
+(4810,51,'claudio',''),
+(4811,52,'claudio',''),
+(4812,53,'claudio','');
 
 /*Table structure for table `destacados` */
 
@@ -754,7 +829,7 @@ CREATE TABLE `destacados` (
   `activo` tinyint(1) DEFAULT '0',
   `canal_destacado` varchar(100) NOT NULL,
   PRIMARY KEY (`id_destacado`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `destacados` */
 
@@ -764,8 +839,8 @@ insert  into `destacados`(`id_destacado`,`destacado_fecha`,`destacado_tipo`,`des
 (3,'2015-10-26 16:45:08','foto',46,'You asked, Font Awesome delivers with 66 shiny new icons in version ',0,'comercial'),
 (4,'2015-10-26 16:45:42','video',2,'You asked, Font Awesome delivers with 66 shiny new icons in version ',0,'comercial'),
 (5,'2016-03-17 10:33:55','video',6,'You asked, Font Awesome delivers with 66 shiny new icons in version ',0,'comercial'),
-(6,'2016-03-10 16:44:34','foto',37,'Un gran plato para rematar',1,'gerente'),
-(7,'2016-03-17 10:33:55','foto',63,'me encanta la foto',1,'comercial');
+(6,'2017-01-27 10:52:03','foto',37,'Un gran plato para rematar',1,'gerente'),
+(7,'2017-01-27 11:07:10','foto',63,'me encanta la foto',1,'comercial');
 
 /*Table structure for table `emociones` */
 
@@ -778,7 +853,7 @@ CREATE TABLE `emociones` (
   `active` int(1) NOT NULL DEFAULT '1',
   `image_emocion` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_emocion`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `emociones` */
 
@@ -791,7 +866,8 @@ insert  into `emociones`(`id_emocion`,`name_emocion`,`desc_emocion`,`active`,`im
 (6,'angustiad@',NULL,1,'1412262680_cara10.png'),
 (7,'euforic@',NULL,1,'1409225072_cara7.png'),
 (8,'desganad@',NULL,1,'1409225108_cara8.png'),
-(9,'enfurecid@',NULL,1,'1412262740_cara11.png');
+(9,'enfurecid@',NULL,1,'1412262740_cara11.png'),
+(10,'A1 testy',NULL,0,'1486031005_ftp.png');
 
 /*Table structure for table `emociones_consejos` */
 
@@ -914,13 +990,13 @@ insert  into `emociones_user`(`id_emocion_user`,`id_emocion`,`user_emocion`,`dat
 (61,4,'admin','2014-08-29 13:44:42','xcvxcvxcvxc'),
 (62,8,'admin','2014-08-29 13:45:37','erterter'),
 (63,5,'admin','2014-10-14 12:48:00','aaaa'),
-(64,7,'admin','2014-11-17 10:49:19','yujuuuuu'),
-(65,8,'admin','2014-11-17 10:51:09','fghfgh'),
-(66,7,'admin','2014-11-17 10:52:37','hfghfg'),
-(67,7,'admin','2014-11-17 10:54:25','ertert'),
-(68,4,'admin','2014-11-17 10:55:38','gfdhghd'),
-(69,5,'admin','2014-11-17 10:57:52','dfgdfd'),
-(70,5,'admin','2014-11-17 10:58:24','dsfsd');
+(64,7,'admin','2017-02-27 17:28:09','yujuuuuu'),
+(65,8,'admin','2017-02-23 17:28:00','fghfgh'),
+(66,7,'admin','2017-02-24 17:27:57','hfghfg'),
+(67,7,'admin','2017-02-25 17:27:53','ertert'),
+(68,4,'admin','2017-02-26 17:27:47','gfdhghd'),
+(69,5,'admin','2017-02-27 17:27:38','dfgdfd'),
+(70,5,'admin','2017-02-28 17:27:45','dsfsd');
 
 /*Table structure for table `foro_comentarios` */
 
@@ -938,7 +1014,7 @@ CREATE TABLE `foro_comentarios` (
   `id_comentario_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_comentario`),
   KEY `id_tema` (`id_tema`)
-) ENGINE=MyISAM AUTO_INCREMENT=178 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=204 DEFAULT CHARSET=utf8;
 
 /*Data for the table `foro_comentarios` */
 
@@ -1039,7 +1115,7 @@ insert  into `foro_comentarios`(`id_comentario`,`id_tema`,`canal`,`comentario`,`
 (161,68,'','Se el primero en comentarla!!!','admin','2015-10-28 12:57:24',0,1,0),
 (162,74,'','algo de texto','admin','2015-11-12 17:16:05',0,1,138),
 (163,74,'','haciendo focus()','admin','2015-11-12 17:16:23',0,1,151),
-(164,40,'','Probando temas','claudio','2016-03-09 13:29:24',1,1,0),
+(164,40,'','Probando temas','claudio','2016-03-09 13:29:24',2,1,0),
 (165,65,'','test img','pedro','2016-03-10 15:52:16',0,1,0),
 (166,69,'','jksdkjfskjdfsdfsf','admin','2016-03-17 10:02:08',0,1,148),
 (167,69,'','kjdfhsdkjfsh','admin','2016-03-17 10:02:19',0,1,166),
@@ -1052,7 +1128,33 @@ insert  into `foro_comentarios`(`id_comentario`,`id_tema`,`canal`,`comentario`,`
 (174,77,'','je je eje','admin','2016-11-16 10:36:30',0,1,173),
 (175,69,'','comentario en gerentes','admin','2016-11-23 16:19:15',0,1,0),
 (176,69,'','un comentario','borja','2016-12-19 11:43:53',0,1,0),
-(177,69,'','te respondo','borja','2016-12-19 11:44:11',0,1,129);
+(177,69,'','te respondo','borja','2016-12-19 11:44:11',0,1,129),
+(178,40,'','ertert ete','pedro','2017-01-26 10:55:11',0,1,0),
+(179,40,'','erterter','pedro','2017-01-26 10:55:35',0,1,128),
+(180,40,'','fghfgh','pedro','2017-01-26 10:55:43',0,1,160),
+(181,40,'','fghfghfg','pedro','2017-01-26 10:55:49',0,1,180),
+(182,83,'','fdgdf dfgdf','admin','2017-01-26 13:26:37',0,1,0),
+(183,86,'','sdf sdfsdfsd','pedro','2017-01-26 13:27:20',0,1,0),
+(184,87,'','sd fsdfsdf','pedro','2017-01-26 13:28:19',1,1,0),
+(185,85,'','un comentario para la entrada','admin','2017-02-03 11:34:02',0,1,0),
+(186,83,'','otro comentario en el foro','admin','2017-02-27 09:34:39',0,1,0),
+(187,87,'','pues vale','claudio','2017-03-08 09:49:40',0,1,0),
+(188,87,'','je je je','claudio','2017-03-08 09:50:00',0,1,184),
+(189,88,'','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, nunc ut tincidunt viverra, erat felis interdum ipsum, quis convallis tortor ante nec nisi. Sed facilisis, diam in suscipit tincidunt, justo eros ultricies urna, vel ullamcorper arcu leo nec ex. Phasellus elementum, ex vel tincidunt mattis, nisi turpis semper lacus, ac dignissim eros ipsum sed sapien. Curabitur et metus quis elit pretium faucibus ac et diam. Integer vitae maximus diam, quis semper ante. Aliquam sodales arcu id sapien condimentum, eu malesuada lacus mattis. Proin euismod odio eu gravida mattis.','admin','2017-03-09 13:43:58',0,1,0),
+(190,88,'','otro comentario','admin','2017-03-09 13:45:38',0,1,0),
+(191,90,'','xczxc zxczx czx','admin','2017-03-09 13:46:20',0,2,0),
+(192,88,'','sssssssssssss','admin','2017-03-09 13:47:17',0,1,189),
+(193,88,'','11111111111','admin','2017-03-09 13:47:24',0,1,192),
+(194,65,'','un nuevo comentario','dgarcia','2017-03-21 17:05:28',0,1,0),
+(195,65,'','xxxxxx','dgarcia','2017-03-21 17:07:25',0,1,0),
+(196,65,'','xxxxxx','dgarcia','2017-03-21 17:07:55',0,1,0),
+(197,65,'','Mas','dgarcia','2017-03-21 17:09:29',0,1,0),
+(198,65,'','ssssss','dgarcia','2017-03-21 17:10:01',0,1,0),
+(199,65,'','fffffffffff','dgarcia','2017-03-21 17:11:08',0,1,0),
+(200,65,'','y mas','dgarcia','2017-03-21 17:11:44',0,1,0),
+(201,44,'','Primer mensaje','admin','2017-03-21 17:13:01',0,1,0),
+(202,44,'','el segundo mensaje','dgarcia','2017-03-21 17:13:29',0,1,0),
+(203,44,'','El terncer mensaje','admin','2017-03-21 17:13:45',0,1,0);
 
 /*Table structure for table `foro_comentarios_votaciones` */
 
@@ -1064,7 +1166,7 @@ CREATE TABLE `foro_comentarios_votaciones` (
   `user_votacion` varchar(100) NOT NULL DEFAULT '',
   `date_votacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_votacion`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 /*Data for the table `foro_comentarios_votaciones` */
 
@@ -1073,7 +1175,9 @@ insert  into `foro_comentarios_votaciones`(`id_votacion`,`id_comentario`,`user_v
 (11,69,'david','2014-09-23 09:51:34'),
 (12,91,'admin','2015-02-27 12:13:15'),
 (13,129,'admin','2015-03-02 10:46:38'),
-(14,164,'admin','2016-03-17 10:20:36');
+(14,164,'admin','2016-03-17 10:20:36'),
+(15,164,'pedro','2017-01-26 10:54:53'),
+(16,184,'claudio','2017-03-08 09:49:48');
 
 /*Table structure for table `foro_temas` */
 
@@ -1096,7 +1200,7 @@ CREATE TABLE `foro_temas` (
   `ocio` tinyint(1) NOT NULL DEFAULT '0',
   `destacado` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_tema`)
-) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
 
 /*Data for the table `foro_temas` */
 
@@ -1135,7 +1239,7 @@ insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descr
 (63,0,'','foro Prueba de curso sin tareas','I was stumped for a long time by the fact that even when using addslashes and stripslashes explicitly on the field values double quotes (\") still didn´t seem to show up in strings read from a database. Until I looked at the source, and realised that the field value is just truncated at the first occurrence of a double quote. the remainder of the string is there (in the source), but is ignored when the form is displayed and submitted.','','2014-11-24 11:36:46','admin','comercial',0,'',1,12,0,0),
 (64,1,'','Foro para responsables de área','Foro para consultas de responsables de área','','2014-11-28 14:08:35','david','comercial',0,'',1,0,0,0),
 (65,1,'','Consultas Android','Foro de consultas para Android','','2014-11-29 00:29:49','admin','comercial',0,'',1,0,0,0),
-(68,0,'Gerentes','Noticia en gerentes','<p>Elements with angled horizontal edges can create a unique visual flow while progressing through a page. Though not commonly seen on the web, we decided to use the treatment on the new website for <a href=\"https://savingplaces.org/\">The National Trust for Historic Preservation</a>. We applied angled edges to several elements in different ways: some were applied to the bottom edge of a large full width images, while others were applied to the top and/or bottom edge of blocks with solid color backgrounds.</p>\r\n\r\n<p>CSS transforms are commonly used to achieve angled edges by skewing a parent element and then unskewing a child element, but this technique is limited to parallel edges. What if you need to apply the effect in different ways &ndash; only to one edge, to both top and bottom edges but with reversed angles, or to an image element? Fortunately, there are a few other options.</p>\r\n\r\n<h2>CSS clip-path</h2>\r\n\r\n<p>The first, and easiest option, is to use CSS clip-path. We chose to use this technique on large hero images. This assigns a clipping region to the image and essentially hides the bottom edge at a slight angle.</p>\r\n\r\n<p>We also used CSS clip-path on blocks with background images. Unlike the hero image above, the height of this block is variable across breakpoints. In order to maintain the correct angle (not too steep) across viewports, pixel values had to be used for any x coordinates.</p>\r\n\r\n<h2>CSS Generated Content</h2>\r\n\r\n<p>The second option is to use skewed generated content. This technique works great on blocks with solid color backgrounds.</p>\r\n\r\n<p>This adds a pseudo element at the bottom of the block, changes its point of rotation to the bottom right corner, and rotates it -1.5 degrees, simulating the effect of an angled edge.</p>\r\n\r\n<p>To implement another angled edge on the top of the element, it&rsquo;s as easy as adding another pseudo element with :before, changing its point of rotation to the top right corner, and rotating it 1.5 degrees.</p>\r\n','1421845750_gerentes.jpg','2015-01-21 13:43:36','admin','gerente',0,'',1,0,1,0),
+(68,0,'Gerentes','Noticia en gerentes','<p>Elements with angled horizontal edges can create a unique visual flow while progressing through a page. Though not commonly seen on the web, we decided to use the treatment on the new website for <a href=\"https://savingplaces.org/\">The National Trust for Historic Preservation</a>. We applied angled edges to several elements in different ways: some were applied to the bottom edge of a large full width images, while others were applied to the top and/or bottom edge of blocks with solid color backgrounds.</p>\r\n\r\n<p>CSS transforms are commonly used to achieve angled edges by skewing a parent element and then unskewing a child element, but this technique is limited to parallel edges. What if you need to apply the effect in different ways &ndash; only to one edge, to both top and bottom edges but with reversed angles, or to an image element? Fortunately, there are a few other options.</p>\r\n\r\n<h2>CSS clip-path</h2>\r\n\r\n<p>The first, and easiest option, is to use CSS clip-path. We chose to use this technique on large hero images. This assigns a clipping region to the image and essentially hides the bottom edge at a slight angle.</p>\r\n\r\n<p>We also used CSS clip-path on blocks with background images. Unlike the hero image above, the height of this block is variable across breakpoints. In order to maintain the correct angle (not too steep) across viewports, pixel values had to be used for any x coordinates.</p>\r\n\r\n<h2>CSS Generated Content</h2>\r\n\r\n<p>The second option is to use skewed generated content. This technique works great on blocks with solid color backgrounds.</p>\r\n\r\n<p>This adds a pseudo element at the bottom of the block, changes its point of rotation to the bottom right corner, and rotates it -1.5 degrees, simulating the effect of an angled edge.</p>\r\n\r\n<p>To implement another angled edge on the top of the element, it&rsquo;s as easy as adding another pseudo element with :before, changing its point of rotation to the top right corner, and rotating it 1.5 degrees.</p>\r\n','1421845750_gerentes.jpg','2015-01-21 13:43:36','admin','comercial,gerente,test',0,'',1,0,1,0),
 (69,0,'','Entrada en canal gerentes con titular un poco largo','<p><img alt=\"\" src=\"https://comunidad.local.com/images/mailing/images/1412935026_postal5_quijote.jpeg\" style=\"width:50%\" /></p>\r\n\r\n<p>If you&#39;ve ever written to the DOM from JavaScript or jQuery you will know how quickly your code can begin to look messy, especially if you are using several variables. Angular allows for data to be used right in the markup, leading to clean, easy to read and understand code.<!--more-->There are also some great visualization libraries out there, but they come with a lot of default styling right out of the box. By using Angular, the visualizations are completely unopinionated, and will pick up your style right off the bat.</p>\r\n\r\n<p>I&#39;m not saying this is the best way of creating data visualizations, but it certainly appeals to me!</p>\r\n\r\n<p>I&#39;m rotating the SVG as by default it processes values from the top, and we need this to flipped to take values from the bottom.</p>\r\n\r\n<p>Firstly, we need to create an SVG that spans the full area of our graph, and then inside that use our <code>ng-repeat</code> on a <code>line</code> element.</p>\r\n\r\n<p>Each <code>line</code> element requires a start and end point on both the X (x1, x2) and Y (y1, y2) axis.</p>\r\n\r\n<p>The X axis is pretty simple - we follow the same system as before, so that each line is spaced out evenly across the chart, starting at 0 using <code>$index</code>, and ending where the next line starts, using <code>$index + 1</code>.</p>\r\n\r\n<p>For the Y axis this is where the <code>$index</code> variable comes in to its own, as it allows us to select values from previous or next entries in our array.</p>\r\n\r\n<p>The initial Y point of each line gets the value from the previous data entry using <code>data[$index - 1].value</code> before we then apply similar maths as before. For the second Y point we can just call the straight value from the entry.</p>\r\n\r\n<p>This may sound complicated (and I can assure you that working it out was a bit of a head shrinker!) but hopefully this explanation coupled with the code below should help you make sense of it!</p>\r\n','1426254994_post01.jpg','2015-01-21 13:51:49','admin','comercial,gerente,test',0,'',1,0,1,1),
 (70,0,'','Foro El nuevo canal','','','2015-01-22 09:56:15','admin','canal_test',0,'',1,0,0,0),
 (71,70,'','Primer foro en el canal de test','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec iaculis quam et risus ullamcorper, id scelerisque mauris cursus. Vestibulum in dapibus massa.','','2015-01-22 09:58:18','pedro','canal_test',0,'',1,0,0,0),
@@ -1149,7 +1253,16 @@ insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descr
 (79,55,'Formacion','Pimero foro en el curso','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ullamcorper volutpat scelerisque. Proin et tempus ex. Sed ut neque in tellus hendrerit accumsan. Integer aliquam, leo ac dictum dictum, lorem nulla faucibus nibh, sed placerat leo elit in justo. Integer id sapien urna. Proin vel volutpat odio. Aenean ac massa turpis. In et turpis fringilla, imperdiet orci eu, sollicitudin lectus. Maecenas mollis dolor in nisi lacinia posuere. Sed pellentesque dapibus ligula at sagittis. Integer fringilla auctor enim, at placerat nisl fringilla eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum est quis accumsan eleifend.','','2015-10-05 11:24:39','admin','comercial',0,'',1,11,0,0),
 (80,0,'','Tarea nueva de prueba22','Working on web performance is a combination of obvious best practices (optimize assets), very tricky decisions (what can I defer loading on and what can´t I?), and nuanced choices (which animation technique is the most appropriate?).','','2015-10-05 13:55:56','admin','comercial',0,'',1,15,0,0),
 (81,0,'','Foro canal de idiomas','','','2016-12-19 12:19:12','admin','test_lan',0,'',1,0,0,0),
-(82,0,'','prueba canales','prueba de canales para un canal','','2016-12-21 09:45:26','admin','comercial,gerente',0,'',1,16,0,0);
+(82,0,'','prueba canales','prueba de canales para un canal','','2016-12-21 09:45:26','admin','comercial',0,'',1,16,0,0),
+(83,81,'','test xss','','','2017-01-11 16:12:55','admin','test_lan',0,'',1,0,0,0),
+(84,67,'---Seleccionar tipo---','nuevo foro de l curso','ertevrte rtwe','','2017-01-26 10:28:26','admin','comercial',0,'',1,14,0,0),
+(85,0,'','Mercedes','<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer scelerisque facilisis sapien eu tempor. Mauris posuere lorem nec velit auctor, in finibus purus laoreet. Fusce ac lacus ut dui ultrices imperdiet a et augue. Quisque luctus turpis in leo sodales consequat. In accumsan volutpat nisl. Donec auctor ipsum id leo suscipit rutrum. Nam commodo a tortor in vehicula. Nullam euismod risus ut elit tincidunt lacinia. Praesent interdum ultrices risus, eget ullamcorper felis eleifend ac. Morbi commodo lectus magna, id vehicula sem facilisis et. Nullam hendrerit vulputate gravida. Nulla facilisi. Etiam pretium posuere tortor at commodo. Nulla non pulvinar felis. Curabitur a ante ornare, rutrum dui sed, placerat turpis. In pulvinar nunc at mauris iaculis aliquet.</p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Fusce viverra nulla odio, ac porta neque hendrerit viverra. Proin venenatis neque nec malesuada malesuada. Donec interdum sollicitudin leo, quis ultrices justo consequat a. Nam pretium sagittis dolor sit amet egestas. Aenean et urna porttitor, pretium ipsum vitae, fermentum elit. Nulla pulvinar in mi vel semper. Sed id velit elementum, maximus lectus sed, ornare arcu. Sed ut orci sit amet nisl faucibus tempor. Fusce ultrices nisl in varius iaculis. Suspendisse neque eros, placerat convallis elit dictum, dictum congue orci.</p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \"><!--more--></p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Duis vitae mi hendrerit, tempus libero ut, pellentesque mi. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer eu nulla et nibh gravida pharetra. Aenean euismod nunc vel nunc dictum, a egestas nisi tempor. Donec scelerisque suscipit porttitor. Quisque malesuada malesuada fringilla. In id elementum ex. Phasellus mollis posuere dui ac ultrices. Mauris efficitur, felis nec pellentesque dapibus, erat felis bibendum nisi, suscipit semper ex massa ut risus. Mauris scelerisque lacus in purus porta, eget tempus dui efficitur. Etiam venenatis pellentesque leo, at sagittis nulla. Etiam euismod auctor aliquet. Curabitur tempus, enim quis condimentum sollicitudin, lectus ipsum pellentesque enim, quis bibendum diam lorem nec odio. Fusce auctor accumsan erat sed cursus. Aenean ultricies sapien sed egestas iaculis.</p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Curabitur at lacus nec libero scelerisque ultricies et quis mauris. Etiam lorem ipsum, finibus eget nisi id, fermentum iaculis lorem. Donec nec facilisis justo. Curabitur mi neque, eleifend eget molestie sed, tristique sit amet velit. Pellentesque vel eleifend lectus, tristique bibendum nisi. Quisque justo nisi, luctus non dolor in, viverra eleifend lorem. Aliquam in fermentum velit, sit amet dapibus lorem. Ut commodo quam sed ligula aliquet dignissim. Duis placerat, tellus ac tempor venenatis, urna orci eleifend leo, vel volutpat sapien tortor sit amet sem. Suspendisse laoreet posuere urna non dapibus. Fusce tortor nisl, tempus vitae nunc sit amet, vulputate molestie neque. Integer suscipit ex molestie, semper dolor vel, pulvinar dolor. Sed eget leo nec dolor faucibus consequat. Proin fermentum ac tellus id consequat. Suspendisse laoreet nunc mi, in vehicula nunc venenatis non. Vestibulum id elit vitae augue interdum feugiat sit amet vel turpis.</p>\r\n','1485427093_001.jpg','2017-01-26 11:34:29','admin','comercial,gerente,test',0,'',1,0,1,0),
+(86,2,'','otro foro','asd asdas d','','2017-01-26 13:27:07','pedro','gerente',0,'',1,0,0,0),
+(87,2,'','eeeeeeeeee','sdf dfsdfsdf','','2017-01-26 13:27:59','pedro','gerente',0,'',1,0,0,0),
+(88,80,'Promociones','Foro de consulta Tarea nueva de prueba22','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, nunc ut tincidunt viverra, erat felis interdum ipsum, quis convallis tortor ante nec nisi. Sed facilisis, diam in suscipit tincidunt, justo eros ultricies urna, vel ullamcorper arcu leo nec ex. Phasellus elementum, ex vel tincidunt mattis, nisi turpis semper lacus, ac dignissim eros ipsum sed sapien. Curabitur et metus quis elit pretium faucibus ac et diam. Integer vitae maximus diam, quis semper ante. Aliquam sodales arcu id sapien condimentum, eu malesuada lacus mattis. Proin euismod odio eu gravida mattis.','','2017-03-09 13:42:48','admin','comercial',0,'',1,15,0,0),
+(89,80,'','FAQ','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, nunc ut tincidunt viverra, erat felis interdum ipsum, quis convallis tortor ante nec nisi. Sed facilisis, diam in suscipit tincidunt, justo eros ultricies urna, vel ullamcorper arcu leo nec ex. Phasellus elementum, ex vel tincidunt mattis, nisi turpis semper lacus, ac dignissim eros ipsum sed sapien. Curabitur et metus quis elit pretium faucibus ac et diam. Integer vitae maximus diam, quis semper ante. Aliquam sodales arcu id sapien condimentum, eu malesuada lacus mattis. Proin euismod odio eu gravida mattis.','','2017-03-09 13:43:09','admin','comercial',0,'',0,15,0,0),
+(90,80,'','FAQ','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, nunc ut tincidunt viverra, erat felis interdum ipsum, quis convallis tortor ante nec nisi. Sed facilisis, diam in suscipit tincidunt, justo eros ultricies urna, vel ullamcorper arcu leo nec ex. Phasellus elementum, ex vel tincidunt mattis, nisi turpis semper lacus, ac dignissim eros ipsum sed sapien. Curabitur et metus quis elit pretium faucibus ac et diam. Integer vitae maximus diam, quis semper ante. Aliquam sodales arcu id sapien condimentum, eu malesuada lacus mattis. Proin euismod odio eu gravida mattis.','','2017-03-09 13:46:02','admin','comercial',0,'',1,15,0,0),
+(91,0,'','Las cuatro dimensiones','<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non elit ac diam tristique porta. Etiam quis eros id elit ornare imperdiet. Nulla odio quam, rutrum non nunc et, placerat aliquam ex. Phasellus interdum condimentum ex. Ut dui est, sollicitudin vel diam ut, condimentum mollis lacus. Suspendisse nec finibus dolor. Praesent id lorem pulvinar, suscipit justo id, malesuada dolor. Ut volutpat urna nec lectus pretium sollicitudin. Morbi in tincidunt ante. Nam pretium dictum dolor, quis pretium sem viverra vel. Vivamus porta ultricies euismod. Cras eget tempus justo. Sed eu vulputate felis.</p>\r\n\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">Etiam posuere augue vel nibh tempor condimentum. Nulla pharetra leo nec nisl luctus, ac aliquam tellus rhoncus. Aenean tempus tortor ut justo tincidunt, vel imperdiet nunc luctus. Proin varius est nec justo vestibulum tincidunt. Etiam a felis at nulla pretium tincidunt. Fusce ac neque ac elit pellentesque rutrum at eget ante. Sed malesuada sapien elit, non commodo lacus ullamcorper in. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida condimentum magna, sed imperdiet tellus fringilla in. Integer suscipit ac lectus varius mattis. Integer id tempus magna, sit amet imperdiet leo. Vivamus vestibulum nunc ex, in tristique risus venenatis vel. Quisque ut tortor a urna consequat pellentesque non ac nibh.</p>\r\n\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">Pellentesque accumsan enim vel diam suscipit, sed molestie augue facilisis. Nunc interdum sit amet lacus sit amet eleifend. Nunc luctus, elit in varius hendrerit, nisi nisi feugiat tortor, eu iaculis quam massa non orci. Cras aliquet tincidunt urna, quis mattis diam posuere at. Curabitur lacus leo, interdum id justo et, efficitur efficitur diam. Integer maximus congue laoreet. Curabitur ultricies luctus leo et vehicula. Quisque et diam est. Phasellus blandit elit ac dui rhoncus, et molestie est dapibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam vulputate semper vestibulum. Proin ornare ultricies diam, vitae sodales metus imperdiet quis.</p>\r\n','1490092189_image.png','2017-03-21 11:29:49','admin','comercial,gerente,test',0,'',1,0,1,0);
 
 /*Table structure for table `foro_visitas` */
 
@@ -1162,7 +1275,7 @@ CREATE TABLE `foro_visitas` (
   `fecha_visita` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `movil` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_visita`)
-) ENGINE=MyISAM AUTO_INCREMENT=2196 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2414 DEFAULT CHARSET=utf8;
 
 /*Data for the table `foro_visitas` */
 
@@ -2885,7 +2998,225 @@ insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`mov
 (2192,'borja',69,'2016-12-19 11:43:53',0),
 (2193,'borja',69,'2016-12-19 11:43:53',0),
 (2194,'borja',69,'2016-12-19 11:44:11',0),
-(2195,'borja',69,'2016-12-19 11:44:12',0);
+(2195,'borja',69,'2016-12-19 11:44:12',0),
+(2196,'admin',65,'2017-01-10 11:45:29',0),
+(2197,'admin',65,'2017-01-10 11:45:32',0),
+(2198,'admin',65,'2017-01-10 11:54:41',0),
+(2199,'admin',65,'2017-01-10 11:54:56',0),
+(2200,'admin',65,'2017-01-10 11:56:19',0),
+(2201,'admin',65,'2017-01-10 11:57:55',0),
+(2202,'admin',65,'2017-01-10 13:28:13',0),
+(2203,'admin',65,'2017-01-10 13:29:10',0),
+(2204,'admin',65,'2017-01-10 13:32:48',0),
+(2205,'admin',65,'2017-01-10 13:33:03',0),
+(2206,'admin',65,'2017-01-10 13:34:28',0),
+(2207,'admin',65,'2017-01-10 13:36:38',0),
+(2208,'admin',65,'2017-01-10 13:37:46',0),
+(2209,'admin',65,'2017-01-10 13:38:03',0),
+(2210,'admin',65,'2017-01-10 13:38:27',0),
+(2211,'admin',65,'2017-01-10 13:39:21',0),
+(2212,'admin',65,'2017-01-10 13:39:48',0),
+(2213,'admin',65,'2017-01-10 13:40:19',0),
+(2214,'admin',65,'2017-01-10 13:40:29',0),
+(2215,'admin',65,'2017-01-10 13:41:39',0),
+(2216,'admin',65,'2017-01-10 13:43:04',0),
+(2217,'admin',65,'2017-01-10 13:43:26',0),
+(2218,'admin',65,'2017-01-10 13:43:43',0),
+(2219,'admin',65,'2017-01-10 13:43:49',0),
+(2220,'admin',65,'2017-01-10 13:46:03',0),
+(2221,'admin',65,'2017-01-10 13:46:30',0),
+(2222,'admin',65,'2017-01-10 13:52:39',0),
+(2223,'admin',65,'2017-01-10 13:52:56',0),
+(2224,'admin',65,'2017-01-10 13:53:22',0),
+(2225,'admin',65,'2017-01-10 13:53:48',0),
+(2226,'admin',65,'2017-01-10 13:57:32',0),
+(2227,'admin',65,'2017-01-10 13:58:13',0),
+(2228,'admin',65,'2017-01-10 13:58:50',0),
+(2229,'admin',65,'2017-01-10 13:59:20',0),
+(2230,'admin',65,'2017-01-10 13:59:27',0),
+(2231,'admin',65,'2017-01-10 14:05:10',0),
+(2232,'admin',65,'2017-01-10 14:05:36',0),
+(2233,'admin',65,'2017-01-10 14:07:44',0),
+(2234,'admin',65,'2017-01-10 14:08:03',0),
+(2235,'admin',65,'2017-01-10 14:17:24',0),
+(2236,'admin',65,'2017-01-10 14:22:11',0),
+(2237,'admin',65,'2017-01-10 14:27:48',0),
+(2238,'admin',65,'2017-01-10 14:32:41',0),
+(2239,'admin',65,'2017-01-10 14:33:22',0),
+(2240,'admin',65,'2017-01-10 14:33:50',0),
+(2241,'admin',65,'2017-01-10 14:35:13',0),
+(2242,'admin',65,'2017-01-10 14:35:25',0),
+(2243,'admin',65,'2017-01-10 14:38:31',0),
+(2244,'admin',65,'2017-01-10 14:38:47',0),
+(2245,'admin',65,'2017-01-10 14:39:15',0),
+(2246,'admin',65,'2017-01-10 14:39:39',0),
+(2247,'admin',65,'2017-01-10 14:40:28',0),
+(2248,'admin',65,'2017-01-10 14:40:30',0),
+(2249,'admin',65,'2017-01-10 14:40:56',0),
+(2250,'admin',65,'2017-01-10 14:41:06',0),
+(2251,'admin',65,'2017-01-10 14:41:23',0),
+(2252,'admin',65,'2017-01-10 14:41:32',0),
+(2253,'admin',65,'2017-01-10 14:42:29',0),
+(2254,'admin',65,'2017-01-10 14:44:09',0),
+(2255,'admin',65,'2017-01-10 14:44:26',0),
+(2256,'admin',69,'2017-01-11 14:08:37',0),
+(2257,'admin',68,'2017-01-11 14:08:39',0),
+(2258,'admin',68,'2017-01-11 14:09:22',0),
+(2259,'admin',69,'2017-01-11 14:11:11',0),
+(2260,'admin',68,'2017-01-11 14:11:14',0),
+(2261,'admin',68,'2017-01-11 14:11:15',0),
+(2262,'admin',68,'2017-01-11 14:11:17',0),
+(2263,'admin',68,'2017-01-11 14:11:18',0),
+(2264,'admin',68,'2017-01-11 14:11:25',0),
+(2265,'admin',83,'2017-01-11 16:13:45',0),
+(2266,'admin',83,'2017-01-11 16:15:43',0),
+(2267,'admin',83,'2017-01-11 16:16:14',0),
+(2268,'admin',83,'2017-01-11 16:16:33',0),
+(2269,'admin',69,'2017-01-25 16:07:52',0),
+(2270,'pedro',40,'2017-01-26 10:54:47',0),
+(2271,'pedro',40,'2017-01-26 10:54:53',0),
+(2272,'pedro',40,'2017-01-26 10:54:54',0),
+(2273,'pedro',40,'2017-01-26 10:54:57',0),
+(2274,'pedro',40,'2017-01-26 10:54:57',0),
+(2275,'pedro',40,'2017-01-26 10:55:12',0),
+(2276,'pedro',40,'2017-01-26 10:55:17',0),
+(2277,'pedro',40,'2017-01-26 10:55:17',0),
+(2278,'pedro',40,'2017-01-26 10:55:35',0),
+(2279,'pedro',40,'2017-01-26 10:55:35',0),
+(2280,'pedro',40,'2017-01-26 10:55:43',0),
+(2281,'pedro',40,'2017-01-26 10:55:43',0),
+(2282,'pedro',40,'2017-01-26 10:55:49',0),
+(2283,'pedro',40,'2017-01-26 10:55:50',0),
+(2284,'pedro',69,'2017-01-26 11:32:35',0),
+(2285,'pedro',69,'2017-01-26 11:32:47',0),
+(2286,'pedro',69,'2017-01-26 11:32:55',0),
+(2287,'admin',85,'2017-01-26 11:36:07',0),
+(2288,'pedro',85,'2017-01-26 11:36:22',0),
+(2289,'admin',85,'2017-01-26 11:40:41',0),
+(2290,'admin',83,'2017-01-26 13:26:30',0),
+(2291,'admin',83,'2017-01-26 13:26:40',0),
+(2292,'pedro',86,'2017-01-26 13:27:16',0),
+(2293,'pedro',86,'2017-01-26 13:27:20',0),
+(2294,'pedro',87,'2017-01-26 13:28:14',0),
+(2295,'pedro',87,'2017-01-26 13:28:19',0),
+(2296,'pedro',87,'2017-01-27 10:42:52',0),
+(2297,'admin',83,'2017-01-27 12:46:51',0),
+(2298,'admin',85,'2017-02-02 13:55:07',0),
+(2299,'admin',85,'2017-02-02 14:02:13',0),
+(2300,'admin',85,'2017-02-02 17:08:58',0),
+(2301,'admin',85,'2017-02-03 11:33:46',0),
+(2302,'admin',85,'2017-02-03 11:34:02',0),
+(2303,'admin',85,'2017-02-03 11:34:02',0),
+(2304,'admin',85,'2017-02-09 08:34:57',0),
+(2305,'admin',69,'2017-02-09 08:35:04',0),
+(2306,'admin',69,'2017-02-09 08:35:09',0),
+(2307,'admin',69,'2017-02-09 08:35:11',0),
+(2308,'admin',69,'2017-02-09 08:35:13',0),
+(2309,'admin',69,'2017-02-09 08:35:14',0),
+(2310,'admin',69,'2017-02-09 08:35:16',0),
+(2311,'admin',85,'2017-02-23 10:01:07',0),
+(2312,'admin',85,'2017-02-24 13:13:05',0),
+(2313,'admin',85,'2017-02-24 13:13:08',0),
+(2314,'admin',85,'2017-02-24 13:13:10',0),
+(2315,'admin',85,'2017-02-24 13:13:12',0),
+(2316,'admin',85,'2017-02-24 13:13:13',0),
+(2317,'admin',85,'2017-02-24 13:13:14',0),
+(2318,'admin',85,'2017-02-24 13:18:43',0),
+(2319,'admin',85,'2017-02-27 09:04:05',0),
+(2320,'admin',85,'2017-02-27 09:11:08',0),
+(2321,'admin',85,'2017-02-27 09:11:17',0),
+(2322,'admin',69,'2017-02-27 09:16:35',0),
+(2323,'admin',68,'2017-02-27 09:16:39',0),
+(2324,'admin',61,'2017-02-27 09:16:48',0),
+(2325,'admin',83,'2017-02-27 09:34:20',0),
+(2326,'admin',83,'2017-02-27 09:34:39',0),
+(2327,'admin',83,'2017-02-27 09:34:50',0),
+(2328,'claudio',85,'2017-02-27 15:25:50',0),
+(2329,'claudio',69,'2017-02-27 15:25:57',0),
+(2330,'claudio',86,'2017-02-27 16:15:12',0),
+(2331,'claudio',39,'2017-02-27 16:15:18',0),
+(2332,'admin',85,'2017-03-08 09:08:17',0),
+(2333,'admin',85,'2017-03-08 09:24:43',0),
+(2334,'admin',85,'2017-03-08 09:25:22',0),
+(2335,'admin',85,'2017-03-08 09:28:44',0),
+(2336,'claudio',85,'2017-03-08 09:43:29',0),
+(2337,'claudio',87,'2017-03-08 09:49:29',0),
+(2338,'claudio',87,'2017-03-08 09:49:40',0),
+(2339,'claudio',87,'2017-03-08 09:49:44',0),
+(2340,'claudio',87,'2017-03-08 09:49:44',0),
+(2341,'claudio',87,'2017-03-08 09:49:48',0),
+(2342,'claudio',87,'2017-03-08 09:49:48',0),
+(2343,'claudio',87,'2017-03-08 09:49:51',0),
+(2344,'claudio',87,'2017-03-08 09:49:51',0),
+(2345,'claudio',87,'2017-03-08 09:50:00',0),
+(2346,'claudio',87,'2017-03-08 09:50:01',0),
+(2347,'claudio',87,'2017-03-08 09:50:08',0),
+(2348,'claudio',87,'2017-03-08 09:50:09',0),
+(2349,'dcancho',85,'2017-03-08 11:01:22',0),
+(2350,'admin',88,'2017-03-09 13:43:51',0),
+(2351,'admin',88,'2017-03-09 13:43:58',0),
+(2352,'admin',88,'2017-03-09 13:45:38',0),
+(2353,'admin',90,'2017-03-09 13:46:14',0),
+(2354,'admin',90,'2017-03-09 13:46:20',0),
+(2355,'admin',88,'2017-03-09 13:47:10',0),
+(2356,'admin',88,'2017-03-09 13:47:17',0),
+(2357,'admin',88,'2017-03-09 13:47:17',0),
+(2358,'admin',88,'2017-03-09 13:47:24',0),
+(2359,'admin',88,'2017-03-09 13:47:24',0),
+(2360,'admin',85,'2017-03-14 12:38:26',0),
+(2361,'admin',24,'2017-03-21 09:17:01',0),
+(2362,'admin',83,'2017-03-21 09:47:03',0),
+(2363,'admin',83,'2017-03-21 09:58:05',0),
+(2364,'admin',83,'2017-03-21 09:59:29',0),
+(2365,'admin',87,'2017-03-21 09:59:34',0),
+(2366,'admin',85,'2017-03-21 11:27:35',0),
+(2367,'admin',85,'2017-03-21 11:27:50',0),
+(2368,'admin',91,'2017-03-21 11:29:56',0),
+(2369,'admin',87,'2017-03-21 11:59:57',0),
+(2370,'admin',83,'2017-03-21 12:17:28',0),
+(2371,'admin',91,'2017-03-21 12:49:38',0),
+(2372,'admin',91,'2017-03-21 13:00:35',0),
+(2373,'admin',83,'2017-03-21 16:48:58',0),
+(2374,'admin',83,'2017-03-21 16:50:27',0),
+(2375,'admin',83,'2017-03-21 16:50:29',0),
+(2376,'admin',83,'2017-03-21 16:50:57',0),
+(2377,'admin',83,'2017-03-21 16:51:02',0),
+(2378,'admin',83,'2017-03-21 16:51:24',0),
+(2379,'admin',83,'2017-03-21 16:51:33',0),
+(2380,'admin',83,'2017-03-21 16:51:37',0),
+(2381,'admin',83,'2017-03-21 16:51:38',0),
+(2382,'admin',83,'2017-03-21 17:03:32',0),
+(2383,'admin',83,'2017-03-21 17:04:31',0),
+(2384,'dgarcia',65,'2017-03-21 17:04:51',0),
+(2385,'dgarcia',83,'2017-03-21 17:04:56',0),
+(2386,'dgarcia',65,'2017-03-21 17:05:00',0),
+(2387,'admin',65,'2017-03-21 17:05:07',0),
+(2388,'admin',65,'2017-03-21 17:05:12',0),
+(2389,'admin',65,'2017-03-21 17:05:13',0),
+(2390,'dgarcia',65,'2017-03-21 17:05:28',0),
+(2391,'dgarcia',65,'2017-03-21 17:09:21',0),
+(2392,'dgarcia',65,'2017-03-21 17:09:24',0),
+(2393,'dgarcia',65,'2017-03-21 17:09:29',0),
+(2394,'dgarcia',65,'2017-03-21 17:10:53',0),
+(2395,'dgarcia',65,'2017-03-21 17:11:04',0),
+(2396,'dgarcia',65,'2017-03-21 17:11:09',0),
+(2397,'admin',65,'2017-03-21 17:11:30',0),
+(2398,'dgarcia',65,'2017-03-21 17:11:45',0),
+(2399,'dgarcia',44,'2017-03-21 17:11:51',0),
+(2400,'admin',83,'2017-03-21 17:12:00',0),
+(2401,'admin',44,'2017-03-21 17:12:03',0),
+(2402,'admin',44,'2017-03-21 17:12:05',0),
+(2403,'admin',44,'2017-03-21 17:12:05',0),
+(2404,'admin',44,'2017-03-21 17:13:01',0),
+(2405,'dgarcia',44,'2017-03-21 17:13:14',0),
+(2406,'dgarcia',44,'2017-03-21 17:13:22',0),
+(2407,'dgarcia',44,'2017-03-21 17:13:22',0),
+(2408,'dgarcia',44,'2017-03-21 17:13:29',0),
+(2409,'admin',44,'2017-03-21 17:13:36',0),
+(2410,'admin',44,'2017-03-21 17:13:45',0),
+(2411,'dgarcia',44,'2017-03-21 17:14:02',0),
+(2412,'admin',65,'2017-03-21 17:50:20',0),
+(2413,'admin',83,'2017-03-23 08:07:07',0);
 
 /*Table structure for table `galeria_fotos` */
 
@@ -2907,7 +3238,7 @@ CREATE TABLE `galeria_fotos` (
   `id_album` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_file`),
   KEY `user_add` (`user_add`)
-) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
 /*Data for the table `galeria_fotos` */
 
@@ -2918,7 +3249,7 @@ insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name
 (4,0,'Calendarios','Calendario Julio','1411482736_july-14-sweet-season-cal-1400x1050.png','senen','2014-09-23 16:32:16','comercial',1,0,0,0,1),
 (5,0,'','sss','1411483841_captura_de_pantalla_de_2014-06-10_12_46_24.png','admin','2014-09-23 16:50:41','comercial',2,0,0,0,0),
 (6,0,'','Calendario junio','1411484095png','admin','2014-09-23 16:54:55','comercial',1,1,0,0,1),
-(7,0,'','Impresión liquidaciones','1411484211JPG','senen','2014-09-23 16:56:51','comercial',1,15,0,0,2),
+(7,0,'windows','Impresión liquidaciones','1411484211JPG','senen','2014-09-23 16:56:51','comercial',1,15,0,0,2),
 (8,0,'','Comunidad particulares','1411484234png','pedro','2014-09-23 16:57:14','comercial',1,0,0,0,2),
 (9,0,'','Comunidad particulares 2012','1411484281png','admin','2014-09-23 16:58:01','comercial',1,45,0,0,2),
 (10,0,'','Comunidad empresas','1411484304png','admin','2014-09-23 16:58:24','comercial',1,0,0,0,2),
@@ -2929,7 +3260,7 @@ insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name
 (15,0,'','El malo...','1411546963.jpg','admin','2014-09-24 10:22:43','gerente',2,0,0,0,3),
 (16,0,'','Banner tira','1411547073.jpg','senen','2014-09-24 10:24:33','comercial',2,0,0,0,2),
 (17,0,'','Simpsons...','1411547097.jpg','admin','2014-09-24 10:24:57','comercial',1,0,0,0,3),
-(18,0,'','Captura e un video','1411549318.png','admin','2014-09-24 11:01:58','comercial',1,33,0,0,4),
+(18,0,'pantallazos','Captura e un video','1411549318.png','admin','2014-09-24 11:01:58','comercial',1,33,0,0,2),
 (19,0,'','Ensalada rica','1411549430.jpg','admin','2014-09-24 11:03:50','comercial',1,0,0,0,4),
 (20,0,'','Tienda Orange','1411549443.jpg','admin','2014-09-24 11:04:03','comercial',1,7,0,0,5),
 (21,0,'','Dulces','1411549459.jpg','admin','2014-09-24 11:04:19','comercial',1,2,0,0,4),
@@ -2965,21 +3296,25 @@ insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name
 (51,0,'','Koala','1411568227.jpg','borja','2014-09-24 16:17:07','comercial',1,1,0,0,6),
 (52,0,'','Corazon naranja','1411568249.jpg','david','2014-09-24 16:17:29','comercial',1,1,0,0,5),
 (53,0,'','Monitos sonrientes','1411568276.jpg','admin','2014-09-24 16:17:56','comercial',1,1,0,0,6),
-(54,0,'','El inspector Gadget','1411568294.jpg','david','2014-09-24 16:18:14','comercial',1,1,0,0,3),
+(54,0,'','El inspector Gadget','1411568294.jpg','david','2014-09-24 16:18:14','comercial',1,1,0,0,40),
 (55,0,'','Logo whatsapp','1411568326.jpg','admin','2014-09-24 16:18:46','comercial',1,0,0,0,5),
 (56,0,'','Escalera','1411733326.jpg','borja','2014-09-26 14:08:46','comercial',1,1,0,0,5),
 (57,0,'','All Blacks','1411733362.jpg','david','2014-09-26 14:09:22','comercial',1,1,0,0,5),
 (58,0,'','Pasarela Kiabi','1415181923.png','admin','2014-11-05 11:05:23','comercial',1,0,0,0,5),
-(59,0,'','Prueba','1417176379.jpg','admin','2014-11-28 13:06:19','comercial',0,0,0,0,0),
+(59,0,'','Prueba','1417176379.jpg','admin','2014-11-28 13:06:19','comercial',1,0,0,0,2),
 (60,0,'','Calendario Febrero 2015','1425078187.png','admin','2015-02-28 00:03:07','comercial',1,0,0,0,1),
 (61,48,'','Un mapa del mundo','1425079989.png','dcancho','2015-02-28 00:33:09','comercial',1,2,0,0,5),
 (62,0,'','Calendario marzo 2015','1426293468.jpg','borja','2015-03-14 01:37:48','comercial',1,1,0,0,1),
 (63,48,'','Prueba reto','1453205356.png','pedro','2016-01-19 13:09:16','comercial',1,1,0,0,6),
 (64,0,'','Por la carretera','1458206720.jpg','admin','2016-03-17 10:25:20','comercial',1,0,0,0,5),
-(65,0,'','Lineas adicionales','1467287918.jpg','admin','2016-06-30 13:58:38','comercial',1,0,0,0,5),
+(65,0,'','Lineas adicionales','1467287918.jpg','admin','2016-06-30 13:58:38','comercial',1,1,0,0,5),
 (69,0,'banners','Un banner','1480600721.jpg','admin','2016-12-01 14:58:41','',1,0,0,0,39),
 (68,0,'animados','Redeption2','1480600552.gif','admin','2016-12-01 14:55:52','comercial',1,0,0,0,2),
-(70,0,'musica','Melendi','1480602406.jpg','admin','2016-12-01 15:26:46','',1,0,0,0,5);
+(70,0,'musica','Melendi','1480602406.jpg','admin','2016-12-01 15:26:46','',1,1,0,0,5),
+(71,0,'','Un pantalazo','1485424736.jpg','pedro','2017-01-26 10:58:56','gerente',2,0,0,0,40),
+(72,0,'pantallazos, windows','Pnatallazo Escritorio remoto','1486029268.png','admin','2017-02-02 10:54:28','',1,0,0,0,2),
+(73,0,'calendarios','Calendario Febrero','1487867534.png','admin','2017-02-23 17:32:14','',1,0,0,0,1),
+(74,0,'','TV LG 49\'\'','1489489964.jpg','admin','2017-03-14 12:12:44','',0,0,0,0,2);
 
 /*Table structure for table `galeria_fotos_albumes` */
 
@@ -2993,7 +3328,7 @@ CREATE TABLE `galeria_fotos_albumes` (
   `canal_album` varchar(100) NOT NULL DEFAULT '',
   `activo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_album`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 /*Data for the table `galeria_fotos_albumes` */
 
@@ -3010,7 +3345,8 @@ insert  into `galeria_fotos_albumes`(`id_album`,`nombre_album`,`date_album`,`use
 (33,'A1- test333','2014-10-01 13:18:29','admin','',0),
 (37,'test','2016-12-01 11:22:04','admin','test',1),
 (38,'prueba','2016-12-01 14:26:45','admin','admin',1),
-(39,'album en comercial','2016-12-01 14:29:11','pedro','comercial',1);
+(39,'album en comercial','2016-12-01 14:29:11','pedro','comercial',1),
+(40,'pruebas','2017-01-26 10:58:21','pedro','gerente',1);
 
 /*Table structure for table `galeria_fotos_comentarios` */
 
@@ -3025,7 +3361,7 @@ CREATE TABLE `galeria_fotos_comentarios` (
   `votaciones` int(11) NOT NULL DEFAULT '0',
   `estado` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=pendiente; 1=validado;2=rechazado',
   PRIMARY KEY (`id_comentario`)
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
 /*Data for the table `galeria_fotos_comentarios` */
 
@@ -3086,7 +3422,11 @@ insert  into `galeria_fotos_comentarios`(`id_comentario`,`id_file`,`comentario`,
 (59,64,'pos si','admin','2016-09-27 17:00:07',0,1),
 (60,69,'me gusta','pedro','2016-12-01 15:01:06',0,1),
 (61,69,'me encanta','admin','2016-12-01 15:01:34',0,1),
-(62,14,'dsfsdf ','admin','2016-12-14 11:51:28',0,1);
+(62,14,'dsfsdf ','admin','2016-12-14 11:51:28',0,1),
+(63,70,'que rollo','pedro','2017-01-26 11:00:19',0,1),
+(64,65,'otro','pedro','2017-01-26 11:00:39',0,1),
+(65,71,'hola','pedro','2017-01-26 11:02:55',0,2),
+(66,17,'hdfhdfg','admin','2017-02-06 09:10:23',0,1);
 
 /*Table structure for table `galeria_fotos_comentarios_votaciones` */
 
@@ -3112,7 +3452,7 @@ CREATE TABLE `galeria_fotos_votaciones` (
   `user_votacion` varchar(100) NOT NULL DEFAULT '',
   `date_votacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_votacion`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `galeria_fotos_votaciones` */
 
@@ -3133,7 +3473,9 @@ insert  into `galeria_fotos_votaciones`(`id_votacion`,`id_file`,`user_votacion`,
 (14,61,'pedro','2016-01-19 13:06:20'),
 (15,51,'admin','2016-02-12 14:10:37'),
 (16,63,'admin','2016-11-16 10:17:19'),
-(17,48,'admin','2016-11-16 10:22:43');
+(17,48,'admin','2016-11-16 10:22:43'),
+(18,70,'pedro','2017-01-26 11:00:26'),
+(19,65,'pedro','2017-01-26 11:00:35');
 
 /*Table structure for table `galeria_videos` */
 
@@ -3152,23 +3494,25 @@ CREATE TABLE `galeria_videos` (
   `videos_puntos` int(11) NOT NULL DEFAULT '0',
   `seleccion_reto` tinyint(1) NOT NULL DEFAULT '0',
   `formacion` tinyint(1) NOT NULL DEFAULT '0',
+  `destacado` tinyint(1) NOT NULL DEFAULT '0',
   `views` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_file`),
   KEY `user_add` (`user_add`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 /*Data for the table `galeria_videos` */
 
-insert  into `galeria_videos`(`id_file`,`id_promocion`,`tipo_video`,`titulo`,`name_file`,`user_add`,`date_video`,`canal`,`estado`,`videos_puntos`,`seleccion_reto`,`formacion`,`views`) values 
-(1,0,'','Bolitas de colores','1341398825_animacion_bolitas_de_colores.mp4.mp4','admin','2014-07-15 14:18:19','comercial',1,0,0,0,5),
-(3,0,'Formación','Trabajo en equipo','1350573259_trabajo_en_equipo-hormigas.wmv.mp4','david','2014-07-16 09:39:25','comercial',1,1,0,0,1),
-(4,48,'Animación','Aventura juntos I','1347869224_video_2_inicio_de_la_aventura_juntos_reducido.avi.mp4','admin','2014-07-19 10:04:43','comercial',1,1,0,0,1),
-(5,0,'Animación','Aventura juntos II','1348036284_video_2_inicio_de_la_aventura_juntos_reducido__2.avi.mp4','david','2014-08-01 10:04:49','comercial',1,1,0,0,1),
-(6,48,'Animación','Cataratas','1348744180_cataratas.mp4.mp4','admin','2014-08-23 10:05:32','comercial',1,1,0,0,3),
-(7,0,'Animales, Animación','Peces de colores','1325060467_peces.wmv.mp4','admin','2014-09-24 17:33:46','gerente',1,0,0,0,2),
-(8,48,'Animales','Caracol','1328275644_wmv-06_empresas_caracol.wmv.mp4','borja','2014-09-29 17:35:02','comercial',1,1,0,0,12),
-(9,47,'Retos','video reto1','1453190138.mp4','admin','2016-01-19 08:55:38','test',0,0,0,0,0),
-(10,48,'Formación','Otro video de apoyo','1453200650.mp4','admin','2016-01-19 11:50:50','test',0,0,0,0,0);
+insert  into `galeria_videos`(`id_file`,`id_promocion`,`tipo_video`,`titulo`,`name_file`,`user_add`,`date_video`,`canal`,`estado`,`videos_puntos`,`seleccion_reto`,`formacion`,`destacado`,`views`) values 
+(1,0,'','Bolitas de colores','1341398825_animacion_bolitas_de_colores.mp4.mp4','admin','2014-07-15 14:18:19','comercial',1,0,0,0,1,5),
+(3,0,'formación','Trabajo en equipo','1350573259_trabajo_en_equipo-hormigas.wmv.mp4','david','2014-07-16 09:39:25','comercial',1,1,0,0,1,1),
+(4,48,'animación','Aventura juntos I','1347869224_video_2_inicio_de_la_aventura_juntos_reducido.avi.mp4','admin','2014-07-19 10:04:43','comercial',1,1,0,0,1,1),
+(5,0,'animación','Aventura juntos II','1348036284_video_2_inicio_de_la_aventura_juntos_reducido__2.avi.mp4','david','2014-08-01 10:04:49','comercial',1,1,0,0,1,1),
+(6,48,'animación','Cataratas','1348744180_cataratas.mp4.mp4','admin','2014-08-23 10:05:32','comercial',1,1,0,0,0,3),
+(7,0,'animales, animación, formación','Peces de colores','1325060467_peces.wmv.mp4','admin','2014-09-24 17:33:46','gerente',1,0,0,0,0,2),
+(8,48,'animales','Caracol','1328275644_wmv-06_empresas_caracol.wmv.mp4','borja','2014-09-29 17:35:02','comercial',1,1,0,0,1,12),
+(9,47,'retos','video reto1','1453190138.mp4.mp4','admin','2016-01-19 08:55:38','test',1,0,0,0,1,0),
+(10,48,'formación, animación','Otro video de apoyo','1453200650.mp4.mp4','dgarcia','2016-01-19 11:50:50','test',1,1,0,0,1,1),
+(11,0,'','Test videos','1485515413.mp4.mp4','pedro','2017-01-27 12:10:13','gerente',1,0,0,0,0,0);
 
 /*Table structure for table `galeria_videos_comentarios` */
 
@@ -3183,7 +3527,7 @@ CREATE TABLE `galeria_videos_comentarios` (
   `votaciones` int(11) NOT NULL DEFAULT '0',
   `estado` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=pendiente; 1=validado;2=rechazado',
   PRIMARY KEY (`id_comentario`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 /*Data for the table `galeria_videos_comentarios` */
 
@@ -3202,7 +3546,15 @@ insert  into `galeria_videos_comentarios`(`id_comentario`,`id_file`,`comentario`
 (12,8,'Las fotos se ven un poco borrosas','admin','2014-10-03 10:37:41',0,1),
 (13,8,'Curioso video \'Ozu','admin','2014-12-04 13:27:01',0,1),
 (14,7,'Un comentario para el video del pez','admin','2015-02-27 14:00:44',0,1),
-(15,8,'otro comentario','admin','2015-03-02 10:33:12',0,1);
+(15,8,'otro comentario','admin','2015-03-02 10:33:12',0,1),
+(16,5,'primer comentario','dgarcia','2017-03-21 17:14:56',0,1),
+(17,8,'Pa caracaoles','admin','2017-03-21 17:15:47',0,1),
+(18,8,'Otro para caracoles','dgarcia','2017-03-21 17:16:02',0,1),
+(19,8,'Caracoles','dgarcia','2017-03-21 17:44:06',0,1),
+(20,8,'Mas caracoles','dgarcia','2017-03-21 17:44:28',0,1),
+(21,8,'otroooo','dgarcia','2017-03-21 17:44:50',0,1),
+(22,8,'kakaka','dgarcia','2017-03-21 17:45:21',0,1),
+(23,10,'algo','pedro','2017-03-23 12:08:05',0,1);
 
 /*Table structure for table `galeria_videos_comentarios_votaciones` */
 
@@ -3234,7 +3586,7 @@ CREATE TABLE `galeria_videos_views` (
   `username` varchar(100) CHARACTER SET latin1 DEFAULT '',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_view`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 /*Data for the table `galeria_videos_views` */
 
@@ -3258,7 +3610,8 @@ insert  into `galeria_videos_views`(`id_view`,`id_file`,`username`,`date`) value
 (17,8,'admin','2014-10-22 11:22:00'),
 (18,8,'admin','2014-11-21 11:59:33'),
 (19,7,'admin','2015-11-12 17:42:17'),
-(20,8,'admin','2016-09-12 10:24:31');
+(20,8,'admin','2016-09-12 10:24:31'),
+(21,10,'admin','2017-01-26 12:35:57');
 
 /*Table structure for table `galeria_videos_votaciones` */
 
@@ -3270,7 +3623,7 @@ CREATE TABLE `galeria_videos_votaciones` (
   `user_votacion` varchar(100) NOT NULL DEFAULT '',
   `date_votacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_votacion`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `galeria_videos_votaciones` */
 
@@ -3279,7 +3632,8 @@ insert  into `galeria_videos_votaciones`(`id_votacion`,`id_file`,`user_votacion`
 (2,6,'admin','2014-07-16 11:03:55'),
 (3,4,'admin','2014-07-16 12:35:49'),
 (4,5,'admin','2014-07-16 12:36:09'),
-(5,8,'admin','2015-02-27 11:56:58');
+(5,8,'admin','2015-02-27 11:56:58'),
+(6,10,'admin','2017-03-21 15:52:31');
 
 /*Table structure for table `incentives_fabricantes` */
 
@@ -3290,14 +3644,16 @@ CREATE TABLE `incentives_fabricantes` (
   `nombre_fabricante` varchar(250) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `activo_fabricante` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_fabricante`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `incentives_fabricantes` */
 
 insert  into `incentives_fabricantes`(`id_fabricante`,`nombre_fabricante`,`activo_fabricante`) values 
 (1,'Samsung',1),
 (2,'Huawei',1),
-(3,'Apple',1);
+(3,'Apple',1),
+(4,'Adidas',1),
+(5,'asdada',0);
 
 /*Table structure for table `incentives_objetivos` */
 
@@ -3314,14 +3670,15 @@ CREATE TABLE `incentives_objetivos` (
   `perfil_objetivo` varchar(100) NOT NULL DEFAULT '',
   `canal_objetivo` varchar(100) NOT NULL DEFAULT 'coches',
   PRIMARY KEY (`id_objetivo`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `incentives_objetivos` */
 
 insert  into `incentives_objetivos`(`id_objetivo`,`nombre_objetivo`,`tipo_objetivo`,`date_ini_objetivo`,`date_fin_objetivo`,`activo_objetivo`,`ranking_objetivo`,`perfil_objetivo`,`canal_objetivo`) values 
 (1,'Ranking de usuarios anual','Usuario','2015-01-01','2016-12-31',1,1,'','comercial'),
 (17,'Prueba','Usuario','2016-07-05','2016-07-20',0,1,'usuario','comercial'),
-(18,'Dos canales','Usuario','2016-12-14','2017-02-17',1,1,'usuario','comercial,test');
+(18,'Dos canales','Usuario','2016-12-14','2017-02-17',0,1,'usuario','comercial,test'),
+(19,'venta de camisetas','Usuario','2017-01-01','2017-08-01',1,1,'','comercial,gerente,test');
 
 /*Table structure for table `incentives_objetivos_detalle` */
 
@@ -3336,12 +3693,14 @@ CREATE TABLE `incentives_objetivos_detalle` (
   PRIMARY KEY (`id_detalle`),
   KEY `id_objetivo` (`id_objetivo`),
   KEY `id_producto` (`id_producto`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `incentives_objetivos_detalle` */
 
 insert  into `incentives_objetivos_detalle`(`id_detalle`,`id_objetivo`,`destino_objetivo`,`id_producto`,`valor_objetivo`) values 
-(1,1,'',3,15);
+(1,1,'',3,15),
+(18,19,'',13,10),
+(19,1,'',13,8);
 
 /*Table structure for table `incentives_productos` */
 
@@ -3354,7 +3713,7 @@ CREATE TABLE `incentives_productos` (
   `id_fabricante` int(11) NOT NULL DEFAULT '0',
   `activo_producto` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_producto`,`id_fabricante`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 /*Data for the table `incentives_productos` */
 
@@ -3366,7 +3725,9 @@ insert  into `incentives_productos`(`id_producto`,`referencia_producto`,`nombre_
 (7,'H-85213','Ascend Mate7',2,1),
 (8,'H-2356564','Ascend G7',2,1),
 (9,'SX11212','Samsung S5',1,1),
-(12,'A1','Canal test',3,1);
+(12,'A1','Canal test',3,1),
+(13,'544568','Camiseta blanca',4,1),
+(14,'555','546456456555555555555555555',4,0);
 
 /*Table structure for table `incentives_productos_aceleradores` */
 
@@ -3403,7 +3764,7 @@ CREATE TABLE `incentives_productos_puntos` (
   `date_fin` date NOT NULL,
   `canal_puntos` varchar(250) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_puntos`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 /*Data for the table `incentives_productos_puntos` */
 
@@ -3414,7 +3775,10 @@ insert  into `incentives_productos_puntos`(`id_puntos`,`id_producto`,`puntos`,`d
 (9,8,5,'2015-06-01','2017-03-09','comercial'),
 (10,9,15,'2015-12-18','2017-03-09','comercial'),
 (11,9,10,'2015-12-01','2017-03-09','comercial'),
-(14,8,7,'2016-12-05','2016-12-30','gerente,test');
+(15,13,5,'2017-01-01','2017-01-31','comercial'),
+(14,8,7,'2016-12-05','2016-12-30','gerente,test'),
+(16,13,10,'2017-02-01','2017-02-28','comercial'),
+(17,13,10,'2017-01-01','2017-01-31','test');
 
 /*Table structure for table `incentives_ventas` */
 
@@ -3433,7 +3797,7 @@ CREATE TABLE `incentives_ventas` (
   KEY `id_producto` (`id_producto`),
   KEY `username_venta` (`username_venta`),
   KEY `fecha_venta` (`fecha_venta`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 /*Data for the table `incentives_ventas` */
 
@@ -3452,7 +3816,9 @@ insert  into `incentives_ventas`(`id_venta`,`id_producto`,`cantidad_venta`,`user
 (12,8,3,'pedro','2016-12-12','2016-12-14 12:39:47','',''),
 (13,8,1,'claudio','2016-12-12','2016-12-14 12:39:47','',''),
 (14,8,2,'20266370N','2016-12-12','2016-12-14 12:39:47','',''),
-(15,8,1,'dmarchante','2016-12-12','2016-12-14 12:39:47','','');
+(15,8,1,'dmarchante','2016-12-12','2016-12-14 12:39:47','',''),
+(16,13,5,'pedro','2017-01-26','2017-01-26 11:19:14','',''),
+(17,13,2,'senen','2017-01-26','2017-01-26 11:20:42','','');
 
 /*Table structure for table `incentives_ventas_puntos` */
 
@@ -3467,7 +3833,7 @@ CREATE TABLE `incentives_ventas_puntos` (
   `date_venta_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `puntuacion_detalle` varchar(250) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_puntos_venta`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 /*Data for the table `incentives_ventas_puntos` */
 
@@ -3484,7 +3850,52 @@ insert  into `incentives_ventas_puntos`(`id_puntos_venta`,`username_puntuacion`,
 (10,'pedro',21,8,'2016-12-12','2016-12-14 12:39:47',''),
 (11,'claudio',7,8,'2016-12-12','2016-12-14 12:39:47',''),
 (12,'20266370N',10,8,'2016-12-12','2016-12-14 12:39:47',''),
-(13,'dmarchante',5,8,'2016-12-12','2016-12-14 12:39:47','');
+(13,'dmarchante',5,8,'2016-12-12','2016-12-14 12:39:47',''),
+(14,'pedro',25,13,'2017-01-26','2017-01-26 11:19:41',''),
+(15,'senen',10,13,'2017-01-26','2017-01-26 11:20:27','');
+
+/*Table structure for table `incidencias` */
+
+DROP TABLE IF EXISTS `incidencias`;
+
+CREATE TABLE `incidencias` (
+  `id_incidencia` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `username_incidencia` varchar(100) NOT NULL DEFAULT '',
+  `date_incidencia` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `texto_incidencia` text NOT NULL,
+  `solucion_incidencia` text NOT NULL,
+  `categoria_incidencia` text NOT NULL,
+  `estado_incidencia` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: pendiente; 1: finalizada; 2: cancelada',
+  PRIMARY KEY (`id_incidencia`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+/*Data for the table `incidencias` */
+
+insert  into `incidencias`(`id_incidencia`,`username_incidencia`,`date_incidencia`,`texto_incidencia`,`solucion_incidencia`,`categoria_incidencia`,`estado_incidencia`) values 
+(10,'admin','2017-02-22 11:13:00','La primera incidencia de pruebas','','Base de datos',0),
+(11,'claudio','2017-02-27 16:00:53','Tengo una incidencia nueva\r\n----------\r\nNo se...','Que pasa.\r\nCerrada','',1);
+
+/*Table structure for table `incidencias_estados` */
+
+DROP TABLE IF EXISTS `incidencias_estados`;
+
+CREATE TABLE `incidencias_estados` (
+  `id_incidencia_estado` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_incidencia` int(11) NOT NULL DEFAULT '0',
+  `username_estado_cambio` varchar(100) NOT NULL DEFAULT '',
+  `estado_cambio` tinyint(1) NOT NULL DEFAULT '0',
+  `date_estado_cambio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_incidencia_estado`)
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+
+/*Data for the table `incidencias_estados` */
+
+insert  into `incidencias_estados`(`id_incidencia_estado`,`id_incidencia`,`username_estado_cambio`,`estado_cambio`,`date_estado_cambio`) values 
+(54,10,'admin',0,'2017-02-22 11:13:00'),
+(55,11,'claudio',0,'2017-02-27 16:00:53'),
+(56,11,'claudio',2,'2017-02-27 16:04:28'),
+(57,11,'claudio',0,'2017-02-27 16:04:35'),
+(58,11,'admin',1,'2017-02-27 16:06:26');
 
 /*Table structure for table `info` */
 
@@ -3500,7 +3911,7 @@ CREATE TABLE `info` (
   `id_campaign` int(11) NOT NULL DEFAULT '0',
   `download` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_info`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 /*Data for the table `info` */
 
@@ -3516,7 +3927,9 @@ insert  into `info`(`id_info`,`titulo_info`,`file_info`,`tipo_info`,`canal_info`
 (9,'file test canales','1480611559_bg.jpg',5,'comercial,gerente','2016-12-01 17:44:09',8,1),
 (10,'test22','1480611631_image_facebook.png',5,'comercial,gerente,test','2016-12-01 18:00:31',8,1),
 (11,'test3','1480611907_bg.jpg',5,'gerente,test','2016-12-01 18:05:07',1,1),
-(12,'test doc','1480668662_4gencasa.xls',8,'comercial,gerente,test','2016-12-02 09:51:02',1,1);
+(12,'test doc','1480668662_4gencasa.xls',8,'comercial,gerente,test','2016-12-02 09:51:02',1,1),
+(13,'Fichero de tiendas','1490091432_1489678420_tiendas_-_ok.xls',5,'comercial,gerente,test','2017-03-21 11:17:12',1,1),
+(14,'Calendario de Marzo','1490175928_mar-17-freedom-in-march-cal-1920x1080.png',8,'comercial,gerente,test','2017-03-22 10:45:28',1,1);
 
 /*Table structure for table `info_alerts` */
 
@@ -3587,7 +4000,12 @@ insert  into `info_alerts`(`id_info`,`username_alert`,`date_alert`) values
 (10,'pedro','2016-12-02 09:08:02'),
 (11,'pedro','2016-12-02 09:08:02'),
 (12,'admin','2016-12-02 09:51:07'),
-(12,'pedro','2016-12-22 09:33:47');
+(12,'pedro','2016-12-22 09:33:47'),
+(9,'claudio','2017-02-27 15:25:44'),
+(10,'claudio','2017-02-27 15:25:44'),
+(11,'claudio','2017-02-27 15:25:44'),
+(12,'claudio','2017-02-27 15:25:44'),
+(13,'admin','2017-03-21 11:25:54');
 
 /*Table structure for table `info_tipo` */
 
@@ -3619,7 +4037,7 @@ CREATE TABLE `info_views` (
   `username_view` varchar(100) NOT NULL DEFAULT '',
   `date_view` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_view`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `info_views` */
 
@@ -3631,7 +4049,8 @@ insert  into `info_views`(`id_view`,`id_file`,`username_view`,`date_view`) value
 (5,8,'admin','2016-12-22 09:27:12'),
 (6,12,'pedro','2016-12-22 09:34:14'),
 (7,11,'pedro','2016-12-22 09:34:35'),
-(8,11,'pedro','2016-12-22 09:34:38');
+(8,11,'pedro','2016-12-22 09:34:38'),
+(9,4,'admin','2017-01-26 10:40:16');
 
 /*Table structure for table `infotopdf` */
 
@@ -5122,7 +5541,7 @@ CREATE TABLE `mensajes` (
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   `estado_remitente` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1: eliminado; 0: en bandeja de elementos enviados',
   PRIMARY KEY (`id_mensaje`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mensajes` */
 
@@ -5152,7 +5571,11 @@ insert  into `mensajes`(`id_mensaje`,`user_remitente`,`user_destinatario`,`date_
 (23,'pedro','borja','2016-12-19 09:54:46','otro test','ssss',2,0),
 (24,'borja','pedro','2016-12-19 09:56:42','Re: Test canales','Pedro : me encanta\r\n-------------------------------\r\nel mensaje del test de canales',1,0),
 (25,'pedro','borja','2016-12-19 09:59:31','hoal perfil','ddddd',0,0),
-(26,'admin','pedro','2016-12-20 16:17:34','prueba','mensaje de prueba',1,1);
+(26,'admin','pedro','2016-12-20 16:17:34','prueba','mensaje de prueba',1,1),
+(27,'pedro','admin','2017-01-26 12:38:06','hola','s dfsdfsdfsd',1,0),
+(28,'admin','pedro','2017-01-26 12:38:46','Re: hola','hwekj weklj wejkh wejklrwer\r\nwe rwe\r\nwe\r\n rwer\r\n\r\nPedro : \r\n-------------------------------\r\ns dfsdfsdfsd',1,0),
+(29,'admin','borja','2017-01-26 12:39:57','hola borja','asdfsdf sadfasdf',0,0),
+(30,'claudio','admin','2017-02-27 16:19:36','Un mensaje de prueba','¿Que tal estas?, hoy es lunes',1,0);
 
 /*Table structure for table `muro_comentarios` */
 
@@ -5172,7 +5595,7 @@ CREATE TABLE `muro_comentarios` (
   `seleccion_reto` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id_comentario`),
   KEY `user_comentario` (`user_comentario`)
-) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 /*Data for the table `muro_comentarios` */
 
@@ -5262,7 +5685,9 @@ insert  into `muro_comentarios`(`id_comentario`,`tipo_muro`,`seccion_comentario`
 (83,'principal','',0,'comercial','Hola pedro','borja','2016-12-20 09:22:39',0,1,0),
 (84,'principal','',0,'gerente','Hola Borja','pedro','2016-12-20 09:23:27',0,1,0),
 (85,'principal','',0,'gerente','Buenos días Borja!!!!!!!!!!','pedro','2016-12-20 09:25:04',0,1,0),
-(86,'principal','',85,'gerente','buenas Pedro!!','borja','2016-12-20 09:26:01',0,1,0);
+(86,'principal','',85,'gerente','buenas Pedro!!','borja','2016-12-20 09:26:01',0,1,0),
+(87,'principal','',0,'comercial','Hola Buenos días!!!','mercedes','2017-03-29 12:48:47',0,1,0),
+(88,'principal','',0,'comercial','hola','admin','2017-03-29 13:40:24',0,1,0);
 
 /*Table structure for table `muro_comentarios_votaciones` */
 
@@ -5318,9 +5743,9 @@ insert  into `na_areas`(`id_area`,`area_nombre`,`area_descripcion`,`area_canal`,
 (11,'Curso de inscripcion 12','Curso en el que los usuarios se pueden inscribir con un límite máximo de usuarios inscritos. 2','comercial',1,2012,122,'2014-10-13 10:43:16',1),
 (12,'Prueba de curso sin tareas','I was stumped for a long time by the fact that even when using addslashes and stripslashes explicitly on the field values double quotes (\") still didn´t seem to show up in strings read from a database. Until I looked at the source, and realised that the field value is just truncated at the first occurrence of a double quote. the remainder of the string is there (in the source), but is ignored when the form is displayed and submitted.','comercial',1,50,10,'2014-11-24 11:36:46',1),
 (13,'test alerts','desc trext alerts','comercial',2,0,9999,'2014-12-24 02:54:02',0),
-(14,'test alerts','desc trext alerts','comercial',0,0,9999,'2014-12-24 02:54:49',0),
+(14,'test alerts','desc trext alerts','comercial',1,0,9999,'2014-12-24 02:54:49',0),
 (15,'Tarea nueva de prueba22','Working on web performance is a combination of obvious best practices (optimize assets), very tricky decisions (what can I defer loading on and what can´t I?), and nuanced choices (which animation technique is the most appropriate?).','comercial',1,4,100,'2015-10-05 13:55:56',1),
-(16,'prueba canales','prueba de canales para un canal','comercial,gerente',1,1,99999,'2016-12-21 09:45:11',1);
+(16,'prueba canales','prueba de canales para un canal','comercial',1,1,99999,'2016-12-21 09:45:11',0);
 
 /*Table structure for table `na_areas_grupos` */
 
@@ -5331,7 +5756,7 @@ CREATE TABLE `na_areas_grupos` (
   `id_area` int(11) unsigned NOT NULL DEFAULT '0',
   `grupo_nombre` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_areas_grupos` */
 
@@ -5341,7 +5766,8 @@ insert  into `na_areas_grupos`(`id_grupo`,`id_area`,`grupo_nombre`) values
 (3,14,'grupo test'),
 (4,11,'Grupo 1'),
 (5,14,'Otro grupo'),
-(6,15,'test');
+(6,15,'test'),
+(7,14,'grupo mercedes');
 
 /*Table structure for table `na_areas_grupos_users` */
 
@@ -5409,7 +5835,7 @@ CREATE TABLE `na_tareas` (
   PRIMARY KEY (`id_tarea`),
   KEY `id_area` (`id_area`),
   KEY `activa` (`activa`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_tareas` */
 
@@ -5427,7 +5853,9 @@ insert  into `na_tareas`(`id_tarea`,`id_area`,`tarea_titulo`,`tarea_descripcion`
 (18,14,'Otra','La descripcion de otra tarea de fichero','fichero',0,'admin',1,'1454418539_entrevista_desarrollo_kiabi_lider_tienda.docx',1,0),
 (19,15,'Ptra tarea de fichero el un área','La descripción de la tarea sin recompensa','fichero',0,'admin',1,'1454418918_entrevista_desarrollo_kiabi_vendedores.docx',1,0),
 (20,14,'Vuestionario de grupos','klsdlskjd sdkjfsld','formulario',1,'admin',1,'',1,3),
-(21,16,'Formulario autocorregible','Un formulario autocorregible. Solo valido para preguntas de opción única','formulario',0,'admin',1,'',1,0);
+(21,16,'Formulario autocorregible','Un formulario autocorregible. Solo valido para preguntas de opción única','formulario',0,'admin',1,'',1,0),
+(22,11,'test','sss','formulario',0,'admin',1,'',1,0),
+(23,15,'Tarea de cuestionario','Prueba con Mercedes','formulario',0,'admin',1,'',0,3);
 
 /*Table structure for table `na_tareas_documentos` */
 
@@ -5440,7 +5868,7 @@ CREATE TABLE `na_tareas_documentos` (
   `documento_nombre` varchar(250) NOT NULL DEFAULT '',
   `documento_file` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_documento`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_tareas_documentos` */
 
@@ -5448,7 +5876,8 @@ insert  into `na_tareas_documentos`(`id_documento`,`id_tarea`,`documento_tipo`,`
 (18,10,'enlace','Un enlace a google','http://google.es'),
 (19,10,'fichero','Una imagen, tipo fichero','1413272511_tumblr_n8psyhbag61slhhf0o1_1280.jpg'),
 (20,10,'enlace','Enlace a imagar.com','http://imagar.com'),
-(22,10,'video','Un video de prueba','1348036284_video_2_inicio_de_la_aventura_juntos_reducido__2.avi.mp4');
+(22,10,'video','Un video de prueba','1348036284_video_2_inicio_de_la_aventura_juntos_reducido__2.avi.mp4'),
+(23,18,'fichero','fichero de ejemplo','1485423006_001.jpg');
 
 /*Table structure for table `na_tareas_formularios_finalizados` */
 
@@ -5477,7 +5906,9 @@ insert  into `na_tareas_formularios_finalizados`(`id_tarea`,`user_tarea`,`date_f
 (20,'admin','2016-03-17 10:44:06',1,3,'admin','2016-03-17 10:45:37'),
 (21,'admin','2016-12-21 16:22:06',1,5,'admin','2016-12-21 16:22:06'),
 (21,'pedro','2016-12-21 16:33:25',1,10,'admin','2016-12-21 16:33:25'),
-(21,'borja','2016-12-21 16:35:08',1,0,'admin','2016-12-21 16:35:08');
+(21,'borja','2016-12-21 16:35:08',1,0,'admin','2016-12-21 16:35:08'),
+(22,'admin','2017-02-02 15:57:18',1,10,'admin','2017-02-02 15:57:18'),
+(16,'claudio','2017-03-08 09:45:11',0,0,'',NULL);
 
 /*Table structure for table `na_tareas_formularios_finalizados_history` */
 
@@ -5495,13 +5926,16 @@ CREATE TABLE `na_tareas_formularios_finalizados_history` (
   `date_history` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_history` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_history`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_tareas_formularios_finalizados_history` */
 
 insert  into `na_tareas_formularios_finalizados_history`(`id_history`,`id_tarea`,`user_tarea`,`date_finalizacion`,`revision`,`puntos`,`user_revision`,`date_revision`,`date_history`,`user_history`) values 
 (23,17,'admin','2016-02-02 17:08:23',1,7,'admin','2016-02-02 17:08:46','2016-05-06 12:10:40','admin'),
-(24,16,'admin','2016-02-02 15:55:51',1,3,'admin','2016-02-02 17:07:19','2016-09-30 12:52:46','admin');
+(24,16,'admin','2016-02-02 15:55:51',1,3,'admin','2016-02-02 17:07:19','2016-09-30 12:52:46','admin'),
+(25,23,'admin','2017-03-09 13:33:23',1,10,'admin','2017-03-09 13:33:23','2017-03-09 13:34:31','admin'),
+(26,23,'admin','2017-03-09 13:34:43',1,0,'admin','2017-03-09 13:34:43','2017-03-09 13:35:01','admin'),
+(27,23,'admin','2017-03-09 13:35:07',1,0,'admin','2017-03-09 13:35:07','2017-03-09 13:38:46','admin');
 
 /*Table structure for table `na_tareas_grupos` */
 
@@ -5548,7 +5982,7 @@ CREATE TABLE `na_tareas_preguntas` (
   `pregunta_texto` longtext NOT NULL,
   `pregunta_tipo` varchar(100) NOT NULL DEFAULT 'texto' COMMENT 'texto;unica;multiple',
   PRIMARY KEY (`id_pregunta`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_tareas_preguntas` */
 
@@ -5566,7 +6000,9 @@ insert  into `na_tareas_preguntas`(`id_pregunta`,`id_tarea`,`pregunta_texto`,`pr
 (25,17,'Con opciones','unica'),
 (26,17,'Con varias opciones','multiple'),
 (27,21,'Una pregunta de test con correcta (OPT)','unica'),
-(28,21,'Otra de check','multiple');
+(28,21,'Otra de check','multiple'),
+(29,22,'Color de origen: rojo','unica'),
+(30,23,'De que color es el caballo blanco de santiago','unica');
 
 /*Table structure for table `na_tareas_respuestas` */
 
@@ -5578,7 +6014,7 @@ CREATE TABLE `na_tareas_respuestas` (
   `respuesta_texto` longtext NOT NULL,
   `correcta` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_respuesta`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_tareas_respuestas` */
 
@@ -5609,7 +6045,13 @@ insert  into `na_tareas_respuestas`(`id_respuesta`,`id_pregunta`,`respuesta_text
 (38,27,'opt3',0),
 (39,28,'1_ok',1),
 (40,28,'2_ok',1),
-(41,28,'3_no_ok',0);
+(41,28,'3_no_ok',0),
+(42,29,'Blanco',0),
+(43,29,'Rojo',1),
+(44,29,'Verde',0),
+(45,30,'Azul',0),
+(46,30,'Blanco',1),
+(47,30,'Rojo',0);
 
 /*Table structure for table `na_tareas_respuestas_user` */
 
@@ -5622,7 +6064,7 @@ CREATE TABLE `na_tareas_respuestas_user` (
   `respuesta_valor` longtext NOT NULL,
   PRIMARY KEY (`id_respuesta_user`),
   KEY `id_pregunta` (`id_pregunta`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_tareas_respuestas_user` */
 
@@ -5644,7 +6086,13 @@ insert  into `na_tareas_respuestas_user`(`id_respuesta_user`,`id_pregunta`,`resp
 (29,27,'pedro','opt2_ok'),
 (30,28,'pedro','1_ok|2_ok'),
 (31,27,'borja','opt1'),
-(32,28,'borja','1_ok');
+(32,28,'borja','1_ok'),
+(33,29,'admin','Rojo'),
+(34,22,'claudio','pues na'),
+(35,25,'claudio','si'),
+(36,26,'claudio','a lo mejor|si'),
+(37,21,'claudio','me gusta'),
+(38,30,'admin','Azul');
 
 /*Table structure for table `na_tareas_users` */
 
@@ -5661,13 +6109,60 @@ CREATE TABLE `na_tareas_users` (
   `user_revision` varchar(100) NOT NULL DEFAULT '',
   `date_revision` datetime DEFAULT NULL,
   PRIMARY KEY (`id_tarea_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_tareas_users` */
 
 insert  into `na_tareas_users`(`id_tarea_user`,`id_area`,`id_tarea`,`user_tarea`,`file_tarea`,`fecha_tarea`,`revision`,`user_revision`,`date_revision`) values 
 (1,9,10,'admin','1413273083_postal5_quijote.jpeg','2014-10-14 09:51:23',0,'',NULL),
-(2,9,10,'admin','1418728595_logotipo_dia.jpg','2014-12-16 12:16:35',0,'',NULL);
+(2,9,10,'admin','1418728595_logotipo_dia.jpg','2014-12-16 12:16:35',0,'',NULL),
+(3,14,18,'admin','1485423168_3m_home.png','2017-01-26 10:32:48',0,'',NULL),
+(4,14,18,'admin','1485423232_450x370_49lf540v.jpg','2017-01-26 10:33:52',0,'',NULL),
+(5,15,19,'admin','1489063208_001.jpg','2017-03-09 13:40:08',0,'',NULL);
+
+/*Table structure for table `notifications` */
+
+DROP TABLE IF EXISTS `notifications`;
+
+CREATE TABLE `notifications` (
+  `username_notification` varchar(100) NOT NULL DEFAULT '',
+  `type_notification` varchar(50) NOT NULL DEFAULT '',
+  `id_content` int(11) NOT NULL DEFAULT '0',
+  `date_notification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`username_notification`,`type_notification`,`id_content`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `notifications` */
+
+insert  into `notifications`(`username_notification`,`type_notification`,`id_content`,`date_notification`) values 
+('admin','fotos',2,'2017-03-22 10:58:27');
+
+/*Table structure for table `notifications_inscriptions` */
+
+DROP TABLE IF EXISTS `notifications_inscriptions`;
+
+CREATE TABLE `notifications_inscriptions` (
+  `username_inscription` varchar(100) NOT NULL DEFAULT '',
+  `type_inscription` varchar(50) NOT NULL DEFAULT '',
+  `id_content` int(11) NOT NULL,
+  `date_inscription` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`username_inscription`,`type_inscription`,`id_content`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `notifications_inscriptions` */
+
+insert  into `notifications_inscriptions`(`username_inscription`,`type_inscription`,`id_content`,`date_inscription`) values 
+('admin','videos',10,'2017-03-23 12:07:00'),
+('admin','fotos',14,'2017-03-21 16:45:11'),
+('admin','fotos',24,'2017-03-21 16:45:26'),
+('admin','foro',83,'2017-03-21 16:51:37'),
+('admin','foro',65,'2017-03-21 17:05:12'),
+('admin','foro',44,'2017-03-21 17:12:05'),
+('dgarcia','foro',44,'2017-03-21 17:13:22'),
+('admin','videos',5,'2017-03-21 17:14:30'),
+('dgarcia','videos',5,'2017-03-21 17:14:47'),
+('admin','videos',8,'2017-03-21 17:15:34'),
+('admin','fotos',63,'2017-03-21 17:47:05');
 
 /*Table structure for table `novedades` */
 
@@ -5684,17 +6179,18 @@ CREATE TABLE `novedades` (
   `tipo` varchar(50) NOT NULL DEFAULT 'slider' COMMENT 'posibles valores: slider; popup; banner',
   `orden` int(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_novedad`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `novedades` */
 
 insert  into `novedades`(`id_novedad`,`titulo`,`cuerpo`,`activo`,`canal`,`date_novedad`,`perfil`,`tipo`,`orden`) values 
 (1,'Entra en level Up!','<p class=\"inset\"><img alt=\"\" src=\"https://comunidad.local.com/images/mailing/images/tema2.png\" style=\"float:left; height:90px; margin:10px; width:120px\" />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, nunc ut cursus sagittis, urna sem venenatis odio, sit amet congue lorem augue feugiat lacus. Aenean ac blandit orci, eget vestibulum odio. Phasellus velit ipsum, ultricies quis semper in, luctus ut magna. Maecenas ultricies malesuada ipsum, eget tincidunt ante semper a.</p>\r\n\r\n<p class=\"inset\">Haz click <a href=\"https://comunidad.local.com/pagename?id=reto\">aqu&iacute;</a> para entrar <a href=\"https://comunidad.local.com/pagename?id=nueva\">fdgdfg</a>xxx xxx</p>\r\n',0,'comercial','2016-06-14 15:15:07','','slider',0),
 (2,'iPhone de regalo','<img alt=\"\" src=\"https://comunidad.local.com/images/mailing/images/1401100614_0002_mp4_mp4.jpg\" style=\"width: 100%;\" />\r\n',1,'gerente','2016-05-11 11:26:40','','slider',0),
-(4,'Bienvenida','<p><img alt=\"\" src=\"https://comunidad.local.com/images/mailing/images/1446307533_20151031_170306.jpg\" style=\"width: 100%;\" /></p>\r\n',1,'comercial,gerente,test','2016-12-19 09:44:47','','popup',0),
+(4,'Bienvenida','<p><img alt=\"\" src=\"https://comunidad.local.com/images/mailing/images/1446307533_20151031_170306.jpg\" style=\"width: 100%;\" /></p>\r\n\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in est ultrices, scelerisque lorem eu, maximus sapien. Sed mattis, odio in accumsan varius, quam risus semper lorem, et sodales dolor lectus et ligula. Integer sem eros, placerat eget lacinia vulputate, hendrerit sed quam. Vestibulum et ultricies est. Praesent enim nisl, finibus sit amet neque quis, tempus euismod dui. Suspendisse convallis mauris accumsan malesuada mattis. Donec sit amet tristique ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>\r\n\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">Cras rutrum placerat orci. Proin eget fringilla orci, ut posuere neque. Cras tortor nunc, lobortis ut massa sed, faucibus auctor augue. In semper velit sit amet blandit ornare. Integer odio diam, feugiat at aliquam eget, vehicula fermentum nulla. Sed ut mollis nisi. Proin dapibus at nisi dictum placerat. Donec rhoncus magna at laoreet rhoncus. Morbi eget nunc et risus sollicitudin tempor. Mauris venenatis mi arcu, id faucibus justo mollis eget. Aliquam congue ipsum odio, non vulputate felis venenatis eget.</p>\r\n',1,'comercial,gerente,test','2017-01-26 11:49:27','','popup',0),
 (5,'Banner 01','<img alt=\"\" src=\"https://comunidad.local.com/images/mailing/images/design-busting-mistakes.jpg\" style=\"width: 100%;\" />\r\n',1,'gerente','2016-05-11 11:25:38','','slider',0),
 (6,'Un banner para todos','<img alt=\"\" src=\"https://comunidad.local.com/images/mailing/images/tema2.png\" style=\"width: 100%;\" />',1,'comercial,gerente,test','2016-12-19 09:20:50','','banner',1),
-(7,'Otro banner','<img alt=\"\" src=\"https://comunidad.local.com/images/mailing/images/289793-1442342151(1).png\" style=\"width: 100%;\" />\r\n',1,'comercial','2016-12-19 09:20:28','responsable','banner',2);
+(7,'Otro banner','<img alt=\"\" src=\"https://comunidad.local.com/images/mailing/images/289793-1442342151(1).png\" style=\"width: 100%;\" />\r\n',1,'comercial','2016-12-19 09:20:28','responsable','banner',2),
+(8,'otra','<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in est ultrices, scelerisque lorem eu, maximus sapien. Sed mattis, odio in accumsan varius, quam risus semper lorem, et sodales dolor lectus et ligula. Integer sem eros, placerat eget lacinia vulputate, hendrerit sed quam. Vestibulum et ultricies est. Praesent enim nisl, finibus sit amet neque quis, tempus euismod dui. Suspendisse convallis mauris accumsan malesuada mattis. Donec sit amet tristique ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Cras rutrum placerat orci. Proin eget fringilla orci, ut posuere neque. Cras tortor nunc, lobortis ut massa sed, faucibus auctor augue. In semper velit sit amet blandit ornare. Integer odio diam, feugiat at aliquam eget, vehicula fermentum nulla. Sed ut mollis nisi. Proin dapibus at nisi dictum placerat. Donec rhoncus magna at laoreet rhoncus. Morbi eget nunc et risus sollicitudin tempor. Mauris venenatis mi arcu, id faucibus justo mollis eget. Aliquam congue ipsum odio, non vulputate felis venenatis eget.</p>\r\n',1,'comercial,gerente,test','2017-01-26 11:48:06','','popup',1);
 
 /*Table structure for table `pages` */
 
@@ -5717,9 +6213,11 @@ CREATE TABLE `pages` (
 insert  into `pages`(`page_name`,`page_title`,`page_content`,`page_menu`,`page_order`,`page_canal`,`page_user_menu`,`page_user_menu_order`) values 
 ('declaracion','','<h2>Declaraci&oacute;n de derechos y responsabilidades</h2>\r\n	Esta Declaraci&oacute;n de derechos y responsabilidades rige nuestra relaci&oacute;n con los usuarios y con todos aquellos que interact&uacute;an en www.actytukiabi.com. Al utilizar o acceder a www.actytukiabi.com muestras tu conformidad con la presente Declaraci&oacute;n.<br />\r\n	<br />\r\n	1. Privacidad<br />\r\n	Tu privacidad es muy importante para nosotros. Hemos dise&ntilde;ado nuestra Pol&iacute;tica de Privacidad para ayudarte a comprender c&oacute;mo puedes usar comunidadsiempremas.com para compartir informaci&oacute;n con otras personas y c&oacute;mo recopilamos y usamos tu informaci&oacute;n. Te animamos a que leas nuestra Pol&iacute;tica de privacidad y a que la utilices para poder tomar decisiones fundamentadas.<br />\r\n	<br />\r\n	2. Compartir el contenido y la informaci&oacute;n<br />\r\n	Eres el propietario de todo el contenido y la informaci&oacute;n que publicas en www.actitukiabi.com. Adem&aacute;s:<br />\r\n	<br />\r\n	1. Para el contenido protegido por derechos de propiedad intelectual, como fotograf&iacute;as y v&iacute;deos (en adelante, &quot;contenido de PI&quot;), nos concedes espec&iacute;ficamente el siguiente permiso: nos concedes una licencia no exclusiva, transferible, con posibilidad de ser sub-otorgada, sin royalties, aplicable globalmente, para utilizar cualquier contenido de PI que publiques en www.actitukiabi.com<br />\r\n	<br />\r\n	2. Cuando eliminas contenido de PI, &eacute;ste es borrado de forma similar a cuando vac&iacute;as la papelera o papelera de reciclaje de tu equipo inform&aacute;tico. No obstante, entiendes que es posible que el contenido eliminado permanezca en copias de seguridad durante un plazo de tiempo razonable (si bien no estar&aacute; disponible para terceros).<br />\r\n	<br />\r\n	3. Siempre valoramos tus comentarios o sugerencias acerca de www.actitukiabi.com, pero debes entender que podr&iacute;amos utilizarlos sin obligaci&oacute;n de compensarte por ello (del mismo modo que t&uacute; no tienes obligaci&oacute;n de ofrecerlos).<br />\r\n	<br />\r\n	3. Seguridad<br />\r\n	Hacemos todo lo posible para hacer que www.actitukiabi.comsea un sitio seguro, pero no podemos garantizarlo. Necesitamos tu ayuda para lograrlo, lo que implica los siguientes compromisos:<br />\r\n	<br />\r\n	1. No enviar&aacute;s ni publicar&aacute;s de ning&uacute;n otro modo comunicaciones comerciales no autorizadas (como correo no deseado) en www.actitukiabi.com<br />\r\n	<br />\r\n	2. No participar&aacute;s en marketing multinivel ilegal, como el de tipo piramidal, en www.actitukiabi.com.<br />\r\n	<br />\r\n	3. No cargar&aacute;s virus ni c&oacute;digo malintencionado de ning&uacute;n tipo.<br />\r\n	<br />\r\n	4. No solicitar&aacute;s informaci&oacute;n de inicio de sesi&oacute;n ni acceder&aacute;s a una cuenta perteneciente a otro usuario.<br />\r\n	<br />\r\n	5. No molestar&aacute;s, intimidar&aacute;s ni acosar&aacute;s a ning&uacute;n usuario.<br />\r\n	<br />\r\n	6. No publicar&aacute;s contenido que resulte hiriente, intimidatorio o pornogr&aacute;fico, que incite a la violencia o que contenga desnudos o violencia gr&aacute;fica o injustificada.<br />\r\n	<br />\r\n	7. No ofrecer&aacute;s ning&uacute;n concurso, regalo ni apuesta (colectivamente, &quot;promoci&oacute;n&quot;) sin nuestro consentimiento previo por escrito. Si damos nuestro consentimiento, tendr&aacute;s completa responsabilidad de la promoci&oacute;n y seguir&aacute;s nuestras normas de las promociones y cumplir&aacute;s todas las leyes aplicables.<br />\r\n	<br />\r\n	8. No utilizar&aacute;s www.actitukiabi.compara actos il&iacute;citos, enga&ntilde;osos, malintencionados o discriminatorios.<br />\r\n	<br />\r\n	9. No realizar&aacute;s ninguna acci&oacute;n que pudiera inhabilitar, sobrecargar o afectar al funcionamiento correcto de www.actytukiabi.com, como, por ejemplo, un ataque de denegaci&oacute;n de servicio.<br />\r\n	<br />\r\n	10. No facilitar&aacute;s ni fomentar&aacute;s la violaci&oacute;n de esta Declaraci&oacute;n.<br />\r\n	<br />\r\n	11. No compartir&aacute;s la contrase&ntilde;a, no dejar&aacute;s que otra persona acceda a tu cuenta, ni har&aacute;s cualquier cosa que pueda poner en peligro la seguridad de tu cuenta.<br />\r\n	<br />\r\n	12. No transferir&aacute;s la cuenta (incluida cualquier p&aacute;gina o aplicaci&oacute;n que administres) a nadie sin nuestro consentimiento previo por escrito.<br />\r\n	<br />\r\n	13. Si seleccionas un nombre de usuario para tu cuenta, nos reservamos el derecho a eliminarlo o reclamarlo si lo consideramos oportuno.<br />\r\n	<br />\r\n	4. Protecci&oacute;n de los derechos de otras personas<br />\r\n	Respetamos los derechos de otras personas y esperamos que t&uacute; hagas lo mismo.<br />\r\n	<br />\r\n	1. No publicar&aacute;s contenido ni realizar&aacute;s ninguna acci&oacute;n en www.actytukiabi.com que infrinja o viole los derechos de otros o que viole la ley de alg&uacute;n modo.<br />\r\n	<br />\r\n	2. Podemos retirar cualquier contenido o informaci&oacute;n que publiques en www.actytukiabi.com si consideramos que viola esta Declaraci&oacute;n.<br />\r\n	<br />\r\n	3. Si infringes repetidamente los derechos de propiedad intelectual de otra persona, desactivaremos tu cuenta si es oportuno.<br />\r\n	<br />\r\n	4. No utilizar&aacute;s nuestros copyrights o marcas registradas (incluidos Kiabi, los logotipos de Kiabi) ni ninguna marca que se parezca a las nuestras sin nuestro permiso por escrito.<br />\r\n	<br />\r\n	5. No publicar&aacute;s los documentos de identificaci&oacute;n ni informaci&oacute;n financiera de nadie en www.actytukiabi.com<br />\r\n	<br />\r\n	Si seleccionas un nombre de usuario para tu cuenta, nos reservamos el derecho a eliminarlo o reclamarlo si lo consideramos oportuno (por ejemplo, si el propietario de una marca comercial se queja por un nombre de usuario que no est&aacute; relacionado estrechamente con el nombre real del usuario).<br />\r\n	<br />\r\n	5. Definiciones<br />\r\n	1. El t&eacute;rmino &quot;actytu&quot; se refiere a las funciones y servicios que proporcionamos, incluidos los que se ofrecen a trav&eacute;s de (a) nuestro sitio web en www.actytukiabi.com y versiones m&oacute;viles; (b) nuestra Plataforma; (c) plugins sociales, como el bot&oacute;n &quot;Me gusta&quot;,.<br />\r\n	<br />\r\n	2. El t&eacute;rmino &quot;Plataforma&quot; se refiere al conjunto de API y servicios que permiten que otras personas, incluidos los desarrolladores de aplicaciones y los operadores de sitios web, recuperen datos de actytu o nos los proporcionen a nosotros.<br />\r\n	<br />\r\n	3. El t&eacute;rmino &quot;informaci&oacute;n&quot; se refiere a los hechos y otra informaci&oacute;n sobre ti, incluidas las acciones que realizas.<br />\r\n	<br />\r\n	4. El t&eacute;rmino &quot;contenido&quot; se refiere a todo lo que publicas en www.actytukiabi.com que no se incluye en la definici&oacute;n de &quot;informaci&oacute;n&quot;.<br />\r\n	<br />\r\n	5. El t&eacute;rmino &quot;datos&quot; se refiere al contenido y la informaci&oacute;n que pueden recuperar terceros de www.actytukiabi.com o proporcionan a actytu a trav&eacute;s de la plataforma.<br />\r\n	<br />\r\n	6. El t&eacute;rmino &quot;publicar&quot; significa publicar en www.actytukiabi.com.<br />\r\n	<br />\r\n	7. Por &quot;usar&quot; se entiende utilizar, copiar, reproducir o mostrar p&uacute;blicamente, distribuir, modificar, traducir y crear obras derivadas.\r\n',0,0,'',0,0),
 ('manifest','','<h2>\r\n	T&eacute;rminos y condiciones</h2>\r\nEsta Declaraci&oacute;n de derechos y responsabilidades rige nuestra relaci&oacute;n con los usuarios y con todos aquellos que interact&uacute;an en www.actytukiabi.com. Al utilizar o acceder a www.actytukiabi.com muestras tu conformidad con la presente Declaraci&oacute;n.<br />\r\n<br />\r\n1. Privacidad<br />\r\nTu privacidad es muy importante para nosotros. Hemos dise&ntilde;ado nuestra Pol&iacute;tica de Privacidad para ayudarte a comprender c&oacute;mo puedes usar comunidadsiempremas.com para compartir informaci&oacute;n con otras personas y c&oacute;mo recopilamos y usamos tu informaci&oacute;n. Te animamos a que leas nuestra Pol&iacute;tica de privacidad y a que la utilices para poder tomar decisiones fundamentadas.<br />\r\n<br />\r\n2. Compartir el contenido y la informaci&oacute;n<br />\r\nEres el propietario de todo el contenido y la informaci&oacute;n que publicas en www.actitukiabi.com. Adem&aacute;s:<br />\r\n<br />\r\n1. Para el contenido protegido por derechos de propiedad intelectual, como fotograf&iacute;as y v&iacute;deos (en adelante, &quot;contenido de PI&quot;), nos concedes espec&iacute;ficamente el siguiente permiso: nos concedes una licencia no exclusiva, transferible, con posibilidad de ser sub-otorgada, sin royalties, aplicable globalmente, para utilizar cualquier contenido de PI que publiques en www.actitukiabi.com<br />\r\n<br />\r\n2. Cuando eliminas contenido de PI, &eacute;ste es borrado de forma similar a cuando vac&iacute;as la papelera o papelera de reciclaje de tu equipo inform&aacute;tico. No obstante, entiendes que es posible que el contenido eliminado permanezca en copias de seguridad durante un plazo de tiempo razonable (si bien no estar&aacute; disponible para terceros).<br />\r\n<br />\r\n3. Siempre valoramos tus comentarios o sugerencias acerca de www.actitukiabi.com, pero debes entender que podr&iacute;amos utilizarlos sin obligaci&oacute;n de compensarte por ello (del mismo modo que t&uacute; no tienes obligaci&oacute;n de ofrecerlos).<br />\r\n<br />\r\n3. Seguridad<br />\r\nHacemos todo lo posible para hacer que www.actitukiabi.comsea un sitio seguro, pero no podemos garantizarlo. Necesitamos tu ayuda para lograrlo, lo que implica los siguientes compromisos:<br />\r\n<br />\r\n1. No enviar&aacute;s ni publicar&aacute;s de ning&uacute;n otro modo comunicaciones comerciales no autorizadas (como correo no deseado) en www.actitukiabi.com<br />\r\n<br />\r\n2. No participar&aacute;s en marketing multinivel ilegal, como el de tipo piramidal, en www.actitukiabi.com.<br />\r\n<br />\r\n3. No cargar&aacute;s virus ni c&oacute;digo malintencionado de ning&uacute;n tipo.<br />\r\n<br />\r\n4. No solicitar&aacute;s informaci&oacute;n de inicio de sesi&oacute;n ni acceder&aacute;s a una cuenta perteneciente a otro usuario.<br />\r\n<br />\r\n5. No molestar&aacute;s, intimidar&aacute;s ni acosar&aacute;s a ning&uacute;n usuario.<br />\r\n<br />\r\n6. No publicar&aacute;s contenido que resulte hiriente, intimidatorio o pornogr&aacute;fico, que incite a la violencia o que contenga desnudos o violencia gr&aacute;fica o injustificada.<br />\r\n<br />\r\n7. No ofrecer&aacute;s ning&uacute;n concurso, regalo ni apuesta (colectivamente, &quot;promoci&oacute;n&quot;) sin nuestro consentimiento previo por escrito. Si damos nuestro consentimiento, tendr&aacute;s completa responsabilidad de la promoci&oacute;n y seguir&aacute;s nuestras normas de las promociones y cumplir&aacute;s todas las leyes aplicables.<br />\r\n<br />\r\n8. No utilizar&aacute;s www.actitukiabi.compara actos il&iacute;citos, enga&ntilde;osos, malintencionados o discriminatorios.<br />\r\n<br />\r\n9. No realizar&aacute;s ninguna acci&oacute;n que pudiera inhabilitar, sobrecargar o afectar al funcionamiento correcto de www.actytukiabi.com, como, por ejemplo, un ataque de denegaci&oacute;n de servicio.<br />\r\n<br />\r\n10. No facilitar&aacute;s ni fomentar&aacute;s la violaci&oacute;n de esta Declaraci&oacute;n.<br />\r\n<br />\r\n11. No compartir&aacute;s la contrase&ntilde;a, no dejar&aacute;s que otra persona acceda a tu cuenta, ni har&aacute;s cualquier cosa que pueda poner en peligro la seguridad de tu cuenta.<br />\r\n<br />\r\n12. No transferir&aacute;s la cuenta (incluida cualquier p&aacute;gina o aplicaci&oacute;n que administres) a nadie sin nuestro consentimiento previo por escrito.<br />\r\n<br />\r\n13. Si seleccionas un nombre de usuario para tu cuenta, nos reservamos el derecho a eliminarlo o reclamarlo si lo consideramos oportuno.<br />\r\n<br />\r\n4. Protecci&oacute;n de los derechos de otras personas<br />\r\nRespetamos los derechos de otras personas y esperamos que t&uacute; hagas lo mismo.<br />\r\n<br />\r\n1. No publicar&aacute;s contenido ni realizar&aacute;s ninguna acci&oacute;n en www.actytukiabi.com que infrinja o viole los derechos de otros o que viole la ley de alg&uacute;n modo.<br />\r\n<br />\r\n2. Podemos retirar cualquier contenido o informaci&oacute;n que publiques en www.actytukiabi.com si consideramos que viola esta Declaraci&oacute;n.<br />\r\n<br />\r\n3. Si infringes repetidamente los derechos de propiedad intelectual de otra persona, desactivaremos tu cuenta si es oportuno.<br />\r\n<br />\r\n4. No utilizar&aacute;s nuestros copyrights o marcas registradas (incluidos Kiabi, los logotipos de Kiabi) ni ninguna marca que se parezca a las nuestras sin nuestro permiso por escrito.<br />\r\n<br />\r\n5. No publicar&aacute;s los documentos de identificaci&oacute;n ni informaci&oacute;n financiera de nadie en www.actytukiabi.com<br />\r\n<br />\r\nSi seleccionas un nombre de usuario para tu cuenta, nos reservamos el derecho a eliminarlo o reclamarlo si lo consideramos oportuno (por ejemplo, si el propietario de una marca comercial se queja por un nombre de usuario que no est&aacute; relacionado estrechamente con el nombre real del usuario).<br />\r\n<br />\r\n5. Definiciones<br />\r\n1. El t&eacute;rmino &quot;actytu&quot; se refiere a las funciones y servicios que proporcionamos, incluidos los que se ofrecen a trav&eacute;s de (a) nuestro sitio web en www.actytukiabi.com y versiones m&oacute;viles; (b) nuestra Plataforma; (c) plugins sociales, como el bot&oacute;n &quot;Me gusta&quot;,.<br />\r\n<br />\r\n2. El t&eacute;rmino &quot;Plataforma&quot; se refiere al conjunto de API y servicios que permiten que otras personas, incluidos los desarrolladores de aplicaciones y los operadores de sitios web, recuperen datos de actytu o nos los proporcionen a nosotros.<br />\r\n<br />\r\n3. El t&eacute;rmino &quot;informaci&oacute;n&quot; se refiere a los hechos y otra informaci&oacute;n sobre ti, incluidas las acciones que realizas.<br />\r\n<br />\r\n4. El t&eacute;rmino &quot;contenido&quot; se refiere a todo lo que publicas en www.actytukiabi.com que no se incluye en la definici&oacute;n de &quot;informaci&oacute;n&quot;.<br />\r\n<br />\r\n5. El t&eacute;rmino &quot;datos&quot; se refiere al contenido y la informaci&oacute;n que pueden recuperar terceros de www.actytukiabi.com o proporcionan a actytu a trav&eacute;s de la plataforma.<br />\r\n<br />\r\n6. El t&eacute;rmino &quot;publicar&quot; significa publicar en www.actytukiabi.com.<br />\r\n<br />\r\n7. Por &quot;usar&quot; se entiende utilizar, copiar, reproducir o mostrar p&uacute;blicamente, distribuir, modificar, traducir y crear obras derivadas. ',0,0,'',0,0),
-('policy','','<h2>\r\n	Pol&iacute;tica de privacidad</h2>\r\n1. Introducci&oacute;n<br />\r\nPreguntas. Si tienes alguna pregunta o duda sobre nuestra pol&iacute;tica de privacidad, ponte en contacto con nuestro equipo de privacidad enviando un mail a Info@actytukiabi.com<br />\r\n<br />\r\n&Aacute;mbito. La presente pol&iacute;tica de privacidad incluye el portal www.actytukiabi.com al completo.<br />\r\n<br />\r\n2. Informaci&oacute;n que recibimos<br />\r\nInformaci&oacute;n que nos env&iacute;as:<br />\r\n<br />\r\nInformaci&oacute;n sobre ti. Cuando te registras en la comunidad de Kiabi, nos facilitas tu nombre, correo electr&oacute;nico y fecha de nacimiento. Tambi&eacute;n podr&aacute;s a&ntilde;adir una foto.<br />\r\n<br />\r\nLos datos personales recabados en el presente formulario ser&aacute;n objeto de tratamiento en un fichero responsabilidad de Espa&ntilde;a KSCE, S.A. cuya finalidad ser&aacute; la gesti&oacute;n de cursos de formaci&oacute;n y eventos que puedan resultar de su inter&eacute;s y el intercambio de informaci&oacute;n de car&aacute;cter profesional. La entrega de todos los datos requeridos en el presente formulario es obligatoria, puesto que dichos datos son imprescindibles para cumplir con las finalidades indicadas anteriormente.<br />\r\n<br />\r\nUsted podr&aacute; ejercitar sus derechos de acceso, rectificaci&oacute;n, cancelaci&oacute;n y/u oposici&oacute;n, dirigiendo una comunicaci&oacute;n firmada por el titular de los datos a la direcci&oacute;n de correo electr&oacute;nico info@actytukiabi.com, ref. &quot;Actytu&quot;, adjuntando copia legible de su DNI e indicando la petici&oacute;n en que se concreta su solicitud y la direcci&oacute;n a la que Espa&ntilde;a KSCE, S.A pueda remitirle la confirmaci&oacute;n de haber cumplido con su solicitud, o en su caso, los motivos que le impiden llevarla a cabo plenamente.<br />\r\n<br />\r\nContenido. Una de las finalidades principales del uso de la comunidad actytu es compartir contenido referente al cambio de actitud ante el cliente, con los dem&aacute;s comerciales.<br />\r\n<br />\r\nInformaci&oacute;n que recopilamos cuando interact&uacute;as en actytu:<br />\r\n<br />\r\nInformaci&oacute;n sobre la actividad en el sitio web. Realizamos un seguimiento de las acciones que llevas a cabo en actytu como indicar que &quot;te gusta&quot; una publicaci&oacute;n, o cuando compartes videos, fotos o comentarios en cada una de las secciones del portal.<br />\r\n<br />\r\n3. Compartir informaci&oacute;n en actytu<br />\r\nNombre y foto del perfil. Ha sido dise&ntilde;ado para que te resulte sencillo encontrar y modificar los campos de nick, foto o estado. Si no quieres compartir la foto de tu perfil, debes eliminarla (o no a&ntilde;adir ninguna).<br />\r\n<br />\r\n4. C&oacute;mo utilizamos tu informaci&oacute;n<br />\r\nUtilizamos la informaci&oacute;n que recopilamos para tratar de ofrecerte una experiencia segura, eficaz y personalizada. A continuaci&oacute;n, incluimos algunos datos sobre c&oacute;mo lo hacemos:<br />\r\n<br />\r\nPara gestionar el servicio. Utilizamos la informaci&oacute;n que recopilamos para ofrecerte nuestros servicios y funciones, evaluarlos y mejorarlos y prestarte servicio t&eacute;cnico. Empleamos la informaci&oacute;n para impedir actividades que podr&iacute;an ser ilegales y para aplicar nuestra Declaraci&oacute;n de Derechos y Responsabilidades. Estos esfuerzos pueden provocar, en ocasiones, el fin o la suspensi&oacute;n temporal o permanente de algunas funciones para algunos usuarios.<br />\r\n<br />\r\nPara ponernos en contacto contigo. Ocasionalmente, podemos ponernos en contacto contigo para informarte de anuncios relativos a servicios.<br />\r\n<br />\r\n6. C&oacute;mo puedes cambiar eliminar informaci&oacute;n<br />\r\nEdici&oacute;n de tu perfil. Puedes cambiar o eliminar la informaci&oacute;n de tu perfil en cualquier momento yendo a tu perfil y haciendo clic en &quot;Editar mi perfil&quot;. La informaci&oacute;n se actualizar&aacute; de inmediato.<br />\r\n<br />\r\n7. C&oacute;mo protegemos la informaci&oacute;n<br />\r\nHacemos todo lo posible para mantener a salvo tu informaci&oacute;n, pero necesitamos tu ayuda.<br />\r\n<br />\r\nMedidas que tomamos para mantener a salvo su informaci&oacute;n. Mantenemos la informaci&oacute;n de tu cuenta en un servidor protegido con un firewall. Cuando introduces informaci&oacute;n confidencial (por ejemplo, contrase&ntilde;as). Tambi&eacute;n utilizamos medidas sociales y automatizadas para aumentar la seguridad (como el an&aacute;lisis de la actividad de la cuenta), podemos limitar el uso de funciones del sitio web en respuesta a posibles signos de abuso, podemos eliminar contenido inadecuado o enlaces a contenido ilegal, y podemos suspender o desactivar cuentas por si hubiera violaciones de nuestra Declaraci&oacute;n de Derechos y Responsabilidades.<br />\r\n<br />\r\nRiesgos inherentes a compartir informaci&oacute;n. Aunque te permitimos definir opciones de privacidad que limiten el acceso a tu informaci&oacute;n, ten en cuenta que ninguna medida de seguridad es perfecta ni impenetrable. No podemos controlar las acciones de otros usuarios con los que compartas informaci&oacute;n. No podemos garantizar que s&oacute;lo vean tu informaci&oacute;n personas autorizadas. No podemos garantizar que la informaci&oacute;n que compartas en comunidadsiempremas.com no pase a estar disponible p&uacute;blicamente. No somos responsables de que ning&uacute;n tercero burle cualquier configuraci&oacute;n de la privacidad o medidas de seguridad en www.actytukiabi.com. Puedes reducir estos riesgos utilizando h&aacute;bitos de seguridad de sentido com&uacute;n como elegir una contrase&ntilde;a segura, utilizar contrase&ntilde;as diferentes para servicios diferentes y emplear software antivirus actualizado.<br />\r\n<br />\r\nInformar de incumplimientos. Deber&iacute;as informarnos de cualquier incumplimiento de la seguridad escribi&eacute;ndonos a info@actytukiabi.com<br />\r\n<br />\r\n9. Otras condiciones<br />\r\nCambios. Podemos cambiar esta Pol&iacute;tica de privacidad conforme a los procedimientos se&ntilde;alados en la Declaraci&oacute;n de Derechos y Responsabilidades. Salvo indicaci&oacute;n en contrario, nuestra pol&iacute;tica de privacidad en vigor se aplica a toda la informaci&oacute;n que tenemos sobre ti y tu cuenta. Si realizamos cambios en esta Pol&iacute;tica de privacidad, te lo notificaremos public&aacute;ndolo aqu&iacute; y en la p&aacute;gina www.actytukiabi.com. Si los cambios son sustanciales, mostraremos un aviso prominente si las circunstancias lo requieren. ',0,0,'',0,0),
-('nueva','+INFO','<h2>T&iacute;tulo de la nueva p&aacute;gina</h2>\r\n\r\n<p>la nueva p&aacute;gina 2 y con un poco m&aacute;s de texto de relleno.<br />\r\n&nbsp;</p>\r\n\r\n<ul>\r\n	<li>Opci&oacute;n 1 de la lista</li>\r\n	<li>La opci&oacute;n 2 de la lista</li>\r\n	<li>Una tercera opci&oacute;n para la lista de la p&aacute;gina</li>\r\n</ul>\r\n\r\n<p>Un poco m&aacute;s de texto para continuar un nuevo parrafo en la p&aacute;gina.</p>\r\n',1,0,'',1,0),
-('reto','','<p style=\"text-align: justify; margin: 0px 0px 14px; padding: 0px; color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans;\">\r\n	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tempus ultrices auctor. Nunc a arcu nisl. Sed ullamcorper varius mi facilisis facilisis. Duis porta venenatis erat, eu malesuada lorem ultrices quis. Duis quam mi, vulputate sit amet ultrices eget, aliquam in felis. Nulla ut efficitur urna. Donec posuere, libero sed fermentum volutpat, nisl ante egestas sapien, non commodo metus felis sed libero.</p>\r\n<p style=\"text-align: justify; margin: 0px 0px 14px; padding: 0px; color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans;\">\r\n	Vivamus ac metus eget nisi posuere ullamcorper. Proin laoreet elit vel arcu placerat gravida. Curabitur facilisis dui tortor, finibus tincidunt erat ullamcorper in. Maecenas vehicula enim a mattis vulputate. Nulla vel urna metus. Pellentesque vitae velit ipsum. Aenean nec erat velit. Aliquam sed turpis metus. Nullam a nisl sit amet felis aliquam interdum ut eu magna. Morbi condimentum ut felis aliquam faucibus. Nulla ac mi lectus. Mauris ut hendrerit massa. Donec laoreet sit amet sapien quis luctus. Sed fringilla sem non efficitur facilisis. Suspendisse mollis dui eu urna varius, et semper quam imperdiet. In interdum feugiat nisl, in ullamcorper lectus porta imperdiet.<br />\r\n	<br />\r\n	<a href=\"http://google.com\">http://google.com</a></p>\r\n',0,0,'',0,0);
+('policy','','<h2>Pol&iacute;tica de privacidad</h2>\r\n\r\n<p>1. Introducci&oacute;n<br />\r\nPreguntas. Si tienes alguna pregunta o duda sobre nuestra pol&iacute;tica de privacidad, ponte en contacto con nuestro equipo de privacidad enviando un mail a Info@actytukiabi.com<br />\r\n<br />\r\n&Aacute;mbito. La presente pol&iacute;tica de privacidad incluye el portal www.actytukiabi.com al completo.<br />\r\n<br />\r\n2. Informaci&oacute;n que recibimos<br />\r\nInformaci&oacute;n que nos env&iacute;as:<br />\r\n<br />\r\nInformaci&oacute;n sobre ti. Cuando te registras en la comunidad de Kiabi, nos facilitas tu nombre, correo electr&oacute;nico y fecha de nacimiento. Tambi&eacute;n podr&aacute;s a&ntilde;adir una foto.<br />\r\n<br />\r\nLos datos personales recabados en el presente formulario ser&aacute;n objeto de tratamiento en un fichero responsabilidad de Espa&ntilde;a KSCE, S.A. cuya finalidad ser&aacute; la gesti&oacute;n de cursos de formaci&oacute;n y eventos que puedan resultar de su inter&eacute;s y el intercambio de informaci&oacute;n de car&aacute;cter profesional. La entrega de todos los datos requeridos en el presente formulario es obligatoria, puesto que dichos datos son imprescindibles para cumplir con las finalidades indicadas anteriormente.<br />\r\n<br />\r\nUsted podr&aacute; ejercitar sus derechos de acceso, rectificaci&oacute;n, cancelaci&oacute;n y/u oposici&oacute;n, dirigiendo una comunicaci&oacute;n firmada por el titular de los datos a la direcci&oacute;n de correo electr&oacute;nico info@actytukiabi.com, ref. &quot;Actytu&quot;, adjuntando copia legible de su DNI e indicando la petici&oacute;n en que se concreta su solicitud y la direcci&oacute;n a la que Espa&ntilde;a KSCE, S.A pueda remitirle la confirmaci&oacute;n de haber cumplido con su solicitud, o en su caso, los motivos que le impiden llevarla a cabo plenamente.<br />\r\n<br />\r\nContenido. Una de las finalidades principales del uso de la comunidad actytu es compartir contenido referente al cambio de actitud ante el cliente, con los dem&aacute;s comerciales.<br />\r\n<br />\r\nInformaci&oacute;n que recopilamos cuando interact&uacute;as en actytu:<br />\r\n<br />\r\nInformaci&oacute;n sobre la actividad en el sitio web. Realizamos un seguimiento de las acciones que llevas a cabo en actytu como indicar que &quot;te gusta&quot; una publicaci&oacute;n, o cuando compartes videos, fotos o comentarios en cada una de las secciones del portal.<br />\r\n<br />\r\n3. Compartir informaci&oacute;n en actytu<br />\r\nNombre y foto del perfil. Ha sido dise&ntilde;ado para que te resulte sencillo encontrar y modificar los campos de nick, foto o estado. Si no quieres compartir la foto de tu perfil, debes eliminarla (o no a&ntilde;adir ninguna).<br />\r\n<br />\r\n4. C&oacute;mo utilizamos tu informaci&oacute;n<br />\r\nUtilizamos la informaci&oacute;n que recopilamos para tratar de ofrecerte una experiencia segura, eficaz y personalizada. A continuaci&oacute;n, incluimos algunos datos sobre c&oacute;mo lo hacemos:<br />\r\n<br />\r\nPara gestionar el servicio. Utilizamos la informaci&oacute;n que recopilamos para ofrecerte nuestros servicios y funciones, evaluarlos y mejorarlos y prestarte servicio t&eacute;cnico. Empleamos la informaci&oacute;n para impedir actividades que podr&iacute;an ser ilegales y para aplicar nuestra Declaraci&oacute;n de Derechos y Responsabilidades. Estos esfuerzos pueden provocar, en ocasiones, el fin o la suspensi&oacute;n temporal o permanente de algunas funciones para algunos usuarios.<br />\r\n<br />\r\nPara ponernos en contacto contigo. Ocasionalmente, podemos ponernos en contacto contigo para informarte de anuncios relativos a servicios.<br />\r\n<br />\r\n6. C&oacute;mo puedes cambiar eliminar informaci&oacute;n<br />\r\nEdici&oacute;n de tu perfil. Puedes cambiar o eliminar la informaci&oacute;n de tu perfil en cualquier momento yendo a tu perfil y haciendo clic en &quot;Editar mi perfil&quot;. La informaci&oacute;n se actualizar&aacute; de inmediato.<br />\r\n<br />\r\n7. C&oacute;mo protegemos la informaci&oacute;n<br />\r\nHacemos todo lo posible para mantener a salvo tu informaci&oacute;n, pero necesitamos tu ayuda.<br />\r\n<br />\r\nMedidas que tomamos para mantener a salvo su informaci&oacute;n. Mantenemos la informaci&oacute;n de tu cuenta en un servidor protegido con un firewall. Cuando introduces informaci&oacute;n confidencial (por ejemplo, contrase&ntilde;as). Tambi&eacute;n utilizamos medidas sociales y automatizadas para aumentar la seguridad (como el an&aacute;lisis de la actividad de la cuenta), podemos limitar el uso de funciones del sitio web en respuesta a posibles signos de abuso, podemos eliminar contenido inadecuado o enlaces a contenido ilegal, y podemos suspender o desactivar cuentas por si hubiera violaciones de nuestra Declaraci&oacute;n de Derechos y Responsabilidades.<br />\r\n<br />\r\nRiesgos inherentes a compartir informaci&oacute;n. Aunque te permitimos definir opciones de privacidad que limiten el acceso a tu informaci&oacute;n, ten en cuenta que ninguna medida de seguridad es perfecta ni impenetrable. No podemos controlar las acciones de otros usuarios con los que compartas informaci&oacute;n. No podemos garantizar que s&oacute;lo vean tu informaci&oacute;n personas autorizadas. No podemos garantizar que la informaci&oacute;n que compartas en comunidadsiempremas.com no pase a estar disponible p&uacute;blicamente. No somos responsables de que ning&uacute;n tercero burle cualquier configuraci&oacute;n de la privacidad o medidas de seguridad en www.actytukiabi.com. Puedes reducir estos riesgos utilizando h&aacute;bitos de seguridad de sentido com&uacute;n como elegir una contrase&ntilde;a segura, utilizar contrase&ntilde;as diferentes para servicios diferentes y emplear software antivirus actualizado.<br />\r\n<br />\r\nInformar de incumplimientos. Deber&iacute;as informarnos de cualquier incumplimiento de la seguridad escribi&eacute;ndonos a info@actytukiabi.com<br />\r\n<br />\r\n9. Otras condiciones<br />\r\nCambios. Podemos cambiar esta Pol&iacute;tica de privacidad conforme a los procedimientos se&ntilde;alados en la Declaraci&oacute;n de Derechos y Responsabilidades. Salvo indicaci&oacute;n en contrario, nuestra pol&iacute;tica de privacidad en vigor se aplica a toda la informaci&oacute;n que tenemos sobre ti y tu cuenta. Si realizamos cambios en esta Pol&iacute;tica de privacidad, te lo notificaremos public&aacute;ndolo aqu&iacute; y en la p&aacute;gina www.actytukiabi.com. Si los cambios son sustanciales, mostraremos un aviso prominente si las circunstancias lo requieren.</p>\r\n',0,0,'',0,0),
+('nueva','+INFO','<h2>T&iacute;tulo de la nueva p&aacute;gina</h2>\r\n\r\n<p>la nueva p&aacute;gina 2 y con un poco m&aacute;s de texto de relleno.<br />\r\n&nbsp;</p>\r\n\r\n<ul>\r\n	<li>Opci&oacute;n 1 de la lista</li>\r\n	<li>La opci&oacute;n 2 de la lista</li>\r\n	<li>Una tercera opci&oacute;n para la lista de la p&aacute;gina</li>\r\n</ul>\r\n\r\n<p>Un poco m&aacute;s de texto para continuar un nuevo parrafo en la p&aacute;gina.</p>\r\n',1,0,'gerente',1,0),
+('reto','','<p style=\"text-align: justify; margin: 0px 0px 14px; padding: 0px; color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tempus ultrices auctor. Nunc a arcu nisl. Sed ullamcorper varius mi facilisis facilisis. Duis porta venenatis erat, eu malesuada lorem ultrices quis. Duis quam mi, vulputate sit amet ultrices eget, aliquam in felis. Nulla ut efficitur urna. Donec posuere, libero sed fermentum volutpat, nisl ante egestas sapien, non commodo metus felis sed libero.</p>\r\n\r\n<p style=\"text-align: justify; margin: 0px 0px 14px; padding: 0px; color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans;\">Vivamus ac metus eget nisi posuere ullamcorper. Proin laoreet elit vel arcu placerat gravida. Curabitur facilisis dui tortor, finibus tincidunt erat ullamcorper in. Maecenas vehicula enim a mattis vulputate. Nulla vel urna metus. Pellentesque vitae velit ipsum. Aenean nec erat velit. Aliquam sed turpis metus. Nullam a nisl sit amet felis aliquam interdum ut eu magna. Morbi condimentum ut felis aliquam faucibus. Nulla ac mi lectus. Mauris ut hendrerit massa. Donec laoreet sit amet sapien quis luctus. Sed fringilla sem non efficitur facilisis. Suspendisse mollis dui eu urna varius, et semper quam imperdiet. In interdum feugiat nisl, in ullamcorper lectus porta imperdiet.<br />\r\n<br />\r\n<a href=\"http://google.com\">http://google.com</a></p>\r\n',0,0,'comercial',0,0),
+('ventas','Listado de ventas','<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in est ultrices, scelerisque lorem eu, maximus sapien. Sed mattis, odio in accumsan varius, quam risus semper lorem, et sodales dolor lectus et ligula. Integer sem eros, placerat eget lacinia vulputate, hendrerit sed quam. Vestibulum et ultricies est. Praesent enim nisl, finibus sit amet neque quis, tempus euismod dui. Suspendisse convallis mauris accumsan malesuada mattis. Donec sit amet tristique ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Cras rutrum placerat orci. Proin eget fringilla orci, ut posuere neque. Cras tortor nunc, lobortis ut massa sed, faucibus auctor augue. In semper velit sit amet blandit ornare. Integer odio diam, feugiat at aliquam eget, vehicula fermentum nulla. Sed ut mollis nisi. Proin dapibus at nisi dictum placerat. Donec rhoncus magna at laoreet rhoncus. Morbi eget nunc et risus sollicitudin tempor. Mauris venenatis mi arcu, id faucibus justo mollis eget. Aliquam congue ipsum odio, non vulputate felis venenatis eget.</p>\r\n',1,5,'',0,1),
+('compras','Listado de compras','<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in est ultrices, scelerisque lorem eu, maximus sapien. Sed mattis, odio in accumsan varius, quam risus semper lorem, et sodales dolor lectus et ligula. Integer sem eros, placerat eget lacinia vulputate, hendrerit sed quam. Vestibulum et ultricies est. Praesent enim nisl, finibus sit amet neque quis, tempus euismod dui. Suspendisse convallis mauris accumsan malesuada mattis. Donec sit amet tristique ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>\r\n\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">Cras rutrum placerat orci. Proin eget fringilla orci, ut posuere neque. Cras tortor nunc, lobortis ut massa sed, faucibus auctor augue. In semper velit sit amet blandit ornare. Integer odio diam, feugiat at aliquam eget, vehicula fermentum nulla. Sed ut mollis nisi. Proin dapibus at nisi dictum placerat. Donec rhoncus magna at laoreet rhoncus. Morbi eget nunc et risus sollicitudin tempor. Mauris venenatis mi arcu, id faucibus justo mollis eget. Aliquam congue ipsum odio, non vulputate felis venenatis eget.</p>\r\n',1,1,'',0,0);
 
 /*Table structure for table `promociones` */
 
@@ -5741,7 +6239,7 @@ CREATE TABLE `promociones` (
 
 insert  into `promociones`(`id_promocion`,`nombre_promocion`,`texto_promocion`,`imagen_promocion`,`active`,`galeria_videos`,`galeria_fotos`,`galeria_comentarios`) values 
 (47,'Nombre 1','desc1','',0,0,0,1),
-(48,'Nombre 2rrr','<p>desc2 ert ertertert 333</p>\r\n','',1,0,1,0);
+(48,'Nombre 2rrr','<p>desc2 ert ertertert 333</p>\r\n','',1,1,0,0);
 
 /*Table structure for table `recompensas` */
 
@@ -5774,7 +6272,7 @@ CREATE TABLE `recompensas_user` (
   `recompensa_assign` varchar(250) NOT NULL COMMENT 'usuario que da la recompensa',
   `recompensa_comment` text NOT NULL,
   PRIMARY KEY (`id_recompensas_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 /*Data for the table `recompensas_user` */
 
@@ -5794,7 +6292,8 @@ insert  into `recompensas_user`(`id_recompensas_user`,`id_recompensa`,`recompens
 (21,1,'claudio','2016-02-02 16:12:16','admin','Por participar mucho'),
 (22,1,'admin','2016-02-02 17:06:01','admin','Finalizacion tarea ID: 16'),
 (23,3,'admin','2016-02-02 17:08:46','admin','Finalizacion tarea ID: 17'),
-(24,1,'admin','2016-09-30 12:54:08','admin','Finalizacion tarea ID: 16');
+(24,1,'admin','2016-09-30 12:54:08','admin','Finalizacion tarea ID: 16'),
+(25,1,'borja','2017-01-26 12:28:34','admin','participa mucho');
 
 /*Table structure for table `shop_manufacturers` */
 
@@ -5838,13 +6337,16 @@ CREATE TABLE `shop_orders` (
   PRIMARY KEY (`id_order`),
   KEY `username_order` (`username_order`),
   KEY `status_order` (`status_order`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 /*Data for the table `shop_orders` */
 
 insert  into `shop_orders`(`id_order`,`username_order`,`date_order`,`name_order`,`surname_order`,`address_order`,`address2_order`,`city_order`,`state_order`,`postal_order`,`telephone_order`,`status_order`,`notes_order`) values 
 (27,'admin','2016-04-11 12:22:01','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','444','cancelado',''),
-(28,'admin','2016-12-15 17:30:28','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','666666666','pendiente','pruebaaaa');
+(28,'admin','2016-12-15 17:30:28','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','666666666','pendiente','pruebaaaa'),
+(29,'admin','2017-01-26 12:16:41','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','999999','finalizado',''),
+(30,'admin','2017-02-27 09:33:29','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','9999','pendiente',''),
+(31,'claudio','2017-02-27 16:09:29','Claudio','Gonzalez','FRANQUICIAS','C/Recesbinto 89','Madrid','Madrid','28007','8888888','pendiente','');
 
 /*Table structure for table `shop_orders_details` */
 
@@ -5860,13 +6362,16 @@ CREATE TABLE `shop_orders_details` (
   PRIMARY KEY (`id_order_detail`),
   KEY `id_order` (`id_order`),
   KEY `id_product` (`id_product`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 /*Data for the table `shop_orders_details` */
 
 insert  into `shop_orders_details`(`id_order_detail`,`id_order`,`id_product`,`amount_product`,`price_product`,`date_detail`) values 
 (26,27,6,1,180,'2016-04-11 12:22:01'),
-(27,28,6,1,180,'2016-12-15 17:30:28');
+(27,28,6,1,180,'2016-12-15 17:30:28'),
+(28,29,10,1,2356,'2017-01-26 12:16:41'),
+(29,30,10,1,2356,'2017-02-27 09:33:29'),
+(30,31,1,1,101,'2017-02-27 16:09:29');
 
 /*Table structure for table `shop_orders_status` */
 
@@ -5879,7 +6384,7 @@ CREATE TABLE `shop_orders_status` (
   `date_status` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `username_status` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_order_status`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 /*Data for the table `shop_orders_status` */
 
@@ -5894,7 +6399,15 @@ insert  into `shop_orders_status`(`id_order_status`,`id_order`,`order_status`,`d
 (12,27,'finalizado','2016-08-12 08:57:51','admin'),
 (13,27,'pendiente','2016-08-12 08:59:30','admin'),
 (14,27,'cancelado','2016-08-12 08:59:37','admin'),
-(15,28,'pendiente','2016-12-15 17:30:28','admin');
+(15,28,'pendiente','2016-12-15 17:30:28','admin'),
+(16,29,'pendiente','2017-01-26 12:16:41','admin'),
+(17,29,'finalizado','2017-01-26 12:17:31','admin'),
+(18,29,'pendiente','2017-02-02 12:03:47','admin'),
+(19,29,'finalizado','2017-02-02 12:03:55','admin'),
+(20,29,'pendiente','2017-02-02 12:06:14','admin'),
+(21,29,'finalizado','2017-02-02 12:06:19','admin'),
+(22,30,'pendiente','2017-02-27 09:33:29','admin'),
+(23,31,'pendiente','2017-02-27 16:09:29','claudio');
 
 /*Table structure for table `shop_products` */
 
@@ -5924,17 +6437,17 @@ CREATE TABLE `shop_products` (
 /*Data for the table `shop_products` */
 
 insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values 
-(1,'La alargada sombra del amor','<p>La alargada sombra del amor de Mathias Malzieu</p>\r\n','1458643092_tapa-la-alargada.jpg',101,50,0,2,1,'','','','comercial,gerente','0000-00-00 00:00:00','2016-12-01','2016-12-14'),
+(1,'La alargada sombra del amor','<p>La alargada sombra del amor de Mathias Malzieu</p>\r\n','1458643092_tapa-la-alargada.jpg',101,49,0,2,1,'','','','comercial,gerente','0000-00-00 00:00:00','2016-12-01','2017-04-08'),
 (2,'Premio sorpresa','<p>Descubre que tiene este&nbsp;regalo sorpresa!!!!</p>\r\n','1458643199_premio_dic_2.jpg',50,33,1,0,0,'','','','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00'),
 (3,'Zapatillas','<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n','1458643454_1411549492.jpg',20,41,0,0,0,'','','','comercial,gerente','0000-00-00 00:00:00','0000-00-00','0000-00-00'),
 (4,'Viaje por Suecia','<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at arcu et dui vulputate fermentum. Vestibulum quis felis auctor, porta sem a, iaculis mi. Proin non lorem erat. Nulla pretium orci vel dui tempus sodales. Nunc eget tellus et sem vehicula lacinia. Aenean quam purus, maximus at dolor in, sollicitudin posuere felis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean finibus viverra lorem et commodo. Duis luctus enim in ultricies sagittis. Fusce ut risus vel elit luctus laoreet et at nisl. Proin nisi sapien, eleifend at sapien et, euismod placerat arcu. Etiam non tellus non mi facilisis dictum quis in nisi. Sed varius mauris id libero euismod auctor. Duis aliquam est at elementum condimentum.</p>\r\n\r\n<p>Nulla tempus, urna a tincidunt varius, risus ex pretium orci, elementum fermentum sapien augue non ex. Nunc dui arcu, semper at eros sit amet, dignissim suscipit ante. Nullam in aliquet ligula. Fusce posuere fermentum quam, a sollicitudin justo facilisis sit amet. Pellentesque ut eros in odio sagittis finibus. Proin eu turpis a eros molestie laoreet. Mauris blandit vehicula porttitor. Ut at mollis augue. Morbi mauris risus, semper non risus eget, accumsan mollis urna. Donec hendrerit mi eu diam tempor, a malesuada nisi laoreet. Aenean commodo massa quis fermentum gravida. Pellentesque sit amet ultricies odio. Vestibulum ullamcorper diam vitae tempor cursus. Ut eu augue vitae sem tincidunt lobortis nec et nisl. Integer ut metus semper, imperdiet diam vitae, vulputate neque.</p>\r\n','1458725914_1458206720.jpg',90,56,0,0,0,'','Viajes','','comercial,gerente','0000-00-00 00:00:00','0000-00-00','0000-00-00'),
 (5,'4 entradas de cine','<p>4 entradas de cine v&aacute;lidas para cualquier d&iacute;a de la semana, con 3 meses de caducidad desde la fecha de env&iacute;o</p>\r\n','1459507812_tickets.jpg',152,49,0,2,1,'','Ocio','','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00'),
 (6,'Dron Follower','\nDron Follower para uso en exteriores con tecnología giroscópica de 6 ejes que permite un control más fácil y preciso. Ideal para volar en el exterior, gracias a su pequeño tamaño posee una gran estabilidad. \n','1459509195_drone_follower2.jpg',180,98,0,3,1,'56431MX','Electrónica','','comercial','0000-00-00 00:00:00','2016-12-01','2016-12-31'),
-(7,'Camiseta y balón oficial de la Eurocopa 2016','<p>Camiseta y bal&oacute;n oficial de la primera equipaci&oacute;n de la Selecci&oacute;n Espa&ntilde;ola para la Eurocopa 2016</p>\r\n','1459508024_camiseta_eurocopa_2016.jpg',417,0,0,5,1,'','Moda','Deportes','comercial','0000-00-00 00:00:00','2016-11-27','2017-04-08'),
+(7,'Camiseta y balón oficial de la Eurocopa 2016','<p>Camiseta y bal&oacute;n oficial de la primera equipaci&oacute;n de la Selecci&oacute;n Espa&ntilde;ola para la Eurocopa 2016</p>\r\n','1459508024_camiseta_eurocopa_2016.jpg',417,0,0,5,0,'','Moda','Deportes','comercial','0000-00-00 00:00:00','2016-11-27','2017-04-08'),
 (8,'Smart TV Samsung 32¨¨','','',0,0,0,0,0,'','','','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00'),
 (9,'Smart TV Samsung 32´´','<p>Smart TV calidad HD. Multi-Touch retroiluminada por LED de 9.7 pulgadas. 2048x1536 retina display (264 pixels por pulgada). Wi-Fi integrado.</p>\r\n','1459508758_tv.jpg',1196,0,1,3,1,'','Electrónica','TV','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00'),
-(10,'Apple iPad Air 2 64 GB WiFi Plata','<p>Multi-Touch retroiluminada por LED de 9.7 pulgadas. 2048x1536 retina display (264 pixels por pulgada).&nbsp;</p>\r\n','1459508996_apple_ipad_air_2_wifi_16gb_silver-30379190-4.jpg',2356,5,0,1,1,'','Electrónica','Móviles','comercial','0000-00-00 00:00:00','2016-11-27','2017-05-06'),
-(11,'www','<p>www</p>\r\n','1473334359_logopentaho.png',20,0,0,1,1,'','','','comercial,gerente','2016-09-08 13:32:39','2016-12-01','2017-01-07');
+(10,'Apple iPad Air 2 64 GB WiFi Plata','<p>Multi-Touch retroiluminada por LED de 9.7 pulgadas. 2048x1536 retina display (264 pixels por pulgada).&nbsp;</p>\r\n','1459508996_apple_ipad_air_2_wifi_16gb_silver-30379190-4.jpg',2356,3,0,1,1,'','Electrónica','Móviles','comercial','0000-00-00 00:00:00','2016-11-27','2017-05-06'),
+(11,'www','<p>www</p>\r\n','1473334359_logopentaho.png',200000,10,0,1,1,'','','','comercial,gerente','2016-09-08 13:32:39','2016-12-01','2017-05-04');
 
 /*Table structure for table `users` */
 
@@ -5950,6 +6463,7 @@ CREATE TABLE `users` (
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `registered` tinyint(1) NOT NULL DEFAULT '1',
   `confirmed` tinyint(1) NOT NULL DEFAULT '0',
+  `date_confirmed` datetime DEFAULT NULL,
   `disabled` tinyint(1) NOT NULL DEFAULT '0',
   `date_disabled` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
   `canal` varchar(250) NOT NULL DEFAULT '',
@@ -5974,26 +6488,28 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values 
-('admin','adm','123456','dnoguera@imagar.com','Administrador','Community','2014-07-16 14:43:05',1,1,0,'1970-01-01 00:00:00','admin','0001','admin','1471434333.jpeg',520,9140,186,'',NULL,'','2016-12-22 10:23:35','es','dirección','localidad','Provincia','28001'),
-('david','DNG','123456','dnoguera@imagar.com','David','Noguera','2014-07-16 14:43:08',1,1,0,'1970-01-01 00:00:00','comercial','0003','responsable','',42,0,121,'Hoy me siento bien',NULL,'','2016-02-26 12:29:26','es','','','',''),
-('borja','Borja','123456','bvilaplana@imagar.com','Borja','Vilaplana','2014-09-16 17:38:00',1,1,0,'2016-05-09 12:09:38','comercial','0001','regional','',53,0,11,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, nunc ut cursus sagittis,',NULL,'','2016-12-21 16:34:43','es','','','',''),
-('pedro','Pedro','123456','pramos@imagar.com','Pedro','Ramos','2014-09-16 17:38:57',1,1,0,'1970-01-01 00:00:00','gerente','0002','responsable','',54,0,16,'',NULL,'','2016-12-22 09:33:42','es','','','',''),
-('claudio','Claudio','123456','cgonzalez@imagar.com','Claudio','Gonzalez','2014-09-16 17:40:12',1,1,0,'1970-01-01 00:00:00','gerente','0003','usuario','1425079297.jpeg',26,0,9,'A por ellos!!!',NULL,'','2016-11-28 16:37:57','es','','','',''),
-('20266370N','DavidN','123456','dnoguera@imagar.com','David','Noguera Gutierrez','2014-11-03 16:49:56',1,1,1,'2016-05-09 12:05:26','comercial','0001','usuario','',210,0,1,'',NULL,'91','2014-12-27 00:36:36','es','calle','locss','pro','3444'),
-('dmarchante','DavidM','123456','dmarchante@imagar.com','David','Marchante','2014-09-17 09:32:54',1,1,1,'2015-08-18 00:00:00','comercial','0002','usuario','',305,0,1,'',NULL,'',NULL,'es','','','',''),
-('senen','Senén','123456','shermida@imagar.com','Senén','Hermida','2014-09-17 09:33:27',1,1,0,'1970-01-01 00:00:00','gerente','1235','responsable','',101,0,-1,'',NULL,'','2016-12-19 11:14:03','es','','','',''),
-('dgarcia','Dsan','123456','dgarcia@imagar.com','Daniel','García','2014-09-17 09:34:47',1,1,0,'1970-01-01 00:00:00','comercial','0003','usuario','',10,0,1,'',NULL,'','2016-01-19 11:21:44','es','','','',''),
-('dramos','Flores','123456','dramos@imagar.com','David','Ramos','2014-10-09 08:54:15',1,1,0,'1970-01-01 00:00:00','comercial','1235','usuario','',11,0,0,'',NULL,'','2016-10-14 09:49:03','es','','','',''),
-('jgonzalez','Javi','123456','jgonzalez','Javier','Gonzalez','2014-10-09 08:55:16',1,1,0,'1970-01-01 00:00:00','comercial','0002','usuario','',301,0,0,'',NULL,'','2016-10-14 09:42:25','es','','','',''),
-('cgomez','Carlos','123456','cgomez@imagar.com','Carlos','Gómez','2014-10-09 08:56:09',1,1,0,'1970-01-01 00:00:00','comercial','0003','usuario','',20,0,0,'',NULL,'','2015-12-18 09:42:43','es','','','',''),
-('dcancho','Cancho','123456','ccancho@imagar.com','Daniel','Cancho','2014-10-09 08:57:53',1,1,0,'1970-01-01 00:00:00','comercial','0002','usuario','1425079823.jpeg',19,0,7,'Estoy muy loco!!',NULL,'','2016-05-10 14:08:17','es','','','',''),
-('odelgado','Oscar','123456','odelgado@imagar.com','Oscar','Delgado','2015-03-14 19:40:34',1,1,0,'1970-01-01 00:00:00','comercial','1235','usuario','',56,0,0,'',NULL,'',NULL,'es','','','',''),
-('prueba','Prueba','123456','dnoguera@imagar.com','Usuario','Prueba','2015-08-07 10:50:49',1,0,0,'1970-01-01 00:00:00','comercial','0001','usuario','',85,0,0,'',NULL,'','2015-08-07 10:51:09','es','','','',''),
-('Redbull','RedBull','123456','dnoguera@imagar.com','RedBull','Demo','2015-08-10 08:37:05',1,1,0,'1970-01-01 00:00:00','comercial','0004','usuario','',46,0,0,'',NULL,'','2016-10-14 09:57:36','es','','','',''),
-('Juanito','','123456','juanito@gmail.com','Juan','Gómez','2016-02-11 17:50:47',0,0,0,'1970-01-01 00:00:00','comercial','0003','usuario','',89,0,0,'',NULL,'915554444',NULL,'es','','','',''),
-('regional','Regional2','123456','regional@email.com','Pepe','Castro','2016-02-26 11:53:46',1,1,0,'1970-01-01 00:00:00','comercial','0001','regional','',77,0,0,'',NULL,'',NULL,'es','','','',''),
-('PentahoBI','','123456','dnoguera@imagar.com','Pedro','','2016-11-07 09:04:03',1,1,0,'1970-01-01 00:00:00','admin','0001','admin','',0,0,0,'',NULL,'',NULL,'es','','','','');
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values 
+('admin','administradorCM','123456','dnoguera@imagar.com','Administrador','Community','2014-07-16 14:43:05',1,1,NULL,0,'1970-01-01 00:00:00','admin','0001','admin','1485431966.jpeg',2621,4428,205,'',NULL,'','2017-04-06 11:54:25','es','dirección','localidad','Provincia','28001'),
+('david','DavidNoguera','123456','dnoguera@imagar.com','David','Noguera','2014-07-16 14:43:08',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0003','responsable','',44,0,121,'Hoy me siento bien',NULL,'','2017-03-08 09:54:32','es','','','',''),
+('borja','Borja','123456','bvilaplana@imagar.com','Borja','Vilaplana','2014-09-16 17:38:00',1,1,NULL,0,'2016-05-09 12:09:38','comercial','0001','regional','',55,0,11,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, nunc ut cursus sagittis,',NULL,'','2017-02-24 13:46:32','es','','','',''),
+('pedro','Pedro','123456','pramos@imagar.com','Pedro','Ramos','2014-09-16 17:38:57',1,1,NULL,0,'1970-01-01 00:00:00','gerente','0002','responsable','1425079297.jpeg',77,15,24,'',NULL,'','2017-03-23 12:07:49','es','','','',''),
+('claudio','Claudio','123456','cgonzalez@imagar.com','Claudio','Gonzalez','2014-09-16 17:40:12',1,1,NULL,0,'1970-01-01 00:00:00','gerente','0003','responsable','1425079297.jpeg',33,399,11,'A por ellos!!!',NULL,'','2017-03-08 09:43:05','es','','','',''),
+('20266370N','DavidN','123456','dnoguera@imagar.com','David','Noguera Gutierrez','2014-11-03 16:49:56',1,1,NULL,1,'2016-05-09 12:05:26','comercial','0001','usuario','',210,0,1,'',NULL,'91','2014-12-27 00:36:36','es','calle','locss','pro','3444'),
+('dmarchante','DavidM','123456','dmarchante@imagar.com','David','Marchante','2014-09-17 09:32:54',1,1,NULL,1,'2015-08-18 00:00:00','comercial','0002','usuario','',305,0,1,'',NULL,'',NULL,'es','','','',''),
+('senen','Senén','123456','shermida@imagar.com','Senén','Hermida','2014-09-17 09:33:27',1,1,NULL,0,'1970-01-01 00:00:00','gerente','1235','usuario','',117,0,0,'',NULL,'','2017-01-26 13:29:59','es','','','',''),
+('dgarcia','Dsan','123456','dgarcia@imagar.com','Daniel','García','2014-09-17 09:34:47',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','1425079823.jpeg',17,0,9,'',NULL,'','2017-03-22 10:53:47','es','','','',''),
+('dramos','Flores','123456','dramos@imagar.com','David','Ramos','2014-10-09 08:54:15',1,1,NULL,0,'1970-01-01 00:00:00','comercial','1235','usuario','',11,0,0,'',NULL,'','2016-10-14 09:49:03','es','','','',''),
+('jgonzalez','Javi','123456','jgonzalez','Javier','Gonzalez','2014-10-09 08:55:16',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0002','usuario','',301,0,0,'',NULL,'','2016-10-14 09:42:25','es','','','',''),
+('cgomez','Carlos','123456','cgomez@imagar.com','Carlos','Gómez','2014-10-09 08:56:09',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','',21,0,0,'',NULL,'','2017-02-24 13:40:57','es','','','',''),
+('dcancho','Cancho','123456','ccancho@imagar.com','Daniel','Cancho','2014-10-09 08:57:53',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0002','usuario','1425079823.jpeg',20,0,7,'Estoy muy loco!!',NULL,'','2017-03-08 09:58:30','es','','','',''),
+('odelgado','Oscar','123456','odelgado@imagar.com','Oscar','Delgado','2015-03-14 19:40:34',1,1,NULL,0,'1970-01-01 00:00:00','comercial','1235','usuario','',42,0,-1,'',NULL,'','2017-03-23 10:00:27','es','','','',''),
+('prueba','Prueba','123456','dnoguera@imagar.com','Usuario','Prueba','2015-08-07 10:50:49',1,0,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','',85,0,0,'',NULL,'','2015-08-07 10:51:09','es','','','',''),
+('Redbull','RedBull','123456','dnoguera@imagar.com','RedBull','Demo','2015-08-10 08:37:05',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0004','usuario','',47,0,0,'',NULL,'','2017-03-23 10:04:14','es','','','',''),
+('Juanito','','123456','juanito@gmail.com','Juan','Gómez','2016-02-11 17:50:47',1,0,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','',90,0,0,'',NULL,'915554444',NULL,'es','','','',''),
+('regional','Regional2','123456','regional@email.com','Pepe','Castro','2016-02-26 11:53:46',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0001','regional','',77,0,0,'',NULL,'',NULL,'es','','','',''),
+('PentahoBI','','123456','dnoguera@imagar.com','Pedro','','2016-11-07 09:04:03',1,1,NULL,0,'1970-01-01 00:00:00','admin','0001','admin','',0,0,0,'',NULL,'',NULL,'es','','','',''),
+('mercedes','merce','123456','mdelcampo@imagar.com','Mercedes','Del campo','2017-01-26 12:47:06',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0004','usuario','',1,0,1,'',NULL,'666666666','2017-01-26 12:48:20','es','','','',''),
+('testda','testda','123456','dnoguera@imagar.com','David','Noguera','2017-02-24 09:25:57',1,1,'2017-02-24 09:26:23',0,'1970-01-01 00:00:00','comercial','0001','usuario','',1,0,0,'',NULL,'','2017-02-24 09:26:29','es','','','','');
 
 /*Table structure for table `users_connected` */
 
@@ -6009,16 +6525,17 @@ CREATE TABLE `users_connected` (
 /*Data for the table `users_connected` */
 
 insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values 
+('pedro','gerente','2017-03-23 12:09:17'),
 ('prueba','comercial','2015-08-07 10:51:24'),
 ('08932984Z','comercial','2014-10-17 11:50:19'),
-('claudio','gerente','2016-11-28 16:38:05'),
-('david','comercial','2016-02-26 12:33:28'),
-('dgarcia','comercial','2016-01-19 11:31:15'),
-('borja','comercial','2016-12-21 17:19:53'),
-('dcancho','comercial','2016-05-10 14:08:20'),
-('pedro','gerente','2016-12-22 09:33:46'),
-('Redbull','comercial','2016-10-14 09:57:53'),
-('admin','admin','2016-12-22 10:27:05');
+('dgarcia','comercial','2017-03-22 10:53:47'),
+('testda','comercial','2017-02-24 09:26:30'),
+('dcancho','comercial','2017-03-08 11:09:06'),
+('senen','gerente','2017-01-26 13:30:26'),
+('Redbull','comercial','2017-03-23 10:29:05'),
+('admin','admin','2017-04-06 13:05:39'),
+('cgomez','comercial','2017-02-24 14:06:37'),
+('borja','comercial','2017-02-24 14:06:04');
 
 /*Table structure for table `users_creditos` */
 
@@ -6032,14 +6549,18 @@ CREATE TABLE `users_creditos` (
   `credito_detalle` text NOT NULL,
   `credito_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_credito`)
-) ENGINE=MyISAM AUTO_INCREMENT=274 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=278 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users_creditos` */
 
 insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values 
 (271,'admin',500,'Test','detalle test','2016-04-11 12:21:37'),
 (272,'admin',-180,'Compras premios','Producto ID.6','2016-04-11 12:22:01'),
-(273,'admin',-180,'Compras premios','Producto ID.6','2016-12-15 17:30:28');
+(273,'admin',-180,'Compras premios','Producto ID.6','2016-12-15 17:30:28'),
+(274,'pedro',15,'porque sí','','2017-01-26 11:52:28'),
+(275,'admin',-2356,'Compras premios','Producto ID.10','2017-01-26 12:16:41'),
+(276,'admin',-2356,'Compras premios','Producto ID.10','2017-02-27 09:33:29'),
+(277,'claudio',-101,'Compras premios','Producto ID.1','2017-02-27 16:09:29');
 
 /*Table structure for table `users_login` */
 
@@ -6073,7 +6594,7 @@ CREATE TABLE `users_participaciones` (
   `participacion_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `valor` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_participacion`)
-) ENGINE=MyISAM AUTO_INCREMENT=345 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=389 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users_participaciones` */
 
@@ -6421,7 +6942,51 @@ insert  into `users_participaciones`(`id_participacion`,`participacion_username`
 (341,'admin','Primer acceso a documento ID: 11','2016-12-22 09:22:48',1),
 (342,'admin','Primer acceso a documento ID: 8','2016-12-22 09:26:05',1),
 (343,'pedro','Primer acceso a documento ID: 12','2016-12-22 09:34:14',1),
-(344,'pedro','Primer acceso a documento ID: 11','2016-12-22 09:34:35',1);
+(344,'pedro','Primer acceso a documento ID: 11','2016-12-22 09:34:35',1),
+(345,'admin','Primer acceso a documento ID: 4','2017-01-26 10:40:16',1),
+(346,'pedro','Comentario en el foro','2017-01-26 10:55:11',1),
+(347,'pedro','Comentario en el foro','2017-01-26 10:55:35',1),
+(348,'pedro','Comentario en el foro','2017-01-26 10:55:43',1),
+(349,'pedro','Comentario en el foro','2017-01-26 10:55:49',1),
+(350,'pedro','Subida de foto','2017-01-26 10:59:40',1),
+(351,'pedro','Por que sí','2017-01-26 11:51:35',1),
+(352,'admin','Subida de video','2017-01-26 12:32:21',1),
+(353,'mercedes','Comentario en el muro','2017-01-26 12:48:47',1),
+(354,'admin','Subida de foto','2017-01-26 12:51:05',1),
+(355,'admin','Comentario en el foro','2017-01-26 13:26:37',1),
+(356,'pedro','Comentario en el foro','2017-01-26 13:27:20',1),
+(357,'pedro','Comentario en el foro','2017-01-26 13:28:19',1),
+(358,'senen','ganador reto gamificacion','2017-01-26 13:30:26',1),
+(359,'admin','perdedor reto gamificacion','2017-01-26 13:30:26',-1),
+(360,'admin','Superación curso ID: 11','2017-02-02 15:57:18',1),
+(361,'admin','Subida de video','2017-02-02 17:50:35',1),
+(362,'admin','Comentario en el foro','2017-02-03 11:34:02',1),
+(363,'admin','Subida de video','2017-02-09 17:42:22',1),
+(364,'admin','Subida de foto','2017-02-23 17:33:46',1),
+(365,'admin','Subida de foto','2017-02-23 17:34:43',1),
+(366,'admin','Comentario en el foro','2017-02-27 09:34:39',1),
+(367,'claudio','Comentario en el foro','2017-03-08 09:49:40',1),
+(368,'claudio','Comentario en el foro','2017-03-08 09:50:00',1),
+(369,'admin','Superación curso ID: 15','2017-03-09 13:33:23',1),
+(370,'admin','Comentario en el foro','2017-03-09 13:43:58',1),
+(371,'admin','Comentario en el foro','2017-03-09 13:45:38',1),
+(372,'admin','Comentario en el foro','2017-03-09 13:46:20',1),
+(373,'admin','Comentario en el muro','2017-03-09 13:46:34',-1),
+(374,'admin','Comentario en el foro','2017-03-09 13:47:17',1),
+(375,'admin','Comentario en el foro','2017-03-09 13:47:24',1),
+(376,'dgarcia','Comentario en el foro','2017-03-21 17:05:28',1),
+(377,'dgarcia','Comentario en el foro','2017-03-21 17:07:25',1),
+(378,'dgarcia','Comentario en el foro','2017-03-21 17:07:55',1),
+(379,'dgarcia','Comentario en el foro','2017-03-21 17:09:29',1),
+(380,'dgarcia','Comentario en el foro','2017-03-21 17:10:01',1),
+(381,'dgarcia','Comentario en el foro','2017-03-21 17:11:08',1),
+(382,'dgarcia','Comentario en el foro','2017-03-21 17:11:44',1),
+(383,'admin','Comentario en el foro','2017-03-21 17:13:01',1),
+(384,'dgarcia','Comentario en el foro','2017-03-21 17:13:29',1),
+(385,'admin','Comentario en el foro','2017-03-21 17:13:45',1),
+(386,'admin','ganador reto gamificacion','2017-03-23 10:00:57',1),
+(387,'odelgado','perdedor reto gamificacion','2017-03-23 10:00:57',-1),
+(388,'admin','Comentario en el muro','2017-03-29 13:40:24',1);
 
 /*Table structure for table `users_permissions` */
 
@@ -6673,7 +7238,7 @@ CREATE TABLE `users_puntuaciones` (
   `puntuacion_motivo` varchar(250) NOT NULL DEFAULT '',
   `puntuacion_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_puntuacion`)
-) ENGINE=MyISAM AUTO_INCREMENT=607 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=694 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users_puntuaciones` */
 
@@ -7168,7 +7733,94 @@ insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuac
 (603,'admin',1,'Primer acceso a documento ID: 11','2016-12-22 09:22:48'),
 (604,'admin',1,'Primer acceso a documento ID: 8','2016-12-22 09:26:05'),
 (605,'pedro',1,'Primer acceso a documento ID: 12','2016-12-22 09:34:14'),
-(606,'pedro',1,'Primer acceso a documento ID: 11','2016-12-22 09:34:35');
+(606,'pedro',1,'Primer acceso a documento ID: 11','2016-12-22 09:34:35'),
+(607,'admin',1,'Acceso semanal','2017-01-05 11:20:09'),
+(608,'Juanito',1,'Acceso semanal','2017-01-05 11:26:24'),
+(609,'admin',1,'Acceso semanal','2017-01-10 11:37:49'),
+(610,'david',1,'Acceso semanal','2017-01-13 11:32:55'),
+(611,'admin',1,'Acceso semanal','2017-01-17 10:37:16'),
+(612,'admin',1,'Acceso semanal','2017-01-25 15:34:49'),
+(613,'',1,'Acceso semanal','2017-01-25 16:16:43'),
+(614,'',1,'Acceso semanal','2017-01-26 09:58:40'),
+(615,'admin',1,'Primer acceso a documento ID: 4','2017-01-26 10:40:16'),
+(616,'pedro',1,'Acceso semanal','2017-01-26 10:41:39'),
+(617,'pedro',5,'Comentario en el foro semanal','2017-01-26 10:55:11'),
+(618,'pedro',0,'Comentario en el foro','2017-01-26 10:55:11'),
+(619,'pedro',0,'Comentario en el foro','2017-01-26 10:55:35'),
+(620,'pedro',0,'Comentario en el foro','2017-01-26 10:55:43'),
+(621,'pedro',0,'Comentario en el foro','2017-01-26 10:55:49'),
+(622,'pedro',5,'Subida de foto','2017-01-26 10:59:40'),
+(623,'pedro',10,'Por que sí','2017-01-26 11:51:35'),
+(624,'borja',1,'Acceso semanal','2017-01-26 12:27:05'),
+(625,'admin',10,'Subida de video','2017-01-26 12:32:21'),
+(626,'mercedes',1,'Acceso semanal','2017-01-26 12:47:43'),
+(627,'mercedes',0,'Comentario en el muro','2017-01-26 12:48:47'),
+(628,'admin',5,'Subida de foto','2017-01-26 12:51:05'),
+(629,'admin',5,'Comentario en el foro semanal','2017-01-26 13:26:37'),
+(630,'admin',0,'Comentario en el foro','2017-01-26 13:26:37'),
+(631,'pedro',0,'Comentario en el foro','2017-01-26 13:27:20'),
+(632,'pedro',0,'Comentario en el foro','2017-01-26 13:28:19'),
+(633,'senen',1,'Acceso semanal','2017-01-26 13:29:59'),
+(634,'senen',15,'ganador reto gamificacion','2017-01-26 13:30:26'),
+(635,'admin',-15,'perdedor reto gamificacion','2017-01-26 13:30:26'),
+(636,'admin',1,'Acceso semanal','2017-01-31 16:06:46'),
+(637,'pedro',1,'Acceso semanal','2017-02-02 12:58:09'),
+(638,'admin',2012,'Superación curso ID: 11','2017-02-02 15:57:18'),
+(639,'admin',10,'Subida de video','2017-02-02 17:50:35'),
+(640,'admin',5,'Comentario en el foro semanal','2017-02-03 11:34:02'),
+(641,'admin',0,'Comentario en el foro','2017-02-03 11:34:02'),
+(642,'admin',1,'Acceso semanal','2017-02-06 09:10:10'),
+(643,'admin',10,'Subida de video','2017-02-09 17:42:22'),
+(644,'admin',1,'Acceso semanal','2017-02-13 16:03:20'),
+(645,'admin',1,'Acceso semanal','2017-02-20 12:40:44'),
+(646,'borja',1,'Acceso semanal','2017-02-23 12:54:04'),
+(647,'admin',5,'Subida de foto','2017-02-23 17:33:46'),
+(648,'admin',5,'Subida de foto','2017-02-23 17:34:43'),
+(649,'testda',1,'Acceso semanal','2017-02-24 09:26:10'),
+(650,'cgomez',1,'Acceso semanal','2017-02-24 13:40:57'),
+(651,'admin',1,'Acceso semanal','2017-02-27 09:03:44'),
+(652,'admin',5,'Comentario en el foro semanal','2017-02-27 09:34:39'),
+(653,'admin',0,'Comentario en el foro','2017-02-27 09:34:39'),
+(654,'claudio',1,'Acceso semanal','2017-02-27 15:25:37'),
+(655,'admin',1,'Acceso semanal','2017-03-08 08:28:28'),
+(656,'claudio',1,'Acceso semanal','2017-03-08 09:43:05'),
+(657,'claudio',5,'Comentario en el foro semanal','2017-03-08 09:49:40'),
+(658,'claudio',0,'Comentario en el foro','2017-03-08 09:49:40'),
+(659,'claudio',0,'Comentario en el foro','2017-03-08 09:50:00'),
+(660,'david',1,'Acceso semanal','2017-03-08 09:54:32'),
+(661,'dcancho',1,'Acceso semanal','2017-03-08 09:58:30'),
+(662,'admin',4,'Superación curso ID: 15','2017-03-09 13:33:23'),
+(663,'admin',5,'Comentario en el foro semanal','2017-03-09 13:43:58'),
+(664,'admin',0,'Comentario en el foro','2017-03-09 13:43:58'),
+(665,'admin',0,'Comentario en el foro','2017-03-09 13:45:38'),
+(666,'admin',0,'Comentario en el foro','2017-03-09 13:46:20'),
+(667,'admin',0,'Comentario en el muro','2017-03-09 13:46:34'),
+(668,'admin',0,'Comentario en el foro','2017-03-09 13:47:17'),
+(669,'admin',0,'Comentario en el foro','2017-03-09 13:47:24'),
+(670,'dgarcia',1,'Acceso semanal','2017-03-10 08:39:27'),
+(671,'admin',1,'Acceso semanal','2017-03-13 13:32:34'),
+(672,'admin',1,'Acceso semanal','2017-03-21 08:05:30'),
+(673,'dgarcia',1,'Acceso semanal','2017-03-21 17:04:16'),
+(674,'dgarcia',5,'Comentario en el foro semanal','2017-03-21 17:05:28'),
+(675,'dgarcia',0,'Comentario en el foro','2017-03-21 17:05:28'),
+(676,'dgarcia',0,'Comentario en el foro','2017-03-21 17:07:25'),
+(677,'dgarcia',0,'Comentario en el foro','2017-03-21 17:07:55'),
+(678,'dgarcia',0,'Comentario en el foro','2017-03-21 17:09:29'),
+(679,'dgarcia',0,'Comentario en el foro','2017-03-21 17:10:01'),
+(680,'dgarcia',0,'Comentario en el foro','2017-03-21 17:11:08'),
+(681,'dgarcia',0,'Comentario en el foro','2017-03-21 17:11:44'),
+(682,'admin',5,'Comentario en el foro semanal','2017-03-21 17:13:01'),
+(683,'admin',0,'Comentario en el foro','2017-03-21 17:13:01'),
+(684,'dgarcia',0,'Comentario en el foro','2017-03-21 17:13:29'),
+(685,'admin',0,'Comentario en el foro','2017-03-21 17:13:45'),
+(686,'odelgado',1,'Acceso semanal','2017-03-23 10:00:27'),
+(687,'admin',15,'ganador reto gamificacion','2017-03-23 10:00:57'),
+(688,'odelgado',-15,'perdedor reto gamificacion','2017-03-23 10:00:57'),
+(689,'Redbull',1,'Acceso semanal','2017-03-23 10:04:14'),
+(690,'pedro',1,'Acceso semanal','2017-03-23 12:07:49'),
+(691,'admin',1,'Acceso semanal','2017-03-27 08:10:20'),
+(692,'admin',0,'Comentario en el muro','2017-03-29 13:40:24'),
+(693,'admin',1,'Acceso semanal','2017-04-03 12:27:09');
 
 /*Table structure for table `users_tiendas` */
 
@@ -7186,19 +7838,20 @@ CREATE TABLE `users_tiendas` (
   `provincia_tienda` varchar(100) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `telefono_tienda` varchar(100) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `email_tienda` varchar(100) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `territorial_tienda` varchar(100) NOT NULL DEFAULT '',
   `activa` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`cod_tienda`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `users_tiendas` */
 
-insert  into `users_tiendas`(`cod_tienda`,`nombre_tienda`,`regional_tienda`,`responsable_tienda`,`tipo_tienda`,`direccion_tienda`,`cpostal_tienda`,`ciudad_tienda`,`provincia_tienda`,`telefono_tienda`,`email_tienda`,`activa`) values 
-('0001','CENTRAL','','','Tienda propia','Av. Los Arces 234','28003','Madrid','Madrid','666 666 666','software@imagar.com',1),
-('0002','TIENDAS PROPIAS','borja','pedro','Tienda propia','Paseo Redondo 45','28005','Madrid','Madrid','666 666 666','software@imagar.com',1),
-('0003','FRANQUICIAS','borja','david','Franquicia','C/Recesbinto 89','28007','Madrid','Madrid','666 666 666','sistemas@imagar.com',1),
-('1235','C.C. TRES AGUAS','borja','','Franquicia','C/Atenea 56 - Local 23','28921','Alcorcón','Madrid','666 666 666','software@imagar.com',1),
-('1452','C.C. LA VAGUADA','regional','','Franquicia','Av. Los altos 51 - Local 11','28089','Madrid','Madrid','666 666 666','software@imagar.com',1),
-('0004','TIENDASPROPIAS 2','regional','pedro','Franquicia','','','','','','',1);
+insert  into `users_tiendas`(`cod_tienda`,`nombre_tienda`,`regional_tienda`,`responsable_tienda`,`tipo_tienda`,`direccion_tienda`,`cpostal_tienda`,`ciudad_tienda`,`provincia_tienda`,`telefono_tienda`,`email_tienda`,`territorial_tienda`,`activa`) values 
+('0001','CENTRAL','','','Tienda propia','Av. Los Arces 234','28003','Madrid','Madrid','666 666 666','software@imagar.com','CENTRO',1),
+('0002','TIENDAS PROPIAS','borja','pedro','Tienda propia','Paseo Redondo 45','28005','Madrid','Madrid','666 666 666','software@imagar.com','NORTE',1),
+('0003','FRANQUICIAS','borja','david','Franquicia','C/Recesbinto 89','28007','Madrid','Madrid','666 666 666','sistemas@imagar.com','CENTRO',1),
+('1235','C.C. TRES AGUAS','borja','','Franquicia','C/Atenea 56 - Local 23','28921','Alcorcón','Madrid','666 666 666','software@imagar.com','SUR',1),
+('1452','C.C. LA VAGUADA','regional','','Franquicia','Av. Los altos 51 - Local 11','28089','Madrid','Madrid','666 666 666','software@imagar.com','CENTRO',1),
+('0004','TIENDASPROPIAS 2','regional','pedro','Franquicia','','','','','','','NORTE',1);
 
 /*Table structure for table `users_tiendas_ranking_category` */
 
@@ -7227,7 +7880,7 @@ CREATE TABLE `users_tiendas_rankings` (
   `descripcion_ranking` longtext CHARACTER SET latin1 NOT NULL,
   `activo` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '0 Inactivo; 1 activo; 2 eliminado',
   PRIMARY KEY (`id_ranking`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users_tiendas_rankings` */
 
@@ -7236,7 +7889,8 @@ insert  into `users_tiendas_rankings`(`id_ranking`,`id_ranking_category`,`nombre
 (2,4,'Mejor vendedor de Canguro','<p>&iquest;Cu&aacute;ntas tarifas Canguro puedes llegar a vender? Compite, demu&eacute;stralo con tus compa&ntilde;eros. No te quedes atr&aacute;s&nbsp;</p>\r\n',1),
 (3,3,'Orange Cash','<p>Si tu tienda est&aacute; en este ranking, es l&iacute;der en la venta de Orange Cash. Enhorabuena!!</p>\r\n',1),
 (4,3,'Ranking de prueba','<p>Este es un ranking de prueba</p>\r\n',1),
-(6,3,'Ranking de ventas','<p>En t&eacute;cnica de ventas</p>\r\n',1);
+(6,3,'Ranking de ventas','<p>En t&eacute;cnica de ventas</p>\r\n',1),
+(10,3,'','',0);
 
 /*Table structure for table `users_tiendas_rankings_data` */
 
