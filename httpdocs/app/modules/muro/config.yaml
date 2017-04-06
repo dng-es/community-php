@@ -1,5 +1,6 @@
 ---
-options: null
+options:
+    wall_height: 300
 channels:
     group1: gerente,comercial
     group2: test

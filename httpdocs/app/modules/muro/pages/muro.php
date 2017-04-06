@@ -38,6 +38,13 @@ $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user
 			$("#muro-home").mCustomScrollbar();
 		});
 	</script>
+	<style type="text/css">
+		@media only screen and (min-width: 992px) {
+			#muro-home{
+				height: <?php echo $module_config['options']['wall_height'];?>px;
+			}
+		}
+	</style>
 	</head>
 	<body>
 		<div id="responder-form" style="display: none"></div>

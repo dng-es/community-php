@@ -19,7 +19,7 @@ endif;
 
 if (isset($_POST['action']) && $_POST['action'] == "panels"):
 	$configuration = new configuration();
-	$elements = $configuration->getPanels(" AND panel_visible=0 ");
+	$elements = $configuration->getPanels(" AND panel_visible=0 ORDER BY panel_name ");
 
 	foreach($elements as $element):
 		echo '<option value="'.$element['panel_name'].'">'.$element['panel_name'].'</option>';

@@ -701,7 +701,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 #muro-home{
 	background: $panels-color;
 	color: #666;
-	height: 350px;
+	// height: 350px;
 	overflow-x: hidden;
 	overflow-y: auto;
 	padding-left: 10px;
@@ -848,6 +848,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 /*Muro responder*/
 #muro-insert{
 	@extend .panel-interior;
+	padding-top: 0;
 }
 #muro-responder{
 	bottom:20px;
