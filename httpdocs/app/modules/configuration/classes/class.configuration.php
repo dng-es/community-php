@@ -46,18 +46,19 @@ class configuration{
 		return connection::execute_query($Sql);
 	}
 
-	public function updatePanel($page_name, $panel_name, $panel_cols, $panel_pos, $panel_row){
-		$Sql = "UPDATE config_panels SET 
-				panel_cols=".$panel_cols.", 
-				panel_pos=".$panel_pos.", 
-				panel_row=".$panel_row.",
-				panel_visible=1
-				WHERE panel_name='".$panel_name."' AND page_name='".$page_name."' ";
+	public function updatePanel($page_name, $panel_name, $panel_cols, $panel_pos, $panel_row, $theme){
+		$Sql = "INSERT INTO config_panels (panel_cols, panel_pos, panel_row, page_theme, panel_visible, panel_name, page_name) 
+				VALUES (".$panel_cols.", ".$panel_pos.", ".$panel_row.",'".$theme."', 1, '".$panel_name."', '".$page_name."')";
 		return connection::execute_query($Sql);
 	}
 
 	public function deletePanel($filter = ""){
-		$Sql = "UPDATE config_panels SET panel_visible=0 WHERE 1=1 ". $filter;
+		$Sql = "DELETE FROM config_panels WHERE 1=1 ". $filter;
+		return connection::execute_query($Sql);
+	}
+
+	public function updatePanels($filter = ""){
+		$Sql = "UPDATE config_panels SET visible=1 WHERE 1=1 ". $filter;
 		return connection::execute_query($Sql);
 	}
 }

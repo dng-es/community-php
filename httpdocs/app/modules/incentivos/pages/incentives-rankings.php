@@ -65,6 +65,7 @@ $usuario = usersController::getPerfilAction($_SESSION['user_name']);
 $posicion = 0;
 $total_user = 0;
 $tipo_objetivo = "";
+$incentivos = new incentivos();
 
 addJavascripts(array(getAsset("incentivos")."js/incentives-rankings.js"));
 ?>
@@ -143,12 +144,16 @@ addJavascripts(array(getAsset("incentivos")."js/incentives-rankings.js"));
 										<th><?php e_strTranslate("Position");?></th>
 										<th <?php echo ($tipo_informe == "usuarios" ? 'colspan="2"' : '');?>><?php echo $titulo_columna;?></th>
 										<th class="text-center"><?php e_strTranslate("Incentives_points");?></th>
+										<th class="text-center" width="60px"></th>
 									</tr>
 								<?php for ($i = 0; $i < 999; $i++){
+									$tendencia = "";
 									if (isset($ranking[$i]) && $ranking[$i]['suma'] > 0){
 										$mostrar_fila = true;
 										if ($element['tipo_objetivo'] == 'Usuario' && (isset($ranking[$i]['nick']) && $ranking[$i]['nick'] <> '') && $tipo_informe == "usuarios"){
 											$texto_usuario = $ranking[$i]['name'].' '.$ranking[$i]['surname'].' <small><a class="text-warning'.(($i + 1) == $posicion ? " label label-info" : "").'" href="user-profile?n='.$ranking[$i]['nick'].'">'.(isset($ranking[$i]) ? $ranking[$i]['nick'] : "").'</a></small><br /><em class="text-muted">'.$ranking[$i]['nombre_tienda'].'</em>';
+											$tendencia_user = $incentivos->getVentasTendenciaUser($filtro_tienda." AND username_venta='".$ranking[$i]['username_venta']."' ORDER BY fecha_venta DESC LIMIT 1", $id_objetivo);
+											$tendencia = (isset($tendencia_user[0]['tendencia_venta']) ? $tendencia_user[0]['tendencia_venta'] : '');
 										}
 										elseif($tipo_informe == "tiendas" || $tipo_informe == "tiendas_global"){
 											$texto_usuario = (isset($ranking[$i]) ? $ranking[$i]['nombre_tienda'].'<br /><em class="text-muted">'.$ranking[$i]['provincia_tienda'].' - '.$ranking[$i]['territorial_tienda'].'</em>' : "");
@@ -162,6 +167,10 @@ addJavascripts(array(getAsset("incentivos")."js/incentives-rankings.js"));
 											//$texto_usuario = (isset($ranking[$i]) ? $ranking[$i]['username_venta'] : "");
 											$texto_usuario = "";
 										}
+
+										$tendencia = ($tendencia == 'SUBE' ? ' <i title="SUBE" class="fa fa-long-arrow-up fa-2x text-success"></i>' : $tendencia);
+										$tendencia = ($tendencia == 'BAJA' ? ' <i title="BAJA" class="fa fa-long-arrow-down fa-2x text-danger"></i>' : $tendencia);
+										$tendencia = ($tendencia == 'IGUAL' ? ' <i title="IGUAL" class="fa fa-exchange fa-2x text-warning"></i>' : $tendencia);
 										
 										if ($mostrar_fila == true):
 										?>
@@ -176,6 +185,7 @@ addJavascripts(array(getAsset("incentivos")."js/incentives-rankings.js"));
 													<?php echo (isset($ranking[$i]) ? round($ranking[$i]['suma'], 2) : 0); ?>
 												</strong>
 											</td>
+											<td class="text-center"><?php echo $tendencia;?></td>
 										</tr>
 										<?php endif;?>
 									<?php } 

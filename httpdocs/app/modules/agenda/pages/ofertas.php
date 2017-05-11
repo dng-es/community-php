@@ -55,15 +55,11 @@
 				<?php
 				$agenda = new agenda();
 				$tags = $agenda->getTags(" AND tipo=2 ");
-				$valor_max = max($tags);
-				$valor_min = min($tags);
-				$diferencia = $valor_max - $valor_min;
-
-				//ordeno el array
+				$diferencia = max($tags) - min($tags);
+				$diferencia = ($diferencia != 0 ? $diferencia : 1);
 				ksort($tags);
-
 				foreach(array_keys($tags) as $key){
-					if ($diferencia > 0) $valor_relativo = round((($tags[$key] - $valor_min) / $diferencia) * 10);
+					if ($diferencia > 0) $valor_relativo = round((($tags[$key] - min($tags)) / $diferencia) * 10);
 					else $valor_relativo = 1;
 					echo '<a href="ofertas?f='.$key.'" class="tag'.$valor_relativo.'">'.$key.'</a> ';
 				}?>

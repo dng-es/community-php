@@ -19,7 +19,7 @@ RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?page=$1&%{QUERY_STRING} [L,NC]
 ####### ATTACKS
 
 # Don't allow any pages to be framed - Defends against CSRF
-Header set X-Frame-Options DENY
+#Header set X-Frame-Options DENY
  
 # Turn on IE8-IE9 XSS prevention tools
 Header set X-XSS-Protection "1; mode=block"

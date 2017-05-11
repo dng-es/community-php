@@ -18,10 +18,6 @@ templateload("panels", "videos");
 templateload("panels", "incentivos");
 templateload("panels", "agenda");
 templateload("searchuser", "users");
-
-$filtro_perfil = incentivosObjetivosController::getFiltroPerfil($_SESSION['user_perfil']);
-$filtro_canal = (($_SESSION['user_canal'] == 'admin') ? "" : " AND canal_objetivo LIKE '%".$_SESSION['user_canal']."%' ");
-$rankings = incentivosObjetivosController::getListAction(99, $filtro_perfil.$filtro_canal." AND activo_objetivo=1 AND ranking_objetivo=1 ");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -45,9 +41,7 @@ $rankings = incentivosObjetivosController::getListAction(99, $filtro_perfil.$fil
 				</div>
 
 				<div class="col-md-12 nopadding">
-					<?php foreach($rankings['items'] as $ranking):?>
-						<?php panelRanking($ranking['id_objetivo']);?>
-					<?php endforeach;?>
+					<?php panelRankings();?>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -62,7 +56,7 @@ $rankings = incentivosObjetivosController::getListAction(99, $filtro_perfil.$fil
 	<div class="app-sidebar">
 		<br />
 		<div class="col-md-12">
-			<?php SearchUser(strTranslate("Search")." ".strtolower(strTranslate("User")), strTranslate("Search"), "" , "");?>
+			<?php panelSearchUser(false);?>
 		</div>
 		<br />
 		<br />

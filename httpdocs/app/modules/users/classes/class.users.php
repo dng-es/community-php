@@ -217,7 +217,7 @@ class users{
 		return connection::execute_query($Sql);
 	}	
 
-	public function confirmUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date){
+	public function confirmUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_date){
 		//verificar si el nick existe, Devolvera: 1->ok, 2-> Error SQL, 3->Nick existe,
 		if (connection::countReg("users"," AND nick='".$nick."' AND username<>'".$username."' ") == 0){
 			 $nombre_archivo = "";
@@ -374,16 +374,16 @@ class users{
 
 	public static function posicionRankingEmpresa($empresa){
 		$Sql = "SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM 
-			(SELECT SUM(puntos) AS suma_puntos,empresa FROM users WHERE empresa<>'' AND empresa<>'comunidad' GROUP BY empresa HAVING SUM(puntos)>=
-			(SELECT SUM(puntos) FROM users WHERE empresa='".$empresa."' GROUP BY empresa) ORDER BY suma_puntos DESC,empresa DESC) r,  
+			(SELECT SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u1.empresa) AS suma_puntos,empresa FROM users u1 WHERE empresa<>'' AND empresa<>'comunidad' AND empresa<>'0' GROUP BY empresa HAVING SUM(puntos)>=
+			(SELECT SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u1.empresa) FROM users u2 WHERE empresa='".$empresa."' GROUP BY empresa) ORDER BY suma_puntos DESC,empresa DESC) r,  
 			(SELECT @rownum:=0) ro ) f WHERE empresa='".$empresa."' GROUP BY empresa";
-		$result = connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
-		$row = connection::get_result($result);
+		$result=connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
+		$row=connection::get_result($result);
 		return $row['rownum'];
 	}
 
 	public function getPuntosEmpresa($filter = "", $extra =""){
-		$Sql = "SELECT empresa,SUM(puntos) AS puntos_empresa, nombre_tienda  
+		$Sql = "SELECT empresa,SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u.empresa) AS puntos_empresa, nombre_tienda  
 				FROM users u 
 				LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
 				WHERE 1=1 ".$filter." 

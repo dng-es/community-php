@@ -1,14 +1,18 @@
 // JavaScript Document
 jQuery(function($) {
 
-	getPanels();
+	$('#chooseTheme').change(function(){
+		document.location.href = "admin-home?theme=" + $('#chooseTheme').val();
+	});
 
-	function getPanels(){
+	getPanels($('#chooseTheme').val());
+
+	function getPanels(theme){
 		$.ajax({
 			type: 'POST',
 			url: 'app/modules/configuration/pages/admin-home-ajax.php',
 			cache: false,
-			data: {"action" : "panels"},
+			data: {"action" : "panels", "theme" : theme},
 			// Mostramos un mensaje con la respuesta de PHP
 			success: function(data) {
 				$(".panelsSelect").html(data);
@@ -51,11 +55,12 @@ jQuery(function($) {
 
 	$("#saveTemplate").click(function(e){
 		e.preventDefault();
+		var theme = $('#chooseTheme').val();
 		$.ajax({
 			type: 'POST',
 			cache: false,
 			url: 'app/modules/configuration/pages/admin-home-ajax.php',
-			data: {"action" : "init"},
+			data: {"action" : "init", "theme" : theme},
 			success: function(data){
 				$(".draggableContainer .draggablePanelList .container-drop").each(function(index, el){
 					var namepanel = $(this).data("namepanel"),
@@ -67,8 +72,9 @@ jQuery(function($) {
 						type: 'POST',
 						cache: false,
 						url: 'app/modules/configuration/pages/admin-home-ajax.php',
-						data: {"panel_name" : namepanel, "panel_cols": numCols, "panel_pos": numPos, "panel_row": numRow},
+						data: {"panel_name" : namepanel, "panel_cols": numCols, "panel_pos": numPos, "panel_row": numRow, "theme" : theme},
 						success: function(data) {
+							document.getElementById("homePreview").contentDocument.location.reload(true);
 						}
 					})
 				});
@@ -104,10 +110,11 @@ jQuery(function($) {
 		$('.panelsSelect').append($('<option>', {
 			value: namepanel,
 			text: namepanel
-		}));
+		}), function(){ orderSelect() });
 
 		$('#lista-invisibles').append($('<li>', {
 			id: "oculto-" + namepanel,
+			class: "ellipsis",
 			text: namepanel
 		}));
 	});
@@ -135,10 +142,11 @@ jQuery(function($) {
 			$('.panelsSelect').append($('<option>', {
 				value: namepanel,
 				text: namepanel
-			}));
+			}), function(){ orderSelect() });
 
 			$('#lista-invisibles').append($('<li>', {
 				id: "oculto-" + namepanel,
+				class: "ellipsis",
 				text: namepanel
 			}));
 		});
@@ -146,4 +154,13 @@ jQuery(function($) {
 		$("#addRow").removeClass("disabled");
 		container.toggle( "explode" ).appendTo('#container-rows-invisibles').addClass('hidden');
 	});
+
+	function orderSelect(){
+		$(".panelsSelect").each(function() { 
+			// Aplicacion del orden alfabetico 
+			$(this).html($("option", $(this)).sort(function(a, b) { 
+				return a.text == b.text ? 0 : a.text 
+			}));
+		})
+	}
 });

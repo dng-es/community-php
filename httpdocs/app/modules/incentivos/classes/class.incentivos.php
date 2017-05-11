@@ -59,6 +59,22 @@ class incentivos{
 	 * @param  string 	$filter 	Filtro SQL
 	 * @return array 				Array con registros
 	 */
+	public function getVentasTendenciaUser($filter = "", $id_objetivo = 1){
+		$Sql = "SELECT tendencia_venta  
+			FROM incentives_ventas v 
+			LEFT JOIN users u ON u.username=v.username_venta 
+			LEFT JOIN users_tiendas t ON u.empresa=t.cod_tienda 
+			INNER JOIN incentives_objetivos_detalle vd ON vd.id_producto=v.id_producto AND vd.id_objetivo=".$id_objetivo." 
+			WHERE 1=1 ".$filter; 
+			//echo $Sql."<br />";
+		return connection::getSQL($Sql);
+	}	
+
+	/**
+	 * Devuelve array con los registros
+	 * @param  string 	$filter 	Filtro SQL
+	 * @return array 				Array con registros
+	 */
 	public function getVentasRankingUserTiendas($filter = "", $id_objetivo = 1){
 		$Sql = "SELECT u.empresa,IFNULL(t.nombre_tienda, '') AS nombre_tienda ,SUM(puntuacion_venta) AS suma, t.provincia_tienda,t.territorial_tienda  
 		FROM incentives_ventas_puntos v 

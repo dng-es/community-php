@@ -5,10 +5,14 @@ addJavascripts(array(getAsset("configuration")."js/admin-home.js",
 
 session::getFlashMessage('actions_message');
 
+global $ini_conf;
+$temas = FileSystem::showDirFolders(__DIR__."/../../../../themes/");
+$theme = (isset($_REQUEST['theme']) ? sanitizeInput($_REQUEST['theme']) : $_SESSION['user_theme']);
 $configuration = new configuration();
-$elements_rows = $configuration->getPanelsRows(" AND page_name='home' AND panel_visible=1 ORDER BY panel_row ");
-$tot_panels = connection::countReg("config_panels"," AND page_name='home' ");
-$ocultos = $configuration->getPanels(" AND page_name='home' AND panel_visible=0 ORDER BY panel_name");
+//$configuration->updatePanels();
+$elements_rows = $configuration->getPanelsRows(" AND page_name='home' AND panel_visible=1 AND page_theme='".$theme."' ORDER BY panel_row ");
+$tot_panels = connection::countReg("config_panels"," AND page_name='home' AND page_theme='' ");
+$ocultos = $configuration->getPanels(" AND page_name='home' AND page_theme='' AND panel_name NOT IN(SELECT panel_name FROM config_panels WHERE page_name='home' AND page_theme='".$theme."') ORDER BY panel_name");
 
 $i = 1;
 $j = 1;
@@ -52,60 +56,60 @@ $j = 1;
 			border-top-right-radius: 4px;
 			color: #999;
 			cursor: move;
-			max-height: 45px;
 			min-height: 45px !important;
 			margin-bottom: 0 !important;
 			padding: 5px 10px 5px 5px !important;
 		}
+
+		.panelsInfo{
+			background-color: #f0f0f0;
+		}
 		</style>
 
 		<div class="row panel">
-			<div class="col-md-10">
-					<br />
-					<div id="" class="row">
-						<div id="" class="col-md-12">
-							<h2>Diseño Home</h2>
-							<p class="text-muted">Agrega filas e incluye paneles en cada una de ellas, puedes agregar tantas como quieras. Puedes mover las filas y paneles arrastrándolos.</p>
-							<div class="btn-group" role="group" aria-label="...">
-								<button  type="button" class="btn btn-info" id="saveTemplate"><i class="fa fa-save"></i> Guardar cambios</button>
-								<button  type="button" class="btn btn-warning" id="initTemplate" onClick="location.href='admin-home'"><i class="fa fa-refresh"></i> Reiniciar cambios</button>
-								<button  type="button" class="btn btn-default" id="addRow"><i class="fa fa-long-arrow-right"></i> Agregar fila</button>
-							</div>
-						</div>
-					</div>
-					<div class="row inset draggableContainer">
-						<?php foreach($elements_rows as $element_row):
-							$elements = $configuration->getPanels(" AND panel_row=".$element_row['rows']." AND page_name='home' AND panel_visible=1 ORDER BY panel_pos ");
-							createFilaPage($elements, $j, true);
-							$j++;
-						endforeach; ?>
-					</div>
-			</div>
-			<div class="col-md-2">
+			<div class="col-md-2 full-height panelsInfo">
+				<h4 class="text-primary"><?php e_strTranslate("Theme");?></h4>
+				<select name="chooseTheme" id="chooseTheme" class="form-control">
+					<?php foreach($temas as $tema): ?>
+						<option <?php echo ($tema == $theme ? ' selected="selected" ' : "");?> value="<?php echo $tema;?>"><?php echo $tema;?></option>
+					<?php endforeach; ?>
+				</select>
 				<br />
-				<h3>Paneles disponibles</h3>
+				<h4 class="text-primary">Paneles disponibles</h4>
 				<ul id="lista-invisibles" class="list-funny text-muted">
 					<?php foreach($ocultos as $oculto): ?>
-						<li id="oculto-<?php echo $oculto['panel_name'];?>"><?php echo $oculto['panel_name'];?>
+						<li class="ellipsis" id="oculto-<?php echo $oculto['panel_name'];?>"><?php echo $oculto['panel_name'];?>
 					<?php endforeach; ?>
 				</ul>
 				<br />
-			</div>
-		</div>
-		
-		<?php /* ?>
-		<div class="row nopadding">
-			<div class="col-md-12">
-				<div class="panel-body">
-					<div  style="position: relative;padding-bottom:56.25%;overflow: hidden;"><iframe src="home_new" style="position: absolute;display: block; width: 100%;height: 100%;top:0;left:0;border:0" allowfullscreen></iframe></div>
+			</div>		
+
+			<br />
+			<div id="" class="row">
+				<div id="" class="col-md-8">
+					<h2>Diseño Home</h2>
+					<p class="text-muted">Agrega filas e incluye paneles en cada una de ellas, puedes agregar tantas como quieras. Puedes mover las filas y paneles arrastrándolos.</p>
+					<div class="btn-group" role="group" aria-label="...">
+						<button  type="button" class="btn btn-info" id="saveTemplate"><i class="fa fa-save"></i> Guardar cambios</button>
+						<button  type="button" class="btn btn-warning" id="initTemplate" onClick="location.href='<?php echo $_SERVER['REQUEST_URI'];?>'"><i class="fa fa-refresh"></i> Reiniciar cambios</button>
+						<button  type="button" class="btn btn-default" id="addRow"><i class="fa fa-long-arrow-right"></i> Agregar fila</button>
+					</div>
+				</div>
+				<div id="" class="col-md-4" style="position: relative">
+					<div style="position: absolute;width: 256px; height: 144px; top: 0px; left: 0px;z-index:2"></div>
+					<div class="mini-preview-wrapper" style="width: 256px; height: 144px; top: 0px; left: 0px;z-index:1">
+						<iframe id="homePreview" src="<?php echo $ini_conf['SiteUrl']."/home_new?theme=".$theme;?>" style="width: 400%; height: 400%; transform: scale(0.25); transform-origin: 0 0; background-color: rgb(255, 255, 255);"></iframe>
+					</div>
 				</div>
 			</div>
-
+			<div class="row inset draggableContainer">
+				<?php foreach($elements_rows as $element_row):
+					$elements = $configuration->getPanels(" AND panel_row=".$element_row['rows']." AND page_name='home' AND page_theme='".$theme."' ORDER BY panel_pos ");
+					createFilaPage($elements, $j, true);
+					$j++;
+				endforeach; ?>
+			</div>
 		</div>
-		<?php */ ?>
-
-
-
 	</div>
 	<?php menu::adminMenu(); ?>
 </div>

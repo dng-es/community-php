@@ -23,11 +23,11 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default">
-					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-				</ul>
 				<div class="row">
 					<div class="col-md-7">
+						<ul class="nav nav-pills navbar-default">
+							<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+						</ul>
 						<div class="table-responsive">
 							<table class="table table-hover table-striped">
 								<tr>

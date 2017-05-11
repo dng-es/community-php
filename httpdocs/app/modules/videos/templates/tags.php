@@ -37,13 +37,11 @@ function tagsCloud(){
 		<?php
 		$videos = new videos();
 		$tags = $videos->getTags($filter_videos); //print_r($tags);
-		$valor_max = max($tags);
-		$valor_min = min($tags);
-		$diferencia = $valor_max - $valor_min;
-		$diferencia = ($diferencia == 0 ? 1 : $diferencia) ;
+		$diferencia = max($tags) - min($tags);
+		$diferencia = ($diferencia != 0 ? $diferencia : 1);
 		ksort($tags);
 		foreach(array_keys($tags) as $key){
-			$valor_relativo = round((($tags[$key] - $valor_min) / $diferencia) * 10);
+			$valor_relativo = round((($tags[$key] - min($tags)) / $diferencia) * 10);
 			echo '<a href="videos?tag='.$key.'" class="tag'.$valor_relativo.'">'.$key.'</a> ';
 		} ?>
 	</div>

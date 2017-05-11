@@ -16,7 +16,7 @@ $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user
 <html lang="es">
 	<head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="<?php echo $ini_conf['SiteUrl'];?>/themes/<?php echo $_SESSION['user_theme'];?>/css/styles.css?v=1" />
+<!-- 	<link rel="stylesheet" type="text/css" href="<?php //echo $ini_conf['SiteUrl'];?>/themes/<?php //echo $_SESSION['user_theme'];?>/css/styles.css?v=1" /> -->
 	<link rel="stylesheet" type="text/css" href="css/libs/customscrollbar/jquery.mCustomScrollbar.css" />
 	<script language="JavaScript" src="js/libs/customscrollbar/jquery.mCustomScrollbar.min.js"></script>
 	<script language="JavaScript" src="app/modules/muro/resources/js/muro-respuestas-ajax.js"></script>
@@ -50,8 +50,7 @@ $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user
 		<div id="responder-form" style="display: none"></div>
 		<?php
 		session::ValidateSessionAjax();
-		$muro = new muro(); 
-		$filtro = "";
+		$muro = new muro();
 		$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (c.canal IN (".$module_channels.") OR c.canal='') ");
 		$filtro = $filtro_canal." AND tipo_muro='principal' AND estado=1 AND id_comentario_id=0 ORDER BY date_comentario DESC LIMIT 20";
 		$comentarios_muro = $muro->getComentarios($filtro);

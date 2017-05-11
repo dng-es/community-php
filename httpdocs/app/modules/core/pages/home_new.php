@@ -4,8 +4,8 @@ addJavascripts(array(getAsset("muro")."js/muro-comentario-ajax.js",
 					 getAsset("core")."js/home_new.js",
 					 getAsset("alerts")."js/alerts.js",
 					 getAsset("novedades")."js/show.js",
+					 getAsset("users")."js/searchuser.js",
 					 "js/jcolumn.min.js"));
-
 
 templateload("panels", "alerts");
 templateload("panels", "blog");
@@ -17,14 +17,18 @@ templateload("panels", "na_areas");
 templateload("panels", "novedades");
 templateload("panels", "users");
 templateload("panels", "videos");
+templateload("panels", "incentivos");
+templateload("panels", "agenda");
+templateload("searchuser", "users");
 
+$theme = (isset($_REQUEST['theme']) ? $_REQUEST['theme'] : $_SESSION['user_theme']);
 $configuration = new configuration();
-$elements_rows = $configuration->getPanelsRows(" AND page_name='home' AND panel_visible=1 ORDER BY panel_row ");
+$elements_rows = $configuration->getPanelsRows(" AND page_name='home' AND page_theme='".$theme."' ORDER BY panel_row ");
 ?>
 <div class="row row-top">
 	<br />
 		<?php foreach($elements_rows as $element_row):
-				$elements = $configuration->getPanels(" AND panel_row=".$element_row['rows']." AND page_name='home' AND panel_visible=1 ORDER BY panel_pos ");
+				$elements = $configuration->getPanels(" AND panel_row=".$element_row['rows']." AND page_name='home' AND page_theme='".$theme."' ORDER BY panel_pos ");
 				?>
 				<div class="row dinamicRow">
 					<?php foreach($elements as $element): ?>

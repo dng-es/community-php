@@ -140,7 +140,7 @@ class incentivosObjetivosController{
 				$filtro_tienda = "";
 				break;
 			case 'regional':
-				$filtro_tienda = " AND u.empresa IN (SELECT cod_tienda FROM users_tiendas WHERE regional_tienda='".$username."' OR regional_post_tienda='".$username."')";
+				$filtro_tienda = " AND u.empresa IN (SELECT cod_tienda FROM users_tiendas WHERE regional_tienda='".$username."')";
 				break;
 			case 'responsable':
 				$filtro_tienda = " AND u.empresa IN (SELECT cod_tienda FROM users_tiendas WHERE responsable_tienda='".$username."')";

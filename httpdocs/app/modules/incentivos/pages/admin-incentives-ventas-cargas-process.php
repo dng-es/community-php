@@ -62,8 +62,7 @@ function volcarMySQL($data){
 
 		$fecha_venta = str_replace ("/", "-", trim(strtoupper($data->sheets[0]['cells'][$fila][5])));
 		$detalle = utf8_encode(str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][6]))));
-		//$tendencia = utf8_encode(str_replace ("'","´",trim(strtoupper($data->sheets[0]['cells'][$fila][7]))));
-		$tendencia = "";
+		$tendencia = strtoupper(utf8_encode(str_replace ("'", "´",trim(strtoupper($data->sheets[0]['cells'][$fila][7])))));;
 
 		if ($referencia_producto != "" && (isset($usuario['canal']) && $usuario['canal'] != "")){
 			//buscar id_producto por referencia y fabriacante

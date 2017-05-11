@@ -17,6 +17,7 @@ addJavascripts(array("js/libs/highcharts/highcharts.js",
 		$referencia_acelerador = intval(isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);
 		$filtro_perfil = incentivosObjetivosController::getFiltroPerfil($_SESSION['user_perfil']);
 		$filtro_canal = (($_SESSION['user_canal'] == 'admin') ? "" : " AND canal_objetivo LIKE '%".$_SESSION['user_canal']."%' ");
+		$filtro_tienda = incentivosObjetivosController::getFiltroTienda($_SESSION['user_perfil'], $_SESSION['user_name'], $_SESSION['user_empresa']);
 		$elements = incentivosObjetivosController::getListAction(35, $filtro_canal.$filtro_perfil." AND NOW() BETWEEN date_ini_objetivo AND date_fin_objetivo ORDER BY id_objetivo ASC");
 		$incentivos = new incentivos();
 		?>
@@ -49,6 +50,28 @@ addJavascripts(array("js/libs/highcharts/highcharts.js",
 									<!-- <a href="incentives-targets?export=ventas&tipo=<?php //echo $element['tipo_objetivo'];?>&id=<?php //echo $element['id_objetivo'];?>">descargar ventas <i class="fa fa-angle-double-right"></i></a> -->
 									<a href="incentives-targets?export=ventas&tipo=<?php echo $element['tipo_objetivo'];?>&id=<?php echo $element['id_objetivo'];?>"><?php e_strTranslate("Download");?> <i class="fa fa-angle-double-right"></i></a>
 								</p>
+								<?php 
+								$posicion_user = $incentivos->getPosicionRankingUser($filtro_tienda, $_SESSION['user_name'], $element['id_objetivo']);
+								$posicion = (isset($posicion_user[0]['rownum']) ? $posicion_user[0]['rownum'] : " - ");
+								
+								$tendencia_user = $incentivos->getVentasTendenciaUser(" AND username_venta='".$_SESSION['user_name']."' ORDER BY fecha_venta DESC LIMIT 1", $element['id_objetivo']);
+								$tendencia = (isset($tendencia_user[0]['tendencia_venta']) ? $tendencia_user[0]['tendencia_venta'] : ' - ');
+
+								$total_user = (isset($posicion_user[0]) ? $posicion_user[0]['suma'] : 0);
+
+								$color = 'muted';
+								$color = ($tendencia == 'SUBE' ? 'success' : $color);
+								$color = ($tendencia == 'BAJA' ? 'danger' : $color);
+								$color = ($tendencia == 'IGUAL' ? 'warning' : $color);
+								?>
+	
+								<table class="table table-condensed">
+									<tr>
+										<td class="<?php echo $color;?>">&nbsp;</td><td><small class="text-muted">Posición: <big><b><?php echo $posicion;?></b></big></small></td>
+										<td class="<?php echo $color;?>">&nbsp;</td><td><small class="text-muted">Tendencia: <big><b><?php echo $tendencia;?></b></big></small></td>
+										<td class="<?php echo $color;?>">&nbsp;</td><td><small class="text-muted">Puntos: <big><b><?php echo $total_user;?></b></big></small></td>
+									</tr>
+								</table>
 								<?php
 								if (count($objetivos) > 0):
 									$total_puntos_user = 0;

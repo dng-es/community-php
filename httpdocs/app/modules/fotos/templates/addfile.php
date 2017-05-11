@@ -43,27 +43,7 @@ function PanelSubirFoto($id_promocion = 0, $albumes = null, $id_album = 0){
 		<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="" placeholder="Etiquetas (separadas por coma)" />
 		<input type="file" class="btn btn-default btn-block" name="nombre-foto" id="nombre-foto" title="<?php e_strTranslate("Choose_file");?>" />
 		<div class="alert alert-danger" id="alertas-participa" style="display: none"><?php e_strTranslate("Required_all_fields");?></div>
-		<button type="submit" class="btn btn-primary btn-block" id="foto-submit" name="foto-submit"><?php e_strTranslate("Send_photo");?></button>
-		<!--<br /><h3 class="text-muted">Etiquetas existentes</h3>-->
-		<div class="tags">
-		<?php
-		$fotos = new fotos();
-		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_album LIKE '%".$_SESSION['user_canal']."%' " : "");
-		$tags = $fotos->getTags($filtro_canal); //print_r($tags);
-		$valor_max = max($tags);
-		$valor_min = min($tags);
-		$diferencia = $valor_max - $valor_min;
-
-		//ordeno el array
-		ksort($tags);
-
-		foreach(array_keys($tags) as $key){
-			$valor_relativo = round((($tags[$key] - $valor_min) / $diferencia) * 10);
-			echo '<a href="fotos?tag='.$key.'" class="tag'.$valor_relativo.'">'.$key.'</a> ';
-		}
-
-		?>
-		</div>
+		<button type="submit" class="btn btn-primary btn-block" id="foto-submit" name="foto-submit"><?php e_strTranslate("Send_photo");?></button>	
 	</form>
 	<?php }?>
 <?php }?>

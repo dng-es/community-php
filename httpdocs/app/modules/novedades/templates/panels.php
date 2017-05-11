@@ -1,6 +1,4 @@
 <?php
-templateload("player", "videos");
-
 /**
  * Print HTML slide, type slider. Used in home page
  * @return	String						HTML slide
@@ -13,7 +11,7 @@ function panelNovedades(){
 	$i = 0;
 	if (count($elements['items']) > 0): ?>
 		<?php if (count($elements['items']) == 1): ?>
-			<div class="section panel">
+			<div id="carousel-novedades" class="section panel">
 				<?php echo $elements['items'][0]['cuerpo'];?>
 			</div>
 		<?php else: ?>
@@ -61,12 +59,13 @@ function panelNovedadesBanner(){
 	$filtro_perfil = ($_SESSION['user_perfil'] != 'admin' ? " AND (n.perfil='".$_SESSION['user_perfil']."' OR n.perfil='') " : "");
 	$filter = $filtro_canal.$filtro_perfil." AND activo=1 AND tipo='banner' ORDER BY orden ASC ";
 	$elements = novedadesController::getListAction(100, $filter);
-	
 	$i = 0;
 	if (count($elements['items']) > 0):?>
 		<?php if (count($elements['items']) == 1): ?>
-			<div class="panel">
-				<?php echo $elements['items'][0]['cuerpo'];?>
+			<div class="col-md-12 nopadding panel">
+				<div id="carousel-novedades-banner">
+					<?php echo $elements['items'][0]['cuerpo'];?>
+				</div>
 			</div>
 		<?php else: ?>
 		<div class="col-md-12 nopadding panel">
@@ -114,7 +113,7 @@ function popupNovedades(){
 	$filter = $filtro_canal.$filtro_perfil." AND activo=1 AND tipo='popup' ORDER BY orden ASC ";
 	$elements = novedadesController::getListAction(1, $filter);
 	if ((count($elements['items']) > 0) && (!isset($_SESSION['modal_home']) || $_SESSION['modal_home'] != 1)): ?>
-        <!-- Modal Pop-Novedades-->
+		<!-- Modal Pop-Novedades-->
 		<div class="modal modal-wide fade" id="modalNovedades" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -129,7 +128,6 @@ function popupNovedades(){
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 		<?php 
-						
 		$_SESSION['modal_home'] = 1;
 	endif; 
 } ?>

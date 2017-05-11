@@ -7,6 +7,7 @@ templateload("gallery","fotos");
 templateload("addfile","fotos");
 templateload("cmbAlbumes","fotos");
 //templateload("addalbum","fotos");
+templateload("tags","fotos");
 templateload("searchfile","fotos");
 
 $id_album = (isset($_REQUEST['id']) ? sanitizeInput(trim($_REQUEST['id'])) : 0);
@@ -40,7 +41,7 @@ $id_album = (isset($_REQUEST['id']) ? sanitizeInput(trim($_REQUEST['id'])) : 0);
 		<div class="panel-interior">
 			<?php SearchPhoto("fotos","searchForm", strTranslate("Search_Photo_by_title"), strTranslate("Search"), "", "", "get");?>
 			<?php PanelSubirFoto(0, $albums['items'], $id_album);?>
-			
+			<?php tagsCloud();?>
 
 			<!--<br />
 			<h4>

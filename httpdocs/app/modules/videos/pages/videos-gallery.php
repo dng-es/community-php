@@ -17,6 +17,7 @@ templateload("gallery","videos");
 		));
 
 		?>
+		<p><?php echo strTranslate("Click_here_to_upload", 18);?></p>
 		<h3 class="carousel-slide-title"><?php e_strTranslate("Important_videos");?></h3>
 		<?php 
 		$elements = videosController::getListAction(60, " AND estado=1 AND destacado=1 ".$filter_videos);
@@ -27,7 +28,6 @@ templateload("gallery","videos");
 		<?php 
 		$elements = videosController::getListAction(60, " AND estado=1 ".$filter_videos);
 		showVideoCarousel($elements, "myCarouselB");
-
 
 		$videos = new videos();
 		$tags = array_rand($videos->getTags($filter_videos), 2);

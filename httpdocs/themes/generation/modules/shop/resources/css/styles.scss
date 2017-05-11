@@ -1,0 +1,65 @@
+@import '../../../css/variables';
+
+/*MODULO SHOP*/
+.card-section{
+    background: #ccc;
+    @include border-radius($border-def);
+    color: $panels-color-text;
+    float:left;
+    padding: 0 15px 15px 15px;    
+    @include rowMachine(5, 3%);
+    text-align: center;
+    
+
+    h3{
+        color: $panels-color-title;
+        margin: 10px;
+    }
+    img {
+        width: 100%;
+        //padding: 0 15px;
+    }
+    p{
+        font-size: 12px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .description{
+        display: block;
+        font-family: $community-font1;
+        font-size: 10px;
+        height:30px;
+        line-height: 15px;
+        margin: 10px 0;
+        overflow: hidden;
+    }
+
+    .price{
+
+    }
+
+    .btn-order{
+        margin-top: 10px;
+        font-family: $community-font1;
+    }
+
+    .stock{
+
+    }
+    @media screen and (max-width: $break-medium) {
+        @include rowMachine(2, 3%);
+    }
+
+    @media screen and (max-width: $break-small) {
+        margin: 0;
+        width: 100%;
+        float: none;
+    }
+}
+
+.product-title {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+/* FIN MODULO SHOP*/

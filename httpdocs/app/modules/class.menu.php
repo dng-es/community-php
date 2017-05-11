@@ -38,7 +38,7 @@ class menu{
 							}
 
 							if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
-								echo '<li class="hidden-md hidden-lg"><a href="mygroup"><i class="fa fa-users visible-xs-inline-block text-primary"></i> <span class="visible-xs-inline-block text-primary">'.strTranslate("My_team").'</span></a></li>';
+								echo '<li class="hidden-md hidden-lg"><a href="mygroup"><i class="fa fa-users visible-xs-inline-block text-primary"></i> '.strTranslate("My_team").'</a></li>';
 							}
 							?>
 							<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Mailing_messages")?></a></li>
@@ -61,6 +61,7 @@ class menu{
 
 		foreach ($array_final as  $fila) {
 			$labelId = (isset($fila['LabelId']) ? 'id="'.$fila['LabelId'].'"' : '');
+			$labelClass= (isset($fila['LabelClass']) ? 'class="'.$fila['LabelClass'].'"' : '');
 			if (isset($fila['SubItems']) && count($fila['SubItems']) > 0){
 				echo '<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].' <b class="caret"></b></a>
@@ -72,7 +73,7 @@ class menu{
 					</li>';
 			}
 			else 
-				echo '<li><a '.$labelId.' target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
+				echo '<li><a '.$labelId.' '.$labelClass.' target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
 		}
 	}
 
@@ -81,8 +82,8 @@ class menu{
 	*
 	*/
 	static function UserInfoMenu(){
-		global $ini_conf;
-		global $session;
+		global $ini_conf, $session, $page;
+		$theme = ((isset($_REQUEST['theme']) && $page == 'home_new') ? sanitizeInput($_REQUEST['theme']) : $_SESSION['user_theme']);
 		if ($_SESSION['user_logged'] == true){
 			$users = new users();
 			$puntos_user = $users->getUsers("AND username='".$_SESSION['user_name']."' ");
@@ -96,7 +97,7 @@ class menu{
 			$contador_no_leidos = connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 			?>
 			<div class="row header-info">
-				<a href="home"><img src="themes/<?php echo $_SESSION['user_theme'];?>/images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" /></a>
+				<a href="home"><img src="themes/<?php echo $theme;?>/images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" /></a>
 				<div id="user-info">
 					<div class="pull-right" style="width:75%">
 					<?php 

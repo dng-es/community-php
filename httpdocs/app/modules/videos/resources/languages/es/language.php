@@ -40,4 +40,5 @@ Vote_video = "Votar video"
 No_video_comments = "Todavia no existen comentarios en este video. Se el primero en hacerlo!"
 No_video_uploads = "Todavía no se han subido vídeos"
 Important_videos = "Videos destacados"
+Click_here_to_upload = "Para subir tus %s vídeos pincha <a href='videos'>aquí</a>."
 ?>

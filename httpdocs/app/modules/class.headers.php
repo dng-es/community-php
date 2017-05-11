@@ -5,10 +5,11 @@ class headers{
 	*
 	*/
 	public static function PageHeader(){
-		global $ini_conf, $scripts_js, $scripts_css, $KEYWORDS_META_PAGE, $SUBJECT_META_PAGE, $TITLE_META_PAGE;
+		global $ini_conf, $scripts_js, $scripts_css, $KEYWORDS_META_PAGE, $SUBJECT_META_PAGE, $TITLE_META_PAGE, $page;
 		$Key_Words = (isset( $KEYWORDS_META_PAGE ) ? $KEYWORDS_META_PAGE : $ini_conf['SiteKeywords']);
 		$Subject = (isset( $SUBJECT_META_PAGE ) ? $SUBJECT_META_PAGE : $ini_conf['SiteSubject']);
 		$Title = (isset( $TITLE_META_PAGE ) ? $ini_conf['SiteTitle']." - ".$TITLE_META_PAGE : $ini_conf['SiteTitle']);
+		$theme = ((isset($_REQUEST['theme']) && $page == 'home_new') ? sanitizeInput($_REQUEST['theme']) : $_SESSION['user_theme']);
 		?>
 		<!DOCTYPE html>
 		<html lang="<?php echo $_SESSION['language'];?>" xml:lang="<?php echo $_SESSION['language'];?>">
@@ -25,7 +26,7 @@ class headers{
 				<title><?php echo $Title;?></title>
 				<link rel="shortcut icon" href="favicon.ico">
 				<link rel="icon" type="image/ico"  href="favicon.ico" >
-				<link href="<?php echo $ini_conf['SiteUrl'];?>/themes/<?php echo $_SESSION['user_theme'];?>/css/styles.css" rel="stylesheet">
+				<link href="<?php echo $ini_conf['SiteUrl'];?>/themes/<?php echo $theme;?>/css/styles.css" rel="stylesheet">
 				<script type="text/javascript" src="<?php echo $ini_conf['SiteUrl'];?>/js/main.min.js"></script>
 				<!-- <script type="text/javascript" src="js/notifications.js"></script> -->
 				
@@ -40,6 +41,8 @@ class headers{
 		//incluir css de la página actual
 		if (isset($scripts_css)){
 			foreach($scripts_css as $script_css):
+				$script_css_theme = __DIR__."/../../".str_replace($ini_conf['SiteUrl']."/app/", "themes/".$_SESSION['user_theme']."/", $script_css);
+				$script_css = (file_exists($script_css_theme) ? str_replace("app/", "themes/".$_SESSION['user_theme']."/", $script_css) : $script_css);
 				echo '<link href="'.$script_css.'" rel="stylesheet"> ';
 			endforeach;
 		}
@@ -47,6 +50,8 @@ class headers{
 		//incluir js de la página actual
 		if (isset($scripts_js)){
 			foreach($scripts_js as $script_js):
+				$script_js_theme = __DIR__."/../../".str_replace($ini_conf['SiteUrl']."/app/", "themes/".$_SESSION['user_theme']."/", $script_js);
+				$script_js = (file_exists($script_js_theme) ? str_replace("app/", "themes/".$_SESSION['user_theme']."/", $script_js) : $script_js);
 				echo '<script type="text/javascript" src="'.$script_js.'"></script>';
 			endforeach;
 		}
@@ -59,10 +64,12 @@ class headers{
 	* @param 	string 		$page 			Current page
 	*/
 	public static function PageBody($page = ""){
-		global $ini_conf, $paginas_free;?>
+		global $ini_conf, $paginas_free, $page;
+		$theme = ((isset($_REQUEST['theme']) && $page == 'home_new') ? sanitizeInput($_REQUEST['theme']) : $_SESSION['user_theme']);
+		?>
 		</head>
 			<body id="page-<?php echo $page;?>">
-			<img alt="" id="bg" src="themes/<?php echo $_SESSION['user_theme'];?>/images/bg.jpg" class="hidden-print" />
+			<img alt="" id="bg" src="themes/<?php echo $theme;?>/images/bg.jpg" class="hidden-print" />
 		<?php if (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true && (isset($_REQUEST['page']) && !in_array($_REQUEST['page'], $paginas_free))): ?>
 
 				<?php //if (class_exists('globaloptionsController')):	

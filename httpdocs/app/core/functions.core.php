@@ -24,15 +24,33 @@ function redirectURL($url){
 * @return 	string 		 			full path folder
 */
 function pageRouter($page){
-	$path = "app/modules/";
-	if ($dh = opendir($path)){
-		while (($file = readdir($dh)) !== false){
-			if (is_dir($path.$file) && $file != "." && $file != "..")
-				if (file_exists($path.$file."/pages/".$page)) return $path.$file."/pages/".$page;
-		}
-		closedir($dh);
+	//search in themes pages
+	$route = pageRouterCore($page, "themes/".$_SESSION['user_theme']."/modules/");
+	if ($route == ""){
+		//search in core pages
+		$route = pageRouterCore($page, "app/modules/");
+		if ($route == "") return pageRouter("404.php");
 	}
-	return pageRouter("404.php");
+	return $route;
+}
+
+/**
+* Returns The file to include
+* @param 	string 		$page 		page name to include
+* @param 	string 		$path 		path name to search in
+* @return 	string 		 			full path folder
+*/
+function pageRouterCore($page, $path){
+	if (is_dir($path)){
+		if ($dh = opendir($path)){
+			while (($file = readdir($dh)) !== false){
+				if (is_dir($path.$file) && $file != "." && $file != "..")
+					if (file_exists($path.$file."/pages/".$page)) return $path.$file."/pages/".$page;
+			}
+			return "";
+			closedir($dh);
+		}
+	}
 }
 
 /**
@@ -60,9 +78,22 @@ function dirCarga($dir, $modulename){
 * @param 	string 		$classname 		class name where template is placed
 */
 function templateload($template, $classname){
-	if (is_dir(dirCarga(dirname(__FILE__), "/modules/".$classname))){
-		$file = dirCarga(dirname(__FILE__), "/modules/".$classname."/templates/".$template.".php");
-		if (file_exists($file)) include_once ($file);	
+	$template_found = false;
+	//search in themes folder
+	if(is_dir(dirCarga(dirname(__FILE__), "/../themes/".$_SESSION['user_theme']."/modules/".$classname."/templates"))){
+		$file = dirCarga(dirname(__FILE__), "/../themes/".$_SESSION['user_theme']."/modules/".$classname."/templates/".$template.".php");
+		if (file_exists($file)) {
+			include_once ($file);
+			$template_found = true;
+		}
+	}
+	
+	//search in core folder
+	if ($template_found == false){
+		if (is_dir(dirCarga(dirname(__FILE__), "/modules/".$classname))){
+			$file = dirCarga(dirname(__FILE__), "/modules/".$classname."/templates/".$template.".php");
+			if (file_exists($file)) include_once ($file);
+		}
 	}
 }
 
@@ -181,12 +212,19 @@ function strTranslate($str){
 		$str = getTranlationStr($path_module,$str);
 	endforeach;
 
-	//trasnlations from core
+	//translations from core. Prevail over modules translations
 	$path_core = realpath(dirname(__FILE__))."/../languages/".$language."/language.php";
-	//echo $path_core."<br />";
-	$str = getTranlationStr($path_core,$str);
-	
-	return $str;
+
+	//string translated	
+	$str = getTranlationStr($path_core, $str);
+
+	//replace optional variables
+	if (($num_args = func_num_args()) > 1){
+		$list_args = func_get_args();
+		unset($list_args[0]);
+		return vsprintf($str, $list_args);
+	}
+	else return $str;
 }
 
 /**
@@ -203,7 +241,7 @@ function e_strTranslate($str){
  * @param  string 		$str  		String to translate
  * @return string       			Translation
  */
-function getTranlationStr($path,$str){
+function getTranlationStr($path, $str){
 	if (file_exists($path)){
 		$language_strings = parse_ini_file($path);
 		$str = isset($language_strings[$str]) ? $language_strings[$str] : $str;

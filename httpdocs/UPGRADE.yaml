@@ -1,5 +1,11 @@
 ---
 upgrades:
+    10:  
+        version: 0.7.1
+        notes: \nVariables en las traduciones\n\n
+    9:  
+        version: 0.7
+        notes: \nPáginas y templates distintos por tema\n\n
     8:  
         version: 0.6
         notes: \nContenidos para unos o varios canales\n\n

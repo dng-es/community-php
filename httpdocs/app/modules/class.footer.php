@@ -4,9 +4,11 @@ class footer{
 	* Print HTML footer. From <footer> until javascript
 	*/	
 	public static function PageFooterInfo(){
+		global $page;
 		$pages = new pages();
 		$politica = $pages->getPages(" AND page_name='policy' ");
 		$declaracion = $pages->getPages(" AND page_name='declaracion' ");
+		$theme = ((isset($_REQUEST['theme']) && $page == 'home_new') ? sanitizeInput($_REQUEST['theme']) : $_SESSION['user_theme']);
 		?>
 		</div>
 		<div class="row footer hidden-print">
@@ -25,7 +27,7 @@ class footer{
 				</ul>
 			</div>
 			<div class="col-md-4">
-				<img src="themes/<?php echo $_SESSION['user_theme'];?>/images/logo.png" class="img-responsive" />
+				<img src="themes/<?php echo $theme;?>/images/logo.png" class="img-responsive" />
 				<p><small>powered by Grass Roots <?php echo date("Y");?></small></p>
 			</div>
 		</div>

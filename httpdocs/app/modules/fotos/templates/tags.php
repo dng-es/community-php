@@ -16,4 +16,32 @@ function showTags($tags){
 		echo '</span>';
 	}
 }
-?>
+
+/**
+ * Show photo gallery tags cloud
+ * @return 	string 					HTML tags cloud
+ */	
+function tagsCloud(){ ?>
+	<div class="tags">
+		<h4>
+			<span class="fa-stack fa-sx">
+				<span class="fa fa-circle fa-stack-2x"></span>
+				<span class="fa fa-tags fa-stack-1x fa-inverse"></span>
+			</span>
+			<?php e_strTranslate("Tags");?>
+		</h4>
+		<?php
+		$fotos = new fotos();
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_album LIKE '%".$_SESSION['user_canal']."%' " : "");
+		$tags = $fotos->getTags($filtro_canal); //print_r($tags);
+		$diferencia = max($tags) - min($tags);
+		$diferencia = ($diferencia != 0 ? $diferencia : 1);
+		ksort($tags);
+		foreach(array_keys($tags) as $key){
+			$valor_relativo = round((($tags[$key] - min($tags)) / $diferencia) * 10);
+			echo '<a href="fotos?tag='.$key.'" class="tag'.$valor_relativo.'">'.$key.'</a> ';
+		}
+
+		?>
+	</div>
+ <?php } ?>
