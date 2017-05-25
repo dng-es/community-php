@@ -230,9 +230,9 @@ class incentivos{
 	 * @param  int 		$id_fabricante 			Id del fabricante
 	 * @return boolean 							Resultado de la SQL
 	 */
-	public function insertIncentivesProductos($referencia_producto, $nombre_producto, $id_fabricante){
-		$Sql = "INSERT INTO incentives_productos (referencia_producto, nombre_producto, id_fabricante) 
-			  VALUES ('".$referencia_producto."','".$nombre_producto."', ".$id_fabricante.")";
+	public function insertIncentivesProductos($referencia_producto, $nombre_producto, $id_fabricante, $suma_puntos , $suma_creditos){
+		$Sql = "INSERT INTO incentives_productos (referencia_producto, nombre_producto, id_fabricante, suma_puntos , suma_creditos) 
+			  VALUES ('".$referencia_producto."','".$nombre_producto."', ".$id_fabricante.",".$suma_puntos.",".$suma_creditos.")";
 		return connection::execute_query($Sql);
 	}
 

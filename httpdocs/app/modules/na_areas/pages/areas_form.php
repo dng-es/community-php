@@ -1,6 +1,8 @@
 <?php
 $base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/na_areas/pages' : 'modules\\na_areas\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "modules/class.headers.php");
+include_once($base_dir . "modules/recompensas/classes/class.recompensas.php");
+
 $module_config = getModuleConfig("na_areas");
 $points_to_success = $module_config['options']['points_to_success'];
 

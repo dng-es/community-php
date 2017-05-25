@@ -48,8 +48,8 @@ class usersCanalesController{
 			$users = new users;
 			if ($users->insertCanal($canal, $canal_name, $theme, $canal_lan)){
 				//crear foro asociado
-				$foro = new foro();
-				$foro->InsertTema(0, "Foro ".$canal_name, '', '', 'admin', $canal, 0, 1, '', 0, 0, "");
+				//$foro = new foro();
+				//$foro->InsertTema(0, "Foro ".$canal_name, '', '', 'admin', $canal, 0, 1, '', 0, 0, "");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}
 			else 

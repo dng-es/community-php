@@ -1,2 +1,69 @@
-@font-face{font-family:'HELVNEUE35';src:url("fonts/HELVNEUE35_CYR_0.eot");src:url("fonts/HELVNEUE35_CYR_0.eot?#iefix") format("embedded-opentype"),url("fonts/HELVNEUE35_CYR_0.woff") format("woff"),url("fonts/HELVNEUE35_CYR_0.ttf") format("truetype"),url("fonts/HELVNEUE35_CYR_0.svg#helvnew45") format("svg");font-style:normal;font-weight:normal}@font-face{font-family:'FjallaOne';src:url("fonts/FjallaOne-Regular-webfont.eot");src:url("fonts/FjallaOne-Regular-webfont.eot?#iefix") format("embedded-opentype"),url("fonts/FjallaOne-Regular-webfont.woff2") format("woff2"),url("fonts/FjallaOne-Regular-webfont.woff") format("woff"),url("fonts/FjallaOne-Regular-webfont.ttf") format("truetype"),url("fonts/FjallaOne-Regular-webfont.svg#fjallaoneregular") format("svg");font-weight:normal;font-style:normal}.card-section{background:#fff;-moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;color:#999;float:left;padding:0 15px 15px 15px;width:17.6%;text-align:center}.card-section:nth-child(n){margin-bottom:3%;margin-right:3%}.card-section:nth-child(5n){margin-right:0;margin-bottom:0}@media screen and (max-width: 992px){.card-section{margin:0;width:100%}}.card-section h3{color:#333;margin:10px}.card-section img{width:100%}.card-section p{font-size:12px;padding-left:0;padding-right:0}.card-section .description{display:block;font-family:"HELVNEUE35";font-size:10px;height:30px;line-height:15px;margin:10px 0;overflow:hidden}.card-section .btn-order{margin-top:10px;font-family:"HELVNEUE35"}@media screen and (max-width: 992px){.card-section{width:48.5%}.card-section:nth-child(n){margin-bottom:3%;margin-right:3%}.card-section:nth-child(2n){margin-right:0;margin-bottom:0}}@media screen and (max-width: 992px) and (max-width: 992px){.card-section{margin:0;width:100%}}@media screen and (max-width: 768px){.card-section{margin:0;width:100%;float:none}}.product-title{padding-right:0px !important;padding-left:0px !important}
-/*# sourceMappingURL=styles.css.map */
+/*
+Error: Undefined mixin 'border-radius'.
+        on line 6 of ../httpdocs/app/modules/shop/resources/css/styles.scss, in `border-radius'
+        from line 6 of ../httpdocs/app/modules/shop/resources/css/styles.scss
+
+1: @import '../../../../../themes/default/css/variables';
+2: 
+3: /*MODULO SHOP*\/
+4: .card-section{
+5:     background: $panels-color;
+6:     @include border-radius($border-def);
+7:     color: $panels-color-text;
+8:     float:left;
+9:     padding: 0 15px 15px 15px;    
+10:     @include rowMachine(5, 3%);
+11:     text-align: center;
+
+Backtrace:
+../httpdocs/app/modules/shop/resources/css/styles.scss:6:in `border-radius'
+../httpdocs/app/modules/shop/resources/css/styles.scss:6
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:351:in `block in visit_mixin'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/stack.rb:98:in `block in with_mixin'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/stack.rb:98:in `with_mixin'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:349:in `visit_mixin'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `block (2 levels) in visit_rule'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `map'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `block in visit_rule'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:181:in `with_environment'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:431:in `visit_rule'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `map'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:169:in `block in visit_children'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:181:in `with_environment'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:168:in `visit_children'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:188:in `visit_root'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:159:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/root_node.rb:36:in `css_tree'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/engine.rb:381:in `_render_with_sourcemap'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/engine.rb:298:in `render_with_sourcemap'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/exec/sass_scss.rb:391:in `run'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/exec/sass_scss.rb:63:in `process_result'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/exec/base.rb:52:in `parse'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/lib/sass/exec/base.rb:19:in `parse!'
+/var/lib/gems/2.1.0/gems/sass-3.4.22/bin/sass:13:in `<top (required)>'
+/usr/local/bin/sass:23:in `load'
+/usr/local/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined mixin 'border-radius'.\A         on line 6 of ../httpdocs/app/modules/shop/resources/css/styles.scss, in `border-radius'\A         from line 6 of ../httpdocs/app/modules/shop/resources/css/styles.scss\A \A 1: @import '../../../../../themes/default/css/variables';\A 2: \A 3: /*MODULO SHOP*/\A 4: .card-section{\A 5:     background: $panels-color;\A 6:     @include border-radius($border-def);\A 7:     color: $panels-color-text;\A 8:     float:left;\A 9:     padding: 0 15px 15px 15px;    \A 10:     @include rowMachine(5, 3%);\A 11:     text-align: center;"; }

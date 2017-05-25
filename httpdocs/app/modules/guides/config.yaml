@@ -1,0 +1,5 @@
+---
+options:
+    show_user_menu: true
+    user_menu_position: 8
+    user_can_modify: false

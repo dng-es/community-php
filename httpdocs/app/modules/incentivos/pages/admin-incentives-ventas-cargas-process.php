@@ -80,7 +80,8 @@ function volcarMySQL($data){
 
 					$puntuacion_venta = ($puntuacion_venta * $cantidad_venta);
 					if ($incentivos->insertIncentivesProductosVentas($username_venta, str_replace(',', '.', $puntuacion_venta), $producto[0]['id_producto'], $fechaV, $detalle) && $puntuacion_venta > 0){
-						users::sumarPuntos($username_venta, str_replace(',', '.', $puntuacion_venta), $detalle);
+						if ($producto[0]['suma_puntos'] == 1) users::sumarPuntos($username_venta, str_replace(',', '.', $puntuacion_venta), $detalle);
+						if ($producto[0]['suma_creditos'] == 1) users::sumarCreditos($username_venta, str_replace(',', '.', $puntuacion_venta), $detalle);
 					}
 				}
 			}

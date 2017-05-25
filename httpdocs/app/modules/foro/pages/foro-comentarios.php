@@ -24,7 +24,7 @@ templateload("notifications","notifications");
 			notificationsController::notificationInscription($id_tema, 'foro', 'foro-comentarios?id='.$id_tema);
 
 			$filtro_tema = " AND id_tema=".$id_tema." AND activo=1 ";
-			if ($_SESSION['user_canal'] != "admin") $filtro_tema .= " AND canal='".$_SESSION['user_canal']."' ";
+			$filtro_tema .= foroController::getFiltroCanales($module_config);
 			$tema = $foro->getTemas($filtro_tema); 
 			
 			//VOLVER ATRAS: SI ES UN FORO DE AREAS VOLVERA A LA PAGINA DE AREAS,

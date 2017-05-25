@@ -52,9 +52,11 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 				echo '<th width="20px">&nbsp;</th>';
 				echo '<th>&nbsp;Pregunta</th>';
 				echo '<th>&nbsp;Tipo</th>';
+				echo '<th>&nbsp;Correcta</th>';
 				echo '</tr>';
 
 				foreach($preguntas as $pregunta):
+					$correctas = $na_areas->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 ");
 				echo '<tr>';
 				echo '<td nowrap="nowrap">
 						<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar la pregunta?\',
@@ -64,6 +66,11 @@ function FormularioTarea($id_tarea,$id_area,$tarea){
 					 </td>';
 				echo '<td>'.$pregunta['pregunta_texto'].'</td>';
 				echo '<td>'.$pregunta['pregunta_tipo'].'</td>';
+				echo '<td>';
+				foreach($correctas as $correcta):
+					echo $correcta['id_respuesta']." ";
+				endforeach;
+				echo '</td>';
 				echo '</tr>';
 				endforeach;
 				echo '</table>';

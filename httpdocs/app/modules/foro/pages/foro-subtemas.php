@@ -19,62 +19,14 @@ $canal = "";
 		<?php
 		session::getFlashMessage( 'actions_message' );
 		$module_config = getModuleConfig("foro");
-
-		if (isset($_REQUEST['id']) && $_REQUEST['id'] > 0){
-			$id_tema_parent = $_REQUEST['id'];
-		}
-		else{
-			//SELECCION DEL FORO
-			$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND canal='".$_SESSION['user_canal']."' ");
-			$id_tema_parent = connection::SelectMaxReg("id_tema", "foro_temas", " AND id_tema_parent=0 AND id_area=0 AND ocio=0 ".$filtro_canal);
-		}
-		//OBTENCION DE LOS TEMAS DEL FORO
-		if (isset($id_tema_parent) && $id_tema_parent != ""){
-			$filtro = " AND id_tema=".$id_tema_parent." AND activo=1 AND ocio=0 ";
-			if ($_SESSION['user_canal'] != 'admin') $filtro .= " AND canal='".$_SESSION['user_canal']."' ";
-			$temas = $foro->getTemas($filtro); 
-		}
-
-		if (isset($id_tema_parent) && $id_tema_parent != ""){
-		//OBTENER SUBTEMAS DE FORO
-		$filtro_subtemas = " AND id_tema_parent=".$temas[0]['id_tema']." AND activo=1 AND ocio=0 ";
 		$reg = $module_config['options']['forums_per_page'];
-		$marca = 0;
-		$find_tipo = "";
-		$find_reg = "";
-		if (isset($_GET["pag"])) $pag = $_GET["pag"];
-		if (!isset($pag)){
-			$inicio = 0;
-			$pag = 1;
-		}
-		else $inicio = ($pag - 1) * $reg;
 
-		if (isset($_POST['find_reg']) && $_POST['find_reg'] != ""){
-			$filtro_subtemas .= " AND (nombre LIKE  '%".$_POST['find_reg']."%') ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f']) && $_REQUEST['f'] != "") {
-			$filtro_subtemas .= " AND (nombre LIKE '%".$_REQUEST['f']."%') ";
-			$find_reg = $_REQUEST['f'];
-		}
-		if (isset($_POST['find_tipo']) && $_POST['find_tipo'] != ""){
-			$filtro_subtemas .= " AND tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
-			$find_tipo = $_POST['find_tipo'];
-			$marca = 1;
-		}
-		if (isset($_REQUEST['m']) && $_REQUEST['m'] == 1){
-			$filtro_subtemas .= " AND tipo_tema LIKE '%".$_REQUEST['t']."%' ";
-			$find_tipo = $_REQUEST['t'];
-			$marca = 1;
-		}
-
-		$total_reg = connection::countReg("foro_temas", $filtro_subtemas);
-		$sub_temas = $foro->getTemas($filtro_subtemas." ORDER BY id_tema DESC  LIMIT ".$inicio.",".$reg);
-		foreach($sub_temas as $sub_tema):
-			ForoList($sub_tema);
+		$elements = foroController::getListSubTemasAction($reg, " AND activo=1 AND ocio=0 AND id_area=0 ", $module_config);
+		foreach($elements['items'] as $element):
+			ForoList($element);
 		endforeach;
-		ForoPaginator($pag, $reg, $total_reg, 'foro-subtemas?id='.$id_tema_parent, 'temas', $find_reg, $find_tipo, $marca);	 
-		}?>
+		ForoPaginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], 'temas', $elements['find_reg'], $elements['find_tipo'], $elements['marca']);
+		?>
 
 	</div>
 	<div class="app-sidebar">
@@ -83,10 +35,10 @@ $canal = "";
 			hook_sidebar();
 
 			//BUSCADOR
-			ForoSearch($reg,'foro-subtemas?id='.$id_tema_parent, $find_reg, $marca, $find_tipo);
+			ForoSearch($reg, $_REQUEST['page'], $elements['find_reg'], $elements['marca'], $elements['find_tipo']);
 
 			//BANNER CREAR TEMA
-			if ($module_config['options']['allow_new'] == true || $_SESSION['user_perfil'] == 'admin') PanelSubirTemaForo($id_tema_parent, $temas[0]['canal']);
+			if ($module_config['options']['allow_new'] == true || $_SESSION['user_perfil'] == 'admin') PanelSubirTemaForo($_SESSION['user_canal'] == 'admin');
 			?>
 		</div>
 	</div>

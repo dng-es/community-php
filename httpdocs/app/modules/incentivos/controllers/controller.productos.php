@@ -27,11 +27,13 @@ class incentivosProductosController{
 			$referencia_producto = sanitizeInput($_POST['producto-referencia']);
 			$nombre_producto = sanitizeInput($_POST['producto-nombre']);
 			$id_fabricante = intval($_POST['id_fabricante']);
+			$suma_puntos = (isset($_POST['suma_puntos']) && $_POST['suma_puntos'] == "on") ? 1 : 0;
+			$suma_creditos = (isset($_POST['suma_creditos']) && $_POST['suma_creditos'] == "on") ? 1 : 0;
 			$incentivos = new incentivos();
 
 			//verificar que no exista la referencia para el fabricante
 			if (connection::countReg("incentives_productos"," AND referencia_producto='".$referencia_producto."' AND id_fabricante=".$id_fabricante." ") == 0){
-				if ($incentivos->insertIncentivesProductos( $referencia_producto, $nombre_producto, $id_fabricante ))
+				if ($incentivos->insertIncentivesProductos( $referencia_producto, $nombre_producto, $id_fabricante, $suma_puntos , $suma_creditos))
 					session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				else
 					session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

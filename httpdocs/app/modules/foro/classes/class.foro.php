@@ -2,7 +2,7 @@
 class foro{
  
 	public function getTemas($filter = ""){
-		$Sql = "SELECT * FROM foro_temas t WHERE 1=1 ".$filter;
+		$Sql = "SELECT * FROM foro_temas t WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);  
 	}
 
@@ -44,7 +44,7 @@ class foro{
 		return connection::getSQL($Sql);
 	}
 
-	public function InsertTema($id_tema_parent, $nombre, $descripcion, $imagen_tema, $user, $canal, $responsables, $activo, $itinerario = '', $id_area = 0, $ocio = 0, $tipo = ""){
+	public function InsertTema($id_tema_parent, $nombre, $descripcion, $imagen_tema, $user, $canal, $responsables, $activo, $itinerario = '', $id_area = 0, $ocio = 0, $tipo = "", $tema_admin = 0){
 		if ($ocio == 0){
 			$nombre = nl2br(sanitizeInput($nombre));
 			$descripcion = nl2br(sanitizeInput($descripcion));
@@ -52,8 +52,8 @@ class foro{
 
 		if (isset($imagen_tema['name']) && $imagen_tema['name'] != "") $imagen_tema = self::insertTemaFoto($imagen_tema);
 
-		$Sql = "INSERT INTO foro_temas (id_tema_parent,nombre,descripcion,imagen_tema,user,canal,responsables,activo,itinerario,id_area,ocio,tipo_tema) VALUES 
-			 (".$id_tema_parent.",'".$nombre."','".$descripcion."','".$imagen_tema."','".$user."','".$canal."',".$responsables.",".$activo.",'".$itinerario."',".$id_area.",".$ocio.",'".$tipo."')";
+		$Sql = "INSERT INTO foro_temas (id_tema_parent,nombre,descripcion,imagen_tema,user,canal,responsables,activo,itinerario,id_area,ocio,tipo_tema,tema_admin) VALUES 
+			 (".$id_tema_parent.",'".$nombre."','".$descripcion."','".$imagen_tema."','".$user."','".$canal."',".$responsables.",".$activo.",'".$itinerario."',".$id_area.",".$ocio.",'".$tipo."',".$tema_admin.")";
 		return connection::execute_query($Sql);
 	}
 

@@ -44,7 +44,7 @@ class tpl{
 			$this->mihtml = str_replace ("\'", "'", $this->mihtml);
 
 			ob_start();
-			include_once(dirname(__FILE__)."/../../css/mails.css");
+			include_once(dirname(__FILE__)."/../../themes/".$_SESSION['user_theme']."/css/mails.css");
 			$estilos_mensaje = ob_get_contents();
 			ob_end_clean();
 

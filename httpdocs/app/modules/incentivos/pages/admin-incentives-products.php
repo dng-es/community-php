@@ -95,6 +95,20 @@ addJavascripts(array(getAsset("incentivos")."js/admin-incentives-products.js"));
 										<input type="text" class="form-control" name="producto-nombre" id="producto-nombre" data-alert="<?php e_strTranslate("Required_field");?>" />
 									</div>
 
+									<div class="form-group col-md-6">
+										<div class="checkbox checkbox-primary">
+											<input type="checkbox" class="styled" id="suma_puntos"  name="suma_puntos">
+											<label for="suma_puntos">Suma <?php e_strTranslate("APP_points");?></label>
+										</div>
+									</div>
+
+									<div class="form-group col-md-6">
+										<div class="checkbox checkbox-primary">
+											<input type="checkbox" class="styled" id="suma_creditos"  name="suma_creditos">
+											<label for="suma_creditos">Suma <?php e_strTranslate("APP_Credits");?></label>
+										</div>
+									</div>
+
 									<div class="form-group col-md-12">
 										<button type="submit" class="btn btn-primary btn-block btn-lg"><?php e_strTranslate("Save_data");?></button>
 									</div>

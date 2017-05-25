@@ -1,8 +1,6 @@
 <?php
 /**
 * Print HTML add tema foro
-* @param  	Int   		$id_tema_parent		id_tema_parent new tema
-* @param  	String 		$canal         		tema canal
 * @param  	Boolean   	$show_canales  		show canales true/false
 * @param  	String   	$descripcion_foro  	tema description
 * @param  	Int   		$ocio  				used for news, blog, ...
@@ -11,19 +9,27 @@
 
 templateload("cmbCanales", "users");
 
-function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $descripcion_foro = "", $ocio = 0, $id_area = 0){
+function PanelSubirTemaForo($show_canales = false, $descripcion_foro = "", $ocio = 0, $id_area = 0){
 
 	//INSERTAR TEMA
 	$foro = new foro();
 	if (isset($_POST['nombre-tema']) && $_POST['nombre-tema'] != ""){
-		if ($_SESSION['user_canal'] != 'admin') $canal = $_SESSION['user_canal'];
-		else $canal = $_POST['canal_tema'];
-		if ($foro->InsertTema($_POST['id_tema_parent'],
+		if (isset($_POST['canal_tema'])){
+			$canal = sanitizeInput($_POST['canal_tema']);
+			if (is_array($canal)) $canal = implode(",", $canal);
+			$tema_admin = 1;
+		}
+		else{
+			$canal = $_SESSION['user_canal'];
+			$tema_admin = 0;
+		}
+		$id_tema_parent = (isset($_POST['id_tema_parent']) ? $_POST['id_tema_parent'] : 0);
+		if ($foro->InsertTema($id_tema_parent,
 							$_POST['nombre-tema'],
 							$_POST['texto-descripcion'],
 							"",
 							$_SESSION['user_name'],
-							$canal,0,1, '', $_POST['id_area'],0,"")){
+							$canal,0,1, '', $_POST['id_area'],0,"", $tema_admin)){
 			session::setFlashMessage('actions_message', strTranslate("Forum_created"), "alert alert-success");
 		}
 		else session::setFlashMessage('actions_message', strTranslate("Error_while_creating_forum"), "alert alert-danger");
@@ -48,17 +54,7 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 		</h4>
 		<p><?php echo $title_add_desc;?></p>
 		<form id="tema-form" name="tema-form" action="" method="post" enctype="multipart/form-data" role="form">
-	<?php if ($show_canales): ?>
-			<label for="canal_tema" class="sr-only">Canal del tema:</label>
-			<select name="canal_tema" id="canal_tema" class="form-control">
-			<?php ComboCanales();?>
-			</select>
-	<?php else: ?>
-			<input type="hidden" name="id_tema_parent" id="id_tema_parent" value="<?php echo $id_tema_parent;?>"/>
-			<input type="hidden" name="canal_tema" id="canal_tema" value="<?php echo $canal;?>"/>
 			<input type="hidden" name="id_area" id="id_area" value="<?php echo $id_area;?>"/>
-	<?php endif;?>	
-
 	<?php if ($ocio==1): ?>
 			<label for="imagen_contenido">Imágen (tamaño 730px X 80px):</label>
 			<input type="file" id="imagen_contenido" name="imagen_contenido" class="inputFile form-control">
@@ -68,6 +64,12 @@ function PanelSubirTemaForo($id_tema_parent, $canal, $show_canales = false, $des
 			<label for="texto-descripcion" class="sr-only"><?php echo $title_desc;?></label>
 			<textarea id="texto-descripcion" name="texto-descripcion" class="form-control" placeholder="<?php e_strTranslate('Description');?>" title="<?php e_strTranslate("Required_field");?>" rows="4"></textarea>
 			<input type="hidden" value="<?php $ocio;?>" name="ocio" id="ocio" />
+			<?php if ($show_canales): ?>
+			<label for="canal_tema" class="sr-only">Canal del tema:</label>
+			<select name="canal_tema[]" id="canal_tema" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
+				<?php ComboCanales();?>
+			</select>
+			<?php endif;?>			
 			<button type="submit" id="tema-submit" name="tema-submit" class="btn btn-primary btn-block"><?php echo $title_btn;?></button>
 		</form>
 	</div>

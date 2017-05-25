@@ -11,7 +11,7 @@
 		session::getFlashMessage( 'actions_message' );
 		fotosAlbumController::deleteAction();
 		fotosAlbumController::downloadAction();
-		$elements = fotosAlbumController::getListAction(20, " AND activo=1 ORDER BY nombre_album ");
+		$elements = fotosAlbumController::getListAction(20, " AND activo=1 ORDER BY id_album DESC ");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

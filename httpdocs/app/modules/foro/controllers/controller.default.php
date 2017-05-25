@@ -1,5 +1,44 @@
 <?php
 class foroController{
+	public static function getListSubTemasAction($reg = 0, $filter = "", $module_config){
+		$foro = new foro();
+		$find_reg = "";
+		$find_tipo = "";
+		$marca = 0;
+
+		$filter .= self::getFiltroCanales($module_config);		
+
+		if (isset($_POST['find_reg']) and $_POST['find_reg'] != "") {
+			$filter.=" AND (nombre LIKE  '%".$_POST['find_reg']."%') ";
+			$find_reg = $_POST['find_reg'];
+		}
+		if (isset($_REQUEST['f']) and $_REQUEST['f'] != "") {
+			$filter .= " AND (nombre LIKE '%".$_REQUEST['f']."%') ";
+			$find_reg = $_REQUEST['f'];
+		}
+		if (isset($_POST['find_tipo']) and $_POST['find_tipo'] != "") {
+			$filter .= " AND tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
+			$find_tipo = $_POST['find_tipo'];
+			$marca = 1;
+		}
+		if (isset($_REQUEST['m']) and $_REQUEST['m'] == 1) {
+			$filter .= " AND tipo_tema LIKE '%".$_REQUEST['t']."%' ";
+			$find_tipo = $_REQUEST['t'];
+			$marca = 1;
+		}
+
+		$filter .= " ORDER BY id_tema DESC ";
+		$paginator_items = PaginatorPages($reg);
+		$total_reg = connection::countReg("foro_temas",$filter); 
+		return array('items' => $foro->getTemas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
+					'pag' 		=> $paginator_items['pag'],
+					'reg' 		=> $reg,
+					'find_reg' 	=> $find_reg,
+					'find_tipo' => $find_tipo,
+					'marca' 	=> $marca,
+					'total_reg' => $total_reg);
+	}
+
 	public static function getListTemasAction($reg = 0, $filter = ""){
 		$foro = new foro();
 		$find_reg = "";
@@ -174,5 +213,11 @@ class foroController{
 			redirectURL($_GET['page']."?id=".$_GET['id']."&pag=".$page_num);
 		}
 	}
+
+	public static function getFiltroCanales($module_config){
+		$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
+		$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND ((tema_admin=0 AND (canal IN (".$module_channels.") OR canal='')) OR (tema_admin = 1 AND canal LIKE '%".$_SESSION['user_canal']."%') )");
+		return $filtro_canal;
+	}	
 }
 ?>

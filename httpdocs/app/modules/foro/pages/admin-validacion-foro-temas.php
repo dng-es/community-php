@@ -12,7 +12,7 @@ if (isset($_REQUEST['f'])){
 	$find_reg = $_REQUEST['f'];
 }
 
-$filter = " AND id_tema_parent<>0 AND activo=1 and itinerario='' ".$filtro_temas." ORDER BY id_tema DESC ";
+$filter = " AND id_area=0 AND activo=1 and itinerario='' ".$filtro_temas." ORDER BY id_tema DESC ";
 
 foroController::exportTemasCommentsAction(" AND c.estado=1 ");
 foroController::exportTemasAction($filter);

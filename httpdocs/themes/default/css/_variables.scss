@@ -25,8 +25,8 @@ $primary-font: "Open Sans", sans-serif;
 $community-font1: 'HELVNEUE35';
 $community-font2: 'FjallaOne';
 
-$color1 : #e30613;	//color principal
-$color2 : lighten($color1, 30%);	//color claro
+$color1 : #68dad3;	//color principal
+$color2 : darken($color1, 30%);	//color más oscuro (antiguo claro)
 //$color2 : #fff;
 $color3 : darken($color1, 20%);	//color oscuro o de contraste respecto el color principal
 

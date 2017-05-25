@@ -94,8 +94,11 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 					<th width="20px">&nbsp;</th>
 					<th><?php e_strTranslate("Form_question");?></th>
 					<th><?php e_strTranslate("Form_question_type");?></th>
+					<th><?php e_strTranslate("Correcta");?></th>
 				</tr>
-				<?php foreach($preguntas as $pregunta): ?>
+				<?php foreach($preguntas as $pregunta): 
+				$correctas = $cuestionarios->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 ");
+				?>
 				<tr>
 					<td nowrap="nowrap">
 						<button type="button" class="btn btn-default btn-xs" onClick="Confirma('¿Seguro que desea eliminar la pregunta?', 'admin-cuestionario?act=del&id=<?php echo $id_cuestionario;?>&idp=<?php echo $pregunta['id_pregunta'];?>'); return false;" title="Eliminar pregunta" /><i class="fa fa-trash icon-table"></i>
@@ -103,6 +106,11 @@ function FormularioTarea($id_cuestionario, $cuestionario){
 					</td>
 					<td><?php echo $pregunta['pregunta_texto'];?></td>
 					<td><?php echo $pregunta['pregunta_tipo'];?></td>
+					<td>
+						<?php foreach($correctas as $correcta):?>
+							<?php echo $correcta['id_respuesta']." ";?>
+						<?php endforeach;?>
+					</td>
 				</tr>  
 				<?php endforeach;?>
 			</table>

@@ -15,7 +15,7 @@
 					$fichero=$_FILES['nombre-fichero'];
 					//SUBIR FICHERO		
 					$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
-					$nombre_archivo=NormalizeText($nombre_archivo);
+					$nombre_archivo = NormalizeText($nombre_archivo);
 					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 					$tamano_archivo = $fichero['size'];
 					//compruebo si las características del archivo son las que deseo
@@ -106,7 +106,7 @@ function volcarMySQL($data){
 			if ($element['perfil'] == 'admin')  $encontrado = true;
 			else{
 				for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
-				  if (strtoupper($element['username'])==strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
+				  if (strtoupper($element['username']) == strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
 				}
 			}
 

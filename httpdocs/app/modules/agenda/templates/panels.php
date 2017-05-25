@@ -9,15 +9,15 @@ function panelAgenda(){
 	$elements = agendaController::getListAction(100, $filter);
 	$elements = $elements['items'];
 	$i = 0;?>
-	<div class="col-md-12 panel-sidebar">
-		<h4>
-			<span class="fa-stack fa-sx">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-newspaper-o fa-stack-1x fa-inverse"></i>
-			</span>
-			<?php e_strTranslate("Diary");?>
-		</h4>
-		<?php if (count($elements) > 0):?>
+	<?php if (count($elements) > 0):?>
+		<div class="col-md-12 panel-sidebar">
+			<h4>
+				<span class="fa-stack fa-sx">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-newspaper-o fa-stack-1x fa-inverse"></i>
+				</span>
+				<?php e_strTranslate("Diary");?>
+			</h4>
 			<?php if (count($elements) == 1):?>
 				<a href="agenda">
 					<img style="width: 100%" src="images/banners/<?php echo $elements[0]['banner'];?>" alt="<?php echo $elements[0]['titulo'];?>" />

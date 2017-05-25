@@ -57,7 +57,7 @@ templateload("cmbCanales", "users");
 					</div>
 
 					<div class="form-group col-md-2">
-						<label for="tipo">Orden:</label>
+						<label for="orden">Orden:</label>
 						<input type="text" class="form-control numeric text-right" name="orden" id="orden" value="<?php echo $element['orden'];?>" />
 					</div>
 

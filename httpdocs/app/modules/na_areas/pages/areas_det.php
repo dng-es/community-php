@@ -41,10 +41,7 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] != ""):
 				<div class="<?php echo $class_foros;?>">
 					<?php if ($module_config['options']['forums'] == true && count($canales) == 1){
 						//mostrar foros del area
-						$id_tema_parent = connection::SelectMaxReg("id_tema","foro_temas"," AND id_tema_parent=0 AND id_area=".$id_area." ");
-						$filtro = " AND id_area=".$id_area." AND id_tema_parent=".$id_tema_parent." AND activo=1 ";
-						if ($_SESSION['user_canal'] != 'admin') $filtro .= " AND canal='".$_SESSION['user_canal']."' ";
-						
+						$filtro = " AND id_area=".$id_area." AND activo=1 ";						
 						$elements = foroController::getListTemasAction($module_config['options']['forums_per_page'], $filtro);
 
 						echo '<h4>'.strTranslate("Forums").' del curso</h4>';
@@ -65,7 +62,7 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] != ""):
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php
-			if ($module_config['options']['forums'] == true && count($canales) == 1) PanelSubirTemaForo($id_tema_parent, $area[0]['area_canal'], false, "", 0, $id_area);?>
+			if ($module_config['options']['forums'] == true && count($canales) == 1) PanelSubirTemaForo(false, "", 0, $id_area);?>
 			<br />
 			<p class="text-center"><i class="fa fa-mortar-board fa-big"></i></p>
 		</div>
