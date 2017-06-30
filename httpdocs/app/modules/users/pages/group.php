@@ -9,7 +9,7 @@ templateload("panels", "alerts");
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Group_user"), "ItemClass"=>"active"),
 		));
-		session::getFlashMessage('actions_message'); 
+		session::getFlashMessage('actions_message');
 		usersController::deleteAction();
 		$cod_empresa = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
 		$elements = usersController::getListAction(35, " AND empresa='".$cod_empresa."' AND disabled=0 ");
@@ -19,7 +19,7 @@ templateload("panels", "alerts");
 		<div class="row">
 			<div class="col-md-7">
 				<div class="table-responsive">
-					<table class="table table-striped table-hover">	
+					<table class="table table-striped table-hover">
 						<?php foreach($elements['items'] as $element):
 								$foto = usersController::getUserFoto($element['foto']); ?>
 								<tr>
@@ -31,7 +31,7 @@ templateload("panels", "alerts");
 									</td>
 									<td><?php $element['nombre_tienda'];?></td>
 								</tr>
-						<?php endforeach; ?>
+						<?php endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

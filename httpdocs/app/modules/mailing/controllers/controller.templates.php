@@ -2,12 +2,12 @@
 class mailingTemplatesController{
 	public static function getListAction($reg = 0, $activo = "todos", $filter = ""){
 		$mailing = new mailing();
+		$find_reg = getFindReg();
 		$filter .= " ORDER BY template_name DESC ";
 		if (isset($_GET['f']) && $_GET['f']!="") $filter = " AND t.id_campaign=".intval($_GET['f'])." ".$filter;
 		if ($activo == "activos") $filter = " AND activo=1 ".$filter;
 		if ($activo == "todos") $filter = " AND activo<>2 ".$filter;
 
-		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("mailing_templates t ", $filter);
 		return array('items' => $mailing->getTemplates($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),

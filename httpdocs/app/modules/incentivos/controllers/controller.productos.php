@@ -2,18 +2,11 @@
 class incentivosProductosController{
 	public static function getListAction($reg = 0, $filter=""){
 		$incentivos = new incentivos();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND nombre_producto LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
-			$find_reg .= $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND nombre_producto LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";
-			$find_reg = $_REQUEST['f'];
-		} 
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND nombre_producto LIKE '%".$find_reg."%' ";
 		$filter .= " AND activo_producto=1 ORDER BY nombre_producto";
-		$paginator_items = PaginatorPages($reg);
 		
+		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("incentives_productos p ", $filter); 
 		return array('items' => $incentivos->getIncentivesProductos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -57,12 +50,11 @@ class incentivosProductosController{
 
 	public static function getListAceleratorsAction($reg = 0, $filtro = ""){
 		$incentivos = new incentivos();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro .= " AND p.refrencia_acelerador LIKE '%".sanitizeInput($_POST['find_reg'])."%' "; $find_reg = $_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND p.refrencia_acelerador LIKE '%".sanitizeInput($_REQUEST['f'])."%' "; $find_reg = $_REQUEST['f'];} 
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filtro .= " AND p.refrencia_acelerador LIKE '%".$find_reg."%' "; 
 		$filtro .= " ORDER BY referencia_producto,date_ini";
+		
 		$paginator_items = PaginatorPages($reg);
-
 		$total_reg = connection::countReg("incentives_productos_aceleradores a, incentives_productos p "," AND p.id_producto=a.id_producto ".$filtro); 
 		return array('items' => $incentivos->getIncentivesProductAcelerators($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -131,7 +123,7 @@ class incentivosProductosController{
 
 	public static function getListPuntosAction($reg = 0, $filtro = ""){
 		$incentivos = new incentivos();
-		$find_reg = "";
+		$find_reg = getFindReg();
 		$filtro .= " ORDER BY date_ini";
 		$paginator_items = PaginatorPages($reg);
 

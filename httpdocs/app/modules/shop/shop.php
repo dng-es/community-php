@@ -3,7 +3,7 @@
 * @Manage shop
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.2
+* @version 1.3.2
 *
 */
 
@@ -56,22 +56,6 @@ class shopCore {
 				"LabelItem" => strTranslate("Shop_orders_list"),
 				"LabelUrl" => "admin-shoporders",
 				"LabelPos" => 2,
-			)),
-			menu::addAdminMenu(array(
-				"PageName" => "admin-creditos",
-				"LabelHeader" => "Tools",
-				"LabelSection" => strTranslate("Users"),
-				"LabelItem" => "Asignacion de ".strTranslate("APP_Credits"),
-				"LabelUrl" => "admin-creditos",
-				"LabelPos" => 4,
-			)),
-			menu::addAdminMenu(array(
-				"PageName" => "admin-informe-creditos",
-				"LabelHeader" => "Tools",
-				"LabelSection" => strTranslate("Reports"),
-				"LabelItem" => ucfirst(strTranslate("APP_Credits")),
-				"LabelUrl" => "admin-informe-creditos",
-				"LabelPos" => 3,
 			))
 		);
 	}

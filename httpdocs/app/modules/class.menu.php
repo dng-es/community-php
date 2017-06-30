@@ -2,86 +2,16 @@
 templateload("cmbCanales", "users");
 
 class menu{
-	/**
-	* Print Main menu. User must be logged
-	*/
-	static function PageMenu(){
-		global $session;
-		//MENU DE NAVAGACION
-		if ($_SESSION['user_logged'] == true){?>
-			<nav class="navbar navbar-default" id="menu-main" role="navigation">
-				<div class="container-fluid">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-main-container">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="home"><i class="fa fa-home"></i></a>
-					</div>
-
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse" id="menu-main-container">
-						<ul class="nav navbar-nav">
-							<?php self::userMainMenu();?>
-							
-							<li class="hidden-md hidden-lg"><a href="profile"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php e_strTranslate("My_profile")?></a></li>
-							<?php 
-							$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
-							//se muestra el acceso a admin si tiene el permiso
-							if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
-								if ($_SESSION['user_perfil'] == 'admin'){
-									echo '<li class="hidden-md hidden-lg"><a href="admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
-								}
-							}
-
-							if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
-								echo '<li class="hidden-md hidden-lg"><a href="mygroup"><i class="fa fa-users visible-xs-inline-block text-primary"></i> '.strTranslate("My_team").'</a></li>';
-							}
-							?>
-							<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Mailing_messages")?></a></li>
-							<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-power-off visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Logout")?></a></li>
-						</ul>
-					</div><!-- /.navbar-collapse -->
-				</div><!-- /.container-fluid -->
-			</nav>
-			<?php
-		}
-	}
-
-	/**
-	 * Print elements of users main menu
-	 */
-	public static function userMainMenu(){
-		global $array_usermenu;
-		$array_final = $array_usermenu;
-		$array_final = arraySort($array_final, 'LabelPos', SORT_ASC);
-
-		foreach ($array_final as  $fila) {
-			$labelId = (isset($fila['LabelId']) ? 'id="'.$fila['LabelId'].'"' : '');
-			$labelClass= (isset($fila['LabelClass']) ? 'class="'.$fila['LabelClass'].'"' : '');
-			if (isset($fila['SubItems']) && count($fila['SubItems']) > 0){
-				echo '<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].' <b class="caret"></b></a>
-						<ul class="dropdown-menu">';
-							foreach ($fila['SubItems'] as $elem):
-							echo '<li><a target="'.$elem['LabelTarget'].'" href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
-							endforeach;
-				echo '	</ul>
-					</li>';
-			}
-			else 
-				echo '<li><a '.$labelId.' '.$labelClass.' target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
-		}
+	static function menuContainer($slider = false){
+		self::userInfoMenu($slider);
+		self::pageMenu($slider);
 	}
 
 	/**
 	* Print user info. User must be logged
 	*
 	*/
-	static function UserInfoMenu(){
+	static function userInfoMenu($slider = false){
 		global $ini_conf, $session, $page;
 		$theme = ((isset($_REQUEST['theme']) && $page == 'home_new') ? sanitizeInput($_REQUEST['theme']) : $_SESSION['user_theme']);
 		if ($_SESSION['user_logged'] == true){
@@ -97,46 +27,168 @@ class menu{
 			$contador_no_leidos = connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 			?>
 			<div class="row header-info">
-				<a href="home"><img src="themes/<?php echo $theme;?>/images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" /></a>
-				<div id="user-info">
-					<div class="pull-right" style="width:75%">
-					<?php 
-					echo '<a href="profile" title="'.strTranslate("My_profile").'"><img alt="'.prepareString($_SESSION['user_nick']).'" src="'.usersController::getUserFoto($puntos_user[0]['foto']).'" /></a>';
-					
-					echo '<p>';
-					echo '<a href="profile">'.$_SESSION['user_nick'].'</a>';
-					echo '</p>';
-					echo '<p>';
-					echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-power-off faa-pulse animated-hover"></i></a>';
-					$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
-					
-					//se muestra el acceso a admin si tiene el permiso
-					if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
-						if ($_SESSION['user_perfil'] == 'admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
-					}
+			<?php if($slider == true): ?>
+				<div class="col-md-1 col-sm-1 col-xs-2 menu-hidden text-center" data-container="close">
+					<i class="fa fa-bars fa-2x"></i>
+				</div>
+			<?php endif; ?>
+				<div class="<?php echo ($slider == true ? 'col-md-3 col-sm-3 col-xs-10' : 'col-md-3 col-sm-3 hidden-xs' ) ?>">
+					<a href="home"><img src="themes/<?php echo $theme;?>/images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" class="img-responsive"/></a>
+				</div>
+				<div class="<?php echo ($slider == true ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-9 col-xs-12' ) ?>">
+					<div id="user-info">
+						<?php 
+						echo '<a href="profile" title="'.strTranslate("My_profile").'"><img alt="'.prepareString($_SESSION['user_nick']).'" src="'.usersController::getUserFoto($puntos_user[0]['foto']).'" /></a>';
+						
+						echo '<p>';
+						echo '<a href="profile">'.$_SESSION['user_nick'].'</a>';
+						echo '</p>';
+						echo '<p>';
+						echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-power-off faa-pulse animated-hover"></i></a>';
+						$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
+						
+						//se muestra el acceso a admin si tiene el permiso
+						if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
+							if ($_SESSION['user_perfil'] == 'admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
+						}
 
-					if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
-						echo '<a href="mygroup" title="'.strTranslate("My_team").'"><i class="fa fa-users"></i></a>';
-					}
-					echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
-					echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope faa-shake animated-hover"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';
-					if ($_SESSION['show_user_points']){
-						echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
-					}
-					echo ' </p>';
-					?>
+						if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
+							echo '<a href="mygroup" title="'.strTranslate("My_team").'"><i class="fa fa-users"></i></a>';
+						}
+						echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
+						echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope faa-shake animated-hover"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';
+						if ($_SESSION['show_user_points']){
+							echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
+						}
+						echo ' </p>';
+						?>
 					</div>
 				</div>
 			</div>
-			<div id="menu-selector">
-			<?php
-			//Print language selector
-			self::languageSelector();
-			self::channelSelector();
-			?>
-			</div>
-		<?php }
+
+			<?php self::menuClassic($slider);
+
+		}
+	}	
+
+	/**
+	* Print Main menu. User must be logged
+	*/
+	static function pageMenu($slider){
+		//MENU DE NAVAGACION
+		if ($_SESSION['user_logged'] == true){?>
+			<?php if($slider == false):?>
+			<nav class="navbar navbar-default" id="menu-main" role="navigation">
+				<div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-main-container">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="home"><i class="fa fa-home"></i></a>
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse" id="menu-main-container">
+						<ul class="nav navbar-nav nav-menu">
+							<?php self::userMainMenu($slider);?>
+							<?php self::menuAdminItems();?>
+						</ul>
+					</div><!-- /.navbar-collapse -->
+				</div><!-- /.container-fluid -->
+			</nav>
+			<?php endif;
+		}
 	}
+
+	/**
+	 * Print clasic main menu
+	 */
+	public static function menuClassic($slider = true){
+		if($slider == false):?>
+		<div id="menu-selector">
+			<?php self::languageSelector();?>
+			<?php self::channelSelector();?>
+		</div>
+		<?php endif;
+	}
+
+	/**
+	 * Print slider main menu
+	 */
+	public static function menuSlider($slider = true){
+		if($slider == true):?>
+		<div class="menu-hidden-container">
+			<ul class="nav-menu-hidden">
+				<?php self::languageSelector();?>
+				<?php self::channelSelector();?>
+				<li><a href="home"><i class="fa fa-home visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Home")?></a></li>
+				<?php self::userMainMenu($slider);?>
+				<?php self::menuAdminItems();?>
+			</ul>
+		</div>
+		<?php endif;
+	}
+
+	/**
+	 * Print elements of users main menu
+	 */
+	public static function userMainMenu($slider = false){
+		global $array_usermenu;
+		$array_final = $array_usermenu;
+		$array_final = arraySort($array_final, 'LabelPos', SORT_ASC);
+		foreach ($array_final as  $fila) {
+			self::userMainMenuItem($fila);
+		}
+	}
+
+	/**
+	 * Print one single item main menu
+	 */
+	public static function userMainMenuItem($fila){
+		$labelId = (isset($fila['LabelId']) ? 'id="'.$fila['LabelId'].'"' : '');
+		$labelClass= (isset($fila['LabelClass']) ? 'class="'.$fila['LabelClass'].'"' : '');
+
+		if (isset($fila['SubItems']) && count($fila['SubItems']) > 0){
+			echo '<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="600" data-close-others="false"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].' <b class="caret"></b></a>
+					<ul class="dropdown-menu">';
+						foreach ($fila['SubItems'] as $elem):
+						echo '<li><a target="'.$elem['LabelTarget'].'" href="'.$elem['LabelUrl'].'">'.$elem['LabelItem'].'</a></li>';
+						endforeach;
+			echo '	</ul>
+				</li>';
+		}
+		else 
+			echo '<li><a '.$labelId.' '.$labelClass.' target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
+		
+	}
+
+	/**
+	 * Print all items main menu
+	 */
+	public static function menuAdminItems(){ ?>
+		<li class="hidden-md hidden-lg"><a href="profile"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php e_strTranslate("My_profile")?></a></li>
+		<?php 
+		global $session;
+		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
+		//se muestra el acceso a admin si tiene el permiso
+		if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
+			if ($_SESSION['user_perfil'] == 'admin'){
+				echo '<li class="hidden-md hidden-lg"><a href="admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
+			}
+		}
+
+		if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
+			echo '<li class="hidden-md hidden-lg"><a href="mygroup"><i class="fa fa-users visible-xs-inline-block text-primary"></i> '.strTranslate("My_team").'</a></li>';
+		}
+		?>
+		<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Mailing_messages")?></a></li>
+		<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-power-off visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Logout")?></a></li>
+	<?php }
 
 	/**
 	 * Print each section of Admin main menu
@@ -175,7 +227,8 @@ class menu{
 		$header_name = "";
 		foreach($elems as $elem):
 			if($header_name != "" && $header_name != $elem['LabelSection']){
-				echo '</dl></div>
+				echo '		</dl>
+						</div>
 					</div>
 				</div>';
 			}
@@ -191,7 +244,8 @@ class menu{
 			echo '<dt>'.$elem['LabelItem'].'</dt>
 				<dd><a href="'.$elem['LabelUrl'].'">'.$elem['LabelUrlText'].'</a></dd>';
 		endforeach;
-				echo '</dl></div>
+				echo '		</dl>
+						</div>
 					</div>
 				</div>';
 	}
@@ -203,7 +257,7 @@ class menu{
 	static function channelSelector(){
 		if ($_SESSION['user_perfil'] == 'admin' || trim($_SESSION['user_canal']) == ''): ?>
 		<form role="form" name="chooseForm" id="chooseForm" action="" method="post" class="form-inline">
-			<select name="chooseFormValue" id="chooseFormValue" class="form-control input-xs">
+			<select name="chooseFormValue" id="chooseFormValue" class="form-control input-xs chooseFormValue">
 				<?php ComboCanales($_SESSION['user_canal'], ($_SESSION['user_perfil'] == 'admin' ? "": " AND visible=1 "));?>
 			</select>
 		</form>
@@ -222,7 +276,7 @@ class menu{
 			$destination = str_replace("?lan=", "?lano=", $_SERVER['REQUEST_URI']);
 			$separator = (strpos($_SERVER['REQUEST_URI'], "?") == 0  ? "?" : "&");
 			foreach($folders as $folder):
-				echo '<a href="'.$destination.$separator.'lan='.$folder.'" title="'.$folder.'"><img alt="<?php echo $folder;?>" src="app/languages/'.$folder.'/images/flag.png" /></a>';
+				echo '<a href="'.$destination.$separator.'lan='.$folder.'" title="'.$folder.'"><img alt="<?php echo $folder;?>" src="app/languages/'.$folder.'/images/flag.png" class="lang-img" /></a>';
 			endforeach;
 		}
 	}

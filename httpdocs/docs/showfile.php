@@ -8,6 +8,7 @@ include_once($base_dir . "app/core/constants.php");
 include_once($base_dir . "app/core/functions.php");
 include_once($base_dir . "app/core/class.session.php");
 include_once($base_dir . "app/modules/users/classes/class.users.php");
+include_once($base_dir . "app/modules/users/controllers/controller.canales.php");
 include_once($base_dir . "app/modules/info/controllers/controller.default.php");
 
 

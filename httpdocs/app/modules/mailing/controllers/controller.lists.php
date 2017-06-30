@@ -3,13 +3,13 @@ class mailingListsController{
 
 	public static function getListAction($reg = 0, $usuario = ""){
 		$mailing = new mailing();
-		$filtro = " AND activo=1 ORDER BY name_list ASC ";
-		if ($usuario != ""){ $filtro = " AND user_list='".$usuario."' ".$filtro;}
+		$find_reg = getFindReg();
+		$filter = " AND activo=1 ORDER BY name_list ASC ";
+		if ($usuario != "") $filter = " AND user_list='".$usuario."' ".$filter;
 
-		$find_reg = "";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("mailing_lists",$filtro);
-		return array('items' => $mailing->getLists($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("mailing_lists",$filter);
+		return array('items' => $mailing->getLists($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -31,20 +31,20 @@ class mailingListsController{
 					 'date_list' => $date_list);
 	}
 
-	public static function exportListAction($filtro = ""){
+	public static function exportListAction($filter = ""){
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$mailing = new mailing();
-			$elements = $mailing->getLists($filtro . " AND activo=1 ORDER BY name_list DESC ");
+			$elements = $mailing->getLists($filter." AND activo=1 ORDER BY name_list DESC ");
 			download_send_headers("listas_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
 		}
 	}
 
-	public static function exportUserListAction($filtro = ""){
+	public static function exportUserListAction($filter = ""){
 		if (isset($_REQUEST['exportm']) && $_REQUEST['exportm'] == true){
 			$mailing = new mailing();
-			$elements = $mailing->getListsUsers($filtro." AND id_list=".intval($_REQUEST['id']));
+			$elements = $mailing->getListsUsers($filter." AND id_list=".intval($_REQUEST['id']));
 			download_send_headers("emails_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();

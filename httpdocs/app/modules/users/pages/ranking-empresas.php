@@ -26,7 +26,7 @@ $puntos = $users->getPuntosEmpresa(" AND empresa<>'' AND empresa<>'comunidad' ",
 						<?php 	
 						//LOS 10 PRIMEROS DEL RANKING
 						for ($i = 0; $i <= 14; $i++){
-							if (isset($puntos[$i])): ?>
+							if (isset($puntos[$i])):?>
 						<tr>
 							<td class="table-number" width="40px"><i class="fa fa-trophy fa-medium"><small><?php echo ($i+1);?></small></i></td>
 							<td width="100%"><span class="color-ranking"><?php echo $puntos[$i]['nombre_tienda'];?></span>

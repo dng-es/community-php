@@ -106,10 +106,10 @@ function __autoload($classname){
 	if ($classname == "connection" || $classname == "session" || $classname == "FileSystem" || $classname == "tpl")
 		include_once (dirname(__FILE__)."/class.".strtolower($classname).".php");
 	elseif ($classname == "debugger") {
-		if ($ini_conf['debug_app'] == 1 || $ini_conf['debug_app'] == 2){
+		//if ($ini_conf['debug_app'] == 1 || $ini_conf['debug_app'] == 2){
 			include_once (dirname(__FILE__)."/debugger/class.".strtolower($classname).".php");
 			if ($ini_conf['debug_app'] == 2) debugger::$debugger_output = "file";
-		}
+		//}
 	}
 	elseif (strpos($classname, "Controller")){
 		$controller_name = "default";
@@ -123,8 +123,10 @@ function __autoload($classname){
 	}
 	elseif ($classname == "headers" || $classname == "footer" || $classname == "menu")
 		include_once(dirCarga(dirname(__FILE__), "/modules/class.".$classname.".php"));
-	else 
-		include_once (dirCarga(dirname(__FILE__), "/modules/".$classname."/classes/class.".$classname.".php"));
+	else {
+		if (file_exists(dirCarga(dirname(__FILE__), "/modules/".$classname."/classes/class.".$classname.".php")))
+			include_once (dirCarga(dirname(__FILE__), "/modules/".$classname."/classes/class.".$classname.".php"));
+	}
 }
 
 /**
@@ -259,6 +261,15 @@ function addJavascripts($scripts){
 }
 
 /**
+ * Add JS file to scripts array
+ * @param array $scripts Files to be added
+ */
+function addJavascript($script){
+	global $scripts_js;
+	array_push($scripts_js, $script);
+}
+
+/**
  * Add CSS files to header page
  * @param array $scripts Files to be added
  */
@@ -293,16 +304,32 @@ function hook_sidebar(){
 	get_hooks('sidebar');
 }
 
-$hooks_right = array();
+function hook_footer(){
+	get_hooks('footer');
+}
+
+$hooks['sidebar'] = array();
+$hooks['footer'] = array();
+$hooks['header'] = array();
 function add_hook($destination, $situation, $hook){
-	global $hooks_right, $page;
-	if ($page == $destination && $situation == 'sidebar') array_push($hooks_right, $hook);
+	global $hooks, $page;
+	if ($page == $destination && $situation == 'sidebar') array_push($hooks['sidebar'], $hook);
+	else array_push($hooks[$situation], $hook);
 }
 
 function get_hooks($situation){
-	global $hooks_right;
-	foreach ($hooks_right as $hook):
+	global $hooks;
+	foreach ($hooks[$situation] as $hook):
 		call_user_func($hook);
 	endforeach;
 }
+
+function getFindReg(){
+	$find_reg = "";
+	if (isset($_REQUEST['find_reg'])) $find_reg = sanitizeInput($_REQUEST['find_reg']);
+	if (isset($_REQUEST['f'])) $find_reg = sanitizeInput($_REQUEST['f']);
+	return $find_reg;
+}
+
+class CommunityException extends Exception { }
 ?>

@@ -64,4 +64,6 @@ Points_assignment = "Asignación de puntos"
 Search_group = "Buscar tenda"
 show_user_points = "Mostrar puntos de usuario"
 Panel_Search_text = "Encuentra usuarios dentro de la comunidad"
+APP_Credits = "créditos"
+APP_Credits_available = "cŕeditos disponibles"
 ?>

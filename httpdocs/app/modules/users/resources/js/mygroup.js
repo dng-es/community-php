@@ -4,11 +4,11 @@ jQuery(document).ready(function(){
 	$(".numeric").numeric();
 
 	$("#text_alert").bootstrapTextArea({
-							title: "Descripción",
-							lblSave: "Aceptar",
-							lblZoom: "Ampliar",
-							rows: 20
-							});
+		title: "Descripción",
+		lblSave: "Aceptar",
+		lblZoom: "Ampliar",
+		rows: 20
+	});
 
 	$("#new-user-trigger").click(function(e){
 		e.preventDefault();

@@ -60,10 +60,11 @@ function volcarMySQL($data){
 			$contador++;
 			$mensaje .= $contador." - <span class='text-muted'>".$id_product."</span> realizada baja correctamente.<br />";
 		}
-	}
+	}?>
 
-	echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a></p>
-		<p>El proceso de importación ha finalizado con éxito</p>';
-	if ($contador > 0) { echo '<p>los siguientes productos han sido dados de alta: ('.$contador.')</p>'.$mensaje;}
+	<br />
+	<p><a class="btn btn-primary" href="javascript:history.go(-1)"><?php e_strTranslate("Go_back");?></a></p>
+	<p>El proceso de importación ha finalizado con éxito</p>
+	<?php if ($contador > 0) echo '<p>los siguientes productos han sido dados de alta: ('.$contador.')</p>'.$mensaje;
 }
 ?>

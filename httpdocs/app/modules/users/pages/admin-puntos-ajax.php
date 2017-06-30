@@ -15,7 +15,7 @@ if (isset($_REQUEST['id_usuario']) && $_REQUEST['id_usuario'] != ""){
 	if (connection::countReg("users", " AND username='". $_REQUEST['id_usuario']."' ") == 0){
 		ErrorMsg('el usuario <b>'.$_REQUEST['id_usuario'].'</b> no existe');
 	}
-	else {
+	else{
 		if ($users->sumarPuntos($_REQUEST['id_usuario'], $_REQUEST['num'], $_REQUEST['motivo']) == true)
 			OkMsg($_REQUEST['num']." puntos asignados correctamente al usuario ".$_REQUEST['id_usuario']);
 	}

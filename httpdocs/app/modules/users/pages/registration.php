@@ -6,7 +6,7 @@ addJavascripts(array("js/bootstrap.file-input.js",
 $module_config = getModuleConfig("users");
 if ($module_config['options']['allow_registration'] === true):
 ?>
-<div id="confirm-container" class="row">			
+<div id="confirm-container" class="row">
 	<div class="col-md-5">
 		<img src="themes/<?php echo $_SESSION['user_theme'];?>/images/logo01.png" alt="<?php echo $ini_conf['SiteName'];?>" class="responsive login-img" />
 	</div>
@@ -28,7 +28,6 @@ if ($module_config['options']['allow_registration'] === true):
 											'',
 											sanitizeInput($_POST['user-date']),
 											sanitizeInput($_POST['user-empresa']));
-
 
 			if ($confirmar == 1){
 				$subject_mail = "Alta de usuario en ".$ini_conf['SiteName'];;
@@ -64,7 +63,6 @@ if ($module_config['options']['allow_registration'] === true):
 		$pages = new pages();
 		$politica = $pages->getPages(" AND page_name='policy' ");
 		$declaracion = $pages->getPages(" AND page_name='declaracion' ");
-
 		$user_name = "";
 		$user_nombre = "";
 		$user_apellidos = "";
@@ -75,7 +73,7 @@ if ($module_config['options']['allow_registration'] === true):
 		$user_empresa = "";
 		$user_date = "";
 
-		if (isset($_POST['username-text'])) {
+		if (isset($_POST['username-text'])){
 			$user_name = $_POST['username-text'];
 			$user_nombre = $_POST['user-nombre'];
 			$user_apellidos = $_POST['user-apellidos'];
@@ -85,8 +83,7 @@ if ($module_config['options']['allow_registration'] === true):
 			$user_repass = $_POST['user-repass'];
 			$user_empresa = $_POST['user-empresa'];
 			$user_date = $_POST['user-date'];
-		}
-		?>
+		}?>
 		<h1><?php e_strTranslate("Registration");?></h1>
 		<form id="confirm-form" name="confirm-form" enctype="multipart/form-data" action="" method="post" role="form" class="form-horizontal">
 			<div class="form-group">
@@ -141,8 +138,8 @@ if ($module_config['options']['allow_registration'] === true):
 				<script>
 					jQuery(document).ready(function(){
 						$("#datetimepicker1").datetimepicker({
-						  language: "es-ES",
-						  startDate: "2014/01/01"
+							language: "es-ES",
+							startDate: "2014/01/01"
 						});
 						<?php if (isset($user_date) && $user_date != ""){
 							echo "var fecha = '".date('D M d Y H:i:s O',strtotime($user_date))."';";
@@ -150,7 +147,6 @@ if ($module_config['options']['allow_registration'] === true):
 						}?>
 					});
 				</script>
-
 				<span id="user-date-alert" class="alert-message alert alert-danger"></span>
 			</div>
 			<div class="form-group">
@@ -180,7 +176,6 @@ if ($module_config['options']['allow_registration'] === true):
 					<input name="nombre-fichero" id="nombre-fichero" type="file"  class="btn btn-default" title="<?php e_strTranslate("Choose_file");?>" />
 				</div>
 			</div>
-
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
 					<div class="checkbox checkbox-primary">
@@ -191,8 +186,6 @@ if ($module_config['options']['allow_registration'] === true):
 					<span id="user-declaracion-alert" class="alert-message alert alert-danger"></span>
 				</div>
 			</div>
-
-
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-8">
 					<div class="row">
@@ -213,12 +206,10 @@ if ($module_config['options']['allow_registration'] === true):
 	</div>
 </div>
 
-
 <?php }?>
 <?php else: ?>
 	<h1><?php e_strTranslate("Access_denied");?></h1>
 <?php endif; ?>
-
 
 <!-- Modal -->
 <div class="modal modal-wide fade" id="declaracionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -1,3 +1,40 @@
+@import "compass/css3";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+
+/*SASS MIXINS*/
+@mixin transition($elements, $speed, $eff) {
+    -webkit-transition: $elements $speed $eff;
+    -moz-transition: $elements $speed $eff;
+    -ms-transition: $elements $speed $eff;
+    -o-transition: $elements $speed $eff;
+    transition: $elements $speed $eff;
+}
+
+@mixin animation($options) {
+    -webkit-animation: $options; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: $options; /* Firefox < 16 */
+    -ms-animation: $options; /* Internet Explorer */
+    -o-animation: $options; /* Opera < 12.1 */
+    animation: $options;
+}
+
+@mixin rowMachine($numPerRow, $margin) {
+    width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+    &:nth-child(n) {
+        margin-bottom: $margin;
+        margin-right: $margin;
+    }
+    &:nth-child(#{$numPerRow}n) {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+    @media screen and (max-width: $break-medium) {
+        margin: 0;
+        width: 100%;
+    }   
+}
+/*FIN SASS MIXINS*/
 @font-face {
     font-family: 'HELVNEUE35';
     src: url('fonts/HELVNEUE35_CYR_0.eot');

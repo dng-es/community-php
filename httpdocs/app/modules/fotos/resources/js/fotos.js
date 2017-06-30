@@ -19,6 +19,7 @@ function getImages(){
 				$('#cargando-infinnite').hide();
 				$('#cargando-infinnite-end').show();
 			}
+			$(".menu-hidden-container").css({"height" : $("#container-content").outerHeight()});
 		}
 	});
 }

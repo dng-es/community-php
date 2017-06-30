@@ -4,7 +4,7 @@
  * @param  $title boolean 	Show or hidden title panel
  * @return	String						HTML form
  */
-function panelSearchUser($title = true) { 
+function panelSearchUser($title = true){ 
 	$labelForm = strTranslate("Search")." ".strtolower(strTranslate("User"));
 	$labelButton = strTranslate("Search");
 	$clase_css = "";

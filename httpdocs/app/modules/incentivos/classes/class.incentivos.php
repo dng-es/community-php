@@ -1,6 +1,5 @@
 <?php
 class incentivos{
-
 	/**
 	 * Devuelve array con los registros
 	 * @param  string 	$filter 	Filtro SQL
@@ -24,7 +23,7 @@ class incentivos{
 		$Sql = "SELECT * FROM incentives_ventas 
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}	
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -68,7 +67,7 @@ class incentivos{
 			WHERE 1=1 ".$filter; 
 			//echo $Sql."<br />";
 		return connection::getSQL($Sql);
-	}	
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -399,7 +398,7 @@ class incentivos{
 		return connection::execute_query($Sql);
 	}
 
-	 /**
+	/**
 	 * Devuelve array con los registros
 	 * @param  string 	$filter 	Filtro SQL
 	 * @return array 				Array con registros

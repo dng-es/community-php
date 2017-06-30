@@ -1,0 +1,84 @@
+@import '../../../../../themes/default/css/variables';
+
+/*MODULO PRESTASHOP*/
+.credits-available{
+	border: 1px solid #e5e5e5;
+	margin: 20px 0;
+	padding: 6px;
+	width: 100%;
+	
+	// div{
+	// 	background-color: #f0f0f0;
+	// 	padding: 20px;
+	// }
+
+	p{
+		font-family: $community-font1;
+		font-size: 18px;
+		margin-bottom: 0px;
+	}
+
+	big{
+		font-size: 36px;
+		font-weight: bolder;
+		color: #777;
+	}
+}
+
+.img-shop-container{
+	border: 1px solid #e0e0e0;
+}
+
+.product-shop-container{
+	h3{
+		font-family: $community-font2;
+	}
+	h4 {
+		font-size: 24px;
+	}
+}
+
+.m-t-2 {
+	margin-top: 2px;
+}
+.m-b-5 {
+	margin-bottom: 5px;
+}
+
+#page-ps-products,
+#page-ps-product {
+	.btn-default {
+		background: #e5e5e5;
+	}
+}
+
+.panel-product {
+	p {
+		
+	}
+	.title {
+		display: block;
+		margin-top: 5px;
+	}
+}
+
+.order-detail {
+	.order-address {
+		p {
+			font-family: $primary-font;
+			color: $color3;			
+		}
+	}
+	.order-ref{
+		p{
+			font-family: $community-font2;
+			font-size: 20px;
+			letter-spacing: 2px;
+		}
+	}
+	.order-date {
+		font-family: $primary-font;		
+	}
+}
+
+/* FIN MODULO PRESTASHOP*/

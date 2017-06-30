@@ -41,8 +41,8 @@ $elements = shopProductsController::getListAction(15, $filtro);
 									<th>ID</th>
 									<th><?php e_strTranslate("Name");?></th>
 									<th><?php e_strTranslate("Channel");?></th>
-									<th><center>Stock</center></th>
-									<th><center><?php e_strTranslate("Active");?></center></th>
+									<th class="text-center">Stock</center></th>
+									<th class="text-center"><?php e_strTranslate("Active");?></center></th>
 								</tr>
 								<?php foreach($elements['items'] as $element): 
 									$icon = ($element['active_product'] == 0 ? "fa-toggle-off" : "fa-toggle-on");?>
@@ -57,8 +57,8 @@ $elements = shopProductsController::getListAction(15, $filtro);
 											<td><?php echo $element['id_product'];?></td>
 											<td><?php echo $element['name_product'];?></td>
 											<td><?php echo $element['canal_product'];?></td>
-											<td><center><?php echo $element['stock_product'];?></center></td>
-											<td><center><span class="label<?php echo ($element['active_product'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['active_product'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></center></span></td>
+											<td class="text-center"><?php echo $element['stock_product'];?></td>
+											<td class="text-center"><span class="label<?php echo ($element['active_product'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['active_product'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></td>
 										</tr>
 								<?php endforeach; ?>
 							</table>

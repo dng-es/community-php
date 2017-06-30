@@ -2,7 +2,7 @@
 class shopOrdersController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$shop = new shop();
-		$find_reg = "";
+		$find_reg = getFindReg();
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("shop_orders",$filter); 
 		return array('items' => $shop->getOrders($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -14,7 +14,7 @@ class shopOrdersController{
 
 	public static function getListDetailAction($reg = 0, $filter = ""){
 		$shop = new shop();
-		$find_reg = "";
+		$find_reg = getFindReg();
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("shop_orders_details d, shop_orders o "," AND d.id_order=o.id_order ".$filter); 
 		return array('items' => $shop->getOrdersDetails($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -25,7 +25,7 @@ class shopOrdersController{
 	}
 
 	public static function getListStatusAction($reg = 0, $filter = ""){
-		$find_reg = "";
+		$find_reg = getFindReg();
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("shop_orders_status",$filter); 
 		return array('items' => shop::getOrderStatus($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -154,7 +154,7 @@ class shopOrdersController{
 				$shop->updateProductStock($id_product, -1);
 
 				//actualizar creditos del usuario
-				shopCreditosController::updateCreditosAction($_SESSION['user_name'], -$product_detail['price_product'], $id_product);
+				usersCreditosController::updateCreditosAction($_SESSION['user_name'], -$product_detail['price_product'], $id_product);
 
 				//insertar detalle del pedido
 				shop::insertOrderDetail($id_order, $id_product, 1, $product_detail['price_product']);

@@ -1,7 +1,7 @@
 <?php
 addJavascripts(array("js/bootstrap.file-input.js", 
 					"js/jquery.numeric.js", 
-					getAsset("shop")."js/admin-creditos.js"));
+					getAsset("users")."js/admin-creditos.js"));
 ?>
 <div class="row row-top">
 	<div class="app-main">

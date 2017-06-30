@@ -13,11 +13,9 @@ session::ValidateSessionAjax();
 $pagina = $_REQUEST['pagina'];
 $reg = 56;
 $inicio = ($pagina - 1) * $reg;
-
 $module_config = getModuleConfig("users");
 $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
 $filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (connection_canal IN (".$module_channels.") or connection_canal='admin') ");
-
 $users_conn = users::getUsersConn($filtro_canal." LIMIT ".$inicio.",".$reg);
 ?>
 <!DOCTYPE html>

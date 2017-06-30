@@ -1,11 +1,12 @@
 <?php
 class mailingController{
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$mailing = new mailing();
-		$filtro .= "  ORDER BY id_message DESC";
+		$find_reg = getFindReg();
+		$filter .= "  ORDER BY id_message DESC";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("mailing_messages",$filtro);
-		return array('items' => $mailing->getMessages($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("mailing_messages",$filter);
+		return array('items' => $mailing->getMessages($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $paginator_items['find_reg'],
@@ -329,7 +330,7 @@ class mailingController{
 		redirectURL($_SERVER['REQUEST_URI']);
 	}
 
-	public static function cancelMessageAction($filtro = ""){
+	public static function cancelMessageAction($filter = ""){
 		if (isset($_REQUEST['del']) && $_REQUEST['del'] == true){
 			$mailing = new mailing();
 			if ($mailing->updateMessageField(intval($_REQUEST['id']), 'message_status',"'cancelled'", " AND username_add='".$_SESSION['user_name']."' "))
@@ -341,30 +342,30 @@ class mailingController{
 		}
 	}
 
-	public static function exportListAction($filtro = ""){
+	public static function exportListAction($filter = ""){
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$mailing = new mailing();
-			$elements = $mailing->getMessages($filtro);
+			$elements = $mailing->getMessages($filter);
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
 		}
 	}
 
-	public static function exportMessageAction($filtro = ""){
+	public static function exportMessageAction($filter = ""){
 		if (isset($_REQUEST['exportm']) && $_REQUEST['exportm'] == true){
 			$mailing = new mailing();
-			$elements = $mailing->getMessagesUsers($filtro." AND id_message=".intval($_REQUEST['id']));
+			$elements = $mailing->getMessagesUsers($filter." AND id_message=".intval($_REQUEST['id']));
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
 		}
 	}
 
-	public static function exportLinksAction($filtro = ""){
+	public static function exportLinksAction($filter = ""){
 		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] == 'links'){
 			$mailing = new mailing();
-			$elements = $mailing->getMessageLinkUserExport($filtro." AND l.id_message=".intval($_REQUEST['id']));
+			$elements = $mailing->getMessageLinkUserExport($filter." AND l.id_message=".intval($_REQUEST['id']));
 			download_send_headers("messages_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();

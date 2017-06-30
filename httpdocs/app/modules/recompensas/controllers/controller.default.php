@@ -15,15 +15,9 @@ class recompensasController{
 
 	public static function getListAction($reg = 0, $filter = ""){
 		$recompensas = new recompensas();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND recompensa_name LIKE '%".$_POST['find_reg']."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter .= " AND recompensa_name LIKE '%".$_REQUEST['f']."%' ";
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND recompensa_name LIKE '%".$find_reg."%' ";
+
 		$filter .= " ORDER BY recompensa_name";
 		$paginator_items = PaginatorPages($reg);		
 		$total_reg = connection::countReg("recompensas", $filter);
@@ -36,8 +30,8 @@ class recompensasController{
 
 	public static function createAction(){
 		if (isset($_POST['id_recompensa']) && $_POST['id_recompensa'] == 0){
-			$recompensas = new recompensas();
 			$id = 0;
+			$recompensas = new recompensas();
 			$recompensa_nombre = sanitizeInput($_POST['recompensa_nombre']);
 			$recompensa_image = uploadFileToFolder($_FILES['recompensa_image'], PATH_REWARDS);
 
@@ -68,7 +62,7 @@ class recompensasController{
 
 	public static function getListUserListAction($reg = 0, $filter = ""){
 		$recompensas = new recompensas();
-		$find_reg = "";
+		$find_reg = getFindReg();
 		$paginator_items = PaginatorPages($reg);
 		
 		$total_reg = connection::countReg("recompensas_user", $filter);
@@ -81,7 +75,7 @@ class recompensasController{
 
 	public static function getListUserAction($filter = ""){
 		$recompensas = new recompensas();
-		$find_reg = "";
+		$find_reg = getFindReg();
 
 		$total_recomensas = $recompensas->getRecompensasUser($filter);
 		return array('items' => $total_recomensas,

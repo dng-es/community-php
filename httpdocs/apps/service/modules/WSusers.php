@@ -56,7 +56,7 @@ class WSusers extends API{
 		$user_profile = $_GET['user_profile'];
 
 		// Session validation
-		if ($this->checkSesId($ses_id,$user)){
+		if ($this->checkSesId($ses_id, $user)){
 			// Input validations
 			if(!empty($user) and !empty($user_profile)){
 				$result = usersController::getPerfilAction($user_profile);

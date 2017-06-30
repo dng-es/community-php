@@ -5,7 +5,6 @@ addJavascripts(array("js/jquery.geturlparam.js",
 
 templateload("cmbCanales", "users");
 
-
 $id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : "");
 $user_permissions = usersController::getUserPermissions($id);
 $special_pages = array("login", "registration", "registration_process", "registration-confirm", "remember", "user-confirm", "users-conn-ajax", "users-conn-data", "admin-puntos-ajax", "admin-cargas-user-process", "admin-cargas-puntos-process",  
@@ -17,7 +16,6 @@ $special_pages = array("login", "registration", "registration_process", "registr
 
 $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) ;
 ?>
-	
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -54,7 +52,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 			<?php endif; ?>
 			<li><a href="#permissions" data-toggle="tab"><?php e_strTranslate("Permissions");?></a></li>
 		</ul>
-		
+
 		<div class="tab-content">
 			<div class="tab-pane fade in" id="general">
 				<div class="row">
@@ -126,9 +124,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<input type="text" class="form-control" id="email_user" name="email_user" value="<?php echo $elements[0]['email'];?>" data-alert="<?php e_strTranslate("Required_email");?>" />
 								</div>
 							</div>
-
 							<hr />
-
 							<div class="row">
 								<div class="col-md-6 form-group">
 									<label for="direccion_user"><small><?php e_strTranslate("Address");?>:</small></label>
@@ -157,7 +153,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 									<div class="checkbox checkbox-primary">
 										<input type="checkbox" onclick="return false;" onkeydown="e = e || window.event; if(e.keyCode !== 9) return false;" class="styled disabled" id="confirmed_user" name="confirmed_user" <?php echo $elements[0]['confirmed'] == 1 ? "checked" : "";?>>
 										<label class="disabled" for="confirmed_user" onclick="return false;" onkeydown="e = e || window.event; if(e.keyCode !== 9) return false;"><?php e_strTranslate("Confirmed");?></label>
-									</div>	
+									</div>
 								</div>
 
 								<div class="col-md-4 form-group">
@@ -206,13 +202,12 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 							<tr><td><label><?php e_strTranslate("Date_add");?></label></td><td><?php echo getDateFormat($elements[0]['date_add'], "DATE_TIME");?></td></tr>
 							<tr><td><label><?php echo ucfirst(strTranslate("APP_points"));?></label></td><td><?php echo $elements[0]['puntos'];?></td></tr>
 							<tr><td><label><?php echo ucfirst(strTranslate("APP_shares"));?></label></td><td><?php echo $elements[0]['participaciones'];?></td></tr>
-							<?php if (count($estadisticas)>0): ?>
-								<?php foreach(array_keys($estadisticas) as $final): ?>
+							<?php if (count($estadisticas)>0):?>
+								<?php foreach(array_keys($estadisticas) as $final):?>
 									<tr><td><label><?php echo $final;?></label></td><td><?php echo $estadisticas[$final];?></td></tr>
 								<?php endforeach;?>
 							<?php endif;?>
 						</table>
-						
 					</div>
 				</div>
 			</div>
@@ -225,8 +220,7 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 					</div>
 				</div>
 			</div>
-			<?php endif; ?>
-
+			<?php endif;?>
 
 			<div class="tab-pane fade" id="permissions">
 				<div class="row">
@@ -296,7 +290,6 @@ $base_dir = str_replace('modules/users/pages', '', realpath(dirname(__FILE__))) 
 												$permission_input_edit = 1;
 											}
 										}
-					
 										?>
 										<tr>
 											<td><label><?php echo $page_name;?></label></td>

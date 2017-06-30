@@ -59,12 +59,12 @@ $TITLE_META_PAGE = $titulo_page;
 		<?php
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
-			array("ItemLabel"=>strTranslate("Blog"), "ItemUrl"=>"#"),
+			array("ItemLabel"=>strTranslate("Blog"), "ItemUrl"=>"blog"),
 			array("ItemLabel"=>$titulo_page, "ItemClass"=>"active"),
 		));
 
 		$total_reg = connection::countReg("foro_temas t", $filtro_blog);
-		$sub_temas = $foro->getTemas($filtro_blog.' LIMIT '.$inicio.','.$reg);
+		$sub_temas = $foro->getTemas($filtro_blog.' ORDER BY date_tema DESC LIMIT '.$inicio.','.$reg);
 		foreach($sub_temas as $sub_tema):
 		echo '<div class="row">
 				<div class="col-md-12">';

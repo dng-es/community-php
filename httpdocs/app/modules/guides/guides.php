@@ -5,18 +5,17 @@
 * @version 1.0
 *
 */
-
 class guidesCore {
 	/**
 	 * Elementos para el menu de usuarios
-	 * @return 	array           			Array con los elementos del menu
+	 * @return 	array		Array con los elementos del menu
 	 */
 	public static function userMenu($menu_order){
 		global $session;
 		$array_final = array();
 		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("guides", $_SESSION['user_name']));
 		if ($session->checkPageViewPermission("guides", $_SESSION['user_perfil'], $user_permissions)){
-			array_push($array_final, array("LabelIcon" => "fa fa-document",
+			array_push($array_final, array("LabelIcon" => "fa fa-file",
 							"LabelItem" => strTranslate("Guides"),
 							"LabelUrl" => 'guides',
 							"LabelTarget" => '_self',

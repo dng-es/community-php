@@ -5,16 +5,15 @@ class na_areasController{
 		return $na_areas->getAreas(" AND id_area=".$id." ");
 	}
 
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$na_areas = new na_areas();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])) {$filtro .= " AND area_nombre LIKE '%".sanitizeInput($_POST['find_reg'])."%' "; $find_reg = $_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND area_nombre LIKE '%".sanitizeInput($_REQUEST['f'])."%' "; $find_reg = $_REQUEST['f'];}
-		$filtro .= " AND estado<>2  ORDER BY id_area DESC";
-		$paginator_items = PaginatorPages($reg);
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND area_nombre LIKE '%".$find_reg."%' "; 
+		$filter .= " AND estado<>2  ORDER BY id_area DESC";	
 		
-		$total_reg = connection::countReg("na_areas", $filtro); 
-		return array('items' => $na_areas->getAreas($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$paginator_items = PaginatorPages($reg);
+		$total_reg = connection::countReg("na_areas", $filter); 
+		return array('items' => $na_areas->getAreas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,

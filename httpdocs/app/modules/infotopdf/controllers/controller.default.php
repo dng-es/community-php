@@ -9,16 +9,10 @@ class infotopdfController{
 
 	public static function getListAction($reg = 0, $filter = ""){
 		$info = new infotopdf();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND titulo_info LIKE '%".$_POST['find_reg']."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter .= " AND titulo_info LIKE '%".$_REQUEST['f']."%' ";
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND titulo_info LIKE '%".$find_reg."%' ";
 		$filter .= " ORDER BY titulo_info";
+		
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("info i", $filter); 
 		return array('items' => $info->getInfo($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),

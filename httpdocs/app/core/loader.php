@@ -16,9 +16,9 @@ $user_permissions = $session->user_permissions;
 if ($ini_conf['underconstruction'] == true && ($page != "underconstruction" && $page != "login") && $_SESSION['user_perfil'] != 'admin') session::destroySession("underconstruction");
 
 //Load modules
+$scripts_js = array();
 $array_usermenu = array();
 $array_adminmenu = array();
-$hook_sidebar_rigth = "";
 $modules_data = array();
 $modules = getListModules();
 foreach($modules as $module):
@@ -41,7 +41,7 @@ foreach($modules as $module):
 
 			if (method_exists($instance, "adminMenu")) $array_adminmenu = array_merge($array_adminmenu, $instance->adminMenu());
 
-			//sidebar-right hooks
+			//Module hooks
 			if (method_exists($instance, "moduleHooks")) $instance->moduleHooks();
 
 		endif;

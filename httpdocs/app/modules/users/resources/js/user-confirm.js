@@ -1,6 +1,7 @@
 // JavaScript Document
 jQuery(document).ready(function(){
 	$('input[type=file]').bootstrapFileInput();
+	$('.tip').tooltip();
 
 	$("#datetimepicker1").datetimepicker({
 		language: "es-ES",
@@ -16,6 +17,19 @@ jQuery(document).ready(function(){
 		event.preventDefault();
 		$('#policyModal').modal('show');
 	});
+
+	$(document).on("keyup", '#user_recommend', function(e) {
+		var user_recommend = $(this).val();
+		$.ajax({
+			type: 'POST',
+			cache: false,
+			url: 'app/modules/users/pages/user-confirm-ajax.php',
+			data: {"user_recommend" : user_recommend},
+			success: function(data) {
+				$('#recomendacion-result').html(data);
+			}
+		})
+	});		
 
 	$("#confirm-form").submit(function(evento){
 		$(".alert-message").css("display", "none");
@@ -54,8 +68,10 @@ jQuery(document).ready(function(){
 			form_ok = false;
 		}
 		if ($("#user-declaracion").is(":checked")==false){
-			$("#user-declaracion-alert").html("Debes aceptar los términos y condiciones.").fadeIn().css("display", "block");
+			$("#user-declaracion-alert").html('<i class="text-danger fa fa-times-circle fa-3x" title="Debes aceptar los términos y condiciones"></i>');
 			form_ok = false;
+		}else{
+			$("#user-declaracion-alert").empty();
 		}
 
 		return form_ok;

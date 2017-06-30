@@ -21,4 +21,4 @@ $(window).scroll(function(){
 		pagina++;
 		cargardatos();
 	}
-});	
+});

@@ -2,15 +2,8 @@
 class campaignsController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$campaigns = new campaigns();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND name_campaign LIKE '%".$_POST['find_reg']."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter .= " AND name_campaign LIKE '%".$_REQUEST['f']."%' ";
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND name_campaign LIKE '%".$find_reg."%' ";
 		$filter .= " AND active=1 ORDER BY name_campaign ASC ";
 
 		$paginator_items = PaginatorPages($reg);
@@ -103,15 +96,8 @@ class campaignsController{
 
 	public static function getListTypesAction($reg = 0, $filter = ""){
 		$campaigns = new campaigns();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND campaign_type_name LIKE '%".$_POST['find_reg']."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter .= " AND campaign_type_name LIKE '%".$_REQUEST['f']."%' ";
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND campaign_type_name LIKE '%".$find_reg."%' ";
 		$filter .= " ORDER BY campaign_type_name ASC ";
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("campaigns_types", $filter);

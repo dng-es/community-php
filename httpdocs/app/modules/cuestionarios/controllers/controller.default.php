@@ -2,15 +2,8 @@
 class cuestionariosController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$cuestionarios = new cuestionarios();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$find_reg = sanitizeInput($_POST['find_reg']);
-			$filter .= " AND nombre LIKE '%".$find_reg."%' ";
-		}
-		if (isset($_REQUEST['f'])){
-			$find_reg = sanitizeInput($_REQUEST['f']);
-			$filter .= " AND nombre LIKE '%".$find_reg."%' ";
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND nombre LIKE '%".$find_reg."%' ";
 		$filter .= " ORDER BY id_cuestionario DESC";
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("cuestionarios", $filter);

@@ -22,7 +22,7 @@ class guides{
 			LEFT JOIN guides g ON g.id_guide=c.id_guide 
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}  
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -36,7 +36,7 @@ class guides{
 			LEFT JOIN guides g ON g.id_guide=c.id_guide 
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}  
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -46,7 +46,7 @@ class guides{
 	public function getGuidesSubCategoriesTypes($filter = ""){
 		$Sql="SELECT * FROM guides_subcategories_types WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	} 
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -62,7 +62,7 @@ class guides{
 			LEFT JOIN users u ON u.username=ug.user_guide
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	} 
+	}
 
 	/**
 	 * Devuelve array con los registros
@@ -79,7 +79,7 @@ class guides{
 			LEFT JOIN users u ON u.username=ug.user_guide
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}  				 
+	}
 
 	/**
 	 * Elimina registro en guides
@@ -112,7 +112,7 @@ class guides{
 	public function deleteGuideSubCategory($id, $activo){
 		$Sql = "UPDATE guides_subcategories SET active_guide_subcategory=".$activo." WHERE id_guide_subcategory=".$id;
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	/**
 	 * Elimina registro en guides
@@ -155,7 +155,7 @@ class guides{
 				order_guide_category=".$order_guide_category." 
 				WHERE id_guide_category=".$id." ";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	public function insertSubCategory($id_guide_category, $id_guide_subcategory_type, $desc_guide_subcategory, $active_guide_subcategory, $order_guide_subcategory){
 		$Sql = "INSERT INTO guides_subcategories(id_guide_category, id_guide_subcategory_type, desc_guide_subcategory, active_guide_subcategory, order_guide_subcategory) 
@@ -172,7 +172,7 @@ class guides{
 				order_guide_subcategory=".$order_guide_subcategory." 
 				WHERE id_guide_subcategory=".$id." ";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	public function insertSubCategoryType($name_guide_subcategory_type, $icon_guide_subcategory_type, $active_guide_subcategory_type, $order_guide_subcategory_type){
 		$Sql = "INSERT INTO guides_subcategories_types(name_guide_subcategory_type, icon_guide_subcategory_type, active_guide_subcategory_type, order_guide_subcategory_type) 
@@ -204,6 +204,6 @@ class guides{
 				user_guide_comment='".$user_guide_comment."' 
 				WHERE id_guide_users=".$id." ";
 		return connection::execute_query($Sql);
-	}		
+	}
 }
 ?>

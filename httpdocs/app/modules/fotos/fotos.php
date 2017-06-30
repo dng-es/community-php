@@ -3,7 +3,7 @@
 * @Modulo de fotos, depends on Users module. 
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.2.1
+* @version 1.2.2
 
 */
 class fotosCore{

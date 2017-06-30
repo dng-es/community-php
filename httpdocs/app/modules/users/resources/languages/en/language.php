@@ -64,4 +64,6 @@ Points_assignment = "Points assignment"
 Search_group = "Search group"
 show_user_points = "Show user points"
 Panel_Search_text = "Search users in the community"
+APP_Credits = "credits"
+APP_Credits_available = "available credits"
 ?>

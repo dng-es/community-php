@@ -28,7 +28,6 @@ $module_config = getModuleConfig("shop");
 			array("ItemLabel"=>strTranslate("APP_Shop"), "ItemUrl"=>"shopproducts"),
 			array("ItemLabel"=> strTranslate("Shop_products_list"), "ItemClass"=>"active"),
 		));
-		//var_dump($elements['items']);
 		?>
 
 		<div class="row">
@@ -42,11 +41,10 @@ $module_config = getModuleConfig("shop");
 				$foto = ($element['image_product'] == '' ? 'images/nofile.jpg' : "images/shop/".$element['image_product']);
 				?>
 				<div class="card-section">
-					<h3 class="ellipsis"><?php echo $element['name_product'];?></h3>
+					<h3 class="ellipsis"><a href="shopproduct?id=<?php echo $element['id_product'];?>"><?php echo $element['name_product'];?></a></h3>
 					<a href="shopproduct?id=<?php echo $element['id_product'];?>">
 						<img src="<?php echo $foto;?>" title="<?php echo $element['name_product'];?>" />
 					</a>
-					<div class="description"><?php echo shortText(html_entity_decode(strip_tags($element['description_product'])), 50);?></div>
 					<div <?php echo ($element['important_product'] == 0 ? 'style="visibility:hidden"' : "");?>>
 					<div class="label label-danger" >Producto destacado</div>
 					</div>

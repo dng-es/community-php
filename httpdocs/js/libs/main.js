@@ -1,11 +1,11 @@
-jQuery(document).ready(function(){
+jQuery(window).load(function(){
 	$(".menu-alert").css({"text-transform": "none"}).tooltip({
 		"container" : "body",
 		"placement" : "right"
 	});
 
-	$("#chooseFormValue").change(function(){
-		$("#chooseForm").submit();
+	$(".chooseFormValue").change(function(){
+		$(this).parent("form").submit();
 	});
 
 	$(".user-tip").tooltip({
@@ -44,6 +44,13 @@ jQuery(document).ready(function(){
 		if (anchoVentana > 991){ 
 			cargarImagenes();
 			$(".row-top").css({"min-height" : altoVentana - ($(".footer").outerHeight() + $("#menu-main").outerHeight() + $(".header-info").outerHeight())})
+			$(".menu-hidden-container").css({"height" : $("body").outerHeight() - ($(".footer").outerHeight() + $(".header-info").outerHeight())});
+		
+			//clases del menu principal
+			$(".nav-menu-hidden li").removeClass("dropdown");
+			$(".nav-menu-hidden ul").removeClass("dropdown-menu");
+			$(".nav-menu-hidden i").removeClass("visible-xs-inline-block");
+
 		}
 
 		updateBackground();
@@ -161,4 +168,40 @@ jQuery(document).ready(function(){
 		e.preventDefault();
 		$("#test-drop").addClass('test-drop-visible');
 	})
+
+	jQuery(".menu-hidden").click(function() {
+		var estado = $(this).data("container"),
+			anchoVentana = $(document).width(),
+			desplazamiento = (anchoVentana > 991 ? 25 : 85);
+
+		if (estado == "close"){
+			jQuery(".menu-hidden-container").animate({
+				'margin-left' : 0,
+				//'duration': 1000
+				//opacity: "toggle"
+			}, {
+				duration: 500,
+				step: function( now, fx ){
+					$( "#container-content" ).css({"margin-left": ( ((now * 100) / anchoVentana) + desplazamiento) + '%' }).parent().css({"overflow-x" : "hidden"});
+				}
+			});
+			$(this).data("container", "open");
+		}
+		else{
+			jQuery(".menu-hidden-container").animate({
+				'margin-left' : '-' + desplazamiento + '%',
+				//'duration': 1000
+				//opacity: "toggle"
+			}, {
+				duration: 500,
+				step: function( now, fx ){
+					$( "#container-content" ).css({"margin-left": (desplazamiento + now) + '%' }).parent().css({"overflow-x" : "auto"});
+					//console.log("Inicio: " + inicio);
+					//console.log("Now: " + now);
+				}
+			});
+			$(this).data("container", "close");
+		}
+
+	});
 });

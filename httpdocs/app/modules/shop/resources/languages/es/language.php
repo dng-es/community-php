@@ -2,7 +2,6 @@
 show_buybutton = "Mostrar botón de compra"
 show_stock = "Mostrar stock"
 show_price = "Mostrar precio"
-APP_Credits = "créditos"
 APP_Shop = "Premios"
 Shop_orders = "Pedidos"
 Shop_order_details = "Datos del pedido"

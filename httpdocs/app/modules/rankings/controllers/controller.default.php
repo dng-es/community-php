@@ -2,15 +2,9 @@
 class rankingsController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$rankings = new rankings();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND nombre_ranking LIKE '%".$_POST['find_reg']."%' ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND nombre_ranking LIKE '%".$_REQUEST['f']."%' ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND nombre_ranking LIKE '%".$find_reg."%' ".$filter;
+
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("users_tiendas_rankings r", $filter); 
 		return array('items' => $rankings->getRankings($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -22,15 +16,9 @@ class rankingsController{
 
 	public static function getListCategoryAction($reg = 0, $filter = ""){
 		$rankings = new rankings();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND ranking_category_name LIKE '%".$_POST['find_reg']."%' ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND ranking_category_name LIKE '%".$_REQUEST['f']."%' ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND ranking_category_name LIKE '%".$find_reg."%' ".$filter;
+
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("users_tiendas_ranking_category", $filter); 
 		return array('items' => $rankings->getRankingsCategories($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),

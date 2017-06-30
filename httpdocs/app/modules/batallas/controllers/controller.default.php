@@ -2,9 +2,8 @@
 class batallasController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$batallas = new batallas();
+		$find_reg = getFindReg();
 		$filter .= " ORDER BY date_batalla DESC ";
-
-		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("batallas", $filter);
 		return array('items' => $batallas->getBatallas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -163,9 +162,9 @@ class batallasController{
 		batallas::deleteBatallasCaducadas();
 	}
 
-	public static function getPendientes($username){
-		$filtro_batallas =  " AND finalizada=0 AND user_retado='".$username."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$username."' ) ";
-		return connection::countReg("batallas",$filtro_batallas);
+	public static function getPendientes($username, $filter = ''){
+		$filter .=  " AND finalizada=0 AND user_retado='".$username."' AND id_batalla NOT IN ( SELECT id_batalla FROM batallas_luchas WHERE user_lucha='".$username."' ) ";
+		return connection::countReg("batallas", $filter);
 	}
 }
 ?>

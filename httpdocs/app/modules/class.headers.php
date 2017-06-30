@@ -98,9 +98,9 @@ class headers{
 
 					<!-- Page content -->
 					<div id="header-container" class="hidden-print">
-						<?php menu::UserInfoMenu();?>
-						<?php menu::PageMenu();?>
+						<?php menu::menuContainer($ini_conf['menu_slider']);?>
 					</div>
+					<?php menu::menuSlider($ini_conf['menu_slider']);?>
 					<div id="container-content">
 					<!-- Mantener todo el contenido de la página dentro del div page-content -->
 		<?php endif;?>

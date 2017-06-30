@@ -31,7 +31,7 @@ class usersCore{
 	 * @return 	array           			Array con datos
 	 */	
 	public static function adminMenu(){
-		return array(
+		$menu_elems = array(
 			menu::addAdminMenu(array(
 				"PageName" => "admin-users",
 				"LabelHeader" => "Tools",
@@ -105,6 +105,30 @@ class usersCore{
 				"LabelPos" => 3,
 			))
 		);
+
+		if(getModuleExist("shop") || getModuleExist("prestashop")){
+			array_push($menu_elems, 
+				menu::addAdminMenu(array(
+					"PageName" => "admin-creditos",
+					"LabelHeader" => "Tools",
+					"LabelSection" => strTranslate("Users"),
+					"LabelItem" => "Asignacion de ".strTranslate("APP_Credits"),
+					"LabelUrl" => "admin-creditos",
+					"LabelPos" => 4,
+				)));
+
+			array_push($menu_elems, 
+				menu::addAdminMenu(array(
+					"PageName" => "admin-informe-creditos",
+					"LabelHeader" => "Tools",
+					"LabelSection" => strTranslate("Reports"),
+					"LabelItem" => ucfirst(strTranslate("APP_Credits")),
+					"LabelUrl" => "admin-informe-creditos",
+					"LabelPos" => 3,
+				)));
+		}
+
+		return $menu_elems;
 	}
 }
 ?>

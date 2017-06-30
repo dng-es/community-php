@@ -19,11 +19,11 @@ function userTip($user_data, $estrellas_print){
 		$output .= userRecompensaTip($user_data['username']);
 	endif;
 
-		$output .= '</td>
-					<td>
-					<span>
-					<span>'.strTranslate("Nick").': <span class="ficha-user-tip-info">'.$user_data['nick'].'</span></span><br />
-					<span>'.strTranslate("Name").': <span class="ficha-user-tip-info">'.$user_data['name'].' '.$user_data['surname'].'</span></span><br />';
+	$output .= '</td>
+				<td>
+				<span>
+				<span>'.strTranslate("Nick").': <span class="ficha-user-tip-info">'.$user_data['nick'].'</span></span><br />
+				<span>'.strTranslate("Name").': <span class="ficha-user-tip-info">'.$user_data['name'].' '.$user_data['surname'].'</span></span><br />';
 	if ($_SESSION['user_perfil'] == 'admin'){
 		$output .= '<span>'.strTranslate("Profile").': <span class="ficha-user-tip-info">'.$user_data['perfil'].'</span></span><br />
 			<span>'.strTranslate("Channel").': <span class="ficha-user-tip-info">'.$user_data['canal'].'</span></span><br />';
@@ -77,4 +77,4 @@ function userEstrellas($participaciones){
 		$estrellas_print .= '<span class="'.$clase.'"></span>';
 	}
 	return $estrellas_print;
-} ?>
+}?>

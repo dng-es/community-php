@@ -1,6 +1,5 @@
 <?php
 class incidenciasController{
-
 	public static function getItemAction($id, $filter){
 		$incidencias = new incidencias();
 		$element = array();
@@ -21,14 +20,17 @@ class incidenciasController{
 		return $element;
 	}
 
-	public static function getListAction($reg = 0, $filtro = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$incidencias = new incidencias();
-		$find_reg = "";
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND (texto_incidencia LIKE '%".$find_reg."%' OR id_incidencia='".$find_reg."') ";
+		
 		$find_reg2 = "";
-		if (isset($_POST['find_reg'])) {$filtro .= " AND (texto_incidencia LIKE '%".$_POST['find_reg']."%' OR id_incidencia='".$_POST['find_reg']."') ";$find_reg=$_POST['find_reg'];}
-		if (isset($_REQUEST['f'])) {$filtro .= " AND (texto_incidencia LIKE '%".$_REQUEST['f']."%' OR id_incidencia='".$_REQUEST['f']."') ";$find_reg=$_REQUEST['f'];} 
-		if (isset($_REQUEST['f2']) && $_REQUEST['f2'] != '') {$filtro .= " AND estado_incidencia=".$_REQUEST['f2']." ";$find_reg2=$_REQUEST['f2'];} 
-		$filtro .= " ORDER BY date_incidencia DESC";
+		if (isset($_REQUEST['f2']) && $_REQUEST['f2'] != '') {
+			$filter .= " AND estado_incidencia=".$_REQUEST['f2']." ";
+			$find_reg2 = $_REQUEST['f2'];
+		} 
+		$filter .= " ORDER BY date_incidencia DESC";
 		$paginator_items = PaginatorPages($reg);
 
 		$totales = connection::countReg("incidencias ","");
@@ -36,8 +38,8 @@ class incidenciasController{
 		$canceladas = connection::countReg("incidencias "," AND estado_incidencia=2 ");
 		$finalizadas = connection::countReg("incidencias "," AND estado_incidencia=1 ");
 		
-		$total_reg = connection::countReg("incidencias",$filtro);
-		return array('items' => $incidencias->getIncidencias($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("incidencias",$filter);
+		return array('items' => $incidencias->getIncidencias($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -49,14 +51,14 @@ class incidenciasController{
 					'total_reg' => $total_reg);
 	}
 
-	public static function getListEstadosAction($reg = 0, $filtro = ""){
+	public static function getListEstadosAction($reg = 0, $filter = ""){
 		$incidencias = new incidencias();
-		$find_reg = "";
-		$filtro .= " ORDER BY date_estado_cambio DESC";
+		$find_reg = getFindReg();
+		$filter .= " ORDER BY date_estado_cambio DESC";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("incidencias_estados",$filtro);
-		return array('items' => $incidencias->getIncidenciasEstados($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("incidencias_estados",$filter);
+		return array('items' => $incidencias->getIncidenciasEstados($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
@@ -178,7 +180,7 @@ class incidenciasController{
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
-			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
+			$find_reg = $find_reg = getFindReg();
 			redirectURL($destination."?id=".$id_incidencia);
 		}
 	}

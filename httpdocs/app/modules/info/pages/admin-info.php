@@ -1,7 +1,11 @@
 <?php
-//EXPORT VIEWS
 set_time_limit(0);
 ini_set('memory_limit', '-1');
+
+//EXPORT REGS
+infoController::exportListAction();
+
+//EXPORT VIEWS
 infoController::exportViewsAction();
 ?>
 <div class="row row-top">
@@ -21,7 +25,8 @@ infoController::exportViewsAction();
 				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Items");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-info-doc?act=new"><?php e_strTranslate("Info_Documents_new");?></a></li>
-					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?> accesos</a></li>
+					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
+					<li><a href="<?php echo $_REQUEST['page'].'?export_a=true';?>"><?php e_strTranslate("Export");?> accesos</a></li>
 					<div class="pull-right">
 						<?php echo SearchForm($elements['reg'],"admin-info","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
 					</div>

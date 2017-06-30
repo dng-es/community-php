@@ -7,7 +7,7 @@
 			array("ItemLabel"=>strTranslate("Pages"), "ItemUrl"=>"admin-pages"),
 			array("ItemLabel"=>strTranslate("Pages_list"), "ItemClass"=>"active"),
 		));
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		pagesController::deleteAction();
 		$elements = pagesController::getListAction(15, " ORDER BY page_name ");
 		?>

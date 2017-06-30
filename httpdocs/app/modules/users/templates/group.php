@@ -20,5 +20,5 @@ function panelGroup($groups, $id_group){ ?>
 			<option value="<?php echo $group['cod_tienda'];?>" <?php echo ($group['cod_tienda'] == $id_group ? ' selected="selected" ' : '');?>><?php echo $group['cod_tienda'];?> - <?php echo $group['nombre_tienda'];?></option>	
 		<?php endforeach; ?>
 	</select>
-	<?php endif; ?>
+	<?php endif;?>
 <?php } ?>

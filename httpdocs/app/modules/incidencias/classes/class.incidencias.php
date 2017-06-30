@@ -1,7 +1,5 @@
 <?php
-
 class incidencias{
-
 	/**
 	 * Devuelve array con los registros
 	 * @param  string 	$filter 	Filtro SQL
@@ -96,7 +94,7 @@ class incidencias{
 		return connection::execute_query($Sql);
 	}	
 
-		/**
+	/**
 	 * Devuelve array con los registros
 	 * @param  string 	$filter 	Filtro SQL
 	 * @return array 				Array con registros

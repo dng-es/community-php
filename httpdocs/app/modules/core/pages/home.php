@@ -18,6 +18,7 @@ templateload("panels", "videos");
 templateload("panels", "incentivos");
 templateload("panels", "agenda");
 templateload("searchuser", "users");
+
 ?>
 <div class="row row-top">
 	<div class="app-main">

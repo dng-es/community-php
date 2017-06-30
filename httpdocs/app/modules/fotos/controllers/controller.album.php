@@ -7,15 +7,8 @@ class fotosAlbumController{
 	
 	public static function getListAction($reg = 0, $filter = ""){
 		$fotos = new fotos();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND nombre_album LIKE '%".$_POST['find_reg']."%' ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND nombre_album LIKE '%".$_REQUEST['f']."%' ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter = " AND nombre_album LIKE '%".$find_reg."%' ".$filter;
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("galeria_fotos_albumes", $filter); 
 		return array('items' => $fotos->getFotosAlbumes($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -23,6 +16,16 @@ class fotosAlbumController{
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
+	}
+
+	public static function exportListAction($filter = ''){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
+			$fotos = new fotos();
+			$elements = $fotos->getFotosAlbumes($filter);
+			download_send_headers("data" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}
 	}
 
 	public static function createAction($destination = "admin-albumes-new" ){

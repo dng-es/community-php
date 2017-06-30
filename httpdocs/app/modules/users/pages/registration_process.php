@@ -14,5 +14,4 @@ if (isset($_POST['cod_tienda']) && $_POST['cod_tienda'] != ""){
 	$tienda = $users->getTiendas(" AND cod_tienda='".$_POST['cod_tienda']."' ");
 	if (count($tienda) == 1) echo $tienda[0]['nombre_tienda'];
 	else echo 'ko';
-}
-?>
+}?>

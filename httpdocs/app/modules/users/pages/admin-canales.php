@@ -12,7 +12,7 @@ usersCanalesController::exportListAction();
 			array("ItemLabel"=>strTranslate("Channel_list"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage('actions_message'); 
+		session::getFlashMessage('actions_message');
 		$elements = usersCanalesController::getListAction(35);
 		?>
 		<div class="panel panel-default">
@@ -31,7 +31,8 @@ usersCanalesController::exportListAction();
 						<th><?php e_strTranslate("Description");?></th>
 						<th><?php e_strTranslate("Language");?></th>
 						<th><?php e_strTranslate("Theme");?></th>
-						</tr>	
+						<th class="text-center">INFO</th>
+						</tr>
 						<?php foreach($elements['items'] as $element):?>
 							<tr>
 							<td nowrap="nowrap">
@@ -42,8 +43,9 @@ usersCanalesController::exportListAction();
 							<td><?php echo $element['canal_name'];?></td>
 							<td><?php echo $element['canal_lan'];?></td>
 							<td><?php echo $element['theme'];?></td>
+							<td class="text-center"><?php echo $element['points_info'];?></td>
 							</tr>  
-						<?php endforeach; ?>
+						<?php endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

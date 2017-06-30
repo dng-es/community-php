@@ -27,7 +27,7 @@ jQuery(document).ready(function(){
 				motivo_puntos = $("#motivo_puntos").val();
 				detalle_puntos = $("#detalle_puntos").val();
 			$("#resultado-puntos").css("display","none")
-									.load("app/modules/shop/pages/admin-creditos-ajax.php", {id_usuario: username,num: puntos, motivo: motivo_puntos, detalle: detalle_puntos})
+									.load("app/modules/users/pages/admin-creditos-ajax.php", {id_usuario: username,num: puntos, motivo: motivo_puntos, detalle: detalle_puntos})
 									.fadeIn()
 									.css("display","block");
 		}

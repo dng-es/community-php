@@ -36,7 +36,7 @@ function panelConnected(){
 			<div class="row">
 				<div class="col-md-8 col-xs-8 inset">
 					<h4>
-						<?php e_strTranslate("Users_connected"); ?>
+						<?php e_strTranslate("Users_connected");?>
 					</h4>
 					<small><?php e_strTranslate("Go_to");?> <a href="users-conn"><?php e_strTranslate("Users_connected");?></a></small>
 				</div>

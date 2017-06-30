@@ -29,6 +29,7 @@ class footer{
 			<div class="col-md-4">
 				<img src="themes/<?php echo $theme;?>/images/logo.png" class="img-responsive" />
 				<p><small>powered by Grass Roots <?php echo date("Y");?></small></p>
+				<?php hook_footer();?>
 			</div>
 		</div>
 

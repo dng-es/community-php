@@ -12,7 +12,7 @@ $module_config = getModuleConfig("users");
 	<div class="col-md-7 login-container">
 		<h1 class="inset"><?php e_strTranslate("Recover_password");?></h1>
 		<?php
-		session::getFlashMessage( 'actions_message' ); 
+		session::getFlashMessage( 'actions_message' );
 		usersController::recoverPasswordAction();?>
 		<form method="post" action="" name="formRemember" id="formRemember" role="form" class="form-signin form-horizontal">
 			<div class="row">

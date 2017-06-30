@@ -1,7 +1,7 @@
 <?php
 //EXPORT EXCEL - SHOW AND GENERATE
-shopCreditosController::exportListAction();
-$elements = shopCreditosController::getListAction(100);
+usersCreditosController::exportListAction();
+$elements = usersCreditosController::getListAction(100);
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -26,19 +26,19 @@ $elements = shopCreditosController::getListAction(100);
 						<tr>
 							<th><?php e_strTranslate("User");?></th>
 							<th><?php e_strTranslate("Nick");?></th>
-							<th><?php echo ucfirst(strTranslate("APP_Credits"));?></th>
-							<th><?php echo ucfirst(strTranslate("APP_Credits"));?> motivo</th>
-							<th><?php echo ucfirst(strTranslate("APP_Credits"));?> detalle</th>
+							<th>Motivo</th>
+							<th>Detalle</th>
 							<th><?php e_strTranslate("Date");?></th>
+							<th class="text-right"><?php echo ucfirst(strTranslate("APP_Credits"));?></th>
 						</tr>
 						<?php foreach($elements['items'] as $element): ?>
 						<tr>
-							<td>&nbsp;<?php echo $element['credito_username'];?></td>
+							<td><?php echo $element['credito_username'];?></td>
 							<td><?php echo $element['nick'];?></td>
-							<td><?php echo $element['credito_puntos'];?></td>
 							<td><?php echo $element['credito_motivo'];?></td>
 							<td><?php echo $element['credito_detalle'];?></td>
 							<td><?php echo getDateFormat($element['credito_date'], "DATE_TIME");?></td>
+							<td class="text-right"><?php echo $element['credito_puntos'];?></td>
 						</tr>
 						<?php endforeach;?>
 					</table>

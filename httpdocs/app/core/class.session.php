@@ -172,6 +172,7 @@ class session{
 		if (count($result_user) == 1){
 			$_SESSION['user_name'] = $Login_user;
 			$_SESSION['user_logged'] = false;
+			$_SESSION['id_externo'] = $result_user[0]['id_externo'];
 			if ($result_user[0]['confirmed'] == 1 && $result_user[0]['registered'] == 1){
 				//Si ambos datos son correctos guardamos estos datos en la session.
 				self::setTheme($result_user[0]['canal']);

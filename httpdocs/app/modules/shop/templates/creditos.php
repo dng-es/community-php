@@ -5,7 +5,7 @@
  * @return	String						HTML list
  */
 function creditosUser($username){
-	$elements = shopCreditosController::getCreditosAction($username); ?>
+	$elements = usersCreditosController::getCreditosAction($username); ?>
 	<h3><?php echo ucfirst(strTranslate("APP_Credits"));?> conseguidos</h3>
 	<ul class="list-funny">
 	<?php foreach($elements as $element): ?>

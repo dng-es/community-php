@@ -2,17 +2,10 @@
 class novedadesController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$novedades = new novedades();
-		$paginator_items = PaginatorPages($reg);
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND titulo LIKE '%".$_POST['find_reg']."%' ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND titulo LIKE '%".$_REQUEST['f']."%' ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND titulo LIKE '%".$find_reg."%' ".$filter;
 		
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("novedades n", $filter); 
 		return array('items' => $novedades->getNovedades($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -36,7 +29,6 @@ class novedadesController{
 			$element['tipo'] = "slider";
 			$element['orden'] = 0;
 		}
-
 		return $element;
 	}
 

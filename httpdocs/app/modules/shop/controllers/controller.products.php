@@ -20,7 +20,6 @@ class shopProductsController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$shop = new shop();
 		$find_reg = "";
-
 		if (isset($_REQUEST['ref_search'])) $find_reg .= "&ref_search=".$_REQUEST['ref_search'];
 		if (isset($_REQUEST['name_search'])) $find_reg .= "&name_search=".$_REQUEST['name_search'];
 		if (isset($_REQUEST['manufacturer_search'])) $find_reg .= "&manufacturer_search=".$_REQUEST['manufacturer_search'];
@@ -136,6 +135,26 @@ class shopProductsController{
 
 			redirectURL("admin-shopproducts");
 		}
+	}
+	
+	public static function getCategoriesAction($filter = ""){
+		$shop = new shop();
+		$categories = $shop->getProductsCategoriesGroup($filter);
+		$categories = str_replace(" ,", ",", $categories[0]['category']);
+		$categories = str_replace(", ", ",", $categories);
+		$categories = (array_unique(explode(',', $categories)));
+		array_multisort($categories);
+		return $categories;
+	}
+
+	public static function getSubCategoriesAction($filter = ""){
+		$shop = new shop();
+		$categories = $shop->getProductsSubcategoriesGroup($filter);
+		$categories = str_replace(" ,", ",", $categories[0]['category']);
+		$categories = str_replace(", ", ",", $categories);
+		$categories = (array_unique(explode(',', $categories)));
+		array_multisort($categories);
+		return $categories;
 	}
 }
 ?>

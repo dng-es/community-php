@@ -67,10 +67,10 @@ function volcarMySQL($data){
 		else:
 			echo '<p>Se ha producido un error durante el cambio de estado del pedido con id '.$id_order.' que tiene el estado '.$status_order.' y se quiere cambiar a '.$status_order_old.'. '.$response['description'].'</p>';
 		endif;
-	}
+	} ?>
 
-	echo '<br /><p><a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a></p>
-		<p>El proceso de importación ha finalizado con éxito</p>';
+	<br />
+	<p><a class="btn btn-primary" href="javascript:history.go(-1)"><?php e_strTranslate("Go_back");?></a></p>
+	<p>El proceso de importación ha finalizado con éxito</p>
 
-}
-?>
+<?php } ?>

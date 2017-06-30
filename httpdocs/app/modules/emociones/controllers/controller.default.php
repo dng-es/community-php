@@ -52,7 +52,7 @@ class emocionesController{
 				session::setFlashMessage( 'actions_message', "error al eliminar emoción.", "alert alert-danger");
 			}
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
-			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
+			$find_reg = getFindReg();
 			redirectURL("?page=admin-emociones&pag=".$pag."&f=".$find_reg);
 		}
 	}
@@ -60,7 +60,7 @@ class emocionesController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$emociones = new emociones();
 		$filter .= " ORDER BY id_emocion ASC ";
-		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
+		$find_reg = getFindReg();
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("emociones", $filter);
 		return array('items' => $emociones->getEmociones($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -103,12 +103,12 @@ class emocionesController{
 
 	public static function getListuserAction($reg = 0, $filter = ""){
 		$emociones = new emociones();
-		$find_reg = (isset($_GET['f']) && $_GET['f'] > 0) ? $_GET['f'] : "";
+		$find_reg = getFindReg();
 		if (isset($_REQUEST['id']) && $_REQUEST['id'] > 0){
-			$filter = " AND eu.id_emocion=".$_REQUEST['id'] . " " .$filter;
+			$filter .= " AND eu.id_emocion=".$_REQUEST['id'] . " " .$filter;
 		}
 		if (isset($_REQUEST['i']) && $_REQUEST['i'] != ""){
-			$filter = " AND date_emocion BETWEEN " . str_replace("%27", "'", $_REQUEST['i']) . " " .$filter;
+			$filter .= " AND date_emocion BETWEEN " . str_replace("%27", "'", $_REQUEST['i']) . " " .$filter;
 		}
 		$filter .= " ORDER BY date_emocion DESC ";
 		$paginator_items = PaginatorPages($reg);	

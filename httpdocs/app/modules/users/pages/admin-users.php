@@ -29,13 +29,13 @@ addJavascripts(array(getAsset("users")."js/connect-as.js"));
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<ul class="nav nav-pills navbar-default">       
+				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-user"><?php e_strTranslate("New_user");?></a></li>
 					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
 					<li><a href="<?php echo $_REQUEST['page'].'?export_s=true';?>">Exportar estadísticas</a></li>
 					<div class="pull-right">
-						<?php echo SearchForm($elements['reg'],"admin-users","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>	
+						<?php echo SearchForm($elements['reg'],"admin-users","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
 					</div>
 				</ul>
 
@@ -72,7 +72,7 @@ addJavascripts(array(getAsset("users")."js/connect-as.js"));
 							<td class="text-center"><span class="label<?php echo ($element['disabled'] == 1 ? " label-danger" : " label-success");?>"><?php echo ($element['disabled'] == 0 ? strTranslate("App_No") : strTranslate("App_Yes"));?></span></td>
 							<td><button type="button" class="btn btn-default btn-xs connect-as" title="<?php e_strTranslate("Connect_as");?>" data-u="<?php echo $element['username'];?>" data-p="<?php echo $element['user_password'];?>"><i class="fa fa-plug"></i></button></td>
 							</tr>
-						<?php endforeach; ?>
+						<?php endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

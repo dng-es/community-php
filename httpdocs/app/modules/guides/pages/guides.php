@@ -7,7 +7,6 @@ $usuario = usersController::getPerfilAction($_SESSION['user_name']);
 
 session::getFlashMessage( 'actions_message' );
 ?>
-
 <div class="row row-top">
 	<div class="app-main">
 		<?php

@@ -8,7 +8,7 @@
 			array("ItemLabel"=>strTranslate("Reports"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Report")." ".strTranslate("APP_points"), "ItemClass"=>"active"),
 		));
-		$elements = usersPuntuacionesController::getListAction(100); ?>
+		$elements = usersPuntuacionesController::getListAction(100);?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">
@@ -22,18 +22,18 @@
 						<tr>
 						<th><?php e_strTranslate("User");?></th>
 						<th><?php e_strTranslate("Nick");?></th>
-						<th><?php echo ucfirst(strTranslate("APP_points"));?></th>
-						<th><?php echo ucfirst(strTranslate("APP_points"));?> motivo</th>
+						<th>Motivo</th>
 						<th><?php e_strTranslate("Date");?></th>
+						<th class="text-right"><?php echo ucfirst(strTranslate("APP_points"));?></th>
 						</tr>
 						<?php foreach($elements['items'] as $element): ?>
-							<tr>
+						<tr>
 							<td><?php echo $element['puntuacion_username'];?></td>
 							<td><?php echo $element['nick'];?></td>
-							<td><?php echo $element['puntuacion_puntos'];?></td>
 							<td><?php echo $element['puntuacion_motivo'];?></td>
 							<td><?php echo getDateFormat($element['puntuacion_date'], "DATE_TIME");?></td>
-							</tr>
+							<td class="text-right"><?php echo $element['puntuacion_puntos'];?></td>
+						</tr>
 						<?php endforeach; ?>
 					</table>
 				</div>

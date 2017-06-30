@@ -1,4 +1,12 @@
 <?php
+$id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
+
+set_time_limit(0);
+ini_set('memory_limit', '-1');
+
+//EXPORT REGS
+fotosController::exportListAction(" AND f.id_album=".$id." ");
+
 addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 ?>
 <div class="row row-top">
@@ -18,7 +26,6 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 		fotosAlbumController::cancelFotoAction();
 		fotosAlbumController::createAction();
 		fotosAlbumController::updateAction();
-		$id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 		$album = fotosAlbumController::getItemAction($id); 
 		$elements = fotosController::getListAction(15, "AND estado=1 AND f.id_album=".$id." ");?>
 
@@ -71,6 +78,10 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 						if (count($elements['items']) == 0):?>
 							<div class="alert alert-warning">No existen fotos en el álbum</div>
 						<?php else: ?>
+							<ul class="nav nav-pills navbar-default">
+								<li class="disabled"><a href="#"><?php e_strTranslate("Items");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+								<li><a href="<?php echo $_SERVER['REQUEST_URI'].'&export=true';?>"><?php e_strTranslate("Export");?></a></li>
+							</ul>
 							<div class="table-responsive">
 								<table class="table table-hover table-striped">
 									<tr>

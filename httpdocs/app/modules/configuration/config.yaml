@@ -3,3 +3,5 @@ options:
     language: es
     breadcrumb: true
     language_selector: true
+    menu_slider: true
+channels: null

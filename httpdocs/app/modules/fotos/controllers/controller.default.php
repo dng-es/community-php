@@ -2,8 +2,8 @@
 class fotosController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$fotos = new fotos();
-		$find_reg = ((isset($_REQUEST['f']) && $_REQUEST['f'] != 'null') ? $_REQUEST['f'] : (isset($_POST['find_reg']) ? $_POST['find_reg'] : ""));
-		if ($find_reg != "" ) $filter .= " AND titulo LIKE '%".sanitizeInput($find_reg)."%' ".$filter;
+		$find_reg = getFindReg();
+		if ($find_reg != "" && $find_reg != 'null') $filter = " AND titulo LIKE '%".sanitizeInput($find_reg)."%' ".$filter;
 		//if ($_SESSION['user_canal'] != 'admin') $filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("galeria_fotos f, galeria_fotos_albumes a, users u"," AND f.id_album=a.id_album AND u.username=f.user_add ".$filter); 
@@ -13,6 +13,16 @@ class fotosController{
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
 	}
+
+	public static function exportListAction($filter = ''){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
+			$fotos = new fotos();
+			$elements = $fotos->getFotos($filter);
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}
+	}	
 
 	public static function getItemAction($filter){
 		$fotos = new fotos();

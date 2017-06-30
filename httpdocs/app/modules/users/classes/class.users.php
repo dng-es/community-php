@@ -10,16 +10,17 @@ class users{
 		return connection::getSQL($Sql);
 	}
 
-	public function insertCanal($canal, $canal_name, $theme, $canal_lan){
-		$Sql = "INSERT INTO canales (canal, canal_name, theme, canal_lan) 
-				VALUES ('".$canal."','".$canal_name."', '".$theme."','".$canal_lan."')";
+	public function insertCanal($canal, $canal_name, $theme, $canal_lan, $points_info){
+		$Sql = "INSERT INTO canales (canal, canal_name, theme, canal_lan, points_info) 
+				VALUES ('".$canal."','".$canal_name."', '".$theme."','".$canal_lan."',".$points_info.")";
 		return connection::execute_query($Sql);
 	}
 
-	public function updateCanal($canal, $canal_name, $theme, $canal_lan){
+	public function updateCanal($canal, $canal_name, $theme, $canal_lan, $points_info){
 		$Sql = "UPDATE canales SET 
-				canal_name='".$canal_name."', 
-				canal_lan='".$canal_lan."', 
+				canal_name='".$canal_name."',
+				canal_lan='".$canal_lan."',
+				points_info=".$points_info.",
 				theme='".$theme."' 
 				WHERE canal='".$canal."' ";
 		return connection::execute_query($Sql);
@@ -36,15 +37,15 @@ class users{
 		$Sql = "SELECT * FROM users 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
-	}	
+	}
 
 	public function getUsersListado($filter = ""){
 		$Sql = "SELECT u.username AS Usuario,u.nick AS Nick,u.name AS Nombre,u.surname AS Apellidos,u.email AS Email,u.telefono AS Telefono, u.empresa AS IdGroup,t.nombre_tienda AS NameGroup 
 				FROM users u  
 				LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
-				WHERE 1=1 ".$filter; //echo "<br />".$Sql."<br />";
-		return connection::getSQL($Sql);  
-	}	
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
 
 	public function insertUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered = 0, $direccion_user = '', $ciudad_user = '', $provincia_user = '', $cpostal_user = ''){
 		if ($perfil == 'admin') $canal = 'admin';
@@ -68,16 +69,16 @@ class users{
 				VALUES ('".$username."','".$username."','".$email."','".$name_user."',0,0,
 				'comercial','".$empresa."','usuario','".$telefono."','".$surname."','',0)";
 		return connection::execute_query($Sql);
-	}	
+	}
 
-	public function updateUserEquipo($username,$empresa){		 
+	public function updateUserEquipo($username,$empresa){
 		$Sql = "UPDATE users SET
 				empresa='".$empresa."' 
 				WHERE username='".$username."'"; //echo $Sql."<br />";
 		return connection::execute_query($Sql);
-	}	
+	}
 
-	public function reactivarUserEquipo($username, $empresa, $name_user, $surname, $email, $telefono){		 
+	public function reactivarUserEquipo($username, $empresa, $name_user, $surname, $email, $telefono){
 		$Sql = "UPDATE users SET
 				empresa='".$empresa."',
 				name='".$name_user."',
@@ -87,7 +88,7 @@ class users{
 				disabled=0  
 				WHERE username='".$username."'"; //echo $Sql;
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	public function updateUser($username, $user_password, $email, $name_user, $confirmed, $disabled, $empresa, $canal, $perfil, $telefono, $surname, $registered, $direccion_user, $ciudad_user, $provincia_user, $cpostal_user){
 		if ($perfil == 'admin') $canal = 'admin';
@@ -116,7 +117,7 @@ class users{
 		$Sql = "UPDATE users SET 
 				foto='' 
 				WHERE username='".$username."'";
-		if (connection::execute_query($Sql)){ 
+		if (connection::execute_query($Sql)){
 			unlink(PATH_USERS_FOTO.$foto);
 			return true;
 		}
@@ -134,7 +135,7 @@ class users{
 				VALUES ('".$puntuacion_username."','".$puntuacion_puntos."','".$puntuacion_motivo."')";
 		return connection::execute_query($Sql);
 	}
-	
+
 	public function getParticipaciones($filter = ""){
 		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* FROM users_participaciones p
 			 JOIN users u ON u.username=p.participacion_username WHERE 1=1 ".$filter;
@@ -145,7 +146,7 @@ class users{
 			$Sql = "INSERT INTO users_participaciones (participacion_username, participacion_motivo,valor) 
 				  VALUES ('".$participacion_username."','".$participacion_motivo."',".$valor.")";
 			return connection::execute_query($Sql);
-	}	
+	}
 
 	public static function sumarPuntos($username, $puntos, $motivo){
 		if ($motivo != PUNTOS_ACCESO_SEMANA_MOTIVO and $motivo != PUNTOS_FORO_SEMANA_MOTIVO) self::sumarParticipacion($username, $motivo, $puntos);
@@ -215,15 +216,15 @@ class users{
 				disabled=0
 				WHERE username='".$username."'";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	public function confirmUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_date){
 		//verificar si el nick existe, Devolvera: 1->ok, 2-> Error SQL, 3->Nick existe,
 		if (connection::countReg("users"," AND nick='".$nick."' AND username<>'".$username."' ") == 0){
-			 $nombre_archivo = "";
-			 if ($foto['name'] != "") $nombre_archivo = self::insertFoto($foto);
-			 if ($user_date == "") $user_date = "(NULL)";
-			 else $user_date = "'".$user_date."'";
+			$nombre_archivo = "";
+			if ($foto['name'] != "") $nombre_archivo = self::insertFoto($foto);
+			if ($user_date == "") $user_date = "(NULL)";
+			else $user_date = "'".$user_date."'";
 
 			$Sql = "UPDATE users SET
 					registered=1,
@@ -239,8 +240,8 @@ class users{
 					user_date=".$user_date." 
 					WHERE username='".$username."'";
 
-			 if (connection::execute_query($Sql)) return 1;
-			 else return 2;
+			if (connection::execute_query($Sql)) return 1;
+			else return 2;
 		}
 		else return 3;
 	}
@@ -279,8 +280,7 @@ class users{
 	public function confirmRegistration($username, $user_email, $user_pass){
 		$Sql = "UPDATE users SET
 				confirmed=1 
-				WHERE sha1(username)='".$username."' AND sha1(user_password)='".$user_pass."' AND sha1(email)='".$user_email."'";	
-
+				WHERE sha1(username)='".$username."' AND sha1(user_password)='".$user_pass."' AND sha1(email)='".$user_email."'";
 		return connection::execute_query($Sql);
 	}
 
@@ -290,10 +290,13 @@ class users{
 			$nombre_archivo = "";
 			$SqlFoto = "";
 			if ($foto['name'] != ""){
+				$tamano_archivo = $foto['size'];
+				if ($tamano_archivo > 1000000) return 2;
+
 				$nombre_archivo = self::insertFoto($foto);
 				if ($nombre_archivo != "") $SqlFoto = "foto='".$nombre_archivo."',";
 			}	
-						 
+
 			if ($user_date == "") $user_date = "(NULL)";
 			else $user_date = "'".$user_date."'";
 			 
@@ -306,11 +309,6 @@ class users{
 					user_lan='".$user_lan."',
 					".$SqlFoto." 
 					user_comentarios='".$user_comentarios."',
-					direccion_user='".$direccion_user."',
-					ciudad_user='".$ciudad_user."',
-					provincia_user='".$provincia_user."',
-					cpostal_user='".$cpostal_user."',
-					telefono='".$telefono."',
 					user_date=".$user_date." 
 					WHERE username='".$username."'";
 
@@ -324,6 +322,17 @@ class users{
 		}
 		else return 3;
 	}
+
+	public function addressUser($username, $direccion_user, $ciudad_user, $provincia_user, $cpostal_user, $telefono){		 
+		$Sql = "UPDATE users SET
+				direccion_user='".$direccion_user."',
+				ciudad_user='".$ciudad_user."',
+				provincia_user='".$provincia_user."',
+				cpostal_user='".$cpostal_user."',
+				telefono='".$telefono."' 
+				WHERE username='".$username."'";
+		return connection::execute_query($Sql); 
+	}	
 
 	public function deleteUser($username){
 		$Sql = "DELETE FROM users WHERE username='".$username."'";
@@ -348,7 +357,7 @@ class users{
 		$max_size_kb = $max_size/1000;
 		//compruebo si las características del archivo son las que deseo		
 		if (!(($ext=='GIF' || $ext=='PNG' || $ext=='JPG' || $ext=='JPEG') && ($tamano_archivo < $max_size))) return false;
-		else{			
+		else {
 			//REDIMENSIONAR Y SUBIR IMAGEN
 			$temp = $fichero["tmp_name"];
 			$thumb = new Thumbnail($temp);
@@ -369,7 +378,7 @@ class users{
 			(SELECT @rownum:=0) ro ) f WHERE username='".$username."'";
 		$result = connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
 		$row = connection::get_result($result);
-		return $row['rownum']; 
+		return $row['rownum'];
 	}
 
 	public static function posicionRankingEmpresa($empresa){
@@ -377,8 +386,8 @@ class users{
 			(SELECT SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u1.empresa) AS suma_puntos,empresa FROM users u1 WHERE empresa<>'' AND empresa<>'comunidad' AND empresa<>'0' GROUP BY empresa HAVING SUM(puntos)>=
 			(SELECT SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u1.empresa) FROM users u2 WHERE empresa='".$empresa."' GROUP BY empresa) ORDER BY suma_puntos DESC,empresa DESC) r,  
 			(SELECT @rownum:=0) ro ) f WHERE empresa='".$empresa."' GROUP BY empresa";
-		$result=connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
-		$row=connection::get_result($result);
+		$result = connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
+		$row = connection::get_result($result);
 		return $row['rownum'];
 	}
 
@@ -429,7 +438,7 @@ class users{
 	}
 
 	public function insertUserConn($username, $connection_canal){
-		if ($username <> ''){		 
+		if ($username <> ''){
 			$Sql = "INSERT INTO users_connected (username,connection_canal) 
 					VALUES ('".$username."','".$connection_canal."')";
 			return connection::execute_query($Sql);
@@ -461,7 +470,7 @@ class users{
 	public function updateJerarquiaUsers($username, $perfil, $empresa){
 		$Sql = "UPDATE users SET 
 				perfil = '".$perfil."',
-				empresa = '".$empresa."', 
+				empresa = '".$empresa."',
 				disabled=0 
 				WHERE username='".$username."' ";
 		return connection::execute_query($Sql);
@@ -475,26 +484,26 @@ class users{
 
 	public function updateTienda($cod_tienda, $nombre_tienda, $regional_tienda, $responsable_tienda, $tipo_tienda, $direccion_tienda, $cpostal_tienda, $ciudad_tienda, $provincia_tienda, $telefono_tienda, $email_tienda, $territorial_tienda, $activa){
 		$Sql = "UPDATE users_tiendas SET 
-				nombre_tienda ='".$nombre_tienda."', 
-				regional_tienda ='".$regional_tienda."', 
-				responsable_tienda ='".$responsable_tienda."', 
+				nombre_tienda ='".$nombre_tienda."',
+				regional_tienda ='".$regional_tienda."',
+				responsable_tienda ='".$responsable_tienda."',
 				tipo_tienda ='".$tipo_tienda."',
 				direccion_tienda = '".$direccion_tienda."',
 				cpostal_tienda = '".$cpostal_tienda."',
 				ciudad_tienda = '".$ciudad_tienda."',
 				provincia_tienda = '".$provincia_tienda."',
 				telefono_tienda = '".$telefono_tienda."',
-				email_tienda = '".$email_tienda."',		 
-				territorial_tienda = '".$territorial_tienda."',		 
+				email_tienda = '".$email_tienda."',
+				territorial_tienda = '".$territorial_tienda."',
 				activa = ".$activa." 
 				WHERE cod_tienda='".$cod_tienda."'";
 		return connection::execute_query($Sql);
 	}
-	
+
 	/////////////////////////////////////////////////////////////
 	/// FUNCIONES DE PERMISOS
 	/////////////////////////////////////////////////////////////
-	
+
 	public function getUsersPermisions($filter = ""){
 		$Sql = "SELECT * FROM users_permissions 
 				WHERE 1=1 ".$filter;
@@ -517,6 +526,57 @@ class users{
 	public function deleteUserPermission($username, $pagename, $permission_type){
 		$Sql = "DELETE FROM users_permissions 
 				WHERE username='".$username."' AND pagename='".$pagename."' AND permission_type='".$permission_type."' ";
+		return connection::execute_query($Sql);
+	}
+	
+	/////////////////////////////////////////////////////////////
+	/// FUNCIONES DE CREDITOS
+	/////////////////////////////////////////////////////////////
+	
+	public function getCreditos($filter = ""){
+		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* FROM users_creditos p 
+				JOIN users u ON u.username=p.credito_username WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
+
+	public static function insertCredito($puntuacion_username, $puntuacion_puntos, $puntuacion_motivo, $puntuacion_detalle){
+		$Sql = "INSERT INTO users_creditos (credito_username, credito_puntos, credito_motivo, credito_detalle) 
+				VALUES ('".$puntuacion_username."','".$puntuacion_puntos."','".$puntuacion_motivo."','".$puntuacion_detalle."')";
+		return connection::execute_query($Sql);
+	}
+
+	public static function updateCredito($puntuacion_username, $puntuacion_puntos){
+		$Sql = "UPDATE users SET 
+				creditos=creditos+".$puntuacion_puntos."
+				WHERE username='".$puntuacion_username."' ";
+		return connection::execute_query($Sql);
+	}
+
+	public function getUsersCreditos($filter = ""){
+		$Sql = "SELECT SUM(credito_puntos) as puntuacion, credito_username, credito_motivo 
+				FROM users_creditos   
+				WHERE credito_puntos>0 ".$filter." GROUP BY credito_motivo, credito_username"; //echo $Sql;
+		return connection::getSQL($Sql);
+	}
+
+	public static function sumarCreditos($username, $puntos, $motivo, $detalle = ""){
+		if (self::insertCredito($username, $puntos, $motivo, $detalle)){
+			$Sql = "UPDATE users SET 
+					creditos=creditos+".$puntos." 
+					WHERE username='".$username."'";
+			return connection::execute_query($Sql);
+		}
+		else return false;
+	}
+
+	public function getConfirm($filter = ""){
+		$Sql = "SELECT * FROM users_confirm WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
+
+	public function insertConfirm($user_confirm, $user_recommend){
+		$Sql = "INSERT INTO users_confirm (user_confirm, user_recommend) 
+				VALUES ('".$user_confirm."','".$user_recommend."')";
 		return connection::execute_query($Sql);
 	}
 }

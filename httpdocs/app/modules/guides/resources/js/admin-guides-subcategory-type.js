@@ -8,7 +8,7 @@ jQuery(document).ready(function(){
 			$('#name_guide_subcategory_type').addClass("input-alert").attr("placeholder", $('#name_guide_subcategory_type').data("alert")).focus();
 			resultado_ok = false;
 		}
-			
+
 		return resultado_ok;
 	});
 });

@@ -36,7 +36,7 @@
 						<tr>
 							<td><?php echo $element['cod_tienda'];?></td>
 							<td><?php echo $element['nombre_tienda'];?></td>
-							<td><?php echo $element['regional_tienda'];?></td>	
+							<td><?php echo $element['regional_tienda'];?></td>
 							<td><?php echo $element['responsable_tienda'];?></td>
 							<td><?php echo $element['tipo_tienda'];?></td>
 							<td><center><span class="label<?php echo ($element['activa'] == 0 ? " label-danger" : " label-success");?>"><?php echo ($element['activa'] == 1 ? strTranslate("App_Yes") : strTranslate("App_No"));?></span></center></td>

@@ -1,16 +1,10 @@
 <?php
 class alertsController{
 	public static function getListAction($reg = 0, $filter = ""){
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND text_alert LIKE '%".$_POST['find_reg']."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter .= " AND text_alert LIKE '%".$_REQUEST['f']."%' ";
-			$find_reg = $_REQUEST['f'];
-		} 
+		$find_reg = getFindReg();		
+		if ($find_reg != '') $filter .= " AND text_alert LIKE '%".$find_reg."%' ";
 		$filter .= " ORDER BY date_ini DESC";
+		
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("alerts", $filter);
 		return array('items' => alerts::getAlerts($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -41,7 +35,7 @@ class alertsController{
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
-			$find_reg = (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");
+			$find_reg = $find_reg = getFindReg();
 			redirectURL("admin-alerts?pag=".$pag."&f=".$find_reg);
 		}
 	}

@@ -7,18 +7,11 @@ class promocionesController{
 
 	public static function getListAction($reg = 0, $filter = ""){
 		$promociones = new promociones();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND nombre_promocion LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter .= " AND nombre_promocion LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";
-			$find_reg = $_REQUEST['f'];
-		} 
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND nombre_promocion LIKE '%".$find_reg."%' ";
 		$filter .= " ORDER BY id_promocion DESC ";
-		$paginator_items = PaginatorPages($reg);
-		
+
+		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("promociones", $filter);
 		return array('items' => $promociones->getPromociones($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],

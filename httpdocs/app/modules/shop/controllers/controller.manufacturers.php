@@ -17,7 +17,6 @@ class shopManufacturersController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$shop = new shop();
 		$find_reg = "";
-
 		if (isset($_REQUEST['name_search'])) $find_reg .= "&name_search=".$_REQUEST['name_search'];
 
 		$paginator_items = PaginatorPages($reg);

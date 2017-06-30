@@ -22,7 +22,6 @@
 					if ($tipo_archivo != "XLS") ErrorMsg("La extensión no es correcta.".$tipo_archivo);
 					else{
 						if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
-
 							//BORRAR FICHEROS ANTIGUOS
 							//rmdirtree('docs/cargas',$archivo_destino);
 							
@@ -58,13 +57,13 @@ function volcarMySQL($data){
 		if ($username != ""){
 			//VERIFICAR QUE EXISTA EL USUARIO
 			if (connection::countReg("users", " AND TRIM(UCASE(username))=TRIM('".$username."') ") > 0){
-				if (shop::sumarCreditos($username, $puntos, $motivo, $detalle)) $contador++;
+				if (usersCreditosController::sumarCreditosAction($username, $puntos, $motivo, $detalle)) $contador++;
 			}
 		}
 	}?>
 	<br />
 	<p>
 		El proceso de importación ha finalizado con éxito. Se ha actualizado los <?php e_strTranslate("APP_Credits");?> de <b><?php echo $contador;?></b> usuarios.<br /><br />
-		<a class="btn btn-primary" href="javascript:history.go(-1)">Volver atrás</a>
+		<a class="btn btn-primary" href="javascript:history.go(-1)"><?php e_strTranslate("Go_back");?></a>
 	</p>
 <?php }?>

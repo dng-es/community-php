@@ -13,6 +13,11 @@ templateload("panels", "alerts");
 templateload("tipuser", "users");
 templateload("notifications", "notifications");
 templateload("na_areasuser", "na_areas");
+templateload("addresses", "users");
+
+//$addresses = prestashopCustomersController::getAddresses($_SESSION['id_externo']);
+//echo "ID: ".$addresses->address->attributes()->id;
+//prestashopCustomersController::printAddress(28);
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -24,22 +29,23 @@ templateload("na_areasuser", "na_areas");
 
 		session::getFlashMessage( 'actions_message' );
 		usersController::updatePerfilAction();
+		usersController::updateAddressAction("profile?t=2", $_SESSION['user_name']);
 		$usuario = usersController::getPerfilAction($_SESSION['user_name']);
 		?>
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs">
 			<li <?php echo (!(isset($_GET['t'])) ? ' class="active"' : '');?>><a href="#general" data-toggle="tab"><?php e_strTranslate("Main_data");?></a></li>
+			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#direcciones" data-toggle="tab"><?php e_strTranslate("Address");?></a></li>
 			<?php if(getModuleExist("na_areas")):  ?>
-			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' class="active"' : '');?>><a href="#areas" data-toggle="tab"><?php e_strTranslate("Na_areas");?></a></li>
+			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#areas" data-toggle="tab"><?php e_strTranslate("Na_areas");?></a></li>
 			<?php endif;?>
 			<?php if(getModuleExist("fotos")): ?>
-			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' class="active"' : '');?>><a href="#fotos" data-toggle="tab"><?php e_strTranslate("Photos");?></a></li>
+			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#fotos" data-toggle="tab"><?php e_strTranslate("Photos");?></a></li>
 			<?php endif; ?>
 			<?php if(getModuleExist("videos")): ?>
-			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 4) ? ' class="active"' : '');?>><a href="#videos" data-toggle="tab"><?php e_strTranslate("Videos");?></a></li>
+			<li <?php echo ((isset($_GET['t']) && $_GET['t'] == 5) ? ' class="active"' : '');?>><a href="#videos" data-toggle="tab"><?php e_strTranslate("Videos");?></a></li>
 			<?php endif; ?>
 		</ul>
-
 		<div class="tab-content">
 			<div class="tab-pane fade in <?php echo (!(isset($_GET['t'])) ? ' active' : '');?>" id="general">
 				<div class="row"> 
@@ -74,9 +80,7 @@ templateload("na_areasuser", "na_areas");
 								<input maxlength="100" name="user-repass" id="user-repass" type="password" class="form-control" value="<?php echo $usuario['user_password'];?>" data-alert="<?php e_strTranslate("Password_not_match");?>" />
 							</div>
 						</div>
-
 						<hr />
-
 						<div class="row">
 							<div class="col-md-6">
 								<label class=" control-label" for="user-nombre"><small><?php e_strTranslate("Name");?></small></label>
@@ -98,7 +102,6 @@ templateload("na_areasuser", "na_areas");
 									<input data-format="yyyy/MM/dd" readonly type="text" id="user-date" class="form-control" name="user-date" data-alert="<?php e_strTranslate("Required_date");?>"></input>
 									<span class="input-group-addon add-on"><i class="glyphicon glyphicon-calendar"></i></span>
 								</div>
-
 								<script type="text/javascript">
 									jQuery(document).ready(function(){
 										$("#datetimepicker1").datetimepicker({
@@ -114,7 +117,6 @@ templateload("na_areasuser", "na_areas");
 									});
 								</script>
 							</div>
-
 							<div class="col-md-3">
 								<label class="control-label" for="user_lan"><small><?php e_strTranslate("Language");?></small></label>
 								<select name="user_lan" id="user_lan" class="form-control">
@@ -122,47 +124,18 @@ templateload("na_areasuser", "na_areas");
 								</select>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-md-12">
 								<label class="control-label" for="user-comentarios"><small><?php e_strTranslate("what_do_you_think");?></small></label>
 								<textarea name="user-comentarios" id="user-comentarios" class="form-control"><?php echo $usuario['user_comentarios'];?></textarea>
 							</div>
 						</div>
-
 						<hr />
-
 						<div class="row">
-							<div class="col-md-6">
-								<label class=" control-label" for="direccion_user"><small><?php e_strTranslate("Address");?></small></label>
-								<input maxlength="250" name="direccion_user" id="direccion_user" type="text" class="form-control" value="<?php echo $usuario['direccion_user'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
-							</div>
-							<div class="col-md-6">
-								<label class="control-label" for="ciudad_user"><small><?php e_strTranslate("City");?></small></label>
-								<input maxlength="100" name="ciudad_user" id="ciudad_user" type="text" class="form-control" value="<?php echo $usuario['ciudad_user'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							<div class="col-md-12">
+								<div id="foto-alert" class="alert-message alert alert-danger">Debes incluir una foto tuya reciente. El tamaño de la imagen no podrá exceder de 1MB</div>
 							</div>
 						</div>
-
-						<div class="row">
-							<div class="col-md-6">
-								<label class=" control-label" for="provincia_user"><small><?php e_strTranslate("State");?></small></label>
-								<input maxlength="100" name="provincia_user" id="provincia_user" type="text" class="form-control" value="<?php echo $usuario['provincia_user'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
-							</div>
-							<div class="col-md-6">
-								<label class="control-label" for="cpostal_user"><small><?php e_strTranslate("Postal_code");?></small></label>
-								<input maxlength="10" name="cpostal_user" id="cpostal_user" type="text" class="form-control" value="<?php echo $usuario['cpostal_user'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6">
-								<label class="control-label" for="telefono"><small><?php e_strTranslate("Telephone");?></small></label>
-								<input maxlength="10" name="telefono" id="telefono" type="text" class="form-control" value="<?php echo $usuario['telefono'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
-							</div>
-						</div>
-
-						<hr />
-
 						<div class="row">
 							<div class="col-md-6 inset">
 								<input name="nombre-fichero" id="nombre-fichero" type="file" class="btn btn-primary btn-block" title="<?php e_strTranslate("Change_picture");?>" /> 
@@ -187,29 +160,35 @@ templateload("na_areasuser", "na_areas");
 							<?php endif; ?>
 							<tr><td><label><small><?php echo ucfirst(strTranslate("APP_shares"));?></small></label></td><td><small class="text-muted"><?php echo $usuario['participaciones'];?></small></td></tr>
 						</table>
-
 						<a class="btn btn-info btn-block" href="group?id=<?php echo $_SESSION['user_empresa'];?>"><?php e_strTranslate("My_group");?></a>
-						
 						<?php if(getModuleExist("shop")): ?>
 						<a class="btn btn-info btn-block" href="shoporders"><?php e_strTranslate("Shop_my_orders");?></a>
 						<?php endif; ?>
 
-						<?php panelAlerts();?>
+						<?php if(getModuleExist("prestashop")): ?>
+						<a class="btn btn-info btn-block" href="ps-orders"><?php e_strTranslate("Shop_my_orders");?> <?php e_strTranslate("APP_Prestashop");?></a>
+						<?php endif; ?>
 
+						<?php panelAlerts();?>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' in active' : '');?>" id="direcciones">
+				<br />
+				<div class="row"> 
+					<div class="col-md-12">
+						<?php userAddress($usuario);?>
 					</div>
 				</div>
 			</div>
 			<?php if(getModuleExist("na_areas")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 2) ? ' in active' : '');?>" id="areas">
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' in active' : '');?>" id="areas">
 				<?php userNaAreas($_SESSION['user_name']);?>
 			</div>
 			<?php endif; ?>
 			<?php if(getModuleExist("fotos")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 3) ? ' in active' : '');?>" id="fotos">
-
-				<section id="photos">
-
-				</section>
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 4) ? ' in active' : '');?>" id="fotos">
+				<section id="photos"></section>
 				<div id="cargando-infinnite"><span class="btn btn-default"><?php e_strTranslate("More_photos");?> <i class="fa fa-arrow-circle-down"></i></span></div>
 				<div id="cargando-infinnite-end"><span class="btn btn-default alert-info"><?php e_strTranslate("No_more_photos");?> <i class="fa fa-info-circle"></i></span></div>
 				<div class="clearfix"></div>
@@ -221,17 +200,15 @@ templateload("na_areasuser", "na_areas");
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title" id="myModalLabel"><?php e_strTranslate("Photos");?></h4>
 							</div>
-							<div class="modal-body">
-								...
-							</div>
+							<div class="modal-body"></div>
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
 			</div>
 			<?php endif; ?>
-			<?php if(getModuleExist("videos")): ?>
-			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 4) ? ' in active' : '');?>" id="videos">
-				<div class="row">
+			<?php if(getModuleExist("videos")):?>
+			<div class="tab-pane fade <?php echo ((isset($_GET['t']) && $_GET['t'] == 5) ? ' in active' : '');?>" id="videos">
+				<div class="row inset">
 				<?php
 				$videos = videosController::getListAction(1000, " AND user_add='".$usuario['username']."' AND estado=1 ");
 				foreach($videos['items'] as $element):
@@ -261,7 +238,7 @@ templateload("na_areasuser", "na_areas");
 			<?php if(getModuleExist("recompensas")): ?>
 					<?php templateload("user_recompensa", "recompensas");?>
 					<?php userRecompensa($_SESSION['user_name']);?>
-			<?php endif; ?>
+			<?php endif;?>
 		</div>
 	</div>
 </div>

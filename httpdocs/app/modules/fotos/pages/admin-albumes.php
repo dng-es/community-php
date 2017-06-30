@@ -1,3 +1,10 @@
+<?php 
+set_time_limit(0);
+ini_set('memory_limit', '-1');
+
+//EXPORT REGS
+fotosAlbumController::exportListAction();
+?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php 
@@ -18,6 +25,7 @@
 				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
 					<li><a href="admin-albumes-new?act=new"><?php e_strTranslate("New_album");?></a></li>
+					<li><a href="<?php echo $_REQUEST['page'].'?export=true';?>"><?php e_strTranslate("Export");?></a></li>
 					<div class="pull-right">
 						<?php echo SearchForm($elements['reg'],"admin-albumes","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
 					</div>

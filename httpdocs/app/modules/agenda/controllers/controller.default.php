@@ -2,18 +2,10 @@
 class agendaController{
 	public static function getListAction($reg = 0, $filter=""){
 		$agendas = new agenda();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND (titulo LIKE '%".$_POST['find_reg']."%' OR etiquetas LIKE '%".$_POST['find_reg']."%') ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND (titulo LIKE '%".$_REQUEST['f']."%' OR etiquetas LIKE '%".$_REQUEST['f']."%') ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND (titulo LIKE '%".$find_reg."%' OR etiquetas LIKE '%".$find_reg."%') ".$filter;
 
 		$paginator_items = PaginatorPages($reg);
-
 		$total_reg = connection::countReg("agenda", $filter);
 		return array('items' => $agendas->getAgenda($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],

@@ -1,4 +1,10 @@
 <?php
+set_time_limit(0);
+ini_set('memory_limit', '-1');
+
+//EXPORT RECOMENDACIONES CONFIRMACIÓN
+usersController::exportConfirmAction();
+
 $num_users = number_format(connection::countReg("users", " AND disabled=0 AND registered=1 AND confirmed=1 "), 0, ',', '.');
 $num_empresas = number_format(connection::countReg("users_tiendas", " AND activa=1 "), 0, ',', '.');
 $num_access = number_format(connection::countReg("accesscontrol", " AND webpage<>'Inicio de sesion' AND perfil_access<>'admin' "), 0, ',', '.');
@@ -34,6 +40,8 @@ templateload("upgrades", "configuration");
 							<dd><?php echo $num_perfiles;?></dd>
 							<dt>Canales activos</dt>
 							<dd><?php echo $num_canales;?></dd>
+							<dt>&nbsp;</dt>
+							<dd>&nbsp;</dd>
 						</dl>
 					</div>
 				</div>
@@ -51,6 +59,8 @@ templateload("upgrades", "configuration");
 							<dd><a href="admin-informe-participaciones"><?php e_strTranslate("Go_to");?></a></dd>
 							<dt><?php e_strTranslate("Users_list");?></dt>
 							<dd><a href="admin-users?export=true"><?php e_strTranslate("Export");?> CSV</a></dd>
+							<dt>Recomendaciones</dt>
+							<dd><a href="admin?export_confirm=true"><?php e_strTranslate("Export");?> CSV</a></dd>
 						</dl>
 					</div>
 				</div>

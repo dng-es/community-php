@@ -13,8 +13,8 @@ function searchProducts($destination = "shopproducts"){
 
 	$shop = new shop();
 	$manufacturers = $shop->getManufacturers();
-	$categories = $shop->getProductsCategories();
-	$subcategories = $shop->getProductsSubcategories();
+	$categories = shopProductsController::getCategoriesAction(" AND category_product<>'' AND active_product=1 ");
+	$subcategories = shopProductsController::getSubCategoriesAction(" AND subcategory_product<>'' AND active_product=1 ");
 
 	$collpase_search = "";
 	if ($ref_search != "" || $manufacturer_search != "" || $category_search != "" || $subcategory_search != "") $collpase_search = "in";
@@ -52,8 +52,8 @@ function searchProducts($destination = "shopproducts"){
 						<div class="col-sm-8">
 							<select class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" data-live-search="true" name="category_search" id ="category_search" class="form-control">
 								<option value="">Buscar por <?php e_strTranslate("Category");?></option>
-								<?php foreach($categories as $category):?>
-									<option value="<?php echo $category['category'];?>" <?php echo ($category['category'] == $category_search ? ' selected="selected" ' : '');?>><?php echo $category['category'];?></option>
+								<?php foreach ($categories as $key => $category):?>
+									<option value="<?php echo $category;?>" <?php echo ($category == $category_search ? ' selected="selected" ' : '');?>><?php echo $category;?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>
@@ -64,8 +64,8 @@ function searchProducts($destination = "shopproducts"){
 						<div class="col-sm-8">
 							<select class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" data-live-search="true" name="subcategory_search" id ="subcategory_search" class="form-control">
 								<option value="">Buscar por Subcategoría</option>
-								<?php foreach($subcategories as $subcategory):?>
-									<option value="<?php echo $subcategory['subcategory'];?>" <?php echo ($subcategory['subcategory'] == $subcategory_search ? ' selected="selected" ' : '');?>><?php echo $subcategory['subcategory'];?></option>
+								<?php foreach ($subcategories as $key => $subcategory):?>
+									<option value="<?php echo $subcategory;?>" <?php echo ($subcategory == $subcategory_search ? ' selected="selected" ' : '');?>><?php echo $subcategory;?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>

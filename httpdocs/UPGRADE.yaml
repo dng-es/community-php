@@ -1,5 +1,8 @@
 ---
 upgrades:
+    11:  
+        version: 0.7.2
+        notes: \nMódulo Configuración. Nuevo estilo de menú, mediante la configuración del módulo se puede intercambiar el diseño del menú principal\n\n
     10:  
         version: 0.7.1
         notes: \nVariables en las traduciones\n\n

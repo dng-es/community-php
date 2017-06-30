@@ -18,7 +18,7 @@ $pagina = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : 1 );
 //$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND (f.canal='".$_SESSION['user_canal']."' OR f.canal='todos') ");
 $filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_album LIKE '%".$_SESSION['user_canal']."%' " : "");
 $filtro_album = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? " AND f.id_album=".$_REQUEST['id']." " : "" );
-$filtro_tags = ((isset($_REQUEST['tags']) && $_REQUEST['tags'] != '') ? " AND tipo_foto LIKE '%".$_REQUEST['tags']."%' " : "" );
+$filtro_tags = ((isset($_REQUEST['tags']) && $_REQUEST['tags'] != '') ? " AND tipo_foto LIKE '%".str_replace('%20', ' ', $_REQUEST['tags'])."%' " : "" );
 $filtro_promocion = ((isset($_REQUEST['idp']) && $_REQUEST['idp'] > 0) ? " AND id_promocion=".$_REQUEST['idp']." " : "" );
 $filtro_nick = ((isset($_REQUEST['n']) && $_REQUEST['n'] != "") ? " AND nick='".urldecode($_REQUEST['n'])."' " : "" );
 $id_promocion = ((isset($_REQUEST['idp']) && $_REQUEST['idp'] > 0) ? $_REQUEST['idp'] : 0 );

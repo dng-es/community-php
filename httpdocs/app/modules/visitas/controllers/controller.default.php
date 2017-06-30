@@ -1,6 +1,6 @@
 <?php
 class visitasController{
-	public static function exportAction($filter){
+	public static function exportAction($filter = ''){
 		if (isset($_POST['export-stats']) && isset($_POST['fecha_ini'])){
 			$visitas = new visitas();
 			$elements = $visitas->getVisitasInformes($filter." ORDER BY fecha DESC ");
@@ -10,7 +10,7 @@ class visitasController{
 		}
 	}
 
-	public static function insertVisita($page){
+	public static function insertVisita($page = ''){
 		$visitas = new visitas();
 		$user_name = ((isset($_SESSION['user_name']) && $_SESSION['user_name'] != "") ? $_SESSION['user_name'] : "");
 		$user_perfil = ((isset($_SESSION['user_perfil']) && $_SESSION['user_perfil'] != "") ? $_SESSION['user_perfil'] : "");
@@ -33,7 +33,7 @@ class visitasController{
 		return true;
 	}
 
-	public static function exportNaAreasAction($filter){
+	public static function exportNaAreasAction($filter = ''){
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == 'na_areas'){
 			$visitas = new visitas();
 			$elements = visitas::getAccessNaAreas($filter);
@@ -43,7 +43,7 @@ class visitasController{
 		}
 	}
 
-	public static function exportGroupAction($filter){
+	public static function exportGroupAction($filter = ''){
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == 'group'){
 			$visitas = new visitas();
 			$elements = visitas::getAccessGroup($filter);

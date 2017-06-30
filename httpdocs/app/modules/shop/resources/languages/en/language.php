@@ -2,7 +2,6 @@
 show_buybutton = "Show buy button"
 show_stock = "Show stock"
 show_price = "Show price"
-APP_Credits = "Credits"
 APP_Shop = "Shop"
 Shop_orders = "Orders"
 Shop_order_details = "Order details"

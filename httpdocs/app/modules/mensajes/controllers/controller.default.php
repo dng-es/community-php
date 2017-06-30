@@ -1,31 +1,29 @@
 <?php
 class mensajesController{
-	public static function getListAction($reg = 0, $filtro = "", $find_reg = ""){
+	public static function getListAction($reg = 0, $filter = ""){
 		$mensajes = new mensajes();
-		if (isset($_POST['find_reg'])) $find_reg = $_POST['find_reg'];
-		if (isset($_REQUEST['f'])) $find_reg = $_REQUEST['f'];
-		if ($find_reg != "") $filtro = " AND (mensaje_cuerpo LIKE '%".sanitizeInput($find_reg)."%' OR asunto_mensaje LIKE '%".sanitizeInput($find_reg)."%') ";
-		$filtro .= " AND user_destinatario='".$_SESSION['user_name']."' AND estado<>2 ORDER BY date_mensaje DESC ";
+		$find_reg = getFindReg();
+		if ($find_reg != "") $filter .= " AND (mensaje_cuerpo LIKE '%".$find_reg."%' OR asunto_mensaje LIKE '%".$find_reg."%') ";
+		$filter .= " AND user_destinatario='".$_SESSION['user_name']."' AND estado<>2 ORDER BY date_mensaje DESC ";
+
 		$paginator_items = PaginatorPages($reg);
-		
-		$total_reg = connection::countReg("mensajes",$filtro); 
-		return array('items' => $mensajes->getMensajes($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("mensajes", $filter); 
+		return array('items' => $mensajes->getMensajes($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
 	}
 
-	public static function getListSentAction($reg = 0, $filtro = "", $find_reg = ""){
+	public static function getListSentAction($reg = 0, $filter = ""){
 		$mensajes = new mensajes();
-		if (isset($_POST['find_reg'])) $find_reg = $_POST['find_reg'];
-		if (isset($_REQUEST['f'])) $find_reg = $_REQUEST['f'];
-		if ($find_reg != "") $filtro = " AND (mensaje_cuerpo LIKE '%".sanitizeInput($find_reg)."%' OR asunto_mensaje LIKE '%".sanitizeInput($find_reg)."%') ";
-		$filtro .= " AND user_remitente='".$_SESSION['user_name']."' AND estado_remitente=0 ORDER BY date_mensaje DESC ";
+		$find_reg = getFindReg();
+		if ($find_reg != "") $filter = " AND (mensaje_cuerpo LIKE '%".$find_reg."%' OR asunto_mensaje LIKE '%".$find_reg."%') ";
+		$filter .= " AND user_remitente='".$_SESSION['user_name']."' AND estado_remitente=0 ORDER BY date_mensaje DESC ";
+
 		$paginator_items = PaginatorPages($reg);
-		
-		$total_reg = connection::countReg("mensajes", $filtro);
-		return array('items' => $mensajes->getMensajesEnviados($filtro.' LIMIT '.$paginator_items['inicio'].','.$reg),
+		$total_reg = connection::countReg("mensajes", $filter);
+		return array('items' => $mensajes->getMensajesEnviados($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,

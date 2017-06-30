@@ -2,18 +2,11 @@
 class incentivosFabricantesController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$incentivos = new incentivos();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND nombre_fabricante LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter .= " AND nombre_fabricante LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";
-			$find_reg = $_REQUEST['f'];
-		} 
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND nombre_fabricante LIKE '%".$find_reg."%' ";
 		$filter .= " AND activo_fabricante=1 ORDER BY nombre_fabricante";
-		$paginator_items = PaginatorPages($reg);
 		
+		$paginator_items = PaginatorPages($reg);		
 		$total_reg = connection::countReg("incentives_fabricantes", $filter); 
 		return array('items' => $incentivos->getIncentivesFabricantes($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],

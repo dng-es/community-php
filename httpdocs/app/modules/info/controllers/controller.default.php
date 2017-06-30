@@ -3,18 +3,11 @@
 class infoController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$info = new info();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND titulo_info LIKE '%".$_POST['find_reg']."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter .= " AND titulo_info LIKE '%".$_REQUEST['f']."%' ";
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND titulo_info LIKE '%".$find_reg."%' ";
 		$filter .= " ORDER BY titulo_info";
-		$paginator_items = PaginatorPages($reg);
-		
+
+		$paginator_items = PaginatorPages($reg);		
 		$total_reg = connection::countReg("info i", $filter);
 		return array('items' => $info->getInfo($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -116,15 +109,33 @@ class infoController{
 		if ($info->insertInfoView($user_file, $id_info)){
 			if ($contador == 0){
 				$users = new users();
-				$users->sumarPuntos($user_file, PUNTOS_INFO, PUNTOS_INFO_MOTIVO." ID: ".$id_info);
+				if (isset($_SESSION['user_canal']) && $_SESSION['user_canal'] != '') $canal = $_SESSION['user_canal'];
+				else{
+					//obtener datos del usuario para tomar su canal
+					$usuario = usersController::getPerfilAction($user_file);
+					$canal = $usuario['canal'];
+				}
+				$canal_data = usersCanalesController::getItemAction($canal);
+
+				$users->sumarPuntos($user_file, $canal_data['points_info'], PUNTOS_INFO_MOTIVO." ID: ".$id_info);
 			}
 		}
 	}
 
-	public static function exportViewsAction(){
+	public static function exportListAction($filter = ''){
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$info = new info();
-			$elements = $info->getInfoViews("");
+			$elements = $info->getInfoExport($filter);
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}
+	}
+
+	public static function exportViewsAction($filter = ''){
+		if (isset($_REQUEST['export_a']) && $_REQUEST['export_a'] == true){
+			$info = new info();
+			$elements = $info->getInfoViews($filter);
 			download_send_headers("views_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();

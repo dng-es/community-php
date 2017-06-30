@@ -82,6 +82,12 @@ function volcarMySQL($data){
 					if ($users->insertUserCarga($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user, $surname, 0, '', '', '', '', $user_lan)) {
 						$contador++;
 						$mensaje .= $contador." - ".$username." insertado correctamente.<br />";
+
+						if(getModuleExist("prestashop")){
+							$id_externo = prestashopCustomersController::insertCustomer($user_pass, $nombre, $surname, $user_email, 0, 0);
+							$prestashop = new prestashop();
+							$prestashop->updateUser($username, $id_externo);
+						}
 					}
 				}
 			}
@@ -96,7 +102,7 @@ function volcarMySQL($data){
 			}
 		}
 	}
-	
+
 	//DAR DE BAJA A USUARIOS	
 	if ($proceso_delete){
 		$elements=$users->getUsers(" AND disabled=0 ");
@@ -106,13 +112,13 @@ function volcarMySQL($data){
 			if ($element['perfil'] == 'admin')  $encontrado = true;
 			else{
 				for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
-				  if (strtoupper($element['username']) == strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
+					if (strtoupper($element['username']) == strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
 				}
 			}
 
 			if ($encontrado == false){
 				$users->disableUser($element['username'],1);
-				$contador_baja++;	
+				$contador_baja++;
 				$mensaje_baja .= '<span>'.$contador_baja.' - '.$element['username'].' se ha dado de baja.</span><br />';
 			}
 		endforeach;
@@ -126,6 +132,5 @@ function volcarMySQL($data){
 	if ($contador_ko > 0) echo '<p>los siguientes usuarios no fueron insertados porque ya estaban dados de alta: ('.$contador_ko.')</p>'.$mensaje_ko;
 
 	if ($contador_baja > 0) echo '<p>los siguientes usuarios han sido dados de baja: ('.$contador_baja.')</p>'.$mensaje_baja;
-
 }
 ?>

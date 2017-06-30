@@ -71,9 +71,7 @@ $id_group = (isset($_REQUEST['id']) ? sanitizeInput($_REQUEST['id']) : "");
 										<?php endforeach; ?>
 									</select>
 								</div>
-
 							</div>
-
 							<div class="row">
 								<div class="col-md-3">
 									<label class=" control-label" for="user-nombre"><small><?php e_strTranslate("Name");?></small></label>
@@ -91,7 +89,7 @@ $id_group = (isset($_REQUEST['id']) ? sanitizeInput($_REQUEST['id']) : "");
 									<label class=" control-label" for="telefono"><small><?php e_strTranslate("Telephone");?></small></label>
 									<input maxlength="100" name="telefono" id="telefono" type="text" class="form-control numeric" value="" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
-							</div>	
+							</div>
 							<div class="row">
 								<div class="col-md-3 inset">
 									<input type="submit" class="btn btn-primary btn-block" id="confirm-submit" name="confirm-submit" value="<?php e_strTranslate("Save_data");?>" />
@@ -101,7 +99,6 @@ $id_group = (isset($_REQUEST['id']) ? sanitizeInput($_REQUEST['id']) : "");
 					</div>
 				</form>
 			</div>
-
 			<div class="table-responsive">
 				<table class="table table-striped table-hover">
 					<tr>
@@ -130,7 +127,7 @@ $id_group = (isset($_REQUEST['id']) ? sanitizeInput($_REQUEST['id']) : "");
 								<option value="">--<?php e_strTranslate("Choose_group");?>--</option>
 								<?php foreach($centros as $centro): ?>
 									<option value="<?php echo $centro['cod_tienda'];?>" <?php echo ($centro['cod_tienda'] == $element['empresa'] ? ' selected="selected" ' : '');?>><?php echo $centro['cod_tienda'];?> - <?php echo $centro['nombre_tienda'];?></option>
-								<?php endforeach; ?>
+								<?php endforeach;?>
 							</select>
 						</td>
 						<td>
@@ -138,7 +135,7 @@ $id_group = (isset($_REQUEST['id']) ? sanitizeInput($_REQUEST['id']) : "");
 						</td>
 						</form>
 						</tr>
-					<?php endforeach; ?>
+					<?php endforeach;?>
 				</table>
 			</div>
 			<?php Paginator($elements['pag'],$elements['reg'],$elements['total_reg'],$_REQUEST['page'],'',$elements['find_reg']);?>
@@ -159,7 +156,7 @@ $id_group = (isset($_REQUEST['id']) ? sanitizeInput($_REQUEST['id']) : "");
 				Nueva alerta
 			</h4>
 			<?php addAlert();?>
-		<?php endif; ?>
+		<?php endif;?>
 		</div>
 	</div>
 </div>

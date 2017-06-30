@@ -24,7 +24,6 @@ jQuery(document).ready(function(){
 			getCategories($("#id_guide").val());
 		});
 	}
-
 	
 	$("#id_guide").change(function(evento){
 		getCategories($(this).val());

@@ -14,8 +14,20 @@ class shop{
 		return connection::getSQL($Sql);
 	}
 
+	public static function getProductsCategoriesGroup($filter = " AND category_product<>'' "){
+		$Sql = "SELECT GROUP_CONCAT(DISTINCT category_product) as category FROM shop_products 
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
+
 	public static function getProductsSubcategories($filter = " AND subcategory_product<>'' "){
 		$Sql = "SELECT DISTINCT(subcategory_product) as subcategory FROM shop_products 
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}
+
+	public static function getProductsSubcategoriesGroup($filter = " AND subcategory_product<>'' "){
+		$Sql = "SELECT GROUP_CONCAT(DISTINCT subcategory_product) as category FROM shop_products 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -32,25 +44,6 @@ class shop{
 				INNER JOIN shop_orders o ON o.id_order=d.id_order 
 				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
-	}
-
-	public function getCreditos($filter = ""){
-		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* FROM users_creditos p 
-				JOIN users u ON u.username=p.credito_username WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql);
-	}
-
-	public static function insertCredito($puntuacion_username, $puntuacion_puntos, $puntuacion_motivo, $puntuacion_detalle){
-		$Sql = "INSERT INTO users_creditos (credito_username, credito_puntos, credito_motivo, credito_detalle) 
-				VALUES ('".$puntuacion_username."','".$puntuacion_puntos."','".$puntuacion_motivo."','".$puntuacion_detalle."')";
-		return connection::execute_query($Sql);
-	}
-
-	public static function updateCredito($puntuacion_username, $puntuacion_puntos){
-		$Sql = "UPDATE users SET 
-				creditos=creditos+".$puntuacion_puntos."
-				WHERE username='".$puntuacion_username."' ";
-		return connection::execute_query($Sql);
 	}
 
 	public function insertProduct($name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product, $active_product, $date_ini_product, $date_fin_product){
@@ -93,13 +86,6 @@ class shop{
 		return connection::execute_query($Sql);
 	}
 
-	public function getUsersCreditos($filter = ""){
-		$Sql = "SELECT SUM(credito_puntos) as puntuacion, credito_username, credito_motivo 
-				FROM users_creditos   
-				WHERE credito_puntos>0 ".$filter." GROUP BY credito_motivo, credito_username"; //echo $Sql;
-		return connection::getSQL($Sql);
-	}
-
 	public static function insertOrder($username_order, $name_order, $surname_order, $address_order, $address2_order, $city_order, $state_order, $postal_order, $telephone_order, $notes_order){
 		$Sql = "INSERT INTO shop_orders (username_order, name_order, surname_order, address_order, address2_order, city_order, state_order, postal_order, telephone_order, notes_order) 
 				VALUES ('".$username_order."','".$name_order."','".$surname_order."','".$address_order."','".$address2_order."','".$city_order."', '".$state_order."', '".$postal_order."','".$telephone_order."','".$notes_order."')";
@@ -129,16 +115,6 @@ class shop{
 		$Sql = "INSERT INTO shop_orders_status (id_order, order_status, username_status) 
 				VALUES (".$id_order.",'".$order_status."','".$username_status."')";
 		return connection::execute_query($Sql);
-	}
-
-	public static function sumarCreditos($username, $puntos, $motivo, $detalle = ""){
-		if (self::insertCredito($username, $puntos, $motivo, $detalle)){
-			$Sql = "UPDATE users SET 
-					creditos=creditos+".$puntos." 
-					WHERE username='".$username."'";
-			return connection::execute_query($Sql);
-		}
-		else return false;
 	}
 
 	public static function getManufacturers($filter = ""){

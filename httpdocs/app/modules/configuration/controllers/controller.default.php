@@ -4,17 +4,17 @@ class configurationController{
 		if (isset($_POST['site-name']) && $_POST['site-name'] != ''){
 			$configuration = new configuration();
 			if ($configuration->UpdateConfiguracion(sanitizeInput($_POST['telefono']),
-										 sanitizeInput($_POST['telefono2']),
-										 sanitizeInput($_POST['fax']),
-										 sanitizeInput($_POST['direccion']),
-										 sanitizeInput($_POST['email-contact']),
-										 sanitizeInput($_POST['site-name']),
-										 sanitizeInput($_POST['site-title']),
-										 sanitizeInput($_POST['site-desc']),
-										 sanitizeInput($_POST['site-subject']),
-										 sanitizeInput($_POST['site-keywords']),
-										 sanitizeInput($_POST['site-url']),
-										 sanitizeInput($_POST['email-mailing']))) 
+										sanitizeInput($_POST['telefono2']),
+										sanitizeInput($_POST['fax']),
+										sanitizeInput($_POST['direccion']),
+										sanitizeInput($_POST['email-contact']),
+										sanitizeInput($_POST['site-name']),
+										sanitizeInput($_POST['site-title']),
+										sanitizeInput($_POST['site-desc']),
+										sanitizeInput($_POST['site-subject']),
+										sanitizeInput($_POST['site-keywords']),
+										sanitizeInput($_POST['site-url']),
+										sanitizeInput($_POST['email-mailing']))) 
 				
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else

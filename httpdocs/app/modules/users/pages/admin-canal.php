@@ -1,3 +1,6 @@
+<?php
+addJavascripts(	array("js/jquery.numeric.js", getAsset("users")."js/admin-canal.js"));
+?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -34,19 +37,24 @@
 						</div>
 
 						<div class="col-md-3 form-group">
-                            <label class="control-label" for="canal_lan"><small><?php e_strTranslate("Language");?></small></label>
-                            <select name="canal_lan" id="canal_lan" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
-                                <?php ComboLanguages($elements['canal_lan']);?>
-                            </select>
-                        </div>
-
+							<label class="control-label" for="canal_lan"><small><?php e_strTranslate("Language");?></small></label>
+							<select name="canal_lan" id="canal_lan" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%">
+							<?php ComboLanguages($elements['canal_lan']);?>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 col-md-offset-9 form-group">
+							<label for="points_info"><small><?php  echo ucfirst(strTranslate("APP_points"));?> INFO:</small></label>
+							<input type="text" id="points_info" name="points_info" value="<?php echo $elements['points_info'];?>" class="form-control numeric text-right" data-alert="<?php e_strTranslate("Required_field");?>" />
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12 form-group">
 							<label for="canal_name"><small><?php e_strTranslate("Description");?>:</small></label>
 							<input type="text" class="form-big form-control TextDisabled" id="canal_name" name="canal_name" value="<?php echo $elements['canal_name'];?>" />
 						</div>
-					</div>					
+					</div>
 					<br />
 					<div class="row">
 						<div class="col-md-12 form-group">

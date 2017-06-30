@@ -11,19 +11,11 @@ class videosController{
 
 	public static function getListAction($reg = 0, $filter = ""){
 		$videos = new videos();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND titulo LIKE '%".$_POST['find_reg']."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter .= " AND titulo LIKE '%".$_REQUEST['f']."%' ";
-			$find_reg = $_REQUEST['f'];
-		}
-		//if ($_SESSION['user_canal'] != 'admin') $filter.=" AND v.canal='".$_SESSION['user_canal']."' ";
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND titulo LIKE '%".$find_reg."%' ";
 		$filter .= " ORDER BY id_file DESC";
+
 		$paginator_items = PaginatorPages($reg);
-		
 		$total_reg = connection::countReg("galeria_videos v, users u"," AND u.username=v.user_add ".$filter);
 		return array('items' => $videos->getVideos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -71,9 +63,9 @@ class videosController{
 		}
 	}
 
-	public static function downloadZipFile(){
-		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] != "") fileToZip($_REQUEST['exp'], PATH_VIDEOS_TEMP);
-	}
+	public static function downloadZipFile($path = PATH_VIDEOS_TEMP){
+		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] != "") fileToZip($_REQUEST['exp'], $path);
+	}	
 
 	public static function adminActions(){
 		if (isset($_REQUEST['act'])) {
@@ -115,17 +107,10 @@ class videosController{
 
 	public static function getCommentsListAction($reg = 0, $filter = ""){
 		$videos = new videos();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND comentario LIKE '%".$_POST['find_reg']."%' ";
-			$find_reg = $_POST['find_reg'].$filter;
-		}
-		if (isset($_REQUEST['f']) && $_REQUEST['f'] != ""){
-			$filter = " AND comentario LIKE '%".$_REQUEST['f']."%' ";
-			$find_reg = $_REQUEST['f'].$filter;
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND comentario LIKE '%".$find_reg."%' ";
+
 		$paginator_items = self::PaginatorPagesVideoComments($reg);
-		
 		$total_reg = connection::countReg("galeria_videos_comentarios", $filter);
 		return array('items' => $videos->getComentariosVideo($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -183,7 +168,7 @@ class videosController{
 	 * @param 	int 		$reg 			Número de registros por página
 	 */
 	public static function PaginatorPagesVideoComments($reg){
-		$find_reg = "";
+		$find_reg = getFindReg();
 		$pag = 1;
 		$inicio = 0;
 		if (isset($_GET["pag2"]) && $_GET["pag2"] != ""){
@@ -192,7 +177,8 @@ class videosController{
 		}
 		return array('find_reg' => $find_reg,
 					'pag' => $pag,
-					'inicio' =>$inicio);
+					'inicio' =>$inicio,
+					'find_reg' =>$find_reg);
 	}
 
 	public static function changeEstado(){
@@ -223,10 +209,10 @@ class videosController{
 		}
 	}
 
-	public static function exportListAction($filtro){
+	public static function exportListAction($filter = ''){
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$videos = new videos();
-			$elements = $videos->getVideos($filtro);
+			$elements = $videos->getVideos($filter);
 			download_send_headers("data_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();

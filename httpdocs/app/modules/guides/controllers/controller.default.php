@@ -2,17 +2,10 @@
 class guidesController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$guides = new guides();
-		$paginator_items = PaginatorPages($reg);
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND name_guide LIKE '%".$_POST['find_reg']."%' ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND name_guide LIKE '%".$_REQUEST['f']."%' ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND name_guide LIKE '%".$find_reg."%' ".$filter;
 
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("guides g",$filter);
 		return array('items' => $guides->getGuides($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -24,17 +17,10 @@ class guidesController{
 
 	public static function getListCategoriesAction($reg = 0, $filter = ""){
 		$guides = new guides();
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND name_guide_category LIKE '%".$find_reg."%' ".$filter;
+		
 		$paginator_items = PaginatorPages($reg);
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND name_guide_category LIKE '%".$_POST['find_reg']."%' ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND name_guide_category LIKE '%".$_REQUEST['f']."%' ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
-
 		$total_reg = connection::countReg("guides_categories c",$filter);
 		return array('items' => $guides->getGuidesCategories($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -46,39 +32,24 @@ class guidesController{
 
 	public static function getListSubCategoriesAction($reg = 0, $filter = ""){
 		$guides = new guides();
-		$paginator_items = PaginatorPages($reg);
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND desc_guide_subcategory LIKE '%".$_POST['find_reg']."%' ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND desc_guide_subcategory LIKE '%".$_REQUEST['f']."%' ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND desc_guide_subcategory LIKE '%".$find_reg."%' ".$filter;
 
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("guides_subcategories s",$filter);
 		return array('items' => $guides->getGuidesSubCategories($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
-
 	}
 
 	public static function getListSubCategoriesTypesAction($reg = 0, $filter = ""){
 		$guides = new guides();
-		$paginator_items = PaginatorPages($reg);
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND name_guide_subcategory_type LIKE '%".$_POST['find_reg']."%' ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND name_guide_subcategory_type LIKE '%".$_REQUEST['f']."%' ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND name_guide_subcategory_type LIKE '%".$find_reg."%' ".$filter;
 
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("guides_subcategories_types t",$filter);
 		return array('items' => $guides->getGuidesSubCategoriesTypes($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -90,17 +61,10 @@ class guidesController{
 
 	public static function getListSubCategoriesUsersAction($reg = 0, $filter = ""){
 		$guides = new guides();
-		$paginator_items = PaginatorPages($reg);
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter = " AND user_guide LIKE '%".$_POST['find_reg']."%' ".$filter;
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filter = " AND user_guide LIKE '%".$_REQUEST['f']."%' ".$filter;
-			$find_reg = $_REQUEST['f'];
-		}
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND user_guide LIKE '%".$find_reg."%' ".$filter;
 
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("guides_subcategories_users gu",$filter);
 		return array('items' => $guides->getGuidesSubCategoriesUsers($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
@@ -156,7 +120,7 @@ class guidesController{
 
 			redirectURL("admin-guides-subcategory-types");
 		}
-	}	
+	}
 
 	public static function exportUsersListAction(){
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
@@ -172,7 +136,6 @@ class guidesController{
 		$guides = new guides();
 		$element = array();
 		$elements = $guides->getGuides(" AND id_guide=".$id." ");
-
 		if (isset($elements[0])) $element = $elements[0];
 		else{
 			$element['name_guide'] = "";
@@ -180,7 +143,6 @@ class guidesController{
 			$element['active_guide'] = 1;
 			$element['order_guide'] = 1;
 		}
-
 		return $element;
 	}
 
@@ -188,7 +150,6 @@ class guidesController{
 		$guides = new guides();
 		$element = array();
 		$elements = $guides->getGuidesCategories(" AND id_guide_category=".$id." ");
-
 		if (isset($elements[0])) $element = $elements[0];
 		else{
 			$element['id_guide'] = 0;
@@ -197,7 +158,6 @@ class guidesController{
 			$element['order_guide_category'] = 1;
 			$element['type_guide'] = "";
 		}
-
 		return $element;
 	}
 
@@ -215,7 +175,6 @@ class guidesController{
 			$element['active_guide_subcategory'] = 1;
 			$element['order_guide_subcategory'] = 1;
 		}
-
 		return $element;
 	}	
 
@@ -231,7 +190,6 @@ class guidesController{
 			$element['active_guide_subcategory_type'] = 1;
 			$element['order_guide_subcategory_type'] = 1;
 		}
-
 		return $element;
 	}
 
@@ -400,7 +358,7 @@ class guidesController{
 				$result['description'] = strTranslate("Insert_procesing");
 				$result['id'] = $id;
 			}
-			else {
+			else{
 				$result['title'] = "";
 				$result['message'] = "error";
 				$result['description'] = strTranslate("Error_procesing");

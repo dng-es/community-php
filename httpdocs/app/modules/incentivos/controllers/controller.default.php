@@ -2,8 +2,9 @@
 class incentivosController{
 	public static function getListAction($reg = 0, $filter = ""){
 		$incentivos = new incentivos();
-		$find_reg = "";
+		$find_reg = getFindReg();
 		$filter .= " ORDER BY id_venta DESC ";
+		
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("incentives_ventas", $filter); 
 		return array('items' => $incentivos->getVentas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -11,10 +12,6 @@ class incentivosController{
 					'reg' 		=> $reg,
 					'find_reg' 	=> $find_reg,
 					'total_reg' => $total_reg);
-	}
-
-	public static function getRankingUserAction($reg = 0, $filter = ""){
-		return 18;
 	}
 
 	public static function exportAction($filter = ""){
@@ -29,18 +26,11 @@ class incentivosController{
 
 	public static function getListPuntosAction($reg = 0, $filter = ""){
 		$incentivos = new incentivos();
-		$find_reg = "";
-		if (isset($_POST['find_reg'])){
-			$filter .= " AND username_puntuacion LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
-			$find_reg = $_POST['find_reg'];
-		}
-		if (isset($_REQUEST['f'])){
-			$filtro .= " AND username_puntuacion LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";
-			$find_reg = $_REQUEST['f'];
-		} 
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND username_puntuacion LIKE '%".$find_reg."%' ";
 		$filter .= " ORDER BY id_puntos_venta DESC ";
-		$paginator_items = PaginatorPages($reg);
 
+		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("incentives_ventas_puntos", $filter); 
 		$total_sum = connection::sumReg("incentives_ventas_puntos", 'puntuacion_venta', $filter); 
 		return array('items' => $incentivos->getVentasPuntuaciones($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -52,7 +42,7 @@ class incentivosController{
 	}
 
 	public static function exportPuntuacionesAction(){
-		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true) {
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getVentasPuntuaciones("");
 			download_send_headers(strTranslate("Incentives_points")."_" . date("Y-m-d") . ".csv");

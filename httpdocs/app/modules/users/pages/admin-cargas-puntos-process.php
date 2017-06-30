@@ -10,7 +10,7 @@
 		));?>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<?php if (isset($_FILES['nombre-fichero']['name'])) {
+				<?php if (isset($_FILES['nombre-fichero']['name'])){
 					$fichero = $_FILES['nombre-fichero'];
 					//SUBIR FICHERO
 					$nombre_archivo = time().'_'.str_replace(" ","_",$fichero['name']);
@@ -47,11 +47,11 @@
 ///////////////////////////////////////////////////////////////////////////////////
 // PAGE FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////
-function volcarMySQL($data){	
+function volcarMySQL($data){
 	$users = new users();
 	$contador = 0;
 		
-    for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+	for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 		$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
 		$puntos = $data->sheets[0]['cells'][$fila][2];
 		$motivo = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][3]));

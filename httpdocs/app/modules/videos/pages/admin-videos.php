@@ -1,4 +1,7 @@
 <?php
+//videosController::downloadZipFile(PATH_VIDEOS);
+videosController::downloadVideoFile();
+
 $filter = " AND v.estado=1";
 videosController::exportListAction($filter." ORDER BY v.id_file DESC ");
 addJavascripts(array(getAsset("videos")."js/admin-videos.js"));
@@ -42,6 +45,10 @@ addJavascripts(array(getAsset("videos")."js/admin-videos.js"));
 							<td nowrap="nowrap">
 								<span class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
 									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-videos?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_file'];?>')">
+								</span>
+
+								<span class="fa fa-download icon-table" title="<?php e_strTranslate("Download");?>"
+									onClick='location.href="admin-videos?exp=<?php echo $element['name_file'];?>"'>
 								</span>
 							</td>
 							<td>
