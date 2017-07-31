@@ -32,7 +32,7 @@ $canal = "";
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php
-			hook_sidebar();
+			get_hooks('sidebar');
 
 			//BUSCADOR
 			ForoSearch($reg, $_REQUEST['page'], $elements['find_reg'], $elements['marca'], $elements['find_tipo']);

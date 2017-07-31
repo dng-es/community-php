@@ -78,17 +78,5 @@ class foroCore{
 
 		return $elems;
 	}
-
-	public static function HolaHook(){
-		addJavascript(getAsset("users")."js/searchuser.js");
-		templateload("searchuser", "users");
-		panelSearchUser(false);
-	}
-
-	public static function moduleHooks(){
-		add_hook('', 'footer', 'foroCore::HolaHook');
-		//add_hook('foro-comentarios', 'sidebar', 'foroCore::HolaHook');
-		//add_hook('foro-comentarios', 'sidebar', 'HolaHook2');
-	}
 }
 ?>

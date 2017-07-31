@@ -4,12 +4,11 @@ addJavascripts(array("js/bootstrap.file-input.js",
 					"js/bootstrap-datepicker.js", 
 					"js/bootstrap-datepicker.es.js", 
 					getAsset("users")."js/profile.js",
-					getAsset("alerts")."js/alerts.js",
 					getAsset("notifications")."js/notifications.js",
 					"js/jquery.geturlparam.js",
 					getAsset("fotos")."js/fotos.js"));
 
-templateload("panels", "alerts");
+
 templateload("tipuser", "users");
 templateload("notifications", "notifications");
 templateload("na_areasuser", "na_areas");
@@ -169,7 +168,6 @@ templateload("addresses", "users");
 						<a class="btn btn-info btn-block" href="ps-orders"><?php e_strTranslate("Shop_my_orders");?> <?php e_strTranslate("APP_Prestashop");?></a>
 						<?php endif; ?>
 
-						<?php panelAlerts();?>
 					</div>
 				</div>
 			</div>
@@ -235,10 +233,7 @@ templateload("addresses", "users");
 			<p>Selecciona una imagen para tu perfil en formato JPG, PNG o GIF. El tamaño de la imagen no podrá exceder de 1MB.</p>
 			<img src="<?php echo $usuario['user_foto'];?>" class="user-perfil-img" /> 
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario['participaciones'])?></div><br />
-			<?php if(getModuleExist("recompensas")): ?>
-					<?php templateload("user_recompensa", "recompensas");?>
-					<?php userRecompensa($_SESSION['user_name']);?>
-			<?php endif;?>
+			<?php get_hooks('sidebar');?>
 		</div>
 	</div>
 </div>

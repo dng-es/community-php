@@ -49,6 +49,9 @@ class headers{
 
 		//incluir js de la página actual
 		if (isset($scripts_js)){
+			// echo '<pre>';
+			// var_dump($scripts_js);
+			// echo '</pre>';
 			foreach($scripts_js as $script_js):
 				$script_js_theme = __DIR__."/../../".str_replace($ini_conf['SiteUrl']."/app/", "themes/".$_SESSION['user_theme']."/", $script_js);
 				$script_js = (file_exists($script_js_theme) ? str_replace("app/", "themes/".$_SESSION['user_theme']."/", $script_js) : $script_js);

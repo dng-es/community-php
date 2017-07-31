@@ -60,24 +60,27 @@ jQuery(document).ready(function(){
 		}
 	});
 
-	$("#SubmitTarea").click(function(evento){
-		$(".alert-message").css("display","none");
+	$("#formNewTarea").submit(function(evento){
 		var form_ok = true;
-		if (jQuery.trim($("#tarea_titulo").val()) == ""){
-			$("#tarea-titulo-alert").fadeIn().css("display", "block");
+
+		if (jQuery.trim($("#tarea_titulo").removeClass("input-alert").val()) == ""){
+			$('#tarea_titulo').addClass("input-alert").attr("placeholder", $('#tarea_titulo').data("alert")).focus();
 			form_ok = false;
 		}
-		if (jQuery.trim($("#tarea_descripcion").val()) == ""){
-			$("#tarea-descripcion-alert").fadeIn().css("display", "block");
+
+		if (jQuery.trim($("#tarea_descripcion").removeClass("input-alert").val()) == ""){
+			$('#tarea_descripcion').addClass("input-alert").attr("placeholder", $('#tarea_descripcion').data("alert")).focus();
 			form_ok = false;
 		}
-		if (jQuery.trim($("#fichero-tarea").val()) == "" && $("#tipo:last").attr("checked") == true){
-			$("#fichero-tarea-alert").fadeIn().css("display", "block");
+
+		if (jQuery.trim($("#fichero-tarea").val()) == "" && $(".tipo_file").last().is(':checked') == true){
+			$("#fichero-tarea").parent().addClass("btn-danger");
 			form_ok = false;
 		}
-		if (form_ok){
-			$("#formNewTarea").submit();
-		}
+		else $("#fichero-tarea").parent().removeClass("btn-danger");
+	
+		
+		return form_ok;
 	});
 });
 

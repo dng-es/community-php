@@ -22,9 +22,6 @@ class menu{
 			$_SESSION['user_puntos'] = $puntos_user[0]['puntos'];
 			$_SESSION['user_perfil'] = $puntos_user[0]['perfil'];
 			$_SESSION['user_empresa'] = $puntos_user[0]['empresa'];
-
-			//MENSAJE NO LEIDOS
-			$contador_no_leidos = connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 			?>
 			<div class="row header-info">
 			<?php if($slider == true): ?>
@@ -56,7 +53,9 @@ class menu{
 							echo '<a href="mygroup" title="'.strTranslate("My_team").'"><i class="fa fa-users"></i></a>';
 						}
 						echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
-						echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope faa-shake animated-hover"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';
+						
+						get_hooks('header');
+						
 						if ($_SESSION['show_user_points']){
 							echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
 						}
@@ -95,7 +94,6 @@ class menu{
 					<div class="collapse navbar-collapse" id="menu-main-container">
 						<ul class="nav navbar-nav nav-menu">
 							<?php self::userMainMenu($slider);?>
-							<?php self::menuAdminItems();?>
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container-fluid -->
@@ -127,7 +125,6 @@ class menu{
 				<?php self::channelSelector();?>
 				<li><a href="home"><i class="fa fa-home visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Home")?></a></li>
 				<?php self::userMainMenu($slider);?>
-				<?php self::menuAdminItems();?>
 			</ul>
 		</div>
 		<?php endif;
@@ -163,32 +160,10 @@ class menu{
 				</li>';
 		}
 		else 
-			echo '<li><a '.$labelId.' '.$labelClass.' target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
+			echo '<li '.$labelClass.'><a '.$labelId.' target="'.$fila['LabelTarget'].'" href="'.$fila['LabelUrl'].'"><i class="'.$fila['LabelIcon'].' visible-xs-inline-block text-primary"></i> '.$fila['LabelItem'].'</a></li>';
 		
 	}
 
-	/**
-	 * Print all items main menu
-	 */
-	public static function menuAdminItems(){ ?>
-		<li class="hidden-md hidden-lg"><a href="profile"><i class="fa fa-user visible-xs-inline-block text-primary"></i> <?php e_strTranslate("My_profile")?></a></li>
-		<?php 
-		global $session;
-		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
-		//se muestra el acceso a admin si tiene el permiso
-		if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
-			if ($_SESSION['user_perfil'] == 'admin'){
-				echo '<li class="hidden-md hidden-lg"><a href="admin"><i class="fa fa-gear visible-xs-inline-block text-primary"></i> '.strTranslate("Administration").'</a></li>';
-			}
-		}
-
-		if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
-			echo '<li class="hidden-md hidden-lg"><a href="mygroup"><i class="fa fa-users visible-xs-inline-block text-primary"></i> '.strTranslate("My_team").'</a></li>';
-		}
-		?>
-		<li class="hidden-md hidden-lg"><a href="inbox"><i class="fa fa-envelope visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Mailing_messages")?></a></li>
-		<li class="hidden-md hidden-lg"><a href="logout"><i class="fa fa-power-off visible-xs-inline-block text-primary"></i> <?php e_strTranslate("Logout")?></a></li>
-	<?php }
 
 	/**
 	 * Print each section of Admin main menu

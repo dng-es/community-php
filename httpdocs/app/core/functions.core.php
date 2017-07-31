@@ -299,28 +299,20 @@ function writeYml($data, $file){
 	return FileSystem::createFile($file, $yaml);
 }
 
-
-function hook_sidebar(){
-	get_hooks('sidebar');
-}
-
-function hook_footer(){
-	get_hooks('footer');
-}
-
 $hooks['sidebar'] = array();
 $hooks['footer'] = array();
 $hooks['header'] = array();
-function add_hook($destination, $situation, $hook){
+function add_hook($destination, $situation, $hook, $order = 1){
 	global $hooks, $page;
-	if ($page == $destination && $situation == 'sidebar') array_push($hooks['sidebar'], $hook);
-	else array_push($hooks[$situation], $hook);
+	if ($page == $destination && $situation == 'sidebar') array_push($hooks['sidebar'], array('function'=>$hook, 'order'=>$order));
+	elseif ($destination == '') array_push($hooks[$situation], array('function'=>$hook, 'order'=>$order));
 }
 
 function get_hooks($situation){
 	global $hooks;
-	foreach ($hooks[$situation] as $hook):
-		call_user_func($hook);
+	$hooks_situation = arraySort($hooks[$situation], 'order', SORT_ASC);
+	foreach ($hooks_situation as $hook):
+		call_user_func($hook['function']);
 	endforeach;
 }
 

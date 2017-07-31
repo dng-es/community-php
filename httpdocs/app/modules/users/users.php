@@ -22,7 +22,51 @@ class usersCore{
 				"LabelUrl" => 'ranking',
 				"LabelTarget" => '_self',
 				"LabelPos" => $menu_order));
+
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-user",
+				"LabelItem" => strTranslate("My_profile"),
+				"LabelUrl" => 'profile',
+				"LabelTarget" => '_self',
+				"LabelClass" => 'hidden-md hidden-lg',
+				"LabelPos" => 90));
+
+			array_push($array_final, array(
+				"LabelIcon" => "fa fa-power-off",
+				"LabelItem" => strTranslate("Logout"),
+				"LabelUrl" => 'logout',
+				"LabelTarget" => '_self',
+				"LabelClass" => 'hidden-md hidden-lg',
+				"LabelPos" => 94));
 		}
+
+		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("mygroup", $_SESSION['user_name']));
+		if ($session->checkPageViewPermission("mygroup", $_SESSION['user_perfil'], $user_permissions)){
+			if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
+				array_push($array_final, array(
+					"LabelIcon" => "fa fa-users",
+					"LabelItem" => strTranslate("My_team"),
+					"LabelUrl" => 'mygroup',
+					"LabelTarget" => '_self',
+					"LabelClass" => 'hidden-md hidden-lg',
+					"LabelPos" => 92));
+			}
+		}
+
+		$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
+		if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
+			if ($_SESSION['user_perfil'] == 'admin'){
+				array_push($array_final, array(
+					"LabelIcon" => "fa fa-gear",
+					"LabelItem" => strTranslate("Administration"),
+					"LabelUrl" => 'admin',
+					"LabelTarget" => '_self',
+					"LabelClass" => 'hidden-md hidden-lg',
+					"LabelPos" => 93));
+			}
+		}
+
+
 		return $array_final;
 	}
 
@@ -129,6 +173,20 @@ class usersCore{
 		}
 
 		return $menu_elems;
+	}
+
+	public static function searchUsers(){
+		addJavascript(getAsset("users")."js/searchuser.js");
+		templateload("searchuser", "users");?>
+		<div class="col-md-12">
+		<?php panelSearchUser(false);?>
+		</div>
+		<br />
+		<br />
+	<?php }
+
+	public static function moduleHooks(){
+		add_hook('home', 'sidebar', 'usersCore::searchUsers', 1);
 	}
 }
 ?>

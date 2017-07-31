@@ -16,7 +16,8 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Na_areas"), "ItemUrl"=>"admin-areas"),
-			array("ItemLabel"=>"Documentación de la tarea ".$tarea[0]['tarea_titulo'], "ItemClass"=>"active"),
+			array("ItemLabel"=>"Volver al curso", "ItemUrl"=>"admin-area?act=edit&id=".$id_area),
+			array("ItemLabel"=>"Documentación de la tarea <em>".$tarea[0]['tarea_titulo']."</em>", "ItemClass"=>"active"),
 		));
 		
 		session::getFlashMessage( 'actions_message' );
@@ -24,59 +25,82 @@ $elements = $na_areas->getTareasDocumentos(" AND id_tarea=".$id_tarea." ");
 		na_areasController::deleteDocAction();
 		?>
 
-		<ul class="nav nav-pills navbar-default">
-			<li><a href="admin-area?act=edit&id=<?php echo $id_area;?>">Volver a la gestión del curso</a></li>
-		</ul>
-
 		<div class="panel panel-default">
 			<div class="panel-heading">Cargar nuevo documento</div>
 			<div class="panel-body">
 				<form id="formImport" name="formImport" enctype="multipart/form-data" method="post" action="admin-area-docs?a=<?php echo $id_area;?>&id=<?php echo $id_tarea;?>" role="form">
-				<input type="hidden" name="id_tarea" id="id_tarea" value="<?php echo $id_tarea;?>" />
-				<label for="nombre-documento">titulo del documento:</label>
-				<input id="nombre-documento" name="nombre-documento" type="text" class="form-control" />
-				<label for="tipo">tipo de documento:</label><br />
+					<input type="hidden" name="id_tarea" id="id_tarea" value="<?php echo $id_tarea;?>" />
+					
+					<div class="col-md-6">				
+						<div class="form-group">
+							<label for="nombre-documento">Titulo del documento:</label>
+							<input id="nombre-documento" name="nombre-documento" type="text" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="tipo">Tipo de documento:</label>
+							<div class="radio radio-primary">
+								<input type="radio" name="tipo" id="tipo" value="fichero" checked="checked" /><label>Fichero</label>
+							</div>
 
-				<input type="radio" name="tipo" id="tipo" value="fichero" checked="checked" />fichero<br />
-				<input type="radio" name="tipo" id="tipo" value="podcast" />audio / podcast<br />
-				<input type="radio" name="tipo" id="tipo" value="video" />video<br />
-				<input type="radio" name="tipo" id="tipo" value="enlace" />enlace
-				<input type="text" name="documento-link" id="documento-link" value="http://" class="form-control">
+							<div class="radio radio-primary">
+								<input type="radio" name="tipo" id="tipo" value="podcast" /><label>Audio / podcast</label>
+							</div>
 
-				<label for="nombre-fichero" style="clear:both">selecciona el fichero / video / audio: </label>
-				<input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero" />
-				<span id="fichero-alert" class="alert-message alert alert-danger"></span>
+							<div class="radio radio-primary">
+								<input type="radio" name="tipo" id="tipo" value="video" /><label>Vídeo</label><br />
+								<input id="nombre-fichero" name="nombre-fichero" type="file" class="btn btn-default" title="Seleccionar fichero / audio / vídeo" />
+								<span id="fichero-alert" class="alert-message alert alert-danger"></span>
+							</div>
+							
+							<div class="radio radio-primary">
+								<input type="radio" name="tipo" id="tipo" value="enlace" /><label>Enlace</label>
+								<input type="text" name="documento-link" id="documento-link" value="http://" class="form-control">
+							</div>
+						</div>
+					</div>
 
-				<br /><br />
-				<button id="inputFile" name="inputFile" class="btn btn-primary">Cargar documentación</button>
+					<div class="form-group col-md-12">
+						<button id="inputFile" name="inputFile" class="btn btn-primary">Cargar documentación</button>
+					</div>
 				</form>
 			</div>
 		</div>
 
-	<?php if (count($elements) > 0){
-		echo '<table class="table">';
-		echo '<tr">';
-		echo '<th width="40px">&nbsp;</th>';
-		echo '<th>Documento</th>';
-		echo '<th>Tipo</th>';
-		echo '</tr>';
-		foreach($elements as $element):
-			echo '<tr>';
-			echo '<td nowrap="nowrap">
-			<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el documento '.$element['documento_nombre'].'?\',
-			  \'admin-area-docs?act=del&a='.$id_area.'&id='.$id_tarea.'&idd='.$element['id_documento'].'\')" title="eliminar documento" />
-			</span>
-			</td>';
-			$ruta = "docs/showfile.php?t=1&file=";
-			if ($element['documento_tipo'] == 'enlace') $ruta = "";
-			elseif ($element['documento_tipo'] == 'video') $ruta = PATH_VIDEOS;
-			echo '<td><a target="_blank" href="'.$ruta.$element['documento_file'].'">'.$element['documento_nombre'].'<a></td>';
-			echo '<td>'.$element['documento_tipo'].'</td>';
-			echo '</tr>';
-		endforeach;
-		echo '</table>';
-	}
-	else echo '<p>No hay documentos en la tarea</p>';?>
+		<?php if (count($elements) > 0): ?>
+		<div class="panel panel-default">
+			<div class="panel-heading">Documentación de la tarea</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-hover table-striped">
+						<tr>
+							<th width="40px">&nbsp;</th>
+							<th>Documento</th>
+							<th>Tipo</th>
+						</tr>
+						<?php foreach($elements as $element):
+						echo '<tr>';
+						echo '<td nowrap="nowrap">
+						<span class="fa fa-ban icon-table" onClick="Confirma(\'¿Seguro que desea eliminar el documento '.$element['documento_nombre'].'?\',
+						  \'admin-area-docs?act=del&a='.$id_area.'&id='.$id_tarea.'&idd='.$element['id_documento'].'\')" title="eliminar documento" />
+						</span>
+						</td>';
+						$ruta = "docs/showfile.php?t=1&file=";
+						if ($element['documento_tipo'] == 'enlace') $ruta = "";
+						elseif ($element['documento_tipo'] == 'video') $ruta = PATH_VIDEOS;
+						echo '<td><a target="_blank" href="'.$ruta.$element['documento_file'].'">'.$element['documento_nombre'].'<a></td>';
+						echo '<td>'.$element['documento_tipo'].'</td>';
+						echo '</tr>';
+						endforeach ?>
+					</table>
+				</div>
+			</div>
+		</div>
+		<?php else: ?>
+		<p class="alert alert-info">No hay documentos en la tarea</p>
+		<?php endif; ?>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

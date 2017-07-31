@@ -93,11 +93,11 @@ function revisionesFicheros($id_tarea, $id_area, $id_grupo, $id_recompensa){
 	$filtro .= " ORDER BY fecha_tarea DESC ";
 	$revisiones = $na_areas->getTareasUser($filtro);
 	
-	echo '<br /><p>pincha <a href="admin-area-revs?t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
 
 	if (count($revisiones) == 0)
-		echo '<div class="tareas-row">Los usuarios todavia no han enviado archivos para esta tarea.</div>';
+		echo '<div class="alert alert-info">Los usuarios todavia no han enviado archivos para esta tarea.</div>';
 	else{
+	echo '<br /><p>Pincha <a href="admin-area-revs?t2=1&a='.$id_area.'&idg='.$id_grupo.'&id='.$id_tarea.'">aquí</a> para descargar el fichero con todos los usuarios que han subidos el fichero de la tarea.</p>';
 		echo '<div class="table-responsive">
 				<table class="table">
 				<tbody>';
@@ -206,5 +206,4 @@ function revisionesFormulario($id_tarea, $id_area, $id_grupo, $id_recompensa){
 			<div id="dialog-info"></div>
 		</div>
 	<?php }
-}
-?>
+} ?>

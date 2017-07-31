@@ -12,7 +12,6 @@ addJavascripts(array("js/jquery.numeric.js",
 
 templateload("cmbCanales","users");
 templateload("user_recompensa", "recompensas");
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -35,7 +34,7 @@ templateload("user_recompensa", "recompensas");
 		if ($accion == 'edit' && $accion2 == 'ok' && $accion1 != "del") na_areasController::updateAction();
 		elseif ($accion == 'new' && $accion2 == 'ok') na_areasController::insertAction();
 
-		//VALIDAR CONTENIDOS FORO
+		//validar contenidos del foro
 		na_areasController::validarComentarioAction();
 
 		//clasificar foro
@@ -79,58 +78,58 @@ templateload("user_recompensa", "recompensas");
 				<div class="tab-content">
 					<div class="tab-pane fade in <?php echo (!(isset($_GET['t'])) ? ' active' : '');?>" id="general">
 						<div class="row">
-						<div class="col-md-12">
-						<form role="form" id="formData" name="formData" method="post" action="admin-area?act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
-							<input type="hidden" id="id_area" name="id_area" value="<?php echo $id;?>" />
-							<div class="row">
-								<div class="form-group col-md-12">
-									<label for="area_nombre"><small><?php e_strTranslate("Name");?>:</small></label>
-									<input class="form-control form-big" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"  data-alert="<?php e_strTranslate("Required_field");?>" />
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="form-group col-md-12">
-									<label for="area_descripcion"><small><?php e_strTranslate("Description");?>:</small></label>
-									<textarea class="form-control" id="area_descripcion" name="area_descripcion" data-alert="<?php e_strTranslate("Required_field");?>"><?php echo $area_descripcion;?></textarea>
-								</div>
-							</div>
-							
-							<div class="row">
-								<div class="form-group col-md-4">
-									<label for="area_canal"><small><?php e_strTranslate("Channel");?>:</small></label>
-									<select id="area_canal" name="area_canal[]" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
-										<?php ComboCanales($area_canal);?>
-									</select>
-								</div>
-
-								<div class="form-group col-md-2">
-									<label for="area_puntos"><small><?php echo ucfirst(strTranslate("APP_points"));?>:</small></label>
-									<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" data-alert="<?php e_strTranslate("Required_field");?>" />
-								</div>
-
-								<div class="form-group col-md-2">
-									<label for="area_limite"><small>Límite de usuarios:</small></label>
-									<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" data-alert="<?php e_strTranslate("Required_field");?>" />
-								</div>
-
-								<div class="form-group col-md-4">
-									<br />
-									<div class="checkbox checkbox-primary">
-										<input type="checkbox" class="styled" id="area_registro"  name="area_registro" <?php echo $registro == 1 ? "checked" : "";?>>
-										<label for="area_registro">Permitir registro</label>
+							<div class="col-md-12">
+								<form role="form" id="formData" name="formData" method="post" action="admin-area?act=<?php echo $accion;?>&amp;id=<?php echo $id;?>&amp;accion2=ok">
+									<input type="hidden" id="id_area" name="id_area" value="<?php echo $id;?>" />
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="area_nombre"><small><?php e_strTranslate("Name");?>:</small></label>
+											<input class="form-control form-big" type="text" id="area_nombre" name="area_nombre" value="<?php echo $area_nombre;?>"  data-alert="<?php e_strTranslate("Required_field");?>" />
+										</div>
 									</div>
-								</div>
+
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="area_descripcion"><small><?php e_strTranslate("Description");?>:</small></label>
+											<textarea class="form-control" id="area_descripcion" name="area_descripcion" data-alert="<?php e_strTranslate("Required_field");?>"><?php echo $area_descripcion;?></textarea>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="form-group col-md-4">
+											<label for="area_canal"><small><?php e_strTranslate("Channel");?>:</small></label>
+											<select id="area_canal" name="area_canal[]" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
+												<?php ComboCanales($area_canal);?>
+											</select>
+										</div>
+
+										<div class="form-group col-md-2">
+											<label for="area_puntos"><small><?php echo ucfirst(strTranslate("APP_points"));?>:</small></label>
+											<input type="text" class="form-control" id="area_puntos" name="area_puntos" value="<?php echo $puntos;?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+										</div>
+
+										<div class="form-group col-md-2">
+											<label for="area_limite"><small>Límite de usuarios:</small></label>
+											<input type="text" class="form-control" id="area_limite" name="area_limite" value="<?php echo $limite_users;?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+										</div>
+
+										<div class="form-group col-md-4">
+											<br />
+											<div class="checkbox checkbox-primary">
+												<input type="checkbox" class="styled" id="area_registro"  name="area_registro" <?php echo $registro == 1 ? "checked" : "";?>>
+												<label for="area_registro">Permitir registro</label>
+											</div>
+										</div>
+									</div>
+									
+									<div class="clearfix"></div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Save_data");?></button>
+										</div>
+									</div>
+								</form>
 							</div>
-							
-							<div class="clearfix"></div>
-							<div class="row">
-								<div class="form-group col-md-12">
-									<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary"><?php e_strTranslate("Save_data");?></button>
-								</div>
-							</div>
-						</form>
-						</div>
 						</div>
 					</div>
 
@@ -151,11 +150,11 @@ templateload("user_recompensa", "recompensas");
 							<br />
 							<div class="row">
 								<div class="col-md-6">
-									<?php showGruposArea($id_area); ?>
+									<?php showUsuariosArea($id_area,$area_canal); ?>
 								</div>
 
 								<div class="col-md-6">
-									<?php showUsuariosArea($id_area,$area_canal); ?>
+									<?php showGruposArea($id_area); ?>
 								</div>
 							</div>
 						</div>
@@ -196,7 +195,7 @@ function showUsuariosArea($id_area,$area_canal){
 		</div>
 	</div>
 
-	<div class="panel panel-default full-height">
+	<div class="panel panel-default">
 		<div class="panel-heading">Usuarios incluídos en el curso</div>
 		<div class="panel-body">
 			<?php if (count($elements) > 0):?>
@@ -211,33 +210,35 @@ function showUsuariosArea($id_area,$area_canal){
 function showGruposArea($id_area){
 	$na_areas = new na_areas;
 	$elements = $na_areas->getGruposUsers(" AND id_area=".$id_area);?>
-	<div class="panel panel-default full-height">
+	<div class="panel panel-default">
 		<div class="panel-heading">Grupos de usuarios en el curso</div>
 		<div class="panel-body">
-			<p>puedes crear nuevos grupos en el curso. 
-			Para ver los usuarios pertenecientes al grupo o editar sus miembros haz click sobre el nombre.
+			<p>Puedes crear nuevos grupos en el curso. Para ver los usuarios pertenecientes al grupo o editar sus miembros haz click sobre el nombre.
 			</p>
 			<form action="" method="post" name="formNewGrupo" id="formNewGrupo" role="form" class="form-inline">
-			<div class="form-group">
-				<input type="hidden" name="id_area_grupo" id="id_area_grupo" value="<?php echo $id_area;?>" />
-				<label class="sr-only" for="grupo_nombre">Nuevo grupo:</label> 
-				<input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control" placeholder="nombre del nuevo grupo" />
-				<span id="grupo-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
-			</div>
-			<button type="button" id="SubmitGrupo" name="SubmitGrupo" class="btn btn-primary">guardar grupo</button>
+				<div class="form-group">
+					<input type="hidden" name="id_area_grupo" id="id_area_grupo" value="<?php echo $id_area;?>" />
+					<label class="sr-only" for="grupo_nombre">Nuevo grupo:</label> 
+					<input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control" placeholder="nombre del nuevo grupo" />
+					<span id="grupo-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+				</div>
+				<button type="button" id="SubmitGrupo" name="SubmitGrupo" class="btn btn-primary">guardar grupo</button>
 			</form>
 			<br />
 			<?php if (count($elements) > 0): ?>
-				<table class="table table-striped">
+			<div class="table-responsive">
+				<table class="table table-striped table-hover">
 					<tr>
 						<th>Nombre del grupo</th>
 					</tr>
-					<?php foreach($elements as $element):
-						echo '<tr>';
-						echo '<td><a href="admin-area-grupo?a='.$id_area.'&g='.$element['id_grupo'].'">'.$element['grupo_nombre'].'</a></td>';
-						echo '</tr>';
-					endforeach;?>
+					<?php foreach($elements as $element):?>
+					<tr>
+						<td>
+						<a href="admin-area-grupo?a=<?php echo $id_area;?>&g=<?php echo $element['id_grupo'];?>"><?php echo $element['grupo_nombre'];?></a></td>
+					</tr>
+					<?php endforeach;?>
 				</table>
+			</div>
 			<?php endif;?>
 		</div>
 	</div>
@@ -386,42 +387,51 @@ function showTareasArea($id_area){
 					<div class="row nopadding">
 						<div class="col-md-6 nopadding">
 							<div class="radio radio-primary">
-								<input type="radio" id="tipo" name="tipo" value="formulario" checked="checked"> 
+								<input type="radio" class="tipo_file" name="tipo" value="formulario" checked="checked"> 
 								<label><?php e_strTranslate("Form");?></label>
 							</div>
 						</div>
 						<div class="col-md-6 nopadding">
 							<div class="radio radio-primary">
-								<input type="radio" id="tipo" name="tipo" value="fichero" />
+								<input type="radio" class="tipo_file" name="tipo" value="fichero" />
 								<label><?php e_strTranslate("File");?></label>
 							</div>
 						</div>
 					</div>
 
-					<label for="tarea_titulo" class="control-label"><?php e_strTranslate("Name");?>:</label>
-					<input type="text" name="tarea_titulo" id="tarea_titulo" class="form-control" />
-					<span id="tarea-titulo-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+					<div class="form-group">
+						<label for="tarea_titulo" class="control-label"><?php e_strTranslate("Name");?>:</label>
+						<input type="text" name="tarea_titulo" id="tarea_titulo" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>" />
+					</div>
 
-					<label for="tarea_descripcion" class="control-label"><?php e_strTranslate("Description");?>:</label>
-					<textarea name="tarea_descripcion" id="tarea_descripcion" class="form-control" /></textarea>
-					<span id="tarea-descripcion-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_field");?></span>
+					<div class="form-group">
+						<label for="tarea_descripcion" class="control-label"><?php e_strTranslate("Description");?>:</label>
+						<textarea name="tarea_descripcion" id="tarea_descripcion" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>" /></textarea>
+					</div>
 
-					<label for="fichero-tarea" class="control-label">Fichero tarea:</label>
-					<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default btn-block" title="<?php e_strTranslate("Choose_file");?>" />
-					<span id="fichero-tarea-alert" class="alert-message alert alert-danger"><?php e_strTranslate("Required_file");?></span>
+					<div class="form-group">
+						<label for="fichero-tarea" class="control-label">Fichero tarea:</label>
+						<input id="fichero-tarea" name="fichero-tarea" type="file" class="btn btn-default btn-block" title="<?php e_strTranslate("Choose_file");?>" />
+					</div>
 
 					<?php if(getModuleExist("recompensas")): ?>
-					<label for="id_recompensa" class="control-label"><?php e_strTranslate("Reward");?>: 
-					<span class="text-muted"><small>Recompensa que recibirá el usuario el aprobar el curso</small></span></label>
-					<?php comboRecompensas(0, "", "id_recompensa");?>
-					<?php endif; ?>
-					<div class="checkbox checkbox-primary">
-						<input class="styled" type="checkbox" name="tarea_grupo"  id="tarea_grupo">
-						<label for="tarea_grupo"> Tarea de grupos</label>
+					<div class="form-group">
+						<label for="id_recompensa" class="control-label"><?php e_strTranslate("Reward");?>: 
+						<span class="text-muted"><small>Recompensa que recibirá el usuario el aprobar el curso</small></span></label>
+						<?php comboRecompensas(0, "", "id_recompensa");?>
 					</div>
-					<br />
-					<button type="button" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary btn-block">Guardar tarea</button>
-					<br />
+					<?php endif; ?>
+
+					<div class="form-group">
+						<div class="checkbox checkbox-primary">
+							<input class="styled" type="checkbox" name="tarea_grupo"  id="tarea_grupo">
+							<label for="tarea_grupo"> Tarea de grupos</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<button type="submit" id="SubmitTarea" name="SubmitTarea" class="btn btn-primary btn-block">Guardar tarea</button>
+					</div>
 				</form>
 			</div>
 			<div class="col-md-7">

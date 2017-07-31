@@ -89,7 +89,6 @@ templateload("notifications","notifications");
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
-			<?php hook_sidebar();?>
 			<h4>
 				<span class="fa-stack fa-sx">
 					<i class="fa fa-circle fa-stack-2x"></i>
@@ -101,6 +100,7 @@ templateload("notifications","notifications");
 			<?php addForoComment($id_tema); 
 			//INSERTAR VISITA EN EL FORO
 			if (!isset($_POST['texto-comentario'])) $foro->insertVisita($_SESSION['user_name'], $id_tema, 0);?>
+			<?php get_hooks('sidebar');?>
 		</div>
 	</div>
 </div>

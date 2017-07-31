@@ -1,7 +1,3 @@
-<?php
-addJavascripts(array(getAsset("alerts")."js/alerts.js"));
-templateload("panels", "alerts");
-?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -50,13 +46,13 @@ templateload("panels", "alerts");
 						</p>
 					</div>
 				</div>
-				<?php panelAlerts();?>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-4 col-lg-3 nopadding lateral-container">
 		<div class="panel-interior">
 			<p class="text-center"><i class="fa fa-envelope fa-big"></i></p>
+			<?php get_hooks('sidebar');?>
 		</div>
 	</div>
 </div>

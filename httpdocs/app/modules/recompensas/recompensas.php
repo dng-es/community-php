@@ -32,5 +32,14 @@ class recompensasCore{
 			))
 		);
 	}
+
+	public static function userRecompensas(){
+		templateload("user_recompensa", "recompensas");
+		userRecompensa($_SESSION['user_name']);
+	}
+
+	public static function moduleHooks(){
+		add_hook('profile', 'sidebar', 'recompensasCore::userRecompensas');
+	}			
 }
 ?>
