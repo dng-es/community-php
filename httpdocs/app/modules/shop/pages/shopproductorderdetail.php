@@ -91,11 +91,11 @@ $historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id
 									<?php echo $element['surname_order'];?>
 								</td></tr>
 								<tr><td>
-									<label class="control-label" for="telephone_order"><?php e_strTranslate("Teléfono de contacto");?>: </label>
+									<label class="control-label" for="telephone_order"><?php e_strTranslate("Telephone");?>: </label>
 									<?php echo $element['telephone_order'];?>
 								</td></tr>
 								<tr><td>
-									<label class="control-label" for="postal_order">Observaciones: </label>
+									<label class="control-label" for="postal_order"><?php e_strTranslate("Order_notes");?>: </label>
 									<?php echo $element['notes_order'];?>
 								</td></tr>
 							</table>
@@ -111,15 +111,15 @@ $historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id
 									<?php echo $element['address2_order'];?>
 								</td></tr>
 								<tr><td>
-									<label class="control-label" for="city_order"><?php e_strTranslate("Localidad");?>: </label>
+									<label class="control-label" for="city_order"><?php e_strTranslate("City");?>: </label>
 									<?php echo $element['city_order'];?>
 								</td></tr>
 								<tr><td>
-									<label class="control-label" for="state_order"><?php e_strTranslate("Provincia");?>: </label>
+									<label class="control-label" for="state_order"><?php e_strTranslate("State");?>: </label>
 									<?php echo $element['state_order'];?>
 								</td></tr>
 								<tr><td>
-									<label class="control-label" for="postal_order"><?php e_strTranslate("Código postal");?>: </label>
+									<label class="control-label" for="postal_order"><?php e_strTranslate("Postal_code");?>: </label>
 									<?php echo $element['postal_order'];?>
 								</td></tr>
 							</table>

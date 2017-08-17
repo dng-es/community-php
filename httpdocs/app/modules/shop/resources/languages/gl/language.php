@@ -18,4 +18,8 @@ Shop_manufacturer = "Fabricante"
 Shop_manufacturer_new = "Nuevo fabricante"
 Import_order_states = "Importar estados pedidos"
 Comming_soon = "Próximo lanzamiento"
+Buy_product = "Canjear"
+No_Buy_product = "No canjeable"
+Order_product = "Realizar pedido"
+Order_notes = "Observaciones sobre el pedido"
 ?>

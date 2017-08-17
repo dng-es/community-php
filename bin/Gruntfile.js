@@ -98,12 +98,12 @@ var processorsArray = [
 		           '<%= public_html %>css/libs/bootstrap*/assets/javascripts/bootstrap.js', 
 		           '<%= public_html %>js/bootstrap-dropdown.js', 
 		           '<%= public_html %>js/bootstrap-select.js', 
+		           '<%= public_html %>js/jquery.iconsalerts.js',
 		           '<%= public_html %>js/libs/main.js'
 		           ]
 		       },
 		       options: {
-		            preserveComments: true,
-		            compress: false
+		            preserveComments: true
 		       }
 		   },
 
@@ -116,6 +116,7 @@ var processorsArray = [
 		           '<%= public_html %>css/libs/bootstrap*/assets/javascripts/bootstrap.js', 
 		           '<%= public_html %>js/bootstrap-dropdown.js', 
 		           '<%= public_html %>js/bootstrap-select.js', 
+		           '<%= public_html %>js/jquery.iconsalerts.js', 
 		           '<%= public_html %>js/libs/main.js'
 		           ]
 		       },

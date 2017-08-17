@@ -13,6 +13,7 @@ jQuery(document).ready(function(){
 		if (jQuery.trim($("#user-nick").removeClass("input-alert").val()) == ""){
 			$('#user-nick').addClass("input-alert").attr("placeholder", $('#user-nick').data("alert")).focus();
 			form_ok = false;
+
 		}
 		if (jQuery.trim($("#user-nombre").removeClass("input-alert").val()) == ""){
 			$('#user-nombre').addClass("input-alert").attr("placeholder", $('#user-nombre').data("alert")).focus();
@@ -48,6 +49,8 @@ jQuery(document).ready(function(){
 			}
 		}		
 	
+		//iconAlerts($(this).attr('id'));
 		return form_ok;
-	});
+	}).iconsalerts();
+
 });

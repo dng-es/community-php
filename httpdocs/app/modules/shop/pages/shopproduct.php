@@ -1,5 +1,7 @@
 <?php
+addCss(array(getAsset("shop")."css/styles.css"));
 templateload("searchproducts","shop");
+templateload("credits","shop");
 
 $id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? intval($_REQUEST['id']) : 0);
 $filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
@@ -29,9 +31,9 @@ $module_config = getModuleConfig("shop");
 			array("ItemLabel"=> strTranslate("Shop_products_list"), "ItemClass"=>"active"),
 		));
 
-		$card_text = "Canjear premio";
-		$card_text = ($element['price_product'] > $user_detail['creditos'] ? "No canjeable" : $card_text);
-		$card_text = ($element['stock_product'] <= 0 ? "No canjeable" : $card_text);
+		$card_text = strTranslate("Buy_product");
+		$card_text = ($element['price_product'] > $user_detail['creditos'] ? strTranslate("No_Buy_product") : $card_text);
+		$card_text = ($element['stock_product'] <= 0 ? strTranslate("No_Buy_product") : $card_text);
 		$card_disabled = ($element['price_product'] > $user_detail['creditos'] ? "disabled" : "");
 		$card_disabled = ($element['stock_product'] <= 0 ? "disabled" : $card_disabled);
 		$foto = ($element['image_product'] == '' ? 'images/nofile.jpg' : "images/shop/".$element['image_product']);
@@ -97,6 +99,7 @@ $module_config = getModuleConfig("shop");
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php searchProducts();?>
+			<?php creditsShow($_SESSION['user_name']);?>
 		</div>
 	</div>
 </div>

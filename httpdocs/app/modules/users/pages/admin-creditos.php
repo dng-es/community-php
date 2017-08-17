@@ -23,29 +23,27 @@ addJavascripts(array("js/bootstrap.file-input.js",
 						<form id="formData" name="formData" method="post" action="" role="form">
 							<div class="form-group">
 								<label for="id_usuario"><?php e_strTranslate("User");?>:</label>
-								<input type="text" name="id_usuario" id="id_usuario" class="form-control" />
-								<span id="id-usuario-alert" class="alert-message alert alert-danger"></span>
+								<input data-alert="<?php e_strTranslate("Required_field");?>" type="text" name="id_usuario" id="id_usuario" class="form-control" />
 							</div>
 
 							<div class="form-group">
 								<label for="num_puntos"><?php echo ucfirst(strTranslate("APP_Credits"));?>:</label>
-								<input size="6" type="text" name="num_puntos" id="num_puntos" class="form-control" />
-								<span id="num-huellas-alert" class="alert-message alert alert-danger"></span>
+								<input data-alert="<?php e_strTranslate("Required_field");?>" size="6" type="text" name="num_puntos" id="num_puntos" class="form-control" />
 							</div>
 
 							<div class="form-group">
 								<label for="motivo_puntos">Motivo:</label>
-								<input type="text" name="motivo_puntos" id="motivo_puntos" class="form-control" />
-								<span id="motivo-huellas-alert" class="alert-message alert alert-danger"></span>
+								<input type="text" data-alert="<?php e_strTranslate("Required_field");?>" name="motivo_puntos" id="motivo_puntos" class="form-control" />
 							</div>
 
 							<div class="form-group">
 								<label for="motivo_puntos">Detalle:</label>
-								<textarea name="detalle_puntos" id="detalle_puntos" class="form-control"></textarea>
+								<textarea name="detalle_puntos" rows="5" id="detalle_puntos" class="form-control"></textarea>
 							</div>
 							
-							<button type="button" id="SubmitData" name="SubmitData" class="btn btn-primary">Asignar <?php e_strTranslate("APP_Credits");?> al usuario</button>
+							<button type="submit" id="SubmitData" name="SubmitData" class="btn btn-primary">Asignar <?php e_strTranslate("APP_Credits");?> al usuario</button>
 						</form>
+						<br />
 						<div id="resultado-puntos"></div>
 					</div>
 				</div>

@@ -2,6 +2,7 @@
 addJavascripts(array("js/jcolumn.min.js", getAsset("shop")."js/shopproducts.js"));
 addCss(array(getAsset("shop")."css/styles.css"));
 templateload("searchproducts","shop");
+templateload("credits","shop");
 
 $filtro = " AND active_product=1 ";
 if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".$_REQUEST['ref_search']."%' ";
@@ -33,9 +34,9 @@ $module_config = getModuleConfig("shop");
 		<div class="row">
 			<div class="col-md-12 dinamicRow">
 			<?php foreach($elements['items'] as $element):
-				$card_text = "Canjear";
-				$card_text = ($element['price_product'] > $user_detail['creditos'] ? "No canjeable" : $card_text);
-				$card_text = ($element['stock_product'] <= 0 ? "No canjeable" : $card_text);
+				$card_text = strTranslate("Buy_product");
+				$card_text = ($element['price_product'] > $user_detail['creditos'] ? strTranslate("No_Buy_product") : $card_text);
+				$card_text = ($element['stock_product'] <= 0 ? strTranslate("No_Buy_product") : $card_text);
 				$card_disabled = ($element['price_product'] > $user_detail['creditos'] ? "disabled" : "");
 				$card_disabled = ($element['stock_product'] <= 0 ? "disabled" : $card_disabled);
 				$foto = ($element['image_product'] == '' ? 'images/nofile.jpg' : "images/shop/".$element['image_product']);
@@ -83,6 +84,7 @@ $module_config = getModuleConfig("shop");
 	<div class="app-sidebar">
 		<div class="panel-interior">
 			<?php searchProducts();?>
+			<?php creditsShow($_SESSION['user_name']);?>
 		</div>
 	</div>
 </div>

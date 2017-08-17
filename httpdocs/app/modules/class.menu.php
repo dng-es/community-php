@@ -32,7 +32,7 @@ class menu{
 				<div class="<?php echo ($slider == true ? 'col-md-3 col-sm-3 col-xs-10' : 'col-md-3 col-sm-3 hidden-xs' ) ?>">
 					<a href="home"><img src="themes/<?php echo $theme;?>/images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" class="img-responsive"/></a>
 				</div>
-				<div class="<?php echo ($slider == true ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-9 col-xs-12' ) ?>">
+				<div class="<?php echo ($slider == true ? 'col-md-8 col-sm-8 col-xs-12 menu-opt1-slider' : 'col-md-9 col-sm-9 col-xs-12' ) ?>">
 					<div id="user-info">
 						<?php 
 						echo '<a href="profile" title="'.strTranslate("My_profile").'"><img alt="'.prepareString($_SESSION['user_nick']).'" src="'.usersController::getUserFoto($puntos_user[0]['foto']).'" /></a>';
@@ -50,7 +50,7 @@ class menu{
 						}
 
 						if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
-							echo '<a href="mygroup" title="'.strTranslate("My_team").'"><i class="fa fa-users"></i></a>';
+							echo '<a href="mygroup" title="'.strTranslate("My_team").'"><i class="fa fa-users faa-tada animated-hover"></i></a>';
 						}
 						echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
 						

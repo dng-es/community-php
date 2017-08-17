@@ -16,5 +16,5 @@ jQuery(document).ready(function(){
 		else $("#formData").find("[data-id='canal']").removeClass("input-alert");
 			
 		return form_ok;
-	});	
+	}).iconsalerts();	
 });

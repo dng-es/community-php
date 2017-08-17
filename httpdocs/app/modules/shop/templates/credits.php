@@ -12,4 +12,13 @@ function creditosUser($username){
 		<li><?php echo $element['credito_motivo'];?>: <small class="text-muted"><?php echo $element['puntuacion'];?> <?php e_strTranslate("APP_Credits");?></small></li>
 	<?php endforeach; ?>
 	</ul>
+<?php } 
+
+function creditsShow($username){ 
+		$usuario = usersController::getPerfilAction($username);
+		?>
+		<div class="text-center credits-available inset">
+			<p><?php echo ucfirst(strTranslate("APP_Credits_available"));?></p>
+			<big><?php echo $usuario['creditos'];?></big>
+		</div>
 <?php } ?>

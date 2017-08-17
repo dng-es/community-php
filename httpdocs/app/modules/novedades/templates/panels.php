@@ -12,7 +12,11 @@ function panelNovedades(){
 	if (count($elements['items']) > 0): ?>
 		<?php if (count($elements['items']) == 1): ?>
 			<div id="carousel-novedades" class="section panel">
-				<?php echo $elements['items'][0]['cuerpo'];?>
+				<?php 
+				$cuerpo = str_replace('<p>', '', $elements['items'][0]['cuerpo']);
+				$cuerpo = str_replace('</p>', '', $cuerpo);
+				echo $cuerpo;
+				?>
 			</div>
 		<?php else: ?>
 		<div class="section panel">
@@ -30,7 +34,11 @@ function panelNovedades(){
 				<div class="carousel-inner" role="listbox">
 					<?php foreach($elements['items'] as $element): ?>
 						<div class="item <?php echo ($element === reset($elements['items']) ? 'active' : '');?>">
-							<?php echo $element['cuerpo'];?>
+							<?php 
+							$cuerpo = str_replace('<p>', '', $element['cuerpo']);
+							$cuerpo = str_replace('</p>', '', $cuerpo);
+							echo $cuerpo;
+							?>
 						</div>
 					<?php endforeach;?>
 				</div>

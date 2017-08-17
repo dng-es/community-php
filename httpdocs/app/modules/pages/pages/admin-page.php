@@ -36,11 +36,11 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="page_name_new"><?php e_strTranslate("Name");?></label>
-							<input type="text" name="page_name_new" id ="page_name_new" class="form-control" <?php echo $page_name != '' ? ' disabled="disabled" value="'.$page_name.'" ' : '' ?> />
+							<input type="text" data-alert="<?php e_strTranslate("Required_field");?>" name="page_name_new" id ="page_name_new" class="form-control" <?php echo $page_name != '' ? ' disabled="disabled" value="'.$page_name.'" ' : '' ?> />
 						</div>
 						<div class="form-group col-md-8">
 							<label for="page_title"><?php e_strTranslate("Title");?></label>
-							<input type="text" name="page_title" id ="page_title" class="form-control" value="<?php echo $page_title;?>" />
+							<input type="text" data-alert="<?php e_strTranslate("Required_field");?>" name="page_title" id ="page_title" class="form-control" value="<?php echo $page_title;?>" />
 						</div>
 					</div>
 					<div class="row">

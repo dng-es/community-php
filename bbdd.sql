@@ -1,6 +1,6 @@
 /*
 SQLyog Community v12.2.6 (32 bit)
-MySQL - 5.5.55-0+deb8u1 : Database - comunidad
+MySQL - 5.5.57-0+deb8u1 : Database - comunidad
 *********************************************************************
 */
 
@@ -598,15 +598,16 @@ CREATE TABLE `canales` (
   `canal_lan` varchar(5) NOT NULL DEFAULT 'es',
   `theme` varchar(100) NOT NULL DEFAULT 'default',
   `visible` tinyint(1) NOT NULL DEFAULT '1',
+  `points_info` double NOT NULL DEFAULT '0',
   PRIMARY KEY (`canal`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `canales` */
 
-insert  into `canales`(`canal`,`canal_name`,`canal_lan`,`theme`,`visible`) values ('admin','Canal administradores','es','default',0);
-insert  into `canales`(`canal`,`canal_name`,`canal_lan`,`theme`,`visible`) values ('comercial','Canal comercial','es','blue',1);
-insert  into `canales`(`canal`,`canal_name`,`canal_lan`,`theme`,`visible`) values ('gerente','Canal gerentes','en','green',1);
-insert  into `canales`(`canal`,`canal_name`,`canal_lan`,`theme`,`visible`) values ('test','Canal de prueba','es','generation',1);
+insert  into `canales`(`canal`,`canal_name`,`canal_lan`,`theme`,`visible`,`points_info`) values ('admin','Canal administradores','es','default',0,10);
+insert  into `canales`(`canal`,`canal_name`,`canal_lan`,`theme`,`visible`,`points_info`) values ('comercial','Canal comercial','es','default',1,0);
+insert  into `canales`(`canal`,`canal_name`,`canal_lan`,`theme`,`visible`,`points_info`) values ('gerente','Canal gerentes','en','green',1,0);
+insert  into `canales`(`canal`,`canal_name`,`canal_lan`,`theme`,`visible`,`points_info`) values ('test','Canal de prueba','es','generation',1,0);
 
 /*Table structure for table `config` */
 
@@ -691,7 +692,7 @@ CREATE TABLE `cuestionarios` (
   `date_tarea` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `activo` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '0 inactivo; 1 activo; 2 eliminado',
   PRIMARY KEY (`id_cuestionario`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cuestionarios` */
 
@@ -703,6 +704,7 @@ insert  into `cuestionarios`(`id_cuestionario`,`nombre`,`descripcion`,`date_tare
 insert  into `cuestionarios`(`id_cuestionario`,`nombre`,`descripcion`,`date_tarea`,`activo`) values (17,'Cuestionario autocorregible','<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a volutpat neque, non aliquet velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus velit vitae porttitor egestas. Etiam et leo interdum, viverra metus eu, pellentesque ligula. Nullam rhoncus iaculis neque, eu sollicitudin augue venenatis sed. Nulla facilisi. Aliquam erat volutpat. Phasellus vel justo ut diam eleifend fermentum. Vivamus odio justo, luctus eu erat ut, venenatis interdum massa. Integer id malesuada libero. Integer purus eros, dapibus non accumsan at, mollis vitae elit. Vivamus eu aliquet est, id vestibulum nibh. Cras gravida justo id enim imperdiet auctor. Maecenas hendrerit in turpis ac congue. Nunc nibh lorem, hendrerit pulvinar urna vitae, rhoncus malesuada tellus.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet mauris ultrices, malesuada sapien sed, auctor felis. Maecenas ornare nibh ante, quis pharetra est ullamcorper non. Integer nulla urna, venenatis vel arcu sed, rutrum condimentum leo. Praesent feugiat metus ut sodales vehicula. Maecenas cursus eu purus eget vestibulum. Quisque finibus in erat quis pellentesque. Etiam at quam risus. Aenean consectetur tortor sapien, sit amet auctor risus dapibus at. Ut imperdiet nibh arcu, non eleifend arcu imperdiet nec. Donec gravida dignissim ipsum, sit amet feugiat massa tincidunt sit amet. Aenean semper turpis justo, quis cursus lorem sollicitudin nec. Phasellus hendrerit ipsum est, eu ultrices massa interdum ut. Donec justo lacus, molestie ac mollis in, dignissim at elit.</p>\r\n','2016-12-21 16:36:10',1);
 insert  into `cuestionarios`(`id_cuestionario`,`nombre`,`descripcion`,`date_tarea`,`activo`) values (18,'Primer cuestionario - Clon','La descripci&oacute;n del primer cuestionario ampliado2','2017-02-23 12:50:25',1);
 insert  into `cuestionarios`(`id_cuestionario`,`nombre`,`descripcion`,`date_tarea`,`activo`) values (19,'Tu valoracion','<p>nzxlzknclzkxzlxk cizxucizxu c</p>\r\n','2017-04-26 13:01:54',1);
+insert  into `cuestionarios`(`id_cuestionario`,`nombre`,`descripcion`,`date_tarea`,`activo`) values (20,'que te parece pedro','<p>responde sobre pedro</p>\r\n','2017-06-14 15:16:02',1);
 
 /*Table structure for table `cuestionarios_finalizados` */
 
@@ -722,6 +724,7 @@ CREATE TABLE `cuestionarios_finalizados` (
 /*Data for the table `cuestionarios_finalizados` */
 
 insert  into `cuestionarios_finalizados`(`id_cuestionario`,`user_tarea`,`date_finalizacion`,`revision`,`puntos`,`user_revision`,`date_revision`) values (13,'admin','2017-02-02 15:44:07',1,0,'admin','2017-02-02 15:44:07');
+insert  into `cuestionarios_finalizados`(`id_cuestionario`,`user_tarea`,`date_finalizacion`,`revision`,`puntos`,`user_revision`,`date_revision`) values (20,'admin','2017-06-14 15:16:43',1,0,'admin','2017-06-14 15:16:43');
 insert  into `cuestionarios_finalizados`(`id_cuestionario`,`user_tarea`,`date_finalizacion`,`revision`,`puntos`,`user_revision`,`date_revision`) values (12,'admin','2017-02-23 12:52:10',1,0,'admin','2017-02-23 12:52:10');
 
 /*Table structure for table `cuestionarios_preguntas` */
@@ -734,7 +737,7 @@ CREATE TABLE `cuestionarios_preguntas` (
   `pregunta_texto` longtext NOT NULL,
   `pregunta_tipo` varchar(100) NOT NULL DEFAULT 'texto' COMMENT 'texto;unica;multiple',
   PRIMARY KEY (`id_pregunta`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cuestionarios_preguntas` */
 
@@ -755,6 +758,7 @@ insert  into `cuestionarios_preguntas`(`id_pregunta`,`id_cuestionario`,`pregunta
 insert  into `cuestionarios_preguntas`(`id_pregunta`,`id_cuestionario`,`pregunta_texto`,`pregunta_tipo`) values (51,18,'Color favorito','unica');
 insert  into `cuestionarios_preguntas`(`id_pregunta`,`id_cuestionario`,`pregunta_texto`,`pregunta_tipo`) values (52,18,'¿Que comida te gusta?','multiple');
 insert  into `cuestionarios_preguntas`(`id_pregunta`,`id_cuestionario`,`pregunta_texto`,`pregunta_tipo`) values (53,18,'Sexo','unica');
+insert  into `cuestionarios_preguntas`(`id_pregunta`,`id_cuestionario`,`pregunta_texto`,`pregunta_tipo`) values (54,20,'te gusta su pelo','unica');
 
 /*Table structure for table `cuestionarios_respuestas` */
 
@@ -766,7 +770,7 @@ CREATE TABLE `cuestionarios_respuestas` (
   `respuesta_texto` longtext NOT NULL,
   `correcta` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_respuesta`)
-) ENGINE=MyISAM AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=165 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cuestionarios_respuestas` */
 
@@ -783,6 +787,8 @@ insert  into `cuestionarios_respuestas`(`id_respuesta`,`id_pregunta`,`respuesta_
 insert  into `cuestionarios_respuestas`(`id_respuesta`,`id_pregunta`,`respuesta_texto`,`correcta`) values (152,43,'Verdura',0);
 insert  into `cuestionarios_respuestas`(`id_respuesta`,`id_pregunta`,`respuesta_texto`,`correcta`) values (153,44,'Hombre',0);
 insert  into `cuestionarios_respuestas`(`id_respuesta`,`id_pregunta`,`respuesta_texto`,`correcta`) values (154,44,'Mujer',0);
+insert  into `cuestionarios_respuestas`(`id_respuesta`,`id_pregunta`,`respuesta_texto`,`correcta`) values (164,54,'no',1);
+insert  into `cuestionarios_respuestas`(`id_respuesta`,`id_pregunta`,`respuesta_texto`,`correcta`) values (163,54,'si',0);
 
 /*Table structure for table `cuestionarios_respuestas_user` */
 
@@ -794,7 +800,7 @@ CREATE TABLE `cuestionarios_respuestas_user` (
   `respuesta_user` varchar(100) NOT NULL DEFAULT '',
   `respuesta_valor` longtext NOT NULL,
   PRIMARY KEY (`id_respuesta_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=4813 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4814 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cuestionarios_respuestas_user` */
 
@@ -815,6 +821,7 @@ insert  into `cuestionarios_respuestas_user`(`id_respuesta_user`,`id_pregunta`,`
 insert  into `cuestionarios_respuestas_user`(`id_respuesta_user`,`id_pregunta`,`respuesta_user`,`respuesta_valor`) values (4810,51,'claudio','');
 insert  into `cuestionarios_respuestas_user`(`id_respuesta_user`,`id_pregunta`,`respuesta_user`,`respuesta_valor`) values (4811,52,'claudio','');
 insert  into `cuestionarios_respuestas_user`(`id_respuesta_user`,`id_pregunta`,`respuesta_user`,`respuesta_valor`) values (4812,53,'claudio','');
+insert  into `cuestionarios_respuestas_user`(`id_respuesta_user`,`id_pregunta`,`respuesta_user`,`respuesta_valor`) values (4813,54,'admin','si');
 
 /*Table structure for table `destacados` */
 
@@ -1247,7 +1254,7 @@ insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descr
 insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descripcion`,`imagen_tema`,`date_tema`,`user`,`canal`,`responsables`,`itinerario`,`activo`,`id_area`,`ocio`,`destacado`,`tema_admin`) values (79,55,'Formacion','Pimero foro en el curso','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ullamcorper volutpat scelerisque. Proin et tempus ex. Sed ut neque in tellus hendrerit accumsan. Integer aliquam, leo ac dictum dictum, lorem nulla faucibus nibh, sed placerat leo elit in justo. Integer id sapien urna. Proin vel volutpat odio. Aenean ac massa turpis. In et turpis fringilla, imperdiet orci eu, sollicitudin lectus. Maecenas mollis dolor in nisi lacinia posuere. Sed pellentesque dapibus ligula at sagittis. Integer fringilla auctor enim, at placerat nisl fringilla eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum est quis accumsan eleifend.','','2015-10-05 11:24:39','admin','comercial',0,'',1,11,0,0,0);
 insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descripcion`,`imagen_tema`,`date_tema`,`user`,`canal`,`responsables`,`itinerario`,`activo`,`id_area`,`ocio`,`destacado`,`tema_admin`) values (80,0,'','Tarea nueva de prueba22','Working on web performance is a combination of obvious best practices (optimize assets), very tricky decisions (what can I defer loading on and what can´t I?), and nuanced choices (which animation technique is the most appropriate?).','','2015-10-05 13:55:56','admin','comercial',0,'',1,15,0,0,0);
 insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descripcion`,`imagen_tema`,`date_tema`,`user`,`canal`,`responsables`,`itinerario`,`activo`,`id_area`,`ocio`,`destacado`,`tema_admin`) values (81,0,'','Foro canal de idiomas','','','2016-12-19 12:19:12','admin','test_lan',0,'',1,0,0,0,0);
-insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descripcion`,`imagen_tema`,`date_tema`,`user`,`canal`,`responsables`,`itinerario`,`activo`,`id_area`,`ocio`,`destacado`,`tema_admin`) values (82,0,'','prueba canales','prueba de canales para un canal','','2016-12-21 09:45:26','admin','comercial',0,'',1,16,0,0,0);
+insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descripcion`,`imagen_tema`,`date_tema`,`user`,`canal`,`responsables`,`itinerario`,`activo`,`id_area`,`ocio`,`destacado`,`tema_admin`) values (82,0,'','prueba canales','prueba de canales para un canal','','2016-12-21 09:45:26','admin','comercial,gerente',0,'',1,16,0,0,0);
 insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descripcion`,`imagen_tema`,`date_tema`,`user`,`canal`,`responsables`,`itinerario`,`activo`,`id_area`,`ocio`,`destacado`,`tema_admin`) values (83,81,'','test xss','','','2017-01-11 16:12:55','admin','test_lan',0,'',1,0,0,0,0);
 insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descripcion`,`imagen_tema`,`date_tema`,`user`,`canal`,`responsables`,`itinerario`,`activo`,`id_area`,`ocio`,`destacado`,`tema_admin`) values (84,67,'---Seleccionar tipo---','nuevo foro de l curso','ertevrte rtwe','','2017-01-26 10:28:26','admin','comercial',0,'',1,14,0,0,0);
 insert  into `foro_temas`(`id_tema`,`id_tema_parent`,`tipo_tema`,`nombre`,`descripcion`,`imagen_tema`,`date_tema`,`user`,`canal`,`responsables`,`itinerario`,`activo`,`id_area`,`ocio`,`destacado`,`tema_admin`) values (85,0,'','Mercedes','<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer scelerisque facilisis sapien eu tempor. Mauris posuere lorem nec velit auctor, in finibus purus laoreet. Fusce ac lacus ut dui ultrices imperdiet a et augue. Quisque luctus turpis in leo sodales consequat. In accumsan volutpat nisl. Donec auctor ipsum id leo suscipit rutrum. Nam commodo a tortor in vehicula. Nullam euismod risus ut elit tincidunt lacinia. Praesent interdum ultrices risus, eget ullamcorper felis eleifend ac. Morbi commodo lectus magna, id vehicula sem facilisis et. Nullam hendrerit vulputate gravida. Nulla facilisi. Etiam pretium posuere tortor at commodo. Nulla non pulvinar felis. Curabitur a ante ornare, rutrum dui sed, placerat turpis. In pulvinar nunc at mauris iaculis aliquet.</p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Fusce viverra nulla odio, ac porta neque hendrerit viverra. Proin venenatis neque nec malesuada malesuada. Donec interdum sollicitudin leo, quis ultrices justo consequat a. Nam pretium sagittis dolor sit amet egestas. Aenean et urna porttitor, pretium ipsum vitae, fermentum elit. Nulla pulvinar in mi vel semper. Sed id velit elementum, maximus lectus sed, ornare arcu. Sed ut orci sit amet nisl faucibus tempor. Fusce ultrices nisl in varius iaculis. Suspendisse neque eros, placerat convallis elit dictum, dictum congue orci.</p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \"><!--more--></p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Duis vitae mi hendrerit, tempus libero ut, pellentesque mi. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer eu nulla et nibh gravida pharetra. Aenean euismod nunc vel nunc dictum, a egestas nisi tempor. Donec scelerisque suscipit porttitor. Quisque malesuada malesuada fringilla. In id elementum ex. Phasellus mollis posuere dui ac ultrices. Mauris efficitur, felis nec pellentesque dapibus, erat felis bibendum nisi, suscipit semper ex massa ut risus. Mauris scelerisque lacus in purus porta, eget tempus dui efficitur. Etiam venenatis pellentesque leo, at sagittis nulla. Etiam euismod auctor aliquet. Curabitur tempus, enim quis condimentum sollicitudin, lectus ipsum pellentesque enim, quis bibendum diam lorem nec odio. Fusce auctor accumsan erat sed cursus. Aenean ultricies sapien sed egestas iaculis.</p>\r\n\r\n<p open=\"\" sans=\"\" style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: \">Curabitur at lacus nec libero scelerisque ultricies et quis mauris. Etiam lorem ipsum, finibus eget nisi id, fermentum iaculis lorem. Donec nec facilisis justo. Curabitur mi neque, eleifend eget molestie sed, tristique sit amet velit. Pellentesque vel eleifend lectus, tristique bibendum nisi. Quisque justo nisi, luctus non dolor in, viverra eleifend lorem. Aliquam in fermentum velit, sit amet dapibus lorem. Ut commodo quam sed ligula aliquet dignissim. Duis placerat, tellus ac tempor venenatis, urna orci eleifend leo, vel volutpat sapien tortor sit amet sem. Suspendisse laoreet posuere urna non dapibus. Fusce tortor nisl, tempus vitae nunc sit amet, vulputate molestie neque. Integer suscipit ex molestie, semper dolor vel, pulvinar dolor. Sed eget leo nec dolor faucibus consequat. Proin fermentum ac tellus id consequat. Suspendisse laoreet nunc mi, in vehicula nunc venenatis non. Vestibulum id elit vitae augue interdum feugiat sit amet vel turpis.</p>\r\n','1485427093_001.jpg','2017-01-26 11:34:29','admin','comercial,gerente,test',0,'',1,0,1,0,0);
@@ -1272,7 +1279,7 @@ CREATE TABLE `foro_visitas` (
   `fecha_visita` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `movil` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_visita`)
-) ENGINE=MyISAM AUTO_INCREMENT=2420 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2506 DEFAULT CHARSET=utf8;
 
 /*Data for the table `foro_visitas` */
 
@@ -3219,6 +3226,92 @@ insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`mov
 insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2417,'admin',91,'2017-05-05 09:07:45',0);
 insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2418,'admin',91,'2017-05-05 09:08:12',0);
 insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2419,'admin',91,'2017-05-08 09:08:10',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2420,'admin',91,'2017-06-06 11:52:29',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2421,'admin',91,'2017-06-06 14:25:49',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2422,'admin',91,'2017-06-06 14:26:52',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2423,'admin',91,'2017-06-06 14:28:47',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2424,'admin',91,'2017-06-06 14:29:16',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2425,'admin',91,'2017-06-06 14:29:21',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2426,'admin',91,'2017-06-06 14:30:03',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2427,'admin',91,'2017-06-06 14:30:10',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2428,'admin',91,'2017-06-06 14:30:46',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2429,'admin',91,'2017-06-06 14:33:54',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2430,'admin',91,'2017-06-06 14:38:25',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2431,'admin',91,'2017-06-06 14:38:28',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2432,'admin',91,'2017-06-06 14:39:21',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2433,'admin',91,'2017-06-06 14:40:09',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2434,'admin',91,'2017-06-06 14:43:15',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2435,'admin',91,'2017-06-06 14:54:20',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2436,'admin',91,'2017-06-06 14:56:54',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2437,'admin',91,'2017-06-06 15:05:52',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2438,'admin',91,'2017-06-06 15:05:55',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2439,'admin',91,'2017-06-06 15:05:57',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2440,'admin',91,'2017-06-06 15:05:59',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2441,'admin',91,'2017-06-06 15:09:11',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2442,'admin',91,'2017-06-06 15:09:19',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2443,'admin',91,'2017-06-06 15:09:22',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2444,'admin',91,'2017-06-06 15:09:25',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2445,'admin',91,'2017-06-06 15:10:07',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2446,'admin',91,'2017-06-06 15:10:10',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2447,'admin',91,'2017-06-06 15:10:12',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2448,'admin',91,'2017-06-06 16:25:13',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2449,'admin',91,'2017-06-07 16:36:36',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2450,'admin',91,'2017-06-07 16:36:39',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2451,'admin',85,'2017-06-07 16:36:44',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2452,'admin',69,'2017-06-07 16:36:50',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2453,'admin',91,'2017-06-07 16:43:03',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2454,'admin',91,'2017-06-07 16:46:31',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2455,'admin',91,'2017-06-07 16:47:19',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2456,'admin',91,'2017-06-07 16:47:35',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2457,'admin',91,'2017-06-07 16:49:42',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2458,'admin',91,'2017-06-07 16:49:44',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2459,'admin',91,'2017-06-13 10:44:05',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2460,'admin',92,'2017-06-29 17:15:30',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2461,'admin',92,'2017-06-29 17:16:20',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2462,'admin',92,'2017-06-29 17:17:18',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2463,'admin',92,'2017-06-29 17:18:58',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2464,'admin',92,'2017-06-29 17:19:03',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2465,'admin',92,'2017-06-29 17:19:07',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2466,'admin',92,'2017-06-29 17:20:12',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2467,'admin',92,'2017-06-29 17:26:04',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2468,'admin',92,'2017-06-29 17:26:29',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2469,'admin',92,'2017-06-29 17:27:28',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2470,'admin',92,'2017-06-29 17:27:34',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2471,'admin',92,'2017-06-29 17:27:41',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2472,'admin',92,'2017-06-29 17:29:26',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2473,'admin',92,'2017-06-29 17:29:31',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2474,'admin',92,'2017-06-29 17:32:18',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2475,'admin',92,'2017-06-29 17:32:21',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2476,'admin',92,'2017-06-29 17:32:24',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2477,'admin',92,'2017-06-29 17:32:43',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2478,'admin',92,'2017-06-29 17:32:45',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2479,'admin',92,'2017-06-29 17:34:25',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2480,'admin',92,'2017-06-29 17:37:45',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2481,'admin',92,'2017-06-29 17:40:11',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2482,'admin',92,'2017-06-29 17:41:01',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2483,'admin',92,'2017-06-29 17:41:07',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2484,'admin',92,'2017-06-29 17:41:18',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2485,'admin',92,'2017-06-29 17:41:45',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2486,'admin',92,'2017-06-29 17:43:58',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2487,'admin',92,'2017-06-29 17:44:04',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2488,'admin',92,'2017-06-29 17:44:29',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2489,'admin',92,'2017-06-29 17:44:33',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2490,'admin',92,'2017-06-29 17:51:48',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2491,'admin',92,'2017-06-29 17:55:15',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2492,'admin',92,'2017-06-29 17:55:21',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2493,'admin',92,'2017-06-29 17:56:12',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2494,'admin',92,'2017-06-29 17:57:25',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2495,'admin',92,'2017-06-29 17:57:57',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2496,'admin',92,'2017-06-29 17:58:10',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2497,'admin',92,'2017-06-29 17:58:37',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2498,'admin',92,'2017-06-29 17:59:16',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2499,'admin',92,'2017-06-29 18:00:37',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2500,'admin',92,'2017-06-29 18:01:04',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2501,'admin',92,'2017-06-29 18:02:43',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2502,'admin',92,'2017-06-29 18:02:59',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2503,'admin',91,'2017-06-30 08:45:10',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2504,'admin',92,'2017-07-03 14:08:50',0);
+insert  into `foro_visitas`(`id_visita`,`username`,`id_tema`,`fecha_visita`,`movil`) values (2505,'admin',92,'2017-07-03 14:09:10',0);
 
 /*Table structure for table `galeria_fotos` */
 
@@ -3271,7 +3364,7 @@ insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name
 insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name_file`,`user_add`,`date_foto`,`canal`,`estado`,`fotos_puntos`,`seleccion_reto`,`formacion`,`id_album`) values (25,0,'','Cartel','1411566227.jpg','admin','2014-09-24 15:43:47','gerente',1,0,0,0,2);
 insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name_file`,`user_add`,`date_foto`,`canal`,`estado`,`fotos_puntos`,`seleccion_reto`,`formacion`,`id_album`) values (26,0,'','Aporreando con el martillo','1411566257.jpg','admin','2014-09-24 15:44:17','gerente',1,0,0,0,5);
 insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name_file`,`user_add`,`date_foto`,`canal`,`estado`,`fotos_puntos`,`seleccion_reto`,`formacion`,`id_album`) values (27,0,'','Pantallazo de iPhone','1411566298.jpg','admin','2014-09-24 15:44:58','gerente',1,0,0,0,2);
-insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name_file`,`user_add`,`date_foto`,`canal`,`estado`,`fotos_puntos`,`seleccion_reto`,`formacion`,`id_album`) values (28,0,'','Haciendo el cabra','1411566318.jpg','admin','2014-09-24 15:45:18','comercial',1,0,0,0,5);
+insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name_file`,`user_add`,`date_foto`,`canal`,`estado`,`fotos_puntos`,`seleccion_reto`,`formacion`,`id_album`) values (28,0,'De animales','Haciendo el cabra','1411566318.jpg','admin','2014-09-24 15:45:18','comercial',1,0,0,0,5);
 insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name_file`,`user_add`,`date_foto`,`canal`,`estado`,`fotos_puntos`,`seleccion_reto`,`formacion`,`id_album`) values (29,0,'','Flores que se comen','1411566341.jpg','admin','2014-09-24 15:45:41','comercial',1,0,0,0,4);
 insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name_file`,`user_add`,`date_foto`,`canal`,`estado`,`fotos_puntos`,`seleccion_reto`,`formacion`,`id_album`) values (30,0,'','Web movistar','1411566984.jpg','admin','2014-09-24 15:56:24','comercial',1,0,0,0,2);
 insert  into `galeria_fotos`(`id_file`,`id_promocion`,`tipo_foto`,`titulo`,`name_file`,`user_add`,`date_foto`,`canal`,`estado`,`fotos_puntos`,`seleccion_reto`,`formacion`,`id_album`) values (31,0,'','Mi pueblo con nieve','1411567007.jpg','admin','2014-09-24 15:56:47','gerente',1,0,0,0,5);
@@ -4128,6 +4221,7 @@ insert  into `info_alerts`(`id_info`,`username_alert`,`date_alert`) values (10,'
 insert  into `info_alerts`(`id_info`,`username_alert`,`date_alert`) values (11,'claudio','2017-02-27 15:25:44');
 insert  into `info_alerts`(`id_info`,`username_alert`,`date_alert`) values (12,'claudio','2017-02-27 15:25:44');
 insert  into `info_alerts`(`id_info`,`username_alert`,`date_alert`) values (13,'admin','2017-03-21 11:25:54');
+insert  into `info_alerts`(`id_info`,`username_alert`,`date_alert`) values (14,'admin','2017-06-06 14:22:37');
 
 /*Table structure for table `info_tipo` */
 
@@ -5650,7 +5744,7 @@ CREATE TABLE `mensajes` (
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   `estado_remitente` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1: eliminado; 0: en bandeja de elementos enviados',
   PRIMARY KEY (`id_mensaje`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mensajes` */
 
@@ -5684,6 +5778,557 @@ insert  into `mensajes`(`id_mensaje`,`user_remitente`,`user_destinatario`,`date_
 insert  into `mensajes`(`id_mensaje`,`user_remitente`,`user_destinatario`,`date_mensaje`,`asunto_mensaje`,`mensaje_cuerpo`,`estado`,`estado_remitente`) values (28,'admin','pedro','2017-01-26 12:38:46','Re: hola','hwekj weklj wejkh wejklrwer\r\nwe rwe\r\nwe\r\n rwer\r\n\r\nPedro : \r\n-------------------------------\r\ns dfsdfsdfsd',1,0);
 insert  into `mensajes`(`id_mensaje`,`user_remitente`,`user_destinatario`,`date_mensaje`,`asunto_mensaje`,`mensaje_cuerpo`,`estado`,`estado_remitente`) values (29,'admin','borja','2017-01-26 12:39:57','hola borja','asdfsdf sadfasdf',0,0);
 insert  into `mensajes`(`id_mensaje`,`user_remitente`,`user_destinatario`,`date_mensaje`,`asunto_mensaje`,`mensaje_cuerpo`,`estado`,`estado_remitente`) values (30,'claudio','admin','2017-02-27 16:19:36','Un mensaje de prueba','¿Que tal estas?, hoy es lunes',1,0);
+insert  into `mensajes`(`id_mensaje`,`user_remitente`,`user_destinatario`,`date_mensaje`,`asunto_mensaje`,`mensaje_cuerpo`,`estado`,`estado_remitente`) values (31,'pedro','admin','2017-07-03 14:53:30','Test mensajes','hahahahaha',1,0);
+
+/*Table structure for table `model_colors` */
+
+DROP TABLE IF EXISTS `model_colors`;
+
+CREATE TABLE `model_colors` (
+  `id_color` int(11) unsigned NOT NULL,
+  `ref_color` varchar(100) NOT NULL DEFAULT '',
+  `hex_color` varchar(10) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_color`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `model_colors` */
+
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (1,'','FFFFFF');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (2,'','FFFFFF');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (3,'','EEC8C7');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (4,'','F7BD7B');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (5,'','FFF700');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (6,'','FFE700');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (7,'','FFCE00');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (8,'','FF7B00');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (9,'','FF3108');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (10,'','CE0018');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (11,'','940008');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (12,'','990033');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (13,'','EF9CB5');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (14,'','9C004A');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (15,'','5A005A');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (16,'','562F7E');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (17,'','412A7A');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (18,'','27357E');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (19,'','31');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (20,'','08085A');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (21,'','31639C');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (22,'','29397B');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (23,'','8BB9DD');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (24,'','006B5A');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (25,'','82C59C');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (26,'','069B7D');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (27,'','026B67');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (28,'','5221');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (29,'','106B21');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (30,'','63B521');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (31,'','A5A542');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (32,'','A5D610');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (33,'','A9D171');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (34,'','EFD9A8');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (35,'','E7EFC6');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (36,'','F7944A');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (37,'','DE9408');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (38,'','D88E2D');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (39,'','C68400');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (40,'','9C6B08');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (41,'','F78C5A');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (42,'','843910');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (43,'','663300');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (44,'','630808');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (45,'','390008');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (46,'','C3C6CD');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (47,'','CEDEE7');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (48,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (49,'','B5B5B5');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (50,'','999999');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (51,'','0');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (52,'','B5B5BD');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (53,'','7B737B');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (54,'','393939');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (55,'','E7BD42');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (56,'','CCCC33');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (57,'','9C5221');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (58,'','735A21');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (59,'','73372D');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (60,'','393121');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (61,'','9B8C7B');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (62,'','655138');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (63,'','9C8855');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (64,'','793721');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (65,'','A95C3E');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (66,'','455440');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (67,'','513D3C');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (68,'','108473');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (69,'','0');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (70,'','6B9CCE');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (71,'','8D736C');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (72,'','793638');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (73,'','4F566C');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (74,'','2D567C');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (75,'','96A5A9');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (76,'','7C8286');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (77,'','434F38');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (78,'','3.84E+51');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (79,'','B9ADA1');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (80,'','6A6445');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (81,'','976F3C');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (82,'','9C8A53');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (83,'','A4593D');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (84,'','7,05E+052');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (85,'','6D5044');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (86,'','4D4A4A');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (87,'','843910');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (88,'','0');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (89,'','842994');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (90,'','393121');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (91,'','CE8C42');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (92,'','434F38');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (93,'','630808');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (94,'','2,73E+055');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (95,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (96,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (97,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (98,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (99,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (100,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (101,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (102,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (103,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (104,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (105,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (106,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (107,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (108,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (109,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (110,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (111,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (112,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (113,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (114,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (115,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (116,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (117,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (118,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (119,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (120,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (121,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (122,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (123,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (124,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (125,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (126,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (127,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (128,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (129,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (130,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (131,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (132,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (133,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (134,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (135,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (136,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (137,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (138,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (139,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (140,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (141,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (142,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (143,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (144,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (145,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (146,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (147,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (148,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (149,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (150,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (151,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (152,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (153,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (154,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (155,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (156,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (157,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (158,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (159,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (160,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (161,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (162,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (163,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (164,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (165,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (166,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (167,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (168,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (169,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (170,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (171,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (172,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (173,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (174,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (175,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (176,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (177,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (178,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (179,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (180,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (181,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (182,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (183,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (184,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (185,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (186,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (187,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (188,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (189,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (190,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (191,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (192,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (193,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (194,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (195,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (196,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (197,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (198,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (199,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (200,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (201,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (202,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (203,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (204,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (205,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (206,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (207,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (208,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (209,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (210,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (211,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (212,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (213,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (214,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (215,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (216,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (217,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (218,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (219,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (220,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (221,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (222,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (223,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (224,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (225,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (226,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (227,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (228,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (229,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (230,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (231,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (232,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (233,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (234,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (235,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (236,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (237,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (238,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (239,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (240,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (241,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (242,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (243,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (244,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (245,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (246,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (247,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (248,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (249,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (250,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (251,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (252,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (253,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (254,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (255,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (256,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (257,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (258,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (259,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (260,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (261,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (262,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (263,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (264,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (265,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (266,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (267,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (268,'','657b7b');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (269,'','708989');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (270,'','');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (271,'','CE8C42');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (272,'','513D3C');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (273,'','365462');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (274,'','273E53');
+insert  into `model_colors`(`id_color`,`ref_color`,`hex_color`) values (275,'','');
+
+/*Table structure for table `model_colors_manufacturers` */
+
+DROP TABLE IF EXISTS `model_colors_manufacturers`;
+
+CREATE TABLE `model_colors_manufacturers` (
+  `id_color_manufacturer` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name_color_manufacturer` varchar(100) NOT NULL DEFAULT '',
+  `logo_color_manufacturer` varchar(250) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_color_manufacturer`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/*Data for the table `model_colors_manufacturers` */
+
+insert  into `model_colors_manufacturers`(`id_color_manufacturer`,`name_color_manufacturer`,`logo_color_manufacturer`) values (1,'Tamiya','');
+insert  into `model_colors_manufacturers`(`id_color_manufacturer`,`name_color_manufacturer`,`logo_color_manufacturer`) values (2,'Umbrol','');
+insert  into `model_colors_manufacturers`(`id_color_manufacturer`,`name_color_manufacturer`,`logo_color_manufacturer`) values (3,'Citadel','');
+
+/*Table structure for table `model_colors_manufacturers_colors` */
+
+DROP TABLE IF EXISTS `model_colors_manufacturers_colors`;
+
+CREATE TABLE `model_colors_manufacturers_colors` (
+  `id_color` int(11) unsigned NOT NULL,
+  `id_color_manufacturer` int(11) unsigned NOT NULL,
+  `ref_color` varchar(100) NOT NULL DEFAULT '',
+  `name_color` varchar(250) NOT NULL DEFAULT '',
+  `type_color` varchar(100) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `model_colors_manufacturers_colors` */
+
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (1,3,'White Scar','White Scar','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'120','MATT LIGHT GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'119','MATT LIGHT EARTH','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'118','MATT US TAN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'117','MATT US LIGHT GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'116','MATT US DARK GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'113','MATT RUST','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'112','MAT TARMAC','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'111','MATT UNIFORM GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'110','MATT NATURAL WOOD','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'109','MATT W.W.I BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'108','MATT W.W.I GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'107','MATT W.W.I PURPLE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'106','MATT OCEAN GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'105','MATT MARINE GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'104','MATT OXFORD BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'103','MATT CREAM','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'102','MATT ARMY GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'101','MATT MID GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'100','MATT RED BROWN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'99','MATT LEMON','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'98','MATT CHOCOLATE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'97','MATT EGGSHELL','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'96','MATT RAF BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'95','MATT CONCRETE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'94','MATT BROWN YELLOW','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'93','MATT DESERT YELLOW','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'92','MATT IRON GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'91','MATT BLACK GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'90','MATT BEIGE GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'89','MATT MIDDLE BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'88','MATT DECK GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'87','MATT STEEL GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'86','MATT LIGHT OLIVE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'85','COAL BLACK','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'84','MATT MID STONE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'83','MATT OCHRE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'82','MATT ORANGE LINING','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'81','MATT PALE YELLOW','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'80','MATT GRASS GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'79','MATT BLUE GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'78','MATT COCKPIT GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'77','MATT NAVY BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'76','MATT UNIFORM GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'75','MATT BRONZE GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'74','MATT LINEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'73','MATT WINE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'72','MATT KHAKI DRILL','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'71','SATIN OAK','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'70','MATT BRICK RED','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'69','YELLOW','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'68','PURPLE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'67','MATT TANK GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'66','MATT OLIVE DRAB','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'65','MATT AIRCRAFT BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'64','MATT LIGHT GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (36,2,'63','MATT SAND','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'62','MATT LEATHER','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'61','MATT FLESH','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'60','MATT SCARLET','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'56','ALUMINIUM','METALIZADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'55','BRONZE','METALIZADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'54','BRASS','METALIZADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'53','GUN METAL','METALIZADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'52','BALTIC BLUE','METALIZADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'51','SUNSET RED','METALIZADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'50','GREEN MIST','METALIZADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'49','MATT VARNISH','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'48','MEDITERRANEAN BLUE','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'47','SEA BLUE','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'41','IVORY','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'40','PALE GREY','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'38','LIME','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'35','CLEAR POLY (BARNIZ)','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'34','MATT WHITE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'33','MATT BLACK','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'32','MATT DARK GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'31','MATT SLATE GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'30','MATT DARK GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'29','MATT DARK EARTH','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'28','CAMOUFLAGE GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'27','MATT SEA GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'26','MATT KHAKI','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'25','MATT BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'24','TRAINER YELLOW','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'23','DUCK EGG BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'22','WHITE','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'21','BLACK','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'20','CRIMSON','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'19','BRIGHT RED','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'18','ORANGE','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'16','GOLD','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'15','MIDNIGHT BLUE','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'14','FRENCH BLUE','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'12','COPPER','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'11','SILVER','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'10','SERVICE BROWN','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'9','TAN','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'7','LIGHT BUFF','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'5','DARK GREY','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'3','BRUNSWICK GREEN','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'2','EMERALD GREEN','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'121','MATT PALE STONE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'123','EXTRA DARK SEA GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'125','SATIN US DARK GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'126','SATIN US MEDIUM GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'127','SATIN US GHOST GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'128','SATIN US COMPASS GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'129','SATIN US GULL GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'130','SATIN WHITE','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'131','SATIN MID GREEN','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'132','SATIN RED','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'133','SATIN BROWN','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'135','SATIN VARNISH','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'140','MATT GULL GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'144','INTERMEDIATE BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'145','MATT MEDIUM GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'146','GLOSS AIRCRAFT GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'147','MATT LIGHT GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'148','MATT RADOME TAN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'149','MATT DARK GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'150','MATT FORREST GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'153','INSIGNIA RED','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'154','INSIGNIA YELLOW','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'155','MATT OLIVE DRAB','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'156','MATT DARK GREY','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'157','AZURE BLUE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'159','KHAKI DRAB','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'160','GERMAN CAMOUFLAGE RED BROWN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'163','DARK GREEN','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'164','DARK SEA GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'165','MEDIUM SEA GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'166','LIGHT AIRCRAFT GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'167','RAF BARLEY GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'169','YELLOW FACINGS','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'170','BROWN BESS','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'171','ANTIQUE BRONZE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'174','SIGNAL RED','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'186','BROWN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'187','DARK STONE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'191','CHROME SILVER','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'192','BLAZE MATT','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'193','BLAZE GLOSS','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'194','SATURN YELLOW GLOSS','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'195','DARK GREEN','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'196','LIGHT GREY','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'197','LUFTHANSA YELLOW','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'198','LUFTHANSA BLUE','SATINADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'200','PINK','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'201','METALLIC BLACK','METALIZADO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'202','FLUORESCENT AURORA PINK','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'203','FLUORESCENT SIGNAL GREEN','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'204','FUORESCENT SATURN YELLOW','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'205','FLUORESVENT MATT FIRE ORANGE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'206','BASE WHITE','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'207','AURORA PINK','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'208','SIGNAL GREEN','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'209','FIRE ORANGE','BRILLO');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (0,2,'250','MATT DESERT SAND','MATE');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (4,3,'Kislev Flesh','Kislev Flesh','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (6,3,'Flash Gitz Yellow','Flash Gitz Yellow','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (7,3,'Yriel Yellow','Yriel Yellow','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (9,3,'Troll Slayer Orange','Troll Slayer Orange','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (10,3,'Evil Sunz Scarlet','Evil Sunz Scarlet','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (11,3,'Wazdakka Red','Wazdakka Red','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (12,3,'Khorne Red','Khorne Red','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (14,3,'Screamer Pink','Screamer Pink','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (15,3,'Xereus Purple','Xereus Purple','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (20,3,'Kantor Blue','Kantor Blue','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (21,3,'Caledor Sky','Caledor Sky','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (22,3,'Altdorf Guard Blue','Altdorf Guard Blue','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (24,3,'Sotek Green','Sotek Green','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (28,3,'Caliban Green','Caliban Green','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (29,3,'Warpstone Glow','Warpstone Glow','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (30,3,'Warboss Green','Warboss Green','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (31,3,'Elysian Green','Elysian Green','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (32,3,'Moot Green','Moot Green','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (34,3,'Ushabti Bone','Ushabti Bone','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (35,3,'Nurgling Green','Nurgling Green','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (37,3,'Tau Light Ochre','Tau Light Ochre','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (39,3,'Zamesi Desert','Zamesi Desert','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (40,3,'Balor Brown','Balor Brown','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (41,3,'Ratskin Flesh','Ratskin Flesh','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (42,3,'Skrag Brown','Skrag Brown','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (43,3,'Mournfang Brown','Mournfang Brown','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (44,3,'Doombull Brown','Doombull Brown','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (45,3,'Rhinox Hide','Rhinox Hide','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (47,3,'Fenrisian Grey','Fenrisian Grey','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (48,3,'The Fang','The Fang','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (49,3,'Administratum Grey','Administratum Grey','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (50,3,'Dawnstone','Dawnstone','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (51,3,'Abaddon Black','Abaddon Black','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (52,3,'Runefang Steel','Runefang Steel','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (53,3,'Ironbreaker','Ironbreaker','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (54,3,'Leadbelcher','Leadbelcher','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (55,3,'Auric Armour Gold','Auric Armour Gold','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (57,3,'Hashut Copper','Hashut Copper','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (60,3,'Warplock Bronze','Warplock Bronze','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (61,3,'Karak Stone','Karak Stone','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (62,3,'Steel Legion Drab','Steel Legion Drab','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (63,3,'Tallarn Sand','Tallarn Sand','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (66,3,'Castellan Green','Castellan Green','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (70,3,'Lothern Blue','Lothern Blue','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (71,3,'Cadian Fleshtone','Cadian Fleshtone','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (72,3,'Mephiston Red','Mephiston Red','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (73,3,'Daemonette Hide','Daemonette Hide','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (74,3,'Macragge Blue','Macragge Blue','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (75,3,'Celestra Grey','Celestra Grey','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (76,3,'Mechanicus Standard Grey','Mechanicus Standard Grey','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (77,3,'Loren Forest','Loren Forest','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (78,3,'Caliban Green','Caliban Green','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (79,3,'Rakarth Flesh','Rakarth Flesh','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (80,3,'Deathworld Forest','Deathworld Forest','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (81,3,'Balor Brown','Balor Brown','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (82,3,'Averland Sunset','Averland Sunset','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (83,3,'Jokaero Orange','Jokaero Orange','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (84,3,'Baneblade Brown','Baneblade Brown','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (85,3,'Mournfang Brown','Mournfang Brown','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (86,3,'Stormvermin Fur','Stormvermin Fur','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (87,3,'Seraphim Sepia','Seraphim Sepia','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (88,3,'Nuln Oil','Nuln Oil','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (89,3,'Druchii Violet','Druchii Violet','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (90,3,'Agrax Earthshade','Agrax Earthshade','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (91,3,'Reikland Fleshshade','Reikland Fleshshade','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (92,3,'Biel-Tan Green','Biel-Tan Green','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (93,3,'Carroburg Crimson','Carroburg Crimson','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (94,3,'Drakenhof Nightshade','Drakenhof Nightshade','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (273,3,'The Fang','The Fang','');
+insert  into `model_colors_manufacturers_colors`(`id_color`,`id_color_manufacturer`,`ref_color`,`name_color`,`type_color`) values (274,3,'Kantor Blue','Kantor Blue','');
 
 /*Table structure for table `muro_comentarios` */
 
@@ -5852,7 +6497,7 @@ insert  into `na_areas`(`id_area`,`area_nombre`,`area_descripcion`,`area_canal`,
 insert  into `na_areas`(`id_area`,`area_nombre`,`area_descripcion`,`area_canal`,`estado`,`puntos`,`limite_users`,`area_fecha`,`registro`) values (13,'test alerts','desc trext alerts','comercial',2,0,9999,'2014-12-24 02:54:02',0);
 insert  into `na_areas`(`id_area`,`area_nombre`,`area_descripcion`,`area_canal`,`estado`,`puntos`,`limite_users`,`area_fecha`,`registro`) values (14,'test alerts','desc trext alerts','comercial',1,0,9999,'2014-12-24 02:54:49',0);
 insert  into `na_areas`(`id_area`,`area_nombre`,`area_descripcion`,`area_canal`,`estado`,`puntos`,`limite_users`,`area_fecha`,`registro`) values (15,'Tarea nueva de prueba22','Working on web performance is a combination of obvious best practices (optimize assets), very tricky decisions (what can I defer loading on and what can´t I?), and nuanced choices (which animation technique is the most appropriate?).','comercial',1,4,100,'2015-10-05 13:55:56',1);
-insert  into `na_areas`(`id_area`,`area_nombre`,`area_descripcion`,`area_canal`,`estado`,`puntos`,`limite_users`,`area_fecha`,`registro`) values (16,'prueba canales','prueba de canales para un canal','comercial',1,1,99999,'2016-12-21 09:45:11',0);
+insert  into `na_areas`(`id_area`,`area_nombre`,`area_descripcion`,`area_canal`,`estado`,`puntos`,`limite_users`,`area_fecha`,`registro`) values (16,'prueba canales','prueba de canales para un canal','comercial,gerente',1,1,99999,'2016-12-21 09:45:11',0);
 
 /*Table structure for table `na_areas_grupos` */
 
@@ -5863,7 +6508,7 @@ CREATE TABLE `na_areas_grupos` (
   `id_area` int(11) unsigned NOT NULL DEFAULT '0',
   `grupo_nombre` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_areas_grupos` */
 
@@ -5874,6 +6519,8 @@ insert  into `na_areas_grupos`(`id_grupo`,`id_area`,`grupo_nombre`) values (4,11
 insert  into `na_areas_grupos`(`id_grupo`,`id_area`,`grupo_nombre`) values (5,14,'Otro grupo');
 insert  into `na_areas_grupos`(`id_grupo`,`id_area`,`grupo_nombre`) values (6,15,'test');
 insert  into `na_areas_grupos`(`id_grupo`,`id_area`,`grupo_nombre`) values (7,14,'grupo mercedes');
+insert  into `na_areas_grupos`(`id_grupo`,`id_area`,`grupo_nombre`) values (8,16,'Los mejores');
+insert  into `na_areas_grupos`(`id_grupo`,`id_area`,`grupo_nombre`) values (9,16,'Oreo ');
 
 /*Table structure for table `na_areas_grupos_users` */
 
@@ -5889,6 +6536,7 @@ CREATE TABLE `na_areas_grupos_users` (
 
 insert  into `na_areas_grupos_users`(`id_grupo`,`grupo_username`) values (1,'admin');
 insert  into `na_areas_grupos_users`(`id_grupo`,`grupo_username`) values (6,'claudio');
+insert  into `na_areas_grupos_users`(`id_grupo`,`grupo_username`) values (8,'borja');
 
 /*Table structure for table `na_areas_users` */
 
@@ -5940,7 +6588,7 @@ CREATE TABLE `na_tareas` (
   PRIMARY KEY (`id_tarea`),
   KEY `id_area` (`id_area`),
   KEY `activa` (`activa`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_tareas` */
 
@@ -5960,6 +6608,9 @@ insert  into `na_tareas`(`id_tarea`,`id_area`,`tarea_titulo`,`tarea_descripcion`
 insert  into `na_tareas`(`id_tarea`,`id_area`,`tarea_titulo`,`tarea_descripcion`,`tipo`,`tarea_grupo`,`user_add`,`activa`,`tarea_archivo`,`activa_links`,`id_recompensa`) values (21,16,'Formulario autocorregible','Un formulario autocorregible. Solo valido para preguntas de opción única','formulario',0,'admin',1,'',1,0);
 insert  into `na_tareas`(`id_tarea`,`id_area`,`tarea_titulo`,`tarea_descripcion`,`tipo`,`tarea_grupo`,`user_add`,`activa`,`tarea_archivo`,`activa_links`,`id_recompensa`) values (22,11,'test','sss','formulario',0,'admin',1,'',1,0);
 insert  into `na_tareas`(`id_tarea`,`id_area`,`tarea_titulo`,`tarea_descripcion`,`tipo`,`tarea_grupo`,`user_add`,`activa`,`tarea_archivo`,`activa_links`,`id_recompensa`) values (23,15,'Tarea de cuestionario','Prueba con Mercedes','formulario',0,'admin',1,'',0,3);
+insert  into `na_tareas`(`id_tarea`,`id_area`,`tarea_titulo`,`tarea_descripcion`,`tipo`,`tarea_grupo`,`user_add`,`activa`,`tarea_archivo`,`activa_links`,`id_recompensa`) values (24,16,'Test ficheros','Desd ficheros','formulario',0,'admin',2,'1501500127_f1.png',1,0);
+insert  into `na_tareas`(`id_tarea`,`id_area`,`tarea_titulo`,`tarea_descripcion`,`tipo`,`tarea_grupo`,`user_add`,`activa`,`tarea_archivo`,`activa_links`,`id_recompensa`) values (25,16,'TYareas de fichero','desd','fichero',0,'admin',1,'1501500545_f1.png',1,0);
+insert  into `na_tareas`(`id_tarea`,`id_area`,`tarea_titulo`,`tarea_descripcion`,`tipo`,`tarea_grupo`,`user_add`,`activa`,`tarea_archivo`,`activa_links`,`id_recompensa`) values (26,16,'fichero grupis','ddd','fichero',1,'admin',1,'1501500590_july-17-green-wheat-field-cal-1920x1080.jpg',1,0);
 
 /*Table structure for table `na_tareas_documentos` */
 
@@ -5972,7 +6623,7 @@ CREATE TABLE `na_tareas_documentos` (
   `documento_nombre` varchar(250) NOT NULL DEFAULT '',
   `documento_file` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_documento`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 /*Data for the table `na_tareas_documentos` */
 
@@ -5983,6 +6634,8 @@ insert  into `na_tareas_documentos`(`id_documento`,`id_tarea`,`documento_tipo`,`
 insert  into `na_tareas_documentos`(`id_documento`,`id_tarea`,`documento_tipo`,`documento_nombre`,`documento_file`) values (23,18,'fichero','fichero de ejemplo','1485423006_001.jpg');
 insert  into `na_tareas_documentos`(`id_documento`,`id_tarea`,`documento_tipo`,`documento_nombre`,`documento_file`) values (24,16,'fichero','Tarifas','1493293190_info-1493288458_tarifas.pdf');
 insert  into `na_tareas_documentos`(`id_documento`,`id_tarea`,`documento_tipo`,`documento_nombre`,`documento_file`) values (25,16,'fichero','Consejos','1493293206_info-1493288444_consejos_ahorro.pdf');
+insert  into `na_tareas_documentos`(`id_documento`,`id_tarea`,`documento_tipo`,`documento_nombre`,`documento_file`) values (27,21,'enlace','Google','http://google.es');
+insert  into `na_tareas_documentos`(`id_documento`,`id_tarea`,`documento_tipo`,`documento_nombre`,`documento_file`) values (28,21,'enlace','imagar','http://www.imagar.com');
 
 /*Table structure for table `na_tareas_formularios_finalizados` */
 
@@ -6429,15 +7082,16 @@ CREATE TABLE `shop_orders` (
   PRIMARY KEY (`id_order`),
   KEY `username_order` (`username_order`),
   KEY `status_order` (`status_order`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 /*Data for the table `shop_orders` */
 
 insert  into `shop_orders`(`id_order`,`username_order`,`date_order`,`name_order`,`surname_order`,`address_order`,`address2_order`,`city_order`,`state_order`,`postal_order`,`telephone_order`,`status_order`,`notes_order`) values (27,'admin','2016-04-11 12:22:01','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','444','cancelado','');
 insert  into `shop_orders`(`id_order`,`username_order`,`date_order`,`name_order`,`surname_order`,`address_order`,`address2_order`,`city_order`,`state_order`,`postal_order`,`telephone_order`,`status_order`,`notes_order`) values (28,'admin','2016-12-15 17:30:28','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','666666666','pendiente','pruebaaaa');
-insert  into `shop_orders`(`id_order`,`username_order`,`date_order`,`name_order`,`surname_order`,`address_order`,`address2_order`,`city_order`,`state_order`,`postal_order`,`telephone_order`,`status_order`,`notes_order`) values (29,'admin','2017-01-26 12:16:41','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','999999','finalizado','');
+insert  into `shop_orders`(`id_order`,`username_order`,`date_order`,`name_order`,`surname_order`,`address_order`,`address2_order`,`city_order`,`state_order`,`postal_order`,`telephone_order`,`status_order`,`notes_order`) values (29,'pedro','2017-01-26 12:16:41','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','999999','finalizado','');
 insert  into `shop_orders`(`id_order`,`username_order`,`date_order`,`name_order`,`surname_order`,`address_order`,`address2_order`,`city_order`,`state_order`,`postal_order`,`telephone_order`,`status_order`,`notes_order`) values (30,'admin','2017-02-27 09:33:29','Administrador','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','9999','pendiente','');
 insert  into `shop_orders`(`id_order`,`username_order`,`date_order`,`name_order`,`surname_order`,`address_order`,`address2_order`,`city_order`,`state_order`,`postal_order`,`telephone_order`,`status_order`,`notes_order`) values (31,'claudio','2017-02-27 16:09:29','Claudio','Gonzalez','FRANQUICIAS','C/Recesbinto 89','Madrid','Madrid','28007','8888888','pendiente','');
+insert  into `shop_orders`(`id_order`,`username_order`,`date_order`,`name_order`,`surname_order`,`address_order`,`address2_order`,`city_order`,`state_order`,`postal_order`,`telephone_order`,`status_order`,`notes_order`) values (32,'admin','2017-06-16 13:40:23','Administradorrrr','Community','CENTRAL','Av. Los Arces 234','Madrid','Madrid','28003','7878787878','pendiente','');
 
 /*Table structure for table `shop_orders_details` */
 
@@ -6453,7 +7107,7 @@ CREATE TABLE `shop_orders_details` (
   PRIMARY KEY (`id_order_detail`),
   KEY `id_order` (`id_order`),
   KEY `id_product` (`id_product`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 /*Data for the table `shop_orders_details` */
 
@@ -6462,6 +7116,7 @@ insert  into `shop_orders_details`(`id_order_detail`,`id_order`,`id_product`,`am
 insert  into `shop_orders_details`(`id_order_detail`,`id_order`,`id_product`,`amount_product`,`price_product`,`date_detail`) values (28,29,10,1,2356,'2017-01-26 12:16:41');
 insert  into `shop_orders_details`(`id_order_detail`,`id_order`,`id_product`,`amount_product`,`price_product`,`date_detail`) values (29,30,10,1,2356,'2017-02-27 09:33:29');
 insert  into `shop_orders_details`(`id_order_detail`,`id_order`,`id_product`,`amount_product`,`price_product`,`date_detail`) values (30,31,1,1,101,'2017-02-27 16:09:29');
+insert  into `shop_orders_details`(`id_order_detail`,`id_order`,`id_product`,`amount_product`,`price_product`,`date_detail`) values (31,32,5,1,152,'2017-06-16 13:40:23');
 
 /*Table structure for table `shop_orders_status` */
 
@@ -6474,7 +7129,7 @@ CREATE TABLE `shop_orders_status` (
   `date_status` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `username_status` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_order_status`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 /*Data for the table `shop_orders_status` */
 
@@ -6497,6 +7152,7 @@ insert  into `shop_orders_status`(`id_order_status`,`id_order`,`order_status`,`d
 insert  into `shop_orders_status`(`id_order_status`,`id_order`,`order_status`,`date_status`,`username_status`) values (21,29,'finalizado','2017-02-02 12:06:19','admin');
 insert  into `shop_orders_status`(`id_order_status`,`id_order`,`order_status`,`date_status`,`username_status`) values (22,30,'pendiente','2017-02-27 09:33:29','admin');
 insert  into `shop_orders_status`(`id_order_status`,`id_order`,`order_status`,`date_status`,`username_status`) values (23,31,'pendiente','2017-02-27 16:09:29','claudio');
+insert  into `shop_orders_status`(`id_order_status`,`id_order`,`order_status`,`date_status`,`username_status`) values (24,32,'pendiente','2017-06-16 13:40:23','admin');
 
 /*Table structure for table `shop_products` */
 
@@ -6519,23 +7175,25 @@ CREATE TABLE `shop_products` (
   `date_product` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_ini_product` date NOT NULL,
   `date_fin_product` date NOT NULL,
+  `type_product` varchar(100) NOT NULL DEFAULT 'normal' COMMENT 'normal; chequemotiva',
+  `type_product_extra` text COMMENT 'información adicional sobre el producto según el tipo',
   PRIMARY KEY (`id_product`),
   KEY `active_producto` (`active_product`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 /*Data for the table `shop_products` */
 
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (1,'La alargada sombra del amor','<p>La alargada sombra del amor de Mathias Malzieu</p>\r\n','1458643092_tapa-la-alargada.jpg',101,49,0,2,1,'','','','comercial,gerente','0000-00-00 00:00:00','2016-12-01','2017-04-08');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (2,'Premio sorpresa','<p>Descubre que tiene este&nbsp;regalo sorpresa!!!!</p>\r\n','1458643199_premio_dic_2.jpg',50,33,1,0,0,'','','','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (3,'Zapatillas','<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n','1458643454_1411549492.jpg',20,41,0,0,0,'','','','comercial,gerente','0000-00-00 00:00:00','0000-00-00','0000-00-00');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (4,'Viaje por Suecia','<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at arcu et dui vulputate fermentum. Vestibulum quis felis auctor, porta sem a, iaculis mi. Proin non lorem erat. Nulla pretium orci vel dui tempus sodales. Nunc eget tellus et sem vehicula lacinia. Aenean quam purus, maximus at dolor in, sollicitudin posuere felis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean finibus viverra lorem et commodo. Duis luctus enim in ultricies sagittis. Fusce ut risus vel elit luctus laoreet et at nisl. Proin nisi sapien, eleifend at sapien et, euismod placerat arcu. Etiam non tellus non mi facilisis dictum quis in nisi. Sed varius mauris id libero euismod auctor. Duis aliquam est at elementum condimentum.</p>\r\n\r\n<p>Nulla tempus, urna a tincidunt varius, risus ex pretium orci, elementum fermentum sapien augue non ex. Nunc dui arcu, semper at eros sit amet, dignissim suscipit ante. Nullam in aliquet ligula. Fusce posuere fermentum quam, a sollicitudin justo facilisis sit amet. Pellentesque ut eros in odio sagittis finibus. Proin eu turpis a eros molestie laoreet. Mauris blandit vehicula porttitor. Ut at mollis augue. Morbi mauris risus, semper non risus eget, accumsan mollis urna. Donec hendrerit mi eu diam tempor, a malesuada nisi laoreet. Aenean commodo massa quis fermentum gravida. Pellentesque sit amet ultricies odio. Vestibulum ullamcorper diam vitae tempor cursus. Ut eu augue vitae sem tincidunt lobortis nec et nisl. Integer ut metus semper, imperdiet diam vitae, vulputate neque.</p>\r\n','1458725914_1458206720.jpg',90,56,0,0,0,'','Viajes','','comercial,gerente','0000-00-00 00:00:00','0000-00-00','0000-00-00');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (5,'4 entradas de cine','<p>4 entradas de cine v&aacute;lidas para cualquier d&iacute;a de la semana, con 3 meses de caducidad desde la fecha de env&iacute;o</p>\r\n','1459507812_tickets.jpg',152,49,0,2,1,'','Ocio','','comercial,gerente,test','0000-00-00 00:00:00','2017-05-01','2018-03-10');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (6,'Dron Follower','\nDron Follower para uso en exteriores con tecnología giroscópica de 6 ejes que permite un control más fácil y preciso. Ideal para volar en el exterior, gracias a su pequeño tamaño posee una gran estabilidad. \n','1459509195_drone_follower2.jpg',180,98,0,3,1,'56431MX','Electrónica','','comercial','0000-00-00 00:00:00','2016-12-01','2016-12-31');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (7,'Camiseta y balón oficial de la Eurocopa 2016','<p>Camiseta y bal&oacute;n oficial de la primera equipaci&oacute;n de la Selecci&oacute;n Espa&ntilde;ola para la Eurocopa 2016</p>\r\n','1459508024_camiseta_eurocopa_2016.jpg',417,0,0,5,0,'','Moda','Deportes','comercial','0000-00-00 00:00:00','2016-11-27','2017-04-08');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (8,'Smart TV Samsung 32¨¨','','',0,0,0,0,0,'','','','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (9,'Smart TV Samsung 32´´','<p>Smart TV calidad HD. Multi-Touch retroiluminada por LED de 9.7 pulgadas. 2048x1536 retina display (264 pixels por pulgada). Wi-Fi integrado.</p>\r\n','1459508758_tv.jpg',1196,0,1,3,1,'','Electrónica','TV','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (10,'Apple iPad Air 2 64 GB WiFi Plata','<p>Multi-Touch retroiluminada por LED de 9.7 pulgadas. 2048x1536 retina display (264 pixels por pulgada).&nbsp;</p>\r\n','1459508996_apple_ipad_air_2_wifi_16gb_silver-30379190-4.jpg',2356,3,0,1,1,'','Electrónica','Móviles','comercial','0000-00-00 00:00:00','2016-11-27','2017-05-06');
-insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`) values (11,'www','<p>www</p>\r\n','1473334359_logopentaho.png',200000,10,0,1,1,'','','','comercial,gerente','2016-09-08 13:32:39','2016-12-01','2017-05-04');
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (1,'La alargada sombra del amor','<p>La alargada sombra del amor de Mathias Malzieu</p>\r\n','1458643092_tapa-la-alargada.jpg',101,49,0,2,1,'','','','comercial,gerente','0000-00-00 00:00:00','2016-12-01','2017-04-08','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (2,'Premio sorpresa','<p>Descubre que tiene este&nbsp;regalo sorpresa!!!!</p>\r\n','1458643199_premio_dic_2.jpg',50,33,1,0,0,'','','','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (3,'Zapatillas','<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n','1458643454_1411549492.jpg',20,41,0,0,0,'','','','comercial,gerente','0000-00-00 00:00:00','0000-00-00','0000-00-00','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (4,'Viaje por Suecia','<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at arcu et dui vulputate fermentum. Vestibulum quis felis auctor, porta sem a, iaculis mi. Proin non lorem erat. Nulla pretium orci vel dui tempus sodales. Nunc eget tellus et sem vehicula lacinia. Aenean quam purus, maximus at dolor in, sollicitudin posuere felis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean finibus viverra lorem et commodo. Duis luctus enim in ultricies sagittis. Fusce ut risus vel elit luctus laoreet et at nisl. Proin nisi sapien, eleifend at sapien et, euismod placerat arcu. Etiam non tellus non mi facilisis dictum quis in nisi. Sed varius mauris id libero euismod auctor. Duis aliquam est at elementum condimentum.</p>\r\n\r\n<p>Nulla tempus, urna a tincidunt varius, risus ex pretium orci, elementum fermentum sapien augue non ex. Nunc dui arcu, semper at eros sit amet, dignissim suscipit ante. Nullam in aliquet ligula. Fusce posuere fermentum quam, a sollicitudin justo facilisis sit amet. Pellentesque ut eros in odio sagittis finibus. Proin eu turpis a eros molestie laoreet. Mauris blandit vehicula porttitor. Ut at mollis augue. Morbi mauris risus, semper non risus eget, accumsan mollis urna. Donec hendrerit mi eu diam tempor, a malesuada nisi laoreet. Aenean commodo massa quis fermentum gravida. Pellentesque sit amet ultricies odio. Vestibulum ullamcorper diam vitae tempor cursus. Ut eu augue vitae sem tincidunt lobortis nec et nisl. Integer ut metus semper, imperdiet diam vitae, vulputate neque.</p>\r\n','1458725914_1458206720.jpg',90,56,0,0,0,'','Viajes','','comercial,gerente','0000-00-00 00:00:00','0000-00-00','0000-00-00','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (5,'4 entradas de cine','<p>4 entradas de cine v&aacute;lidas para cualquier d&iacute;a de la semana, con 3 meses de caducidad desde la fecha de env&iacute;o</p>\r\n','1459507812_tickets.jpg',152,0,0,2,1,'','Ocio','','comercial,gerente,test','0000-00-00 00:00:00','2017-05-01','2018-03-10','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (6,'Dron Follower','<p>Dron Follower para uso en exteriores con tecnolog&iacute;a girosc&oacute;pica de 6 ejes que permite un control m&aacute;s f&aacute;cil y preciso. Ideal para volar en el exterior, gracias a su peque&ntilde;o tama&ntilde;o posee una gran estabilidad.</p>\r\n','1459509195_drone_follower2.jpg',180,98,0,3,1,'56431MX','Electrónica','','comercial','0000-00-00 00:00:00','2016-12-01','2017-12-31','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (7,'Camiseta y balón oficial de la Eurocopa 2016','<p>Camiseta y bal&oacute;n oficial de la primera equipaci&oacute;n de la Selecci&oacute;n Espa&ntilde;ola para la Eurocopa 2016</p>\r\n','1459508024_camiseta_eurocopa_2016.jpg',417,0,0,5,0,'','Moda','Deportes','comercial','0000-00-00 00:00:00','2016-11-27','2017-04-08','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (8,'Smart TV Samsung 32¨¨','','',0,0,0,0,0,'','','','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (9,'Smart TV Samsung 32´´','<p>Smart TV calidad HD. Multi-Touch retroiluminada por LED de 9.7 pulgadas. 2048x1536 retina display (264 pixels por pulgada). Wi-Fi integrado.</p>\r\n','1459508758_tv.jpg',1196,0,1,3,1,'','Electrónica','TV','comercial','0000-00-00 00:00:00','0000-00-00','0000-00-00','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (10,'Apple iPad Air 2 64 GB WiFi Plata','<p>Multi-Touch retroiluminada por LED de 9.7 pulgadas. 2048x1536 retina display (264 pixels por pulgada).&nbsp;</p>\r\n','1459508996_apple_ipad_air_2_wifi_16gb_silver-30379190-4.jpg',2356,3,0,1,1,'','Electrónica, Informática','Móviles','comercial','0000-00-00 00:00:00','2016-11-27','2017-05-06','normal',NULL);
+insert  into `shop_products`(`id_product`,`name_product`,`description_product`,`image_product`,`price_product`,`stock_product`,`important_product`,`id_manufacturer`,`active_product`,`ref_product`,`category_product`,`subcategory_product`,`canal_product`,`date_product`,`date_ini_product`,`date_fin_product`,`type_product`,`type_product_extra`) values (11,'www','<p>www</p>\r\n','1473334359_logopentaho.png',200000,10,0,1,1,'','','','comercial,gerente','2016-09-08 13:32:39','2016-12-01','2017-05-04','normal',NULL);
 
 /*Table structure for table `users` */
 
@@ -6570,33 +7228,37 @@ CREATE TABLE `users` (
   `ciudad_user` varchar(100) NOT NULL DEFAULT '',
   `provincia_user` varchar(100) NOT NULL DEFAULT '',
   `cpostal_user` varchar(10) NOT NULL DEFAULT '',
+  `id_externo` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`username`),
   KEY `email` (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('admin','administradorCM','123456','dnoguera@imagar.com','Administrador','Community','2014-07-16 14:43:05',1,1,NULL,0,'1970-01-01 00:00:00','admin','0001','admin','1485431966.jpeg',2630,4428,207,'',NULL,'','2017-05-23 17:04:07','es','dirección','localidad','Provincia','28001');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('david','DavidNoguera','123456','dnoguera@imagar.com','David','Noguera','2014-07-16 14:43:08',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0003','responsable','',45,0,121,'Hoy me siento bien',NULL,'','2017-04-27 13:21:33','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('borja','Borja','123456','bvilaplana@imagar.com','Borja','Vilaplana','2014-09-16 17:38:00',1,1,NULL,0,'2016-05-09 12:09:38','comercial','0001','regional','',55,0,11,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper, nunc ut cursus sagittis,',NULL,'','2017-02-24 13:46:32','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('pedro','Pedro','123456','pramos@imagar.com','Pedro','Ramos','2014-09-16 17:38:57',1,1,NULL,0,'1970-01-01 00:00:00','gerente','0002','responsable','1425079297.jpeg',77,15,24,'',NULL,'','2017-03-23 12:07:49','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('claudio','Claudio','123456','cgonzalez@imagar.com','Claudio','Gonzalez','2014-09-16 17:40:12',1,1,NULL,0,'1970-01-01 00:00:00','gerente','0003','responsable','1425079297.jpeg',33,399,11,'A por ellos!!!',NULL,'','2017-03-08 09:43:05','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('20266370N','DavidN','123456','dnoguera@imagar.com','David','Noguera Gutierrez','2014-11-03 16:49:56',1,1,NULL,1,'2016-05-09 12:05:26','comercial','0001','usuario','',210,0,1,'',NULL,'91','2014-12-27 00:36:36','es','calle','locss','pro','3444');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('dmarchante','DavidM','123456','dmarchante@imagar.com','David','Marchante','2014-09-17 09:32:54',1,1,NULL,1,'2015-08-18 00:00:00','comercial','0002','usuario','',305,0,1,'',NULL,'',NULL,'es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('senen','Senén','123456','shermida@imagar.com','Senén','Hermida','2014-09-17 09:33:27',1,1,NULL,0,'1970-01-01 00:00:00','gerente','1235','usuario','',117,0,0,'',NULL,'','2017-01-26 13:29:59','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('dgarcia','Dsan','123456','dgarcia@imagar.com','Daniel','García','2014-09-17 09:34:47',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','1425079823.jpeg',17,0,9,'',NULL,'','2017-03-22 10:53:47','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('dramos','Flores','123456','dramos@imagar.com','David','Ramos','2014-10-09 08:54:15',1,1,NULL,0,'1970-01-01 00:00:00','comercial','1235','usuario','',11,0,0,'',NULL,'','2016-10-14 09:49:03','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('jgonzalez','Javi','123456','jgonzalez','Javier','Gonzalez','2014-10-09 08:55:16',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0002','usuario','',301,0,0,'',NULL,'','2016-10-14 09:42:25','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('cgomez','Carlos','123456','cgomez@imagar.com','Carlos','Gómez','2014-10-09 08:56:09',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','',21,0,0,'',NULL,'','2017-02-24 13:40:57','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('dcancho','Cancho','123456','ccancho@imagar.com','Daniel','Cancho','2014-10-09 08:57:53',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0002','usuario','1425079823.jpeg',20,0,7,'Estoy muy loco!!',NULL,'','2017-03-08 09:58:30','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('odelgado','Oscar','123456','odelgado@imagar.com','Oscar','Delgado','2015-03-14 19:40:34',1,1,NULL,0,'1970-01-01 00:00:00','comercial','1235','usuario','',42,0,-1,'',NULL,'','2017-03-23 10:00:27','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('prueba','Prueba','123456','dnoguera@imagar.com','Usuario','Prueba','2015-08-07 10:50:49',1,0,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','',85,0,0,'',NULL,'','2015-08-07 10:51:09','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('Redbull','RedBull','123456','dnoguera@imagar.com','RedBull','Demo','2015-08-10 08:37:05',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0004','usuario','',47,0,0,'',NULL,'','2017-03-23 10:04:14','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('Juanito','','123456','juanito@gmail.com','Juan','Gómez','2016-02-11 17:50:47',1,0,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','',90,0,0,'',NULL,'915554444',NULL,'es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('regional','Regional2','123456','regional@email.com','Pepe','Castro','2016-02-26 11:53:46',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0001','regional','',77,0,0,'',NULL,'',NULL,'es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('PentahoBI','','123456','dnoguera@imagar.com','Pedro','','2016-11-07 09:04:03',1,1,NULL,0,'1970-01-01 00:00:00','admin','0001','admin','',0,0,0,'',NULL,'',NULL,'es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('mercedes','merce','123456','mdelcampo@imagar.com','Mercedes','Del campo','2017-01-26 12:47:06',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0004','usuario','',1,0,1,'',NULL,'666666666','2017-01-26 12:48:20','es','','','','');
-insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`) values ('testda','testda','123456','dnoguera@imagar.com','David','Noguera','2017-02-24 09:25:57',1,1,'2017-02-24 09:26:23',0,'1970-01-01 00:00:00','comercial','0001','usuario','',1,0,0,'',NULL,'','2017-02-24 09:26:29','es','','','','');
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('admin','ADM','123456','david.noguera@grassroots.es','David','Noguera','2014-07-16 14:43:05',1,1,'2017-06-29 17:14:05',0,'1970-01-01 00:00:00','admin','0001','admin','',2655,905,211,'',NULL,'7878787878','2017-08-17 11:18:38','es','dirección2223','localidad2','Provincia','28001',16);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('david','DavidNoguera','123456','david.noguera@imagar.com','David','Noguera Gutierrez','2014-07-16 14:43:08',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0003','responsable','',46,0,121,'Hoy me siento bien',NULL,'666666666','2017-06-13 10:19:45','es','C/Pintor Ribera 11 5D','Móstoles','Madrid','28000',17);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('borja','vipa','borjas','bvilaplana1@imagar.com','BorjaNEW','Vilaplana','2014-09-16 17:38:00',1,1,'2017-06-13 13:00:19',0,'2016-05-09 12:09:38','comercial','0001','regional','',58,2000,11,'',NULL,'999999999','2017-06-22 11:32:20','es','C/Calle de Borja 115','Alcorcón','Madrid','28099',30);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('pedro','Pedro','123456','pramos@imagar.com','Pedro','Ramos','2014-09-16 17:38:57',1,1,NULL,0,'1970-01-01 00:00:00','gerente','0002','responsable','1425079297.jpeg',79,15,24,'',NULL,'','2017-07-03 14:53:05','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('claudio','Claudio','123456','cgonzalez@imagar.com','Claudio','Gonzalez','2014-09-16 17:40:12',1,1,NULL,0,'1970-01-01 00:00:00','gerente','0003','responsable','1425079297.jpeg',33,399,11,'A por ellos!!!',NULL,'','2017-03-08 09:43:05','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('20266370N','DavidN','123456','dnoguera@imagar.com','David','Noguera Gutierrez','2014-11-03 16:49:56',1,1,NULL,1,'2016-05-09 12:05:26','comercial','0001','usuario','',210,0,1,'',NULL,'91','2014-12-27 00:36:36','es','calle','locss','pro','3444',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('dmarchante','DavidM','123456','dmarchante@imagar.com','David','Marchante','2014-09-17 09:32:54',1,1,NULL,1,'2015-08-18 00:00:00','comercial','0002','usuario','',305,0,1,'',NULL,'',NULL,'es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('senen','Senén','123456','shermida@imagar.com','Senén','Hermida','2014-09-17 09:33:27',1,1,NULL,0,'1970-01-01 00:00:00','gerente','1235','usuario','',117,0,0,'',NULL,'','2017-01-26 13:29:59','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('dgarcia','Dsan','123456','dgarcia@imagar.com','Daniel','García','2014-09-17 09:34:47',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','1425079823.jpeg',17,0,9,'',NULL,'','2017-03-22 10:53:47','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('dramos','Flores','123456','dramos@imagar.com','David','Ramos','2014-10-09 08:54:15',1,1,NULL,0,'1970-01-01 00:00:00','comercial','1235','usuario','',11,0,0,'',NULL,'','2016-10-14 09:49:03','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('jgonzalez','Javi','123456','jgonzalez','Javier','Gonzalez','2014-10-09 08:55:16',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0002','usuario','',301,0,0,'',NULL,'','2016-10-14 09:42:25','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('cgomez','Carlos','123456','cgomez@imagar.com','Carlos','Gómez','2014-10-09 08:56:09',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','',22,0,0,'',NULL,'','2017-06-07 12:26:42','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('dcancho','Cancho','123456','ccancho@imagar.com','Daniel','Cancho','2014-10-09 08:57:53',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0002','usuario','1425079823.jpeg',20,0,7,'Estoy muy loco!!',NULL,'','2017-03-08 09:58:30','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('odelgado','Oscar','123456','odelgado@imagar.com','Oscar','Delgado','2015-03-14 19:40:34',1,1,NULL,0,'1970-01-01 00:00:00','comercial','1235','usuario','',42,0,-1,'',NULL,'','2017-03-23 10:00:27','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('prueba','Prueba','123456','dnoguera@imagar.com','Usuario','Prueba','2015-08-07 10:50:49',1,0,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','',85,0,0,'',NULL,'','2015-08-07 10:51:09','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('Redbull','RedBull','123456','dnoguera@imagar.com','RedBull','Demo','2015-08-10 08:37:05',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0004','usuario','',47,0,0,'',NULL,'','2017-03-23 10:04:14','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('Juanito','','123456','juanito@gmail.com','Juan','Gómez','2016-02-11 17:50:47',1,0,NULL,0,'1970-01-01 00:00:00','comercial','0003','usuario','',90,0,0,'',NULL,'915554444',NULL,'es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('regional','Regional2','123456','regional@email.com','Pepe','Castro','2016-02-26 11:53:46',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0001','regional','',77,0,0,'',NULL,'',NULL,'es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('PentahoBI','','123456','dnoguera@imagar.com','Pedro','','2016-11-07 09:04:03',1,1,NULL,0,'1970-01-01 00:00:00','admin','0001','admin','',0,0,0,'',NULL,'',NULL,'es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('mercedes','merce','123456','mdelcampo@imagar.com','Mercedes','Del campo','2017-01-26 12:47:06',1,1,NULL,0,'1970-01-01 00:00:00','comercial','0004','usuario','',1,0,1,'',NULL,'666666666','2017-01-26 12:48:20','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('testda','testda','123456','dnoguera@imagar.com','David','Noguera','2017-02-24 09:25:57',1,1,'2017-02-24 09:26:23',0,'1970-01-01 00:00:00','comercial','0001','usuario','',1,0,0,'',NULL,'','2017-02-24 09:26:29','es','','','','',0);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('ruben','rparis','123456','rparis@imagar.com','Ruben','Paris','2017-06-15 09:53:56',1,1,'2017-06-15 09:54:32',0,'1970-01-01 00:00:00','comercial','0001','usuario','',1,0,0,'',NULL,'6666666666','2017-06-15 09:55:17','es','C/xxxxxxxxxxxxxxxxxxxx 56','Villaconejo','Toledo','29555',31);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('dmoreno','moreno','123456','dmoreno1@imagar.com','David','Moreno','2017-06-15 12:31:47',1,1,'2017-06-15 12:33:36',0,'1970-01-01 00:00:00','comercial','0001','usuario','',1,0,0,'',NULL,'','2017-06-15 12:35:01','es','','','','',32);
+insert  into `users`(`username`,`nick`,`user_password`,`email`,`name`,`surname`,`date_add`,`registered`,`confirmed`,`date_confirmed`,`disabled`,`date_disabled`,`canal`,`empresa`,`perfil`,`foto`,`puntos`,`creditos`,`participaciones`,`user_comentarios`,`user_date`,`telefono`,`last_access`,`user_lan`,`direccion_user`,`ciudad_user`,`provincia_user`,`cpostal_user`,`id_externo`) values ('jmuelas','Muelas','123456','javier.muelas@grassroots.es','Javier','Muelas','2017-06-15 12:41:21',1,1,'2017-06-15 12:42:11',0,'1970-01-01 00:00:00','comercial','0001','usuario','',3,0,0,'',NULL,'9999999999','2017-06-26 14:15:55','es','C/Mariano Rajoy 69','Villatranca del pene','tarragona','48965',33);
 
 /*Table structure for table `users_connected` */
 
@@ -6611,17 +7273,19 @@ CREATE TABLE `users_connected` (
 
 /*Data for the table `users_connected` */
 
-insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('pedro','gerente','2017-03-23 12:09:17');
 insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('prueba','comercial','2015-08-07 10:51:24');
 insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('08932984Z','comercial','2014-10-17 11:50:19');
+insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('dmoreno','comercial','2017-06-15 12:35:14');
 insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('dgarcia','comercial','2017-03-22 10:53:47');
 insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('testda','comercial','2017-02-24 09:26:30');
 insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('dcancho','comercial','2017-03-08 11:09:06');
 insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('senen','gerente','2017-01-26 13:30:26');
 insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('Redbull','comercial','2017-03-23 10:29:05');
-insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('admin','admin','2017-05-23 17:04:08');
-insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('cgomez','comercial','2017-02-24 14:06:37');
-insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('borja','comercial','2017-02-24 14:06:04');
+insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('pedro','gerente','2017-07-03 14:53:30');
+insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('ruben','comercial','2017-06-15 10:27:09');
+insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('admin','admin','2017-08-17 12:50:32');
+insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('borja','comercial','2017-06-22 12:16:30');
+insert  into `users_connected`(`username`,`connection_canal`,`connection_time`) values ('jmuelas','comercial','2017-06-26 15:03:57');
 
 /*Table structure for table `users_creditos` */
 
@@ -6635,7 +7299,7 @@ CREATE TABLE `users_creditos` (
   `credito_detalle` text NOT NULL,
   `credito_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_credito`)
-) ENGINE=MyISAM AUTO_INCREMENT=278 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=304 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users_creditos` */
 
@@ -6646,6 +7310,32 @@ insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`
 insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (275,'admin',-2356,'Compras premios','Producto ID.10','2017-01-26 12:16:41');
 insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (276,'admin',-2356,'Compras premios','Producto ID.10','2017-02-27 09:33:29');
 insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (277,'claudio',-101,'Compras premios','Producto ID.1','2017-02-27 16:09:29');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (278,'admin',50,'kakakakak','','2017-06-13 10:55:33');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (279,'admin',6,'Test Prestashop','na de na','2017-06-13 11:28:31');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (280,'admin',10,'test','test-de','2017-06-16 09:16:18');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (281,'admin',5,'test2','','2017-06-16 09:16:48');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (282,'admin',5,'test2','','2017-06-16 09:17:44');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (283,'admin',50,'test2','','2017-06-16 09:24:25');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (284,'admin',2,'test','ff','2017-06-16 09:24:54');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (285,'admin',2,'test','ff','2017-06-16 09:25:50');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (286,'admin',20,'test','ff','2017-06-16 09:26:23');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (287,'admin',25,'test','ff','2017-06-16 09:28:51');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (288,'admin',5,'pp','','2017-06-16 09:47:21');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (289,'admin',-152,'Compras premios','Producto ID.5','2017-06-16 13:40:23');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (290,'borja',500,'test','test1','2017-06-21 12:26:47');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (291,'borja',500,'test','test1','2017-06-21 12:27:14');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (292,'borja',500,'test','test1','2017-06-21 12:30:24');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (293,'borja',500,'test','test1','2017-06-21 12:33:07');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (294,'admin',5,'test','test','2017-06-22 16:21:05');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (295,'admin',1000000130,'test','test','2017-06-22 16:22:48');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (296,'admin',20,'3','3','2017-06-22 16:26:20');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (297,'admin',20,'111','222','2017-06-22 16:28:06');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (298,'admin',20,'111','222','2017-06-22 16:33:45');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (299,'admin',-20,'111','ggg','2017-06-22 16:35:50');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (300,'admin',-10,'test','ttt','2017-06-22 16:36:54');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (301,'admin',-3000000070.24,'test','ttt','2017-06-22 16:45:45');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (302,'admin',-0.32,'reg','','2017-08-10 10:16:10');
+insert  into `users_creditos`(`id_credito`,`credito_username`,`credito_puntos`,`credito_motivo`,`credito_detalle`,`credito_date`) values (303,'admin',5,'asdas','','2017-08-10 13:01:02');
 
 /*Table structure for table `users_login` */
 
@@ -6678,7 +7368,7 @@ CREATE TABLE `users_participaciones` (
   `participacion_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `valor` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_participacion`)
-) ENGINE=MyISAM AUTO_INCREMENT=391 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=395 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users_participaciones` */
 
@@ -7072,6 +7762,10 @@ insert  into `users_participaciones`(`id_participacion`,`participacion_username`
 insert  into `users_participaciones`(`id_participacion`,`participacion_username`,`participacion_motivo`,`participacion_date`,`valor`) values (388,'admin','Comentario en el muro','2017-03-29 13:40:24',1);
 insert  into `users_participaciones`(`id_participacion`,`participacion_username`,`participacion_motivo`,`participacion_date`,`valor`) values (389,'admin','Comentario en el muro','2017-05-08 09:17:09',1);
 insert  into `users_participaciones`(`id_participacion`,`participacion_username`,`participacion_motivo`,`participacion_date`,`valor`) values (390,'admin','Comentario en el muro','2017-05-08 09:20:30',1);
+insert  into `users_participaciones`(`id_participacion`,`participacion_username`,`participacion_motivo`,`participacion_date`,`valor`) values (391,'admin','ggg','2017-08-10 10:27:11',1);
+insert  into `users_participaciones`(`id_participacion`,`participacion_username`,`participacion_motivo`,`participacion_date`,`valor`) values (392,'admin','Algo','2017-08-10 12:23:16',1);
+insert  into `users_participaciones`(`id_participacion`,`participacion_username`,`participacion_motivo`,`participacion_date`,`valor`) values (393,'admin','kk','2017-08-11 13:25:50',1);
+insert  into `users_participaciones`(`id_participacion`,`participacion_username`,`participacion_motivo`,`participacion_date`,`valor`) values (394,'admin','sd','2017-08-11 13:26:18',1);
 
 /*Table structure for table `users_permissions` */
 
@@ -7322,7 +8016,7 @@ CREATE TABLE `users_puntuaciones` (
   `puntuacion_motivo` varchar(250) NOT NULL DEFAULT '',
   `puntuacion_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_puntuacion`)
-) ENGINE=MyISAM AUTO_INCREMENT=706 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=731 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users_puntuaciones` */
 
@@ -7916,6 +8610,31 @@ insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuac
 insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (703,'admin',0,'Comentario en el muro','2017-05-08 09:20:30');
 insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (704,'admin',1,'Acceso semanal','2017-05-17 13:11:11');
 insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (705,'admin',1,'Acceso semanal','2017-05-22 12:59:54');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (706,'admin',1,'Acceso semanal','2017-05-31 11:41:45');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (707,'admin',1,'Acceso semanal','2017-06-05 12:28:33');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (708,'borja',1,'Acceso semanal','2017-06-07 12:24:39');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (709,'cgomez',1,'Acceso semanal','2017-06-07 12:26:42');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (710,'admin',1,'Acceso semanal','2017-06-12 11:19:02');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (711,'david',1,'Acceso semanal','2017-06-13 10:16:46');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (712,'borja',1,'Acceso semanal','2017-06-13 12:43:38');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (713,'pedro',1,'Acceso semanal','2017-06-14 17:11:20');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (714,'ruben',1,'Acceso semanal','2017-06-15 09:54:14');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (715,'dmoreno',1,'Acceso semanal','2017-06-15 12:33:17');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (716,'jmuelas',1,'Acceso semanal','2017-06-15 12:41:57');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (717,'admin',1,'Acceso semanal','2017-06-19 08:35:03');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (718,'borja',1,'Acceso semanal','2017-06-21 10:53:13');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (719,'jmuelas',1,'Acceso semanal','2017-06-22 13:00:06');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (720,'admin',1,'Acceso semanal','2017-06-26 09:15:16');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (721,'jmuelas',1,'Acceso semanal','2017-06-26 13:10:14');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (722,'admin',1,'Acceso semanal','2017-07-03 11:43:16');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (723,'pedro',1,'Acceso semanal','2017-07-03 14:53:05');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (724,'admin',1,'Acceso semanal','2017-07-31 12:08:41');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (725,'admin',1,'Acceso semanal','2017-08-07 09:03:17');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (726,'admin',3,'ggg','2017-08-10 10:27:11');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (727,'admin',2,'Algo','2017-08-10 12:23:16');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (728,'admin',10,'kk','2017-08-11 13:25:50');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (729,'admin',1,'sd','2017-08-11 13:26:18');
+insert  into `users_puntuaciones`(`id_puntuacion`,`puntuacion_username`,`puntuacion_puntos`,`puntuacion_motivo`,`puntuacion_date`) values (730,'admin',1,'Acceso semanal','2017-08-17 11:18:38');
 
 /*Table structure for table `users_tiendas` */
 

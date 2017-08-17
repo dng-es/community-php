@@ -560,5 +560,91 @@ class usersController{
 			die();
 		}
 	}	
+
+	public static function volcarMySQLUsers($data, $proceso_insert = true, $proceso_update = true, $proceso_delete = true){
+		$users = new users();
+		$contador = 0;
+		$mensaje = "";
+		$contador_ko = 0;
+		$mensaje_ko = "";
+		$contador_baja = 0;
+		$mensaje_baja = "";
+
+		//dependiendo del canal se insertará un idioma por defecto al usuario
+		$canales = $users->getCanales("");
+
+		for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+			$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
+			$user_pass = $username;
+			$nombre = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][4]));
+			$surname = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][2]." ".$data->sheets[0]['cells'][$fila][3]));
+			$empresa = sanitizeInput($data->sheets[0]['cells'][$fila][5]);	
+			$user_email = $data->sheets[0]['cells'][$fila][6];
+			$telefono_user = $data->sheets[0]['cells'][$fila][7];
+			$perfil = strtolower(trim($data->sheets[0]['cells'][$fila][8]));
+			$canal = strtolower(trim($data->sheets[0]['cells'][$fila][9]));
+			$language_id = array_search('gerente', array_column($canales, 'canal'));
+			$user_lan = $canales[$language_id]['canal_lan'];
+
+			if ($perfil == "") $perfil = "usuario";
+			if ($perfil == 'admin') $canal = 'admin';
+			
+			if ($username != ""){
+				//VERIFICAR QUE EXISTA EL USUARIO
+				if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") == 0) {
+					if ($proceso_insert){
+						if ($users->insertUserCarga($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user, $surname, 0, '', '', '', '', $user_lan)) {
+							$contador++;
+							$mensaje .= date("Y-m-d H:i:s")." ".$contador." - ".$username." insertado correctamente.\n";
+
+							if(getModuleExist("prestashop")){
+								$id_externo = prestashopCustomersController::insertCustomer($user_pass, $nombre, $surname, $user_email, 0, 0);
+								$prestashop = new prestashop();
+								$prestashop->updateUser($username, $id_externo);
+							}
+						}
+					}
+				}
+				else {
+					if ($proceso_update){
+						//EN CASO DE QUE YA EXISTA SE HABILITA Y MODIFICAN SUS DATOS
+						if ($users->updateUserCarga($username, $empresa, $canal)) {
+							$contador_ko++;	
+							$mensaje_ko.= date("Y-m-d H:i:s")." ".$contador_ko." - ".$username." se ha modificado.\n";				
+						}
+					}
+				}
+			}
+		}
+
+		//DAR DE BAJA A USUARIOS	
+		if ($proceso_delete){
+			$elements=$users->getUsers(" AND disabled=0 ");
+			foreach($elements as $element):
+				$encontrado = false;
+				//se ecluyen los usuarios con perfil admin
+				if ($element['perfil'] == 'admin')  $encontrado = true;
+				else{
+					for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+						if (strtoupper($element['username']) == strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
+					}
+				}
+
+				if ($encontrado == false){
+					$users->disableUser($element['username'],1);
+					$contador_baja++;
+					$mensaje_baja .= date("Y-m-d H:i:s")." ".$contador_baja." - ".$element['username']." se ha dado de baja.\n";
+				}
+			endforeach;
+		}
+
+		echo date("Y-m-d H:i:s")." El proceso de importación ha finalizado con éxito\n";
+
+		if ($contador > 0) echo date("Y-m-d H:i:s")." los siguientes usuarios han sido dados de alta: (".$contador.")\n".$mensaje;
+			
+		if ($contador_ko > 0) echo date("Y-m-d H:i:s")." los siguientes usuarios no fueron insertados porque ya estaban dados de alta: (".$contador_ko.")\n".$mensaje_ko;
+
+		if ($contador_baja > 0) echo date("Y-m-d H:i:s")." los siguientes usuarios han sido dados de baja: (".$contador_baja.")\n".$mensaje_baja;
+	}	
 }
 ?>

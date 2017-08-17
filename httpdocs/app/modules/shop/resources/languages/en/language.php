@@ -18,4 +18,8 @@ Shop_manufacturer = "Manufacturer"
 Shop_manufacturer_new = "New manufacturer"
 Import_order_states = "Import orders states"
 Comming_soon = "Comming soon"
+Buy_product = "Buy product"
+No_Buy_product = "Not to buy"
+Order_product = "Order product"
+Order_notes = "Order notes"
 ?>

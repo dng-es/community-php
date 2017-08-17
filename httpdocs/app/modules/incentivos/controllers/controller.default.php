@@ -330,5 +330,57 @@ class incentivosController{
 				if ($incentivos->insertPosicionGlobal($tienda['cod_tienda'], $posicion_user)) echo date("Y-m-d H:i:s"). " Insertada posicion para: ".$tienda['cod_tienda']." - Posicion:".$posicion_user."\n";
 		endforeach;
 	}
+
+	public static function volcarMySQLVentas($data, $proceso_insert = true, $proceso_update = true, $proceso_delete = true){
+		try {
+			$users = new users();
+			$contador_insert = 0;
+			$contador_ko = 0;
+			$incentivos = new incentivos();
+
+			for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+				$referencia_producto = utf8_encode(str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][1]))));
+				$fabricante_producto = utf8_encode(str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][2]))));
+				$cantidad_venta = utf8_encode(str_replace(',', '.', str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][3])))));
+				$username_venta = utf8_encode(str_replace ("'", "´", trim($data->sheets[0]['cells'][$fila][4])));
+				//datos del usuario (obtener canal)
+				$usuario = usersController::getPerfilAction($username_venta, "");
+
+				$fecha_venta = str_replace ("/", "-", trim(strtoupper($data->sheets[0]['cells'][$fila][5])));
+				$detalle = utf8_encode(str_replace ("'", "´", trim(strtoupper($data->sheets[0]['cells'][$fila][6]))));
+				$tendencia = strtoupper(utf8_encode(str_replace ("'", "´",trim(strtoupper($data->sheets[0]['cells'][$fila][7])))));;
+
+				if ($referencia_producto != "" && (isset($usuario['canal']) && $usuario['canal'] != "")){
+					//buscar id_producto por referencia y fabriacante
+					$producto = $incentivos->getIncentivesProductos(" AND UPPER(p.referencia_producto)='".$referencia_producto."' AND UPPER(f.nombre_fabricante)='".$fabricante_producto."' ");
+					if (count($producto)>0){
+						$fechaV=date("Y-m-d", strtotime($fecha_venta));
+
+						if ($incentivos->insertIncentivesVenta($producto[0]['id_producto'], $cantidad_venta, $username_venta, $fechaV, $detalle, $tendencia)){
+
+							$contador_insert++;
+							//asignacion de puntos. Obtener puntos del producto por la fecha y obtener aceleradores
+							$puntuacion_producto = $incentivos->getIncentivesProductosPuntos(" AND id_producto=".$producto[0]['id_producto']." AND '".$fechaV."' BETWEEN date_ini AND date_fin AND canal_puntos LIKE '%".$usuario['canal']."%'");
+							$puntuacion_acelerador = $incentivos->getIncentivesProductAcelerators(" AND a.id_producto=".$producto[0]['id_producto']." AND '".$fechaV."' BETWEEN a.date_ini AND a.date_fin ");
+							$puntuacion_venta = (0 + (count($puntuacion_producto)>0 ? $puntuacion_producto[0]['puntos'] : 0)) * (count($puntuacion_acelerador)>0 ? $puntuacion_acelerador[0]['valor_acelerador'] : 1);
+
+							$puntuacion_venta = ($puntuacion_venta * $cantidad_venta);
+							if ($incentivos->insertIncentivesProductosVentas($username_venta, str_replace(',', '.', $puntuacion_venta), $producto[0]['id_producto'], $fechaV, $detalle) && $puntuacion_venta > 0){
+								if ($producto[0]['suma_puntos'] == 1) users::sumarPuntos($username_venta, str_replace(',', '.', $puntuacion_venta), $detalle);
+								if ($producto[0]['suma_creditos'] == 1) usersCreditosController::sumarCreditosAction($username_venta, str_replace(',', '.', $puntuacion_venta), $detalle);
+							}
+						}
+					}
+					else $contador_ko ++;
+				}
+			}
+
+			echo date("Y-m-d H:i:s")." El proceso de importación de ventas ha finalizado con éxito\n";
+			echo date("Y-m-d H:i:s")." Se ha insertado ".$contador_insert." registros\n";
+			echo date("Y-m-d H:i:s")." No se ha insertado ".$contador_ko." registros (producto no encontrado)\n";
+		} catch (Exception $e) {
+			
+		}
+	}
 }
 ?>

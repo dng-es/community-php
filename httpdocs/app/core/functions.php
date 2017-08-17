@@ -60,7 +60,7 @@ function shortText($text_html, $num_car){
 function getDateFormat($date, $format){
 	global $ini_conf;
 	include(dirname(__FILE__)."/../languages/".(isset($_SESSION['language']) ? $_SESSION['language'] : $ini_conf['language'])."/options.php");
-	switch ($format) {
+	switch ($format){
 		case 'DAY':
 			return strftime($DATE_DAY,strtotime($date));
 			break;
@@ -348,7 +348,7 @@ function createRandomPassword($num_car = 7, $chars = "abcdefghijkmnopqrstuvwxyz0
  * @return	String						HTML search form
  */
 function SearchForm($reg, $pag, $formId = "searchForm", $labelForm = "Buscar:", $labelButton = "ir", $clase_css = "", $class_form = "", $method_form = "post"){
-	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : ""); ?>
+	$busqueda = isset($_POST['find_reg']) ? $_POST['find_reg'] : (isset($_REQUEST['f']) ? $_REQUEST['f'] : "");?>
 	<div class="<?php echo $clase_css;?>">  
 		<form action="<?php echo $pag.'?regs='.$reg;?>" method="<?php echo $method_form;?>" name="<?php echo $formId;?>" id="<?php echo $formId;?>" class="<?php echo $class_form;?>">
 			<div class="input-group">
@@ -400,7 +400,7 @@ function DescargarArchivo($fichero){
 	$basefichero = basename($fichero);
 	header( "Content-Type: application/octet-stream");
 	header( "Content-Length: ".filesize($fichero));
-	header( "Content-Disposition:attachment;filename=" .$basefichero."");
+	header( "Content-Disposition:attachment;filename=".$basefichero."");
 	readfile($fichero);
 }
 
@@ -526,7 +526,7 @@ function messageProcess($message_subject, $message_from = array('john@doe.com' =
 		$transport = Swift_SendmailTransport::newInstance($ini_conf['sendmail_command']);
 	}
 	else $transport = Swift_MailTransport::newInstance();
-	
+
 	$remitente = array_keys($message_from);
 
 	// Create the Mailer using your created Transport
@@ -832,9 +832,9 @@ function daysBetween($date_ini, $date_end){
  */
 function semanaFecha($year, $month, $day){
 	# Obtenemos el numero de la semana 
-	$semana = date("W", mktime(0, 0, 0, $month, $day, $year)); 
+	$semana = date("W", mktime(0, 0, 0, $month, $day, $year));
 	# Obtenemos el día de la semana de la fecha dada 
-	$diaSemana = date("w", mktime(0, 0, 0, $month, $day, $year)); 
+	$diaSemana = date("w", mktime(0, 0, 0, $month, $day, $year));
 	# el 0 equivale al domingo... 
 	if($diaSemana == 0) $diaSemana = 7; 
 	# A la fecha recibida, le restamos el dia de la semana y obtendremos el lunes 

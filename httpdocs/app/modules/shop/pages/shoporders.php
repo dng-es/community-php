@@ -4,6 +4,7 @@ if (isset($_GET['find_reg'])) $filtro .= " AND d.id_order LIKE '%".intval($_GET[
 if (isset($_REQUEST['f'])) $filtro .= " AND d.id_order LIKE '%".intval($_REQUEST['f'])."%' ";
 $filtro .= " ORDER BY d.id_order DESC";
 $elements = shopOrdersController::getListDetailAction(15, $filtro);
+$tot_credits = connection::sumReg("shop_orders_details", "(amount_product*price_product)", " AND id_order IN (SELECT id_order FROM shop_orders WHERE status_order<>'cancelado' AND username_order='".$_SESSION['user_name']."') ");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -16,6 +17,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
+			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <?php e_strTranslate("APP_Credits");?> <b><?php echo $tot_credits;?></b></a></li>
 			<div class="pull-right">
 				<?php echo SearchForm($elements['reg'], "shoporders", "searchForm", strTranslate("Search"), strTranslate("Search"), "", "navbar-form navbar-left", "get");?>
 			</div>
@@ -28,8 +30,10 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 					<th></th>
 					<th>Artículo</th>
 					<th><?php e_strTranslate("Date");?></th>
+					<th class="text-right"><?php echo ucfirst(strTranslate("APP_Credits"));?></th>
 				</tr>
 				<?php foreach($elements['items'] as $element):?>
+				<?php $tot_order = connection::sumReg("shop_orders_details", "(amount_product*price_product)", " AND id_order=".$element['id_order']." ");?>
 				<tr>
 					<td nowrap="nowrap">
 						<span class="fa fa-edit icon-table" title="ver pedido"
@@ -52,6 +56,7 @@ $elements = shopOrdersController::getListDetailAction(15, $filtro);
 					</td>
 					<td><?php echo $element['name_product'];?></td>
 					<td><?php echo getDateFormat($element['date_order'], 'SHORT');?></td>
+					<td class="text-right"><?php echo $tot_order;?></td>
 				</tr>
 				<?php endforeach;?>
 			</table>

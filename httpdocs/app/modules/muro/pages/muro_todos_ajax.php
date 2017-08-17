@@ -32,6 +32,11 @@ $module_channels = getModuleChannels($module_config['channels'], $_SESSION['user
 								$(this).text(date);
 						}
 					});
+
+					$(".user-tip").tooltip({
+						'placement': 'auto top',
+						'container': 'body'
+					});
 				});
 		</script>
 		<!-- fin fechas -->

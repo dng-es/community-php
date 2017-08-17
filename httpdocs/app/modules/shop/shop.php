@@ -3,7 +3,7 @@
 * @Manage shop
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.3.2
+* @version 1.3.3
 *
 */
 

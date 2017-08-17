@@ -363,7 +363,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	}
 }
 .config-section{
-	@include rowMachine(4, 2%);
+	@include rowMachine(3, 2%);
 	background: $panels-color;
 	color: $panels-color-text;
 	float: left;
@@ -564,8 +564,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		outline: none
 	}
 	img{
-		@include border-radius($border-def);
-		@include box-shadow(rgba(0, 0, 0, 0.3) 0 1px 7px 0);
+		@include border-radius(45px);
+		//@include box-shadow(rgba(0, 0, 0, 0.3) 0 1px 7px 0);
 		float:right;
 		height:45px;
 		margin-left:10px;
@@ -2342,5 +2342,14 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 	@media screen and (max-width: $break-medium) {
 		margin-left: -85%;
 		width: 85%;
+	}
+}
+
+.menu-opt1-slider{
+	#user-info{
+		.fa{
+			font-size: 40px;
+			margin: -10px 0 0 20px;
+		}
 	}
 }

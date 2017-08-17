@@ -1,5 +1,7 @@
 <?php
 addJavascripts(array("js/jquery.numeric.js", getAsset("shop")."js/shopproductorder.js"));
+addCss(array(getAsset("shop")."css/styles.css"));
+templateload("credits","shop");
 
 $id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
 $filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
@@ -152,7 +154,7 @@ $module_config = getModuleConfig("shop");
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="control-label" for="postal_order"><small><?php e_strTranslate("Código postal");?></small></label>
+									<label class="control-label" for="postal_order"><small><?php e_strTranslate("Postal_code");?></small></label>
 									<input readonly="readonly" value="<?php echo $postal_order;?>" tabindex=8 type="text" name="postal_order" id="postal_order" class="form-control numeric" data-alert="<?php e_strTranslate("Required_field");?>" />
 								</div>
 							</div>
@@ -160,14 +162,14 @@ $module_config = getModuleConfig("shop");
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<label class="control-label" for="notes_order"><small>Observaciones</small></label>
+									<label class="control-label" for="notes_order"><small><?php e_strTranslate("Order_notes");?></small></label>
 									<textarea tabindex=9 type="text" name="notes_order" id="notes_order" class="form-control" data-alert="<?php e_strTranslate("Required_field");?>"><?php echo $notes_order;?></textarea>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<input tabindex=10 type="submit" name="submit-order" id="submit-order" class="btn btn-primary" value="Realizar pedido" />
+								<input tabindex=10 type="submit" name="submit-order" id="submit-order" class="btn btn-primary" value="<?php e_strTranslate("Order_product");?>" />
 							</div>
 						</div>
 					</form>
@@ -188,6 +190,7 @@ $module_config = getModuleConfig("shop");
 		<div class="panel-interior">
 			<h2><?php e_strTranslate("APP_Shop");?></h2>
 			<p>Puedes canjear tus <?php e_strTranslate("APP_Credits");?> por fantasticos <?php strtolower(e_strTranslate("Shop_products"));?>!</p>
+			<?php creditsShow($_SESSION['user_name']);?>
 			<p class="text-center"><i class="fa fa-shopping-cart fa-big"></i></p>
 		</div>
 	</div>

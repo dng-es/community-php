@@ -60,4 +60,23 @@
     padding-right: 0px !important;
     padding-left: 0px !important;
 }
+
+.credits-available{
+    border: 1px solid #e5e5e5;
+    margin: 20px 0;
+    padding: 6px;
+    width: 100%;
+
+    p{
+        font-family: $community-font1;
+        font-size: 18px;
+        margin-bottom: 0px;
+    }
+
+    big{
+        font-size: 36px;
+        font-weight: bolder;
+        color: #777;
+    }
+}
 /* FIN MODULO SHOP*/

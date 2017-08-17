@@ -21,7 +21,7 @@ $paginas_free = array('underconstruction', 'login','user-confirm', 'logout', 'co
 $videos_types = array('MP4', 'MOV', 'AVI', '3GP', 'WMV');
 $fotos_types = array('GIF', 'JPG', 'JPEG', 'PNG');
 //APP VERSION
-define('APP_VERSION', '0.7.2');
+define('APP_VERSION', '0.7.3');
 //PAGINA DE INICIO
 define('APP_DEF_PAGE', 'login');
 //TEMA POR DEFECTO
