@@ -62,6 +62,20 @@ class recompensas{
 	 * @param  string 	$filter 	Filtro SQL
 	 * @return array 				Array con registros
 	 */
+	public function getRecompensasUserExport($filter = ""){
+		$Sql = "SELECT ru.recompensa_user AS 'Usuario', CONCAT(u.name, ' ', u.surname) AS 'Nombre',r.recompensa_name AS 'Recompensa',ru.recompensa_date AS 'Fecha', ru.recompensa_comment AS 'Comentario'
+			FROM recompensas_user ru 
+			LEFT JOIN users u ON u.username=ru.recompensa_user
+			LEFT JOIN recompensas r ON r.id_recompensa=ru.id_recompensa
+			WHERE 1=1 ".$filter; //echo $Sql;
+		return connection::getSQL($Sql);
+	}
+
+	/**
+	 * Devuelve array con los registros
+	 * @param  string 	$filter 	Filtro SQL
+	 * @return array 				Array con registros
+	 */
 	public function getRecompensasUser($filter = ""){
 		$Sql = "SELECT u.id_recompensa,u.recompensa_user,r.recompensa_name,r.recompensa_image, COUNT(u.id_recompensa) AS total
 			FROM recompensas_user u 

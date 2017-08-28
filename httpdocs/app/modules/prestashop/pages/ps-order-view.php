@@ -9,7 +9,8 @@ $id_order = (isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0);
 		menu::breadcrumb(array(
 			array("ItemLabel"=>strTranslate("Home"), "ItemUrl"=>"home"),
 			array("ItemLabel"=>strTranslate("APP_Prestashop"), "ItemUrl"=>"ps-products"),
-			array("ItemLabel"=> strTranslate("Shop_products_list"), "ItemClass"=>"active"),
+			array("ItemLabel"=>strTranslate("Shop_my_orders"), "ItemUrl"=>"ps-orders"),
+			array("ItemLabel"=> strTranslate("Shop_order"), "ItemClass"=>"active"),
 		));
 		
 		session::getFlashMessage('actions_message');	
@@ -22,9 +23,11 @@ $id_order = (isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0);
 		endif;
 		?>
 	</div>
-	<div class="app-sidebar">
+	<div class="app-sidebar hidden-xs hidden-sm">
 		<div class="panel-interior">
-			
+			<h2><?php e_strTranslate("APP_Prestashop");?></h2>
+			<p>Puedes canjear tus <?php e_strTranslate("APP_Credits");?> por fantasticos <?php strtolower(e_strTranslate("Shop_products"));?>!</p>
+			<p class="text-center"><i class="fa fa-shopping-cart fa-big"></i></p>
 		</div>
 	</div>
 </div>

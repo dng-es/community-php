@@ -677,7 +677,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	padding:10px;
 }
 .MensajeNoLeido{
-	background-color:lighten($color1, 47%);
+	background-color:lighten($color1, 35%);
+	font-weight: bolder;
 }
 /*Fin Mensajeria interna*/
 

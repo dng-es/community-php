@@ -310,10 +310,12 @@ function add_hook($destination, $situation, $hook, $order = 1){
 
 function get_hooks($situation){
 	global $hooks;
-	$hooks_situation = arraySort($hooks[$situation], 'order', SORT_ASC);
-	foreach ($hooks_situation as $hook):
-		call_user_func($hook['function']);
-	endforeach;
+	if (count($hooks[$situation]) > 0){
+		$hooks_situation = arraySort($hooks[$situation], 'order', SORT_ASC);
+		foreach ($hooks_situation as $hook):
+			call_user_func($hook['function']);
+		endforeach;
+	}
 }
 
 function getFindReg(){

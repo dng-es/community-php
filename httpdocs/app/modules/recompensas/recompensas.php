@@ -3,7 +3,7 @@
 * @Manage recompensas
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.0
+* @version 1.1
 *
 */
 
@@ -29,6 +29,14 @@ class recompensasCore{
 				"LabelItem" => strTranslate("Rewards_list"),
 				"LabelUrl" => "admin-recompensas",
 				"LabelPos" => 2,
+			)),
+			menu::addAdminMenu(array(
+				"PageName" => "admin-informe-recompensas",
+				"LabelHeader" => "Modules",
+				"LabelSection" => strTranslate("Rewards"),
+				"LabelItem" => strTranslate("Rewards_assigned"),
+				"LabelUrl" => "admin-informe-recompensas",
+				"LabelPos" => 3,
 			))
 		);
 	}

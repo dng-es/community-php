@@ -583,7 +583,7 @@ class usersController{
 			$telefono_user = $data->sheets[0]['cells'][$fila][7];
 			$perfil = strtolower(trim($data->sheets[0]['cells'][$fila][8]));
 			$canal = strtolower(trim($data->sheets[0]['cells'][$fila][9]));
-			$language_id = array_search('gerente', array_column($canales, 'canal'));
+			$language_id = array_search($canal, array_column($canales, 'canal'));
 			$user_lan = $canales[$language_id]['canal_lan'];
 
 			if ($perfil == "") $perfil = "usuario";

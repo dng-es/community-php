@@ -54,7 +54,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="app-sidebar">
+	<div class="app-sidebar hidden-xs hidden-sm">
 		<div class="panel-interior">
 			<h2><?php e_strTranslate("APP_Prestashop");?></h2>
 			<p>Puedes canjear tus <?php e_strTranslate("APP_Credits");?> por fantasticos <?php strtolower(e_strTranslate("Shop_products"));?>!</p>

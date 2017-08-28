@@ -73,6 +73,16 @@ class recompensasController{
 					'total_reg' => $total_reg);
 	}
 
+	public static function exportListAction(){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
+			$recompensas = new recompensas(); 
+			$elements = $recompensas->getRecompensasUserExport(" ORDER BY recompensa_date DESC");
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}
+	}
+
 	public static function getListUserAction($filter = ""){
 		$recompensas = new recompensas();
 		$find_reg = getFindReg();
