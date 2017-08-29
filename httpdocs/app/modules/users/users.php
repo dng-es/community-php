@@ -147,7 +147,15 @@ class usersCore{
 				"LabelItem" => ucfirst(strTranslate("APP_shares")),
 				"LabelUrl" => "admin-informe-participaciones",
 				"LabelPos" => 3,
-			))
+			)),
+			menu::addAdminMenu(array(
+				"PageName" => "admin?export_confirm=true",
+				"LabelHeader" => "Tools",
+				"LabelSection" => strTranslate("Reports"),
+				"LabelItem" => ucfirst(strTranslate("Recomendaciones")),
+				"LabelUrl" => "admin?export_confirm=true",
+				"LabelPos" => 4,
+			))			
 		);
 
 		if(getModuleExist("shop") || getModuleExist("prestashop")){
