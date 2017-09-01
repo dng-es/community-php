@@ -13,7 +13,7 @@
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">
 					<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
-					<li><a href="admin-campaign?act=new">Nueva campaña</a></li>
+					<li><a href="admin-campaign?act=new"><?php e_strTranslate("New_campaign");?></a></li>
 					<div class="pull-right">
 						<?php echo SearchForm($elements['reg'],"admin-campaigns","searchForm",strTranslate("Search"), strTranslate("Search"),"","navbar-form navbar-left");?>
 					</div>

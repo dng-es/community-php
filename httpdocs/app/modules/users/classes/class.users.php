@@ -383,16 +383,15 @@ class users{
 
 	public static function posicionRankingEmpresa($empresa){
 		$Sql = "SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM 
-			(SELECT SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u1.empresa) AS suma_puntos,empresa FROM users u1 WHERE empresa<>'' AND empresa<>'comunidad' AND empresa<>'0' GROUP BY empresa HAVING SUM(puntos)>=
-			(SELECT SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u1.empresa) FROM users u2 WHERE empresa='".$empresa."' GROUP BY empresa) ORDER BY suma_puntos DESC,empresa DESC) r,  
-			(SELECT @rownum:=0) ro ) f WHERE empresa='".$empresa."' GROUP BY empresa";
+					(SELECT SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u1.empresa AND perfil<>'admin' AND confirmed=1 AND disabled=0) AS suma_puntos,empresa FROM users u1 WHERE empresa<>'' AND empresa<>'comunidad' AND empresa<>'0' AND perfil<>'admin' AND confirmed=1 AND disabled=0 GROUP BY empresa ) r,  
+					(SELECT @rownum:=0) ro ORDER BY suma_puntos DESC) f WHERE empresa='".$empresa."' GROUP BY empresa ";
 		$result = connection::execute_query($Sql) or die ("SQL Error in ".$_SERVER['SCRIPT_NAME']);
 		$row = connection::get_result($result);
 		return $row['rownum'];
 	}
 
 	public function getPuntosEmpresa($filter = "", $extra =""){
-		$Sql = "SELECT empresa,SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u.empresa) AS puntos_empresa, nombre_tienda  
+		$Sql = "SELECT empresa,SUM(puntos)/(SELECT COUNT(*) FROM users WHERE empresa=u.empresa AND perfil<>'admin' AND confirmed=1 AND disabled=0) AS puntos_empresa, nombre_tienda  
 				FROM users u 
 				LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
 				WHERE 1=1 ".$filter." 

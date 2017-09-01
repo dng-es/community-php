@@ -23,19 +23,16 @@ $puntos = $users->getUsers($filtro_canal." AND puntos>0 AND perfil<>'admin' AND 
 			array("ItemLabel"=>strTranslate("Ranking_users"), "ItemClass"=>"active"),
 		));
 		?>
-		<p><?php e_strTranslate("Ranking_users_text");?>:</p><br />
-		<div class="row">
-			<div class="col-md-12">
-				<br />
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<p><?php e_strTranslate("Ranking_users_text");?>:</p><br />
 				<?php if (count($puntos) > 0):?>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
 						<?php 
 						//LOS X PRIMEROS DEL RANKING
 						for ($i = 0; $i <= 14; $i++){
-							if (isset($puntos[$i])): 
-								userRanking($puntos[$i], $puntos[0]['puntos'],$i);
-							endif;
+							if (isset($puntos[$i])) userRanking($puntos[$i], $puntos[0]['puntos'], $i);
 						} ?>
 					</table>
 				</div>
@@ -65,7 +62,7 @@ $puntos = $users->getUsers($filtro_canal." AND puntos>0 AND perfil<>'admin' AND 
 	</div>
 </div>
 
-<?php function userRanking($puntos,$max_puntos,$posicion_user){ ?>
+<?php function userRanking($puntos, $max_puntos, $posicion_user){ ?>
 <tr>
 	<td class="table-number" width="40px">
 		<i class="fa fa-trophy fa-medium"><small><?php echo ($posicion_user + 1);?></small></i>
@@ -75,9 +72,13 @@ $puntos = $users->getUsers($filtro_canal." AND puntos>0 AND perfil<>'admin' AND 
 	</td>
 	<td>
 		<a href="user-profile?n=<?php echo $puntos['nick'];?>"><?php echo $puntos['nick'];?></a> - <?php echo $puntos['name'].' '.$puntos['surname'];?>
-		<p class="text-muted"><?php echo $puntos['nombre_tienda'];?><br />
-		<span><?php echo $puntos['puntos'].' '.strTranslate("APP_points");?></span></p>
+		<p class="text-muted">
+			<?php echo $puntos['nombre_tienda'];?><br />
+			<span><?php echo $puntos['puntos'].' '.strTranslate("APP_points");?></span>
+		</p>
 	</td>
-	<td><?php $puntos['nombre_tienda'];?></td>
+	<td>
+		<?php $puntos['nombre_tienda'];?>
+	</td>
 </tr>
 <?php }?>

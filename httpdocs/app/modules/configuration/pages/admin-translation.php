@@ -16,6 +16,7 @@
 		$elements = configurationTranslationsController::getLanguageFile($module, $language);
 		//$elements = ksort($elements);
 		// echo '<pre>';
+		$modules = configurationController::getListModulesAction();
 		?>
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -38,9 +39,53 @@
 					<div class="row">
 					<?php foreach ($elements as $key => $value):?>
 						<div class="form-group col-md-6">
-							<label class="col-sm-3 control-label" for="<?php echo $key;?>"><small><?php echo $key;?></small></label>
-							<div class="col-sm-9">
+							<label class="col-sm-4 control-label" for="<?php echo $key;?>"><small><?php echo $key;?></small></label>
+							<div class="col-sm-7">
 								<input type="text" class="form-control" id="<?php echo $key;?>" name="<?php echo $key;?>" value="<?php echo $value;?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+								<?php $path = realpath(dirname(__FILE__))."/../../";
+								$ocurrencias = "";
+								foreach($modules as $module):
+									$ocurrencias_module = "";
+									$dir_name = $path.$module['folder']."/pages";
+									$ficheros = FileSystem::showFilesFolder($dir_name);
+									
+									$module_find = "";
+									foreach($ficheros as $fichero):
+										$fichero_content = file_get_contents($dir_name."/".$fichero);
+										if (strrpos($fichero_content, $key)) {
+											if ($module['folder'] != $module_find) $ocurrencias_module = "<b>".strTranslate("Module")." ".$module['folder']."</b><ul>";
+											$module_find = $module['folder'];
+											$ocurrencias_module .= "<li>".substr($fichero, 0, -4)."</li>";
+										}
+									endforeach;
+									if ($ocurrencias_module != "") $ocurrencias_module .= "</ul>";
+									$ocurrencias .= $ocurrencias_module;
+								endforeach;
+								//buscar en header
+								$fichero_content = file_get_contents($path."/class.headers.php");
+								if (strrpos($fichero_content, $key)) {
+									if ($module['folder'] != $module_find) $ocurrencias .= "<b>Header</b><ul>";
+									$ocurrencias .= "<li>PageHeader</li>";
+								}
+								//buscar en menu
+								$fichero_content = file_get_contents($path."/class.menu.php");
+								if (strrpos($fichero_content, $key)) {
+									if ($module['folder'] != $module_find) $ocurrencias .= "<b>Menu</b><ul>";
+									$ocurrencias .= "<li>PageMenu</li>";
+								}								
+								//buscar en footer
+								$fichero_content = file_get_contents($path."/class.footer.php");
+								if (strrpos($fichero_content, $key)) {
+									if ($module['folder'] != $module_find) $ocurrencias .= "<b>Footer</b><ul>";
+									$ocurrencias .= "<li>PageFooter</li>";
+								}	
+
+								if ($ocurrencias == "") $ocurrencias ="<em>".strTranslate("Located_in_templates")."</em>";
+								?>
+								</small>
+							</div>
+							<div class="col-sm-1">
+								<button type="button" class="btn btn-info popover-dismiss" data-toggle="popover" title="<?php e_strTranslate("Place_in");?>" data-content="<?php echo $ocurrencias;?>"><i class="fa fa-info"></i></button>
 							</div>
 						</div>
 					<?php endforeach;?>
