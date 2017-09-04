@@ -83,7 +83,7 @@ class shopOrdersController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$shop = new shop(); 
 			$elements = $shop->getOrders($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Shop_orders")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -93,7 +93,7 @@ class shopOrdersController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$shop = new shop(); 
 			$elements = $shop->getOrdersDetails($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Shop_orders")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -207,7 +207,7 @@ class shopOrdersController{
 					"notes_order" => $notes_order
 		));
 		$cuerpo_mensaje = $template->getTpl();
-		messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp');
+		messageProcess($asunto, $message_from, $message_to, $cuerpo_mensaje, null, 'smtp');
 	}
 
 	private static function sendEmailUserStatus($user_detail, $id_order, $name_order, $surname_order, $address_order, $address2_order, $city_order, $state_order, $postal_order, $telephone_order, $name_product, $price_order, $date_order, $status_order, $notes_order){
@@ -241,7 +241,7 @@ class shopOrdersController{
 
 		$cuerpo_mensaje = $template->getTpl();
 
-		messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp');
+		messageProcess($asunto, $message_from, $message_to, $cuerpo_mensaje, null, 'smtp');
 	}
 
 	private static function sendEmailAdmin($user_detail, $id_order, $name_order, $surname_order, $address_order, $address2_order, $city_order, $state_order, $postal_order, $telephone_order, $notes_order, $product_detail){
@@ -277,7 +277,7 @@ class shopOrdersController{
 					"product_price" => $product_detail['price_product']
 		));
 		$cuerpo_mensaje = $template->getTpl();
-		messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp');
+		messageProcess($asunto, $message_from, $message_to, $cuerpo_mensaje, null, 'smtp');
 	}
 }
 ?>

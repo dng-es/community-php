@@ -77,7 +77,7 @@ class recompensasController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$recompensas = new recompensas(); 
 			$elements = $recompensas->getRecompensasUserExport(" ORDER BY recompensa_date DESC");
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Rewards")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

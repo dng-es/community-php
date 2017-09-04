@@ -205,11 +205,9 @@ class usersController{
 							"label_userpassword" => strTranslate("Password"),
 							"field_userpassword" => $user[0]['user_password']
 				));
-
 				$cuerpo_mensaje = $template->getTpl();
 
-				//if (SendEmail($ini_conf['ContactEmail'],$user[0]['email'],$asunto,$cuerpo_mensaje,0)) {
-				if (messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp')) 
+				if (messageProcess($asunto, $message_from, $message_to, $cuerpo_mensaje, null, 'smtp')) 
 					session::setFlashMessage('actions_message', strTranslate("Recover_password_alert"), "alert alert-success");
 				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
@@ -219,7 +217,7 @@ class usersController{
 	}
 
 	public static function loginRedirectAction(){
-		if (isset($_SESSION['user_logged']) && $_SESSION['user_logged']) {
+		if (isset($_SESSION['user_logged']) && $_SESSION['user_logged']){
 			if (isset($_SESSION['url_request']) && $_SESSION['url_request'] != "") redirectURL($_SESSION['url_request']);
 			else redirectURL("home");
 		}
@@ -352,9 +350,7 @@ class usersController{
 				include_once (__DIR__."/../../".$module['folder']."/".$module['folder'].".php");
 				$moduleClass = $module['folder']."Core";
 				$instance = new $moduleClass();
-				if (method_exists($instance, "userModuleStatistis")) {
-					$array_final = array_merge($array_final, $instance->userModuleStatistis($username));
-				}
+				if (method_exists($instance, "userModuleStatistis")) $array_final = array_merge($array_final, $instance->userModuleStatistis($username));
 			}
 		endforeach;
 		return $array_final;
@@ -365,7 +361,6 @@ class usersController{
 			$users = new users();
 			$filtro_tienda = ($_SESSION['user_perfil'] == 'responsable' ? " AND responsable_tienda='".$_SESSION['user_name']."' " : "");
 			$filter .= " AND disabled=0 AND perfil='usuario' ".$filtro_tienda." ORDER BY empresa, username ";
-
 			$elements = $users->getUsersListado($filter);
 			download_send_headers("users_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
@@ -401,7 +396,6 @@ class usersController{
 					session::setFlashMessage( 'actions_message', "Usuario reactivado correctamente", "alert alert-success");
 				else
 					session::setFlashMessage( 'actions_message', "Error al reactivar usuario.", "alert alert-warning");
-
 			}
 			else{
 				//aviso de usuario activo. Obtner datos del responsable de la tienda donde esta activo
@@ -418,8 +412,7 @@ class usersController{
 			$users = new users();
 			$id_user_edit = sanitizeInput($_POST['id_user_edit']);
 			//VERIFICAR QUE EL USUARIO PERTENECE AL RESPONSABLE
-			$contador = connection::countReg("users"," AND username='".$id_user_edit."' 
-													AND empresa IN (SELECT DISTINCT cod_tienda FROM users_tiendas WHERE responsable_tienda='".$_SESSION['user_name']."') ");
+			$contador = connection::countReg("users"," AND username='".$id_user_edit."' AND empresa IN (SELECT DISTINCT cod_tienda FROM users_tiendas WHERE  responsable_tienda='".$_SESSION['user_name']."') ");
 
 			if ($contador > 0 || $_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
 				$empresa = sanitizeInput($_POST['user_edit_empresa']);
@@ -439,10 +432,9 @@ class usersController{
 			$username = sanitizeInput($_REQUEST['id']);
 			$users = new users();
 			$acceso = 1;
-			if ($_SESSION['user_perfil'] == 'responsable'){
-				//verificar que el usuario pertenezca al usuario conectado
-				$acceso = count($users->getUsers(" AND username='".$username."' AND responsable_tienda='".$_SESSION['user_name']."' "));
-			}
+
+			//verificar que el usuario pertenezca al usuario conectado
+			if ($_SESSION['user_perfil'] == 'responsable') $acceso = count($users->getUsers(" AND username='".$username."' AND responsable_tienda='".$_SESSION['user_name']."' "));
 
 			if ($acceso > 0){
 				if ($users->disableUser($username)) session::setFlashMessage( 'actions_message', "Usuario desactivado correctamente.", "alert alert-success");
@@ -464,7 +456,7 @@ class usersController{
 		
 		$Sql = "SELECT count(*) AS table_counter FROM users u  
 				LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
-				WHERE 1=1 ".$filter; //echo $Sql."<br />";
+				WHERE 1=1 ".$filter;
 		$result = connection::execute_query($Sql);
 		$row = connection::get_result($result);
 		
@@ -562,89 +554,93 @@ class usersController{
 	}	
 
 	public static function volcarMySQLUsers($data, $proceso_insert = true, $proceso_update = true, $proceso_delete = true){
-		$users = new users();
-		$contador = 0;
-		$mensaje = "";
-		$contador_ko = 0;
-		$mensaje_ko = "";
-		$contador_baja = 0;
-		$mensaje_baja = "";
+		try {
+			$users = new users();
+			$contador = 0;
+			$mensaje = "";
+			$contador_ko = 0;
+			$mensaje_ko = "";
+			$contador_baja = 0;
+			$mensaje_baja = "";
 
-		//dependiendo del canal se insertará un idioma por defecto al usuario
-		$canales = $users->getCanales("");
+			//dependiendo del canal se insertará un idioma por defecto al usuario
+			$canales = $users->getCanales("");
 
-		for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
-			$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
-			$user_pass = $username;
-			$nombre = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][4]));
-			$surname = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][2]." ".$data->sheets[0]['cells'][$fila][3]));
-			$empresa = sanitizeInput($data->sheets[0]['cells'][$fila][5]);	
-			$user_email = $data->sheets[0]['cells'][$fila][6];
-			$telefono_user = $data->sheets[0]['cells'][$fila][7];
-			$perfil = strtolower(trim($data->sheets[0]['cells'][$fila][8]));
-			$canal = strtolower(trim($data->sheets[0]['cells'][$fila][9]));
-			$language_id = array_search($canal, array_column($canales, 'canal'));
-			$user_lan = $canales[$language_id]['canal_lan'];
+			for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+				$username = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
+				$user_pass = $username;
+				$nombre = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][4]));
+				$surname = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][2]." ".$data->sheets[0]['cells'][$fila][3]));
+				$empresa = sanitizeInput($data->sheets[0]['cells'][$fila][5]);	
+				$user_email = $data->sheets[0]['cells'][$fila][6];
+				$telefono_user = $data->sheets[0]['cells'][$fila][7];
+				$perfil = strtolower(trim($data->sheets[0]['cells'][$fila][8]));
+				$canal = strtolower(trim($data->sheets[0]['cells'][$fila][9]));
+				$language_id = array_search($canal, array_column($canales, 'canal'));
+				$user_lan = $canales[$language_id]['canal_lan'];
 
-			if ($perfil == "") $perfil = "usuario";
-			if ($perfil == 'admin') $canal = 'admin';
-			
-			if ($username != ""){
-				//VERIFICAR QUE EXISTA EL USUARIO
-				if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") == 0) {
-					if ($proceso_insert){
-						if ($users->insertUserCarga($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user, $surname, 0, '', '', '', '', $user_lan)) {
-							$contador++;
-							$mensaje .= date("Y-m-d H:i:s")." ".$contador." - ".$username." insertado correctamente.\n";
+				if ($perfil == "") $perfil = "usuario";
+				if ($perfil == 'admin') $canal = 'admin';
+				
+				if ($username != ""){
+					//VERIFICAR QUE EXISTA EL USUARIO
+					if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") == 0) {
+						if ($proceso_insert){
+							if ($users->insertUserCarga($username, $user_pass, $user_email, $nombre, 0, 0, $empresa, $canal, $perfil, $telefono_user, $surname, 0, '', '', '', '', $user_lan)) {
+								$contador++;
+								$mensaje .= date("Y-m-d H:i:s")." ".$contador." - ".$username." insertado correctamente.\n";
 
-							if(getModuleExist("prestashop")){
-								$id_externo = prestashopCustomersController::insertCustomer($user_pass, $nombre, $surname, $user_email, 0, 0);
-								$prestashop = new prestashop();
-								$prestashop->updateUser($username, $id_externo);
+								if(getModuleExist("prestashop")){
+									$id_externo = prestashopCustomersController::insertCustomer($user_pass, $nombre, $surname, $user_email, 0, 0);
+									$prestashop = new prestashop();
+									$prestashop->updateUser($username, $id_externo);
+								}
+							}
+						}
+					}
+					else {
+						if ($proceso_update){
+							//EN CASO DE QUE YA EXISTA SE HABILITA Y MODIFICAN SUS DATOS
+							if ($users->updateUserCarga($username, $empresa, $canal)) {
+								$contador_ko++;	
+								$mensaje_ko.= date("Y-m-d H:i:s")." ".$contador_ko." - ".$username." se ha modificado.\n";				
 							}
 						}
 					}
 				}
-				else {
-					if ($proceso_update){
-						//EN CASO DE QUE YA EXISTA SE HABILITA Y MODIFICAN SUS DATOS
-						if ($users->updateUserCarga($username, $empresa, $canal)) {
-							$contador_ko++;	
-							$mensaje_ko.= date("Y-m-d H:i:s")." ".$contador_ko." - ".$username." se ha modificado.\n";				
+			}
+
+			//DAR DE BAJA A USUARIOS	
+			if ($proceso_delete){
+				$elements = $users->getUsers(" AND disabled=0 ");
+				foreach($elements as $element):
+					$encontrado = false;
+					//se ecluyen los usuarios con perfil admin
+					if ($element['perfil'] == 'admin')  $encontrado = true;
+					else{
+						for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
+							if (strtoupper($element['username']) == strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
 						}
 					}
-				}
-			}
-		}
 
-		//DAR DE BAJA A USUARIOS	
-		if ($proceso_delete){
-			$elements=$users->getUsers(" AND disabled=0 ");
-			foreach($elements as $element):
-				$encontrado = false;
-				//se ecluyen los usuarios con perfil admin
-				if ($element['perfil'] == 'admin')  $encontrado = true;
-				else{
-					for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
-						if (strtoupper($element['username']) == strtoupper($data->sheets[0]['cells'][$fila][1])) $encontrado=true;	
+					if ($encontrado == false){
+						$users->disableUser($element['username'],1);
+						$contador_baja++;
+						$mensaje_baja .= date("Y-m-d H:i:s")." ".$contador_baja." - ".$element['username']." se ha dado de baja.\n";
 					}
-				}
+				endforeach;
+			}
 
-				if ($encontrado == false){
-					$users->disableUser($element['username'],1);
-					$contador_baja++;
-					$mensaje_baja .= date("Y-m-d H:i:s")." ".$contador_baja." - ".$element['username']." se ha dado de baja.\n";
-				}
-			endforeach;
+			echo date("Y-m-d H:i:s")." El proceso de importación ha finalizado con éxito\n";
+
+			if ($contador > 0) echo date("Y-m-d H:i:s")." los siguientes usuarios han sido dados de alta: (".$contador.")\n".$mensaje;
+				
+			if ($contador_ko > 0) echo date("Y-m-d H:i:s")." los siguientes usuarios no fueron insertados porque ya estaban dados de alta: (".$contador_ko.")\n".$mensaje_ko;
+
+			if ($contador_baja > 0) echo date("Y-m-d H:i:s")." los siguientes usuarios han sido dados de baja: (".$contador_baja.")\n".$mensaje_baja;
+		} catch (Exception $e) {
+			echo $e->getMessage();
 		}
-
-		echo date("Y-m-d H:i:s")." El proceso de importación ha finalizado con éxito\n";
-
-		if ($contador > 0) echo date("Y-m-d H:i:s")." los siguientes usuarios han sido dados de alta: (".$contador.")\n".$mensaje;
-			
-		if ($contador_ko > 0) echo date("Y-m-d H:i:s")." los siguientes usuarios no fueron insertados porque ya estaban dados de alta: (".$contador_ko.")\n".$mensaje_ko;
-
-		if ($contador_baja > 0) echo date("Y-m-d H:i:s")." los siguientes usuarios han sido dados de baja: (".$contador_baja.")\n".$mensaje_baja;
 	}	
 }
 ?>

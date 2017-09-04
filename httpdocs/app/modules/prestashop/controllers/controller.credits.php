@@ -33,29 +33,5 @@ class prestashopCreditsController extends prestashopController{
 			return array('status' => "Failed", "msg" => $ex->getMessage());
 		}
 	}
-
-	// public static function insertCredits($id_customer, $points){	
-	// 	try{
-	// 		$webService = new PrestaShopWebservice(self::ws_url, self::ws_key, true);
-	// 		$xml = prestashopCustomersController::getCustomer($id_customer);
-	// 		$resources = $xml->children()->children();
-
-	// 		$new_points = prestashopCreditsController::getCredits($id_customer) + $points;
-
-	// 		//actualizar datos
-	// 		$resources->points = $new_points;
-
-	// 		//enviar datos
-	// 		$opt = array('resource' => 'customers');
-	// 		$opt['putXml'] = $xml->asXML();
-	// 		$opt['id'] = $id_customer;
-	// 		$xml = $webService->edit($opt);
-			
-	// 		return true;
-	// 	}
-	// 	catch (PrestaShopWebserviceException $ex){
-	// 		return array('status' => "Failed", "msg" => $ex->getMessage());
-	// 	}
-	// }
 }
 ?>

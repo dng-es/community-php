@@ -1,4 +1,7 @@
 <?php
+set_time_limit(0);
+ini_set('memory_limit', '-1');
+
 $base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/shop/pages' : 'modules\\shop\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "modules/class.headers.php");
 include_once($base_dir . "modules/pages/classes/class.pages.php");

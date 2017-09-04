@@ -39,7 +39,7 @@ class shopProductsController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$shop = new shop(); 
 			$elements = $shop->getProducts($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Shop_products")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

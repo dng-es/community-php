@@ -3,7 +3,7 @@
 * @Configuration app module
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.2
+* @version 1.2.2
 */	
 class configurationCore{
 	/**

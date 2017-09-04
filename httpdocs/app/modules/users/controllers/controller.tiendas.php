@@ -25,7 +25,7 @@ class usersTiendasController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$users = new users();
 			$elements = $users->getTiendas($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Groups_user")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -105,7 +105,7 @@ class usersTiendasController{
 			echo date("Y-m-d H:i:s")." Se ha insertado ".$contador_insert." registros\n";			
 			
 		} catch (Exception $e) {
-			
+			echo $e->getMessage();
 		}
 	}	
 }

@@ -22,7 +22,7 @@
 						</div>
 						<div class="col-md-6">
 							<label class="control-label" for="site-name"><small>URL del sitio: <span class="text-muted">con http://</span></small></label>
-							<input type="text" class="form-control" maxlength="250" id="site-url" name="site-url" value="<?php echo $elements[0]['SiteUrl'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							<input readonly="readonly" type="text" class="form-control" maxlength="250" id="site-url" name="site-url" value="<?php echo $elements[0]['SiteUrl'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 						</div>
 					</div>
 					<div class="row">

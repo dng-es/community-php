@@ -149,7 +149,6 @@ class rankingsController{
 		for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 			$cod_tienda = trim(strtoupper($data->sheets[0]['cells'][$fila][1]));
 			$value_ranking = str_replace(",", ".", $data->sheets[0]['cells'][$fila][2]);
-
 			if ($cod_tienda != "") $rankings->insertRankingsData($id_ranking, $cod_tienda, $value_ranking);
 		}
 	}
@@ -158,7 +157,7 @@ class rankingsController{
 		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] > 0){
 			$rankings = new rankings();
 			$elements = $rankings->getRankingsDataSimple(" AND id_ranking=".intval($_REQUEST['exp'])." ");
-			download_send_headers("ranking_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Rankings")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

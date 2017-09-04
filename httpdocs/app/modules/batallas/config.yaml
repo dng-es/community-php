@@ -1,8 +1,10 @@
 ---
 options:
     battle_points: 15
+    battle_days_expiration: 2
     show_alarms: true
-    show_user_menu: true
+    choose_battle_category: true
+    show_user_menu: false
     user_menu_position: 4
 channels:
     group1: test, gerente

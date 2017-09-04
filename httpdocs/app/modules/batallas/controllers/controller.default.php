@@ -158,8 +158,8 @@ class batallasController{
 		else return false;
 	}
 
-	public static function deleteBatallasCaducadasAction(){
-		batallas::deleteBatallasCaducadas();
+	public static function deleteBatallasCaducadasAction($days){
+		if ($days > 0) batallas::deleteBatallasCaducadas($days);
 	}
 
 	public static function getPendientes($username, $filter = ''){

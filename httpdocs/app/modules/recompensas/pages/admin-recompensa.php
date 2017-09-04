@@ -4,7 +4,6 @@ addJavascripts(array("js/bootstrap.file-input.js",
 
 $id = (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 ?>
-	
 <div class="row row-top">
 	<div class="app-main">
 		<?php

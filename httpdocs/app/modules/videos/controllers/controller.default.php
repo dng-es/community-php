@@ -213,7 +213,7 @@ class videosController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$videos = new videos();
 			$elements = $videos->getVideos($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers("videos_" . date("Y-m-d") . ".csv");
 			echo array2csv($elements);
 			die();
 		}

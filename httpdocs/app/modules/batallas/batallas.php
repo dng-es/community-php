@@ -3,7 +3,7 @@
 * @Manage batallas
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.1.2
+* @version 1.2
 *
 */
 class batallasCore{
@@ -18,6 +18,10 @@ class batallasCore{
 		if ($session->checkPageViewPermission("batallas", $_SESSION['user_perfil'], $user_permissions)){
 			$module_config = getModuleConfig("batallas");
 			$alerts_text = "";
+
+			//eliminar batallas caducadas
+			batallasController::deleteBatallasCaducadasAction($module_config['options']['battle_days_expiration']);
+
 			if ($module_config['options']['show_alarms']):
 				$batallas_pendientes = batallasController::getPendientes($_SESSION['user_name']);
 				$alerts_text = ($batallas_pendientes == 0 ? '' : ' <span class="menu-alert">'.$batallas_pendientes.'</span>');
@@ -47,6 +51,15 @@ class batallasCore{
 			"LabelItem" => strTranslate("Battles_list"),
 			"LabelUrl" => "admin-batallas",
 			"LabelPos" => 1,
+		)));
+
+		array_push($elems, menu::addAdminMenu(array(
+			"PageName" => "admin-batallas-preguntas",
+			"LabelHeader" => "Modules",
+			"LabelSection" => strTranslate("Battles"),
+			"LabelItem" => strTranslate("Battles_questions_list"),
+			"LabelUrl" => "admin-batallas-preguntas",
+			"LabelPos" => 2,
 		)));
 
 		return $elems;

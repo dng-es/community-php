@@ -79,7 +79,8 @@ elseif ($contrincante == 0){
 }
 else{ 
 	$filtro_canal = " AND (canal_pregunta IN (".$module_channels.") OR canal_pregunta='') ";
-	$preguntas = $batallas->getBatallasPreguntas($filtro_canal." AND activa=1 AND pregunta_tipo='".$_POST['batalla-categoria']."' ORDER BY rand(" . time() . " * " . time() . ") LIMIT 3");
+	$filtro_categoria = (sanitizeInput($_POST['batalla-categoria']) == '' ? "" : " AND pregunta_tipo='".sanitizeInput($_POST['batalla-categoria'])."' ");
+	$preguntas = $batallas->getBatallasPreguntas($filtro_canal.$filtro_categoria." AND activa=1 ORDER BY rand(" . time() . " * " . time() . ") LIMIT 3");
 	if (count($preguntas) == 3):
 		if ($batallas->insertBatalla($_SESSION['user_name'], $contrincante[0]['username'], $_POST['batalla-categoria'], $puntos_batalla, $contrincante[0]['canal'])):
 			//obtener preguntas de la batalla

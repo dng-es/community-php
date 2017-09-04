@@ -5,18 +5,10 @@ templateload("tipuser", "users");
 
 addJavascripts(array("js/jquery.numeric.js", getAsset("batallas")."js/batallas.js"));
 
+$usuario = usersController::getPerfilAction($_SESSION['user_name']);
 $module_config = getModuleConfig("batallas");
 $puntos_batalla = $module_config['options']['battle_points'];
 
-//eliminar batallas caducadas
-batallasController::deleteBatallasCaducadasAction();
-
-$usuario = usersController::getPerfilAction($_SESSION['user_name']);
-//información de batallas
-$batallas = new batallas();
-//$categorias = $batallas->getBatallaCategorias(" ORDER BY categoria ASC");
-
-$users = new users();
 $puntos_reservados = connection::sumReg("batallas", "puntos", " AND finalizada=0 AND (user_create='".$_SESSION['user_name']."' or user_retado='".$_SESSION['user_name']."') ");
 $puntos_disponibles = $usuario['puntos'] - $puntos_reservados;
 
@@ -24,7 +16,6 @@ $puntos_disponibles = $usuario['puntos'] - $puntos_reservados;
 $filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_batalla='".$_SESSION['user_canal']."' " : "");
 $filtro =  $filtro_canal." AND finalizada=1 AND ganador='".$_SESSION['user_name']."' ";
 $ganadas_total_reg = connection::countReg("batallas", $filtro);
-
 
 $filtro =  $filtro_canal." AND finalizada=1 AND ganador<>'' AND ganador<>'".$_SESSION['user_name']."' AND (user_create='".$_SESSION['user_name']."' OR user_retado='".$_SESSION['user_name']."') ";
 $perdidas_total_reg = connection::countReg("batallas",$filtro);
@@ -104,7 +95,8 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas", $filtro);
 
 			<?php if($_SESSION['user_canal'] != '' && $_SESSION['user_canal'] != 'admin'):?>
 			<form action="" method="post" name="form-batalla" id="form-batalla">
-				<input type="hidden" name="batalla-categoria" id="batalla-categoria" value="General" />
+			<?php if($module_config['options']['choose_battle_category'] == false):?>
+				<input type="hidden" name="batalla-categoria" id="batalla-categoria" value="" />
 			<!--
 				<div class="form-group">
 					<label for="batalla-contrincario"><i class="fa fa-user"></i> Contrincante - 
@@ -117,15 +109,22 @@ $pendientes_contrincario_total_reg = connection::countReg("batallas", $filtro);
 					<input type="text" name="batalla-puntos" id="batalla-puntos" class="form-control" />
 				</div> -->
 
-<!-- 							<div class="form-group">
-					<label for="batalla-categoria"><i class="fa fa-comments"></i> Temática - 
-					<span>Selecciona la tematica de la batalla</span></label>
+			<?php else:
+			$batallas = new batallas();
+			$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
+			$filtro_canal_categorias = " AND (canal_pregunta IN (".$module_channels.") OR canal_pregunta='') ";
+			$categorias = $batallas->getBatallaCategorias($filtro_canal_categorias." AND activa=1 GROUP BY pregunta_tipo HAVING COUNT(pregunta_tipo)>=3 ORDER BY categoria ASC");
+			?>
+				<div class="form-group">
+					<label for="batalla-categoria"><?php echo ucfirst(strTranslate("choose_battle_category"));?></label>
 					<select name="batalla-categoria" id="batalla-categoria" class="form-control">
-						<?php //foreach($categorias as $categoria): ?>
-							<option value="<?php //echo $categoria['categoria'];?>"><?php //echo $categoria['categoria'];?></option>
-						<?php //endforeach;?>
+						<option value="">--- Cualquier categoria ---</option>
+						<?php foreach($categorias as $categoria): ?>
+							<option value="<?php echo $categoria['categoria'];?>"><?php echo $categoria['categoria'];?></option>
+						<?php endforeach;?>
 					</select>
-				</div> -->
+				</div>
+			<?php endif?>
 				<br />
 				<div class="alert alert-danger" id="alertas-batalla" style="display: none"><?php e_strTranslate("Required_all_fields");?></div>
 				<input class="btn btn-primary btn-block" type="submit" name="batalla-btn" id="batalla-btn" value="<?php e_strTranslate("Start_battle");?>" />

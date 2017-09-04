@@ -27,8 +27,8 @@ class connection extends connection_sql{
 	 * @param  string 		$filter 		Filter to apply
 	 * @return int 							Number of records
 	 */
-	public static function countReg($table, $filter){
-		$Sql = "SELECT count(*) AS table_counter FROM ".$table." WHERE 1=1 ".$filter; //echo $Sql."<br />";
+	public static function countReg($table, $filter, $field = '*'){
+		$Sql = "SELECT count(".$field.") AS table_counter FROM ".$table." WHERE 1=1 ".$filter; //echo $Sql."<br />";
 		if (($result = self::execute_query($Sql)) !== false){
 			$row = self::get_result($result);
 			return $row['table_counter'];

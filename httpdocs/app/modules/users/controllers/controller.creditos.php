@@ -55,7 +55,6 @@ class usersCreditosController{
 				}
 				return true;
 			}
-
 		}
 	}	
 }

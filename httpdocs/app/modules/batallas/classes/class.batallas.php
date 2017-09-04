@@ -32,6 +32,33 @@ class batallas{
 		return connection::getSQL($Sql);
 	}
 
+	public function getBatallaCategorias($filter = ""){
+		$Sql = "SELECT DISTINCT(pregunta_tipo) AS categoria 
+				FROM batallas_preguntas  
+				WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);  
+	}	
+
+	public function estadoPregunta($id_pregunta, $estado=1){
+		$Sql = "UPDATE batallas_preguntas SET 
+				activa=".$estado." 
+				WHERE id_pregunta=".$id_pregunta." ";
+		return connection::execute_query($Sql);
+	}
+
+	public function estadoPreguntastipo($pregunta_tipo, $estado=1){
+		$Sql = "UPDATE batallas_preguntas SET 
+				activa=".$estado." 
+				WHERE pregunta_tipo='".$pregunta_tipo."'";
+		return connection::execute_query($Sql);
+	}	
+
+	public function insertBatallaPregunta($pregunta_tipo, $pregunta, $respuesta1, $respuesta2, $respuesta3, $valida, $canal_pregunta){
+		$Sql = "INSERT INTO batallas_preguntas (pregunta_tipo, pregunta, respuesta1, respuesta2, respuesta3, valida, canal_pregunta) 
+				VALUES ('".$pregunta_tipo."','".$pregunta."','".$respuesta1."','".$respuesta2."','".$respuesta3."',".$valida.",'".$canal_pregunta."')";
+		return connection::execute_query($Sql);
+	}	
+
 	/**
 	 * Devuelve las preguntas y respuestas para una batalla
 	 * @param  int 		$id_batalla Id de la batalla a recuperar datos
@@ -100,13 +127,6 @@ class batallas{
 		return connection::execute_query($Sql);
 	}
 
-	public function getBatallaCategorias($filter = ""){
-		$Sql = "SELECT DISTINCT(pregunta_tipo) AS categoria 
-				FROM batallas_preguntas  
-				WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql);  
-	}
-
 	public function getBatallasRanking($filter = ""){
 		$Sql = "SELECT ganador AS usuario,COUNT(finalizada) AS victorias FROM batallas
 				WHERE finalizada=1 AND ganador<>''
@@ -126,8 +146,8 @@ class batallas{
 		return $row['rownum'];
 	}
 
-	public static function deleteBatallasCaducadas(){
-		$Sql = "DELETE FROM batallas WHERE finalizada=0 AND date_batalla<DATE_ADD(CURDATE(), INTERVAL -2 DAY) ";
+	public static function deleteBatallasCaducadas($days){
+		$Sql = "DELETE FROM batallas WHERE finalizada=0 AND date_batalla<DATE_ADD(CURDATE(), INTERVAL -".$days." DAY) ";
 		return connection::execute_query($Sql);
 	}
 }

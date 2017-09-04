@@ -459,7 +459,8 @@ Devuelve el número de registros de una tabla, aplicando el filtro especificado.
 ```php
 $table = "users";
 $filter = " AND disabled=0 ";
-$counter = connection::countReg($table, $filter);
+$field = "DISTINCT category";
+$counter = connection::countReg($table, $filter, [$field]);
 ```
 
 ### sumReg

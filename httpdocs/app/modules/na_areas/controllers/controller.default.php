@@ -149,7 +149,7 @@ class na_areasController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$na_areas = new na_areas();
 			$elements = $na_areas->getAreas(" AND estado=1");
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Na_areas")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -159,7 +159,7 @@ class na_areasController{
 		if ((isset($_REQUEST['id']) && $_REQUEST['id'] != "") && !isset($_REQUEST['act'])){
 			$na_areas = new na_areas();
 			$elements = $na_areas->getAreasUsers(" AND id_area=".intval($_REQUEST['id']));
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Na_areas")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -194,8 +194,8 @@ class na_areasController{
 
 	public static function ExportFormUserAction(){
 		$na_areas = new na_areas();
-		$elements = $na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".intval($_REQUEST['id'])." and r.respuesta_user='".sanitizeInput($_REQUEST['t'])."' ");
-		download_send_headers("data_" . date("Y-m-d") . ".csv");
+		$elements = $na_areas->getRespuestasUserAdmin(" AND p.id_tarea=".intval($_REQUEST['id'])." AND r.respuesta_user='".sanitizeInput($_REQUEST['t'])."' ");
+		download_send_headers("data_".date("Y-m-d").".csv");
 		echo array2csv($elements);
 		die();
 	}
@@ -203,7 +203,7 @@ class na_areasController{
 	public static function ExportFileUserAction(){
 		$na_areas = new na_areas();
 		$elements = $na_areas->getTareasUserExport(intval($_REQUEST['id']), intval($_REQUEST['a']));
-		download_send_headers("data_".date("Y-m-d") . ".csv");
+		download_send_headers("data_".date("Y-m-d").".csv");
 		echo array2csv($elements);
 		die();
 	}
@@ -240,7 +240,7 @@ class na_areasController{
 			endforeach;
 			array_push($final, $element);
 		endforeach;
-		download_send_headers("data_" . date("Y-m-d") . ".csv");
+		download_send_headers("data_".date("Y-m-d").".csv");
 		echo array2csv($final);
 		die();
 	}
@@ -281,7 +281,6 @@ class na_areasController{
 	public static function finalizarFormAction($id_tarea){
 		$na_areas = new na_areas();
 		if($na_areas->insertFormulariosFinalizados($id_tarea, $_SESSION['user_name'])){
-			
 			//obtener datos de la tarea
 			$tarea = $na_areas->getTareas(" AND id_tarea=".$id_tarea." ");
 			$id_area = $tarea[0]['id_area'];
@@ -298,11 +297,7 @@ class na_areasController{
 						$respuestas = $na_areas->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 "); 
 						$respuesta_user=$na_areas->getRespuestasUser(" AND id_pregunta=".$pregunta['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");            
 						foreach($respuestas as $respuesta):
-							//echo $respuesta_user[0]['respuesta_valor'].' ***** '.$respuesta['respuesta_texto']."<br />";
-							if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']){
-								$aciertos++;
-								//echo "acierto: ".$pregunta['id_pregunta'];
-							}
+							if ($respuesta_user[0]['respuesta_valor'] == $respuesta['respuesta_texto']) $aciertos++;
 						endforeach;
 					}
 					elseif ($pregunta['pregunta_tipo'] == 'multiple'){
@@ -314,13 +309,11 @@ class na_areasController{
 							if (in_array($respuesta['respuesta_texto'], $respuesta_multiple)) $aciertos_multiples++;
 						endforeach;		
 
-						//echo "aciertos mul: ".$aciertos_multiples." - respuestas: ".count($respuestas)." - resp.user: ".count($respuesta_multiple). "<br /> ";
 						if ($aciertos_multiples == (count($respuestas)) && (count($respuestas) == count($respuesta_multiple)))	$aciertos++;		
 					}
 				endforeach;
 				//calcular resultado final del cuestionario $puntos
 				$puntos = ($aciertos / $num_preguntas) * 10;
-				//echo "aciertos: ".$aciertos. " preg: ".$num_preguntas;
 
 				//marcar cuestionario como revisado				
 				self::revisarTarea($_SESSION['user_name'], $id_tarea, $id_area, $puntos, $id_recompensa);
@@ -535,14 +528,14 @@ class na_areasController{
 		$asunto = $ini_conf['SiteName'].': '.strTranslate("Task_title_message");
 		$message_from = array($ini_conf['ContactEmail'] => $ini_conf['SiteName']);
 		$message_to = array($user_detail['email']);
-
+		
 		$template = new tpl("tarea", "na_areas");
 		$template->setVars(array(
 					"title_email" => "Reto finalizado",
 					"text_email" => $msg_detail
 		));
-
 		$cuerpo_mensaje = $template->getTpl();
+		
 		messageProcess($asunto, $message_from, $message_to , $cuerpo_mensaje, null, 'smtp');
 	}
 }
