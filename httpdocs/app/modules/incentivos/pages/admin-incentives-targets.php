@@ -16,7 +16,7 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 			array("ItemLabel"=>strTranslate("Incentives_targets"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		incentivosObjetivosController::createAction();
 		incentivosObjetivosController::deleteAction();
 		$referencia_acelerador = (isset($_REQUEST['ref']) ? $_REQUEST['ref'] : 0);

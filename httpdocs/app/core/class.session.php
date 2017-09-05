@@ -249,16 +249,18 @@ class session{
 	* @param 	string 	$class 		display class
 	* @return 	string 	message
 	*/
-	public static function setFlashMessage($name = '', $message = '', $class = 'alert alert-danger' ){
+	public static function setFlashMessage($name = '', $message = '', $class = 'alert alert-danger', $title = "" ){
 		//We can only do something if the name isn't empty
 		if(!empty( $name)){
 			//No message, create it
 			if(!empty($message) && empty( $_SESSION[$name])){
 				if(!empty($_SESSION[$name])) unset($_SESSION[$name]);
 				if(!empty($_SESSION[$name.'_class'])) unset($_SESSION[$name.'_class']);
+				if(!empty($_SESSION[$name.'_title'])) unset($_SESSION[$name.'_title']);
 
 				$_SESSION[$name] = $message;
 				$_SESSION[$name.'_class'] = $class;
+				$_SESSION[$name.'_title'] = $title;
 			}
 		}
 	}
@@ -270,9 +272,15 @@ class session{
 	public static function getFlashMessage($name){
 		if (isset($_SESSION[$name])){
 			$class = !empty( $_SESSION[$name.'_class'] ) ? $_SESSION[$name.'_class'] : 'success';
-			echo '<div class="msg-flash '.$class.'">'.$_SESSION[$name].'</div>';
+			if ($class == 'success') $title_default = "Muy bien!";
+			elseif ($class == 'warning') $title_default = "Cuidado...";
+			elseif ($class == 'info') $title_default = "Info";
+			elseif ($class == 'danger') $title_default = "Error";
+			$title = !empty( $_SESSION[$name.'_title'] ) ? $_SESSION[$name.'_title'] : $title_default;
+			echo '<div class="msg-flash '.$class.'" data-title="'.$title.'">'.$_SESSION[$name].'</div>';
 			unset($_SESSION[$name]);
 			unset($_SESSION[$name.'_class']);
+			unset($_SESSION[$name.'_title']);
 		}
 	}
 

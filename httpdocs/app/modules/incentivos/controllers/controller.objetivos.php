@@ -110,7 +110,7 @@ class incentivosObjetivosController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getIncentivesObjetivos("");
-			download_send_headers(strTranslate("Incentives_targets")."_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Incentives_targets")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -121,7 +121,7 @@ class incentivosObjetivosController{
 			$incentivos = new incentivos();
 			$id_objetivo = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 			$elements = $incentivos->getIncentivesObjetivosDetalleExport(" AND d.id_objetivo=".$id_objetivo." ");
-			download_send_headers(strTranslate("Incentives_targets")."_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Incentives_targets")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

@@ -18,7 +18,7 @@ class incentivosController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getVentasExport($filter);
-			download_send_headers(strTranslate("Incentives_sales")."_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Incentives_sales")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -45,7 +45,7 @@ class incentivosController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getVentasPuntuaciones("");
-			download_send_headers(strTranslate("Incentives_points")."_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Incentives_points")."_" .date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -69,7 +69,7 @@ class incentivosController{
 		//$elements = $incentivos->getVentasExport($filter." AND username_venta='".$filtro_user."' ");
 		$filtro_tienda = incentivosObjetivosController::getFiltroTienda($_SESSION['user_perfil'], $_SESSION['user_name'], $_SESSION['user_empresa'], ($_SESSION['user_perfil'] == 'usuario'));
 		$elements = $incentivos->getVentasExport($filtro_tienda.$filter);
-		download_send_headers(strTranslate("ventas")."_" . date("Y-m-d") . ".csv");
+		download_send_headers(strTranslate("Incentives_sales")."_" .date("Y-m-d").".csv");
 		echo array2csv($elements);
 		die();
 	}
@@ -80,13 +80,13 @@ class incentivosController{
 		//$elements = $incentivos->getVentasPuntuacionesUser($filter." AND username_puntuacion='".$filtro_user."' ");
 		$filtro_tienda = incentivosObjetivosController::getFiltroTienda($_SESSION['user_perfil'], $_SESSION['user_name'], $_SESSION['user_empresa']);
 		$elements = $incentivos->getVentasPuntuacionesUser($filtro_tienda.$filter);
-		download_send_headers(strTranslate("puntos")."_" . date("Y-m-d") . ".csv");
+		download_send_headers(strTranslate("Incentives_points")."_" .date("Y-m-d").".csv");
 		echo array2csv($elements);
 		die();
 	}
 
 	public static function getRankingAction($objetivo, $filter = ""){
-		if($objetivo['tipo_objetivo'] == 'Usuario') return self::getRankingUsuarioAction($objetivo, $filter);
+		if(strtoupper($objetivo['tipo_objetivo']) == 'USUARIO') return self::getRankingUsuarioAction($objetivo, $filter);
 		else return self::getRankingTiendaAction($objetivo, $filter);
 	}
 
@@ -147,7 +147,7 @@ class incentivosController{
 				endforeach;
 			}
 
-			download_send_headers(strTranslate("Incentives")."_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Incentives")."_".date("Y-m-d").".csv");
 			echo array2csv($data['ranking']);
 			die();
 		}
@@ -170,7 +170,7 @@ class incentivosController{
 				endforeach;
 			}
 
-			download_send_headers(strTranslate("data")."_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("data")."_".date("Y-m-d").".csv");
 			echo array2csv($data['ranking']);
 			die();
 		}
@@ -313,16 +313,10 @@ class incentivosController{
 				$i=1;
 				$posicion_user = 0;
 				foreach($ranking_total as $user_ranking):
-					// if ($user_ranking['username_puntuacion'] == $_SESSION['user_name']){
-					// 	$posicion_user = $i;
-					// 	break;
-					// }
-
 					if ($user_ranking['username_puntuacion'] == $tienda['cod_tienda']){
 						$posicion_user = $i;
 						break;
 					}
-
 					$i++;
 				endforeach;
 

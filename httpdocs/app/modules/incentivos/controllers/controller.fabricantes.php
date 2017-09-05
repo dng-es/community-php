@@ -20,9 +20,9 @@ class incentivosFabricantesController{
 			$nombre_fabricante = sanitizeInput($_POST['fabricante-nombre']);
 			$incentivos = new incentivos();
 			if ($incentivos->insertIncentivesFabricantes($nombre_fabricante))
-				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-danger");
 			redirectURL("admin-incentives-fabricantes");
 		}
 	}
@@ -32,9 +32,9 @@ class incentivosFabricantesController{
 			$id_fabricante = intval( $_REQUEST['id'] );
 			$incentivos = new incentivos();
 			if ($incentivos->disableIncentivesFabricantes($id_fabricante))
-				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			redirectURL("admin-incentives-fabricantes");
 		}
 	}
@@ -43,7 +43,7 @@ class incentivosFabricantesController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export']==true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getIncentivesFabricantes("");
-			download_send_headers(strTranslate("Incentives_manufacturers")."_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Incentives_manufacturers")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

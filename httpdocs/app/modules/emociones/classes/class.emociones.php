@@ -12,16 +12,6 @@ class emociones{
 	}
 
 	/**
-	 * Devuelve array con los registros
-	 * @param  string 	$filter 	Filtro SQL
-	 * @return array 				Array con registros
-	 */
-	public function getEmocionesConsejos($filter = ""){
-		$Sql = "SELECT * FROM emociones_consejos WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql);
-	}
-
-	/**
 	 * Elimina registro en emociones
 	 * @param  int 		$id 		Id registro a eliminar
 	 * @return boolean 				Resultado de la SQL
@@ -100,5 +90,34 @@ class emociones{
 			(".$id_emocion.",'".$user_emocion."','".$descripcion."')";
 		return connection::execute_query($Sql);
 	}
+
+	/**
+	 * Devuelve array con los registros
+	 * @param  string 	$filter 	Filtro SQL
+	 * @return array 				Array con registros
+	 */
+	public function getEmocionesConsejos($filter = ""){
+		$Sql = "SELECT * FROM emociones_consejos WHERE 1=1 ".$filter;
+		return connection::getSQL($Sql);
+	}	
+
+	/**
+	 * Deshabilita registro en emociones
+	 * @param  int 		$id 		Id registro a eliminar
+	 * @param  int 		$estado 	valor campo active
+	 * @return boolean 				Resultado de la SQL
+	 */
+	public function deleteConsejoEmociones($id){
+		$Sql = "DELETE FROM emociones_consejos WHERE id_consejo=".$id;
+		return connection::execute_query($Sql);
+	}	
+
+	public function insertConsejoEmocionUser($id_emocion, $emocion_consejo){
+		//INSERTAR REGISTRO EN LA BBDD  
+		$Sql = "INSERT INTO emociones_consejos (id_emocion, emocion_consejo) 
+			VALUES 
+			(".$id_emocion.",'".$emocion_consejo."')";
+		return connection::execute_query($Sql);
+	}	
 }
 ?>

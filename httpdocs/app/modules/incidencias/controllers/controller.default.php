@@ -38,7 +38,7 @@ class incidenciasController{
 		$canceladas = connection::countReg("incidencias "," AND estado_incidencia=2 ");
 		$finalizadas = connection::countReg("incidencias "," AND estado_incidencia=1 ");
 		
-		$total_reg = connection::countReg("incidencias",$filter);
+		$total_reg = connection::countReg("incidencias", $filter);
 		return array('items' => $incidencias->getIncidencias($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -57,7 +57,7 @@ class incidenciasController{
 		$filter .= " ORDER BY date_estado_cambio DESC";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("incidencias_estados",$filter);
+		$total_reg = connection::countReg("incidencias_estados", $filter);
 		return array('items' => $incidencias->getIncidenciasEstados($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -69,7 +69,7 @@ class incidenciasController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$incidencias = new incidencias();
 			$elements = $incidencias->getIncidenciasExport($filter);
-			download_send_headers("incidencias" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Incidences")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -80,9 +80,8 @@ class incidenciasController{
 			$incidencias = new incidencias();
 			$texto_incidencia = sanitizeInput(trim($_POST['texto_incidencia']));
 			$id = 0;
-			if ($texto_incidencia == ''){
+			if ($texto_incidencia == '') 
 				session::setFlashMessage('actions_message', "Datos incompletos", "alert alert-warning");
-			}
 			else{
 				if ($incidencias->insertIncidencias($_SESSION['user_name'], $texto_incidencia)) {
 					session::setFlashMessage('actions_message',  strTranslate("Insert_procesing"), "alert alert-success");
@@ -117,9 +116,8 @@ class incidenciasController{
 			$incidencias = new incidencias();
 			$texto_incidencia = sanitizeInput(trim($_POST['texto_incidencia']));
 			$id = intval($_POST['id']);
-			if ($texto_incidencia == ''){
+			if ($texto_incidencia == '')
 				session::setFlashMessage('actions_message', "Datos incompletos", "alert alert-warning");
-			}
 			else{
 				if ($incidencias->updateIncidencias($id, $_SESSION['user_name'], $texto_incidencia)){
 					if (isset($_REQUEST['a']) && $_REQUEST['a'] >= 0){

@@ -22,7 +22,7 @@ class fotosAlbumController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$fotos = new fotos();
 			$elements = $fotos->getFotosAlbumes($filter);
-			download_send_headers("data" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Photos")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -38,7 +38,7 @@ class fotosAlbumController{
 			session::setFlashMessage('actions_message', $result['description'], "alert alert-".$result['message']);
 
 			if ($result['message'] == "success"){
-				$id_album = connection::SelectMaxReg("id_album","galeria_fotos_albumes"," AND activo=1 ");
+				$id_album = connection::SelectMaxReg("id_album", "galeria_fotos_albumes", " AND activo=1 ");
 				$destination .= "?id=".$id_album;
 			}
 
@@ -122,9 +122,9 @@ class fotosAlbumController{
 		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'foto_ko'){
 			$fotos = new fotos();
 			if ($fotos->cambiarEstado(intval($_REQUEST['idf']), 2, 0))
-				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
 
 			redirectURL("admin-albumes-new?id=".intval($_REQUEST['id']));
 		}
@@ -134,9 +134,9 @@ class fotosAlbumController{
 		if (isset($_POST['file_id'])){
 			$fotos = new fotos();
 			if ($fotos->updateFotoAlbum($_POST['file_id'], $_POST['id_album']))
-				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-warning");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
 
 			redirectURL("admin-albumes-new?id=".$_POST['id_album']);
 		}

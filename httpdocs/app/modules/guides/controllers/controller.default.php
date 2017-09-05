@@ -21,7 +21,7 @@ class guidesController{
 		if ($find_reg != '') $filter .= " AND name_guide_category LIKE '%".$find_reg."%' ".$filter;
 		
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("guides_categories c",$filter);
+		$total_reg = connection::countReg("guides_categories c", $filter);
 		return array('items' => $guides->getGuidesCategories($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -36,7 +36,7 @@ class guidesController{
 		if ($find_reg != '') $filter .= " AND desc_guide_subcategory LIKE '%".$find_reg."%' ".$filter;
 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("guides_subcategories s",$filter);
+		$total_reg = connection::countReg("guides_subcategories s", $filter);
 		return array('items' => $guides->getGuidesSubCategories($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -50,7 +50,7 @@ class guidesController{
 		if ($find_reg != '') $filter .= " AND name_guide_subcategory_type LIKE '%".$find_reg."%' ".$filter;
 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("guides_subcategories_types t",$filter);
+		$total_reg = connection::countReg("guides_subcategories_types t", $filter);
 		return array('items' => $guides->getGuidesSubCategoriesTypes($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -65,7 +65,7 @@ class guidesController{
 		if ($find_reg != '') $filter .= " AND user_guide LIKE '%".$find_reg."%' ".$filter;
 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("guides_subcategories_users gu",$filter);
+		$total_reg = connection::countReg("guides_subcategories_users gu", $filter);
 		return array('items' => $guides->getGuidesSubCategoriesUsers($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -126,7 +126,7 @@ class guidesController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
 			$guides = new guides();
 			$elements = $guides->getGuidesSubCategoriesUsersExport("");
-			download_send_headers("guides_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Guides")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

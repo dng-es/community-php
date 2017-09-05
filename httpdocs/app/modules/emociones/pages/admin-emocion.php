@@ -3,7 +3,6 @@ addJavascripts(array("js/mociones-graph.js"));
 addJavascripts(array("js/bootstrap.file-input.js",
 			getAsset("emociones")."js/admin-emocion.js"));
 
-$accion = (isset($_GET['act']) ? $_GET['act'] : "new");
 $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 ?>
 <div class="row row-top">
@@ -18,16 +17,18 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 		session::getFlashMessage('actions_message');
 		emocionesController::createAction();
 		emocionesController::updateAction($id);
+		emocionesController::createConsejoAction();
+		emocionesController::deleteConsejoAction();
 		$elements = emocionesController::getItemAction($id);
 		?>
-		<form id="formData" role="form" name="formData" method="post" enctype="multipart/form-data" action="">
 			<input type="hidden" name="id" value="<?php echo $id;?>" />
 			<div class="panel panel-default">
 				<div class="panel-body">
+					<form id="formData" role="form" name="formData" method="post" enctype="multipart/form-data" action="">
 					<div class="row">
 						<div class="col-md-5 form-group">
 							<label>nombre de la emoción:</label>
-							<input class="form-control" type="text" id="info_title" name="info_title" value="<?php echo $elements[0]['name_emocion'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
+							<input class="form-control" type="text" id="info_title" name="info_title" value="<?php echo $elements['name_emocion'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 						</div>
 						
 						<div class="col-md-4 form-group">
@@ -36,8 +37,8 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 						</div>
 						<div class="col-md-3 form-group">
 						<?php
-						if ($elements[0]['image_emocion']!=""){ 
-							echo '<img src="images/banners/'.$elements[0]['image_emocion'].'" style="height: 100px" />';
+						if ($elements['image_emocion']!=""){ 
+							echo '<img src="images/banners/'.$elements['image_emocion'].'" style="height: 100px" />';
 						}
 
 						?>
@@ -48,9 +49,56 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 							<input type="submit" name="SubmitData" id="SubmitData" class="btn btn-primary" value="guardar emoción" />
 						</div>
 					</div>
+					</form>
+
+					<?php if($id > 0):
+						$consejos = emocionesController::getListConsejosAction(1000, " AND id_emocion=".$id." ");
+					?>
+					<hr />
+					<div class="row">
+						<div class="col-md-7">
+							<div class="table-responsive">
+								<table class="table table-hover table-striped">
+									<tr>
+										<th width="40px"></th>
+										<th><?php e_strTranslate("Consejo");?></th>
+									</tr>
+									<?php foreach($consejos['items'] as $consejo):?>
+									<tr>
+										<td nowrap="nowrap">								
+											<span class="fa fa-trash icon-table" title="eliminar"
+												onClick="Confirma('¿Seguro que deseas eliminar el consejo?', '?page=admin-emocion&pag=<?php echo $consejos['pag'].'&f='.$consejos['find_reg'].'&act=del&id='.$id.'&idc='.$consejo['id_consejo'];?>')">
+											</span>
+										</td>
+										<td><?php echo $consejo['emocion_consejo'];?></td>
+									</tr>
+									<?php endforeach;?>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4><?php e_strTranslate("Nuevo consejo");?></h4>
+								</div>
+								<div class="panel-body">
+									<form id="formConsejoData" role="form" name="formConsejoData" method="post" action="">
+										<input type="hidden" name="id_emocion" id="id_emocion" value="<?php echo $id;?>" />
+										<div class="form-group">
+											<label><?php e_strTranslate("Consejo");?></label>
+											<textarea class="form-control" name="emocion_consejo" id="emocion_consejo" data-alert="<?php e_strTranslate("Required_field");?>"></textarea>
+										</div>
+										<div class="form-group">
+											<input type="submit" name="SubmitConsejoData" id="SubmitConsejoData" class="btn btn-primary" value="<?php e_strTranslate("Save");?>" />
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<?php endif?>
 				</div>
 			</div>
-		</form>
 	</div>
 	<?php menu::adminMenu();?>
 </div>

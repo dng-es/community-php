@@ -30,7 +30,7 @@ class mailingTemplatesController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$mailing = new mailing();
 			$elements = $mailing->getTemplates(" AND activo=1 ORDER BY template_name DESC ");
-			download_send_headers("templates_" . date("Y-m-d") . ".csv");
+			download_send_headers("templates_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -47,10 +47,10 @@ class mailingTemplatesController{
 			$id_campaign = sanitizeInput($_POST['template_campana']);
 
 			if ($mailing->insertTemplate($template_name, $template_body, $template_img, $id_type, $id_campaign)){
-				session::setFlashMessage( 'actions_message', strTranslate("Insert_procesing"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 				$id_template = connection::SelectMaxReg("id_template","mailing_templates","");
 			}
-			else session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-template?id=".$id_template);
 		}
@@ -67,9 +67,9 @@ class mailingTemplatesController{
 			$id_campaign = intval($_POST['template_campana']);
 
 			if ($mailing->updateTemplate($id_template, $template_name, $template_body, $template_img, $id_type, $id_campaign))
-				session::setFlashMessage( 'actions_message', strTranslate("Update_procesing"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-template?id=".$id_template);
 		}
@@ -79,9 +79,9 @@ class mailingTemplatesController{
 		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$mailing = new mailing();
 			if ($mailing->deleteTemplate(intval($_REQUEST['id'])))
-				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("admin-templates");
 		}

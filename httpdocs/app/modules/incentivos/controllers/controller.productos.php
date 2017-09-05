@@ -115,7 +115,7 @@ class incentivosProductosController{
 		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getIncentivesProductos("");
-			download_send_headers(strTranslate("Incentives_products")."_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Incentives_products")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

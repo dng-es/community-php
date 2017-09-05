@@ -89,10 +89,11 @@ jQuery(window).load(function(){
 
 	if ($(".msg-flash").length == 1){
 		window.sweetAlertInitialize();
-		var color_btn = $("a").css("color");
+		var color_btn = $("a").css("color"),
+			title_msg = $(".msg-flash").data("title");
 		if ($(".msg-flash").hasClass('alert-success')){
 			swal({
-				title: "Muy bien!",
+				title: title_msg,
 				text: $(".msg-flash").html(),
 				timer: 3000,
 				type: "success",
@@ -102,16 +103,25 @@ jQuery(window).load(function(){
 		}
 		else if($(".msg-flash").hasClass('alert-warning')){
 			swal({
-				title: "Cuidado...",
+				title: title_msg,
 				text: $(".msg-flash").html(),
 				type: "warning",
 				confirmButtonColor: color_btn,
 				confirmButtonText: "Cerrar"
 			});
 		}
+		else if($(".msg-flash").hasClass('alert-info')){
+			swal({
+				title: title_msg,
+				text: $(".msg-flash").html(),
+				type: "info",
+				confirmButtonColor: color_btn,
+				confirmButtonText: "Cerrar"
+			});
+		}
 		else{
 			swal({
-				title: "Error",
+				title: title_msg,
 				text: $(".msg-flash").html(),
 				type: "error",
 				confirmButtonColor: color_btn,

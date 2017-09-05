@@ -5,7 +5,7 @@ class mailingController{
 		$find_reg = getFindReg();
 		$filter .= "  ORDER BY id_message DESC";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("mailing_messages",$filter);
+		$total_reg = connection::countReg("mailing_messages", $filter);
 		return array('items' => $mailing->getMessages($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -47,11 +47,9 @@ class mailingController{
 	public static function createUserAction(){
 		if (isset($_POST['template_message']) && $_POST['template_message'] > 0){
 			$mailing = new mailing();
-
 			$fichero = isset($_FILES['nombre-fichero']) == true ? $_FILES['nombre-fichero'] : null ; 
 			$nombre_lista = ($_POST['tipo-lista'] == 'fichero') ? $fichero['name'] : $_POST['id_list'];
 			$date_scheduled = ((isset($_REQUEST['a']) && $_REQUEST['a'] == 1) ? "'".$_POST['user-date']."'" : "NULL" );
-	
 			$content = self::createMsgBodyAction();
 			
 			if ($mailing->insertMessage($_POST['template_message'],
@@ -210,11 +208,11 @@ class mailingController{
 					nl2br($_POST['texto_message']),
 					$nombre_lista,
 					$_SESSION['user_name'],
-					$fichero)) {
+					$fichero)){
 
 			$mensaje = "Mensaje creado correctamente. Ya puedes procesar el envío.";
 			$id_message = connection::SelectMaxReg("id_message","mailing_messages","");
-			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-success"); 
+			session::setFlashMessage('actions_message', $mensaje, "alert alert-success"); 
 
 			//obtener usuarios de la lista seleccionada para insertar mensajes
 			$users = new users();
@@ -308,7 +306,7 @@ class mailingController{
 		}
 		else{
 			$mensaje = "Error al crear mensaje.";
-			session::setFlashMessage( 'actions_message', $mensaje, "alert alert-danger"); 
+			session::setFlashMessage('actions_message', $mensaje, "alert alert-danger"); 
 			redirectURL("admin-message?act=new");
 		}
 	}
@@ -356,7 +354,7 @@ class mailingController{
 		if (isset($_REQUEST['exportm']) && $_REQUEST['exportm'] == true){
 			$mailing = new mailing();
 			$elements = $mailing->getMessagesUsers($filter." AND id_message=".intval($_REQUEST['id']));
-			download_send_headers("messages_" . date("Y-m-d") . ".csv");
+			download_send_headers("messages_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -366,7 +364,7 @@ class mailingController{
 		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] == 'links'){
 			$mailing = new mailing();
 			$elements = $mailing->getMessageLinkUserExport($filter." AND l.id_message=".intval($_REQUEST['id']));
-			download_send_headers("messages_" . date("Y-m-d") . ".csv");
+			download_send_headers("messages_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

@@ -8,7 +8,7 @@ class mailingListsController{
 		if ($usuario != "") $filter = " AND user_list='".$usuario."' ".$filter;
 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("mailing_lists",$filter);
+		$total_reg = connection::countReg("mailing_lists", $filter);
 		return array('items' => $mailing->getLists($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -45,7 +45,7 @@ class mailingListsController{
 		if (isset($_REQUEST['exportm']) && $_REQUEST['exportm'] == true){
 			$mailing = new mailing();
 			$elements = $mailing->getListsUsers($filter." AND id_list=".intval($_REQUEST['id']));
-			download_send_headers("emails_" . date("Y-m-d") . ".csv");
+			download_send_headers("emails_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -91,9 +91,9 @@ class mailingListsController{
 		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$mailing = new mailing();
 			if ($mailing->deleteList(intval($_REQUEST['id'])))
-				session::setFlashMessage( 'actions_message', strTranslate("Delete_procesing"), "alert alert-success");
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else 
-				session::setFlashMessage( 'actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("user-lists");
 		}
@@ -102,7 +102,6 @@ class mailingListsController{
 	private static function importAction($id_list){
 		if (isset($_FILES['nombre-fichero']['name']) && $_FILES['nombre-fichero']['name'] != ""){
 			$nombre_archivo = uploadFileToFolder($_FILES['nombre-fichero'], "docs/cargas/");
-
 			require_once 'docs/reader.php';
 			$data = new Spreadsheet_Excel_Reader();
 			$data->setOutputEncoding('CP1251');
@@ -116,15 +115,15 @@ class mailingListsController{
 		$mailing->deleteListsUsers($id_list, "");
 
 		require_once 'docs/reader.php';
-		$excelll = new Spreadsheet_Excel_Reader();
+		$excell = new Spreadsheet_Excel_Reader();
 
 		for($fila = 2; $fila <= $data->sheets[0]['numRows']; $fila += 1){
 			$username = trim(strtolower($data->sheets[0]['cells'][$fila][1]));
 			$userdate = trim($data->sheets[0]['cells'][$fila][2]);
-			//if ($excelll->isDate($userdate)==false){$userdate="";}
-			//else{$userdate = $excelll->createDate($userdate);}
+			//if ($excell->isDate($userdate)==false){$userdate="";}
+			//else{$userdate = $excell->createDate($userdate);}
 
-			//$userdate = $excelll->createDate($userdate);
+			//$userdate = $excell->createDate($userdate);
 
 			//var_dump($userdate);
 

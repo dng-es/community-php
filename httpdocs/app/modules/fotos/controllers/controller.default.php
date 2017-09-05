@@ -6,7 +6,7 @@ class fotosController{
 		if ($find_reg != "" && $find_reg != 'null') $filter = " AND titulo LIKE '%".sanitizeInput($find_reg)."%' ".$filter;
 		//if ($_SESSION['user_canal'] != 'admin') $filter = " AND f.canal='".$_SESSION['user_canal']."' ".$filter;
 		$paginator_items = PaginatorPages($reg);	
-		$total_reg = connection::countReg("galeria_fotos f, galeria_fotos_albumes a, users u"," AND f.id_album=a.id_album AND u.username=f.user_add ".$filter); 
+		$total_reg = connection::countReg("galeria_fotos f, galeria_fotos_albumes a, users u", " AND f.id_album=a.id_album AND u.username=f.user_add ".$filter); 
 		return array('items' => $fotos->getFotos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -18,7 +18,7 @@ class fotosController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$fotos = new fotos();
 			$elements = $fotos->getFotos($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers(strTranslate("Photos")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -54,15 +54,13 @@ class fotosController{
 
 	public static function voteAction($destination = "fotos"){
 		if (isset($_REQUEST['idvf']) && $_REQUEST['idvf'] != ""){
-			$destination .= (strpos($destination, "?") == 0  ? "?1=1" : "");
 			$fotos = new fotos();
+			$destination .= (strpos($destination, "?") == 0  ? "?1=1" : "");
 			$response = $fotos->InsertVotacion($_REQUEST['idvf'],$_SESSION['user_name']);
-			if ($response == 1)
-				$message = strTranslate("Photo_vote_ok");
-			elseif ($response == 2)
-				$message = strTranslate("Photo_vote_repeat");
-			elseif ($response == 3)
-				$message = strTranslate("Photo_vote_own");
+			
+			if ($response == 1) $message = strTranslate("Photo_vote_ok");
+			elseif ($response == 2) $message = strTranslate("Photo_vote_repeat");
+			elseif ($response == 3) $message = strTranslate("Photo_vote_own");
 
 			if (isset($_REQUEST['f']) && $_REQUEST['f'] != "") $destination .= "&f=".$_REQUEST['f'];
 			if (isset($_REQUEST['pag']) && $_REQUEST['pag'] != "") $destination .= "&pag=".$_REQUEST['pag'];

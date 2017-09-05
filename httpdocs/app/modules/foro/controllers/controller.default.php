@@ -22,7 +22,7 @@ class foroController{
 
 		$filter .= " ORDER BY id_tema DESC ";
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("foro_temas",$filter); 
+		$total_reg = connection::countReg("foro_temas", $filter); 
 		return array('items' => $foro->getTemas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -87,7 +87,7 @@ class foroController{
 		if (isset($_REQUEST['export2']) && $_REQUEST['export2'] == true){
 			$foro = new foro();
 			$elements = $foro->getTemas($filter);
-			download_send_headers("temas_" . date("Y-m-d").".csv");
+			download_send_headers("temas_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -159,7 +159,7 @@ class foroController{
 			$foro = new foro(); 
 			$elements_exp = $foro->getComentariosExport($filter." AND c.id_tema=".intval($_REQUEST['id'])." ");
 			$file_name = 'exported_file'.date("YmdGis");
-			download_send_headers("comments_".date("Y-m-d") . ".csv");
+			download_send_headers("comments_".date("Y-m-d").".csv");
 			echo array2csv($elements_exp);
 			die();
 		}

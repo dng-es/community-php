@@ -13,4 +13,15 @@ jQuery(document).ready(function(){
 		// }				
 		return form_ok;
 	});
+
+	$("#formConsejoData").submit(function(evento){
+		var form_ok = true;
+
+		if (jQuery.trim($("#emocion_consejo").removeClass("input-alert").val()) == ""){
+			$('#emocion_consejo').addClass("input-alert").attr("placeholder", $('#emocion_consejo').data("alert")).focus();
+			form_ok = false;
+		}
+			
+		return form_ok;
+	});
 });

@@ -20,17 +20,17 @@
 					<table class="table table-hover table-striped">
 						<tr>
 							<th width="40px"></th>
-							<th><?php e_strTranslate("Image");?></th>
+							<th width="60px"></th>
 							<th><?php e_strTranslate("Emotion");?></th>
 						</tr>
 						<?php foreach($elements['items'] as $element):?>
 						<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>" onClick="location.href='?page=admin-emocion&act=edit&id=<?php echo $element['id_emocion'];?>'">
+								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-emocion?id=<?php echo $element['id_emocion'];?>'">
 								</span>
 								
-								<span class="fa fa-ban icon-table" title="eliminar"
-									onClick="Confirma('¿Seguro que desea eliminar la emoción?', '?page=admin-emociones&pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_emocion'];?>')">
+								<span class="fa fa-trash icon-table" title="eliminar"
+									onClick="Confirma('¿Seguro que desea eliminar la emoción?', 'admin-emociones?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_emocion'];?>')">
 								</span>
 							</td>
 							<td><img style="height: 50px" src="images/banners/<?php echo $element['image_emocion'];?>" /></td>
