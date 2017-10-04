@@ -5,7 +5,7 @@ include_once($base_dir . "modules/configuration/classes/class.configuration.php"
 include_once($base_dir . "core/functions.core.php");
 include_once($base_dir . "core/constants.php");
 include_once($base_dir . "core/class.session.php");
-include_once($base_dir . "modules/shop/classes/shop.php");
+include_once($base_dir . "modules/shop/classes/class.shop.php");
 
 session::ValidateSessionAjax();
 

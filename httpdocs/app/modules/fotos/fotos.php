@@ -3,7 +3,7 @@
 * @Modulo de fotos, depends on Users module. 
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version 1.2.2
+* @version 1.2.3
 
 */
 class fotosCore{
@@ -68,7 +68,7 @@ class fotosCore{
 			$module_config = getModuleConfig("fotos");
 			$alerts_text = "";
 			if ($module_config['options']['show_alarms']):
-				$num_alerts = connection::countReg("notifications"," AND username_notification='".$_SESSION['user_name']."' AND type_notification='fotos' ");
+				$num_alerts = connection::countReg("notifications", " AND username_notification='".$_SESSION['user_name']."' AND type_notification='fotos' ");
 				$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" title="'.strTranslate("Notifications_comment_new").'" id="contador-fotos-header">'.$num_alerts.'</span>' : "");
 			endif;
 			array_push($array_final, array(
@@ -86,7 +86,7 @@ class fotosCore{
 	 * @return 	array           			Array con datos
 	 */
 	public static function adminPanels(){
-		$num_pending = connection::countReg("galeria_fotos"," AND estado=0 ");
+		$num_pending = connection::countReg("galeria_fotos", " AND estado=0 ");
 		$num_pending = ($num_pending > 0 ? '<span class="label label-warning">'.$num_pending.'</span>' : $num_pending);
 		return array(array("LabelSection" => strTranslate("Photos"),
 							"LabelItem" => strTranslate("Photo_albums"),
@@ -99,5 +99,48 @@ class fotosCore{
 							"LabelUrl"=>'admin-validacion-fotos',
 							"LabelPos" => 2));
 	}
+
+	public static function searchMain($string){
+		$fotos = new fotos();
+		$result = array();
+
+		$module_config = getModuleConfig("foro");
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_album LIKE '%".$_SESSION['user_canal']."%' " : "");
+		//buscar albumes
+		$request = $fotos->getFotosAlbumes($filtro_canal." AND MATCH(nombre_album) AGAINST ('".$string."') AND activo=1 ");
+		foreach ($request as $req):
+			array_push($result, array(
+				"title"=>$req['nombre_album'], 
+				"description"=>strTranslate("Photo_albums"), 
+				"url"=>"fotos?id=".$req['id_album']."&search=".$string,
+				"type" => strTranslate("Photo_gallery"),
+				"order" => 11
+			));
+		endforeach;	
+
+		//buscar fotos
+		$request = $fotos->getFotos($filtro_canal." AND MATCH(titulo) AGAINST ('".$string."') AND estado=1 ");
+		foreach ($request as $req):
+			array_push($result, array(
+				"title"=>$req['titulo'], 
+				"description"=>strTranslate("Photo_gallery"), 
+				"url"=>"fotos?find_reg=".$string,
+				"type" => strTranslate("Photo"),
+				"order" => 12
+			));
+		endforeach;	
+
+		if (strtolower($string) == strtolower(strTranslate("Photo")) || strtolower($string) == strtolower(strTranslate("Photos")) || strtolower($string) == strtolower(strTranslate("Photo_gallery"))){
+			array_push($result, array(
+				"title"=>'<i class="fa fa-list"></i> '.strTranslate("Photo"), 
+				"description"=>strTranslate("Photo_gallery"), 
+				"url"=>"foto-albums",
+				"type" => strTranslate("Photo"),
+				"order" => 10
+			));
+		}
+
+		return $result;
+	}	
 }
 ?>

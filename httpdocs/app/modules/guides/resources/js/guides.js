@@ -116,7 +116,7 @@ jQuery(window).load(function(){
 							title: response.title,
 							text: response.description,
 							type: response.message,
-							showCancelButton: true,
+							showCancelButton: false,
 							cancelButtonText: "Cancelar",
 							closeOnConfirm: true
 						})

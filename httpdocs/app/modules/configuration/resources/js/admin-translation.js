@@ -11,10 +11,4 @@ jQuery(document).ready(function(){
 
 		return form_ok;
 	});
-
-	$('.popover-dismiss').popover({
-	  trigger: 'focus',
-	  container: 'body',
-	  html: true, 
-	})
 });

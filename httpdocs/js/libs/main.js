@@ -8,10 +8,23 @@ jQuery(window).load(function(){
 		$(this).parent("form").submit();
 	});
 
+	$("#search-btn").click(function(e){
+		e.preventDefault();
+		$("#search-btn").hide();
+		$("#main-search-container").css({"display" : "inline-block"}).animate({"width" : "250px"}, 700);
+		$("#search").focus();
+	});
+
 	$(".user-tip").tooltip({
 		placement : 'auto top',
 		container: 'body'
 	});
+
+	$('.popover-trigger').popover({
+		trigger: 'focus',
+		container: 'body',
+		html: true,
+	})
 
 	$(".disabled a").click(function(e){
 		e.preventDefault();

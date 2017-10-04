@@ -32,7 +32,7 @@ $module_config = getModuleConfig("fotos");
 			$foto_user = usersController::getUserFoto($element['foto_user']);
 			$foto_album = fotosController::getItemAction(" AND f.id_album=".$element['id_album']." AND estado=1 ORDER BY id_file DESC LIMIT 1");
 			$foto = (isset($foto_album['name_file']) ? PATH_FOTOS.$foto_album['name_file'] : 'images/nofile.jpg');
-			$num_fotos = connection::countReg("galeria_fotos"," AND estado=1 AND id_album=".$element['id_album']." ");
+			$num_fotos = connection::countReg("galeria_fotos", " AND estado=1 AND id_album=".$element['id_album']." ");
 			?>
 			<div class="card-section grid-item">
 				<h3 class=""><?php echo $element['nombre_album'];?> <span class="badge"><?php echo $num_fotos;?></span></h3>

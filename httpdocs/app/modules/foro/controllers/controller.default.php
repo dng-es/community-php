@@ -9,12 +9,12 @@ class foroController{
 		$find_reg = getFindReg();
 		if ($find_reg != '') $filter .= " AND (nombre LIKE '%".$find_reg."%') ";
 
-		if (isset($_POST['find_tipo']) and $_POST['find_tipo'] != "") {
+		if (isset($_POST['find_tipo']) && $_POST['find_tipo'] != "") {
 			$filter .= " AND tipo_tema LIKE '%".$_POST['find_tipo']."%' ";
 			$find_tipo = $_POST['find_tipo'];
 			$marca = 1;
 		}
-		if (isset($_REQUEST['m']) and $_REQUEST['m'] == 1) {
+		if (isset($_REQUEST['m']) && $_REQUEST['m'] == 1) {
 			$filter .= " AND tipo_tema LIKE '%".$_REQUEST['t']."%' ";
 			$find_tipo = $_REQUEST['t'];
 			$marca = 1;
@@ -35,6 +35,7 @@ class foroController{
 	public static function getListTemasAction($reg = 0, $filter = ""){
 		$foro = new foro();
 		$find_reg = getFindReg();
+		if ($find_reg != '') $filter .= " AND nombre LIKE '%".$find_reg."%' ";
 		$paginator_items = PaginatorPages($reg);
 		$total_reg = connection::countReg("foro_temas", $filter); 
 		return array('items' => $foro->getTemas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
@@ -96,7 +97,7 @@ class foroController{
 	public static function accesoForoAreaAction($id_area){
 		$acceso = 1;
 		if ($_SESSION['user_canal'] != 'admin')
-			$acceso = connection::countReg("na_areas_users"," AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
+			$acceso = connection::countReg("na_areas_users", " AND id_area=".$id_area." AND username_area='".$_SESSION['user_name']."' ");
 
 		return $acceso;
 	}
@@ -202,7 +203,7 @@ class foroController{
 
 	public static function getFiltroCanales($module_config){
 		$module_channels = getModuleChannels($module_config['channels'], $_SESSION['user_canal']);
-		$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND ((tema_admin=0 AND (canal IN (".$module_channels.") OR canal='')) OR (tema_admin = 1 AND canal LIKE '%".$_SESSION['user_canal']."%') )");
+		$filtro_canal = ($_SESSION['user_canal'] == 'admin' ? "" : " AND ((tema_admin=0 AND (t.canal IN (".$module_channels.") OR t.canal='')) OR (tema_admin = 1 AND t.canal LIKE '%".$_SESSION['user_canal']."%') )");
 		return $filtro_canal;
 	}	
 }

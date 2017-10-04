@@ -54,7 +54,7 @@ function commentMuro($comment, $allow_reply = true){
  * @return	String							HTML comment
  */
 function commentMuro2($comentario_muro){
-	$votado = connection::countReg("muro_comentarios_votaciones"," AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
+	$votado = connection::countReg("muro_comentarios_votaciones", " AND id_comentario=".$comentario_muro['id_comentario']." AND user_votacion='".$_SESSION['user_name']."' ");
 	if ($_SESSION['user_name'] == $comentario_muro['user_comentario']) $votado_user = 1;
 	else $votado_user = 0;
 	echo '<div class="media">

@@ -62,5 +62,48 @@ class infoCore{
 
 		return $elems;
 	}
+
+	public static function searchMain($string){
+		$result = array();
+		$info = new info();
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_info LIKE '%".$_SESSION['user_canal']."%' " : "");
+		//buscar en documentos
+		$request = $info->getInfo($filtro_canal." AND (MATCH(titulo_info) AGAINST ('".$string."'))");
+		foreach ($request as $req):
+			array_push($result, array(
+				"title"=>$req['titulo_info'], 
+				"description"=>$req['campana'], 
+				"url"=>"info-all",
+				"type" => strTranslate("Info_Documents"),
+				"order" => 7
+			));
+		endforeach;	
+
+		//buscar en campañas
+		$campaigns = new campaigns();
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_campaign LIKE '%".$_SESSION['user_canal']."%' " : "");
+		$request = $campaigns->getCampaigns($filtro_canal." AND (MATCH(name_campaign) AGAINST ('".$string."') OR MATCH(desc_campaign) AGAINST ('".$string."'))");
+		foreach ($request as $req):
+			array_push($result, array(
+				"title"=>$req['name_campaign'], 
+				"description"=>$req['desc_campaign'], 
+				"url"=>"info-all",
+				"type" => strTranslate("Info_Documents"),
+				"order" => 7
+			));
+		endforeach;	
+
+		if (strtolower($string) == strtolower(strTranslate("Info_Documents"))){
+			array_push($result, array(
+				"title"=>'<i class="fa fa-list"></i> '.strTranslate("Info_Documents"), 
+				"description"=>strTranslate("Info_Documents_Text"), 
+				"url"=>"info-all",
+				"type" => strTranslate("Info_Documents"),
+				"order" => 6
+			));
+		}
+
+		return $result;
+	}
 }
 ?>

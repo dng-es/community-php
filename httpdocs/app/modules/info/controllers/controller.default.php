@@ -86,14 +86,12 @@ class infoController{
 	}
 
 	public static function getZipAction(){
-		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] != ""){
-			fileToZip($_REQUEST['exp'], PATH_INFO);
-		}
+		if (isset($_REQUEST['exp']) && $_REQUEST['exp'] != "") fileToZip($_REQUEST['exp'], PATH_INFO);
 	}
 
-	public static function insertAlerts(){
+	public static function insertAlerts($username){
 		$info = new info();
-		$info -> insertAlerts();
+		$info->insertAlerts($username);
 	}
 
 	public static function getAlerts(){
@@ -126,7 +124,7 @@ class infoController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$info = new info();
 			$elements = $info->getInfoExport($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers("data_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -136,7 +134,7 @@ class infoController{
 		if (isset($_REQUEST['export_a']) && $_REQUEST['export_a'] == true){
 			$info = new info();
 			$elements = $info->getInfoViews($filter);
-			download_send_headers("views_" . date("Y-m-d") . ".csv");
+			download_send_headers("views_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

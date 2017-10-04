@@ -2,7 +2,8 @@
 class info{
  
 	public function getInfo($filter = ""){
-		$Sql = "SELECT i.*,t.nombre_info AS tipo,c.name_campaign AS campana FROM info i 
+		$Sql = "SELECT i.*,t.nombre_info AS tipo,c.name_campaign AS campana 
+				FROM info i 
 				LEFT JOIN info_tipo t ON i.tipo_info=t.id_tipo 
 				LEFT JOIN campaigns c ON i.id_campaign=c.id_campaign 
 				WHERE 1=1 ".$filter;
@@ -10,7 +11,8 @@ class info{
 	}
 
 	public function getInfoExport($filter = ""){
-		$Sql = "SELECT i.*, (SELECT COUNT(*) FROM `info_views` v WHERE v.id_file=i.id_info) AS Descargas,t.nombre_info AS tipo,c.name_campaign AS campana FROM info i 
+		$Sql = "SELECT i.*, (SELECT COUNT(*) FROM `info_views` v WHERE v.id_file=i.id_info) AS Descargas,t.nombre_info AS tipo,c.name_campaign AS campana 
+				FROM info i 
 				LEFT JOIN info_tipo t ON i.tipo_info=t.id_tipo 
 				LEFT JOIN campaigns c ON i.id_campaign=c.id_campaign 
 				WHERE 1=1 ".$filter;
@@ -18,7 +20,8 @@ class info{
 	}
 
 	public function getInfoTipos($filter = ""){
-		$Sql = "SELECT * FROM info_tipo
+		$Sql = "SELECT * 
+				FROM info_tipo
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -55,9 +58,9 @@ class info{
 		return connection::execute_query($Sql);
 	}
 
-	public function insertAlerts(){
+	public function insertAlerts($username){
 		$Sql = "INSERT INTO info_alerts (id_info,username_alert)
-				SELECT id_info, '".$_SESSION['user_name']."' FROM info WHERE id_info NOT IN (SELECT  id_info FROM info_alerts WHERE username_alert = '".$_SESSION['user_name']."')";
+				SELECT id_info, '".$username."' FROM info WHERE id_info NOT IN (SELECT  id_info FROM info_alerts WHERE username_alert = '".$username."')";
 		return connection::execute_query($Sql);
 	}
 
@@ -68,7 +71,8 @@ class info{
 	}
 
 	public function getInfoViews($filter = ""){
-		$Sql = "SELECT * FROM info_views
+		$Sql = "SELECT * 
+				FROM info_views
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}

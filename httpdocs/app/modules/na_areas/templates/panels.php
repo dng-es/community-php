@@ -11,7 +11,7 @@ function panelAreas(){
 		<h3><?php e_strTranslate("Na_areas");?></h3>
 		<ul class="list-funny">
 		<?php foreach($elements as $element):
-			$acceso = connection::countReg("na_areas_users"," AND id_area=".$element['id_area']." AND username_area='".$_SESSION['user_name']."' ");
+			$acceso = connection::countReg("na_areas_users", " AND id_area=".$element['id_area']." AND username_area='".$_SESSION['user_name']."' ");
 			if (($acceso == 1 || ($_SESSION['user_canal'] == 'admin')) && $i < 3){
 				echo '<li class="ellipsis"><a href="areas_det?id='.$element['id_area'].'">'.$element['area_nombre'].': '.ShortText($element['area_descripcion'],50).'</a></li>';
 				$i++;

@@ -21,24 +21,24 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 		emocionesController::deleteConsejoAction();
 		$elements = emocionesController::getItemAction($id);
 		?>
-			<input type="hidden" name="id" value="<?php echo $id;?>" />
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<form id="formData" role="form" name="formData" method="post" enctype="multipart/form-data" action="">
+					<input type="hidden" name="id" value="<?php echo $id;?>" />
 					<div class="row">
 						<div class="col-md-5 form-group">
-							<label>nombre de la emoción:</label>
+							<label for="info_title"><?php e_strTranslate("Name");?>:</label>
 							<input class="form-control" type="text" id="info_title" name="info_title" value="<?php echo $elements['name_emocion'];?>" data-alert="<?php e_strTranslate("Required_field");?>" />
 						</div>
 						
 						<div class="col-md-4 form-group">
-							<label for="info_file">Imágen de la emoción:</label><br />
+							<label for="info_file"><?php e_strTranslate("Image");?>:</label><br />
 							<input name="info_file" id="info_file" type="file" class="btn btn-default" title="seleccionar archivo de imagen" />
 						</div>
 						<div class="col-md-3 form-group">
 						<?php
 						if ($elements['image_emocion']!=""){ 
-							echo '<img src="images/banners/'.$elements['image_emocion'].'" style="height: 100px" />';
+							echo '<img src="images/emociones/'.$elements['image_emocion'].'" style="height: 100px" />';
 						}
 
 						?>
@@ -46,7 +46,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 					</div>
 					<div class="row">
 						<div class="col-md-12 form-group">
-							<input type="submit" name="SubmitData" id="SubmitData" class="btn btn-primary" value="guardar emoción" />
+							<input type="submit" name="SubmitData" id="SubmitData" class="btn btn-primary" value="<?php e_strTranslate("Save_data");?>" />
 						</div>
 					</div>
 					</form>
@@ -61,14 +61,14 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 								<table class="table table-hover table-striped">
 									<tr>
 										<th width="40px"></th>
-										<th><?php e_strTranslate("Consejo");?></th>
+										<th><?php e_strTranslate("Emotion_tip");?></th>
 									</tr>
 									<?php foreach($consejos['items'] as $consejo):?>
 									<tr>
 										<td nowrap="nowrap">								
-											<span class="fa fa-trash icon-table" title="eliminar"
-												onClick="Confirma('¿Seguro que deseas eliminar el consejo?', '?page=admin-emocion&pag=<?php echo $consejos['pag'].'&f='.$consejos['find_reg'].'&act=del&id='.$id.'&idc='.$consejo['id_consejo'];?>')">
-											</span>
+											<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+												onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', '?page=admin-emocion&pag=<?php echo $consejos['pag'].'&f='.$consejos['find_reg'].'&act=del&id='.$id.'&idc='.$consejo['id_consejo'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+											</button>
 										</td>
 										<td><?php echo $consejo['emocion_consejo'];?></td>
 									</tr>
@@ -79,7 +79,7 @@ $id = (isset($_GET['id']) ? $_GET['id'] : 0);
 						<div class="col-md-5">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h4><?php e_strTranslate("Nuevo consejo");?></h4>
+									<h4><?php e_strTranslate("Emotion_tip_new");?></h4>
 								</div>
 								<div class="panel-body">
 									<form id="formConsejoData" role="form" name="formConsejoData" method="post" action="">

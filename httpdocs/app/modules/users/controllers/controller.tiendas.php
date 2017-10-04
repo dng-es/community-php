@@ -7,7 +7,7 @@ class usersTiendasController{
 		$filter .= " ORDER BY nombre_tienda";
 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("users_tiendas",$filter);
+		$total_reg = connection::countReg("users_tiendas", $filter);
 		return array('items' => $users->getTiendas($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 			'pag' 		=> $paginator_items['pag'],
 			'reg' 		=> $reg,
@@ -79,7 +79,7 @@ class usersTiendasController{
 						// else $users->updateJerarquiaUsers($regional_tienda, 'regional', $empresa_usuarios);
 
 						// //VERIFICAR QUE EXISTA EL RESPONSABLE PARA ALTA O MODIFICACION DE DATOS
-						// if ($responsable_tienda != "" && connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ") == 0){
+						// if ($responsable_tienda != "" && connection::countReg("users", " AND TRIM(UCASE(username))=TRIM('".$responsable_tienda."') ") == 0){
 						// 	//insertar usuario
 						// 	$users->insertUser($responsable_tienda, $responsable_tienda, "", "", 0, 0, "", $empresa_usuarios, '', CANAL_DEF, 'responsable', '', '', '', '', 0);
 						// }

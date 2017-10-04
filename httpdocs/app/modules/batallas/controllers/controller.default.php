@@ -17,17 +17,14 @@ class batallasController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$batallas = new batallas();
 			$elements = $batallas->getBatallas(" ORDER BY date_batalla DESC ");
-			download_send_headers( strTranslate("Battles") . "_" . date("Y-m-d") . ".csv");
+			download_send_headers( strTranslate("Battles")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
 	}
 
 	public static function responderBatallaAction(){
-		if (isset($_POST['batalla-create']) && $_POST['batalla-create'] == 1){
-			//insertar respuestas del usuario
-			self::responderBatalla();
-		}
+		if (isset($_POST['batalla-create']) && $_POST['batalla-create'] == 1) self::responderBatalla();
 	}
 
 	public static function responderContrincarioBatallaAction(){
@@ -140,13 +137,13 @@ class batallasController{
 				if ($finalizada == 0){
 					if ($partida_ganador != "" && $partida_perdedor != ""){
 						$users = new users();
-						$users->sumarPuntos($partida_ganador,$batalla_datos[0]['puntos'],"ganador reto gamificacion");
-						$users->sumarPuntos($partida_perdedor,-$batalla_datos[0]['puntos'],"perdedor reto gamificacion");
+						$users->sumarPuntos($partida_ganador, $batalla_datos[0]['puntos'], "ganador reto gamificacion");
+						$users->sumarPuntos($partida_perdedor, -$batalla_datos[0]['puntos'], "perdedor reto gamificacion");
 					}
 					elseif ($partida_creador[0]['aciertos_lucha'] == 0 && $partida_oponente[0]['aciertos_lucha'] == 0){
 						$users = new users();
-						$users->sumarPuntos($creador,-$batalla_datos[0]['puntos'],"0 puntos reto gamificacion");
-						$users->sumarPuntos($oponente,-$batalla_datos[0]['puntos'],"0 puntos reto gamificacion");
+						$users->sumarPuntos($creador, -$batalla_datos[0]['puntos'], "0 puntos reto gamificacion");
+						$users->sumarPuntos($oponente, -$batalla_datos[0]['puntos'], "0 puntos reto gamificacion");
 					}
 				}
 

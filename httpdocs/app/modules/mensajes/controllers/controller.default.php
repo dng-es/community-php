@@ -85,7 +85,7 @@ class mensajesController{
 	public static function deleteAction($id, $user_type){
 		$mensajes = new mensajes();
 		$function_delete = ($user_type == 'user_destinatario' ? "deleteMensajeRecibido": "deleteMensajeEnviado");
-		if ($mensajes->$function_delete($id)) session::setFlashMessage( 'actions_message', strTranslate("Mailing_delete_ok"), "alert alert-success");
+		if ($mensajes->$function_delete($id)) session::setFlashMessage('actions_message', strTranslate("Mailing_delete_ok"), "alert alert-success");
 		else session::setFlashMessage('actions_message', strTranslate("Error"), "alert alert-danger");
 	}
 

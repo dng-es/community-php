@@ -30,9 +30,12 @@
 						<?php foreach($elements['items'] as $element):?>
 						<tr>
 							<td nowrap="nowrap">
-								<button type="button" class="btn btn-default btn-xs" onClick="Confirma('¿Seguro que desea eliminar el documento?', 'admin-infotopdf?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>'); return false" title="Eliminar documento" /><span class="fa fa-trash icon-table"></span></button>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-infotopdf?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+								</button>
 
-								<button type="button" class="btn btn-default btn-xs"><a href="admin-infotopdf-doc?act=edit&id=<?php echo $element['id_info'];?>" title="Editar documento"><span class="fa fa-edit icon-table"></span></a></button>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-infotopdf-doc?act=edit&id=<?php echo $element['id_info'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+								</button>								
 							</td>
 							<td><a target="_blank" href="<?php echo PATH_INFO.$element['file_info'];?>"><?php echo $element['titulo_info'];?></a></td>
 							<td><?php echo $element['tipo'];?></td>

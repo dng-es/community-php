@@ -27,7 +27,7 @@ class fotosController{
 	public static function getItemAction($filter){
 		$fotos = new fotos();
 		$elements = $fotos->getFotos($filter);
-		return (isset($elements[0]) ? $elements[0] : null);;
+		return (isset($elements[0]) ? $elements[0] : null);
 	}
 
 	public static function createAction(){
@@ -85,5 +85,60 @@ class fotosController{
 			redirectURL("admin-albumes-new?act=edit&id=".$id_album);
 		}
 	}
+
+	public static function getListCommentsAction($reg = 0, $filter = ""){
+		$fotos = new fotos();
+		$find_reg = getFindReg();
+		$paginator_items = PaginatorPages($reg);	
+		$total_reg = connection::countReg("galeria_fotos_comentarios c", $filter); 
+		return array('items' => $fotos->getComentariosFoto($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
+					'pag' 		=> $paginator_items['pag'],
+					'reg' 		=> $reg,
+					'find_reg' 	=> $find_reg,
+					'total_reg' => $total_reg);
+	}	
+
+	public static function validateCommentAction(){
+		//VALIDAR COMENTARIOS
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'foto_ko'){
+			$fotos = new fotos();
+			if ($fotos->cambiarEstadoComentario($_REQUEST['id'], 2))
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
+			else 
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
+			redirectURL("admin-fotos-comentarios?id=".$_REQUEST['idt']."&ida=".$_REQUEST['ida']);
+		}
+	}
+
+	public static function validatePhotoAction(){
+		//VALIDAR FOTOS
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'foto_ok'){
+			$fotos = new fotos();
+			if ($fotos->cambiarEstado($_REQUEST['id'], 1, 0, strtolower(sanitizeInput($_REQUEST['tags'])))){
+				$users = new users();
+				$fotos->updateFotoAlbum($_REQUEST['id'], $_REQUEST['ida']);
+				$users->sumarPuntos($_REQUEST['u'], PUNTOS_FOTO,PUNTOS_FOTO_MOTIVO);
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
+			}
+			else 
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
+
+
+			redirectURL("admin-validacion-fotos");
+		}
+	}	
+
+	public static function cancelPhotoAction(){
+		//VALIDAR FOTOS
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'foto_ko'){
+			$fotos = new fotos();
+			if ($fotos->cambiarEstado($_REQUEST['id'], 2, 0))
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
+			else 
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-warning");
+
+			redirectURL("admin-validacion-fotos");
+		}
+	}	
 }
 ?>

@@ -24,19 +24,19 @@
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
 						<tr>
-						<th width="40px"></th>
-						<th><?php e_strTranslate("Name");?></th>
-						<th width="40px"></th>
+							<th width="40px"></th>
+							<th><?php e_strTranslate("Name");?></th>
+							<th width="40px"></th>
 						</tr>
 						<?php foreach($elements['items'] as $element):?>
-							<tr>
+						<tr>
 							<td nowrap="nowrap">
 								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-recompensa?id=<?php echo $element['id_recompensa'];?>'; return false"><i class="fa fa-edit icon-table"></i>
 								</button>
 							</td>
 							<td><?php echo $element['recompensa_name'];?></td>
 							<td><img src="<?php echo PATH_REWARDS.$element['recompensa_image'];?>" width="25px" /></td>
-							</tr>
+						</tr>
 						<?php endforeach;?>
 					</table>
 				</div>

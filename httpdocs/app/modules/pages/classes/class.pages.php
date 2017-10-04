@@ -1,7 +1,9 @@
 <?php
 class pages{
 	public function getPages($filter = ""){
-		$Sql = "SELECT * FROM pages WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM pages 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -26,7 +28,7 @@ class pages{
 
 	public function deletePage($id){
 		$Sql = "DELETE FROM pages 
-			 WHERE page_name='".$id."'";
+				WHERE page_name='".$id."'";
 		return connection::execute_query($Sql);
 	}
 }

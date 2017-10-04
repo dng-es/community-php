@@ -1,5 +1,6 @@
 <?php
 templateload("cmbCanales", "users");
+templateload("search", "core");
 
 class menu{
 	static function menuContainer($slider = false){
@@ -24,49 +25,50 @@ class menu{
 			$_SESSION['user_empresa'] = $puntos_user[0]['empresa'];
 			?>
 			<div class="row header-info">
-			<?php if($slider == true): ?>
+				<?php if($slider == true): ?>
 				<div class="col-md-1 col-sm-1 col-xs-2 menu-hidden text-center" data-container="close">
 					<i class="fa fa-bars fa-2x"></i>
 				</div>
-			<?php endif; ?>
+				<?php endif; ?>
 				<div class="<?php echo ($slider == true ? 'col-md-3 col-sm-3 col-xs-10' : 'col-md-3 col-sm-3 hidden-xs' ) ?>">
 					<a href="home"><img src="themes/<?php echo $theme;?>/images/logo.png" alt="<?php echo prepareString($ini_conf['SiteName']);?>" id="header-info-logo" class="img-responsive"/></a>
 				</div>
 				<div class="<?php echo ($slider == true ? 'col-md-8 col-sm-8 col-xs-12 menu-opt1-slider' : 'col-md-9 col-sm-9 col-xs-12' ) ?>">
 					<div id="user-info">
-						<?php 
-						echo '<a href="profile" title="'.strTranslate("My_profile").'"><img alt="'.prepareString($_SESSION['user_nick']).'" src="'.usersController::getUserFoto($puntos_user[0]['foto']).'" /></a>';
+						<a href="profile" title="<?php e_strTranslate("My_profile");?>"><img alt="<?php echo prepareString($_SESSION['user_nick']);?>" src="<?php echo usersController::getUserFoto($puntos_user[0]['foto']);?>" /></a>
 						
-						echo '<p>';
-						echo '<a href="profile">'.$_SESSION['user_nick'].'</a>';
-						echo '</p>';
-						echo '<p>';
-						echo '<a href="logout" id="logout-btn" title="'.strTranslate("Logout").'"><i class="fa fa-power-off faa-pulse animated-hover"></i></a>';
-						$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
-						
-						//se muestra el acceso a admin si tiene el permiso
-						if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
-							if ($_SESSION['user_perfil'] == 'admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
-						}
+						<p><a href="profile"><?php echo $_SESSION['user_nick'];?></a></p>
+						<div class="icons-container">							
+							<a href="#" class="pointer" id="search-btn" title="<?php e_strTranslate("Search");?>"><i class="fa fa-search faa-bounce animated-hover text-muted"></i></a>
+							<div style="width: 0px; display: none;margin-top: -10px" id="main-search-container">
+							<?php mainSearch("search-results", "", "");?>
+							</div>
+							
 
-						if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
-							echo '<a href="mygroup" title="'.strTranslate("My_team").'"><i class="fa fa-users faa-tada animated-hover"></i></a>';
-						}
-						echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
-						
-						get_hooks('header');
-						
-						if ($_SESSION['show_user_points']){
-							echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
-						}
-						echo ' </p>';
-						?>
+							<a href="logout" id="logout-btn" title="<?php e_strTranslate("Logout");?>"><i class="fa fa-power-off faa-pulse animated-hover"></i></a>
+							<?php
+							$user_permissions = $session->checkPageTypePermission("view", $session->checkPagePermission("admin", $_SESSION['user_name']));
+							
+							//se muestra el acceso a admin si tiene el permiso
+							if ($session->checkPageViewPermission("admin", $_SESSION['user_perfil'], $user_permissions)){
+								if ($_SESSION['user_perfil'] == 'admin'){ echo '<a href="admin" title="'.strTranslate("Administration").'"><i class="fa fa-gear faa-spin animated-hover"></i></a>';}
+							}
+
+							if ($_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
+								echo '<a href="mygroup" title="'.strTranslate("My_team").'"><i class="fa fa-users faa-tada animated-hover"></i></a>';
+							}
+							echo '<a href="profile" id="perfil-btn" title="'.strTranslate("My_profile").'"><i class="fa fa-user faa-tada animated-hover"></i></a>';
+							
+							get_hooks('header');
+							
+							if ($_SESSION['show_user_points']){
+								echo '<span class="points"><big>'.$puntos_user[0]['puntos']."</big> ".strTranslate("APP_points").'</span>';
+							}?>
+						</div>
 					</div>
 				</div>
 			</div>
-
 			<?php self::menuClassic($slider);
-
 		}
 	}	
 

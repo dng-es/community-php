@@ -12,10 +12,10 @@ class videosCore{
 	 * @return 	array           			Array con resultados
 	 */
 	public function userModuleStatistis($username){
-		$num = connection::countReg("galeria_videos"," AND user_add='".$username."' ");
-		$num_votaciones = connection::countReg("galeria_videos_votaciones"," AND user_votacion='".$username."' ");
-		$num_comentarios = connection::countReg("galeria_videos_comentarios"," AND user_comentario='".$username."' ");
-		$num_comentarios_votaciones = connection::countReg("galeria_videos_comentarios_votaciones"," AND user_votacion='".$username."' ");
+		$num = connection::countReg("galeria_videos", " AND user_add='".$username."' ");
+		$num_votaciones = connection::countReg("galeria_videos_votaciones", " AND user_votacion='".$username."' ");
+		$num_comentarios = connection::countReg("galeria_videos_comentarios", " AND user_comentario='".$username."' ");
+		$num_comentarios_votaciones = connection::countReg("galeria_videos_comentarios_votaciones", " AND user_votacion='".$username."' ");
 		return array(
 				strTranslate("Video_uploads") => $num,
 				strTranslate("Votes_in_videos") => $num_votaciones,
@@ -67,7 +67,7 @@ class videosCore{
 	}
 
 	public static function adminPanels(){
-		$num_pending = connection::countReg("galeria_videos"," AND estado=0 ");
+		$num_pending = connection::countReg("galeria_videos", " AND estado=0 ");
 		$num_pending = ($num_pending > 0 ? '<span class="label label-warning">'.$num_pending.'</span>' : $num_pending);
 		return array( array("LabelSection"=> strTranslate("Videos"),
 							"LabelItem"=> strTranslate("Videos_pending"),

@@ -85,7 +85,7 @@
 								</small>
 							</div>
 							<div class="col-sm-1">
-								<button type="button" class="btn btn-info popover-dismiss" data-toggle="popover" title="<?php e_strTranslate("Place_in");?>" data-content="<?php echo $ocurrencias;?>"><i class="fa fa-info"></i></button>
+								<button type="button" class="btn btn-info popover-trigger" data-toggle="popover" title="<?php e_strTranslate("Place_in");?>" data-content="<?php echo $ocurrencias;?>"><i class="fa fa-info"></i></button>
 							</div>
 						</div>
 					<?php endforeach;?>

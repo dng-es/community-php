@@ -65,13 +65,13 @@ $TITLE_META_PAGE = $titulo_page;
 
 		$total_reg = connection::countReg("foro_temas t", $filtro_blog);
 		$sub_temas = $foro->getTemas($filtro_blog.' ORDER BY date_tema DESC LIMIT '.$inicio.','.$reg);
-		foreach($sub_temas as $sub_tema):
-		echo '<div class="row">
-				<div class="col-md-12">';
-		ForoList($sub_tema,"blog");
-		echo '	</div>
-			 </div>';
-		endforeach;
+		foreach($sub_temas as $sub_tema):?>
+		<div class="row">
+			<div class="col-md-12">
+				<?php ForoList($sub_tema,"blog");?>
+			</div>
+		</div>
+		<?php endforeach;
 
 		Paginator($pag, $reg, $total_reg, 'blog-list'.$url_filters, '', $find_reg); ?>
 	</div>

@@ -6,7 +6,9 @@ class na_areas{
 	 * @return array         Array con los registros
 	 */
 	public function getAreas($filter = ""){
-		$Sql = "SELECT * FROM na_areas WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM na_areas 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -53,7 +55,8 @@ class na_areas{
 	}
 
 	public function deleteUsersArea($id_area){
-		$Sql = "DELETE FROM na_areas_users WHERE id_area=".$id_area." ";
+		$Sql = "DELETE FROM na_areas_users 
+				WHERE id_area=".$id_area." ";
 		return connection::execute_query($Sql);
 	}
 
@@ -84,7 +87,8 @@ class na_areas{
 	}
 
 	public function deleteGrupoUser($id_grupo, $usuario){
-		$Sql = "DELETE FROM na_areas_grupos_users WHERE id_grupo=".$id_grupo." AND grupo_username='".$usuario."' ";
+		$Sql = "DELETE FROM na_areas_grupos_users 
+				WHERE id_grupo=".$id_grupo." AND grupo_username='".$usuario."' ";
 		return connection::execute_query($Sql);
 	}
 
@@ -103,8 +107,8 @@ class na_areas{
 	}
 
 	public function updateTarea($id_tarea, $descripcion){
-		$Sql = "UPDATE na_tareas 
-				SET tarea_descripcion='".$descripcion."' 
+		$Sql = "UPDATE na_tareas SET 
+				tarea_descripcion='".$descripcion."' 
 				WHERE id_tarea=".$id_tarea." ";
 		return connection::execute_query($Sql);
 	}
@@ -112,7 +116,7 @@ class na_areas{
 	public function getGruposTareas($filter = ""){
 		$Sql = "SELECT g.grupo_nombre,g.id_area,tg.* 
 				FROM na_tareas_grupos tg 
-				LEFT JOIN na_areas_grupos g  ON g.id_grupo=tg.id_grupo 
+				LEFT JOIN na_areas_grupos g ON g.id_grupo=tg.id_grupo 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -124,7 +128,8 @@ class na_areas{
 	}
 
 	public function deleteGrupoTarea($id_grupo, $id_tarea){
-		$Sql = "DELETE FROM na_tareas_grupos WHERE id_grupo=".$id_grupo." AND id_tarea=".$id_tarea." ";
+		$Sql = "DELETE FROM na_tareas_grupos 
+				WHERE id_grupo=".$id_grupo." AND id_tarea=".$id_tarea." ";
 		if (connection::execute_query($Sql)){ 
 			$Sql = "INSERT INTO na_tareas_grupos_history (id_tarea,id_grupo,user_history) VALUES(".$id_tarea.",".$id_grupo.",'".$_SESSION['user_name']."')";
 			connection::execute_query($Sql);
@@ -134,17 +139,23 @@ class na_areas{
 	}
 
 	public function estadoTarea($id_tarea, $estado){
-		$Sql = "UPDATE na_tareas SET activa=".$estado." WHERE id_tarea=".$id_tarea;
+		$Sql = "UPDATE na_tareas SET 
+				activa=".$estado." 
+				WHERE id_tarea=".$id_tarea;
 		return connection::execute_query($Sql);
 	}
 
 	public function estadoLinksTarea($id_tarea, $estado){
-		$Sql = "UPDATE na_tareas SET activa_links=".$estado." WHERE id_tarea=".$id_tarea;
+		$Sql = "UPDATE na_tareas SET 
+				activa_links=".$estado." 
+				WHERE id_tarea=".$id_tarea;
 		return connection::execute_query($Sql);
 	}
 
 	public function getTareasDocumentos($filter = ""){
-		$Sql = "SELECT * FROM na_tareas_documentos WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM na_tareas_documentos 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -193,19 +204,23 @@ class na_areas{
 	}
 
 	public function deleteTareaDoc($id){
-		$Sql = "DELETE FROM na_tareas_documentos WHERE id_documento=".$id." ";
+		$Sql = "DELETE FROM na_tareas_documentos 
+				WHERE id_documento=".$id." ";
 		return connection::execute_query($Sql);
 	}
 
 	public function getUsersTareaGrupos($id_tarea, $usuario){
-		$Sql = "SELECT * FROM na_areas_grupos_users 
-			  WHERE id_grupo IN (SELECT id_grupo FROM na_tareas_grupos WHERE id_tarea=".$id_tarea.") 
+		$Sql = "SELECT * 
+				FROM na_areas_grupos_users 
+			  	WHERE id_grupo IN (SELECT id_grupo FROM na_tareas_grupos WHERE id_tarea=".$id_tarea.") 
 			  AND grupo_username='".$usuario."' ";
 		return connection::getSQL($Sql);
 	}
 
 	public function getTareasUser($filter = ""){
-		$Sql = "SELECT * FROM na_tareas_users WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM na_tareas_users 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -233,7 +248,8 @@ class na_areas{
 	}
 
 	public function getPreguntas($filter = ""){
-		$Sql = "SELECT * FROM na_tareas_preguntas 
+		$Sql = "SELECT * 
+				FROM na_tareas_preguntas 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -246,9 +262,11 @@ class na_areas{
 	}
 
 	public function deletePregunta($id){
-		$Sql = "DELETE FROM na_tareas_preguntas WHERE id_pregunta=".$id;
+		$Sql = "DELETE FROM na_tareas_preguntas 
+				WHERE id_pregunta=".$id;
 		if (connection::execute_query($Sql)){ 
-			$Sql = "DELETE FROM na_tareas_respuestas WHERE id_pregunta=".$id;
+			$Sql = "DELETE FROM na_tareas_respuestas 
+					WHERE id_pregunta=".$id;
 			connection::execute_query($Sql);
 			return "Pregunta eliminada correctamente";}
 		else return "Se ha producido algún error al eliminar la pregunta.";
@@ -262,19 +280,22 @@ class na_areas{
 	}
 
 	public function getRespuestas($filter = ""){
-		$Sql = "SELECT * FROM na_tareas_respuestas 
+		$Sql = "SELECT * 
+				FROM na_tareas_respuestas 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function getRespuestasUser($filter = ""){
-		$Sql = "SELECT * FROM na_tareas_respuestas_user 
+		$Sql = "SELECT * 
+				FROM na_tareas_respuestas_user 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function getRespuestasUserAdmin($filter = ""){
-		$Sql = "SELECT p.pregunta_texto AS Pregunta,r.respuesta_valor AS Respuesta FROM na_tareas_preguntas p 
+		$Sql = "SELECT p.pregunta_texto AS Pregunta,r.respuesta_valor AS Respuesta 
+				FROM na_tareas_preguntas p 
 				LEFT JOIN na_tareas_respuestas_user r ON r.id_pregunta=p.id_pregunta 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
@@ -282,7 +303,7 @@ class na_areas{
 
 	public function insertRespuesta($id_pregunta, $respuesta_user, $respuesta_valor){
 		//verificar si ya existe una respuesta para hacer insert o update
-		if (connection::countReg("na_tareas_respuestas_user"," AND id_pregunta=".$id_pregunta." AND respuesta_user='".$respuesta_user."' ")==0){
+		if (connection::countReg("na_tareas_respuestas_user", " AND id_pregunta=".$id_pregunta." AND respuesta_user='".$respuesta_user."' ")==0){
 			$Sql = "INSERT INTO na_tareas_respuestas_user (id_pregunta,respuesta_user,respuesta_valor) VALUES
 			(".$id_pregunta.",'".$respuesta_user."','".$respuesta_valor."')";
 		}
@@ -295,14 +316,16 @@ class na_areas{
 	}
 
 	public function getFormulariosFinalizados($filter = ""){
-		$Sql = "SELECT f.*,u.name AS name,u.nick AS nick FROM na_tareas_formularios_finalizados f 
-			  LEFT JOIN users u ON u.username=f.user_tarea
-			  WHERE 1=1 ".$filter;
+		$Sql = "SELECT f.*,u.name AS name,u.nick AS nick 
+				FROM na_tareas_formularios_finalizados f 
+			  	LEFT JOIN users u ON u.username=f.user_tarea
+			  	WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public static function getFormulariosFinalizadosUser($username){
-		$Sql = "SELECT f.*,t.tarea_titulo, a.area_nombre FROM na_tareas_formularios_finalizados f 
+		$Sql = "SELECT f.*,t.tarea_titulo, a.area_nombre 
+				FROM na_tareas_formularios_finalizados f 
 				LEFT JOIN na_tareas t ON t.id_tarea=f.id_tarea 
 				LEFT JOIN na_areas a ON a.id_area=t.id_area 
 				WHERE f.user_tarea='".$username."'";
@@ -311,20 +334,22 @@ class na_areas{
 
 	public static function getTareasFinalizadasUser($username){
 		$Sql = "SELECT * FROM (
-				SELECT id_tarea, user_tarea, date_finalizacion AS fecha_tarea, revision, puntos FROM na_tareas_formularios_finalizados
-				WHERE user_tarea='".$username."' 
+					SELECT id_tarea, user_tarea, date_finalizacion AS fecha_tarea, revision, puntos FROM na_tareas_formularios_finalizados
+					WHERE user_tarea='".$username."' 
 				UNION
-				SELECT id_tarea, user_tarea, fecha_tarea, 0 AS revision, 0 AS puntos FROM na_tareas_users
-				WHERE user_tarea='".$username."' GROUP BY id_tarea) AS tareas 
+					SELECT id_tarea, user_tarea, fecha_tarea, 0 AS revision, 0 AS puntos FROM na_tareas_users
+					WHERE user_tarea='".$username."' GROUP BY id_tarea) AS tareas 
 				LEFT JOIN na_tareas t ON t.id_tarea=tareas.id_tarea 
 				LEFT JOIN na_areas a ON a.id_area=t.id_area";
 		return connection::getSQL($Sql);
 	}
 
 	public function getFormulariosFinalizadosRespuestas($id_tarea, $usuario){
-		$Sql = "SELECT ur.respuesta_valor FROM na_tareas_respuestas_user ur
-			  LEFT JOIN na_tareas_preguntas up ON up.id_pregunta=ur.id_pregunta
-			  WHERE id_tarea=".$id_tarea." AND ur.respuesta_user='".$usuario."' ORDER BY ur.id_pregunta ";
+		$Sql = "SELECT ur.respuesta_valor 
+				FROM na_tareas_respuestas_user ur 
+				LEFT JOIN na_tareas_preguntas up ON up.id_pregunta=ur.id_pregunta 
+				WHERE id_tarea=".$id_tarea." AND ur.respuesta_user='".$usuario."' 
+				ORDER BY ur.id_pregunta ";
 		return connection::getSQL($Sql);
 	}
 
@@ -346,23 +371,25 @@ class na_areas{
 	}
 
 	public function getUsuarioGrupoTarea($id_tarea, $id_area, $filter = ""){
-		$Sql = "SELECT grupo_nombre FROM na_areas_grupos_users u 
-			LEFT JOIN na_areas_grupos g ON g.id_grupo=u.id_grupo
-			LEFT JOIN na_tareas_grupos tg ON tg.id_grupo=u.id_grupo
-			WHERE u.id_grupo IN (SELECT id_grupo FROM na_areas_grupos WHERE id_area=".$id_area.")
-			AND g.id_area=".$id_area." AND tg.id_tarea=".$id_tarea.$filter;
+		$Sql = "SELECT grupo_nombre 
+				FROM na_areas_grupos_users u 
+				LEFT JOIN na_areas_grupos g ON g.id_grupo=u.id_grupo
+				LEFT JOIN na_tareas_grupos tg ON tg.id_grupo=u.id_grupo
+				WHERE u.id_grupo IN (SELECT id_grupo FROM na_areas_grupos WHERE id_area=".$id_area.")
+				AND g.id_area=".$id_area." AND tg.id_tarea=".$id_tarea.$filter;
 
 		return connection::getSQL($Sql);
 	}
 
 	public function getTareasUserExport($id_tarea, $id_area){
 		$Sql = "SELECT tu.* ,
-			(SELECT g.grupo_nombre FROM na_areas_grupos_users u 
-			LEFT JOIN na_areas_grupos g ON g.id_grupo=u.id_grupo
-			LEFT JOIN na_tareas_grupos tg ON tg.id_grupo=u.id_grupo
-			WHERE u.id_grupo IN (SELECT id_grupo FROM na_areas_grupos WHERE id_area=".$id_area.")
-			AND g.id_area=".$id_area." AND tg.id_tarea=".$id_tarea." AND u.grupo_username=tu.user_tarea LIMIT 1) AS nombre_grupo 
-			FROM na_tareas_users tu WHERE tu.id_tarea=".$id_tarea;
+					(SELECT g.grupo_nombre FROM na_areas_grupos_users u 
+					LEFT JOIN na_areas_grupos g ON g.id_grupo=u.id_grupo
+					LEFT JOIN na_tareas_grupos tg ON tg.id_grupo=u.id_grupo
+					WHERE u.id_grupo IN (SELECT id_grupo FROM na_areas_grupos WHERE id_area=".$id_area.")
+					AND g.id_area=".$id_area." AND tg.id_tarea=".$id_tarea." AND u.grupo_username=tu.user_tarea LIMIT 1) AS nombre_grupo 
+				FROM na_tareas_users tu 
+				WHERE tu.id_tarea=".$id_tarea;
 		return connection::getSQL($Sql);
 	}
 

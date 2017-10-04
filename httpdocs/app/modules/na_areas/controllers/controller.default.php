@@ -148,7 +148,7 @@ class na_areasController{
 	public static function exportAreasAction(){
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$na_areas = new na_areas();
-			$elements = $na_areas->getAreas(" AND estado=1");
+			$elements = $na_areas->getAreas(" AND estado=1 ");
 			download_send_headers(strTranslate("Na_areas")."_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
@@ -172,7 +172,7 @@ class na_areasController{
 			//verificar si ya se ha alcanzado el limite de usuarios
 			$datos_area = $na_areas->getAreas(" AND id_area=".$id_area." ");
 			$limite_users = $datos_area[0]['limite_users'];
-			$total_users = connection::countReg("na_areas_users"," AND id_area=".$id_area." ");
+			$total_users = connection::countReg("na_areas_users", " AND id_area=".$id_area." ");
 			if ($total_users < $limite_users):	
 				if ($na_areas->insertUserArea($id_area,$_SESSION['user_name']))
 					session::setFlashMessage('actions_message', strTranslate("Enroll_successful"), "alert alert-success");
@@ -235,7 +235,7 @@ class na_areasController{
 			$i=1;
 			foreach($respuestas as $respuesta):
 				$pregunta_texto = "pregunta".$i;
-				$element[$pregunta_texto]=$respuesta['respuesta_valor'];
+				$element[$pregunta_texto] = $respuesta['respuesta_valor'];
 				$i++;
 			endforeach;
 			array_push($final, $element);
@@ -304,12 +304,12 @@ class na_areasController{
 						$aciertos_multiples = 0;
 						$respuestas = $na_areas->getRespuestas(" AND id_pregunta=".$pregunta['id_pregunta']." AND correcta=1 "); 
 						$respuesta_user = $na_areas->getRespuestasUser(" AND id_pregunta=".$pregunta['id_pregunta']." AND respuesta_user='".$_SESSION['user_name']."' ");            
-						$respuesta_multiple = explode("|",$respuesta_user[0]['respuesta_valor']);
+						$respuesta_multiple = explode("|", $respuesta_user[0]['respuesta_valor']);
 						foreach($respuestas as $respuesta):
 							if (in_array($respuesta['respuesta_texto'], $respuesta_multiple)) $aciertos_multiples++;
 						endforeach;		
 
-						if ($aciertos_multiples == (count($respuestas)) && (count($respuestas) == count($respuesta_multiple)))	$aciertos++;		
+						if ($aciertos_multiples == (count($respuestas)) && (count($respuestas) == count($respuesta_multiple))) $aciertos++;		
 					}
 				endforeach;
 				//calcular resultado final del cuestionario $puntos
@@ -460,7 +460,7 @@ class na_areasController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$foro = new foro();
 			$elements = $foro->getComentariosExport(" AND c.id_tema=".intval($_REQUEST['idt'])." ");
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers("data_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -470,7 +470,7 @@ class na_areasController{
 		if (isset($_REQUEST['t']) && $_REQUEST['t'] == 1){
 			$na_areas = new na_areas();
 			$elements = $na_areas->getAreasUsers(" AND id_area=".intval($_REQUEST['id']));
-			download_send_headers("data_".date("Y-m-d") . ".csv");
+			download_send_headers("data_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

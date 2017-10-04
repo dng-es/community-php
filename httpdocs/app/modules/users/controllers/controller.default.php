@@ -20,7 +20,7 @@ class usersController{
 		$filter .= " ORDER BY username";
 		$paginator_items = PaginatorPages($reg);
 		
-		$total_reg = connection::countReg("users",$filter);
+		$total_reg = connection::countReg("users", $filter);
 		return array('items' => $users->getUsers($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -42,7 +42,7 @@ class usersController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$users = new users();
 			$elements = $users->getUsers("");
-			download_send_headers("users_" . date("Y-m-d") . ".csv");
+			download_send_headers("users_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -58,7 +58,7 @@ class usersController{
 				$usuario = array_merge($usuario, self::userStatistics($element['username']));
 				array_push($usuarios, $usuario);
 			endforeach;
-			download_send_headers("statistics" . date("Y-m-d") . ".csv");
+			download_send_headers("statistics_".date("Y-m-d").".csv");
 			echo array2csv($usuarios);
 			die();
 		}
@@ -155,7 +155,7 @@ class usersController{
 			$state = trim(sanitizeInput($_POST['provincia_user']));
 			$address = trim(sanitizeInput($_POST['direccion_user']));
 			$address1 = substr(trim(sanitizeInput($_POST['direccion_user'])), 0 , 127);
-			$address2 = substr(trim(sanitizeInput($_POST['direccion_user'])), 127) ." - ".trim(sanitizeInput($_POST['provincia_user']))." - ";
+			$address2 = substr(trim(sanitizeInput($_POST['direccion_user'])), 127)." - ".trim(sanitizeInput($_POST['provincia_user']))." - ";
 			$postcode = trim(sanitizeInput($_POST['cpostal_user']));
 			$city = trim(sanitizeInput($_POST['ciudad_user']));
 			$phone = trim(sanitizeInput($_POST['telefono']));
@@ -189,7 +189,7 @@ class usersController{
 			global $ini_conf;
 			$users = new users();
 			$username = sanitizeInput($_POST['form-lostpw-user']);
-			$user = $users->getUsers(" AND username='".$username."'");
+			$user = $users->getUsers(" AND username='".$username."' ");
 
 			if (($user[0]['user_password'] <> '') && ($user[0]['disabled'] <> 1)){
 				$asunto = strtoupper($ini_conf['SiteName']).': '.strTranslate("Recover_credentials");
@@ -293,7 +293,7 @@ class usersController{
 	public static function deleteFotoAction(){
 		$users = new users();
 		if (isset($_REQUEST['f']) && $_REQUEST['f'] != ""){
-			if ($users->deleteFoto($_REQUEST['id'],$_REQUEST['f'])) 
+			if ($users->deleteFoto($_REQUEST['id'], $_REQUEST['f'])) 
 				session::setFlashMessage('actions_message', "foto borrada correctamente.", "alert alert-success");
 			else 
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -362,7 +362,7 @@ class usersController{
 			$filtro_tienda = ($_SESSION['user_perfil'] == 'responsable' ? " AND responsable_tienda='".$_SESSION['user_name']."' " : "");
 			$filter .= " AND disabled=0 AND perfil='usuario' ".$filtro_tienda." ORDER BY empresa, username ";
 			$elements = $users->getUsersListado($filter);
-			download_send_headers("users_" . date("Y-m-d") . ".csv");
+			download_send_headers("users_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -372,30 +372,40 @@ class usersController{
 		if (isset($_POST['id_username']) && $_POST['id_username'] != ""){
 			$users = new users();
 			//VERIFICAR NOMBRE USUARIO YA EXISTE
-			$old_user = $users->getUsers(" AND username='".$_POST['id_username']."' ");
+			$username = sanitizeInput($_POST['id_username']);
+			$nombre = sanitizeInput($_POST['user-nombre']);
+			$surname = sanitizeInput($_POST['user-apellidos']);
+			$user_email = sanitizeInput($_POST['user-email']);
+			$old_user = $users->getUsers(" AND username='".$username."' ");
 			if (count($old_user) == 0){
-				if ($users->insertUserEquipo(sanitizeInput($_POST['id_username']),
+				if ($users->insertUserEquipo($username,
 						sanitizeInput($_POST['empresa_user']),
-						sanitizeInput($_POST['user-nombre']),
-						sanitizeInput($_POST['user-apellidos']),
-						sanitizeInput($_POST['user-email']),
+						$nombre,
+						$surname,
+						$user_email,
 						sanitizeInput($_POST['telefono'])
 						)) {
-					session::setFlashMessage( 'actions_message', "Usuario insertado correctamente.", "alert alert-success");
+
+					if(getModuleExist("prestashop")){
+						$id_externo = prestashopCustomersController::insertCustomer($username, $username, $nombre, $surname, $user_email, 0, 0);
+						$prestashop = new prestashop();
+						$prestashop->updateUser($username, $id_externo);
+					}
+					session::setFlashMessage('actions_message', "Usuario insertado correctamente.", "alert alert-success");
 				}
 			}
 			elseif($old_user[0]['disabled'] == 1){
 				//reactivar usuario
-				if ($users->reactivarUserEquipo(sanitizeInput($_POST['id_username']),
+				if ($users->reactivarUserEquipo($username,
 						sanitizeInput($_POST['empresa_user']),
-						sanitizeInput($_POST['user-nombre']),
-						sanitizeInput($_POST['user-apellidos']),
-						sanitizeInput($_POST['user-email']),
+						$nombre,
+						$surname,
+						$user_email,
 						sanitizeInput($_POST['telefono'])
 						))
-					session::setFlashMessage( 'actions_message', "Usuario reactivado correctamente", "alert alert-success");
+					session::setFlashMessage('actions_message', "Usuario reactivado correctamente", "alert alert-success");
 				else
-					session::setFlashMessage( 'actions_message', "Error al reactivar usuario.", "alert alert-warning");
+					session::setFlashMessage('actions_message', "Error al reactivar usuario.", "alert alert-warning");
 			}
 			else{
 				//aviso de usuario activo. Obtner datos del responsable de la tienda donde esta activo
@@ -417,11 +427,11 @@ class usersController{
 			if ($contador > 0 || $_SESSION['user_perfil'] == 'admin' || $_SESSION['user_perfil'] == 'responsable'){
 				$empresa = sanitizeInput($_POST['user_edit_empresa']);
 				if ($users->updateUserEquipo($id_user_edit, $empresa)) 
-					session::setFlashMessage( 'actions_message', "Usuario modificado correctamente.", "alert alert-success");
+					session::setFlashMessage('actions_message', "Usuario modificado correctamente.", "alert alert-success");
 				else 
-					session::setFlashMessage( 'actions_message', "Error al modificar usuario.", "alert alert-warning");
+					session::setFlashMessage('actions_message', "Error al modificar usuario.", "alert alert-warning");
 			}
-			else session::setFlashMessage( 'actions_message', "Usuario no encontrado.", "alert alert-warning");
+			else session::setFlashMessage('actions_message', "Usuario no encontrado.", "alert alert-warning");
 
 			redirectURL($_SERVER['REQUEST_URI']);
 		}
@@ -437,10 +447,10 @@ class usersController{
 			if ($_SESSION['user_perfil'] == 'responsable') $acceso = count($users->getUsers(" AND username='".$username."' AND responsable_tienda='".$_SESSION['user_name']."' "));
 
 			if ($acceso > 0){
-				if ($users->disableUser($username)) session::setFlashMessage( 'actions_message', "Usuario desactivado correctamente.", "alert alert-success");
-				else session::setFlashMessage( 'actions_message', "Error al dar de baja usuario.", "alert alert-danger");
+				if ($users->disableUser($username)) session::setFlashMessage('actions_message', "Usuario desactivado correctamente.", "alert alert-success");
+				else session::setFlashMessage('actions_message', "Error al dar de baja usuario.", "alert alert-danger");
 			}
-			else session::setFlashMessage( 'actions_message', "Usuario no encontrado.", "alert alert-danger");
+			else session::setFlashMessage('actions_message', "Usuario no encontrado.", "alert alert-danger");
 			
 			$pag = (isset($_REQUEST['pag']) ? $_REQUEST['pag'] : "");
 			$find_reg = getFindReg();
@@ -454,7 +464,7 @@ class usersController{
 		if ($find_reg != '') $filter .= " AND (username LIKE '%".$find_reg."%' OR name LIKE '%".$find_reg."%') ";
 		$filter .= " ORDER BY empresa, username";
 		
-		$Sql = "SELECT count(*) AS table_counter FROM users u  
+		$Sql = "SELECT COUNT(*) AS table_counter FROM users u  
 				LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
 				WHERE 1=1 ".$filter;
 		$result = connection::execute_query($Sql);
@@ -526,14 +536,14 @@ class usersController{
 					}
 					else{
 						//insertar nuevo usuario
-						$id_externo = prestashopCustomersController::insertCustomer($passwd, $firstname , $lastname , $email, 1, 1);
+						$id_externo = prestashopCustomersController::insertCustomer($username, $passwd, $firstname , $lastname , $email, 1, 1);
 						$prestashop = new prestashop();
 						$prestashop->updateUser($username, $id_externo);
 					}
 				}
 
 				//puntuaciones a usuarios por recomendacion
-				if (connection::countReg("users"," AND username='".$user_recommend."' AND disabled=0 AND confirmed=1 AND username<>'".$_SESSION['user_name']."' ") > 0){
+				if (connection::countReg("users", " AND username='".$user_recommend."' AND disabled=0 AND confirmed=1 AND username<>'".$_SESSION['user_name']."' ") > 0){
 					users::sumarPuntos($_SESSION['user_name'], PUNTOS_CONFIRM, PUNTOS_CONFIRM_MOTIVO);
 					users::sumarPuntos($user_recommend, PUNTOS_CONFIRM, PUNTOS_CONFIRM_MOTIVO);
 					$users->insertConfirm($_SESSION['user_name'], $user_recommend);
@@ -547,7 +557,7 @@ class usersController{
 		if (isset($_REQUEST['export_confirm']) && $_REQUEST['export_confirm'] == true){
 			$users = new users();
 			$elements = $users->getConfirm($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers("data_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -591,7 +601,7 @@ class usersController{
 								$mensaje .= date("Y-m-d H:i:s")." ".$contador." - ".$username." insertado correctamente.\n";
 
 								if(getModuleExist("prestashop")){
-									$id_externo = prestashopCustomersController::insertCustomer($user_pass, $nombre, $surname, $user_email, 0, 0);
+									$id_externo = prestashopCustomersController::insertCustomer($username, $user_pass, $nombre, $surname, $user_email, 0, 0);
 									$prestashop = new prestashop();
 									$prestashop->updateUser($username, $id_externo);
 								}

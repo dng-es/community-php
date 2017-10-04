@@ -1,7 +1,9 @@
 <?php
 class configuration{
 	function getConfigIni($filter = ""){
-		$Sql = "SELECT * FROM config WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM config 
+				WHERE 1=1 ".$filter;
 		$result = connection::execute_query($Sql);
 		$array_data = array();
 		$array_data = connection::get_result($result);
@@ -9,7 +11,9 @@ class configuration{
 	}
 
 	function getConfiguracion($filter = ""){
-		$Sql = "SELECT * FROM config WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM config 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -31,12 +35,16 @@ class configuration{
 	}
 
 	public function getPanels($filter = ""){
-		$Sql = "SELECT * FROM config_panels WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM config_panels 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function getPanelsRows($filter = ""){
-		$Sql = "SELECT DISTINCT(panel_row) AS rows FROM config_panels WHERE 1=1 ".$filter;
+		$Sql = "SELECT DISTINCT(panel_row) AS rows 
+				FROM config_panels 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -53,12 +61,15 @@ class configuration{
 	}
 
 	public function deletePanel($filter = ""){
-		$Sql = "DELETE FROM config_panels WHERE 1=1 ". $filter;
+		$Sql = "DELETE FROM config_panels 
+				WHERE 1=1 ". $filter;
 		return connection::execute_query($Sql);
 	}
 
 	public function updatePanels($filter = ""){
-		$Sql = "UPDATE config_panels SET visible=1 WHERE 1=1 ". $filter;
+		$Sql = "UPDATE config_panels SET 
+				visible=1 
+				WHERE 1=1 ". $filter;
 		return connection::execute_query($Sql);
 	}
 }

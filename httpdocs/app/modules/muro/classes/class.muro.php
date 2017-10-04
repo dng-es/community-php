@@ -1,7 +1,8 @@
 <?php
 class muro{ 
 	public function getComentarios($filter = ""){
-		$Sql = "SELECT c.*,u.*,c.canal AS canal_comentario FROM muro_comentarios c 
+		$Sql = "SELECT c.*,u.*,c.canal AS canal_comentario 
+				FROM muro_comentarios c 
 				INNER JOIN users u ON u.username=c.user_comentario 
 				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
@@ -48,18 +49,18 @@ class muro{
 
 	public function InsertVotacion($id, $usuario){
 		//VERIFICAR QUE EL USUARIO NO SE VOTE A SI MISMO
-		if (connection::countReg("muro_comentarios"," AND id_comentario=".$id." AND user_comentario='".$usuario."' ") == 0){
+		if (connection::countReg("muro_comentarios", " AND id_comentario=".$id." AND user_comentario='".$usuario."' ") == 0){
 			//VERIFICAR NO VOTO CON ANTERIORIDA AL MISMO COMENTARIO
-			if (connection::countReg("muro_comentarios_votaciones"," AND id_comentario=".$id." AND user_votacion='".$usuario."' ") == 0){
+			if (connection::countReg("muro_comentarios_votaciones", " AND id_comentario=".$id." AND user_votacion='".$usuario."' ") == 0){
 				//INSERTAR COMENTARIO
 				$Sql = "INSERT INTO muro_comentarios_votaciones (id_comentario,user_votacion) VALUES (
 					 ".$id.",'".$usuario."')";
 				connection::execute_query($Sql);
 				
 				//SUMAR VOTACION
-				$Sql = "UPDATE muro_comentarios
-					  SET votaciones=votaciones+1 
-					  WHERE id_comentario=".$id;
+				$Sql = "UPDATE muro_comentarios SET 
+						votaciones=votaciones+1 
+					  	WHERE id_comentario=".$id;
 				connection::execute_query($Sql);			
 				return "Votación realizada con éxito.";
 			}
@@ -69,10 +70,10 @@ class muro{
 	}
 
 	public function cambiarEstado($id, $estado, $seleccionado = 0){
-		$Sql = "UPDATE muro_comentarios SET
-			 estado=".$estado.",
-			 seleccion_reto=".$seleccionado."
-			 WHERE id_comentario=".$id."";
+		$Sql = "UPDATE muro_comentarios SET 
+				estado=".$estado.",
+				seleccion_reto=".$seleccionado."
+				WHERE id_comentario=".$id." ";
 		return connection::execute_query($Sql);
 	}
 }

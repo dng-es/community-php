@@ -87,8 +87,8 @@ class recompensasController{
 		$recompensas = new recompensas();
 		$find_reg = getFindReg();
 
-		if (isset($_REQUEST['id']) and $_REQUEST['id']>0) $filter = " AND eu.id_emocion=".$_REQUEST['id'] . " " .$filter;
-		if (isset($_REQUEST['i']) and $_REQUEST['i']!="") $filter = " AND date_emocion BETWEEN " . str_replace("%27", "'", $_REQUEST['i']) . " " .$filter;
+		if (isset($_REQUEST['ide']) && $_REQUEST['ide'] > 0) $filter = " AND eu.id_emocion=".$_REQUEST['ide'] . " " .$filter;
+		if (isset($_REQUEST['i']) && $_REQUEST['i'] != "") $filter = " AND date_emocion BETWEEN ".str_replace("%27", "'", $_REQUEST['i'])." ".$filter;
 
 		$total_recomensas = $recompensas->getRecompensasUser($filter);
 		return array('items' => $total_recomensas,

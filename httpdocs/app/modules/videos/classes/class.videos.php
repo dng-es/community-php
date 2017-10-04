@@ -1,13 +1,16 @@
 <?php
 class videos{
 	public function getVideos($filter = ""){
-		$Sql = "SELECT v.*,u.*,v.canal AS canal_file FROM galeria_videos v 
-				JOIN users u ON u.username=v.user_add WHERE 1=1 ".$filter; //echo $Sql."<br />";
+		$Sql = "SELECT v.*,u.*,v.canal AS canal_file 
+				FROM galeria_videos v 
+				JOIN users u ON u.username=v.user_add 
+				WHERE 1=1 ".$filter; //echo $Sql."<br />";
 		return connection::getSQL($Sql); 
 	}
 
 	public function getVideosPromociones($filter = ""){
-		$Sql = "SELECT v.*,u.*,v.canal AS canal_file,IFNULL(p.nombre_promocion,'') AS reto FROM galeria_videos v 
+		$Sql = "SELECT v.*,u.*,v.canal AS canal_file,IFNULL(p.nombre_promocion,'') AS reto 
+				FROM galeria_videos v 
 				JOIN users u ON u.username=v.user_add 
 				LEFT JOIN promociones p ON p.id_promocion=v.id_promocion 
 				WHERE 1=1 ".$filter;
@@ -80,7 +83,7 @@ class videos{
 		//VERIFICAR QUE EL USUARIO NO SE VOTE A SI MISMO
 		if (connection::countReg("galeria_videos"," AND id_file=".$id." AND user_add='".$usuario."' ") == 0){
 			//VERIFICAR NO VOTO CON ANTERIORIDA AL MISMO ARCHIVO
-			if (connection::countReg("galeria_videos_votaciones"," AND id_file=".$id." AND user_votacion='".$usuario."' ") == 0){
+			if (connection::countReg("galeria_videos_votaciones", " AND id_file=".$id." AND user_votacion='".$usuario."' ") == 0){
 				//INSERTAR COMENTARIO
 				$Sql = "INSERT INTO galeria_videos_votaciones (id_file,user_votacion) VALUES (
 						".$id.",'".$usuario."')";
@@ -117,7 +120,8 @@ class videos{
 	//////////////////////////////////////////////////////////
 
 	public function getComentariosVideo($filter = ""){
-		$Sql = "SELECT c.*,u.* FROM galeria_videos_comentarios c
+		$Sql = "SELECT c.*,u.* 
+				FROM galeria_videos_comentarios c
 				JOIN users u ON u.username=c.user_comentario
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);  
@@ -139,9 +143,9 @@ class videos{
 
 	public function InsertVotacionVideo($id, $usuario){
 		//VERIFICAR QUE EL USUARIO NO SE VOTE A SI MISMO
-		if (connection::countReg("galeria_videos_comentarios"," AND id_comentario=".$id." AND user_comentario='".$usuario."' ") == 0){
+		if (connection::countReg("galeria_videos_comentarios", " AND id_comentario=".$id." AND user_comentario='".$usuario."' ") == 0){
 			//VERIFICAR NO VOTO CON ANTERIORIDA AL MISMO ARCHIVO
-			if (connection::countReg("galeria_videos_comentarios_votaciones"," AND id_comentario=".$id." AND user_votacion='".$usuario."' ") == 0){
+			if (connection::countReg("galeria_videos_comentarios_votaciones", " AND id_comentario=".$id." AND user_votacion='".$usuario."' ") == 0){
 				//INSERTAR COMENTARIO
 				$Sql = "INSERT INTO galeria_videos_comentarios_votaciones (id_comentario,user_votacion) VALUES (
 						".$id.",'".$usuario."')";
@@ -161,7 +165,9 @@ class videos{
 	}
 
 	public function getTags($filter = ""){
-		$Sql = "SELECT GROUP_CONCAT(tipo_video) AS tag FROM galeria_videos v WHERE tipo_video<>'' AND estado=1 ".$filter;
+		$Sql = "SELECT GROUP_CONCAT(tipo_video) AS tag 
+				FROM galeria_videos v 
+				WHERE tipo_video<>'' AND estado=1 ".$filter;
 		$result = connection::getSQL($Sql);
 		$registros = $registros = str_replace(', ', ',', $result[0]['tag']);
 		$registros =  explode(",", $registros);

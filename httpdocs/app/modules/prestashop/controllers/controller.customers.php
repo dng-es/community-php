@@ -63,13 +63,14 @@ class prestashopCustomersController extends prestashopController{
 		}
 	}
 
-	public static function insertCustomer($passwd = "", $firstname = "", $lastname = "", $email = "", $active = 0, $optin = 0, $id_default_group = 3, $id_group = 3){
+	public static function insertCustomer($username, $passwd = "", $firstname = "", $lastname = "", $email = "", $active = 0, $optin = 0, $id_default_group = 3, $id_group = 3){
 		try{
 			$webService = new PrestaShopWebservice(self::ws_url, self::ws_key, false);
 			$xml = $webService->get(array('url' => self::ws_url.'api/customers?schema=blank'));
 			$resources = $xml->children()->children();
 
 			//actualizar un datos
+			$resources->username = $username;
 			$resources->passwd = $passwd;
 			$resources->firstname = $firstname;
 			$resources->lastname = $lastname;

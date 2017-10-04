@@ -1,7 +1,8 @@
 <?php	
 class fotos{
 	public function getFotos($filter = ""){
-		$Sql = "SELECT f.*,u.*,f.canal AS canal_file FROM galeria_fotos f 
+		$Sql = "SELECT f.*,u.*,f.canal AS canal_file 
+				FROM galeria_fotos f 
 				LEFT JOIN users u ON u.username=f.user_add 
 				LEFT JOIN galeria_fotos_albumes a ON a.id_album=f.id_album  
 				WHERE 1=1 ".$filter; //echo $Sql;
@@ -9,14 +10,16 @@ class fotos{
 	}
 
 	public function getFotosAlbumes($filter = ""){
-		$Sql = "SELECT a.*, u.nick AS nick,u.foto AS foto_user FROM galeria_fotos_albumes a 
+		$Sql = "SELECT a.*, u.nick AS nick,u.foto AS foto_user 
+				FROM galeria_fotos_albumes a 
 				LEFT JOIN users u ON u.username=a.username_album
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
 
 	public function getFotosConAlbumes($filter = ""){
-		$Sql = "SELECT g.*,a.* FROM galeria_fotos g 
+		$Sql = "SELECT g.*,a.* 
+				FROM galeria_fotos g 
 				LEFT JOIN galeria_fotos_albumes a ON a.id_album=g.id_album 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
@@ -26,7 +29,8 @@ class fotos{
 		$Sql = "SELECT f.*,u.*,f.canal AS canal_file,IFNULL(p.nombre_promocion,'') AS reto 
 				FROM galeria_fotos f 
 				LEFT JOIN promociones p ON p.id_promocion=f.id_promocion
-				JOIN users u ON u.username=f.user_add WHERE 1=1 ".$filter;
+				JOIN users u ON u.username=f.user_add 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
 
@@ -114,8 +118,8 @@ class fotos{
 				connection::execute_query($Sql);
 
 				//SUMAR VOTACION
-				$Sql = "UPDATE galeria_fotos
-						SET fotos_puntos=fotos_puntos+1 
+				$Sql = "UPDATE galeria_fotos SET 
+						fotos_puntos=fotos_puntos+1 
 						WHERE id_file=".$id;
 				connection::execute_query($Sql);
 				return 1;
@@ -129,7 +133,8 @@ class fotos{
 // COMENTARIOS EN LAS FOTOS
 //////////////////////////////////////////////////////////
 	public function getComentariosFoto($filter = ""){
-		$Sql = "SELECT c.*,u.* FROM galeria_fotos_comentarios c
+		$Sql = "SELECT c.*,u.* 
+				FROM galeria_fotos_comentarios c
 				JOIN users u ON u.username=c.user_comentario
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
@@ -151,16 +156,16 @@ class fotos{
 
 	public function InsertVotacionFoto($id, $usuario){
 		//VERIFICAR QUE EL USUARIO NO SE VOTE A SI MISMO
-		if (connection::countReg("galeria_fotos_comentarios"," AND id_comentario=".$id." AND user_comentario='".$usuario."' ") == 0){
+		if (connection::countReg("galeria_fotos_comentarios", " AND id_comentario=".$id." AND user_comentario='".$usuario."' ") == 0){
 			//VERIFICAR NO VOTO CON ANTERIORIDA AL MISMO ARCHIVO
-			if (connection::countReg("galeria_fotos_comentarios_votaciones"," AND id_comentario=".$id." AND user_votacion='".$usuario."' ") == 0){
+			if (connection::countReg("galeria_fotos_comentarios_votaciones", " AND id_comentario=".$id." AND user_votacion='".$usuario."' ") == 0){
 				//INSERTAR COMENTARIO
 				$Sql = "INSERT INTO galeria_fotos_comentarios_votaciones (id_comentario,user_votacion) VALUES (".$id.",'".$usuario."')";
 				connection::execute_query($Sql);
 				
 				//SUMAR VOTACION
-				$Sql = "UPDATE galeria_fotos_comentarios
-						SET votaciones=votaciones+1 
+				$Sql = "UPDATE galeria_fotos_comentarios SET 
+						votaciones=votaciones+1 
 						WHERE id_comentario=".$id;
 
 				connection::execute_query($Sql);
@@ -182,6 +187,5 @@ class fotos{
 		$registros = array_count_values($registros);
 		return $registros;  
 	}
-
 }
 ?>

@@ -20,7 +20,7 @@ templateload("cmbTypes", "guides");
 		guidesController::createSubCategoryAction();
 		guidesController::updateSubCategoryAction();
 
-		$id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
+		$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
 		$element = guidesController::getItemSubCategoryAction($id);
 		?>
 		<div class="panel panel-default">

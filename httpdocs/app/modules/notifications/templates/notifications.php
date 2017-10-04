@@ -74,7 +74,7 @@ function userNotifications(){ ?>
 		if(getModuleExist("foro")):
 			$module_config = getModuleConfig("foro");
 			if ($module_config['options']['show_alarms']):
-				$num_foros = connection::countReg("notifications"," AND username_notification='".$_SESSION['user_name']."' AND type_notification='foro' "); ?>
+				$num_foros = connection::countReg("notifications", " AND username_notification='".$_SESSION['user_name']."' AND type_notification='foro' "); ?>
 			<tr>
 				<td>
 					<a href="#" class="table-open"><i class="fa fa-link"></i> Comentarios en los foros</a>
@@ -82,7 +82,7 @@ function userNotifications(){ ?>
 					$elements = foroController::getListTemasAction(9999, " AND id_tema IN (SELECT id_content FROM notifications WHERE username_notification='".$_SESSION['user_name']."' AND type_notification='foro')"); ?>
 					<div class="table-open-content">
 						<ul class="list-funny">
-						<?php foreach ($elements['items'] as $key => $element): ?>
+						<?php foreach ($elements['items'] as $key => $element):?>
 						<li><small><a class="text-muted" href="foro-comentarios?id=<?php echo $element['id_tema'];?>"><?php echo $element['nombre'];?></a></small></li>
 						<?php endforeach; ?>
 						</ul>
@@ -99,7 +99,7 @@ function userNotifications(){ ?>
 		if(getModuleExist("videos")):
 			$module_config = getModuleConfig("videos");
 			if ($module_config['options']['show_alarms']):
-				$num_videos = connection::countReg("notifications"," AND username_notification='".$_SESSION['user_name']."' AND type_notification='videos' "); ?>
+				$num_videos = connection::countReg("notifications", " AND username_notification='".$_SESSION['user_name']."' AND type_notification='videos' "); ?>
 				<tr>
 					<td>
 						<a href="#" class="table-open"><i class="fa fa-link"></i> Comentarios en los videos</a>
@@ -107,7 +107,7 @@ function userNotifications(){ ?>
 						$elements = videosController::getListAction(9999, " AND id_file IN (SELECT id_content FROM notifications WHERE username_notification='".$_SESSION['user_name']."' AND type_notification='videos')"); ?>
 						<div class="table-open-content">
 							<ul class="list-funny">
-							<?php foreach ($elements['items'] as $key => $element): ?>
+							<?php foreach ($elements['items'] as $key => $element):?>
 							<li><small><a class="text-muted" href="videos?id=<?php echo $element['id_file'];?>"><?php echo $element['titulo'];?></a></small></li>
 							<?php endforeach; ?>
 							</ul>
@@ -124,7 +124,7 @@ function userNotifications(){ ?>
 		if(getModuleExist("fotos")):
 			$module_config = getModuleConfig("fotos");
 			if ($module_config['options']['show_alarms']):
-				$num_fotos = connection::countReg("notifications"," AND username_notification='".$_SESSION['user_name']."' AND type_notification='fotos' "); ?>
+				$num_fotos = connection::countReg("notifications", " AND username_notification='".$_SESSION['user_name']."' AND type_notification='fotos' "); ?>
 				<tr>
 					<td>
 						<a href="#" class="table-open"><i class="fa fa-link"></i> Comentarios en las fotos</a>
@@ -132,7 +132,7 @@ function userNotifications(){ ?>
 						$elements = fotosController::getListAction(9999, " AND id_file IN (SELECT id_content FROM notifications WHERE username_notification='".$_SESSION['user_name']."' AND type_notification='fotos')"); ?>
 						<div class="table-open-content">
 							<ul class="list-funny">
-							<?php foreach ($elements['items'] as $key => $element): ?>
+							<?php foreach ($elements['items'] as $key => $element):?>
 							<li><small><a class="text-muted" href="fotos?id=<?php echo $element['id_album'];?>"><?php echo $element['titulo'];?></a></small></li>
 							<?php endforeach; ?>
 							</ul>
@@ -147,7 +147,7 @@ function userNotifications(){ ?>
 		<?php 
 		//ALERTAS DEL MODULO DE MENSAJERIA INTERNA
 		if(getModuleExist("mensajes")):
-			$num_mensajes = connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");?>
+			$num_mensajes = connection::countReg("mensajes", " AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");?>
 			<tr>
 				<td><a href="inbox"><i class="fa fa-link"></i> <?php e_strTranslate("Mailing_messages");?></a></td>
 				<td class="text-right"><span class="badge <?php echo $num_mensajes > 0 ? 'active' : '';?>"><?php echo $num_mensajes; ?></span></td>

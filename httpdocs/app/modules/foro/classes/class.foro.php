@@ -2,7 +2,9 @@
 class foro{
  
 	public function getTemas($filter = ""){
-		$Sql = "SELECT * FROM foro_temas t WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT * 
+				FROM foro_temas t 
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);  
 	}
 
@@ -16,14 +18,16 @@ class foro{
 	}
 
 	public function getTemasComentarios($filter = "", $limit = ""){
-		$Sql = "SELECT DISTINCT temas.* FROM (SELECT t.* FROM foro_temas t
-				LEFT JOIN foro_comentarios c ON c.id_tema=t.id_tema
-				WHERE 1=1 ".$filter." ORDER BY c.date_comentario DESC) AS temas ".$limit;
+		$Sql = "SELECT DISTINCT temas.* 
+				FROM (SELECT t.* FROM foro_temas t
+					LEFT JOIN foro_comentarios c ON c.id_tema=t.id_tema
+					WHERE 1=1 ".$filter." ORDER BY c.date_comentario DESC) AS temas ".$limit;
 		return connection::getSQL($Sql);  
 	}
 
 	public function getComentarios($filter = ""){
-		$Sql = "SELECT c.*,t.*,u.* FROM foro_comentarios c
+		$Sql = "SELECT c.*,t.*,u.* 
+				FROM foro_comentarios c
 				JOIN foro_temas t ON t.id_tema=c.id_tema 
 				JOIN users u ON u.username=c.user_comentario
 				WHERE 1=1 ".$filter;
@@ -31,14 +35,16 @@ class foro{
 	}
 
 	public function getComentariosPanel($filter = ""){
-		$Sql = "SELECT c.id_tema,t.canal AS canal_tema,nombre FROM foro_comentarios c
+		$Sql = "SELECT c.id_tema,t.canal AS canal_tema,nombre 
+				FROM foro_comentarios c
 				JOIN foro_temas t ON t.id_tema=c.id_tema 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function getComentariosExport($filter = ""){
-		$Sql = "SELECT c.*,t.nombre AS Tema FROM foro_comentarios c
+		$Sql = "SELECT c.*,t.nombre AS Tema 
+				FROM foro_comentarios c
 				JOIN foro_temas t ON t.id_tema=c.id_tema 
 				WHERE c.user_comentario<>'' ".$filter;
 		return connection::getSQL($Sql);
@@ -62,7 +68,7 @@ class foro{
 			 (".$id.",'".$texto_comentario."','".$usuario."',".$estado.",".$id_comentario_id.")";
 		if (connection::execute_query($Sql)){ 
 			//puntuacion semanal
-			if(connection::countReg("foro_comentarios"," AND user_comentario='".$usuario."' AND WEEK(date_comentario)=WEEK(NOW()) AND YEAR(date_comentario)=YEAR(NOW())") == 1){
+			if(connection::countReg("foro_comentarios", " AND user_comentario='".$usuario."' AND WEEK(date_comentario)=WEEK(NOW()) AND YEAR(date_comentario)=YEAR(NOW())") == 1){
 				users::sumarPuntos($usuario, PUNTOS_FORO_SEMANA, PUNTOS_FORO_SEMANA_MOTIVO);
 			}
 			if ($estado == 1) users::sumarPuntos($usuario, PUNTOS_FORO,PUNTOS_FORO_MOTIVO);
@@ -83,8 +89,8 @@ class foro{
 				connection::execute_query($Sql);
 				
 				//SUMAR VOTACION
-				$Sql = "UPDATE foro_comentarios
-						SET votaciones=votaciones+1 
+				$Sql = "UPDATE foro_comentarios SET 
+						votaciones=votaciones+1 
 						WHERE id_comentario=".$id;
 				connection::execute_query($Sql);
 				return 0;
@@ -171,12 +177,18 @@ class foro{
 	}
 
 	public function getArchivoBlog($filter = ""){
-		$Sql = "SELECT MONTH(date_tema) AS mes,YEAR(date_tema) AS ano,COUNT(id_tema) AS contador FROM foro_temas t WHERE ocio=1 AND activo=1 ".$filter." GROUP BY MONTH(date_tema),YEAR(date_tema) ORDER BY ano DESC,mes DESC ";
+		$Sql = "SELECT MONTH(date_tema) AS mes,YEAR(date_tema) AS ano,COUNT(id_tema) AS contador 
+				FROM foro_temas t 
+				WHERE ocio=1 AND activo=1 ".$filter." 
+				GROUP BY MONTH(date_tema),YEAR(date_tema) 
+				ORDER BY ano DESC,mes DESC ";
 		return connection::getSQL($Sql);
 	}
 
 	public function getCategorias($filter = ""){
-		$Sql = "SELECT DISTINCT tipo_tema AS categoria FROM foro_temas t WHERE tipo_tema<>'' ".$filter;
+		$Sql = "SELECT DISTINCT tipo_tema AS categoria 
+				FROM foro_temas t 
+				WHERE tipo_tema<>'' ".$filter;
 		$result = connection::execute_query($Sql);
 		$registros = "";
 		while ($registro = connection::get_result($result)){  
@@ -189,11 +201,12 @@ class foro{
 	}
 
 	public function getLastTemas($filter = "", $limit = 3){
-		$Sql = "SELECT DISTINCT c.id_tema,t.nombre FROM `foro_comentarios` c
-			LEFT JOIN foro_temas t ON t.id_tema=c.id_tema
-			WHERE t.activo=1 ".$filter." 
-			ORDER BY  date_comentario DESC 
-			LIMIT ".$limit;
+		$Sql = "SELECT DISTINCT c.id_tema,t.nombre 
+				FROM foro_comentarios c
+				LEFT JOIN foro_temas t ON t.id_tema=c.id_tema
+				WHERE t.activo=1 ".$filter." 
+				ORDER BY  date_comentario DESC 
+				LIMIT ".$limit;
 		return connection::getSQL($Sql);
 	}
 }

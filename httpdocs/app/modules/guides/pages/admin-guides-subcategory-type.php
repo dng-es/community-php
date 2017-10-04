@@ -18,7 +18,7 @@ templateload("cmbIcons", "core");
 		guidesController::createSubCategoryTypeAction();
 		guidesController::updateSubCategoryTypeAction();
 
-		$id = ((isset($_REQUEST['id']) and $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
+		$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? $_REQUEST['id'] : 0);
 		$element = guidesController::getItemSubCategoryTypeAction($id);
 		?>
 		<div class="panel panel-default">

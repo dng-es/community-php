@@ -2,51 +2,6 @@
 addJavascripts(array("js/jquery.numeric.js", getAsset("shop")."js/shopproductorder.js"));
 addCss(array(getAsset("shop")."css/styles.css"));
 templateload("credits","shop");
-
-$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
-$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
-$filtro = $filtro_canal." AND active_product=1 AND id_product=".$id." ";
-
-session::getFlashMessage( 'actions_message' );
-$elements = shopProductsController::getListAction(1, $filtro);
-
-//obtener datos del usuario praa rellenar cuestionario
-$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
-
-//obtener datos del usuario para rellenar cuestionario:
-//- si el usuario ha realizado alguna vez un pedido, se toman los datos del último
-//- si nunca ha hecho un pedido, se toman los del perfil
-//$last_order = shopOrdersController::getListAction(1, " AND username_order='".$_SESSION['user_name']."' order BY id_order DESC");
-
-//obtener datos de la tienda para rellenar cuestionario
-$last_order = usersTiendasController::getListAction(1, " AND cod_tienda='".$_SESSION['user_empresa']."' ");
-if (isset($last_order['items'][0])){
-	$name_order = $user_detail['name'];
-	$surname_order = $user_detail['surname'];
-	$telephone_order = $user_detail['telefono'];
-	$address_order = $last_order['items'][0]['nombre_tienda'];
-	$address2_order = $last_order['items'][0]['direccion_tienda'];
-	$city_order = $last_order['items'][0]['ciudad_tienda'];
-	$state_order = $last_order['items'][0]['provincia_tienda'];
-	$postal_order = $last_order['items'][0]['cpostal_tienda'];
-	$notes_order = "";
-}
-else{
-	//obtener datos del usuario
-	$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
-	$name_order = $user_detail['name'];
-	$surname_order = $user_detail['surname'];
-	$telephone_order = $user_detail['telefono'];
-	$address_order = $user_detail['direccion_user'];
-	$address2_order = "";
-	$city_order = $user_detail['ciudad_user'];
-	$state_order = $user_detail['provincia_user'];
-	$postal_order = $user_detail['cpostal_user'];
-	$notes_order = "";
-}
-
-$module_config = getModuleConfig("shop");
-
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -56,6 +11,51 @@ $module_config = getModuleConfig("shop");
 			array("ItemLabel"=>strTranslate("APP_Shop"), "ItemUrl"=>"shopproducts"),
 			array("ItemLabel"=> "Realizar pedido", "ItemClass"=>"active"),
 		));
+		
+		$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
+		$filtro = $filtro_canal." AND active_product=1 AND id_product=".$id." ";
+
+		session::getFlashMessage( 'actions_message' );
+		$elements = shopProductsController::getListAction(1, $filtro);
+
+		//obtener datos del usuario praa rellenar cuestionario
+		$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
+
+		//obtener datos del usuario para rellenar cuestionario:
+		//- si el usuario ha realizado alguna vez un pedido, se toman los datos del último
+		//- si nunca ha hecho un pedido, se toman los del perfil
+		//$last_order = shopOrdersController::getListAction(1, " AND username_order='".$_SESSION['user_name']."' order BY id_order DESC");
+
+		//obtener datos de la tienda para rellenar cuestionario
+		$last_order = usersTiendasController::getListAction(1, " AND cod_tienda='".$_SESSION['user_empresa']."' ");
+		if (isset($last_order['items'][0])){
+			$name_order = $user_detail['name'];
+			$surname_order = $user_detail['surname'];
+			$telephone_order = $user_detail['telefono'];
+			$address_order = $last_order['items'][0]['nombre_tienda'];
+			$address2_order = $last_order['items'][0]['direccion_tienda'];
+			$city_order = $last_order['items'][0]['ciudad_tienda'];
+			$state_order = $last_order['items'][0]['provincia_tienda'];
+			$postal_order = $last_order['items'][0]['cpostal_tienda'];
+			$notes_order = "";
+		}
+		else{
+			//obtener datos del usuario
+			$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
+			$name_order = $user_detail['name'];
+			$surname_order = $user_detail['surname'];
+			$telephone_order = $user_detail['telefono'];
+			$address_order = $user_detail['direccion_user'];
+			$address2_order = "";
+			$city_order = $user_detail['ciudad_user'];
+			$state_order = $user_detail['provincia_user'];
+			$postal_order = $user_detail['cpostal_user'];
+			$notes_order = "";
+		}
+
+		$module_config = getModuleConfig("shop");
+
 		if (isset($elements['items'][0])):
 			$element = $elements['items'][0];?>
 

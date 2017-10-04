@@ -20,7 +20,7 @@ class shopManufacturersController{
 		if (isset($_REQUEST['name_search'])) $find_reg .= "&name_search=".$_REQUEST['name_search'];
 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("shop_manufacturers",$filter); 
+		$total_reg = connection::countReg("shop_manufacturers", $filter); 
 		return array('items' => $shop->getManufacturers($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

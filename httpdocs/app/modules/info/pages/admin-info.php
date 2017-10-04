@@ -46,9 +46,12 @@ infoController::exportViewsAction();
 						?>
 						<tr>
 							<td nowrap="nowrap">
-								<button type="button" class="btn btn-default btn-xs" onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-info?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>'); return false;"  title="<?php e_strTranslate("Delete");?>" /><span class="fa fa-trash icon-table"></span></button>
-								  <a href="admin-info-doc?act=edit&id=<?php echo $element['id_info'];?>" title="<?php e_strTranslate("Edit");?>"><button type="button" class="btn btn-default btn-xs">
-								  <span class="fa fa-edit icon-table"></span></button></a>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-info?pag=<?php echo $elements['pag'];?>&act=del&d=<?php echo $element['file_info'];?>&id=<?php echo $element['id_info'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
+								</button>
+
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-info-doc?act=edit&id=<?php echo $element['id_info'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
 							<td><a target="_blank" href="<?php echo $enlace;?>"><?php echo $element['titulo_info'];?></a></td>
 							<td><?php echo $element['canal_info'];?></td>

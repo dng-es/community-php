@@ -19,7 +19,6 @@ jQuery(document).ready(function(){
 			$("#new-user-container").show().addClass('div-drop-visible');
 		}
 	});
-
 	
 	//verificación datos del formulario
 	$("#add-form").submit(function(evento){

@@ -1,12 +1,16 @@
 <?php
 class users{
 	public function getPerfiles($filter = ""){
-		$Sql = "SELECT DISTINCT perfil FROM users WHERE 1=1 ".$filter;
+		$Sql = "SELECT DISTINCT perfil 
+				FROM users 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function getCanales($filter = ""){
-		$Sql = "SELECT * FROM canales WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM canales 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -27,14 +31,16 @@ class users{
 	}
 	
 	public function getUsers($filter = ""){
-		$Sql = "SELECT u.*,t.* FROM users u  
+		$Sql = "SELECT u.*,t.* 
+				FROM users u  
 				LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function getUsersSimple($filter = ""){
-		$Sql = "SELECT * FROM users 
+		$Sql = "SELECT * 
+				FROM users 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -125,8 +131,10 @@ class users{
 	}
 
 	public function getPuntuaciones($filter = ""){
-		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* FROM users_puntuaciones p 
-				JOIN users u ON u.username=p.puntuacion_username WHERE 1=1 ".$filter;
+		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* 
+				FROM users_puntuaciones p 
+				JOIN users u ON u.username=p.puntuacion_username 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);  
 	}
 
@@ -137,8 +145,10 @@ class users{
 	}
 
 	public function getParticipaciones($filter = ""){
-		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* FROM users_participaciones p
-			 JOIN users u ON u.username=p.participacion_username WHERE 1=1 ".$filter;
+		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* 
+				FROM users_participaciones p 
+				JOIN users u ON u.username=p.participacion_username 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);  
 	}
 
@@ -149,7 +159,7 @@ class users{
 	}
 
 	public static function sumarPuntos($username, $puntos, $motivo){
-		if ($motivo != PUNTOS_ACCESO_SEMANA_MOTIVO and $motivo != PUNTOS_FORO_SEMANA_MOTIVO) self::sumarParticipacion($username, $motivo, $puntos);
+		if ($motivo != PUNTOS_ACCESO_SEMANA_MOTIVO && $motivo != PUNTOS_FORO_SEMANA_MOTIVO) self::sumarParticipacion($username, $motivo, $puntos);
 
 		if (self::insertPuntuacion($username, $puntos, $motivo)){
 			$Sql = "UPDATE users SET 
@@ -286,7 +296,7 @@ class users{
 
 	public function perfilUser($username, $nick, $user_nombre, $user_apellidos, $user_pass, $user_email, $foto, $user_comentarios, $user_date, $user_lan, $direccion_user, $ciudad_user, $provincia_user, $cpostal_user, $telefono){
 		//verificar si el nick existe, Devolvera: 1->ok, 2-> Error SQL, 3->Nick existe,
-		if (connection::countReg("users"," AND nick='".$nick."' AND username<>'".$username."' ") == 0){
+		if (connection::countReg("users", " AND nick='".$nick."' AND username<>'".$username."' ") == 0){
 			$nombre_archivo = "";
 			$SqlFoto = "";
 			if ($foto['name'] != ""){
@@ -335,7 +345,8 @@ class users{
 	}	
 
 	public function deleteUser($username){
-		$Sql = "DELETE FROM users WHERE username='".$username."'";
+		$Sql = "DELETE FROM users 
+				WHERE username='".$username."'";
 		return connection::execute_query($Sql);
 	}
 
@@ -400,22 +411,29 @@ class users{
 	}
 
 	public function getTiendas($filter = ""){
-		$Sql = "SELECT * FROM users_tiendas WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM users_tiendas 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function getTiendasTipos($filter = ""){
-		$Sql = "SELECT DISTINCT(tipo_tienda) AS tipo_tienda FROM users_tiendas WHERE 1=1 ".$filter;
+		$Sql = "SELECT DISTINCT(tipo_tienda) AS tipo_tienda 
+				FROM users_tiendas 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function getUsersSucursales($filter = ""){
-		$Sql = "SELECT * FROM users_sucursales WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM users_sucursales 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function deteleUsersSucursales($id, $filtro){
-		$Sql = "DELETE FROM users_sucursales WHERE id_sucursal=".$id.$filtro;
+		$Sql = "DELETE FROM users_sucursales 
+				WHERE id_sucursal=".$id.$filtro;
 		return connection::execute_query($Sql);
 	}
 
@@ -425,12 +443,15 @@ class users{
 	}
 
 	public function updateLastAccess($username){
-		$Sql = "UPDATE users SET last_access=NOW() WHERE username='".$username."'";
+		$Sql = "UPDATE users SET 
+				last_access=NOW() 
+				WHERE username='".$username."'";
 		return connection::execute_query($Sql);
 	}
 
 	public static function getUsersConn($filter = ""){
-		$Sql = "SELECT u.* FROM users_connected c 
+		$Sql = "SELECT u.* 
+				FROM users_connected c 
 				LEFT JOIN users u ON u.username=c.username 
 				WHERE FROM_UNIXTIME(UNIX_TIMESTAMP(connection_time)+".SESSION_MAXTIME.")>NOW() ".$filter;
 		return connection::getSQL($Sql);
@@ -453,8 +474,8 @@ class users{
 
 	public function getUsuariosPerfilBaja($perfil, $campo){
 		$Sql = "SELECT username, perfil 
-				FROM users WHERE perfil='".$perfil."' AND disabled=0 
-				AND username NOT IN (SELECT ".$campo." FROM users_tiendas WHERE activa=1) ";
+				FROM users 
+				WHERE perfil='".$perfil."' AND disabled=0 AND username NOT IN (SELECT ".$campo." FROM users_tiendas WHERE activa=1) ";
 		return connection::getSQL($Sql); 
 	}
 
@@ -504,7 +525,8 @@ class users{
 	/////////////////////////////////////////////////////////////
 
 	public function getUsersPermisions($filter = ""){
-		$Sql = "SELECT * FROM users_permissions 
+		$Sql = "SELECT * 
+				FROM users_permissions 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -533,8 +555,10 @@ class users{
 	/////////////////////////////////////////////////////////////
 	
 	public function getCreditos($filter = ""){
-		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* FROM users_creditos p 
-				JOIN users u ON u.username=p.credito_username WHERE 1=1 ".$filter;
+		$Sql = "SELECT u.nick,u.canal,u.empresa,p.* 
+				FROM users_creditos p 
+				JOIN users u ON u.username=p.credito_username 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 

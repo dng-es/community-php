@@ -2,7 +2,7 @@
 addJavascripts(array("js/libs/ckeditor/ckeditor.js", 
 					 "js/libs/ckfinder/ckfinder.js", 
 					 "js/bootstrap.file-input.js", 
-					 getAsset("promociones")."js/admin-promociones-new.js"));
+					 getAsset("promociones")."js/admin-promocion.js"));
 
 templateload("cmbCanales","users");
 ?>
@@ -20,26 +20,7 @@ templateload("cmbCanales","users");
 		session::getFlashMessage('actions_message');
 		promocionesController::createAction();
 		promocionesController::updateAction();
-		$elements = promocionesController::getItemAction($id);
-
-		if (isset($elements[0])){
-			$accion = "edit";
-			$nombre = $elements[0]['nombre_promocion'];
-			$descripcion = $elements[0]['texto_promocion'];
-			$comentarios = $elements[0]['galeria_comentarios'];
-			$videos = $elements[0]['galeria_videos'];
-			$fotos = $elements[0]['galeria_fotos'];
-
-		}
-		else{
-			$accion = "new";
-			$nombre = "";
-			$descripcion = "";
-			$comentarios = 1;
-			$videos = 0;
-			$fotos = 0;
-		}
-
+		$element = promocionesController::getItemAction($id);
 		?>
 		<form id="formData" name="formData" method="post" enctype="multipart/form-data" action="" role="form">
 		<input type="hidden" name="id" value="<?php echo $id;?>" />
@@ -48,12 +29,12 @@ templateload("cmbCanales","users");
 				<div class="panel-body">
 
 					<label for="nombre" class="sr-only">Título del reto:</label>
-					<input type="text" class="form-control form-big" name="nombre_promocion" id="nombre_promocion" value="<?php echo $nombre;?>" placeholder="título del reto" />
+					<input type="text" class="form-control form-big" name="nombre_promocion" id="nombre_promocion" value="<?php echo $element['nombre_promocion'];?>" placeholder="título del reto" />
 					<br />
 					<label for="descripcion" class="sr-only">Descripción del reto:</label>
-					<textarea cols="40" rows="5" name="texto_promocion"><?php echo $descripcion;?></textarea>
+					<textarea cols="40" rows="5" name="texto_promocion"><?php echo $element['texto_promocion'];?></textarea>
 					<script type="text/javascript">
-						var editor=CKEDITOR.replace('texto_promocion',{customConfig : 'config-page.js'});
+						var editor=CKEDITOR.replace('texto_promocion', {customConfig : 'config-page.js'});
 						CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
 					</script>	
 				</div>
@@ -64,17 +45,17 @@ templateload("cmbCanales","users");
 				<div class="panel-heading">Opciones del reto</div>
 				<div class="panel-body">
 					<div class="radio radio-primary">
-						<input type="radio" id="galeria_promocion1" name="galeria_promocion" value="comentarios" <?php echo ($comentarios ==1 ? 'checked' : '');?>> 
+						<input type="radio" id="galeria_promocion1" name="galeria_promocion" value="comentarios" <?php echo ($element['galeria_comentarios'] ==1 ? 'checked' : '');?>> 
 						<label>Comentarios</label>
 					</div>
 
 					<div class="radio radio-primary">
-						<input type="radio" id="galeria_promocion2" name="galeria_promocion" value="fotos" <?php echo ($fotos ==1 ? 'checked' : '');?>> 
+						<input type="radio" id="galeria_promocion2" name="galeria_promocion" value="fotos" <?php echo ($element['galeria_fotos'] ==1 ? 'checked' : '');?>> 
 						<label>Fotos</label>
 					</div>
 
 					<div class="radio radio-primary">
-						<input type="radio" id="galeria_promocion3" name="galeria_promocion" value="videos" <?php echo ($videos ==1 ? 'checked' : '');?>> 
+						<input type="radio" id="galeria_promocion3" name="galeria_promocion" value="videos" <?php echo ($element['galeria_videos'] ==1 ? 'checked' : '');?>> 
 						<label>Videos</label>
 					</div>
 				</div>

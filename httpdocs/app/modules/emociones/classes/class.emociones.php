@@ -7,7 +7,8 @@ class emociones{
 	 * @return array 				Array con registros
 	 */
 	public function getEmociones($filter = ""){
-		$Sql = "SELECT * FROM emociones WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM emociones WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -17,7 +18,8 @@ class emociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deleteEmociones($id){
-		$Sql = "DELETE FROM emociones WHERE id_emocion=".$id;
+		$Sql = "DELETE FROM emociones 
+				WHERE id_emocion=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -28,7 +30,9 @@ class emociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function disableEmociones($id, $estado=0){
-		$Sql = "UPDATE emociones SET active=".$estado." WHERE id_emocion=".$id;
+		$Sql = "UPDATE emociones SET 
+				active=".$estado." 
+				WHERE id_emocion=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -38,7 +42,7 @@ class emociones{
 		$nombre_archivo = strtolower($nombre_archivo);
 		$nombre_archivo = NormalizeText($nombre_archivo);
 	
-		if (move_uploaded_file($fichero['tmp_name'], "images/banners/".$nombre_archivo)){
+		if (move_uploaded_file($fichero['tmp_name'], "images/emociones/".$nombre_archivo)){
 			//INSERTAR REGISTRO EN LA BBDD  
 			$Sql = "INSERT INTO emociones (name_emocion,image_emocion) 
 				 VALUES
@@ -54,7 +58,7 @@ class emociones{
 			$nombre_archivo = time().'_'.str_replace(" ","_",$document_file['name']);
 			$nombre_archivo = strtolower($nombre_archivo);
 			$nombre_archivo = NormalizeText($nombre_archivo);
-			if (move_uploaded_file($document_file['tmp_name'], "images/banners/".$nombre_archivo)){
+			if (move_uploaded_file($document_file['tmp_name'], "images/emociones/".$nombre_archivo)){
 				$SqlUpdate = "image_emocion='".$nombre_archivo."', ";
 			}
 			else{
@@ -65,9 +69,9 @@ class emociones{
 		else $SqlUpdate = "";
 
 		$Sql = "UPDATE emociones SET 
-			".$SqlUpdate." 
-			name_emocion='".$title."' 
-			WHERE id_emocion=".$id;
+				".$SqlUpdate." 
+				name_emocion='".$title."' 
+				WHERE id_emocion=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -77,9 +81,11 @@ class emociones{
 	 * @return array 				Array con registros
 	 */
 	public function getEmocionesUser($filter = ""){
-		$Sql = "SELECT eu.*, e.* FROM emociones_user eu
-			LEFT JOIN emociones e ON e.id_emocion=eu.id_emocion 
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT eu.*, e.*, u.* 
+				FROM emociones_user eu
+				LEFT JOIN emociones e ON e.id_emocion=eu.id_emocion 
+				LEFT JOIN users u ON u.username=eu.user_emocion 
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -97,7 +103,9 @@ class emociones{
 	 * @return array 				Array con registros
 	 */
 	public function getEmocionesConsejos($filter = ""){
-		$Sql = "SELECT * FROM emociones_consejos WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM emociones_consejos 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}	
 
@@ -108,7 +116,8 @@ class emociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deleteConsejoEmociones($id){
-		$Sql = "DELETE FROM emociones_consejos WHERE id_consejo=".$id;
+		$Sql = "DELETE FROM emociones_consejos 
+				WHERE id_consejo=".$id;
 		return connection::execute_query($Sql);
 	}	
 

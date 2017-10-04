@@ -26,14 +26,14 @@
 						<?php foreach($elements['items'] as $element):?>
 						<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-edit icon-table" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-emocion?id=<?php echo $element['id_emocion'];?>'">
-								</span>
-								
-								<span class="fa fa-trash icon-table" title="eliminar"
-									onClick="Confirma('¿Seguro que desea eliminar la emoción?', 'admin-emociones?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_emocion'];?>')">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-emociones?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_emocion'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+								</button>
+
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-emocion?id=<?php echo $element['id_emocion'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+								</button>
 							</td>
-							<td><img style="height: 50px" src="images/banners/<?php echo $element['image_emocion'];?>" /></td>
+							<td><img style="height: 50px" src="images/emociones/<?php echo $element['image_emocion'];?>" /></td>
 							<td><?php echo $element['name_emocion'];?></td>
 						</tr>
 						<?php endforeach;?>

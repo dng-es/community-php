@@ -33,7 +33,7 @@ $id_tarea = intval((isset($_REQUEST['id']) && $_REQUEST['id'] != 0) ? $_REQUEST[
 
 			$na_areas = new na_areas();
 			$elements = $na_areas->getPreguntas(" AND id_tarea=".$id_tarea." ");
-			$finalizados = connection::countReg("na_tareas_formularios_finalizados"," AND id_tarea=".$id_tarea." AND user_tarea='".$_SESSION['user_name']."' ");
+			$finalizados = connection::countReg("na_tareas_formularios_finalizados", " AND id_tarea=".$id_tarea." AND user_tarea='".$_SESSION['user_name']."' ");
 			
 			if ($finalizados > 0){
 				//obtener resultado de la valoracion

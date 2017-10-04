@@ -6,9 +6,10 @@ class incidencias{
 	 * @return array 				Array con registros
 	 */
 	public function getIncidencias($filter = ""){
-		$Sql = "SELECT * FROM incidencias i 
-			LEFT JOIN users u ON u.username=i.username_incidencia 
-			WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT * 
+				FROM incidencias i 
+				LEFT JOIN users u ON u.username=i.username_incidencia 
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -18,9 +19,10 @@ class incidencias{
 	 * @return array 				Array con registros
 	 */
 	public function getIncidenciasExport($filter = ""){
-		$Sql = "SELECT i.*, u.name, u.surname, u.surname2, u.email,u.telefono FROM incidencias i 
-			LEFT JOIN users u ON u.username=i.username_incidencia 
-			WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT i.*, u.name, u.surname, u.surname2, u.email,u.telefono 
+				FROM incidencias i 
+				LEFT JOIN users u ON u.username=i.username_incidencia 
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}	
 
@@ -30,7 +32,9 @@ class incidencias{
 	 * @return array 				Array con registros
 	 */
 	public function getIncidenciasEstados($filter = ""){
-		$Sql = "SELECT * FROM incidencias_estados WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM incidencias_estados 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}   	
 
@@ -62,8 +66,8 @@ class incidencias{
 	 */
 	public function updateIncidencias($id, $username_incidencia, $texto_incidencia){
 		$Sql = "UPDATE incidencias SET
-			 texto_incidencia='".$texto_incidencia."'
-			 WHERE id_incidencia=".$id." AND username_incidencia='".$username_incidencia."'";
+				texto_incidencia='".$texto_incidencia."'
+				WHERE id_incidencia=".$id." AND username_incidencia='".$username_incidencia."'";
 		return connection::execute_query($Sql);
 	}
 
@@ -75,8 +79,8 @@ class incidencias{
 	 */
 	public function estadoIncidencia($id, $value, $filter = ""){
 		$Sql = "UPDATE incidencias SET
-			 estado_incidencia=".$value."
-			 WHERE id_incidencia=".$id." ".$filter;
+				estado_incidencia=".$value."
+				WHERE id_incidencia=".$id." ".$filter;
 		return connection::execute_query($Sql);
 	}
 
@@ -88,9 +92,9 @@ class incidencias{
 	 */
 	public function updateAdminIncidencias($id, $solucion_incidencia, $categoria_incidencia, $filter = ""){
 		$Sql = "UPDATE incidencias SET
-			 solucion_incidencia='".$solucion_incidencia."', 
-			 categoria_incidencia='".$categoria_incidencia."' 
-			 WHERE id_incidencia=".$id." ".$filter;
+				solucion_incidencia='".$solucion_incidencia."', 
+				categoria_incidencia='".$categoria_incidencia."' 
+				WHERE id_incidencia=".$id." ".$filter;
 		return connection::execute_query($Sql);
 	}	
 
@@ -100,8 +104,9 @@ class incidencias{
 	 * @return array 				Array con registros
 	 */
 	public function getCategorias($filter = ""){
-		$Sql = "SELECT DISTINCT(categoria_incidencia) AS categoria FROM incidencias 
-			WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT DISTINCT(categoria_incidencia) AS categoria 
+				FROM incidencias 
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 }

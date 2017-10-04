@@ -194,7 +194,7 @@ class usersCore{
 	<?php }
 
 	public static function moduleHooks(){
-		add_hook('home', 'sidebar', 'usersCore::searchUsers', 1);
+		add_hook('user-profile', 'sidebar', 'usersCore::searchUsers', 1);
 	}
 }
 ?>

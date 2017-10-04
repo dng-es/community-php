@@ -23,7 +23,7 @@ $filtro_blog = $filtro_canal." AND activo=1 ";
 		$module_config = getModuleConfig("blog");
 
 		blogController::insertAlerts();
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		foroController::createRespuestaAction();
 		foroController::votarAction();
 		$tema = blogController::getLastBlogAction($filtro_blog);

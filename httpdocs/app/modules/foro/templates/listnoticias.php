@@ -6,7 +6,7 @@
 */
 function ForoList($sub_tema){
 	$num_comentarios = users::countReg("foro_comentarios", " AND estado=1 AND id_tema=".$sub_tema['id_tema']." ");
-	$num_visitas = users::countReg("foro_visitas"," AND id_tema=".$sub_tema['id_tema']." ");
+	$num_visitas = users::countReg("foro_visitas", " AND id_tema=".$sub_tema['id_tema']." ");
 	$descripcion = strip_tags($sub_tema['descripcion']);
 	if (strlen($descripcion) > 400) $descripcion = substr($descripcion, 0, 400)."...";
 		//$destino_inscripcion=$this->foroInscripcion($sub_tema['id_tema']);

@@ -1,18 +1,9 @@
 <?php
 $filtro_temas = (isset($_POST['tipo_search']) && $_POST['tipo_search'] != "") ? " AND tipo_tema LIKE '%".$_POST['tipo_search']."%' " : "";
 $find_tipo = (isset($_POST['tipo_search']) && $_POST['tipo_search'] != "") ? $_POST['tipo_search'] : "";
-
-$find_reg = "";
-if (isset($_POST['find_reg'])){
-	$filtro_temas .= " AND nombre LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
-	$find_reg = $_POST['find_reg'];
-}
-if (isset($_REQUEST['f'])){
-	$filtro_temas .= " AND nombre LIKE '%".sanitizeInput($_REQUEST['f'])."%' ";
-	$find_reg = $_REQUEST['f'];
-}
-
-$filter = " AND id_area=0 AND activo=1 and itinerario='' ".$filtro_temas." ORDER BY id_tema DESC ";
+$find_reg = getFindReg();
+if ($find_reg != '') $filtro_temas .= " AND nombre LIKE '%".sanitizeInput($_POST['find_reg'])."%' ";
+$filter = " AND id_area=0 AND activo=1 AND itinerario='' ".$filtro_temas." ORDER BY id_tema DESC ";
 
 foroController::exportTemasCommentsAction(" AND c.estado=1 ");
 foroController::exportTemasAction($filter);

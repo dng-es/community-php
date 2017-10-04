@@ -62,5 +62,53 @@ class agendaCore{
 			))
 		);
 	}
+
+	public static function searchMain($string){
+		$result = array();
+		$agenda = new agenda();
+		//buscar en alertas
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal LIKE '%".$_SESSION['user_canal']."%' " : "");
+		$filtro = $filtro_canal." AND activo=1 ORDER BY date_ini DESC,id_agenda DESC ";
+		$request = $agenda->getAgenda(" AND (MATCH(titulo) AGAINST ('".$string."') OR MATCH(descripcion) AGAINST ('".$string."')) ".$filtro);
+		foreach ($request as $req):
+			if ($req['tipo'] == 1) {
+				$url = "agenda?search=".$string;
+				$type = strTranslate("Diary");
+			}
+			if ($req['tipo'] == 2) {
+				$url = "ofertas?search=".$string;
+				$type = strTranslate("Offers");
+			}
+			array_push($result, array(
+				"title"=>$req['titulo'], 
+				"description"=>$req['descripcion'], 
+				"url"=>$url,
+				"type" => $type,
+				"order" => 7
+			));
+		endforeach;
+
+		if (strtolower($string) == strtolower(strTranslate("Diary"))){
+			array_push($result, array(
+				"title"=>'<i class="fa fa-list"></i> '.strTranslate("Diary"), 
+				"description"=>strTranslate("Diary_and_offers"), 
+				"url"=>"agenda",
+				"type" => strTranslate("Diary"),
+				"order" => 6
+			));
+		}
+
+		if (strtolower($string) == strtolower(strTranslate("Offers"))){
+			array_push($result, array(
+				"title"=>'<i class="fa fa-list"></i> '.strTranslate("Offers"), 
+				"description"=>strTranslate("Diary_and_offers"), 
+				"url"=>"ofertas",
+				"type" => strTranslate("Diary"),
+				"order" => 6
+			));
+		}		
+
+		return $result;
+	}	
 }
 ?>

@@ -54,7 +54,7 @@ $id_album = (isset($_REQUEST['id']) ? sanitizeInput(trim($_REQUEST['id'])) : 0);
 			<ul class="lista-lateral">
 			<?php //foreach($albums['items'] as $album): ?>
 				<?php 
-				//$num_fotos = connection::countReg("galeria_fotos",$filtro_canal_fotos." AND estado=1 AND id_album=".$album['id_album']." ");
+				//$num_fotos = connection::countReg("galeria_fotos", $filtro_canal_fotos." AND estado=1 AND id_album=".$album['id_album']." ");
 				//if($num_fotos > 0): ?>
 				<li><a href="fotos?id=<?php //echo $album['id_album'];?>"><?php //echo $album['nombre_album'];?> <span class="badge"><?php //echo $num_fotos;?></span></a></li>
 				<?php //endif;?>

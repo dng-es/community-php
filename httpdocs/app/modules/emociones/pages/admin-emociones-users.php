@@ -37,7 +37,7 @@ define('SUBJECT_META_PAGE', $ini_conf['SiteSubject']);
 						<?php foreach($elements['items'] as $element):?>
 						<tr>
 							<td nowrap="nowrap">
-								<img style="height: 50px" src="images/banners/<?php echo $element['image_emocion'];?>" />
+								<img style="height: 50px" src="images/emociones/<?php echo $element['image_emocion'];?>" />
 							</td>
 							<td><?php echo $element['name_emocion'];?></td>
 							<td><?php echo $element['user_emocion'];?></td>

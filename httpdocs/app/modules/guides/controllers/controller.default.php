@@ -75,7 +75,7 @@ class guidesController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$guides = new guides();
 			if ($guides->deleteGuide($_REQUEST['id'], $_REQUEST['e'])) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -87,7 +87,7 @@ class guidesController{
 	}
 
 	public static function deleteCategoryAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$guides = new guides();
 			if ($guides->deleteGuideCategory($_REQUEST['id'], $_REQUEST['e'])) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -99,7 +99,7 @@ class guidesController{
 	}
 
 	public static function deleteSubCategoryAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$guides = new guides();
 			if ($guides->deleteGuideSubCategory($_REQUEST['id'], $_REQUEST['e'])) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -111,7 +111,7 @@ class guidesController{
 	}
 
 	public static function deleteSubCategoryTypeAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$guides = new guides();
 			if ($guides->deleteGuideSubCategoryType($_REQUEST['id'], $_REQUEST['e'])) 
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
@@ -123,7 +123,7 @@ class guidesController{
 	}
 
 	public static function exportUsersListAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true) {
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true) {
 			$guides = new guides();
 			$elements = $guides->getGuidesSubCategoriesUsersExport("");
 			download_send_headers(strTranslate("Guides")."_".date("Y-m-d").".csv");
@@ -134,16 +134,14 @@ class guidesController{
 
 	public static function getItemAction($id){
 		$guides = new guides();
-		$element = array();
 		$elements = $guides->getGuides(" AND id_guide=".$id." ");
-		if (isset($elements[0])) $element = $elements[0];
-		else{
-			$element['name_guide'] = "";
-			$element['type_guide'] = "";
-			$element['active_guide'] = 1;
-			$element['order_guide'] = 1;
+		if (!isset($elements[0])){
+			$elements[0]['name_guide'] = "";
+			$elements[0]['type_guide'] = "";
+			$elements[0]['active_guide'] = 1;
+			$elements[0]['order_guide'] = 1;
 		}
-		return $element;
+		return $elements[0];
 	}
 
 	public static function getItemCategoryAction($id){
@@ -174,6 +172,7 @@ class guidesController{
 			$element['desc_guide_subcategory'] = "";
 			$element['active_guide_subcategory'] = 1;
 			$element['order_guide_subcategory'] = 1;
+			$element['type_guide'] = "";
 		}
 		return $element;
 	}	
@@ -194,7 +193,7 @@ class guidesController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$guides = new guides();
 			$name_guide = sanitizeInput($_POST['name_guide']);
 			$type_guide = stripslashes($_POST['type_guide']);
@@ -213,7 +212,7 @@ class guidesController{
 	}
 
 	public static function updateAction(){
-		if (isset($_POST['id']) and $_POST['id'] > 0){
+		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$guides = new guides();
 			$id = intval($_POST['id']);
 			$name_guide = sanitizeInput($_POST['name_guide']);
@@ -231,7 +230,7 @@ class guidesController{
 	}
 
 	public static function createCategoryAction(){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$guides = new guides();
 			$id_guide = intval($_POST['id_guide']);
 			$name_guide_category = stripslashes($_POST['name_guide_category']);
@@ -250,7 +249,7 @@ class guidesController{
 	}
 
 	public static function updateCategoryAction(){
-		if (isset($_POST['id']) and $_POST['id'] > 0){
+		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$guides = new guides();
 			$id = intval($_POST['id']);
 			$id_guide = intval($_POST['id_guide']);
@@ -268,7 +267,7 @@ class guidesController{
 	}
 
 	public static function createSubCategoryAction(){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$guides = new guides();
 			$id_guide_category = intval($_POST['id_guide_category']);
 			$id_guide_subcategory_type = intval($_POST['id_guide_subcategory_type']);
@@ -288,7 +287,7 @@ class guidesController{
 	}
 
 	public static function updateSubCategoryAction(){
-		if (isset($_POST['id']) and $_POST['id'] > 0){
+		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$guides = new guides();
 			$id = intval($_POST['id']);
 			$id_guide_category = intval($_POST['id_guide_category']);
@@ -307,7 +306,7 @@ class guidesController{
 	}
 
 	public static function createSubCategoryTypeAction(){
-		if (isset($_POST['id']) and $_POST['id'] == 0){
+		if (isset($_POST['id']) && $_POST['id'] == 0){
 			$guides = new guides();
 			$name_guide_subcategory_type = sanitizeInput($_POST['name_guide_subcategory_type']);
 			$icon_guide_subcategory_type = stripslashes($_POST['icon_guide_subcategory_type']);
@@ -326,7 +325,7 @@ class guidesController{
 	}
 
 	public static function updateSubCategoryTypeAction(){
-		if (isset($_POST['id']) and $_POST['id'] > 0){
+		if (isset($_POST['id']) && $_POST['id'] > 0){
 			$guides = new guides();
 			$id = sanitizeInput($_POST['id']);
 			$name_guide_subcategory_type = sanitizeInput($_POST['name_guide_subcategory_type']);
@@ -344,7 +343,7 @@ class guidesController{
 	}
 
 	public static function createSubCategoryUserAction(){
-		if (isset($_POST['id_guide_users']) and $_POST['id_guide_users'] == 0){
+		if (isset($_POST['id_guide_users']) && $_POST['id_guide_users'] == 0){
 			$guides = new guides();
 			$id_guide_subcategory = sanitizeInput($_POST['id_guide_subcategory']);
 			$user_guide_like= sanitizeInput($_POST['user_guide_like']);
@@ -370,7 +369,7 @@ class guidesController{
 	}
 
 	public static function updateSubCategoryUserAction(){
-		if (isset($_POST['id_guide_users']) and $_POST['id_guide_users'] > 0){
+		if (isset($_POST['id_guide_users']) && $_POST['id_guide_users'] > 0){
 			$guides = new guides();
 			$id = sanitizeInput($_POST['id_guide_users']);
 			$id_guide_subcategory = sanitizeInput($_POST['id_guide_subcategory']);

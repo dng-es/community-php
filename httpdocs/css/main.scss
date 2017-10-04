@@ -573,12 +573,32 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		width:45px;
 	}
 	p{
+		display: block;
 		margin-right:10px;
 		margin-bottom:0px;
+		margin-left:0px;
+		margin-top:0px;
+		text-align: right;
+	}
+	.icons-container{
+		display: block;
+		margin-right:10px;
+		margin-bottom:0px;
+		margin-left:0px;
+		margin-top:0px;
 		text-align: right;
 	}
 	span {
 		color:$color3;
+	}
+	.user-info-icon{
+		@include border-radius(0);
+		//@include box-shadow(rgba(0, 0, 0, 0.3) 0 1px 7px 0);
+		float:none;
+		height:45px;
+		margin-left:0px;
+		margin-top:-15px;
+		width:auto;		
 	}
 	.points{
 		color: #bbb;
@@ -2352,5 +2372,13 @@ section, .panel-comunidad, .media-comment, .videoplayer, .container-fade, #photo
 			font-size: 40px;
 			margin: -10px 0 0 20px;
 		}
+	}
+}
+
+.panel-header-form{
+	background-color: $color3;
+	padding: 15px;
+	label{
+		color: #fff;
 	}
 }

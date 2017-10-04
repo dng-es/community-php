@@ -123,7 +123,7 @@ class incidenciasController{
 					if (isset($_REQUEST['a']) && $_REQUEST['a'] >= 0){
 						self::changeEstadoAction($id, intval($_REQUEST['a']), true, " AND username_incidencia='".$_SESSION['user_name']."' ");
 					}
-					session::setFlashMessage('actions_message',  strTranslate("Update_procesing"), "alert alert-success");
+					session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 				} 
 				else
 					session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -172,7 +172,7 @@ class incidenciasController{
 			$enviar_email = (isset($_POST['enviar_email']) && $_POST['enviar_email'] == "on") ? 1 : 0;
 			if ($incidencias->updateAdminIncidencias($id_incidencia, $solucion_incidencia, $categoria_incidencia, $filter)) {
 				session::setFlashMessage('actions_message',  strTranslate("Update_procesing"), "alert alert-success");
-				if (isset($_REQUEST['a']) && $_REQUEST['a'] >= 0)self::changeEstadoAction($id_incidencia, intval($_REQUEST['a']), true, "");
+				if (isset($_REQUEST['a']) && $_REQUEST['a'] >= 0) self::changeEstadoAction($id_incidencia, intval($_REQUEST['a']), true, "");
 				elseif($enviar_email) self::emailEstadoAction($id_incidencia, $estado_incidencia);
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
@@ -187,7 +187,7 @@ class incidenciasController{
 		$incidencias = new incidencias();
 		if ($incidencias->estadoIncidencia($id_incidencia, $estado_incidencia, $filter)) {
 			$incidencias->insertIncidenciaEstado($id_incidencia, $_SESSION['user_name'], $estado_incidencia);
-			session::setFlashMessage('actions_message',  strTranslate("Update_procesing"), "alert alert-success");
+			session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			if ($envio_emails) self::emailEstadoAction($id_incidencia, $estado_incidencia);
 		}
 		else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

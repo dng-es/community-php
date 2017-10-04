@@ -50,7 +50,9 @@ addJavascripts(	array("js/bootstrap-datepicker.js",
 										<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
 											onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-incentives-targets?pag=<?php echo $elements['pag'].'&f='.$elements['find_reg'].'&act=del&id='.$element['id_objetivo'];?>', '<?php e_strTranslate("Are_you_sure");?>', '<?php e_strTranslate("Cancel_text");?>', '<?php e_strTranslate("Confirm_text");?>'); return false"><i class="fa fa-trash icon-table"></i>
 										</button>
-										<a href="admin-incentives-targets-detail?id=<?php echo $element['id_objetivo'];?>" class="btn btn-default btn-xs" title="detalle"><i class="fa fa-edit"></i></a>	
+
+										<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-incentives-targets-detail?id=<?php echo $element['id_objetivo'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+										</button>
 									</td>
 									<td>
 										<?php echo $element['nombre_objetivo'];?><br />

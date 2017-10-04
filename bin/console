@@ -57,11 +57,11 @@ class Console {
 		$folders = FileSystem::showDirFolders($this->public_path."/app/modules/");
 		echo "\n";
 		foreach($folders as $folder):
-			if ($folder <>"core"):
+			if ($folder <> "core"):
 				$annotations = FileSystem::getClassAnnotations($folder);
 				$annotation = $annotations[1];
 				$ann = isset($annotation[0]) ? $annotation[0] : "";
-				echo  $this->getColoredString(str_pad($folder, 30, ' ', STR_PAD_RIGHT), "yellow"). $this->getColoredString($ann, "green")."\n";		
+				echo  $this->getColoredString(str_pad($folder, 30, ' ', STR_PAD_RIGHT), "yellow").$this->getColoredString($ann, "green")."\n";		
 			endif;
 		endforeach;
 	}
@@ -71,11 +71,11 @@ class Console {
 	 * @param  string $pagename Page to be found
 	 */
 	public function findPage($pagename){	
-		$folders = FileSystem::showDirFolders($this->public_path . "/app/modules/");
+		$folders = FileSystem::showDirFolders($this->public_path."/app/modules/");
 		echo "\n";
 		$exists = 0;
 		foreach($folders as $folder):
-			if (file_exists($this->public_path . "/app/modules/".$folder."/pages/".$pagename.".php")){
+			if (file_exists($this->public_path."/app/modules/".$folder."/pages/".$pagename.".php")){
 				$exists ++;
 				echo $this->getColoredString("Find it!! --> module: ".$folder." (app/modules/".$folder."/pages/".$pagename.".php)\n", "green");;
 			}
@@ -146,16 +146,16 @@ findpage			Find page by name
 	 * @param  string $background_color Background color
 	 * @return string                   String colored
 	 */
-	public function getColoredString($string, $foreground_color = null, $background_color = null) {
+	public function getColoredString($string, $foreground_color = null, $background_color = null){
 		$colored_string = "";
 
 		// Check if given foreground color found
-		if (isset($this->foreground_colors[$foreground_color])) {
-			$colored_string .= "\033[" . $this->foreground_colors[$foreground_color] . "m";
+		if (isset($this->foreground_colors[$foreground_color])){
+			$colored_string .= "\033[".$this->foreground_colors[$foreground_color]."m";
 		}
 		// Check if given background color found
-		if (isset($this->background_colors[$background_color])) {
-			$colored_string .= "\033[" . $this->background_colors[$background_color] . "m";
+		if (isset($this->background_colors[$background_color])){
+			$colored_string .= "\033[".$this->background_colors[$background_color]."m";
 		}
 
 		// Add string and end coloring
@@ -168,7 +168,7 @@ findpage			Find page by name
 	 * Returns all foreground color names
 	 * @return array foreground color names
 	 */
-	public function getForegroundColors() {
+	public function getForegroundColors(){
 		return array_keys($this->foreground_colors);
 	}
 
@@ -176,7 +176,7 @@ findpage			Find page by name
 	 * Returns all background color names
 	 * @return string background color names
 	 */
-	public function getBackgroundColors() {
+	public function getBackgroundColors(){
 		return array_keys($this->background_colors);
 	}
 
@@ -187,19 +187,19 @@ findpage			Find page by name
 	 */
 	public function createModuleStructure($moduleName){
 		$modulePath = $this->public_path."/app/modules/".$moduleName;
-		if ( !file_exists( $modulePath ) and !is_dir( $modulePath ) ):
-			mkdir ( $modulePath, 0755 );
-			mkdir ( $modulePath."/classes", 0755 );
-			mkdir ( $modulePath."/controllers", 0755 );
-			mkdir ( $modulePath."/pages", 0755 );
-			mkdir ( $modulePath."/templates", 0755 );
-			mkdir ( $modulePath."/resources", 0755 );
-			mkdir ( $modulePath."/resources/js", 0755 );
-			mkdir ( $modulePath."/resources/images", 0755 );
+		if ( !file_exists($modulePath) && !is_dir($modulePath)):
+			mkdir($modulePath, 0755);
+			mkdir($modulePath."/classes", 0755);
+			mkdir($modulePath."/controllers", 0755);
+			mkdir($modulePath."/pages", 0755);
+			mkdir($modulePath."/templates", 0755);
+			mkdir($modulePath."/resources", 0755);
+			mkdir($modulePath."/resources/js", 0755);
+			mkdir($modulePath."/resources/images", 0755);
 
-			FileSystem::createFile( $modulePath."/".$moduleName.".php", $this->fileModuleContent( $moduleName ) );
-			FileSystem::createFile( $modulePath."/classes/class.".$moduleName.".php", $this->fileClassContent( $moduleName ) );
-			FileSystem::createFile( $modulePath."/controllers/controller.default.php", $this->fileControllerContent( $moduleName ) );
+			FileSystem::createFile($modulePath."/".$moduleName.".php", $this->fileModuleContent($moduleName));
+			FileSystem::createFile($modulePath."/classes/class.".$moduleName.".php", $this->fileClassContent($moduleName));
+			FileSystem::createFile($modulePath."/controllers/controller.default.php", $this->fileControllerContent($moduleName));
 			return "\033[32mModule ".$moduleName." created\033[37m";
 		else:
 			return "\033[31mError while creating module structure\033[37m";
@@ -243,7 +243,9 @@ class ".$moduleName."{
 	 * @return array 				Array con registros
 	 */
 	public function get".ucfirst($moduleName)."(\$filter = \"\"){
-		\$Sql = \"SELECT * FROM ".$moduleName." WHERE 1=1 \".\$filter;
+		\$Sql = \"SELECT * 
+				FROM ".$moduleName." 
+				WHERE 1=1 \".\$filter;
 		return connection::getSQL(\$Sql);
 	}   
 
@@ -263,7 +265,8 @@ class ".$moduleName."{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function delete".ucfirst($moduleName)."(\$id){
-		\$Sql = \"DELETE FROM ".$moduleName." WHERE id_".$moduleName."=\".\$id;
+		\$Sql = \"DELETE FROM ".$moduleName." 
+				WHERE id_".$moduleName."=\".\$id;
 		return connection::execute_query(\$Sql);
 	}
 
@@ -274,9 +277,9 @@ class ".$moduleName."{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function update".ucfirst($moduleName)."(\$id, \$value){
-		\$Sql = \"UPDATE ".$moduleName." SET
-			 field='\".\$value.\"',
-			 WHERE id_".$moduleName."=\".\$id;
+		\$Sql = \"UPDATE ".$moduleName." SET 
+				field='\".\$value.\"' 
+				WHERE id_".$moduleName."=\".\$id;
 		return connection::execute_query(\$Sql);
 	}
 }

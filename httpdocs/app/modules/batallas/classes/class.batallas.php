@@ -6,7 +6,9 @@ class batallas{
 	 * @return array 				Array con registros
 	 */
 	public function getBatallas($filter = ""){
-		$Sql = "SELECT * FROM batallas b WHERE 1=1 ".$filter;
+		$Sql = "SELECT *
+				FROM batallas b
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -15,7 +17,7 @@ class batallas{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function insertBatalla($user_create, $user_retado, $tipo_batalla, $puntos, $canal_batalla){
-		$Sql = "INSERT INTO batallas (user_create,user_retado,tipo_batalla,puntos,canal_batalla) 
+		$Sql = "INSERT INTO batallas (user_create,user_retado,tipo_batalla,puntos,canal_batalla)
 					VALUES ('".$user_create."','".$user_retado."','".$tipo_batalla."', ".$puntos.",'".$canal_batalla."')"; //echo $Sql;
 		return connection::execute_query($Sql);
 	}
@@ -26,38 +28,38 @@ class batallas{
 	 * @return array         		Array con los registros
 	 */
 	public function getBatallasPreguntas($filter = ""){
-		$Sql = "SELECT * 
-				FROM batallas_preguntas  
-				WHERE 1=1 ".$filter;
+		$Sql = "SELECT *
+				FROM batallas_preguntas
+				WHERE 1=1 ".$filter;//echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
 	public function getBatallaCategorias($filter = ""){
-		$Sql = "SELECT DISTINCT(pregunta_tipo) AS categoria 
-				FROM batallas_preguntas  
+		$Sql = "SELECT DISTINCT(pregunta_tipo) AS categoria
+				FROM batallas_preguntas
 				WHERE 1=1 ".$filter;
-		return connection::getSQL($Sql);  
-	}	
+		return connection::getSQL($Sql);
+	}
 
 	public function estadoPregunta($id_pregunta, $estado=1){
-		$Sql = "UPDATE batallas_preguntas SET 
-				activa=".$estado." 
+		$Sql = "UPDATE batallas_preguntas SET
+				activa=".$estado."
 				WHERE id_pregunta=".$id_pregunta." ";
 		return connection::execute_query($Sql);
 	}
 
 	public function estadoPreguntastipo($pregunta_tipo, $estado=1){
-		$Sql = "UPDATE batallas_preguntas SET 
-				activa=".$estado." 
+		$Sql = "UPDATE batallas_preguntas SET
+				activa=".$estado."
 				WHERE pregunta_tipo='".$pregunta_tipo."'";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	public function insertBatallaPregunta($pregunta_tipo, $pregunta, $respuesta1, $respuesta2, $respuesta3, $valida, $canal_pregunta){
-		$Sql = "INSERT INTO batallas_preguntas (pregunta_tipo, pregunta, respuesta1, respuesta2, respuesta3, valida, canal_pregunta) 
+		$Sql = "INSERT INTO batallas_preguntas (pregunta_tipo, pregunta, respuesta1, respuesta2, respuesta3, valida, canal_pregunta)
 				VALUES ('".$pregunta_tipo."','".$pregunta."','".$respuesta1."','".$respuesta2."','".$respuesta3."',".$valida.",'".$canal_pregunta."')";
 		return connection::execute_query($Sql);
-	}	
+	}
 
 	/**
 	 * Devuelve las preguntas y respuestas para una batalla
@@ -66,8 +68,8 @@ class batallas{
 	 * @return array             	Array con registros
 	 */
 	public function getBatallaRespuestasPreguntas($id_batalla, $username){
-		$Sql = "SELECT p.id_pregunta,p.pregunta, p.respuesta1, p.respuesta2, p.respuesta3,p.valida, r.batalla_respuesta 
-				FROM batallas_respuestas r 
+		$Sql = "SELECT p.id_pregunta,p.pregunta, p.respuesta1, p.respuesta2, p.respuesta3,p.valida, r.batalla_respuesta
+				FROM batallas_respuestas r
 				LEFT JOIN batallas_preguntas p ON p.id_pregunta=r.batalla_pregunta
 				WHERE r.id_batalla=".$id_batalla." AND username_batalla='".$username."' ";
 		return connection::getSQL($Sql);
@@ -79,76 +81,95 @@ class batallas{
 	 * @return array         		Array con los registros
 	 */
 	public function getBatallasLuchas($filter = ""){
-		$Sql = "SELECT * 
-				FROM batallas_luchas 
+		$Sql = "SELECT *
+				FROM batallas_luchas
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public function insertBatallaRespuesta($id_batalla, $username_batalla, $batalla_pregunta, $respuesta){
-		$Sql = "INSERT INTO batallas_respuestas (id_batalla,username_batalla,batalla_pregunta,batalla_respuesta) 
+		$Sql = "INSERT INTO batallas_respuestas (id_batalla,username_batalla,batalla_pregunta,batalla_respuesta)
 				VALUES (".$id_batalla.",'".$username_batalla."',".$batalla_pregunta.",'".$respuesta."')";
 		return connection::execute_query($Sql);
 	}
 
 	public function updateBatallaRespuesta($id_batalla, $username_batalla, $batalla_pregunta, $respuesta){
-		$Sql = "UPDATE batallas_respuestas SET batalla_respuesta='".$respuesta."' 
+		$Sql = "UPDATE batallas_respuestas SET
+				batalla_respuesta='".$respuesta."'
 				WHERE id_batalla=".$id_batalla." AND username_batalla='".$username_batalla."' AND batalla_pregunta=".$batalla_pregunta." ";
 		return connection::execute_query($Sql);
 	}
 
 	public function finalizarBatalla($id_batalla, $user_ganador){
-		$Sql = "UPDATE batallas SET finalizada=1,
-				ganador = '".$user_ganador."' 
+		$Sql = "UPDATE batallas SET
+				finalizada=1,
+				ganador = '".$user_ganador."'
 				WHERE id_batalla=".$id_batalla;
 		return connection::execute_query($Sql);
 	}
 
 	public function insertBatallaLucha($id_batalla, $user_lucha, $tiempo_lucha, $aciertos_lucha, $origen=3){
 		if ($tiempo_lucha < 1) $aciertos_lucha = 0;
-		$Sql = "INSERT INTO batallas_luchas (id_batalla,user_lucha,tiempo_lucha,aciertos_lucha,origen) 
+		$Sql = "INSERT INTO batallas_luchas (id_batalla,user_lucha,tiempo_lucha,aciertos_lucha,origen)
 				VALUES (".$id_batalla.",'".$user_lucha."',".$tiempo_lucha.",".$aciertos_lucha.",".$origen.")";
 		return connection::execute_query($Sql);
 	}
 
 	public function updateBatallaLucha($id_batalla, $user_lucha, $tiempo_lucha, $aciertos_lucha){
-		$Sql = "UPDATE batallas_luchas SET 
+		$Sql = "UPDATE batallas_luchas SET
 				tiempo_lucha=".$tiempo_lucha.",
-				aciertos_lucha=".$aciertos_lucha. " 
+				aciertos_lucha=".$aciertos_lucha. "
 				WHERE id_batalla=".$id_batalla." AND user_lucha='".$user_lucha."' ";
 		return connection::execute_query($Sql);
 	}
 
 	public function updateBatallaGanador($id_batalla, $user){
-		$Sql = "UPDATE batallas SET 
+		$Sql = "UPDATE batallas SET
 				ganador='".$user."',
-				finalizada=1 
+				finalizada=1
 				WHERE id_batalla=".$id_batalla." ";
 		return connection::execute_query($Sql);
 	}
 
 	public function getBatallasRanking($filter = ""){
-		$Sql = "SELECT ganador AS usuario,COUNT(finalizada) AS victorias FROM batallas
+		$Sql = "SELECT ganador AS usuario,COUNT(finalizada) AS victorias
+				FROM batallas
 				WHERE finalizada=1 AND ganador<>''
 				GROUP BY ganador
-				HAVING COUNT(finalizada) 
+				HAVING COUNT(finalizada)
 				ORDER BY victorias DESC, ganador ASC
 				LIMIT 10".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public static function getBatallasRankingUser($username){
-		$Sql = "SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM 
+		$Sql = "SELECT rownum FROM (SELECT @rownum:=@rownum+1 AS rownum,r.* FROM
 			(SELECT SUM(finalizada) AS victorias,ganador FROM batallas WHERE ganador<>'' GROUP BY ganador HAVING SUM(finalizada)>=
-			(SELECT SUM(finalizada) FROM batallas WHERE ganador='".$username."') ORDER BY victorias DESC,ganador ASC) r,  
+			(SELECT SUM(finalizada) FROM batallas WHERE ganador='".$username."') ORDER BY victorias DESC,ganador ASC) r,
 			(SELECT @rownum:=0) ro ) f WHERE ganador='".$username."'";
 		$row = connection::getSQL($Sql);
 		return $row['rownum'];
 	}
 
 	public static function deleteBatallasCaducadas($days){
-		$Sql = "DELETE FROM batallas WHERE finalizada=0 AND date_batalla<DATE_ADD(CURDATE(), INTERVAL -".$days." DAY) ";
+		$Sql = "DELETE FROM batallas
+				WHERE finalizada=0 AND date_batalla<DATE_ADD(CURDATE(), INTERVAL -".$days." DAY) ";
 		return connection::execute_query($Sql);
 	}
+
+	public function getBatallasCount($filter = "",$nombre="resultado"){
+		$Sql = "SELECT
+			p.*,
+			COUNT(r.username_batalla) AS ".$nombre.",
+			r.username_batalla as username
+			FROM batallas_respuestas r
+			LEFT JOIN batallas_luchas l ON l.id_batalla=r.id_batalla
+			LEFT JOIN batallas_preguntas p ON p.id_pregunta=r.batalla_pregunta
+			WHERE 1=1 ".$filter; //echo $Sql;
+
+		return connection::getSQL($Sql);
+	}
+
+
 }
 ?>

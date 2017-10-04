@@ -2,6 +2,7 @@
 addCss(array("css/bootstrap-datetimepicker.min.css"));
 templateload("addmessage", "mensajes");
 templateload("tipuser", "users");
+templateload("panels", "users");
 
 addJavascripts(array(getAsset("mensajes")."js/inbox.js", 
 					 getAsset("users")."js/user-profile.js",
@@ -124,6 +125,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js",
 	</div>
 	<div class="app-sidebar">
 		<div class="panel-interior">
+			<?php get_hooks('sidebar');?>
 			<?php if (isset($usuario->username)): ?>
 			<img src="<?php echo $usuario->user_foto;?>" class="user-perfil-img" />
 			<div class="text-center stars-big"><?php echo userEstrellas($usuario->participaciones)?></div>

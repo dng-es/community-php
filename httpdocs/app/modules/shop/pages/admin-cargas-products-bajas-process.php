@@ -20,9 +20,8 @@
 					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 					$tamano_archivo = $fichero['size'];
 					//compruebo si las características del archivo son las que deseo
-					if ($tipo_archivo!="XLS"){
+					if ($tipo_archivo!="XLS") 
 						ErrorMsg("La extensión no es correcta.".$tipo_archivo);
-					}
 					else{
 						if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 							//BORRAR FICHEROS ANTIGUOS
@@ -35,7 +34,7 @@
 							
 							/*echo "<script>alert('".$data->sheets[0]['numRows']."')</script>";		*/ 
 							volcarMySQL($data);
-						}else{ return "Ocurrió algún error al subir el fichero. No pudo guardarse.";} 
+						}else return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
 					}
 				}?>
 			</div>

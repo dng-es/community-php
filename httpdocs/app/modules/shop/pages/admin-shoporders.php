@@ -10,8 +10,8 @@ include_once($base_dir . "modules/class.footer.php");
 addJavascripts(array(getAsset("shop")."js/admin-shoporders.js"));
 
 $filtro = "";
-if (isset($_POST['find_reg'])) $filtro .= " AND d.id_order LIKE '%".$_POST['find_reg']."%' ";
-if (isset($_REQUEST['f'])) $filtro .= " AND d.id_order LIKE '%".$_REQUEST['f']."%' ";
+$find_reg = getFindReg();
+if ($find_reg != '') $filtro .= " AND d.id_order LIKE '%".$find_reg."%' ";
 $filtro .= " ORDER BY d.id_order DESC";
 
 shopOrdersController::exportListDetailAction($filtro);

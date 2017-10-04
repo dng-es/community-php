@@ -4,7 +4,7 @@ class visitasController{
 		if (isset($_POST['export-stats']) && isset($_POST['fecha_ini'])){
 			$visitas = new visitas();
 			$elements = $visitas->getVisitasInformes($filter." ORDER BY fecha DESC ");
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers("data_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -26,7 +26,7 @@ class visitasController{
 
 		//puntuacion semanal
 		if ($user_name != ""){
-			if(connection::countReg("accesscontrol"," AND username='".$_SESSION['user_name']."' AND WEEK(fecha)=WEEK(NOW()) AND YEAR(fecha)=YEAR(NOW())") == 1) 
+			if(connection::countReg("accesscontrol", " AND username='".$_SESSION['user_name']."' AND WEEK(fecha)=WEEK(NOW()) AND YEAR(fecha)=YEAR(NOW())") == 1) 
 				users::sumarPuntos($_SESSION['user_name'], PUNTOS_ACCESO_SEMANA, PUNTOS_ACCESO_SEMANA_MOTIVO);
 		}
 
@@ -37,7 +37,7 @@ class visitasController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == 'na_areas'){
 			$visitas = new visitas();
 			$elements = visitas::getAccessNaAreas($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers("data_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}
@@ -47,7 +47,7 @@ class visitasController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == 'group'){
 			$visitas = new visitas();
 			$elements = visitas::getAccessGroup($filter);
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers("data_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

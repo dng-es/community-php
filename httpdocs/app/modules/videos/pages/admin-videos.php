@@ -1,6 +1,6 @@
 <?php
-//videosController::downloadZipFile(PATH_VIDEOS);
-videosController::downloadVideoFile();
+videosController::downloadZipFile(PATH_VIDEOS);
+//videosController::downloadVideoFile();
 
 $filter = " AND v.estado=1";
 videosController::exportListAction($filter." ORDER BY v.id_file DESC ");
@@ -43,13 +43,12 @@ addJavascripts(array(getAsset("videos")."js/admin-videos.js"));
 							$num_comentarios = connection::countReg("galeria_videos_comentarios", " AND estado=1 AND id_file=".$element['id_file']." ");?>
 						<tr>
 							<td nowrap="nowrap">
-								<span class="fa fa-ban icon-table" title="<?php e_strTranslate("Delete");?>"
-									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-videos?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_file'];?>')">
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
+									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-videos?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_file'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+								</button>
 
-								<span class="fa fa-download icon-table" title="<?php e_strTranslate("Download");?>"
-									onClick='location.href="admin-videos?exp=<?php echo $element['name_file'];?>"'>
-								</span>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Download");?>" onClick="location.href='admin-videos?exp=<?php echo $element['name_file'];?>'; return false"><i class="fa fa-download icon-table"></i>
+								</button>
 							</td>
 							<td>
 								<?php echo $element['titulo'];?><br />

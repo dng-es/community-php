@@ -4,7 +4,7 @@ class shopOrdersController{
 		$shop = new shop();
 		$find_reg = getFindReg();
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("shop_orders",$filter); 
+		$total_reg = connection::countReg("shop_orders", $filter); 
 		return array('items' => $shop->getOrders($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -27,7 +27,7 @@ class shopOrdersController{
 	public static function getListStatusAction($reg = 0, $filter = ""){
 		$find_reg = getFindReg();
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("shop_orders_status",$filter); 
+		$total_reg = connection::countReg("shop_orders_status", $filter); 
 		return array('items' => shop::getOrderStatus($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -67,7 +67,22 @@ class shopOrdersController{
 				$shop = new shop();
 				$order_detail = $shop->getOrdersDetails(" AND d.id_order=".$id_order." ");
 				$user_detail = usersController::getPerfilAction($order_detail[0]['username_order']);
-				self::sendEmailUserStatus($user_detail, $id_order, $order_detail[0]['name_order'], $order_detail[0]['surname_order'], $order_detail[0]['address_order'], $order_detail[0]['address2_order'], $order_detail[0]['city_order'], $order_detail[0]['state_order'], $order_detail[0]['postal_order'], $order_detail[0]['telephone_order'], $order_detail[0]['name_product'], $order_detail[0]['price_order'], getDateFormat($order_detail[0]['date_order'], "SHORT" ), $status_order, $order_detail[0]['notes_order']);
+				self::sendEmailUserStatus(
+					$user_detail, 
+					$id_order, 
+					$order_detail[0]['name_order'], 
+					$order_detail[0]['surname_order'], 
+					$order_detail[0]['address_order'], 
+					$order_detail[0]['address2_order'], 
+					$order_detail[0]['city_order'], 
+					$order_detail[0]['state_order'], 
+					$order_detail[0]['postal_order'], 
+					$order_detail[0]['telephone_order'], 
+					$order_detail[0]['name_product'], 
+					$order_detail[0]['price_order'], 
+					getDateFormat($order_detail[0]['date_order'], "SHORT" ), 
+					$status_order, 
+					$order_detail[0]['notes_order']);
 				
 				$response['message'] = "success";
 				$response['description'] = "Cambio realizado correctamente.";
@@ -154,7 +169,7 @@ class shopOrdersController{
 				$shop->updateProductStock($id_product, -1);
 
 				//actualizar creditos del usuario
-				usersCreditosController::updateCreditosAction($_SESSION['user_name'], -$product_detail['price_product'], $id_product);
+				self::updateCreditosAction($_SESSION['user_name'], -$product_detail['price_product'], $id_product);
 
 				//insertar detalle del pedido
 				shop::insertOrderDetail($id_order, $id_product, 1, $product_detail['price_product']);
@@ -178,6 +193,13 @@ class shopOrdersController{
 		}
 	}
 
+	public static function updateCreditosAction($username, $creditos, $id_product){
+		if ($username != ""){
+			users::updateCredito($username, $creditos);
+			users::insertCredito($username, $creditos, "Compras premios", "Producto ID.".$id_product);
+		}
+	}
+
 	private static function sendEmailUser($user_detail, $id_order, $name_order, $surname_order, $address_order, $address2_order, $city_order, $state_order, $postal_order, $telephone_order, $notes_order, $product_detail, $status_order = 'pendiente'){
 
 		global $ini_conf;
@@ -187,24 +209,24 @@ class shopOrdersController{
 
 		$template = new tpl("order-user", "shop");
 		$template->setVars(array(
-					"title_email" => "Confirmación de pedido",
-					"text_email" => "Tu pedido en ".$ini_conf['SiteName']." se ha realizado correctamente",
-					"id_order" => $id_order,
-					"date_order" => date("d-m-Y"),
-					"name_order" => $name_order,
-					"surname_order" => $surname_order,
-					"telephone_order" => $telephone_order,
-					"address_order" => $address_order,
-					"address2_order" => $address2_order,
-					"city_order" => $city_order,
-					"state_order" => $state_order,
-					"postal_order" => $postal_order,
-					"credits_label" => ucfirst(strTranslate("APP_Credits")),
-					"product_name" => $product_detail['name_product'],
-					"product_ammount" => 1,
-					"product_price" => $product_detail['price_product'],
-					"status_order" => $status_order,
-					"notes_order" => $notes_order
+			"title_email" => "Confirmación de pedido",
+			"text_email" => "Tu pedido en ".$ini_conf['SiteName']." se ha realizado correctamente",
+			"id_order" => $id_order,
+			"date_order" => date("d-m-Y"),
+			"name_order" => $name_order,
+			"surname_order" => $surname_order,
+			"telephone_order" => $telephone_order,
+			"address_order" => $address_order,
+			"address2_order" => $address2_order,
+			"city_order" => $city_order,
+			"state_order" => $state_order,
+			"postal_order" => $postal_order,
+			"credits_label" => ucfirst(strTranslate("APP_Credits")),
+			"product_name" => $product_detail['name_product'],
+			"product_ammount" => 1,
+			"product_price" => $product_detail['price_product'],
+			"status_order" => $status_order,
+			"notes_order" => $notes_order
 		));
 		$cuerpo_mensaje = $template->getTpl();
 		messageProcess($asunto, $message_from, $message_to, $cuerpo_mensaje, null, 'smtp');
@@ -254,27 +276,27 @@ class shopOrdersController{
 
 		$template = new tpl("order-admin", "shop");
 		$template->setVars(array(
-					"title_email" => "Realización de pedido",
-					"text_email" => "Pedido realizado en ".$ini_conf['SiteName'].". Datos el pedido:",
-					"id_order" => $id_order,
-					"username_order" => $user_detail['username'],
-					"username_name" => $user_detail['name'],
-					"username_surname" => $user_detail['surname'],
-					"username_email" => $user_detail['email'],
-					"date_order" => date("d-m-Y"),
-					"name_order" => $name_order,
-					"surname_order" => $surname_order,
-					"telephone_order" => $telephone_order,
-					"address_order" => $address_order,
-					"address2_order" => $address2_order,
-					"city_order" => $city_order,
-					"state_order" => $state_order,
-					"notes_order" => $notes_order,
-					"postal_order" => $postal_order,
-					"credits_label" => ucfirst(strTranslate("APP_Credits")),
-					"product_name" => $product_detail['name_product'],
-					"product_ammount" => 1,
-					"product_price" => $product_detail['price_product']
+			"title_email" => "Realización de pedido",
+			"text_email" => "Pedido realizado en ".$ini_conf['SiteName'].". Datos el pedido:",
+			"id_order" => $id_order,
+			"username_order" => $user_detail['username'],
+			"username_name" => $user_detail['name'],
+			"username_surname" => $user_detail['surname'],
+			"username_email" => $user_detail['email'],
+			"date_order" => date("d-m-Y"),
+			"name_order" => $name_order,
+			"surname_order" => $surname_order,
+			"telephone_order" => $telephone_order,
+			"address_order" => $address_order,
+			"address2_order" => $address2_order,
+			"city_order" => $city_order,
+			"state_order" => $state_order,
+			"notes_order" => $notes_order,
+			"postal_order" => $postal_order,
+			"credits_label" => ucfirst(strTranslate("APP_Credits")),
+			"product_name" => $product_detail['name_product'],
+			"product_ammount" => 1,
+			"product_price" => $product_detail['price_product']
 		));
 		$cuerpo_mensaje = $template->getTpl();
 		messageProcess($asunto, $message_from, $message_to, $cuerpo_mensaje, null, 'smtp');

@@ -1,8 +1,10 @@
 <?php
 class novedades{
 	public function getNovedades($filter = ""){
-		$Sql = "SELECT n.*, c.canal_name FROM novedades n 
-				LEFT JOIN canales c On c.canal=n.canal WHERE 1=1 ".$filter;
+		$Sql = "SELECT n.*, c.canal_name 
+				FROM novedades n 
+				LEFT JOIN canales c On c.canal=n.canal 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -27,7 +29,8 @@ class novedades{
 	}
 
 	public function deleteNovedades($id){
-		$Sql = "DELETE FROM novedades WHERE id_novedad=".$id." ";
+		$Sql = "DELETE FROM novedades 
+				WHERE id_novedad=".$id." ";
 		return connection::execute_query($Sql);
 	}
 }

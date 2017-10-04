@@ -66,5 +66,34 @@ class blogCore{
 			))
 		);
 	}
+
+	public static function searchMain($string){
+		$result = array();
+		$foro = new foro();
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal LIKE '%".$_SESSION['user_canal']."%' " : "");
+		//buscar temas
+		$request = $foro->getTemas($filtro_canal." AND (MATCH(nombre) AGAINST ('".$string."') OR MATCH(descripcion) AGAINST ('".$string."')) AND ocio=1 AND activo=1 AND id_area=0 ");
+		foreach ($request as $req):
+			array_push($result, array(
+				"title"=>$req['nombre'], 
+				"description"=>$req['descripcion'], 
+				"url"=>"blog?id=".$req['id_tema'],
+				"type" => strTranslate("Blog"),
+				"order" => 9
+			));
+		endforeach;	
+
+		if (strtolower($string) == strtolower(strTranslate("Blog"))){
+			array_push($result, array(
+				"title"=>'<i class="fa fa-list"></i> '.strTranslate("Blog"), 
+				"description"=>strTranslate("Last_blog"), 
+				"url"=>"blog",
+				"type" => strTranslate("Blog"),
+				"order" => 8
+			));
+		}
+
+		return $result;
+	}	
 }
 ?>

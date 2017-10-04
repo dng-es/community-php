@@ -12,7 +12,7 @@ class FileSystem{
 	* @param 	string 			$dirname 			Folder to show folders
 	* @return 	boolean/array	returns false is $dirname is not a folder, otherwise returns an array of folder items
 	*/
-	public static function showDirFolders($dirname) {
+	public static function showDirFolders($dirname){
 		$i = 0;
 		$arrayFolders = array();
 		if (is_dir($dirname)){    //Operate on dirs only
@@ -37,7 +37,7 @@ class FileSystem{
 	* @param 	string 			$dirname 			Folder to show folders
 	* @return 	boolean/array	returns false is $dirname is not a folder, otherwise returns an array of folder items
 	*/
-	public static function showFilesFolder($dirname) {
+	public static function showFilesFolder($dirname){
 		$i = 0;
 		$arrayFolders = array();
 		if (is_dir($dirname)){ 	//Operate on dirs only
@@ -75,7 +75,7 @@ class FileSystem{
 					if (is_dir($path)){	//Recurse if subdir, Delete if file
 						$result = array_merge($result,self::rmdirtree($path));
 					}
-					elseif (filectime($path) <= (filectime($dirname.$nombre_fichero)-1000)){
+					elseif (filectime($path) <= (filectime($dirname.$nombre_fichero) - 1000)){
 						unlink($path);
 						$result[] .= $path;
 					}

@@ -1,8 +1,26 @@
 // JavaScript Document
 jQuery(document).ready(function(){
+	$('.numeric').numeric();
+	$('input[type=file]').bootstrapFileInput();
+
 	$("#datetimepicker1, #datetimepicker2").datetimepicker({
 		language: "es-ES",
 		startDate: "2014/01/01"
+	});
+
+	$("#datetimepicker1").data("datetimepicker").setLocalDate(new Date ($("#date_ini").data("val")));
+	$("#datetimepicker2").data("datetimepicker").setLocalDate(new Date ($("#date_fin").data("val")));
+
+	$('#time_ini').timepicker({
+		showMeridian: false,
+		minuteStep: 30,
+		defaultTime: $("#time_ini").data("val")
+	});
+
+	$('#time_fin').timepicker({
+		showMeridian: false,
+		minuteStep: 30,
+		defaultTime: $("#time_fin").data("val")
 	});
 
 	//verificación datos del formulario
@@ -10,8 +28,8 @@ jQuery(document).ready(function(){
 		$(".alert-message").html("").css("display","none");
 		var form_ok = true;
 
-		if (jQuery.trim($("#text_alert").removeClass("input-alert").val()) == ""){
-			$('#text_alert').addClass("input-alert").attr("placeholder", $('#text_alert').data("alert")).focus();
+		if (jQuery.trim($("#title_alert").removeClass("input-alert").val()) == ""){
+			$('#title_alert').addClass("input-alert").attr("placeholder", $('#title_alert').data("alert")).focus();
 			form_ok = false;
 		}
 
@@ -25,18 +43,24 @@ jQuery(document).ready(function(){
 			form_ok = false;
 		}
 
+		if ($("#destination_alert").val() == null){
+			$("#formAddAction").find("[data-id='destination_alert']").addClass("input-alert");
+			form_ok = false;
+		}
+		else $("#formAddAction").find("[data-id='destination_alert']").removeClass("input-alert");
+
 		return form_ok;
 	});
 
 
-	getDestinations("user");
+	getDestinations($("#type_alert").val(), $("#type_alert").data("sel"));
 	$("#type_alert").change(function(evento){
-		getDestinations($(this).val());
+		getDestinations($(this).val(), $(this).data("sel"));
 	});
 
-	function getDestinations(tipo){
-		$("#destination_alert").load("app/modules/alerts/pages/alertsCmb.php?tipo=" + tipo, function(){
-
+	function getDestinations(tipo, seleccionado){
+		$("#destination_alert").load("app/modules/alerts/pages/alertsCmb-ajax.php?tipo=" + tipo + "&sel=" + seleccionado, function(){
+			$('#destination_alert').selectpicker('refresh');
 		});
 	}
 });

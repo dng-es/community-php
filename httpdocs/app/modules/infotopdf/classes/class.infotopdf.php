@@ -2,7 +2,8 @@
 class infotopdf{
  
 	public function getInfo($filter = ""){
-		$Sql = "SELECT i.*,t.nombre_info AS tipo,c.name_campaign AS campana FROM infotopdf i 
+		$Sql = "SELECT i.*,t.nombre_info AS tipo,c.name_campaign AS campana 
+				FROM infotopdf i 
 				LEFT JOIN infotopdf_tipo t ON i.tipo_info=t.id_tipo 
 				LEFT JOIN campaigns c ON i.id_campaign=c.id_campaign 
 				WHERE 1=1 ".$filter;
@@ -10,7 +11,8 @@ class infotopdf{
 	}
 
 	public function getInfoTipos($filter = ""){
-		$Sql = "SELECT * FROM infotopdf_tipo
+		$Sql = "SELECT * 
+				FROM infotopdf_tipo
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}

@@ -1,19 +1,4 @@
-<?php
-templateload("searchproducts","shop");
-
-$filtro = "";
-if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".$_REQUEST['ref_search']."%' ";
-if (isset($_REQUEST['name_search'])) $filtro .= " AND name_product LIKE '%".$_REQUEST['name_search']."%' ";
-if (isset($_REQUEST['manufacturer_search'])) $filtro .= " AND name_manufacturer LIKE '%".$_REQUEST['manufacturer_search']."%' ";
-if (isset($_REQUEST['category_search'])) $filtro .= " AND category_product LIKE '%".$_REQUEST['category_search']."%' ";
-if (isset($_REQUEST['subcategory_search'])) $filtro .= " AND subcategory_product LIKE '%".$_REQUEST['subcategory_search']."%' ";
-$filtro .= " ORDER BY name_product ASC";
-
-session::getFlashMessage( 'actions_message' );
-shopProductsController::exportListAction($filtro);
-shopProductsController::deleteAction();
-$elements = shopProductsController::getListAction(15, $filtro);
-?>
+<?php templateload("searchproducts","shop");?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -23,6 +8,19 @@ $elements = shopProductsController::getListAction(15, $filtro);
 			array("ItemLabel"=>strTranslate("APP_Shop"), "ItemUrl"=>"admin-shopproducts"),
 			array("ItemLabel"=> strTranslate("Shop_products_list"), "ItemClass"=>"active"),
 		));
+		
+		$filtro = "";
+		if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".$_REQUEST['ref_search']."%' ";
+		if (isset($_REQUEST['name_search'])) $filtro .= " AND name_product LIKE '%".$_REQUEST['name_search']."%' ";
+		if (isset($_REQUEST['manufacturer_search'])) $filtro .= " AND name_manufacturer LIKE '%".$_REQUEST['manufacturer_search']."%' ";
+		if (isset($_REQUEST['category_search'])) $filtro .= " AND category_product LIKE '%".$_REQUEST['category_search']."%' ";
+		if (isset($_REQUEST['subcategory_search'])) $filtro .= " AND subcategory_product LIKE '%".$_REQUEST['subcategory_search']."%' ";
+		$filtro .= " ORDER BY name_product ASC";
+
+		session::getFlashMessage( 'actions_message' );
+		shopProductsController::exportListAction($filtro);
+		shopProductsController::deleteAction();
+		$elements = shopProductsController::getListAction(15, $filtro);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

@@ -15,7 +15,8 @@ class notifications{
 	}
 
 	public function getNotificationInscription($filter = ""){
-		$Sql = "SELECT * FROM notifications_inscriptions 
+		$Sql = "SELECT * 
+				FROM notifications_inscriptions 
 				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}

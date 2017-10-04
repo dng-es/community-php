@@ -73,7 +73,7 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] != ""):
 function printTareas($id_area){
 	$na_areas = new na_areas();
 	$contador_tareas = 0;
-	$elements = $na_areas->getTareas(" AND id_area=".$id_area." and activa=1 ");
+	$elements = $na_areas->getTareas(" AND id_area=".$id_area." AND activa=1 ");
 	global $ini_conf; 
 
 

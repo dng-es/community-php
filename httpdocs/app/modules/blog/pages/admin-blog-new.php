@@ -19,24 +19,7 @@ templateload("cmbCanales","users");?>
 		session::getFlashMessage('actions_message');
 		blogController::createAction();
 		blogController::updateAction();
-		$elements = blogController::getItemAction($id);
-
-		if (isset($elements[0])){
-			$accion = "edit";
-			$nombre = $elements[0]['nombre'];
-			$descripcion = $elements[0]['descripcion'];
-			$tipo_tema = $elements[0]['tipo_tema'];
-			$canal = $elements[0]['canal'];
-			$destacado = $elements[0]['destacado'];
-		}
-		else{
-			$accion = "new";
-			$nombre = "";
-			$descripcion = "";
-			$tipo_tema = "";
-			$canal = "";
-			$destacado = 0;
-		}
+		$element = blogController::getItemAction($id);
 		?>
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -46,18 +29,18 @@ templateload("cmbCanales","users");?>
 					<div class="row">
 						<div class="col-md-12 form-group">
 							<label for="nombre" class="sr-only">Título de la entrada:</label>
-							<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo $nombre;?>" placeholder="título de la entrada" />
+							<input type="text" class="form-control form-big" name="nombre" id="nombre" value="<?php echo $element['nombre'];?>" placeholder="título de la entrada" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-8 form-group">
 							<select name="canal[]" id="canal" class="selectpicker show-menu-arrow show-tick" data-container="body" data-style="btn-default" data-width="100%" multiple data-actions-box="true" data-none-selected-text="<?php e_strTranslate("Choose_channel");?>" data-deselect-all-text="<?php e_strTranslate('deselect_all');?>"  data-select-all-text="<?php e_strTranslate('select_all');?>">
-								<?php ComboCanales($canal);?>
+								<?php ComboCanales($element['canal']);?>
 							</select>
 						</div>
 						<div class="col-md-4 form-group">
 							<div class="checkbox checkbox-primary">
-								<input type="checkbox" class="styled" id="destacado"  name="destacado" <?php echo $destacado == 1 ? "checked" : "";?>>
+								<input type="checkbox" class="styled" id="destacado"  name="destacado" <?php echo $element['destacado'] == 1 ? "checked" : "";?>>
 								<label for="confirmed_user">Destacada</label>
 							</div>
 						</div>
@@ -65,7 +48,7 @@ templateload("cmbCanales","users");?>
 					<div class="row">
 						<div class="col-md-12 form-group">
 							<label for="descripcion" class="sr-only">Cuerpo de la entrada:</label>
-							<textarea cols="40" rows="5" name="descripcion"><?php echo $descripcion;?></textarea>
+							<textarea cols="40" rows="5" name="descripcion"><?php echo $element['descripcion'];?></textarea>
 							<script type="text/javascript">
 								var editor = CKEDITOR.replace('descripcion', {customConfig : 'config-blog.js'});
 								CKFinder.setupCKEditor(editor, 'js/libs/ckfinder/') ;
@@ -107,7 +90,7 @@ templateload("cmbCanales","users");?>
 						<div class="panel-heading"><?php e_strTranslate("Tags");?></div>
 						<div class="panel-body">
 							<p>Introduce las etiquetas de la entrada:</p>
-							<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="<?php echo $tipo_tema;?>" />
+							<input type="text" name="etiquetas" id="etiquetas" class="form-control" value="<?php echo $element['tipo_tema'];?>" />
 							<br /><span class="text-muted">Etiquetas existentes: </span>
 							<?php
 								$foro = new foro();

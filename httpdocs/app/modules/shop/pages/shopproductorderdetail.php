@@ -3,15 +3,6 @@ $base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/shop/p
 include_once($base_dir . "modules/class.headers.php");
 include_once($base_dir . "modules/pages/classes/class.pages.php");
 include_once($base_dir . "modules/class.footer.php");
-
-session::getFlashMessage( 'actions_message' );
-
-shopOrdersController::createAction();
-$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
-$filtro_order = " AND username_order='".$_SESSION['user_name']."' AND d.id_order=".$id." ";
-
-$elements = shopOrdersController::getListDetailAction(1, $filtro_order);
-$historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id." ");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -21,6 +12,14 @@ $historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id
 			array("ItemLabel"=>strTranslate("APP_Shop"), "ItemUrl"=>"shopproducts"),
 			array("ItemLabel"=> strTranslate("Shop_order"), "ItemClass"=>"active"),
 		));
+		
+		session::getFlashMessage( 'actions_message' );
+		shopOrdersController::createAction();
+		$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? sanitizeInput($_REQUEST['id']) : 0);
+		$filtro_order = " AND username_order='".$_SESSION['user_name']."' AND d.id_order=".$id." ";
+
+		$elements = shopOrdersController::getListDetailAction(1, $filtro_order);
+		$historico = shopOrdersController::getListStatusAction(100, " AND id_order=".$id." ");
 		if (isset($elements['items'][0])):
 			$element = $elements['items'][0];?>
 			<div class="panel panel-default">

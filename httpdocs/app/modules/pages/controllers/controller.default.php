@@ -6,7 +6,7 @@ class pagesController{
 		if ($find_reg !=  '') $filter .= " AND page_canal='".$find_reg."' ".$filter;
 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("pages",$filter); 
+		$total_reg = connection::countReg("pages", $filter); 
 		return array('items' => $pages->getPages($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,

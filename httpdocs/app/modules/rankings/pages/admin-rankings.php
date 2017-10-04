@@ -29,34 +29,34 @@ rankingsController::ExportRankingDataAction();
 				
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
-					<tr>
-					<th width="40px">&nbsp;</th>
-					<th><?php e_strTranslate("Name");?></th>
-					<th><?php e_strTranslate("Category");?></th>
-					<th><?php e_strTranslate("Active");?></th>
-					</tr>
-					<?php foreach($elements['items'] as $element):?>
 						<tr>
-						<td nowrap="nowrap">
-							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>" onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-rankings?e=2&act=del&id=<?php echo $element['id_ranking'];?>'); return false"><i class="fa fa-trash icon-table"></i>
-							</button>
-
-							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-ranking?id=<?php echo $element['id_ranking'];?>'"><i class="fa fa-edit icon-table"></i>
-							</button>
-
-							<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Show");?>" onClick="location.href='rankings?id=<?php echo $element['id_ranking'];?>'">
-									<i class="fa fa-share icon-table"></i>
-							</button>
-
-							<button type="button" class="btn btn-default btn-xs" onClick="location.href='admin-rankings?exp=<?php echo $element['id_ranking'];?>'" title="descargar datos">
-								<i class="fa fa-download icon-table"></i>
-							</button>
-						</td>
-						<td><?php echo $element['nombre_ranking'];?></td>
-						<td><?php echo $element['ranking_category_name'];?></td>
-						<td><a href="admin-rankings?act=del&e=<?php echo ($element['activo']==1 ? 0 : 1);?>&id=<?php echo $element['id_ranking'];?>"><span class="label<?php echo ($element['activo']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['activo']==1 ? "sí" : "no");?></span></a></td>
+							<th width="40px">&nbsp;</th>
+							<th><?php e_strTranslate("Name");?></th>
+							<th><?php e_strTranslate("Category");?></th>
+							<th><?php e_strTranslate("Active");?></th>
 						</tr>
-					<?php endforeach;?>
+						<?php foreach($elements['items'] as $element):?>
+						<tr>
+							<td nowrap="nowrap">
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>" onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-rankings?e=2&act=del&id=<?php echo $element['id_ranking'];?>'); return false"><i class="fa fa-trash icon-table"></i>
+								</button>
+
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-ranking?id=<?php echo $element['id_ranking'];?>'"><i class="fa fa-edit icon-table"></i>
+								</button>
+
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Show");?>" onClick="location.href='rankings?id=<?php echo $element['id_ranking'];?>'">
+										<i class="fa fa-share icon-table"></i>
+								</button>
+
+								<button type="button" class="btn btn-default btn-xs" onClick="location.href='admin-rankings?exp=<?php echo $element['id_ranking'];?>'" title="descargar datos">
+									<i class="fa fa-download icon-table"></i>
+								</button>
+							</td>
+							<td><?php echo $element['nombre_ranking'];?></td>
+							<td><?php echo $element['ranking_category_name'];?></td>
+							<td><a href="admin-rankings?act=del&e=<?php echo ($element['activo']==1 ? 0 : 1);?>&id=<?php echo $element['id_ranking'];?>"><span class="label<?php echo ($element['activo']==0 ? " label-danger" : " label-success");?>"><?php echo ($element['activo']==1 ? "sí" : "no");?></span></a></td>
+						</tr>
+						<?php endforeach;?>
 					</table>
 				</div>
 				<?php Paginator($elements['pag'], $elements['reg'], $elements['total_reg'], $_REQUEST['page'], '', $elements['find_reg']);?>

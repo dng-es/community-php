@@ -60,11 +60,11 @@ function pasadaProccess($id_message, $action, $pasada){
 		//convertir links para estadisticas
 		$message_body_user = mailingController::convertHtmlLinks($message_body_user, $id_message, $usuario['id_message_user']);
 
-		if (messageProcess($message_subject, $message_from, $message_to , $message_body_user, $message_attachment)):
-			$mailing->updateMessageUser($usuario['id_message_user'],'send');
+		if (messageProcess($message_subject, $message_from, $message_to, $message_body_user, $message_attachment)):
+			$mailing->updateMessageUser($usuario['id_message_user'], 'send');
 			$enviados++;
 		else:
-			$mailing->updateMessageUser($usuario['id_message_user'],'failed');
+			$mailing->updateMessageUser($usuario['id_message_user'], 'failed');
 			$fallidos++;
 		endif;
 	endforeach;
@@ -74,9 +74,9 @@ function pasadaProccess($id_message, $action, $pasada){
 	echo " - Mensajes fallidos: ".$fallidos;
 
 	//verificar si ha acabado el envio y actualizar datos
-	$pendientes = connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND message_status='pending' ");
-	$enviados = connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND message_status='send' ");
-	$fallidos = connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND message_status='failed' ");
+	$pendientes = connection::countReg("mailing_messages_users", " AND id_message=".$id_message." AND message_status='pending' ");
+	$enviados = connection::countReg("mailing_messages_users", " AND id_message=".$id_message." AND message_status='send' ");
+	$fallidos = connection::countReg("mailing_messages_users", " AND id_message=".$id_message." AND message_status='failed' ");
 
 	$mailing->updateMessageField($id_message, "total_send", $enviados);
 	$mailing->updateMessageField($id_message, "total_pending", $pendientes);

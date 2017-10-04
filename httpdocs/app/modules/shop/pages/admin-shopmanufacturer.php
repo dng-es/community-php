@@ -1,6 +1,4 @@
-<?php
-addJavascripts(array(getAsset("shop")."js/admin-shopmanufacturer.js"));
-?>
+<?php addJavascripts(array(getAsset("shop")."js/admin-shopmanufacturer.js"));?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -32,7 +30,6 @@ addJavascripts(array(getAsset("shop")."js/admin-shopmanufacturer.js"));
 					</div>
 					<button class="btn btn-primary pull-right" id="SubmitData" name="SubmitData" type="submit"><?php e_strTranslate("Save_data");?></button>
 				</form>
-
 			</div>
 		</div>
 	</div>

@@ -40,7 +40,7 @@ class usersCreditosController{
 			if(getModuleExist("prestashop")){
 				//obtener el id_externo del usuario
 				$usuario = usersController::getPerfilAction($username);
-				if ($usuario['id_externo'] > 0) prestashopCreditsController::insertCredits($usuario['id_externo'], $puntos);
+				if ($usuario['id_externo'] > 0) prestashopCreditsController::insertCredits($usuario['id_externo'], $creditos);
 			}
 		}
 	}

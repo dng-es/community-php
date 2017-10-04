@@ -20,9 +20,9 @@
 					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 					$tamano_archivo = $fichero['size'];
 					//compruebo si las características del archivo son las que deseo
-					if ($tipo_archivo != "XLS") {
+					if ($tipo_archivo != "XLS") 
 						ErrorMsg("La extensión no es correcta.".$tipo_archivo);
-					}else{
+					else{
 						if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
 							//BORRAR FICHEROS ANTIGUOS
 							//FileSystem::rmdirtree('docs/cargas',$archivo_destino);
@@ -72,5 +72,4 @@ function volcarMySQL($data){
 	<br />
 	<p><a class="btn btn-primary" href="javascript:history.go(-1)"><?php e_strTranslate("Go_back");?></a></p>
 	<p>El proceso de importación ha finalizado con éxito</p>
-
 <?php } ?>

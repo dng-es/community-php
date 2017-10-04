@@ -3,23 +3,6 @@ addJavascripts(array("js/jcolumn.min.js", getAsset("shop")."js/shopproducts.js")
 addCss(array(getAsset("shop")."css/styles.css"));
 templateload("searchproducts","shop");
 templateload("credits","shop");
-
-$filtro = " AND active_product=1 ";
-if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".$_REQUEST['ref_search']."%' ";
-if (isset($_REQUEST['name_search'])) $filtro .= " AND name_product LIKE '%".$_REQUEST['name_search']."%' ";
-if (isset($_REQUEST['manufacturer_search'])) $filtro .= " AND name_manufacturer LIKE '%".$_REQUEST['manufacturer_search']."%' ";
-if (isset($_REQUEST['category_search'])) $filtro .= " AND category_product LIKE '%".$_REQUEST['category_search']."%' ";
-if (isset($_REQUEST['subcategory_search'])) $filtro .= " AND subcategory_product LIKE '%".$_REQUEST['subcategory_search']."%' ";
-$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
-$filtro .= $filtro_canal." ORDER BY important_product DESC, price_product ASC, name_product ASC";
-
-session::getFlashMessage( 'actions_message' );
-$elements = shopProductsController::getListAction(15, $filtro);
-
-//obtener datos del usuario
-$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
-
-$module_config = getModuleConfig("shop");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -29,6 +12,23 @@ $module_config = getModuleConfig("shop");
 			array("ItemLabel"=>strTranslate("APP_Shop"), "ItemUrl"=>"shopproducts"),
 			array("ItemLabel"=> strTranslate("Shop_products_list"), "ItemClass"=>"active"),
 		));
+		
+		$filtro = " AND active_product=1 ";
+		if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".$_REQUEST['ref_search']."%' ";
+		if (isset($_REQUEST['name_search'])) $filtro .= " AND name_product LIKE '%".$_REQUEST['name_search']."%' ";
+		if (isset($_REQUEST['manufacturer_search'])) $filtro .= " AND name_manufacturer LIKE '%".$_REQUEST['manufacturer_search']."%' ";
+		if (isset($_REQUEST['category_search'])) $filtro .= " AND category_product LIKE '%".$_REQUEST['category_search']."%' ";
+		if (isset($_REQUEST['subcategory_search'])) $filtro .= " AND subcategory_product LIKE '%".$_REQUEST['subcategory_search']."%' ";
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
+		$filtro .= $filtro_canal." ORDER BY important_product DESC, price_product ASC, name_product ASC";
+
+		session::getFlashMessage( 'actions_message' );
+		$elements = shopProductsController::getListAction(15, $filtro);
+
+		//obtener datos del usuario
+		$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
+
+		$module_config = getModuleConfig("shop");
 		?>
 
 		<div class="row">

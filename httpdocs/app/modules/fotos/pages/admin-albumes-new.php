@@ -20,7 +20,7 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 			array("ItemLabel"=>strTranslate("Edit")." ".strTranslate("Photo_albums"), "ItemClass"=>"active"),
 		));
 
-		session::getFlashMessage( 'actions_message' );
+		session::getFlashMessage('actions_message');
 		fotosController::changeTags();
 		fotosAlbumController::addFotoAction();
 		fotosAlbumController::cancelFotoAction();
@@ -95,7 +95,7 @@ addJavascripts(array(getAsset("fotos")."js/admin-albumes-new.js"));
 										<th><span class="fa fa-comment"></span></th>
 									</tr>
 									<?php foreach($elements['items'] as $element):
-										$num_comentarios = connection::countReg("galeria_fotos_comentarios"," AND estado=1 AND id_file=".$element['id_file']." ");?>
+										$num_comentarios = connection::countReg("galeria_fotos_comentarios", " AND estado=1 AND id_file=".$element['id_file']." ");?>
 										<tr>
 											<td nowrap="nowrap">
 												<button type="button" class="btn btn-default btn-xs" onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-albumes-new?act=foto_ko&id=<?php echo $id.'&idf='.$element['id_file'].'&u='.$element['user_add'];?>'); return false;" title="<?php e_strTranslate("Delete");?>" /><i class="fa fa-trash icon-table"></i></button>

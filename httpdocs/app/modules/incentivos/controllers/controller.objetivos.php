@@ -24,10 +24,10 @@ class incentivosObjetivosController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['nombre_objetivo']) and trim($_POST['nombre_objetivo']) != ""){
+		if (isset($_POST['nombre_objetivo']) && trim($_POST['nombre_objetivo']) != ""){
 			$nombre_objetivo = sanitizeInput($_POST['nombre_objetivo']);
 			$tipo_objetivo = sanitizeInput( $_POST['tipo_objetivo'] );
-			$ranking_objetivo = (isset($_POST['ranking_objetivo']) and $_POST['ranking_objetivo'] == "on") ? 1 : 0;
+			$ranking_objetivo = (isset($_POST['ranking_objetivo']) && $_POST['ranking_objetivo'] == "on") ? 1 : 0;
 			$date_ini = sanitizeInput($_POST['date_ini']);
 			$date_fin = sanitizeInput($_POST['date_fin']);
 			$perfil_objetivo = sanitizeInput($_POST['perfil_objetivo']);
@@ -44,7 +44,7 @@ class incentivosObjetivosController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == "del"){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == "del"){
 			$id_objetivo = intval($_REQUEST['id']);
 			$incentivos = new incentivos();
 			if ($incentivos->disableIncentivesObjetivos($id_objetivo))
@@ -70,7 +70,7 @@ class incentivosObjetivosController{
 	}
 
 	public static function createDetalleAction(){
-		if (isset($_POST['id_objetivo']) and trim($_POST['id_objetivo']) > 0){
+		if (isset($_POST['id_objetivo']) && trim($_POST['id_objetivo']) > 0){
 			$id_objetivo = intval($_POST['id_objetivo']);
 			$destino_objetivo = sanitizeInput( $_POST['destino_objetivo']);
 			$id_producto = intval($_POST['id_producto'] );
@@ -94,7 +94,7 @@ class incentivosObjetivosController{
 	}
 
 	public static function deleteDetalleAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == "del"){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == "del"){
 			$id_objetivo = intval($_REQUEST['id']);
 			$id_detalle = intval($_REQUEST['det']);
 			$incentivos = new incentivos();
@@ -107,7 +107,7 @@ class incentivosObjetivosController{
 	}
 
 	public static function exportAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getIncentivesObjetivos("");
 			download_send_headers(strTranslate("Incentives_targets")."_".date("Y-m-d").".csv");
@@ -117,7 +117,7 @@ class incentivosObjetivosController{
 	}
 
 	public static function exportDetailAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$incentivos = new incentivos();
 			$id_objetivo = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 			$elements = $incentivos->getIncentivesObjetivosDetalleExport(" AND d.id_objetivo=".$id_objetivo." ");

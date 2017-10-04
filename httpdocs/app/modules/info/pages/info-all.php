@@ -10,7 +10,7 @@ addJavascripts(array(getAsset("info")."js/info-all.js"));
 			array("ItemLabel"=>strTranslate("Info_Documents"), "ItemClass"=>"active"),
 		));
 
-		infoController::insertAlerts();
+		infoController::insertAlerts($_SESSION['user_name']);
 		session::getFlashMessage('actions_message');
 		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_info LIKE '%".$_SESSION['user_canal']."%' " : "");
 		$filtro_canal_campaign = ($_SESSION['user_canal'] != 'admin' ? " AND canal_campaign LIKE '%".$_SESSION['user_canal']."%' " : "");

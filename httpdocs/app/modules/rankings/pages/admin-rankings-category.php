@@ -20,11 +20,8 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 
 		//OBTENER DATOS DEL Cuestionario
 		$id_ranking = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
-		if ($id_ranking > 0){
-			$ranking = rankingsController::getItemCategoryAction($id_ranking);
-			$ranking_nombre = $ranking[0]['ranking_category_name'];
-		}
-		else $ranking_nombre = "";
+		$ranking = rankingsController::getItemCategoryAction($id_ranking);
+		
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -33,7 +30,7 @@ addJavascripts(array("js/libs/ckeditor/ckeditor.js",
 					
 					<div class="form-group">
 						<label for="nombre"><?php e_strTranslate("Name");?>:</label>
-						<input type="text" name="nombre" id ="nombre" class="form-control" value="<?php echo $ranking_nombre;?>" />
+						<input type="text" name="nombre" id ="nombre" class="form-control" value="<?php echo $ranking['ranking_category_name'];?>" />
 						<div class="alert-message alert alert-danger" id="nombre-alert">Introduce el nombre del ranking</div>
 					</div>
 

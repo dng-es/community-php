@@ -30,12 +30,25 @@ class rankingsController{
 
 	public static function getItemAction($id, $filter = " "){
 		$rankings = new rankings();
-		return $rankings->getRankings(" AND id_ranking=".$id.$filter);
+		$elements = $rankings->getRankings(" AND id_ranking=".$id." ".$filter);
+		if (!isset($elements[0])){
+			$elements[0]['nombre_ranking'] = "";
+			$elements[0]['descripcion_ranking'] = "";
+			$elements[0]['id_ranking_category'] = 0;
+		}
+		return $elements[0];
 	}
 
 	public static function getItemCategoryAction($id, $filter = " "){
 		$rankings = new rankings();
-		return $rankings->getRankingsCategories(" AND id_ranking_category=".$id.$filter);
+		$result = $rankings->getRankingsCategories(" AND id_ranking_category=".$id." ".$filter);
+
+		if (isset($result[0]['ranking_category_name'])) $response = $result[0];
+		else{
+			$response['ranking_category_name'] = "";
+		}
+
+		return $response;
 	}
 
 	public static function deleteAction(){

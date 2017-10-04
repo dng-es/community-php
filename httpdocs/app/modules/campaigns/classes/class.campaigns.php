@@ -7,7 +7,8 @@ class campaigns{
 	 */
 	public function getCampaigns($filter = ""){
 		$Sql = "SELECT c.*,t.campaign_type_name AS tipo 
-				FROM campaigns c LEFT JOIN campaigns_types t ON t.id_campaign_type=c.id_campaign_type 
+				FROM campaigns c 
+				LEFT JOIN campaigns_types t ON t.id_campaign_type=c.id_campaign_type 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -33,7 +34,9 @@ class campaigns{
 	 * @return boolean 						Resultado de la SQL
 	 */
 	public function deleteCampaigns($id){
-		$Sql = "UPDATE campaigns SET active=0 WHERE id_campaign=".$id;
+		$Sql = "UPDATE campaigns SET 
+				active=0 
+				WHERE id_campaign=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -69,7 +72,9 @@ class campaigns{
 	 * @return array 						Array con registros
 	 */
 	public function getCampaignsTypes($filter = ""){
-		$Sql = "SELECT * FROM campaigns_types WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM campaigns_types 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -79,7 +84,8 @@ class campaigns{
 	 * @return boolean 						Resultado de la SQL
 	 */
 	public function deleteCampaignsType($id){
-		$Sql = "DELETE FROM campaigns_types WHERE id_campaign_type=".$id;
+		$Sql = "DELETE FROM campaigns_types 
+				WHERE id_campaign_type=".$id;
 		return connection::execute_query($Sql);
 	}
 

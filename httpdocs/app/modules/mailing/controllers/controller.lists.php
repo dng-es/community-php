@@ -66,7 +66,7 @@ class mailingListsController{
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("user-list?act=editid=".$id_list);
+			redirectURL("user-list?id=".$id_list);
 		}
 	}
 

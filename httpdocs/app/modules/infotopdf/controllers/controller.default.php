@@ -28,31 +28,31 @@ class infotopdfController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == 'del'){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
 			$info = new infotopdf();
 			if ($info->deleteInfo($_REQUEST['id'],$_REQUEST['d'])) 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("admin-info");
+			redirectURL("admin-infotopdf");
 		}
 	}
 
 	public static function getHTMLtoPDF(){
-		if (isset($_POST['id_info']) and $_POST['id_info'] > 0){
+		if (isset($_POST['id_info']) && $_POST['id_info'] > 0){
 			$info = new infotopdf();
 			global $ini_conf;
 			$html_content = $info->getInfo(" AND id_info=".$_POST['id_info']);
 
 			$user_direccion = "";
-			if (isset($_POST['calle_direccion']) and $_POST['calle_direccion'] != "") $user_direccion .= $_POST['calle_direccion'];
-			if (isset($_POST['postal_direccion']) and $_POST['postal_direccion'] != "") $user_direccion .= "<br />".$_POST['postal_direccion'];
-			if (isset($_POST['poblacion_direccion']) and $_POST['poblacion_direccion'] != "") $user_direccion .= " - ".$_POST['poblacion_direccion'];
-			if (isset($_POST['provincia_direccion']) and $_POST['provincia_direccion'] != "") $user_direccion .= " - ".$_POST['provincia_direccion'];
-			if (isset($_POST['telefono_direccion']) and $_POST['telefono_direccion'] != "") $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];
-			if (isset($_POST['web_direccion']) and $_POST['web_direccion'] != "") $user_direccion .= "<br />".$_POST['web_direccion'];
-			if (isset($_POST['email_direccion']) and $_POST['email_direccion'] != "") $user_direccion .= "<br />".$_POST['email_direccion'];
+			if (isset($_POST['calle_direccion']) && $_POST['calle_direccion'] != "") $user_direccion .= $_POST['calle_direccion'];
+			if (isset($_POST['postal_direccion']) && $_POST['postal_direccion'] != "") $user_direccion .= "<br />".$_POST['postal_direccion'];
+			if (isset($_POST['poblacion_direccion']) && $_POST['poblacion_direccion'] != "") $user_direccion .= " - ".$_POST['poblacion_direccion'];
+			if (isset($_POST['provincia_direccion']) && $_POST['provincia_direccion'] != "") $user_direccion .= " - ".$_POST['provincia_direccion'];
+			if (isset($_POST['telefono_direccion']) && $_POST['telefono_direccion'] != "") $user_direccion .= "<br />Tlf.:  ".$_POST['telefono_direccion'];
+			if (isset($_POST['web_direccion']) && $_POST['web_direccion'] != "") $user_direccion .= "<br />".$_POST['web_direccion'];
+			if (isset($_POST['email_direccion']) && $_POST['email_direccion'] != "") $user_direccion .= "<br />".$_POST['email_direccion'];
 
 			$content = $html_content[0]['cuerpo_info'];
 			$content = str_replace($ini_conf['SiteUrl']."/", '', $content);

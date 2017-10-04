@@ -2,18 +2,24 @@
 class agenda{
 	public function insertAlerts(){
 		$Sql = "INSERT INTO blog_alerts (id_tema,username_alert)
-				SELECT id_tema, '".$_SESSION['user_name']."' FROM foro_temas WHERE ocio=1 AND id_tema NOT IN (SELECT id_tema FROM blog_alerts WHERE username_alert = '".$_SESSION['user_name']."')";
+					SELECT id_tema, '".$_SESSION['user_name']."' 
+					FROM foro_temas WHERE ocio=1 AND id_tema NOT IN (
+						SELECT id_tema FROM blog_alerts 
+						WHERE username_alert = '".$_SESSION['user_name']."')";
 		return connection::execute_query($Sql);
 	}
 
 	public function getAgenda($filter = ""){
-		$Sql = "SELECT * FROM agenda a
-		LEFT JOIN agenda_tipos t ON a.tipo = t.id_agenda_tipo WHERE 1=1 ".$filter; //echo $Sql;
-		return connection::getSQL($Sql);
+		$Sql = "SELECT * 
+				FROM agenda a
+				LEFT JOIN agenda_tipos t ON a.tipo = t.id_agenda_tipo WHERE 1=1 ".$filter; //echo $Sql;
+				return connection::getSQL($Sql);
 	}
 
 	public function getTipos($filter = ""){
-		$Sql = "SELECT * FROM agenda_tipos WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM agenda_tipos 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -64,7 +70,9 @@ class agenda{
 		else $banner = '';
 
 		//Formato fecha
-		$Sql = "UPDATE agenda SET titulo = '".$nombre."',descripcion='".$descripcion."'";
+		$Sql = "UPDATE agenda SET 
+				titulo = '".$nombre."',
+				descripcion='".$descripcion."'";
 		if ($banner <> '') $Sql .= ",banner='".$banner."'";
 		
 		if (is_null($dateIni) || ($dateIni=='')) {
@@ -107,7 +115,9 @@ class agenda{
 	}
 
 	public function getCategorias($filter = ""){
-		$Sql = "SELECT DISTINCT etiquetas AS categoria FROM agenda WHERE etiquetas<>'' ".$filter;
+		$Sql = "SELECT DISTINCT etiquetas AS categoria 
+				FROM agenda 
+				WHERE etiquetas<>'' ".$filter;
 		$result = connection::execute_query($Sql);
 		$registros = "";
 		while ($registro = connection::get_result($result)){
@@ -120,7 +130,9 @@ class agenda{
 	}
 
 	public function getTags($filter = ""){
-		$Sql = "SELECT GROUP_CONCAT(etiquetas) AS tag FROM agenda WHERE activo=1 ".$filter;
+		$Sql = "SELECT GROUP_CONCAT(etiquetas) AS tag 
+				FROM agenda 
+				WHERE activo=1 ".$filter;
 		$result = connection::getSQL($Sql);
 		$registros = str_replace(', ', ',', $result[0]['tag']);
 		$registros =  explode(",", $registros);

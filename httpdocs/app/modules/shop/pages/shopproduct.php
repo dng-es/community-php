@@ -2,25 +2,6 @@
 addCss(array(getAsset("shop")."css/styles.css"));
 templateload("searchproducts","shop");
 templateload("credits","shop");
-
-$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? intval($_REQUEST['id']) : 0);
-$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
-$filtro = $filtro_canal." AND active_product=1 AND id_product=".$id." ";
-
-if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".sanitizeInput($_REQUEST['ref_search'])."%' ";
-if (isset($_REQUEST['name_search'])) $filtro .= " AND name_product LIKE '%".sanitizeInput($_REQUEST['name_search'])."%' ";
-if (isset($_REQUEST['manufacturer_search'])) $filtro .= " AND name_manufacturer LIKE '%".sanitizeInput($_REQUEST['manufacturer_search'])."%' ";
-if (isset($_REQUEST['category_search'])) $filtro .= " AND category_product LIKE '%".sanitizeInput($_REQUEST['category_search'])."%' ";
-if (isset($_REQUEST['subcategory_search'])) $filtro .= " AND subcategory_product LIKE '%".sanitizeInput($_REQUEST['subcategory_search'])."%' ";
-
-session::getFlashMessage( 'actions_message' );
-$elements = shopProductsController::getListAction(1, $filtro);
-$element = $elements['items'][0];
-
-//obtener datos del usuario
-$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
-
-$module_config = getModuleConfig("shop");
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -30,6 +11,25 @@ $module_config = getModuleConfig("shop");
 			array("ItemLabel"=>strTranslate("APP_Shop"), "ItemUrl"=>"shopproducts"),
 			array("ItemLabel"=> strTranslate("Shop_products_list"), "ItemClass"=>"active"),
 		));
+	
+		$id = ((isset($_REQUEST['id']) && $_REQUEST['id'] > 0) ? intval($_REQUEST['id']) : 0);
+		$filtro_canal = ($_SESSION['user_canal'] != 'admin' ? " AND canal_product LIKE '%".$_SESSION['user_canal']."%' " : "");
+		$filtro = $filtro_canal." AND active_product=1 AND id_product=".$id." ";
+
+		if (isset($_REQUEST['ref_search'])) $filtro .= " AND ref_product LIKE '%".sanitizeInput($_REQUEST['ref_search'])."%' ";
+		if (isset($_REQUEST['name_search'])) $filtro .= " AND name_product LIKE '%".sanitizeInput($_REQUEST['name_search'])."%' ";
+		if (isset($_REQUEST['manufacturer_search'])) $filtro .= " AND name_manufacturer LIKE '%".sanitizeInput($_REQUEST['manufacturer_search'])."%' ";
+		if (isset($_REQUEST['category_search'])) $filtro .= " AND category_product LIKE '%".sanitizeInput($_REQUEST['category_search'])."%' ";
+		if (isset($_REQUEST['subcategory_search'])) $filtro .= " AND subcategory_product LIKE '%".sanitizeInput($_REQUEST['subcategory_search'])."%' ";
+
+		session::getFlashMessage( 'actions_message' );
+		$elements = shopProductsController::getListAction(1, $filtro);
+		$element = $elements['items'][0];
+
+		//obtener datos del usuario
+		$user_detail = usersController::getPerfilAction($_SESSION['user_name']);
+
+		$module_config = getModuleConfig("shop");
 
 		$card_text = strTranslate("Buy_product");
 		$card_text = ($element['price_product'] > $user_detail['creditos'] ? strTranslate("No_Buy_product") : $card_text);

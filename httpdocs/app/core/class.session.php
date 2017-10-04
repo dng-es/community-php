@@ -276,6 +276,8 @@ class session{
 			elseif ($class == 'warning') $title_default = "Cuidado...";
 			elseif ($class == 'info') $title_default = "Info";
 			elseif ($class == 'danger') $title_default = "Error";
+			else $title_default = "";
+
 			$title = !empty( $_SESSION[$name.'_title'] ) ? $_SESSION[$name.'_title'] : $title_default;
 			echo '<div class="msg-flash '.$class.'" data-title="'.$title.'">'.$_SESSION[$name].'</div>';
 			unset($_SESSION[$name]);

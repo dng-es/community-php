@@ -3,7 +3,7 @@
 * @Modulo de foros
 * @author Imagar Informatica SL
 * @copyright 2010 Grass Roots Spain
-* @version  1.1
+* @version  1.2
 *
 */
 class foroCore{
@@ -36,7 +36,7 @@ class foroCore{
 			$module_config = getModuleConfig("foro");
 			$alerts_text = "";
 			if ($module_config['options']['show_alarms']):
-				$num_alerts = connection::countReg("notifications"," AND username_notification='".$_SESSION['user_name']."' AND type_notification='foro' ");
+				$num_alerts = connection::countReg("notifications", " AND username_notification='".$_SESSION['user_name']."' AND type_notification='foro' ");
 				$alerts_text = ($num_alerts > 0 ? ' <span class="menu-alert" title="'.strTranslate("Notifications_comment_new").'" id="contador-foro-header">'.$num_alerts.'</span>' : "");
 			endif;
 
@@ -78,5 +78,47 @@ class foroCore{
 
 		return $elems;
 	}
+
+	public static function searchMain($string){
+		$foro = new foro();
+		$result = array();
+		$module_config = getModuleConfig("foro");
+		$filtro_canal = foroController::getFiltroCanales($module_config);
+		//buscar temas
+		$request = $foro->getTemas($filtro_canal." AND (MATCH(nombre) AGAINST ('".$string."') OR MATCH(descripcion) AGAINST ('".$string."')) AND ocio=0 AND activo=1 AND id_area=0 ");
+		foreach ($request as $req):
+			array_push($result, array(
+				"title"=>$req['nombre'], 
+				"description"=>$req['descripcion'], 
+				"url"=>"foro-comentarios?id=".$req['id_tema']."&search=".$string,
+				"type" => strTranslate("Forums"),
+				"order" => 11
+			));
+		endforeach;	
+
+		//buscar comentarios
+		$request = $foro->getComentarios($filtro_canal." AND MATCH(comentario) AGAINST ('".$string."') AND ocio=0 AND estado=1 AND id_area=0 ");
+		foreach ($request as $req):
+			array_push($result, array(
+				"title"=>$req['nombre'], 
+				"description"=>$req['comentario'], 
+				"url"=>"foro-comentarios?id=".$req['id_tema']."&search=".$string,
+				"type" => strTranslate("Forums")." ".strTranslate("Comments"),
+				"order" => 12
+			));
+		endforeach;	
+
+		if (strtolower($string) == strtolower(strTranslate("Forums"))){
+			array_push($result, array(
+				"title"=>'<i class="fa fa-list"></i> '.strTranslate("Forums"), 
+				"description"=>strTranslate("Forums_title"), 
+				"url"=>"foro-subtemas",
+				"type" => strTranslate("Forums"),
+				"order" => 10
+			));
+		}
+
+		return $result;
+	}	
 }
 ?>

@@ -15,6 +15,7 @@ function redirectURL($url){
 	catch(Exception $e){
 		//si falla la redirección javascript lo intentamos por php
 		header ("Location: ".$url);
+		die();
 	}
 }
 
@@ -63,7 +64,7 @@ function dirCarga($dir, $modulename){
 	$pos = strrpos( $dir , "\\" );
 	if ($pos === false){
 		//linux
-		$dir_final = str_replace("app/core", "app",  $dir .$modulename);
+		$dir_final = str_replace("app/core", "app", $dir .$modulename);
 	}
 	else{
 		//windows
@@ -82,7 +83,7 @@ function templateload($template, $classname){
 	//search in themes folder
 	if(is_dir(dirCarga(dirname(__FILE__), "/../themes/".$_SESSION['user_theme']."/modules/".$classname."/templates"))){
 		$file = dirCarga(dirname(__FILE__), "/../themes/".$_SESSION['user_theme']."/modules/".$classname."/templates/".$template.".php");
-		if (file_exists($file)) {
+		if (file_exists($file)){
 			include_once ($file);
 			$template_found = true;
 		}
@@ -321,6 +322,7 @@ function get_hooks($situation){
 function getFindReg(){
 	$find_reg = "";
 	if (isset($_REQUEST['find_reg'])) $find_reg = sanitizeInput($_REQUEST['find_reg']);
+	if (isset($_POST['find_reg'])) $find_reg = sanitizeInput($_POST['find_reg']);
 	if (isset($_REQUEST['f'])) $find_reg = sanitizeInput($_REQUEST['f']);
 	return $find_reg;
 }

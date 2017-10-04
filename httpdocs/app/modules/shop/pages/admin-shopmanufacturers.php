@@ -1,15 +1,3 @@
-<?php
-$filtro = " AND active_manufacturer=1 ";
-
-if (isset($_POST['find_reg'])) $filtro .= " AND name_manufacturer LIKE '%".$_POST['find_reg']."%' ";
-if (isset($_REQUEST['f'])) $filtro .= " AND name_manufacturer LIKE '%".$_REQUEST['f']."%' ";
-$filtro .= " ORDER BY name_manufacturer DESC";
-
-session::getFlashMessage( 'actions_message' );
-shopManufacturersController::exportListAction($filtro);
-shopManufacturersController::deleteAction();
-$elements = shopManufacturersController::getListAction(15, $filtro);
-?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -18,6 +6,16 @@ $elements = shopManufacturersController::getListAction(15, $filtro);
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=> strTranslate("Shop_manufacturers_list"), "ItemClass"=>"active"),
 		));
+		
+		$filtro = " AND active_manufacturer=1 ";
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filtro .= " AND name_manufacturer LIKE '%".$find_reg."%' ";
+		$filtro .= " ORDER BY name_manufacturer DESC";
+
+		session::getFlashMessage( 'actions_message' );
+		shopManufacturersController::exportListAction($filtro);
+		shopManufacturersController::deleteAction();
+		$elements = shopManufacturersController::getListAction(15, $filtro);
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

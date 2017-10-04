@@ -57,7 +57,7 @@ function volcarMySQL($data){
 		$motivo = utf8_encode(sanitizeInput($data->sheets[0]['cells'][$fila][3]));
 		if ($username != ""){
 			//VERIFICAR QUE EXISTA EL USUARIO
-			if (connection::countReg("users"," AND TRIM(UCASE(username))=TRIM('".$username."') ") > 0){
+			if (connection::countReg("users", " AND TRIM(UCASE(username))=TRIM('".$username."') ") > 0){
 				if ($users->sumarPuntos($username, $puntos, $motivo)) $contador++;	
 			}
 		}

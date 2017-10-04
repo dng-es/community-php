@@ -2,7 +2,15 @@
 class blogController{
 	public static function getItemAction($id){
 		$foro = new foro();
-		return $foro->getTemas(" AND id_tema=".$id." ");
+		$elements = $foro->getTemas(" AND id_tema=".$id." ");
+		if (!isset($elements[0])){
+			$elements[0]['nombre'] = "";
+			$elements[0]['descripcion'] = "";
+			$elements[0]['tipo_tema'] = "";
+			$elements[0]['canal'] = "";
+			$elements[0]['destacado'] = 0;
+		}
+		return $elements[0];
 	}
 
 	public static function getLastBlogAction($filtro_blog){
@@ -99,7 +107,7 @@ class blogController{
 			$foro = new foro();
 			$id = intval($_REQUEST['id']);
 			$elements_exp = $foro->getComentariosExport(" AND c.estado=1 AND c.id_tema=".$id." ");
-			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			download_send_headers("data_".date("Y-m-d").".csv");
 			echo array2csv($elements_exp);
 			die();
 		}
@@ -113,16 +121,48 @@ class blogController{
 			$idt = intval($_REQUEST['idt']);
 			$u = sanitizeInput($_REQUEST['u']);
 			if ($_REQUEST['act'] == 'foro_ok'){
-				$foro->cambiarEstado($id,1);
-				$users->sumarPuntos($u, PUNTOS_FORO, PUNTOS_FORO_MOTIVO);
+				if ($foro->cambiarEstado($id,1)){
+					$users->sumarPuntos($u, PUNTOS_FORO, PUNTOS_FORO_MOTIVO);
+					session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
+				}
+				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
-			elseif ($_REQUEST['act'] == 'tema_ko') $foro->cambiarEstadoTema($id, 0);
+			elseif ($_REQUEST['act'] == 'tema_ko') {
+				if ($foro->cambiarEstadoTema($id, 0))
+					session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
+				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+			}
 			elseif ($_REQUEST['act'] == 'foro_ko'){
-				$foro->cambiarEstado($id, 2);
-				$users->restarPuntos($u, PUNTOS_MURO, PUNTOS_MURO_MOTIVO);
+				if ($foro->cambiarEstado($id, 2)){
+					$users->restarPuntos($u, PUNTOS_MURO, PUNTOS_MURO_MOTIVO);
+					session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
+				}
+				else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			}
-			header("Location: admin-blog-foro?id=".$idt); 
+			redirectURL("admin-blog-foro?id=".$idt);
 		}
 	}
+
+	public static function exportListAction($filter = ""){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
+			$foro = new foro();
+			$elements = $foro->getTemas($filter);
+			download_send_headers("data_" . date("Y-m-d") . ".csv");
+			echo array2csv($elements);
+			die();
+		}
+	}
+
+	public static function cambiarEstadoAction(){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == 'del'){
+			$foro = new foro();	
+			if ($foro->cambiarEstadoTema(intval($_REQUEST['id']), 0)) 
+				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
+			else 
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
+
+			redirectURL("admin-blog");
+		}
+	}	
 }
 ?>

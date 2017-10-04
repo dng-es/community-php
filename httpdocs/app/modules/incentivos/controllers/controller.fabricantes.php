@@ -16,7 +16,7 @@ class incentivosFabricantesController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['fabricante-nombre']) and trim($_POST['fabricante-nombre']) != ""){
+		if (isset($_POST['fabricante-nombre']) && trim($_POST['fabricante-nombre']) != ""){
 			$nombre_fabricante = sanitizeInput($_POST['fabricante-nombre']);
 			$incentivos = new incentivos();
 			if ($incentivos->insertIncentivesFabricantes($nombre_fabricante))
@@ -28,7 +28,7 @@ class incentivosFabricantesController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == "del"){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == "del"){
 			$id_fabricante = intval( $_REQUEST['id'] );
 			$incentivos = new incentivos();
 			if ($incentivos->disableIncentivesFabricantes($id_fabricante))
@@ -40,7 +40,7 @@ class incentivosFabricantesController{
 	}
 
 	public static function exportAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export']==true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getIncentivesFabricantes("");
 			download_send_headers(strTranslate("Incentives_manufacturers")."_".date("Y-m-d").".csv");

@@ -20,9 +20,12 @@ templateload("cmbCanales","users");
 
 		$accion=$_GET['act'];
 		$id ='';
-		if ($accion == 'edit'){ $id=$_GET['id'];}
-		if ($accion == 'edit' and (isset($_GET['accion2']) and $_GET['accion2'] == 'ok')) UpdateData($id);
-		if ($accion == 'new' and (isset($_GET['accion2']) and $_GET['accion2'] == 'ok')){ $id = InsertData();$accion="edit";}
+		if ($accion == 'edit') $id = $_GET['id'];
+		if ($accion == 'edit' && (isset($_GET['accion2']) && $_GET['accion2'] == 'ok')) UpdateData($id);
+		if ($accion == 'new' && (isset($_GET['accion2']) && $_GET['accion2'] == 'ok')){ 
+			$id = InsertData();
+			$accion="edit";
+		}
 
 		$info = new infotopdf();
 		$campaigns = new campaigns();

@@ -11,7 +11,7 @@ class connection_sql {
 	const frameworkVersion = 0.5;
 	//class constructor
 	public function __construct(){ }
-	public function __get($name) {
+	public function __get($name){
 		if(defined("self::$name")) return constant("self::$name");
 		trigger_error ("$name is not defined");
 	}

@@ -6,8 +6,8 @@ class emocionesController{
 			$info_title = sanitizeInput($_POST['info_title']);
 			$resultado = $emociones->insertEmocion($_FILES['info_file'], $info_title);
 			if ($resultado == 0){
-				session::setFlashMessage( 'actions_message', "Registro insertado correctamente", "alert alert-success");
-				$id = connection::SelectMaxReg("id_emocion","emociones","");
+				session::setFlashMessage('actions_message', "Registro insertado correctamente", "alert alert-success");
+				$id = connection::SelectMaxReg("id_emocion", "emociones", "");
 				redirectURL("?page=admin-emocion&act=edit&id=".$id);
 			}
 			elseif ($resultado == 1){
@@ -37,7 +37,6 @@ class emocionesController{
 	public function getItemAction($id){
 		if ($id > 0){
 			$emociones = new emociones();
-
 			$result = $emociones->getEmociones(" AND id_emocion=".$id);
 
 			if (!isset($result[0])){
@@ -111,6 +110,7 @@ class emocionesController{
 				//obtener consejo para la emoción
 				$consejos = $emociones->getEmocionesConsejos(" AND id_emocion=".$id_emocion." ORDER BY rand(" . time() . " * " . time() . ") LIMIT 1");
 				if (isset($consejos[0]['emocion_consejo'])) $mensaje = $consejos[0]['emocion_consejo'];
+				else $mensaje = strTranslate("Insert_procesing");
 
 				session::setFlashMessage('actions_message', $mensaje, "alert alert-info", $name_emocion);
 			}
@@ -123,12 +123,10 @@ class emocionesController{
 	public static function getListuserAction($reg = 0, $filter = ""){
 		$emociones = new emociones();
 		$find_reg = getFindReg();
-		if (isset($_REQUEST['id']) && $_REQUEST['id'] > 0){
-			$filter .= " AND eu.id_emocion=".$_REQUEST['id'] . " " .$filter;
-		}
-		if (isset($_REQUEST['i']) && $_REQUEST['i'] != ""){
-			$filter .= " AND date_emocion BETWEEN " . str_replace("%27", "'", $_REQUEST['i']) . " " .$filter;
-		}
+		if (isset($_REQUEST['ide']) && $_REQUEST['ide'] > 0) $filter .= " AND eu.id_emocion=".$_REQUEST['ide']." " .$filter;
+		if (isset($_REQUEST['i']) && $_REQUEST['i'] != "") $filter .= " AND date_emocion BETWEEN ".str_replace("%27", "'", $_REQUEST['i'])." ".$filter;
+		if (isset($_POST['semana']) && $_POST['semana'] != "") $filter .= " AND date_emocion BETWEEN ".str_replace("%27", "'", $_POST['semana'])." ".$filter;
+
 		$filter .= " ORDER BY date_emocion DESC ";
 		$paginator_items = PaginatorPages($reg);	
 		$total_reg = connection::countReg("emociones_user eu", $filter);
@@ -160,7 +158,6 @@ class emocionesController{
 				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 			
 			redirectURL("admin-emocion?id=".$id_emocion);
-			
 		}
 	}	
 

@@ -419,11 +419,13 @@ function ComboTiposTemas($tipo_tema){?>
  * Print HTML combo para los perfiles de la comunidad
  * @param	String		$perfil			Elemento del combo marcado
  */
-function ComboPerfiles($perfil){?>
-	<option value="usuario" <?php if ($perfil=='usuario') echo ' selected="selected" ';?>>Usuario</option>
-	<option value="responsable" <?php if ($perfil=='responsable') echo ' selected="selected" ';?>>Responsable</option>
-	<option value="regional" <?php if ($perfil=='regional') echo ' selected="selected" ';?>>Regional</option>
-	<option value="admin" <?php if ($perfil=='admin') echo ' selected="selected" ';?>>Administrador</option>
+function ComboPerfiles($perfil){
+	$array_perfiles = explode(",", $perfil);
+	?>
+	<option value="usuario" <?php if (in_array('usuario', $array_perfiles)) echo ' selected="selected" ';?>>Usuario</option>
+	<option value="responsable" <?php if (in_array('responsable', $array_perfiles)) echo ' selected="selected" ';?>>Responsable</option>
+	<option value="regional" <?php if (in_array('regional', $array_perfiles)) echo ' selected="selected" ';?>>Regional</option>
+	<option value="admin" <?php if (in_array('admin', $array_perfiles)) echo ' selected="selected" ';?>>Administrador</option>
 <?php 
 }
 

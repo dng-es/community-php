@@ -1,8 +1,3 @@
-<?php
-session::getFlashMessage('actions_message');
-agendaController::exportAction();
-agendaController::deleteAgendaAction();
-$elements = agendaController::getListAction(10, " ORDER BY id_agenda DESC");?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php menu::breadcrumb(array(
@@ -10,8 +5,12 @@ $elements = agendaController::getListAction(10, " ORDER BY id_agenda DESC");?>
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Diary_and_offers"), "ItemUrl"=>"#"),
 			array("ItemLabel"=>strTranslate("Posts_list"), "ItemClass"=>"active"),
-		));?>
-
+		));
+		session::getFlashMessage('actions_message');
+		agendaController::exportAction();
+		agendaController::deleteAgendaAction();
+		$elements = agendaController::getListAction(10, " ORDER BY id_agenda DESC");
+		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">
@@ -37,11 +36,11 @@ $elements = agendaController::getListAction(10, " ORDER BY id_agenda DESC");?>
 					<?php foreach($elements['items'] as $element):?>
 						<tr>
 							<td nowrap="nowrap">
-								<button type="button" class="btn btn-default btn-xs" title="Eliminar"
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Delete");?>"
 									onClick="Confirma('<?php e_strTranslate("Are_you_sure_to_delete");?>', 'admin-agenda?pag=<?php echo $elements['pag'];?>&act=del&id=<?php echo $element['id_agenda'];?>'); return false;"><i class="fa fa-trash icon-table"></i>
 								</button>
 
-								<button type="button" class="btn btn-default btn-xs" title="Ver/editar entrada" onClick="location.href='admin-agenda-new?id=<?php echo $element['id_agenda'];?>'; return false"><i class="fa fa-edit icon-table"></i>
+								<button type="button" class="btn btn-default btn-xs" title="<?php e_strTranslate("Edit");?>" onClick="location.href='admin-agenda-new?id=<?php echo $element['id_agenda'];?>'; return false"><i class="fa fa-edit icon-table"></i>
 								</button>
 							</td>
 							<td>

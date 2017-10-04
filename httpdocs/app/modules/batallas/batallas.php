@@ -64,5 +64,22 @@ class batallasCore{
 
 		return $elems;
 	}
+
+	public static function searchMain($string){
+		$result = array();
+
+		if (strtolower($string) == strtolower(strTranslate("Battles"))){
+			array_push($result, array(
+				"title"=>'<i class="fa fa-list"></i> '.strTranslate("Battles"), 
+				"description"=>strTranslate("New_battle"), 
+				"url"=>"batallas",
+				"type" => strTranslate("Battles"),
+				"order" => 1
+			));
+		}
+
+
+		return $result;
+	}	
 }
 ?>

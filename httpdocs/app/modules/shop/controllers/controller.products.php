@@ -5,16 +5,23 @@ class shopProductsController{
 		$element = array();
 		$elements = $shop->getProducts(" AND id_product=".$id." ");
 
-		if (isset($elements[0])) $element = $elements[0];
-		else{
-			$element['name_product'] = "";
-			$element['description_product'] = "";
-			$element['image_product'] = "";
-			$element['price_product'] = 0;
-			$element['stock_product'] = 0;
-			$element['important_product'] = 0;
+		if (!isset($elements[0])){
+			$elements[0]['ref_product'] = "";
+			$elements[0]['name_product'] = "";
+			$elements[0]['description_product'] = "";
+			$elements[0]['image_product'] = "";
+			$elements[0]['price_product'] = 0;
+			$elements[0]['stock_product'] = 0;
+			$elements[0]['important_product'] = 0;
+			$elements[0]['date_ini_product'] = "";
+			$elements[0]['date_fin_product'] = "";
+			$elements[0]['active_product'] = 0;
+			$elements[0]['id_manufacturer'] = 0;
+			$elements[0]['canal_product'] = "";
+			$elements[0]['category_product'] = "";
+			$elements[0]['subcategory_product'] = "";
 		}
-		return $element;
+		return $elements[0];
 	}
 
 	public static function getListAction($reg = 0, $filter = ""){
@@ -27,7 +34,7 @@ class shopProductsController{
 		if (isset($_REQUEST['subcategory_search'])) $find_reg .= "&subcategory_search=".$_REQUEST['subcategory_search'];
 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("shop_products p, shop_manufacturers m "," AND p.id_manufacturer=m.id_manufacturer".$filter); 
+		$total_reg = connection::countReg("shop_products p, shop_manufacturers m ", " AND p.id_manufacturer=m.id_manufacturer".$filter); 
 		return array('items' => $shop->getProducts($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -66,7 +73,7 @@ class shopProductsController{
 			$file_info = pathinfo($_FILES['image_product']['name']);
 			$extension = strtolower($file_info['extension']);
 
-			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){
+			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['image_product']['name'] == ''){
 				$image_product = self::insertPhoto();
 
 				if ($shop->insertProduct($name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product, $active_product, $date_ini_product, $date_fin_product)){ 
@@ -103,7 +110,7 @@ class shopProductsController{
 			$file_info = pathinfo($_FILES['image_product']['name']);
 			$extension = strtolower($file_info['extension']);
 
-			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['imagen-tema']['name'] == ''){
+			if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $_FILES['image_product']['name'] == ''){
 				$image_product = self::insertPhoto();
 
 				if ($shop->updateProduct($id, $name_product, $description_product, $image_product, $price_product, $stock_product, $important_product, $id_manufacturer, $category_product, $subcategory_product, $ref_product, $canal_product, $active_product, $date_ini_product, $date_fin_product))

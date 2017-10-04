@@ -15,7 +15,7 @@ class incentivosController{
 	}
 
 	public static function exportAction($filter = ""){
-		if (isset($_REQUEST['export']) and $_REQUEST['export']==true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export']==true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getVentasExport($filter);
 			download_send_headers(strTranslate("Incentives_sales")."_".date("Y-m-d").".csv");
@@ -154,7 +154,7 @@ class incentivosController{
 	}
 
 	public static function getRankingAreaActionExport($element, $filtro_tienda, $tipo_informe){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			if ($tipo_informe == "tiendas")
 				$data = incentivosController::getRankingUsuarioTiendaAction($element, $filtro_tienda);
 			else{

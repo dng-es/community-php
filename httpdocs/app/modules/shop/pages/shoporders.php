@@ -1,11 +1,3 @@
-<?php
-$filtro = " AND username_order='".$_SESSION['user_name']."' ";
-if (isset($_GET['find_reg'])) $filtro .= " AND d.id_order LIKE '%".intval($_GET['find_reg'])."%' ";
-if (isset($_REQUEST['f'])) $filtro .= " AND d.id_order LIKE '%".intval($_REQUEST['f'])."%' ";
-$filtro .= " ORDER BY d.id_order DESC";
-$elements = shopOrdersController::getListDetailAction(15, $filtro);
-$tot_credits = connection::sumReg("shop_orders_details", "(amount_product*price_product)", " AND id_order IN (SELECT id_order FROM shop_orders WHERE status_order<>'cancelado' AND username_order='".$_SESSION['user_name']."') ");
-?>
 <div class="row row-top">
 	<div class="app-main">
 		<?php
@@ -14,6 +6,14 @@ $tot_credits = connection::sumReg("shop_orders_details", "(amount_product*price_
 			array("ItemLabel"=>strTranslate("APP_Shop"), "ItemUrl"=>"shopproducts"),
 			array("ItemLabel"=> strTranslate("Shop_my_orders"), "ItemClass"=>"active"),
 		));
+		
+		$filtro = " AND username_order='".$_SESSION['user_name']."' ";
+		$find_reg = getFindReg();
+		if ($find_reg != '') $filtro .= " AND d.id_order LIKE '%".intval($find_reg)."%' ";
+
+		$filtro .= " ORDER BY d.id_order DESC";
+		$elements = shopOrdersController::getListDetailAction(15, $filtro);
+		$tot_credits = connection::sumReg("shop_orders_details", "(amount_product*price_product)", " AND id_order IN (SELECT id_order FROM shop_orders WHERE status_order<>'cancelado' AND username_order='".$_SESSION['user_name']."') ");
 		?>
 		<ul class="nav nav-pills navbar-default">
 			<li class="disabled"><a href="#"><?php e_strTranslate("Total");?> <b><?php echo $elements['total_reg'];?></b> <?php echo strtolower(strTranslate("Items"));?></a></li>
@@ -28,7 +28,7 @@ $tot_credits = connection::sumReg("shop_orders_details", "(amount_product*price_
 					<th width="40px">&nbsp;</th>
 					<th>ID</th>
 					<th></th>
-					<th>Artículo</th>
+					<th><?php e_strTranslate("Shop_product");?></th>
 					<th><?php e_strTranslate("Date");?></th>
 					<th class="text-right"><?php echo ucfirst(strTranslate("APP_Credits"));?></th>
 				</tr>

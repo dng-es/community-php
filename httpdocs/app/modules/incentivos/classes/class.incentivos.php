@@ -6,11 +6,12 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getVentas($filter = ""){
-		$Sql = "SELECT v.*,u.name,u.surname,p.referencia_producto,p.nombre_producto,f.nombre_fabricante FROM incentives_ventas v 
-			LEFT JOIN users u ON u.username=v.username_venta 
-			LEFT JOIN incentives_productos p ON p.id_producto=v.id_producto 
-			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT v.*,u.name,u.surname,p.referencia_producto,p.nombre_producto,f.nombre_fabricante 
+				FROM incentives_ventas v 
+				LEFT JOIN users u ON u.username=v.username_venta 
+				LEFT JOIN incentives_productos p ON p.id_producto=v.id_producto 
+				LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -20,8 +21,9 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getVentasSimple($filter = ""){
-		$Sql = "SELECT * FROM incentives_ventas 
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM incentives_ventas 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -31,8 +33,9 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getVentasRanking($filter = ""){
-		$Sql = "SELECT username_venta,SUM(cantidad_venta) AS suma FROM incentives_ventas
-			WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT username_venta,SUM(cantidad_venta) AS suma 
+				FROM incentives_ventas
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -44,11 +47,11 @@ class incentivos{
 	public function getVentasRankingUser($filter = "", $id_objetivo = 1){
 		$Sql = "SELECT username_puntuacion AS username_venta,SUM(puntuacion_venta) AS suma,u.nick,u.name,u.surname,u.foto,
 			IFNULL(t.nombre_tienda, '') AS nombre_tienda, t.regional_tienda 
-			FROM incentives_ventas_puntos v 
-			LEFT JOIN users u ON u.username=v.username_puntuacion 
-			LEFT JOIN users_tiendas t ON u.empresa=t.cod_tienda 
-			INNER JOIN incentives_objetivos_detalle vd ON vd.id_producto=v.id_producto_venta AND vd.id_objetivo=".$id_objetivo." 
-			WHERE 1=1 ".$filter; 
+				FROM incentives_ventas_puntos v 
+				LEFT JOIN users u ON u.username=v.username_puntuacion 
+				LEFT JOIN users_tiendas t ON u.empresa=t.cod_tienda 
+				INNER JOIN incentives_objetivos_detalle vd ON vd.id_producto=v.id_producto_venta AND vd.id_objetivo=".$id_objetivo." 
+				WHERE 1=1 ".$filter; 
 			//echo $Sql;
 		return connection::getSQL($Sql);
 	}
@@ -60,11 +63,11 @@ class incentivos{
 	 */
 	public function getVentasTendenciaUser($filter = "", $id_objetivo = 1){
 		$Sql = "SELECT tendencia_venta  
-			FROM incentives_ventas v 
-			LEFT JOIN users u ON u.username=v.username_venta 
-			LEFT JOIN users_tiendas t ON u.empresa=t.cod_tienda 
-			INNER JOIN incentives_objetivos_detalle vd ON vd.id_producto=v.id_producto AND vd.id_objetivo=".$id_objetivo." 
-			WHERE 1=1 ".$filter; 
+				FROM incentives_ventas v 
+				LEFT JOIN users u ON u.username=v.username_venta 
+				LEFT JOIN users_tiendas t ON u.empresa=t.cod_tienda 
+				INNER JOIN incentives_objetivos_detalle vd ON vd.id_producto=v.id_producto AND vd.id_objetivo=".$id_objetivo." 
+				WHERE 1=1 ".$filter; 
 			//echo $Sql."<br />";
 		return connection::getSQL($Sql);
 	}
@@ -76,11 +79,11 @@ class incentivos{
 	 */
 	public function getVentasRankingUserTiendas($filter = "", $id_objetivo = 1){
 		$Sql = "SELECT u.empresa,IFNULL(t.nombre_tienda, '') AS nombre_tienda ,SUM(puntuacion_venta) AS suma, t.provincia_tienda,t.territorial_tienda  
-		FROM incentives_ventas_puntos v 
-		LEFT JOIN users u ON u.username=v.username_puntuacion 
-		LEFT JOIN users_tiendas t ON u.empresa=t.cod_tienda 
-		INNER JOIN incentives_objetivos_detalle vd ON vd.id_producto=v.id_producto_venta AND vd.id_objetivo=".$id_objetivo." 
-		WHERE 1=1 ".$filter; //echo $Sql;
+				FROM incentives_ventas_puntos v 
+				LEFT JOIN users u ON u.username=v.username_puntuacion 
+				LEFT JOIN users_tiendas t ON u.empresa=t.cod_tienda 
+				INNER JOIN incentives_objetivos_detalle vd ON vd.id_producto=v.id_producto_venta AND vd.id_objetivo=".$id_objetivo." 
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -117,9 +120,11 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getObjetivosRanking($filter = ""){
-		$Sql = "SELECT destino_objetivo,SUM(valor_objetivo) AS suma, GROUP_CONCAT(id_producto) AS productos,u.name,u.surname,u.nick FROM incentives_objetivos_detalle o 
-			LEFT JOIN users u ON u.username=o.destino_objetivo
-			WHERE 1=1 ".$filter." GROUP BY destino_objetivo"; //echo $Sql."<br /><br />";
+		$Sql = "SELECT destino_objetivo,SUM(valor_objetivo) AS suma, GROUP_CONCAT(id_producto) AS productos,u.name,u.surname,u.nick 
+				FROM incentives_objetivos_detalle o 
+				LEFT JOIN users u ON u.username=o.destino_objetivo
+				WHERE 1=1 ".$filter." 
+				GROUP BY destino_objetivo"; //echo $Sql."<br /><br />";
 		return connection::getSQL($Sql);
 	}
 
@@ -129,9 +134,10 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getObjetivosRankingTienda($filter = ""){
-		$Sql = "SELECT destino_objetivo,SUM(valor_objetivo) AS suma, GROUP_CONCAT(id_producto) AS productos,u.nombre_tienda FROM incentives_objetivos_detalle o 
-			LEFT JOIN users_tiendas u ON u.cod_tienda=o.destino_objetivo 
-			WHERE 1=1 ".$filter." GROUP BY destino_objetivo";
+		$Sql = "SELECT destino_objetivo,SUM(valor_objetivo) AS suma, GROUP_CONCAT(id_producto) AS productos,u.nombre_tienda 
+				FROM incentives_objetivos_detalle o 
+				LEFT JOIN users_tiendas u ON u.cod_tienda=o.destino_objetivo 
+				WHERE 1=1 ".$filter." GROUP BY destino_objetivo";
 		return connection::getSQL($Sql);
 	}
 
@@ -141,11 +147,12 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getVentasExport($filter = ""){
-		$Sql = "SELECT v.username_venta AS Usuario,u.name AS Nombre,u.surname AS Apellidos,p.referencia_producto AS REF,p.nombre_producto AS Producto,f.nombre_fabricante AS Fabricante,v.cantidad_venta AS Cantidad, v.fecha_venta As Fecha FROM incentives_ventas v 
-			LEFT JOIN users u ON u.username=v.username_venta 
-			LEFT JOIN incentives_productos p ON p.id_producto=v.id_producto 
-			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT v.username_venta AS Usuario,u.name AS Nombre,u.surname AS Apellidos,p.referencia_producto AS REF,p.nombre_producto AS Producto,f.nombre_fabricante AS Fabricante,v.cantidad_venta AS Cantidad, v.fecha_venta As Fecha 
+				FROM incentives_ventas v 
+				LEFT JOIN users u ON u.username=v.username_venta 
+				LEFT JOIN incentives_productos p ON p.id_producto=v.id_producto 
+				LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -155,11 +162,12 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getVentasPuntuaciones($filter = ""){
-		$Sql = "SELECT v.*,u.name,u.surname,p.referencia_producto,p.nombre_producto,f.nombre_fabricante FROM incentives_ventas_puntos v 
-			LEFT JOIN users u ON u.username=v.username_puntuacion 
-			LEFT JOIN incentives_productos p ON p.id_producto=v.id_producto_venta 
-			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT v.*,u.name,u.surname,p.referencia_producto,p.nombre_producto,f.nombre_fabricante 
+				FROM incentives_ventas_puntos v 
+				LEFT JOIN users u ON u.username=v.username_puntuacion 
+				LEFT JOIN incentives_productos p ON p.id_producto=v.id_producto_venta 
+				LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -169,11 +177,12 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getVentasPuntuacionesUser($filter = ""){
-		$Sql = "SELECT v.username_puntuacion AS Usuario,u.name AS Nombre,u.surname AS Apellidos,p.referencia_producto,p.nombre_producto,f.nombre_fabricante,puntuacion_venta AS puntuacion,puntuacion_detalle AS detalle, date_venta as fecha_venta  FROM incentives_ventas_puntos v 
-			LEFT JOIN users u ON u.username=v.username_puntuacion 
-			LEFT JOIN incentives_productos p ON p.id_producto=v.id_producto_venta 
-			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
-			WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT v.username_puntuacion AS Usuario,u.name AS Nombre,u.surname AS Apellidos,p.referencia_producto,p.nombre_producto,f.nombre_fabricante,puntuacion_venta AS puntuacion,puntuacion_detalle AS detalle, date_venta as fecha_venta 
+				FROM incentives_ventas_puntos v 
+				LEFT JOIN users u ON u.username=v.username_puntuacion 
+				LEFT JOIN incentives_productos p ON p.id_producto=v.id_producto_venta 
+				LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -183,7 +192,9 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getIncentivesFabricantes($filter = ""){
-		$Sql = "SELECT * FROM incentives_fabricantes WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM incentives_fabricantes 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -205,8 +216,8 @@ class incentivos{
 	 */
 	public function disableIncentivesFabricantes($id){
 		$Sql = "UPDATE incentives_fabricantes 
-			SET activo_fabricante=0 
-			WHERE id_fabricante=".$id;
+				SET activo_fabricante=0 
+				WHERE id_fabricante=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -216,9 +227,10 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getIncentivesProductos($filter = ""){
-		$Sql = "SELECT p.*,f.nombre_fabricante FROM incentives_productos p 
-			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante 
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT p.*,f.nombre_fabricante 
+				FROM incentives_productos p 
+				LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -242,8 +254,8 @@ class incentivos{
 	 */
 	public function disableIncentivesProductos($id){
 		$Sql = "UPDATE incentives_productos 
-			SET activo_producto=0 
-			WHERE id_producto=".$id;
+				SET activo_producto=0 
+				WHERE id_producto=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -253,9 +265,10 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getIncentivesProductAcelerators($filter = ""){
-		$Sql = "SELECT a.*,p.referencia_producto FROM incentives_productos_aceleradores a 
-			LEFT JOIN incentives_productos p ON p.id_producto=a.id_producto
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT a.*,p.referencia_producto 
+				FROM incentives_productos_aceleradores a 
+				LEFT JOIN incentives_productos p ON p.id_producto=a.id_producto
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -280,7 +293,7 @@ class incentivos{
 	 */
 	public function deleteIncentivesProductAcelerator($id){
 		$Sql = "DELETE FROM incentives_productos_aceleradores 
-			WHERE id_acelerador=".$id;
+				WHERE id_acelerador=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -304,8 +317,9 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getIncentivesObjetivos($filter = ""){
-		$Sql = "SELECT * FROM incentives_objetivos  
-			WHERE 1=1 ".$filter; //echo $Sql."<br /><br />";
+		$Sql = "SELECT * 
+				FROM incentives_objetivos  
+				WHERE 1=1 ".$filter; //echo $Sql."<br /><br />";
 		return connection::getSQL($Sql);
 	}
 
@@ -330,8 +344,8 @@ class incentivos{
 	 */
 	public function disableIncentivesObjetivos($id){
 		$Sql = "UPDATE incentives_objetivos 
-			SET activo_objetivo=0 
-			WHERE id_objetivo=".$id;
+				SET activo_objetivo=0 
+				WHERE id_objetivo=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -341,8 +355,9 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getIncentivesObjetivosDetalleSimple($filter = ""){
-		$Sql = "SELECT * FROM incentives_objetivos_detalle  
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM incentives_objetivos_detalle  
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -352,10 +367,11 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getIncentivesObjetivosDetalle($filter = ""){
-		$Sql = "SELECT d.*,p.referencia_producto,p.nombre_producto,f.nombre_fabricante FROM incentives_objetivos_detalle d 
-			LEFT JOIN incentives_productos p ON p.id_producto=d.id_producto
-			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
-			WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT d.*,p.referencia_producto,p.nombre_producto,f.nombre_fabricante 
+				FROM incentives_objetivos_detalle d 
+				LEFT JOIN incentives_productos p ON p.id_producto=d.id_producto
+				LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -365,11 +381,12 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getIncentivesObjetivosDetalleExport($filter = ""){
-		$Sql = "SELECT o.nombre_objetivo,o.tipo_objetivo,d.destino_objetivo,p.referencia_producto,p.nombre_producto,f.nombre_fabricante,d.valor_objetivo FROM incentives_objetivos_detalle d 
-			LEFT JOIN incentives_objetivos o ON o.id_objetivo=d.id_objetivo
-			LEFT JOIN incentives_productos p ON p.id_producto=d.id_producto
-			LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT o.nombre_objetivo,o.tipo_objetivo,d.destino_objetivo,p.referencia_producto,p.nombre_producto,f.nombre_fabricante,d.valor_objetivo 
+				FROM incentives_objetivos_detalle d 
+				LEFT JOIN incentives_objetivos o ON o.id_objetivo=d.id_objetivo
+				LEFT JOIN incentives_productos p ON p.id_producto=d.id_producto
+				LEFT JOIN incentives_fabricantes f ON f.id_fabricante=p.id_fabricante
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -404,8 +421,9 @@ class incentivos{
 	 * @return array 				Array con registros
 	 */
 	public function getIncentivesProductosPuntos($filter = ""){
-		$Sql = "SELECT * FROM incentives_productos_puntos
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM incentives_productos_puntos
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -454,9 +472,9 @@ class incentivos{
 	 */
 	public function getProductosActivos($filtro){
 		$Sql = "SELECT GROUP_CONCAT(DISTINCT id_producto) AS productos  
-			FROM incentives_objetivos_detalle d
-			INNER JOIN incentives_objetivos o ON o.id_objetivo = d.id_objetivo
-			WHERE o.activo_objetivo = 1".$filtro; //echo $Sql."<br /><br />";
+				FROM incentives_objetivos_detalle d
+				INNER JOIN incentives_objetivos o ON o.id_objetivo = d.id_objetivo
+				WHERE o.activo_objetivo = 1".$filtro; //echo $Sql."<br /><br />";
 		return connection::getSQL($Sql);
 	}
 }

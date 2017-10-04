@@ -2,7 +2,6 @@
 
 #emociones-container{
 	display: block;
-	overflow:hidden;
 	text-align:center;
 
 	h1,h2,h3,h4{
@@ -11,10 +10,20 @@
 	.emociones-sel{
 		cursor: pointer;
 		@include opacity(0.4);
+		@include transition(all, 0.6s, ease);
+		img {
+			width: 100%;
+		}
+		&:hover{
+			@include opacity(0.7);
+		}
 	}
 
 	.emociones-sel-active{
 		@include opacity(1.0);
+		&:hover{
+			@include opacity(1.0);
+		}
 	}
 
 	@media screen and (max-width: $break-medium) {
@@ -53,17 +62,19 @@
 	display:inline-block;
 }
 
-.graph-user{
+.graph-bar{
 	@extend .graph-emociones;
-	background-color:$color1;
+	height: 0;
 	z-index: 999;
 }
 
-.graph-total{
-	@extend .graph-emociones;
-	background-color:#999;
+.graph-bar-user{
+	background-color:$color1;
+}
+
+.graph-bar-total{
+	background-color:#f0f0f0;
 	left: 43px;
-	z-index: 999;
 }
 .graph-bottom{
 	//background-color:$color1;
@@ -88,7 +99,7 @@
 }
 .emociones-legend{
 	border:1px solid #999;
-	font-size: 14px;
+	font-size: 12px;
 	padding: 15px; 
 	margin:20px 0 0 0;
 	color: #333;
@@ -99,7 +110,8 @@
 	}
 }
 .graph-total-all{
-	background-color:#999;
+	background-color:#f0f0f0;
+	border: 1px solid #999;
 	display:inline-block;
 	height:10px;
 	margin-right:5px;
@@ -107,14 +119,11 @@
 }
 .graph-total-user{
 	background-color:$color1;
+	border: 1px solid $color2;
 	display:inline-block;
 	height:10px;
 	margin-right:5px;
 	width:10px;
-}
-.graph-panel{
-	background-color: #f0f0f0;
-	padding: 15px;
 }
 .graph-y{
 	color: #999;

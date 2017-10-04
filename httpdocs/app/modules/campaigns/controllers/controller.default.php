@@ -19,8 +19,21 @@ class campaignsController{
 		$id_campaign = intval(isset($_REQUEST['id']) ? $_REQUEST['id'] : 0);
 		if ($id_campaign != 0){
 			$campaigns = new campaigns();
-			$plantilla = $campaigns->getCampaigns(" AND active=1 AND id_campaign=".$id_campaign);
-			return  $plantilla[0];
+			$result = $campaigns->getCampaigns(" AND active=1 AND id_campaign=".$id_campaign);
+			if (isset($result[0]['id_campaign'])) $response = $result[0];
+			else {
+				$response['id_campaign'] = "";
+				$response['name_campaign'] = "";
+				$response['active'] = 0;
+				$response['imagen_mini'] = "";
+				$response['imagen_big'] = "";
+				$response['id_campaign_type'] = 0;
+				$response['novedad'] = "";
+				$response['canal_campaign'] = "";
+				$response['tipo'] = "";
+
+			}
+			return $response;
 		}
 	}
 
@@ -28,7 +41,7 @@ class campaignsController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$campaigns = new campaigns();
 			$elements = $campaigns->getCampaigns(" AND active=1 ORDER BY name_campaign DESC ");
-			download_send_headers("campaigns_" . date("Y-m-d") . ".csv");
+			download_send_headers("campaigns_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

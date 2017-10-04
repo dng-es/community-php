@@ -53,7 +53,7 @@ function panelBlog2(){
 	$last_blog = foroController::getListTemasAction(1, $filtro_canal." AND ocio=1 AND activo=1 AND id_tema_parent=0 ORDER BY id_tema DESC "); ?>
 	<div class="col-md-12 section panel">
 		<h3><?php e_strTranslate("Last_blog");?></h3>
-		<?php if(isset($last_blog['items'][0])): ?>
+		<?php if(isset($last_blog['items'][0])):?>
 		<div class="media-preview-container">
 			<big><a href="blog"><?php echo $last_blog['items'][0]['nombre'];?></a></big><br />
 			<span class="text-muted"><small><?php echo ucfirst(getDateFormat($last_blog['items'][0]['date_tema'], "LONG"));?></small></span>

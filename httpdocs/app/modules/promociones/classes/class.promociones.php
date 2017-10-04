@@ -6,7 +6,9 @@ class promociones{
 	 * @return array 				Array con registros
 	 */
 	public function getPromociones($filter = ""){
-		$Sql = "SELECT * FROM promociones WHERE 1=1 ".$filter; //echo $Sql;
+		$Sql = "SELECT * 
+				FROM promociones 
+				WHERE 1=1 ".$filter; //echo $Sql;
 		return connection::getSQL($Sql);
 	}
 
@@ -27,7 +29,8 @@ class promociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deletePromociones($id){
-		$Sql = "DELETE FROM promociones WHERE id_promociones=".$id;
+		$Sql = "DELETE FROM promociones 
+				WHERE id_promociones=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -55,9 +58,9 @@ class promociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function updateActive($id, $value){
-		$Sql = "UPDATE promociones SET
-			 active=".$value." 
-			 WHERE id_promocion=".$id;
+		$Sql = "UPDATE promociones SET 
+				active=".$value." 
+				WHERE id_promocion=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -68,9 +71,9 @@ class promociones{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function updateActiveTodos($value, $filter){
-		$Sql = "UPDATE promociones SET
-			 active=".$value." 
-			 WHERE 1=1 ".$filter;
+		$Sql = "UPDATE promociones SET 
+				active=".$value." 
+				WHERE 1=1 ".$filter;
 		return connection::execute_query($Sql);
 	}
 }

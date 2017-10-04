@@ -18,7 +18,7 @@ addJavascripts(array(getAsset("mensajes")."js/inbox.js"));
 
 		$mensajeria = new mensajes();
 		$elements = mensajesController::getListAction(20);
-		$contador_no_leidos = connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
+		$contador_no_leidos = connection::countReg("mensajes", " AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 		?>
 		<div class="panel panel-default">
 			<div class="panel-body">

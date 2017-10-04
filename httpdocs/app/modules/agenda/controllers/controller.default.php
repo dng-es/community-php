@@ -69,7 +69,6 @@ class agendaController{
 
 
 			if ($agenda->insertActividad(sanitizeInput($_POST['nombre']), sanitizeInput(stripslashes($_POST['descripcion'])), $_FILES['banner'], $date_ini, $date_fin, $nombre_archivo, $tipo,$canal, $activo, $etiquetas)) {
-
 				$id = connection::SelectMaxReg("id_agenda", "agenda", " ");
 				session::setFlashMessage('actions_message', strTranslate("Insert_procesing"), "alert alert-success");
 			}

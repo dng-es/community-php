@@ -74,6 +74,11 @@ if (isset($_POST['category']) && $_POST['category'] != ""):
 		<?php
 		$filter_subcategory_user = " AND ug.id_guide_subcategory='".$subcategory['id_guide_subcategory']."' AND ug.user_guide='".$_SESSION['user_name']."' ";
 		$subcategory_user = $guides->getGuidesSubCategoriesUsers($filter_subcategory_user);
+		if(!isset($subcategory_user[0])){
+			$subcategory_user[0]['user_guide_comment'] = "";
+			$subcategory_user[0]['id_guide_users'] = 0;
+			$subcategory_user[0]['user_guide_like'] = 0;
+		}
 		?>
 		<div class="col-md-4 col-sm-12 col-xs-12">
 			<hr>
@@ -92,7 +97,7 @@ if (isset($_POST['category']) && $_POST['category'] != ""):
 				<em><?php e_strTranslate("Guide_Comments"); ?></em>
 			</p>
 			<form action="" id="subcategory_<?php echo $subcategory['id_guide_subcategory']; ?>" role="form" class="form_subcategory">
-				<input type="hidden" name="id_guide_users" value="<?php echo count($subcategory_user)==0 ? 0 : $subcategory_user[0]['id_guide_users']; ?>">
+				<input type="hidden" name="id_guide_users" value="<?php echo count($subcategory_user) == 0 ? 0 : $subcategory_user[0]['id_guide_users']; ?>">
 				<input type="hidden" name="id_guide_subcategory" value="<?php echo $subcategory['id_guide_subcategory']; ?>">
 				<input type="hidden" class="user_can_modify" name="user_can_modify" value="<?php echo $user_can_modify; ?>">
 				<div class="radio radio-inline radio-danger">
@@ -105,7 +110,7 @@ if (isset($_POST['category']) && $_POST['category'] != ""):
 				<div class="form-group m-t-10">
 					<textarea class="form-control guia_comentario" rows="5" name="user_guide_comment"><?php echo $subcategory_user[0]['user_guide_comment']; ?></textarea>
 				</div>
-				<?php if(!isset($subcategory_user[0]['id_guide_users']) || $user_can_modify == true): ?>
+				<?php if($subcategory_user[0]['id_guide_users'] == 0 || $user_can_modify == true): ?>
 				<button data-guide="<?php echo $subcategory['id_guide']; ?>" data-category="<?php echo $subcategory['id_guide_category']; ?>" data-subcategory="<?php echo $subcategory['id_guide_subcategory']; ?>" class="btn btn-block btn-info subcategory " id="bsubcategory_<?php echo $subcategory['id_guide_subcategory'];?>"><?php echo e_strTranslate("Save"); ?></button>
 				<?php endif;?>
 			</form>

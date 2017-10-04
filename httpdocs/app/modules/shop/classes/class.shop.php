@@ -9,25 +9,29 @@ class shop{
 	}
 
 	public static function getProductsCategories($filter = " AND category_product<>'' "){
-		$Sql = "SELECT DISTINCT(category_product) as category FROM shop_products 
+		$Sql = "SELECT DISTINCT(category_product) as category 
+				FROM shop_products 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public static function getProductsCategoriesGroup($filter = " AND category_product<>'' "){
-		$Sql = "SELECT GROUP_CONCAT(DISTINCT category_product) as category FROM shop_products 
+		$Sql = "SELECT GROUP_CONCAT(DISTINCT category_product) as category 
+				FROM shop_products 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public static function getProductsSubcategories($filter = " AND subcategory_product<>'' "){
-		$Sql = "SELECT DISTINCT(subcategory_product) as subcategory FROM shop_products 
+		$Sql = "SELECT DISTINCT(subcategory_product) as subcategory 
+				FROM shop_products 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
 	public static function getProductsSubcategoriesGroup($filter = " AND subcategory_product<>'' "){
-		$Sql = "SELECT GROUP_CONCAT(DISTINCT subcategory_product) as category FROM shop_products 
+		$Sql = "SELECT GROUP_CONCAT(DISTINCT subcategory_product) as category 
+				FROM shop_products 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -39,7 +43,8 @@ class shop{
 	}
 
 	public function getOrdersDetails($filter = ""){
-		$Sql = "SELECT d.id_order_detail,d.id_order,d.id_product,d.amount_product,d.price_product AS price_order,d.date_detail,p.*,o.* FROM  shop_orders_details d 
+		$Sql = "SELECT d.id_order_detail,d.id_order,d.id_product,d.amount_product,d.price_product AS price_order,d.date_detail,p.*,o.* 
+				FROM shop_orders_details d 
 				INNER JOIN shop_products p ON p.id_product=d.id_product 
 				INNER JOIN shop_orders o ON o.id_order=d.id_order 
 				WHERE 1=1 ".$filter; //echo $Sql;
@@ -106,7 +111,8 @@ class shop{
 	}
 
 	public static function getOrderStatus($filter = ""){
-		$Sql = "SELECT * FROM shop_orders_status 
+		$Sql = "SELECT * 
+				FROM shop_orders_status 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -118,7 +124,8 @@ class shop{
 	}
 
 	public static function getManufacturers($filter = ""){
-		$Sql = "SELECT * FROM shop_manufacturers 
+		$Sql = "SELECT * 
+				FROM shop_manufacturers 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}

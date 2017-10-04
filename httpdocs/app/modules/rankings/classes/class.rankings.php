@@ -6,8 +6,10 @@ class rankings{
 	 * @return array 				Array con registros
 	 */
 	public function getRankings($filter = ""){
-		$Sql = "SELECT r.*,c.ranking_category_name FROM users_tiendas_rankings r 
-				LEFT JOIN users_tiendas_ranking_category c ON c.id_ranking_category=r.id_ranking_category WHERE 1=1 ".$filter;
+		$Sql = "SELECT r.*,c.ranking_category_name 
+				FROM users_tiendas_rankings r 
+				LEFT JOIN users_tiendas_ranking_category c ON c.id_ranking_category=r.id_ranking_category 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -17,10 +19,12 @@ class rankings{
 	 * @return array 				Array con registros
 	 */
 	public function getRankingsCategoriesCount(){
-		$Sql = "SELECT c.id_ranking_category,c.ranking_category_name,COUNT(*) FROM `users_tiendas_rankings` r
-		INNER JOIN `users_tiendas_ranking_category` c ON c.id_ranking_category=r.id_ranking_category
-		WHERE r.activo=1
-		GROUP BY ranking_category_name HAVING COUNT(r.id_ranking) ";
+		$Sql = "SELECT c.id_ranking_category,c.ranking_category_name,COUNT(*) 
+				FROM users_tiendas_rankings r
+				INNER JOIN `users_tiendas_ranking_category` c ON c.id_ranking_category=r.id_ranking_category
+				WHERE r.activo=1
+				GROUP BY ranking_category_name 
+				HAVING COUNT(r.id_ranking) ";
 		return connection::getSQL($Sql);
 	}
 
@@ -41,9 +45,9 @@ class rankings{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function updateEstadoRankings($id, $value){
-		$Sql = "UPDATE users_tiendas_rankings SET
-			 activo=".$value." 
-			 WHERE id_ranking=".$id;
+		$Sql = "UPDATE users_tiendas_rankings SET 
+				activo=".$value." 
+				WHERE id_ranking=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -53,7 +57,9 @@ class rankings{
 	 * @return array 				Array con registros
 	 */
 	public function getRankingsCategories($filter = ""){
-		$Sql = "SELECT * FROM users_tiendas_ranking_category WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM users_tiendas_ranking_category 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -121,7 +127,8 @@ class rankings{
 	 * @return array 				Array con registros
 	 */
 	public function getRankingsData($filter = ""){
-		$Sql = "SELECT * FROM users_tiendas_rankings_data d 
+		$Sql = "SELECT * 
+				FROM users_tiendas_rankings_data d 
 				LEFT JOIN users_tiendas t ON t.cod_tienda=d.cod_tienda 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
@@ -133,7 +140,8 @@ class rankings{
 	 * @return array 				Array con registros
 	 */
 	public function getRankingsDataSimple($filter = ""){
-		$Sql = "SELECT cod_tienda, value_ranking FROM users_tiendas_rankings_data 
+		$Sql = "SELECT cod_tienda, value_ranking 
+				FROM users_tiendas_rankings_data 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}

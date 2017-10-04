@@ -16,7 +16,7 @@ class incentivosProductosController{
 	}
 
 	public static function createAction(){
-		if (isset($_POST['producto-referencia']) and trim($_POST['producto-referencia']) != ""){
+		if (isset($_POST['producto-referencia']) && trim($_POST['producto-referencia']) != ""){
 			$referencia_producto = sanitizeInput($_POST['producto-referencia']);
 			$nombre_producto = sanitizeInput($_POST['producto-nombre']);
 			$id_fabricante = intval($_POST['id_fabricante']);
@@ -37,7 +37,7 @@ class incentivosProductosController{
 	}
 
 	public static function deleteAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == "del"){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == "del"){
 			$id_producto = sanitizeInput( $_REQUEST['id'] );
 			$incentivos = new incentivos();
 			if ($incentivos->disableIncentivesProductos($id_producto))
@@ -64,7 +64,7 @@ class incentivosProductosController{
 	}
 
 	public static function createAceleratorsAction(){
-		if (isset($_POST['id_producto']) and trim($_POST['id_producto']) != 0){
+		if (isset($_POST['id_producto']) && trim($_POST['id_producto']) != 0){
 			$id_producto = intval($_POST['id_producto']);
 			$valor_acelerador = sanitizeInput($_POST['valor_acelerador']);
 			$date_ini = sanitizeInput($_POST['date_ini']);
@@ -99,7 +99,7 @@ class incentivosProductosController{
 	}
 
 	public static function deleteAceleratorsAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == "del"){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == "del"){
 			$id_acelerador = intval($_REQUEST['id']);
 			$id_producto = sanitizeInput($_REQUEST['ref']);
 			$incentivos = new incentivos();
@@ -112,7 +112,7 @@ class incentivosProductosController{
 	}
 
 	public static function exportAction(){
-		if (isset($_REQUEST['export']) and $_REQUEST['export'] == true){
+		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$incentivos = new incentivos();
 			$elements = $incentivos->getIncentivesProductos("");
 			download_send_headers(strTranslate("Incentives_products")."_".date("Y-m-d").".csv");
@@ -136,7 +136,7 @@ class incentivosProductosController{
 	}
 
 	public static function createPuntosAction(){
-		if (isset($_POST['id_producto']) and trim($_POST['id_producto']) != 0){
+		if (isset($_POST['id_producto']) && trim($_POST['id_producto']) != 0){
 			$id_producto = intval($_POST['id_producto']);
 			$puntos = sanitizeInput($_POST['puntos']);
 			$date_ini = sanitizeInput($_POST['date_ini']);
@@ -179,7 +179,7 @@ class incentivosProductosController{
 	}
 
 	public static function deletePuntosAction(){
-		if (isset($_REQUEST['act']) and $_REQUEST['act'] == "del"){
+		if (isset($_REQUEST['act']) && $_REQUEST['act'] == "del"){
 			$id_puntos = intval($_REQUEST['id']);
 			$id_producto = sanitizeInput($_REQUEST['ref']);
 			$incentivos = new incentivos();

@@ -33,13 +33,13 @@ class mensajesCore{
 	 * @return 	array           			Array con resultados
 	 */
 	public function userModuleStatistis($username){
-		$num = connection::countReg("mensajes"," AND user_remitente='".$username."' ");
+		$num = connection::countReg("mensajes", " AND user_remitente='".$username."' ");
 		return array('Mensajes internos enviados' => $num);
 	}
 
 	public static function messagesUser(){
 		//MENSAJE NO LEIDOS
-		$contador_no_leidos = connection::countReg("mensajes"," AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
+		$contador_no_leidos = connection::countReg("mensajes", " AND user_destinatario='".$_SESSION['user_name']."' AND estado=0 ");
 		echo '<a href="inbox" id="perfil-btn" title="'.strTranslate("Mailing_messages").'"><i class="fa fa-envelope faa-shake animated-hover"></i> <span id="contador-leidos-header">'.$contador_no_leidos.'</span></a>';
 	}
 

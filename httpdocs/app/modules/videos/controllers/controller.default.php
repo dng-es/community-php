@@ -16,7 +16,7 @@ class videosController{
 		$filter .= " ORDER BY id_file DESC";
 
 		$paginator_items = PaginatorPages($reg);
-		$total_reg = connection::countReg("galeria_videos v, users u"," AND u.username=v.user_add ".$filter);
+		$total_reg = connection::countReg("galeria_videos v, users u", " AND u.username=v.user_add ".$filter);
 		return array('items' => $videos->getVideos($filter.' LIMIT '.$paginator_items['inicio'].','.$reg),
 					'pag' 		=> $paginator_items['pag'],
 					'reg' 		=> $reg,
@@ -31,7 +31,7 @@ class videosController{
 			$id_promocion = ((isset($_POST['id_promocion']) && $_POST['id_promocion'] > 0) ? sanitizeInput($_POST['id_promocion']) : 0);
 			$etiquetas = (isset($_POST['etiquetas']) ? strtolower(sanitizeInput($_POST['etiquetas'])) : '');
 			$titulo = (isset($_POST['titulo-video']) ? sanitizeInput($_POST['titulo-video']) : '');
-			$response = $videos->insertFile($_FILES['nombre-video'],PATH_VIDEOS_TEMP,$canal,$titulo, $id_promocion, 0, $etiquetas);
+			$response = $videos->insertFile($_FILES['nombre-video'], PATH_VIDEOS_TEMP, $canal, $titulo, $id_promocion, 0, $etiquetas);
 			if ($response == 0)
 				session::setFlashMessage('actions_message', strTranslate("Video_upload_ko0"), "alert alert-warning");
 			elseif ($response == 1)
@@ -48,7 +48,7 @@ class videosController{
 	public static function voteAction($destination = "videos"){
 		if (isset($_REQUEST['idvv']) && $_REQUEST['idvv'] != ""){
 			$videos = new videos();
-			$response = $videos->InsertVotacion($_REQUEST['idvv'],$_SESSION['user_name']);
+			$response = $videos->InsertVotacion($_REQUEST['idvv'], $_SESSION['user_name']);
 			if ($response == 1)
 				session::setFlashMessage('actions_message', strTranslate("Video_vote_ok"), "alert alert-success");
 			elseif ($response == 2)
@@ -77,7 +77,7 @@ class videosController{
 					//unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4");
 					unlink (PATH_VIDEOS_CONVERT.$_REQUEST['f'].".mp4.jpg");
 					//unlink (PATH_VIDEOS_TEMP.$_REQUEST['f']);
-					$videos->cambiarEstado($_REQUEST['id'],1);
+					$videos->cambiarEstado($_REQUEST['id'], 1);
 					$videos->cambiarNombre($_REQUEST['id']);
 					$videos->cambiarTags($_REQUEST['id'], strtolower(sanitizeInput($_REQUEST['tags'])));
 					$users->sumarPuntos($_REQUEST['u'], PUNTOS_VIDEO, PUNTOS_VIDEO_MOTIVO);
@@ -177,8 +177,8 @@ class videosController{
 		}
 		return array('find_reg' => $find_reg,
 					'pag' => $pag,
-					'inicio' =>$inicio,
-					'find_reg' =>$find_reg);
+					'inicio' => $inicio,
+					'find_reg' => $find_reg);
 	}
 
 	public static function changeEstado(){
@@ -213,7 +213,7 @@ class videosController{
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == true){
 			$videos = new videos();
 			$elements = $videos->getVideos($filter);
-			download_send_headers("videos_" . date("Y-m-d") . ".csv");
+			download_send_headers("videos_".date("Y-m-d").".csv");
 			echo array2csv($elements);
 			die();
 		}

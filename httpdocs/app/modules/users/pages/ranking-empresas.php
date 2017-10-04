@@ -26,7 +26,7 @@ $puntos = $users->getPuntosEmpresa($filtro_usuarios." AND empresa<>'' AND empres
 						<?php 	
 						//LOS X PRIMEROS DEL RANKING
 						for ($i = 0; $i <= 14; $i++){
-							if (isset($puntos[$i])) userRanking($puntos[$i], $puntos[0]['puntos'], $i);
+							if (isset($puntos[$i])) userRanking($puntos[$i], $puntos[0]['puntos_empresa'], $i);
 						} ?>
 					</table>
 				</div>

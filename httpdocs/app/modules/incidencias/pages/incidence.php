@@ -1,6 +1,7 @@
 <?php
 $base_dir = str_replace(((strrpos( __DIR__ , "\\" ) === false) ? 'modules/incidencias/pages' : 'modules\\incidencias\\pages'), '', realpath(dirname(__FILE__)));
 include_once($base_dir . "modules/class.headers.php");
+include_once($base_dir . "modules/class.footer.php");
 
 addJavascripts(array("js/bootstrap-textarea.js", getAsset("incidencias")."js/incidence.js"));
 ?>

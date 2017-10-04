@@ -8,7 +8,8 @@ class guides{
 	 * @return array 				Array con registros
 	 */
 	public function getGuides($filter = ""){
-		$Sql="SELECT * FROM guides WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM guides WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -18,9 +19,10 @@ class guides{
 	 * @return array 				Array con registros
 	 */
 	public function getGuidesCategories($filter = ""){
-		$Sql="SELECT g.name_guide,g.type_guide,c.* FROM guides_categories c 
-			LEFT JOIN guides g ON g.id_guide=c.id_guide 
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT g.name_guide,g.type_guide,c.* 
+				FROM guides_categories c 
+				LEFT JOIN guides g ON g.id_guide=c.id_guide 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -30,11 +32,12 @@ class guides{
 	 * @return array 				Array con registros
 	 */
 	public function getGuidesSubCategories($filter = ""){
-		$Sql="SELECT g.id_guide,g.name_guide, g.type_guide,c.name_guide_category,t.name_guide_subcategory_type,t.icon_guide_subcategory_type,s.* FROM guides_subcategories s
-			LEFT JOIN guides_categories c ON s.id_guide_category=c.id_guide_category
-			LEFT JOIN guides_subcategories_types t ON s.id_guide_subcategory_type=t.id_guide_subcategory_type
-			LEFT JOIN guides g ON g.id_guide=c.id_guide 
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT g.id_guide,g.name_guide, g.type_guide,c.name_guide_category,t.name_guide_subcategory_type,t.icon_guide_subcategory_type,s.* 
+				FROM guides_subcategories s
+				LEFT JOIN guides_categories c ON s.id_guide_category=c.id_guide_category
+				LEFT JOIN guides_subcategories_types t ON s.id_guide_subcategory_type=t.id_guide_subcategory_type
+				LEFT JOIN guides g ON g.id_guide=c.id_guide 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -44,7 +47,9 @@ class guides{
 	 * @return array 				Array con registros
 	 */
 	public function getGuidesSubCategoriesTypes($filter = ""){
-		$Sql="SELECT * FROM guides_subcategories_types WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM guides_subcategories_types 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -54,13 +59,14 @@ class guides{
 	 * @return array 				Array con registros
 	 */
 	public function getGuidesSubCategoriesUsers($filter = ""){
-		$Sql="SELECT g.name_guide,c.name_guide_category,t.name_guide_subcategory_type,ug.*,u.* FROM guides_subcategories_users ug
-			LEFT JOIN guides_subcategories s ON s.id_guide_subcategory=ug.id_guide_subcategory
-			LEFT JOIN guides_subcategories_types t ON s.id_guide_subcategory_type=t.id_guide_subcategory_type
-			LEFT JOIN guides_categories c ON s.id_guide_category=c.id_guide_category
-			LEFT JOIN guides g ON g.id_guide=c.id_guide 
-			LEFT JOIN users u ON u.username=ug.user_guide
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT g.name_guide,c.name_guide_category,t.name_guide_subcategory_type,ug.*,u.* 
+				FROM guides_subcategories_users ug
+				LEFT JOIN guides_subcategories s ON s.id_guide_subcategory=ug.id_guide_subcategory
+				LEFT JOIN guides_subcategories_types t ON s.id_guide_subcategory_type=t.id_guide_subcategory_type
+				LEFT JOIN guides_categories c ON s.id_guide_category=c.id_guide_category
+				LEFT JOIN guides g ON g.id_guide=c.id_guide 
+				LEFT JOIN users u ON u.username=ug.user_guide
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -70,13 +76,13 @@ class guides{
 	 * @return array 				Array con registros
 	 */
 	public function getGuidesSubCategoriesUsersExport($filter = ""){
-		$Sql="SELECT g.name_guide AS Guía,c.name_guide_category AS Categoría,t.name_guide_subcategory_type AS Tipo,ug.user_guide AS Usuario,CONCAT(u.name,' ',u.surname) AS Nombre,ug.user_guide_like AS 'Me gusta',ug.user_guide_comment AS Comentarios,ug.date_user_guide AS Fecha 
-			FROM guides_subcategories_users ug
-			LEFT JOIN guides_subcategories s ON s.id_guide_subcategory=ug.id_guide_subcategory
-			LEFT JOIN guides_subcategories_types t ON s.id_guide_subcategory_type=t.id_guide_subcategory_type
-			LEFT JOIN guides_categories c ON s.id_guide_category=c.id_guide_category
-			LEFT JOIN guides g ON g.id_guide=c.id_guide 
-			LEFT JOIN users u ON u.username=ug.user_guide
+		$Sql = "SELECT g.name_guide AS Guía,c.name_guide_category AS Categoría,t.name_guide_subcategory_type AS Tipo,ug.user_guide AS Usuario,CONCAT(u.name,' ',u.surname) AS Nombre,ug.user_guide_like AS 'Me gusta',ug.user_guide_comment AS Comentarios,ug.date_user_guide AS Fecha 
+				FROM guides_subcategories_users ug
+				LEFT JOIN guides_subcategories s ON s.id_guide_subcategory=ug.id_guide_subcategory
+				LEFT JOIN guides_subcategories_types t ON s.id_guide_subcategory_type=t.id_guide_subcategory_type
+				LEFT JOIN guides_categories c ON s.id_guide_category=c.id_guide_category
+				LEFT JOIN guides g ON g.id_guide=c.id_guide 
+				LEFT JOIN users u ON u.username=ug.user_guide
 			WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -88,7 +94,9 @@ class guides{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deleteGuide($id, $activo){
-		$Sql = "UPDATE guides SET active_guide=".$activo." WHERE id_guide=".$id;
+		$Sql = "UPDATE guides SET 
+				active_guide=".$activo." 
+				WHERE id_guide=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -99,7 +107,9 @@ class guides{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deleteGuideCategory($id, $activo){
-		$Sql = "UPDATE guides_categories SET active_guide_category=".$activo." WHERE id_guide_category=".$id;
+		$Sql = "UPDATE guides_categories SET 
+				active_guide_category=".$activo." 
+				WHERE id_guide_category=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -110,7 +120,9 @@ class guides{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deleteGuideSubCategory($id, $activo){
-		$Sql = "UPDATE guides_subcategories SET active_guide_subcategory=".$activo." WHERE id_guide_subcategory=".$id;
+		$Sql = "UPDATE guides_subcategories SET 
+				active_guide_subcategory=".$activo." 
+				WHERE id_guide_subcategory=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -121,7 +133,9 @@ class guides{
 	 * @return boolean 				Resultado de la SQL
 	 */
 	public function deleteGuideSubCategoryType($id, $activo){
-		$Sql = "UPDATE guides_subcategories_types SET active_guide_subcategory_type=".$activo." WHERE id_guide_subcategory_type=".$id;
+		$Sql = "UPDATE guides_subcategories_types SET 
+				active_guide_subcategory_type=".$activo." 
+				WHERE id_guide_subcategory_type=".$id;
 		return connection::execute_query($Sql);
 	}
 

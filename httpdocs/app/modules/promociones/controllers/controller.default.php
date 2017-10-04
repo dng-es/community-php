@@ -2,7 +2,17 @@
 class promocionesController{
 	public static function getItemAction($id){
 		$promociones = new promociones();
-		return $promociones->getPromociones(" AND id_promocion=".$id." ");
+		$result = $promociones->getPromociones(" AND id_promocion=".$id." ");
+		if (isset($result[0])) $response = $result[0];
+		else{
+			$response['nombre_promocion'] = "";
+			$response['texto_promocion'] = "";
+			$response['galeria_comentarios'] = 1;
+			$response['galeria_videos'] = 0;
+			$response['galeria_fotos'] = 0;
+		}
+
+		return $response;
 	}
 
 	public static function getListAction($reg = 0, $filter = ""){
@@ -63,7 +73,7 @@ class promocionesController{
 			}else 
 				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-danger");
 
-			redirectURL("admin-promociones-new?id=".$id);
+			redirectURL("admin-promocion?id=".$id);
 		}
 	}
 
@@ -92,7 +102,7 @@ class promocionesController{
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
-			redirectURL("admin-promociones-new?id=".$id);
+			redirectURL("admin-promocion?id=".$id);
 		}
 	}
 
@@ -101,7 +111,7 @@ class promocionesController{
 			$promociones = new promociones();
 			if ($promociones->updateActive(intval($_REQUEST['id']), intval($_REQUEST['idd']))) {
 					//desactivar resto de registros
-				if (sanitizeInput($_REQUEST['idd']) == 1) $promociones->updateActiveTodos(0 , " AND id_promocion<>".intval($_REQUEST['id'])." ");
+				if (sanitizeInput($_REQUEST['idd']) == 1) $promociones->updateActiveTodos(0, " AND id_promocion<>".intval($_REQUEST['id'])." ");
 				session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 			}
 			else session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");

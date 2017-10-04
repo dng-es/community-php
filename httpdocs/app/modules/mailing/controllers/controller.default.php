@@ -75,9 +75,9 @@ class mailingController{
 					$tipo_archivo = strtoupper(substr($fichero['name'], strrpos($fichero['name'],".") + 1));
 					$tamano_archivo = $fichero['size'];
 					//compruebo si las características del archivo son las que deseo
-					if ($tipo_archivo!="XLS") {
+					if ($tipo_archivo != "XLS") {
 						$mensaje = "La extensión no es correcta.".$tipo_archivo;
-						session::setFlashMessage( 'actions_message', $mensaje, "alert alert-danger");
+						session::setFlashMessage('actions_message', $mensaje, "alert alert-danger");
 						redirectURL("user-message?act=new&id=".$_POST['template_message']);
 					}else{
 						if (move_uploaded_file($fichero['tmp_name'], 'docs/cargas/'.$nombre_archivo)){
@@ -121,7 +121,7 @@ class mailingController{
 				}
 
 				//actualizar total de emails a enviar
-				$msgs_total = connection::countReg("mailing_messages_users"," AND id_message=".$id_message);
+				$msgs_total = connection::countReg("mailing_messages_users", " AND id_message=".$id_message);
 				$mailing->updateMessageField($id_message, "total_messages", $msgs_total);
 				$mailing->updateMessageField($id_message, "total_pending", $msgs_total);
 
@@ -157,9 +157,9 @@ class mailingController{
 			//verificar es un email valido
 			if(validateEmail($username)){
 				//verificar no este mas de una vez
-				if (connection::countReg("mailing_messages_users"," AND id_message=".$id_message." AND email_message='".$username."' ") == 0){
+				if (connection::countReg("mailing_messages_users", " AND id_message=".$id_message." AND email_message='".$username."' ") == 0){
 					//verificar no este en la lista negra
-					if (connection::countReg("mailing_blacklist"," AND email_black='".$username."' ") == 0){
+					if (connection::countReg("mailing_blacklist", " AND email_black='".$username."' ") == 0){
 						if ($username != "") $mailing->insertMessageUser($id_message, "", $username);	
 					}
 					else $respuesta = true;
@@ -211,7 +211,7 @@ class mailingController{
 					$fichero)){
 
 			$mensaje = "Mensaje creado correctamente. Ya puedes procesar el envío.";
-			$id_message = connection::SelectMaxReg("id_message","mailing_messages","");
+			$id_message = connection::SelectMaxReg("id_message", "mailing_messages","");
 			session::setFlashMessage('actions_message', $mensaje, "alert alert-success"); 
 
 			//obtener usuarios de la lista seleccionada para insertar mensajes
@@ -320,9 +320,9 @@ class mailingController{
 									sanitizeInput($_POST['asunto_message']),
 									sanitizeInput($_POST['texto_message']),
 									sanitizeInput($_POST['lista_message']))):
-			session::setFlashMessage('actions_message', "Comunicación modificacda correctamente", "alert alert-success");
+			session::setFlashMessage('actions_message', strTranslate("Update_procesing"), "alert alert-success");
 		else:
-			session::setFlashMessage('actions_message', "Se ha producido un error editando la comunicación.", "alert alert-danger");
+			session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 		endif;
 		
 		redirectURL($_SERVER['REQUEST_URI']);
@@ -331,10 +331,10 @@ class mailingController{
 	public static function cancelMessageAction($filter = ""){
 		if (isset($_REQUEST['del']) && $_REQUEST['del'] == true){
 			$mailing = new mailing();
-			if ($mailing->updateMessageField(intval($_REQUEST['id']), 'message_status',"'cancelled'", " AND username_add='".$_SESSION['user_name']."' "))
-				session::setFlashMessage('actions_message', "Comunicación cancelada correctamente", "alert alert-success");
+			if ($mailing->updateMessageField(intval($_REQUEST['id']), 'message_status', "'cancelled'", " AND username_add='".$_SESSION['user_name']."' "))
+				session::setFlashMessage('actions_message', strTranslate("Delete_procesing"), "alert alert-success");
 			else
-				session::setFlashMessage('actions_message', "Se ha producido un error cancelando la comunicación.", "alert alert-danger");
+				session::setFlashMessage('actions_message', strTranslate("Error_procesing"), "alert alert-danger");
 
 			redirectURL("user-messages");
 		}
@@ -439,14 +439,14 @@ class mailingController{
 			if (preg_match('/\.$/', $link)) {
 				$link = substr($link, 0, -1);
 			}
-			if ( preg_match('/^http|ftp/',$link) && strpos($link,$clicktrack_root) === false ){	
+			if ( preg_match('/^http|ftp/',$link) && strpos($link, $clicktrack_root) === false ){	
 				$url = cleanUrl($link, array('PHPSESSID','uid'));
 				$id_link = $mailing->getMessageLink(" AND id_message=".$id_message." AND link_name='".$links[4][$i]."' AND url='".$url."' ");
 				$messageid = urlencode(base64_encode($id_message_user));
 				$linkid = urlencode(base64_encode($id_link[0]['id_link']));
 
 				//$newlink = sprintf('<a%shref="%s://%s/lt.php?id=%s" %s>%s</a>',$links[1][$i],$GLOBALS["scheme"],$website.$GLOBALS["pageroot"],$masked,$links[3][$i],$links[4][$i]);
-				$newlink = sprintf('<a%shref="%s/lt.php?l=%s&u=%s" %s>%s</a>',$links[1][$i],$ini_conf['SiteUrl'].'/app/modules/mailing/pages',$linkid,$messageid,$links[3][$i],$links[4][$i]);
+				$newlink = sprintf('<a%shref="%s/lt.php?l=%s&u=%s" %s>%s</a>', $links[1][$i], $ini_conf['SiteUrl'].'/app/modules/mailing/pages', $linkid, $messageid, $links[3][$i], $links[4][$i]);
 				$htmlmessage = str_replace($links[0][$i], $newlink, $htmlmessage);
 			}
 		}

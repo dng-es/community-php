@@ -1,7 +1,5 @@
 <?php
 blogController::exportCommentsAction();
-blogController::validateCommentsAction();
-$pendientes = blogController::getCommentsAction();
 ?>
 <div class="row row-top">
 	<div class="app-main">
@@ -10,7 +8,11 @@ $pendientes = blogController::getCommentsAction();
 			array("ItemLabel"=>strTranslate("Administration"), "ItemUrl"=>"admin"),
 			array("ItemLabel"=>strTranslate("Blog"), "ItemUrl"=>"admin-blog"),
 			array("ItemLabel"=>"Comentarios en ".strTranslate("Blog"), "ItemClass"=>"active"),
-		));?>
+		));
+		session::getFlashMessage('actions_message');
+		blogController::validateCommentsAction();
+		$pendientes = blogController::getCommentsAction();
+		?>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<ul class="nav nav-pills navbar-default">

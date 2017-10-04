@@ -24,7 +24,8 @@ class mailing{
 	 * @return 	array 								Array con los mensajes
 	 */
 	public function getMessages($filter = ""){
-		$Sql = "SELECT * from mailing_messages 
+		$Sql = "SELECT * 
+				FROM mailing_messages 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -35,7 +36,8 @@ class mailing{
 	 * @return 	array         						Array con los mensajes
 	 */
 	public function getMessagesUsersSimple($filter = ""){
-		$Sql = "SELECT * FROM mailing_messages_users 
+		$Sql = "SELECT * 
+				FROM mailing_messages_users 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -46,7 +48,8 @@ class mailing{
 	 * @return 	array         						Array con los mensajes
 	 */
 	public function getMessagesUsers($filter = ""){
-		$Sql = "SELECT m.*,u.name,u.surname,t.nombre_tienda FROM mailing_messages_users m 
+		$Sql = "SELECT m.*,u.name,u.surname,t.nombre_tienda 
+				FROM mailing_messages_users m 
 				LEFT JOIN users u ON u.username=m.username_message 
 				LEFT JOIN users_tiendas t ON t.cod_tienda=u.empresa
 				WHERE 1=1 ".$filter;
@@ -59,7 +62,8 @@ class mailing{
 	 * @return 	array 								Array con los templates
 	 */
 	public function getLists($filter = ""){
-		$Sql = "SELECT * from mailing_lists 
+		$Sql = "SELECT * 
+				FROM mailing_lists 
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
@@ -107,7 +111,8 @@ class mailing{
 	 * @return 	array 								Array con los templates
 	 */
 	public function getListsUsers($filter = ""){
-		$Sql = "SELECT u.*, d.birthday FROM mailing_lists_users u 
+		$Sql = "SELECT u.*, d.birthday 
+				FROM mailing_lists_users u 
 				LEFT JOIN mailing_lists_users_data d ON d.email=u.email
 				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
@@ -133,7 +138,7 @@ class mailing{
 	 */	
 	public function deleteListsUsers($id_list, $filter){
 		$Sql = "DELETE FROM mailing_lists_users 
-			WHERE id_list=".$id_list." ".$filter;
+				WHERE id_list=".$id_list." ".$filter;
 		return connection::execute_query($Sql);
 	}
 
@@ -143,8 +148,9 @@ class mailing{
 	 * @return 	array 								Array con los templates
 	 */
 	public function getListsUsersData($filter = ""){
-		$Sql = "SELECT * FROM mailing_lists_users_data 
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM mailing_lists_users_data 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 
@@ -167,10 +173,10 @@ class mailing{
 	 */
 	public function getTemplates($filter = ""){
 		$Sql = "SELECT t.*,c.name_campaign AS campana,tt.name_type as tipo 
-			FROM mailing_templates t 
-			LEFT JOIN mailing_templates_types tt ON tt.id_type=t.id_type 
-			LEFT JOIN campaigns c ON c.id_campaign=t.id_campaign 
-			WHERE 1=1 ".$filter;
+				FROM mailing_templates t 
+				LEFT JOIN mailing_templates_types tt ON tt.id_type=t.id_type 
+				LEFT JOIN campaigns c ON c.id_campaign=t.id_campaign 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
 
@@ -202,12 +208,12 @@ class mailing{
 	public function updateTemplate($id, $template_name, $template_body, $template_mini, $id_type, $id_campaign){
 		$Sql_file = ($template_mini == "") ? "" : ", template_mini='".$template_mini."' ";
 		$Sql = "UPDATE mailing_templates SET
-			id_type=".$id_type.",
-			id_campaign=".$id_campaign.",
-			template_name='".$template_name."',
-			template_body='".$template_body."' 
-			".$Sql_file." 
-			WHERE id_template=".$id;
+				id_type=".$id_type.",
+				id_campaign=".$id_campaign.",
+				template_name='".$template_name."',
+				template_body='".$template_body."' 
+				".$Sql_file." 
+				WHERE id_template=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -231,8 +237,8 @@ class mailing{
 	 */
 	public function updateEstadoTemplate($id, $activo){
 		$Sql = "UPDATE mailing_templates SET 
-			activo=".$activo." 
-			WHERE id_template=".$id;
+				activo=".$activo." 
+				WHERE id_template=".$id;
 		return connection::execute_query($Sql);
 	}
 
@@ -243,8 +249,8 @@ class mailing{
 	 */
 	public function getTemplatesTypes($filter = ""){
 		$Sql = "SELECT * 
-			FROM mailing_templates_types 
-			WHERE 1=1 ".$filter;
+				FROM mailing_templates_types 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
 
@@ -296,10 +302,10 @@ class mailing{
 	 * @return 	boolean                  			Resultado del proceso
 	 */
 	public function updateMessageUser($id_message_user, $message_status){
-		$Sql = "UPDATE mailing_messages_users 
-			SET message_status='".$message_status."',
-			date_send= NOW() 
-			WHERE id_message_user=".$id_message_user;
+		$Sql = "UPDATE mailing_messages_users SET 
+				message_status='".$message_status."',
+				date_send= NOW() 
+				WHERE id_message_user=".$id_message_user;
 		return connection::execute_query($Sql);
 	}
 
@@ -309,9 +315,9 @@ class mailing{
 	 * @return 	boolean                  			Resultado del proceso
 	 */
 	public function updateMessageUserViews($id_message_user){
-		$Sql = "UPDATE mailing_messages_users 
-			SET views=1 
-			WHERE id_message_user=".$id_message_user;
+		$Sql = "UPDATE mailing_messages_users SET 
+				views=1 
+				WHERE id_message_user=".$id_message_user;
 		return connection::execute_query($Sql);
 	}
 
@@ -323,9 +329,9 @@ class mailing{
 	 * @return 	boolean             				Resultado del proceso
 	 */
 	public function updateMessageField($id_message, $field, $value){
-		$Sql = "UPDATE mailing_messages 
-			SET ".$field."=".$value." 
-			WHERE id_message=".$id_message;
+		$Sql = "UPDATE mailing_messages SET 
+				".$field."=".$value." 
+				WHERE id_message=".$id_message;
 		return connection::execute_query($Sql);
 	}
 
@@ -335,8 +341,9 @@ class mailing{
 	 * @return 	array 								Array con los registros
 	 */
 	public function getBlackListUser($filter = ""){
-		$Sql = "SELECT * from mailing_blacklist 
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM mailing_blacklist 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
 
@@ -371,9 +378,9 @@ class mailing{
 	 * @param  	int 		$id_link 		Id del link en el que va el click
 	 */
 	public function sumMessageLink($id_link){
-		$Sql = "UPDATE mailing_messages_links 
-			SET clicks=clicks+1 
-			WHERE id_link=".$id_link;
+		$Sql = "UPDATE mailing_messages_links SET 
+				clicks=clicks+1 
+				WHERE id_link=".$id_link;
 		return connection::execute_query($Sql);
 	}
 
@@ -396,10 +403,10 @@ class mailing{
 	 */
 	public function getMessageLinkUserExport($filter = ""){
 		$Sql = "SELECT l.username_email AS email, d.link_name AS name_link, d.url AS url_link, l.date_link AS date 
-			FROM mailing_messages_links_users l 
-			LEFT JOIN mailing_messages m ON m.id_message=l.id_message 
-			LEFT JOIN mailing_messages_links d ON d.id_link=l.id_link 
-			WHERE 1=1 ".$filter;
+				FROM mailing_messages_links_users l 
+				LEFT JOIN mailing_messages m ON m.id_message=l.id_message 
+				LEFT JOIN mailing_messages_links d ON d.id_link=l.id_link 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql); 
 	}
 
@@ -409,8 +416,9 @@ class mailing{
 	 * @return 	array 								Array con los templates
 	 */
 	public function getMessageLink($filter = ""){
-		$Sql = "SELECT * from mailing_messages_links 
-			WHERE 1=1 ".$filter;
+		$Sql = "SELECT * 
+				FROM mailing_messages_links 
+				WHERE 1=1 ".$filter;
 		return connection::getSQL($Sql);
 	}
 }
